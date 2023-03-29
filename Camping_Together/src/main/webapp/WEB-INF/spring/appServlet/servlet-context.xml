@@ -3,9 +3,11 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
@@ -20,6 +22,60 @@
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
+	
+	<!-- DB 접속정보를 저장하는 객체 -->
+	<beans:bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<beans:property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+		<beans:property name="url" value="jdbc:oracle:thin:@1.220.236.74:15213:xe" />
+		<beans:property name="username" value="final_test" />
+		<beans:property name="password" value="1234" />
+	</beans:bean>
+	
+	<!--  Mybatis 성정 객체 -->
+	<beans:bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<beans:property name="dataSource" ref="dataSource" />
+		<beans:property name="configLocation" value="classpath:mybatis-config.xml" />
+		<beans:property name="mapperLocations" value="classpath:mapper/*SQL.xml" />
+	</beans:bean>
+	
+	<!-- 실제 DB작업을 수행하는 객체 -->
+	<beans:bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<beans:constructor-arg ref="sqlSession" />
+	</beans:bean>
+	
+	<!-- @Transactional annotation 사용 -->
+	<!-- 
+	<tx:annotation-driven/>
+	 -->
+	
+	<!--  트랜잭션 관리 객체 생성 -->
+	 <beans:bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+	 	<beans:property name="dataSource" ref="dataSource" />
+	 </beans:bean> 
+	 
+	<!-- 파일업로드용 객체 -->
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<beans:property name="maxUploadSize" value="10485760" />
+	</beans:bean>
+	
+	 <!-- AOP Annotation 설정 활성화 -->
+	 <!-- 
+	 <aop:aspectj-autoproxy /> 
+	  -->
+	 
+	 <!-- 예약작업 Annotation 설정 활성화 -->
+	 <!-- 
+	 <task:annotation-driven />
+	  -->
+	 
+	 <!-- 
+	 <beans:bean id="allMemberChat" class="common.AllMemberChat" />
+	 <beans:bean id="dmCount" class="kr.or.dm.model.service.DirectMessageHandler" />
+	 <websocket:handlers>
+	 	<websocket:mapping handler="allMemberChat" path="/chat.do"/>
+	 	<websocket:mapping handler="dmCount" path="/dm.do"/>
+	 </websocket:handlers>
+	  -->
 	
 	<context:component-scan base-package="kr.or.iei" />
 	
