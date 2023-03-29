@@ -12,6 +12,7 @@
 	<button class="btn1" style="width : 100px; height : 30px;">버튼</button>
 	<button class="btn2" style="width : 100px; height : 30px;">버튼</button>
 	<button class="btn2" style="width : 100px; height : 30px;">버튼</button>
+	<a href="/campingWriteFrm.do">캠핑 등록</a>
   </body>
 </body>
 </html>
