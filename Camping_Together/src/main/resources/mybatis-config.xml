@@ -6,5 +6,6 @@
 		<setting name="jdbcTypeForNull" value="NULL" />
 	</settings>
 	<typeAliases>
+		<typeAlias type="kr.or.iei.usedBoard.model.vo.UsedBoard" alias="ub"/>
 	</typeAliases>
 </configuration>
