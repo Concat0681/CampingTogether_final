@@ -1,0 +1,52 @@
+	/* 사용할 font 선언 */
+@font-face {
+  font-family: ng-bold;
+  src: url(../font/Nanum_Gothic/NanumGothic-Bold.ttf);
+}
+@font-face {
+  font-family: ng-extra-bold;
+  src: url(../font/Nanum_Gothic/NanumGothic-ExtraBold.ttf);
+}
+@font-face {
+  font-family: ng-regular;
+  src: url(../font/Nanum_Gothic/NanumGothic-Regular.ttf);
+}
+
+/* 
+    사이트 사용 색상 
+    balck : #252A34
+    darkgray : #393E46
+    lightgray : #EEEEEE
+    dark-mint : #00ADB5
+    mint : #08D9D6
+    point-red : #FF2E63
+    point-pink : #F85F73
+    point-violet : #892CDC
+*/
+/* 전체태그 기본 margin, padding 제거 */
+/* 기본 글씨 색 및 폰트 설정 */
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: ng-regular;
+}
+/* 기본 버튼 3개 */
+.btn1{
+	background-color : #AD8B73;
+	border : none;
+	color : white;
+	border-radius : 5px;
+}
+.btn2{
+	background-color : #CEAB93;
+	border : none;
+	color : white;
+	border-radius : 5px;
+}
+.btn2{
+	background-color : #E3CAA5;
+	border : none;
+	color : white;
+	border-radius : 5px;
+}
