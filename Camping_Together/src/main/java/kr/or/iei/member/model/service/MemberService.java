@@ -11,4 +11,7 @@ public class MemberService {
 	
 	@Autowired
 	private MemberDao dao;
+	
+	
+	
 }

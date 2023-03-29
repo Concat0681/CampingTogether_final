@@ -11,4 +11,8 @@ public class MemberController {
 	
 	@Autowired
 	private MemberService service;
+	
+	
+	
+	
 }
