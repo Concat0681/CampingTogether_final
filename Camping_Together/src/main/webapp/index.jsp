@@ -15,6 +15,7 @@
 	<button class="btn2" style="width : 100px; height : 30px;">버튼</button>
 	<button class="btn2" style="width : 100px; height : 30px;">버튼</button>
 	<a href="/campingWriteFrm.do">캠핑 등록</a>
+	<a href="/usedBoardList.do">중고장터</a>
 	
 	<c:choose>
 		<c:when test="${empty sessionScope.m }">
