@@ -9,7 +9,8 @@
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=jx1rdgburv&submodules=geocoder"></script>
 <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
 <link href="/resources/css/default.css" rel="stylesheet"/>
-<link href="/resources/css/campingWriteFrm.css" rel="stylesheet"/>
+<link href="/resources/css/camping/campingWriteFrm.css" rel="stylesheet"/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 </head>
 <body>
 	<div class="wrap">
@@ -34,7 +35,7 @@
         			<tr>
         				<td style="width: 120px; font-size: 1.17em; font-weight: bold;">전화번호</td>
         				<td>
-        					<input type="text" class="input-long" name="campingPhone">
+        					<input type="text" class="input-long" name="campingPhone" placeholder="010-0000-0000">
         				</td>
         			</tr>
         		</table>
@@ -42,39 +43,52 @@
         		<div class="contentTitle"><h3>캠핑장 설명</h3></div>
         		<textarea class="campingContent" name="campingContent"></textarea>
         		
-        		<div class="contentTitle"><h3>캠핑장 사진 등록</h3></div>
-        			<div id="img-viewer">
-	        			<input type="file" name="campingFilepath" onchange="loadImg(this);">
-						<img id="img-view" width="620px" height="620px">
-					</div>
+        		
 				<div class="contentTitle"><h3>캠핑장 위치</h3></div>
 	        		<div class="address-wrap">
-						<button class="btn2" id="searchBtn" onclick="searchAddr();">주소찾기</button>
-							<table class="addressTbl">
-								<tr>
-									<td>지번</td>
-									<td>
-										<input type="text" name="postcode" id="postcode"  readonly>
-									</td>
-								</tr>
-								<tr>
-									<td>주소</td>
-									<td>
-										<input type="text" name="address" id="address"  readonly>
-									</td>
-								</tr>
-								<tr>
-									<td class="detailAddressTd"><h4>상세주소 입력</h4></td>
-									<td>
-										<input type="text" name="detailAddress" id="detailAddress" class="input-form">
-									</td> 
-								</tr>
-							</table>
+						<table class="addressTbl">
+							<tr>
+								<td>지번</td>
+								<td>
+									<input type="text" name="postcode" id="postcode" readonly>
+								</td>
+								<td rowspan="2" style="padding-left: 20px;">
+									<button class="btn2" id="searchBtn" onclick="searchAddr();">주소찾기</button>
+								</td>
+							</tr>
+							<tr>
+								<td>주소</td>
+								<td>
+									<input type="text" name="campingAddr" id="address" readonly>
+								</td>
+							</tr>
+							<tr>
+								<td>상세주소 입력</td>
+								<td colspan="2">
+									<input type="text" name="campingAddrDetail" id="detailAddress">
+								</td> 
+							</tr>
+							<tr>
+								<td>
+									<button onclick="loadMap();" class="btn2 moveMapBtn">주소로 지도 이동</button>
+								</td>
+							</tr>
+						</table>
 					</div>
 				
         		<div id="map" style="width:620px; height:500px;"></div>
+        		
+        		<div class="contentTitle"><h3>캠핑장 사진 등록</h3></div>
+        			<div id="img-viewer">
+	        			<input type="file" name="campingFilepath" onchange="loadImg(this);" id="campingFilepath">
+	        			<label for="campingFilepath">
+							<img id="img-view" width="620px" height="620px">
+						</label>
+                    </div>
+				</div>
+				
         		<div>
-	        		<button type="button" class="btn1 nextBtn">다음</button>
+	        		<button type="button" class="btn1 nextBtn" style="margin-right: 80px;">다음</button>
         		</div>
         	</div>
         	

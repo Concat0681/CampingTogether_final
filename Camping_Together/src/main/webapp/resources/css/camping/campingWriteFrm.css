@@ -70,6 +70,16 @@ h3{
 	line-height: 50px;
 	border-radius: 5px;
 }
+.uploadImg{
+    width: 620px;
+    height: 620px;
+    border: 1px solid #ccc;
+    font-size: 70px;
+    color: #ccc
+}
+input[name=campingFilepath]{
+   	display: none;
+}
 .campingRoomContent{
 	width: 100%;
 	height: 300px;
@@ -83,13 +93,23 @@ h3{
 	padding-top: 10px;
 }
 #searchBtn{
-	width: 200px;
-	height: 50px;
+	width: 150px;
+	height: 90px;
 	cursor: pointer;
-	margin-bottom: 20px;
 }
-
-
-.detailAddressTd{
-	text-align: center;
+#postcode{
+	width: 350px;
+	height: 40px;
+}
+#address{
+	width: 350px;
+	height: 40px;
+}
+#detailAddress{
+	width: 520px;
+	height: 40px;
+}
+.moveMapBtn{
+	height: 40px;
+	cursor: pointer;
 }
