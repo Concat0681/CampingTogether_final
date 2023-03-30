@@ -59,7 +59,7 @@
 		$(".city").on("click", function(){
 			const cityNameEN = $(this).attr("id");
 			const cityNameKR = $(this).find("div").text();
-			location.href="/campingList.do?cityNameEN="+cityNameEN+"&cityNameKR="+cityNameKR;
+			location.href="/campingList.do?cityNameEN="+cityNameEN+"&cityNameKR="+cityNameKR+"&reqPage=1&order=avgReviewRating";
 		})
 	</script>
 </body>

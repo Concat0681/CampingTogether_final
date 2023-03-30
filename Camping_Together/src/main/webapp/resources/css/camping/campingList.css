@@ -1,7 +1,8 @@
 @charset "UTF-8";
 
 .page-content{
-    display: flex;
+    width: 100%;
+    display : flex;
     padding: 50px;
 }
 .sidebar-menu{
@@ -61,4 +62,10 @@
 }
 .input-box{
     width: 50%;
+}
+.campingList-content{
+    padding: 10px;
+    min-width: 40%;
+    width: 60%;
+    margin-left: 50px;
 }

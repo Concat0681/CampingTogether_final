@@ -1,11 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=n8k40j998a&submodules=geocoder"></script>
 <link href="/resources/css/camping/campingListHeader.css" rel="stylesheet">
 <link href="/resources/css/camping/campingList.css" rel="stylesheet">
 </head>
@@ -260,7 +262,25 @@
 				</form>
 			</div>
 			<div class="campingList-content">
-				<div class="campingList-box">111111111</div>
+				<div class="campingList-header">
+					<button type="button" id="avgReviewRating" onclick="sendOrder(this);">평점순</button>
+					<button type="button" id="maxRoomPrice" onclick="sendOrder(this);">가격순</button>
+				</div>
+				<div class="campingList-box">
+					<div class="list-by-review">
+						<c:forEach items="${list }" var="c">
+							<div>${c.campingTitle }</div>
+							<div>${c.campingNo }</div>
+							<div>${c.avgReviewRating }</div>
+							<div>${c.maxRoomPrice }</div>
+						</c:forEach>	
+					</div>
+					<div class="list-by-map">
+						<h3>2. 네이버지도</h3>
+						<div id="map" style="width:100%; height:500px;"></div>
+						<button onclick="loadMap();" class="btn bc1">조회한 곳으로 지도 이동</button>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -277,6 +297,114 @@
 				$("input[name=ppl_count]").val(number - 1 + 2);	
 			}			
 		})
+		
+		function sendOrder(obj){
+			const order = $(obj).attr("id");
+			console.log(order);
+			$.ajax({
+				url : "/campingListOrder.do",
+				data : {order : order},
+				success : function(data){
+					$(".list-by-review").empty();
+					data.list.forEach(function(c,i){
+						const div = $("<div>")
+						div.append(c.campingTitle);
+						const div2 = $("<div>")
+						div2.append(c.avgReviewRating)
+						const div3 = $("<div>");
+						div3.append(c.maxRoomPrice)
+						$(".list-by-review").append(div).append(div2).append(div3)
+					})			
+				},
+				error : function(){
+					
+				}
+			})
+		}
+		const map = new naver.maps.Map("map",{
+			center : new naver.maps.LatLng(37.533837,126.896836),
+			zoom : 8,
+			zoomControl : true,
+			zoomControlOptions : {
+				position : naver.maps.Position.TOP_RIGHT,
+				style : naver.maps.ZoomControlStyle.SMALL
+			}
+		});
+		
+		const marker = new naver.maps.Marker({
+			position :  new naver.maps.LatLng(37.533837,126.896836),
+			map : map
+		});
+		let contentString = [
+			"<div class='iw_inner'>",
+			"	<h3>KH정보교육원</h3>",
+			"	<p>서울시 영등포구 선유2로 57 이레빌딩 19F A강의장</p>",
+			"</div>"
+		].join("");
+		let infoWindow = new naver.maps.InfoWindow();
+		
+		//marker에 클릭이벤트 추가
+		naver.maps.Event.addListener(marker,"click",function(e){
+			infoWindow = new naver.maps.InfoWindow({
+				content : contentString
+			});
+			//생성된 infoWindow를 map의 marker위치에 생성
+			infoWindow.open(map,marker);
+		});
+		
+		//map에 클릭이벤트 추가
+		naver.maps.Event.addListener(map,"click",function(e){
+			marker.setPosition(e.coord);//클릭한 위치로 마커 이동
+			map.setCenter(e.coord);//클릭한 위치로 지도 중심 이동
+			if(infoWindow.getMap()){//정보창이 지도위에 올라가 있으면
+				infoWindow.close();
+			}
+			//위경도를 통해서 해당 위치의 주소를 알아내기(reverseGeocode)
+			naver.maps.Service.reverseGeocode({
+				location : new naver.maps.LatLng(e.coord.lat(),e.coord.lng())
+			},function(status,response){
+				if(status != naver.maps.Service.Status.OK){
+					return alert("주소를 찾을 수 없습니다.");
+				}
+				console.log(response);
+				const address = response.result.items[1].address;
+				contentString = [
+					"<div class='iw_inner'>",
+					"	<p>"+address+"</p>",
+					"</div>"
+				].join("");
+			});
+		});
+		
+		function loadMap(){
+			const addr = $("#address").val();
+			naver.maps.Service.geocode({
+				address : addr
+			},function(status,response){
+				if(status === naver.maps.Service.Status.ERROR){
+					return alert("조회 에러");
+				}
+				console.log(response);
+				const lng = response.result.items[1].point.x;//경도
+				const lat = response.result.items[1].point.y;//위도
+				//위경도 객체
+				const latlng = new naver.maps.LatLng(lat,lng);
+				map.setCenter(latlng);
+				marker.setPosition(latlng);
+			});
+		}
+	
+		function searchAddr() {
+			 new daum.Postcode({
+			        oncomplete: function(data) {
+			        	$("#postcode").val(data.zonecode);
+			        	$("#address").val(data.address);
+			        	$("#detailAddress").focus();
+			            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
+			            // 예제를 참고하여 다양한 활용법을 확인해 보세요.
+			        }
+			    }).open();
+		}
 	</script>
 </body>
 </html>
