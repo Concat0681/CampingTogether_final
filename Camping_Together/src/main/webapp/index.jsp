@@ -8,8 +8,11 @@
 <title>Insert title here</title>
 <link href="/resources/css/default.css" rel="stylesheet"/> 	
 <link href="/resources/css/main.css" rel="stylesheet"/> 	
+<script src="https://code.jquery.com/jquery-3.6.1.js"></script>
 </head>
 <body>
+	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
+	<br><br><br><br><br><br><br><br><br><br><br><br><br>
 	<h1>파이널</h1>
 	<button class="btn1" style="width : 100px; height : 30px;">버튼</button>
 	<button class="btn2" style="width : 100px; height : 30px;">버튼</button>
@@ -28,7 +31,11 @@
 	</form>
 		</c:when>
 	</c:choose>
-	
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 </body>
 </body>
