@@ -16,13 +16,13 @@ public class CampingDao {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
-	public ArrayList<Camping> selectBoardList(HashMap<String, Object> map) {
-		List list = sqlSession.selectList("");
+	public ArrayList<Camping> selectCampingListData(HashMap<String, Object> map) {
+		List list = sqlSession.selectList("camping.selectCampingListData", map);
 		return (ArrayList<Camping>)list;
 	}
 
-	public int selectBoardCount() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int selectCampingCount() {
+		int totalCount = sqlSession.selectOne("camping.selectCampingCount");
+		return totalCount;
 	}
 }

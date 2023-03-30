@@ -16,7 +16,7 @@ public class CampingService {
 	@Autowired
 	private CampingDao dao;
 
-	public CampingListPageData selectCampingListData(int reqPage) {
+	public CampingListPageData selectCampingListData(int reqPage, String order) {
 		//한 페이지당 보여줄 게시글 수 : 2
 				int numPerPage = 5;
 				//reqPage = 1 : 1~2, reqPage = 2 : 3~4
@@ -27,11 +27,12 @@ public class CampingService {
 				HashMap<String, Object> map = new HashMap<String, Object>();
 				map.put("start", start);
 				map.put("end", end);
+				map.put("order", order);
 				
-				ArrayList<Camping> list = dao.selectBoardList(map);
+				ArrayList<Camping> list = dao.selectCampingListData(map);
 				//pageNavi 제작 시작
 				//전체페이지 수 계산필요 -> 전체 게시물 수 조회
-				int totalCount = dao.selectBoardCount();
+				int totalCount = dao.selectCampingCount();
 				//전체 게시물로 전체 페이지수 계산
 				int totalPage = (int)Math.ceil(totalCount/(double)numPerPage);
 				//페이지 네비 사이즈
