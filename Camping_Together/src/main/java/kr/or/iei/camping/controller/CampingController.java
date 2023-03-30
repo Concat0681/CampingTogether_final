@@ -16,4 +16,9 @@ public class CampingController {
 	public String campingWriteFrm() {
 		return "camping/campingWriteFrm";
 	}
+	
+	@RequestMapping(value="/campingListMain.do")
+	public String campingListMain() {
+		return "camping/campingListMain";
+	}
 }
