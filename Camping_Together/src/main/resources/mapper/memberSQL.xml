@@ -1,4 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="member">
+	
+	<select id="selectOneMember" parameterType="m" resultType="m">
+		select 
+			member_no as memberNo,
+			member_id as memberId,
+			member_pw as memberPw,
+			member_name as memberName,
+			member_phone as memberPhone,
+			member_addr as memberAddr,
+			member_photo as memberPhoto,
+			member_grade as memberGrade,
+			member_email as memberEmail,
+			member_name as memberName
+		 from member where member_id=#{memberId} 
+		 <if test="memberPw != null"> 
+		 	and member_pw=#{memberPw}
+		 </if>
+		
+	</select>
 </mapper>
