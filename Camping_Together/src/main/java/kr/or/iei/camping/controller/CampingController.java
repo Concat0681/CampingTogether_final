@@ -1,13 +1,19 @@
 package kr.or.iei.camping.controller;
 
+import java.util.ArrayList;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 
+import common.FileManager;
 import kr.or.iei.camping.model.service.CampingService;
 import kr.or.iei.camping.model.vo.Camping;
 import kr.or.iei.camping.model.vo.CampingListPageData;
@@ -18,6 +24,8 @@ public class CampingController {
 
 	@Autowired
 	private CampingService service;
+	@Autowired
+	private FileManager manager;
 	
 	@RequestMapping(value="/campingWriteFrm.do")
 	public String campingWriteFrm() {
@@ -55,5 +63,24 @@ public class CampingController {
 		System.out.println(campingType.length);
 		CampingListPageData cpd = service.selectCampingListData(reqPage, order);
 		return "redirect:/";
+	}
+	
+	@RequestMapping(value="/campingWrite.do")
+	public String campingWrite(Camping c, MultipartFile[] campingFilepath, HttpServletRequest requset) {
+		Camping fileList = new Camping();
+		if(!campingFilepath[0].isEmpty()) {
+			String savePath = requset.getSession().getServletContext().getRealPath("/resources/upload/camping");
+			for(MultipartFile file : campingFilepath) {
+				String filename = file.getOriginalFilename();
+				String filepath = manager.upload(savePath, file);
+				c.setFilepath(filepath);
+			}
+		}
+		int result = service.insertCamping(c);
+		if(result > 0) {
+			return "redirect:/campingWriteFrm.do";
+		}else {
+			return "redirect:/";
+		}
 	}
 }

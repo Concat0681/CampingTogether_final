@@ -25,6 +25,7 @@
         <div class="contentWrap">
         	<div class="contentDetail activeContent">
         		<h2 style="margin-bottom: 60px;">캠핑장을 찾고 있는 여행객들을 정확히 사로잡아보세요!</h2>
+        		<form action="/campingWrite.do" method="post" enctype="multipart/form-data">
         		<table>
         			<tr>
         				<td style="width: 120px; font-size: 1.17em; font-weight: bold; padding-bottom: 30px;">캠핑장 이름</td>
@@ -43,7 +44,6 @@
         		<div class="contentTitle"><h3>캠핑장 설명</h3></div>
         		<textarea class="campingContent" name="campingContent"></textarea>
         		
-        		
 				<div class="contentTitle"><h3>캠핑장 위치</h3></div>
 	        		<div class="address-wrap">
 						<table class="addressTbl">
@@ -53,7 +53,7 @@
 									<input type="text" name="postcode" id="postcode" readonly>
 								</td>
 								<td rowspan="2" style="padding-left: 20px;">
-									<button class="btn2" id="searchBtn" onclick="searchAddr();">주소찾기</button>
+									<button type="button" class="btn2" id="searchBtn" onclick="searchAddr();">주소찾기</button>
 								</td>
 							</tr>
 							<tr>
@@ -70,7 +70,7 @@
 							</tr>
 							<tr>
 								<td>
-									<button onclick="loadMap();" class="btn2 moveMapBtn">주소로 지도 이동</button>
+									<button type="button" onclick="loadMap();" class="btn2 moveMapBtn">주소로 지도 이동</button>
 								</td>
 							</tr>
 						</table>
@@ -85,11 +85,12 @@
 							<img id="img-view" width="620px" height="620px">
 						</label>
                     </div>
+	        		<div>
+		        		<button type="submit" class="btn1 nextBtn" style="margin-right: 80px;">다음</button>
+	        		</div>
+	        		</form>
 				</div>
 				
-        		<div>
-	        		<button type="button" class="btn1 nextBtn" style="margin-right: 80px;">다음</button>
-        		</div>
         	</div>
         	
         	
