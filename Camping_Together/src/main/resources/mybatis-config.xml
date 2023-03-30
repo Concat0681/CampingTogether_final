@@ -8,5 +8,6 @@
 	<typeAliases>
 		<typeAlias type="kr.or.iei.member.model.vo.Member" alias="m"/>
 		<typeAlias type="kr.or.iei.usedBoard.model.vo.UsedBoard" alias="ub"/>
+		<typeAlias type="kr.or.iei.camping.model.vo.Camping" alias="c"/>
 	</typeAliases>
 </configuration>
