@@ -1,5 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="camping">
-	
+	<select id="selectCampingListData" parameterType="map" resultType="c">
+		select * from
+			(select 
+				rownum as rnum, 
+				c.*,
+				(select avg(camping_review_rating) from camping_review join camping using(camping_no) where camping_no = c.campingNo ) as avgReviewRating,
+				(select max(camping_room_price) from camping_room join camping using(camping_no) where camping_no = c.campingNo) as maxRoomPrice
+			from
+				(select 
+					camping_no as campingNo,
+					member_id as memberId,
+					camping_title as campingTitle,
+					camping_content as campingContent,
+					camping_addr as campingAddr,
+					camping_addr_detail as campingAddrDetail,
+					camping_phone as campingPhone
+				from camping)c
+			<choose>
+				<when test="order.equals('avgReviewRating')">
+					order by avgReviewRating desc)
+				</when>
+				<when test="order.equals('maxRoomPrice')">
+					order by maxRoomPrice desc)
+				</when>
+			</choose>
+		where rnum between #{start} and #{end}
+	</select>
+	<select id="selectCampingCount" resultType="_int">
+		select count(*) from camping
+	</select>
 </mapper>

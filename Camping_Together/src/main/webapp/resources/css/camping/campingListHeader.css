@@ -46,20 +46,3 @@
 .search-input-wrap>button{
 	width : 20%;
 }
-.ppl-count-wrap{
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-}
-.ppl-count-input-wrap{
-	display: flex;
-}
-.ppl-count-input-wrap>img{
-	width: 30px;
-	height: 30px;
-}
-.ppl-count-input-wrap>input{
-	text-align: center;
-	font-size: 20px;
-	width: 30px;
-}
