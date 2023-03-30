@@ -13,8 +13,10 @@ public class Camping {
 	private String memberId;
 	private String campingTitle;
 	private String campingContent;
-	private String campingType;
 	private String campingAddr;
 	private String campingAddrDetail;
 	private String campingPhone;
+	private int avgReviewRating;
+	private int maxRoomPrice;
+	private String filepath;
 }

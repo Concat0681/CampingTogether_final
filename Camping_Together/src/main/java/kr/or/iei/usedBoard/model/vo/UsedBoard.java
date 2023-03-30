@@ -1,5 +1,7 @@
 package kr.or.iei.usedBoard.model.vo;
 
+import java.util.ArrayList;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,4 +22,5 @@ public class UsedBoard {
 	private String usedTradeLocation;
 	private int readCount;
 	private String regDate;
+	private ArrayList<UsedBoardPhoto> usedBoardPhoto;
 }

@@ -1,0 +1,48 @@
+@charset "UTF-8";
+
+.page-header{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+	height: 400px;
+	background-image: url(../../image/camping/background/list_main_background.jpeg);
+	background-size: 100%;
+	background-position: center;
+}
+
+.page-header-title{
+	font-size: 30px;
+	color: white;
+	margin-top: 200px;
+	margin-bottom: 50px;
+}
+
+.search-input-wrap{
+	display: flex;
+	width: 60%;
+}
+.search-input-wrap{
+	background-color: #E3CAA5;
+	border-radius: 10px;
+	height : 50px;
+	padding: 10px;
+}
+.search-input-wrap>input{
+	width : 60%;
+	box-sizing: border-box;
+	font-size: 20px;
+}
+.search-input-wrap>div{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width : 20%;
+}
+.search-input-wrap>div>label{
+	margin-left: 5px;
+	font-size: 20px;
+}
+.search-input-wrap>button{
+	width : 20%;
+}
