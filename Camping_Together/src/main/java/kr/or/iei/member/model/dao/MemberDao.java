@@ -18,4 +18,11 @@ public class MemberDao {
 		Member m = sqlsession.selectOne("member.selectOneMember", member);
 		return m;
 	}
+	
+	
+	
+	
+	
+	
+	//-----------------------------------마이페이지
 }

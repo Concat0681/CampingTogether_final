@@ -17,4 +17,10 @@ public class MemberService {
 			return dao.selectOneMember(member);
 		}
 	
+	
+	
+	//-----------------------------------마이페이지
+	
+	
+	
 }

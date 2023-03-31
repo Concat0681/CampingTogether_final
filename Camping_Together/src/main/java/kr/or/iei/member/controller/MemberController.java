@@ -33,6 +33,11 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
+	
+	
+	
+	
+	//-----------------------------------마이페이지
 	@RequestMapping(value = "/mypageC.do")
 	public String mypageC() {
 		return "member/mypageCFrm";

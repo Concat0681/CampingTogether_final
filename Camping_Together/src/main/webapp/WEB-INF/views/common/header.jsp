@@ -14,8 +14,8 @@
     <div class="wrapper-top">
         <div class="nav-top">
             <ul class="login">
-                <li><a href="#">로그인</a></li>
-                <li><a href="#">회원가입</a></li>
+                <li><a href="/join.do">로그인</a></li>
+                <li><a href="/joinfrm.do">회원가입</a></li>
             </ul>
         </div>
     </div>
