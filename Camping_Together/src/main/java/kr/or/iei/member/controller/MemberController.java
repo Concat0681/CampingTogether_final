@@ -46,11 +46,16 @@ public class MemberController {
 		int result = service.insertMember(member);
 		if(result >0){
 			System.out.println(result);
+			System.out.println(member);
 			return "redirect:/joinFrm.do";
+			
 		}else {
 			System.out.println(result);
+			System.out.println(member);
 			return "redirect:/";
+		
 		}
+	
 	}
 	
 	//-----------------------------------마이페이지

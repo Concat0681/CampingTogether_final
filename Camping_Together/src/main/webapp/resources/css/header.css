@@ -102,3 +102,13 @@ body{
     z-index: 999;
     display: flex; 
 }
+
+.freeboard{
+    display: block;
+    width: max-content;
+    height: max-content;
+    background-color: yellow;
+    text-decoration: none;
+    color: green;
+
+}
