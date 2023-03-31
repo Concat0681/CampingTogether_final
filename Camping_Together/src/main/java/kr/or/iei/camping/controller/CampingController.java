@@ -40,8 +40,11 @@ public class CampingController {
 	}
 	
 	@RequestMapping(value="/campingList.do")
-	public String campingList(String cityNameKR, String cityNameEN,int reqPage, String order, Model model) {
-		CampingListPageData cpd = service.selectCampingListData(reqPage, order);
+	public String campingList(String cityNameKR, String cityNameEN,int reqPage, String order,int pplCount, String checkIn, String checkOut ,Model model) {
+		CampingRoom campingRoom = new CampingRoom();
+		CampingProvide campingProvide = new CampingProvide();
+		campingRoom.setCampingRoomMaxPplCount(pplCount);
+		CampingListPageData cpd = service.selectCampingListData(reqPage, order, campingProvide, campingRoom);
 		model.addAttribute("cityNameKR", cityNameKR);
 		model.addAttribute("cityNameEN", cityNameEN);
 		model.addAttribute("list", cpd.getList());
@@ -53,7 +56,9 @@ public class CampingController {
 	@RequestMapping(value="/campingListOrder.do", produces="application/json;charset=utf-8")
 	public String campingListOrder(String order) {
 		int reqPage = 1;
-		CampingListPageData cpd = service.selectCampingListData(reqPage, order);
+		CampingRoom campingRoom = new CampingRoom();
+		CampingProvide campingProvide = new CampingProvide();
+		CampingListPageData cpd = service.selectCampingListData(reqPage, order, campingProvide, campingRoom);
 		return new Gson().toJson(cpd);
 	}
 	

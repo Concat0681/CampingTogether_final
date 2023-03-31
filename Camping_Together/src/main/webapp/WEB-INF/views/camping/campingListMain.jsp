@@ -9,20 +9,41 @@
 <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
 <link href="/resources/css/camping/campingListHeader.css" rel="stylesheet">
 <link href="/resources/css/camping/campingListMain.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 </head>
 <body>
+	<jsp:include page="/WEB-INF/views/common/header.jsp" />
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 	<div class="page-wrap">
 		<div class="page-header">
 			<div class="page-header-title">캠핑가자</div>
 			<div class="search-input-wrap">
-				<input id="searchInput" type="text" placeholder="어디로 떠나실건가요?">
-				<input id="checkIn" type="date">
-				<input id="pplCount" type="text" value="1">
-				<div>
-					<img id="mapImg" src="/resources/image/camping/map.png">
-					<label for="mapImg">지도</label>
-				</div>
-				<button type="button" class="searchInput-btn">검색하기</button>
+				<form action="/campingList.do" method="get">
+					<div class="search-input-box"  style="position : relative">
+					<input id="searchInput" name="cityNameKR" type="text" placeholder="어디로 떠나실건가요?" required>
+					<input name="cityNameEN" type="hidden">
+					<!-- search-content -->
+					<div class="hidden-search">
+						<ul>
+							<li id="incheon" class="cityName">인천</li>
+							<li id="seoul" class="cityName">서울</li>
+							<li id="jeju" class="cityName">제주</li>
+							<li id="sokcho" class="cityName">속초</li>
+							<li id="ganglueng" class="cityName">강릉</li>
+						</ul>
+					</div>
+					</div>
+					<div class="search-input-box">
+						<input id="reservationDate" type="text" name="date" readonly>
+						<input type="hidden" name="checkIn">
+						<input type="hidden" name="checkOut">
+						<input name="pplCount" type="text" value="1">
+						<input name="reqPage" type="hidden" value="1">
+						<input name="order" type="hidden" value="avgReviewRating">
+						<button type="submit" class="searchInput-btn">검색하기</button>
+					</div>
+				</form>
 			</div>
 		</div>
 		<div class="page-content">
@@ -63,8 +84,46 @@
 			const cityNameKR = $(this).find("div").text();
 			location.href="/campingList.do?cityNameEN="+cityNameEN+"&cityNameKR="+cityNameKR+"&reqPage=1&order=avgReviewRating";
 		})
-		console.log(new Date().toISOString().slice(0, 7));
-		$("#checkIn").val(new Date().toISOString().slice(0, 10));
+		
+		$("#searchInput").on("click", function(){
+			$(".hidden-search").show();
+		})
+		
+		$("#searchInput").on("blur", function(){
+			setTimeout(() => {
+				$(".hidden-search").hide();
+			  }, 200);
+		})
+		
+		$(".cityName").on("click", function(){
+			$("#searchInput").val($(this).text())
+			$("[name=cityNameEN]").val($(this).attr("id"));
+		})
+
+		$("#reservationDate").daterangepicker({
+			locale: {
+			    "separator": " ~ ",                     // 시작일시와 종료일시 구분자
+			    "format": 'YYYY-MM-DD',   				// 일시 노출 포맷
+			    "applyLabel": "확인",                    // 확인 버튼 텍스트
+			    "cancelLabel": "취소",                   // 취소 버튼 텍스트
+			    "daysOfWeek": ["일", "월", "화", "수", "목", "금", "토"],
+			    "monthNames": ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"]
+			    }
+		});
+
+
+		$("#reservationDate").on('apply.daterangepicker', function(ev, picker) {
+		      $(this).val(picker.startDate.format('YYYY-MM-DD') + "~" + picker.endDate.format("YYYY-MM-DD"));
+		      $("[name=checkIn]").val(picker.startDate.format('YYYY-MM-DD'));
+		      $("[name=checkOut]").val(picker.endDate.format("YYYY-MM-DD"));
+		  });
+	
+		$("#reservationDate").on('cancel.daterangepicker', function(ev, picker) {
+			$(this).val('');
+			$("[name=checkIn]").val("");
+		    $("[name=checkOut]").val("");
+		});
+
 	</script>
 </body>
 </html>
