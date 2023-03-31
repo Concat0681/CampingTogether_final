@@ -15,6 +15,7 @@ public class MemberDao {
 	private SqlSessionTemplate sqlsession;
 
 	public Member selectOneMember(Member member) {
+		System.out.println(member);
 		Member m = sqlsession.selectOne("member.selectOneMember", member);
 		return m;
 	}
@@ -32,5 +33,5 @@ public class MemberDao {
 	
 	
 	
-	//-----------------------------------¸¶ÀÌÆäÀÌÁö
+	//-----------------------------------ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 }
