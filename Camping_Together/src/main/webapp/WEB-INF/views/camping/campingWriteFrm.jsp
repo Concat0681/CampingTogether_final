@@ -14,7 +14,6 @@
 </head>
 <body>
 	<div class="wrap">
-		
         <div class="contentWrap">
         	<div class="contentDetail activeContent">
         		<h2 style="margin-bottom: 60px;">캠핑장을 찾고 있는 여행객들을 정확히 사로잡아보세요!</h2>
@@ -31,6 +30,12 @@
         				<td>
         					<input type="text" class="input-long" name="campingPhone" placeholder="010-0000-0000">
         				</td>
+        			</tr>
+        			<tr>
+        				<td></td>
+        				<td>
+        					<span class="phoneComment"></span>
+       					</td>
         			</tr>
         		</table>
         		
@@ -86,13 +91,27 @@
 				
         	</div>
         	
-        	
-        	
 	</div>
 	
 	<script>
 		const contentDetail = $(".contentDetail");
 		const nextBtn = $(".nextBtn");
+		const phoneResult = [false];
+		
+		$("[name=campingPhone]").on("change",function(){
+			const phoneReg = /01\d{1}-\d{4}-\d{4}/;
+			const campingPhone = $("[name=campingPhone]").val();
+			const phoneCheck = phoneReg.test(campingPhone);
+			if(phoneCheck){
+				$(".phoneComment").text("사용 가능한 전화번호입니다.");
+				$(".phoneComment").css("color","green");
+				phoneResult[0] = true;
+			}else{
+				$(".phoneComment").text("사용 불가능한 전화번호입니다.");
+				$(".phoneComment").css("color","red");
+				phoneResult[0] = false;
+			}
+		});
 		
 		nextBtn.eq(0).on("click",function(){
 			const campingTitle = $("[name=campingTitle]").val();
@@ -102,14 +121,16 @@
 			const campingAddr = $("[name=campingAddr]").val();
 			const campingAddrDetail = $("[name=campingAddrDetail]").val();
 			const campingFilepath = $("[name=campingFilepath]");
-			if(campingTitle != "" && campingContent != "" && campingPhone != "" && postcode != "" && campingAddr != "" && campingAddrDetail != ""){
+			console.log(phoneResult[0]);
+			if(campingTitle != "" && campingContent != "" && campingPhone != "" && phoneResult[0] == true && postcode != "" && campingAddr != "" && campingAddrDetail != "" && campingFilepath.get(0).files.length != 0){
 				contentDetail.eq(0).hide();
 				contentDetail.eq(1).show();
 			}else{
-				alert("입력란을 모두 입력해주세요.")
+				alert("입력란을 모두 확인해주세요.")
 				return false;
 			}
 		});
+		
 		
 	</script>
 	
