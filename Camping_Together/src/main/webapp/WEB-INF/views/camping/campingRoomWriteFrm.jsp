@@ -41,10 +41,7 @@
         		<div class="contentTitle"><h3>사진</h3>
         			<input type="file">
        			</div>
-        		<div>
-        			<button type="button" class="btn1 prevBtn">이전</button>
-	        		<button type="button" class="btn1 nextBtn">다음</button>
-        		</div>
+        		
         	</div>
         	
         	<div class="contentDetail">
