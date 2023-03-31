@@ -23,7 +23,7 @@ public class MemberController {
 		if(loginMember != null) {
 			session.setAttribute("m", loginMember);
 		}
-		System.out.println("·Î±×ÀÎ ¿Ï·á");
+		System.out.println("ï¿½Î±ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½");
 		return "redirect:/";
 	}
 	
@@ -31,6 +31,11 @@ public class MemberController {
 	public String logout(HttpSession session){
 		session.invalidate();
 		return "redirect:/";
+	}
+	
+	@RequestMapping(value = "/mypageC.do")
+	public String mypageC() {
+		return "member/mypageCFrm";
 	}
 	
 	

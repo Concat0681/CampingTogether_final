@@ -27,6 +27,9 @@
 		</fieldset>
 	</form>
 		</c:when>
+		<c:otherwise>
+				<h3><a href = "/mypageC.do">[${sessionScope.m.memberName }]</a></h3>
+		</c:otherwise>
 	</c:choose>
 	
 
