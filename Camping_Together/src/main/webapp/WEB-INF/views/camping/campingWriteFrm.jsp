@@ -387,14 +387,18 @@
 			const campingTitle = $("[name=campingTitle]").val();
 			const campingPhone = $("[name=campingPhone]").val();
 			const campingContent = $("[name=campingContent]").val();
+			const postcode = $("[name=postcode]").val();
+			const campingAddr = $("[name=campingAddr]").val();
+			const campingAddrDetail = $("[name=campingAddrDetail]").val();
 			const campingFilepath = $("[name=campingFilepath]");
-			if(campingTitle != "" && campingContent != "" && campingPhone != ""){
+			if(campingTitle != "" && campingContent != "" && campingPhone != "" && postcode != "" && campingAddr != "" && campingAddrDetail != ""){
 				contentDetail.eq(0).hide();
 				contentDetail.eq(1).show();
 				tabsLi.eq(1).css("color","blue");
 				tabsLi.eq(0).css("color","black");
 			}else{
-				alert("입력값을 모두 입력해주세요.")
+				alert("입력란을 모두 입력해주세요.")
+				return false;
 			}
 		});
 		nextBtn.eq(1).on("click",function(){
