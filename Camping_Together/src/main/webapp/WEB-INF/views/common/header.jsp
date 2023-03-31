@@ -50,7 +50,7 @@
                     <li><a href="#">투게더shop</a></li>
                     <li><a href="#">자유게시판</a>
                         <ul class="freeboard" style="display: none;">
-                            <li><a href="#">채팅</a></li>
+                            <li><a href="/allMemberChat.do">채팅</a></li>
                             <li><a href="#">캠핑팁</a></li>
                             <li><a href="#">캠핑음식</a></li>
                         </ul>

@@ -19,13 +19,13 @@ public class CampingService {
 	private CampingDao dao;
 
 	public CampingListPageData selectCampingListData(int reqPage, String order) {
-		//�븳 �럹�씠吏��떦 蹂댁뿬以� 寃뚯떆湲� �닔 : 2
+		//占쎈립 占쎈읂占쎌뵠筌욑옙占쎈뼣 癰귣똻肉т빳占� 野껊슣�뻻疫뀐옙 占쎈땾 : 2
 				int numPerPage = 5;
 				//reqPage = 1 : 1~2, reqPage = 2 : 3~4
 				int end = reqPage * numPerPage;
 				int start = end - numPerPage + 1;
-				//怨꾩궛�맂 start, end瑜� 媛�吏�怨� 寃뚯떆臾� 紐⑸줉 議고쉶
-				//mybatis�뒗 留ㅺ컻蹂��닔瑜� 1媛쒕쭔 �꽕�젙�씠 媛��뒫 -> �븘�슂�븳 媛믪씠 �뿬�윭媛쒕㈃ 1媛� 臾띠뼱�빞�븿(VO, map)
+				//�④쑴沅쏉옙留� start, end�몴占� 揶쏉옙筌욑옙�⑨옙 野껊슣�뻻�눧占� 筌뤴뫖以� 鈺곌퀬�돳
+				//mybatis占쎈뮉 筌띲끆而삭퉪占쏙옙�땾�몴占� 1揶쏆뮆彛� 占쎄퐬占쎌젟占쎌뵠 揶쏉옙占쎈뮟 -> 占쎈툡占쎌뒄占쎈립 揶쏅�れ뵠 占쎈연占쎌쑎揶쏆뮆�늺 1揶쏉옙 �눧�씈堉깍옙鍮욑옙釉�(VO, map)
 				HashMap<String, Object> map = new HashMap<String, Object>();
 				map.put("start", start);
 				map.put("end", end);
@@ -37,24 +37,24 @@ public class CampingService {
 				
 				
 				ArrayList<Camping> list = dao.selectCampingListData(map);
-				//pageNavi �젣�옉 �떆�옉
-				//�쟾泥댄럹�씠吏� �닔 怨꾩궛�븘�슂 -> �쟾泥� 寃뚯떆臾� �닔 議고쉶
+				//pageNavi 占쎌젫占쎌삂 占쎈뻻占쎌삂
+				//占쎌읈筌ｋ똾�읂占쎌뵠筌욑옙 占쎈땾 �④쑴沅쏉옙釉섓옙�뒄 -> 占쎌읈筌ｏ옙 野껊슣�뻻�눧占� 占쎈땾 鈺곌퀬�돳
 				int totalCount = dao.selectCampingCount();
-				//�쟾泥� 寃뚯떆臾쇰줈 �쟾泥� �럹�씠吏��닔 怨꾩궛
+				//占쎌읈筌ｏ옙 野껊슣�뻻�눧�눖以� 占쎌읈筌ｏ옙 占쎈읂占쎌뵠筌욑옙占쎈땾 �④쑴沅�
 				int totalPage = (int)Math.ceil(totalCount/(double)numPerPage);
-				//�럹�씠吏� �꽕鍮� �궗�씠利�
+				//占쎈읂占쎌뵠筌욑옙 占쎄퐬�뜮占� 占쎄텢占쎌뵠筌앾옙
 				int pageNaviSize = 5;
 				int pageNo = 1;
 				if(reqPage > 3) {
 					pageNo = reqPage - 2 ;
 				}
-				//�럹�씠吏��꽕鍮� �깮�꽦�떆�옉
+				//占쎈읂占쎌뵠筌욑옙占쎄퐬�뜮占� 占쎄문占쎄쉐占쎈뻻占쎌삂
 				String pageNavi = "";
-				//�씠�쟾 踰꾪듉
+				//占쎌뵠占쎌읈 甕곌쑵�뱣
 				if(pageNo != 1) {
-					pageNavi += "<a href='/boardList.do?reqPage="+(pageNo-1)+"'>[�씠�쟾]</a>";
+					pageNavi += "<a href='/boardList.do?reqPage="+(pageNo-1)+"'>[占쎌뵠占쎌읈]</a>";
 				}
-				//�럹吏� �닽�옄 �깮�꽦
+				//占쎈읂筌욑옙 占쎈떭占쎌쁽 占쎄문占쎄쉐
 				for(int i=0;i<pageNaviSize;i++) {
 					if(pageNo == reqPage) {
 						pageNavi += "<span>"+pageNo+"</span>";
@@ -66,9 +66,9 @@ public class CampingService {
 						break;
 					}
 				}
-				//�떎�쓬 踰꾪듉
+				//占쎈뼄占쎌벉 甕곌쑵�뱣
 				if(pageNo <= totalPage) {
-					pageNavi += "<a href='/boardList.do?reqPage="+(pageNo)+"'>[�떎�쓬]</a>";
+					pageNavi += "<a href='/boardList.do?reqPage="+(pageNo)+"'>[占쎈뼄占쎌벉]</a>";
 				}
 				CampingListPageData cpd = new CampingListPageData();
 				cpd.setList(list);
@@ -86,13 +86,13 @@ public class CampingService {
 	}
 
 	public CampingListPageData selectCampingListData(int reqPage, String order, CampingProvide campingProvide, CampingRoom campingRoom) {
-		//한 페이지당 보여줄 게시글 수 : 2
+		//�븳 �럹�씠吏��떦 蹂댁뿬以� 寃뚯떆湲� �닔 : 2
 		int numPerPage = 5;
 		//reqPage = 1 : 1~2, reqPage = 2 : 3~4
 		int end = reqPage * numPerPage;
 		int start = end - numPerPage + 1;
-		//계산된 start, end를 가지고 게시물 목록 조회
-		//mybatis는 매개변수를 1개만 설정이 가능 -> 필요한 값이 여러개면 1개 묶어야함(VO, map)
+		//怨꾩궛�맂 start, end瑜� 媛�吏�怨� 寃뚯떆臾� 紐⑸줉 議고쉶
+		//mybatis�뒗 留ㅺ컻蹂��닔瑜� 1媛쒕쭔 �꽕�젙�씠 媛��뒫 -> �븘�슂�븳 媛믪씠 �뿬�윭媛쒕㈃ 1媛� 臾띠뼱�빞�븿(VO, map)
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("start", start);
 		map.put("end", end);
@@ -104,24 +104,24 @@ public class CampingService {
 		map.put("pplCount", campingRoom.getCampingRoomMaxPplCount());
 		
 		ArrayList<Camping> list = dao.selectCampingListData(map);
-		//pageNavi 제작 시작
-		//전체페이지 수 계산필요 -> 전체 게시물 수 조회
+		//pageNavi �젣�옉 �떆�옉
+		//�쟾泥댄럹�씠吏� �닔 怨꾩궛�븘�슂 -> �쟾泥� 寃뚯떆臾� �닔 議고쉶
 		int totalCount = dao.selectCampingCount();
-		//전체 게시물로 전체 페이지수 계산
+		//�쟾泥� 寃뚯떆臾쇰줈 �쟾泥� �럹�씠吏��닔 怨꾩궛
 		int totalPage = (int)Math.ceil(totalCount/(double)numPerPage);
-		//페이지 네비 사이즈
+		//�럹�씠吏� �꽕鍮� �궗�씠利�
 		int pageNaviSize = 5;
 		int pageNo = 1;
 		if(reqPage > 3) {
 			pageNo = reqPage - 2 ;
 		}
-		//페이지네비 생성시작
+		//�럹�씠吏��꽕鍮� �깮�꽦�떆�옉
 		String pageNavi = "";
-		//이전 버튼
+		//�씠�쟾 踰꾪듉
 		if(pageNo != 1) {
-			pageNavi += "<a href='/boardList.do?reqPage="+(pageNo-1)+"'>[이전]</a>";
+			pageNavi += "<a href='/boardList.do?reqPage="+(pageNo-1)+"'>[�씠�쟾]</a>";
 		}
-		//페지 숫자 생성
+		//�럹吏� �닽�옄 �깮�꽦
 		for(int i=0;i<pageNaviSize;i++) {
 			if(pageNo == reqPage) {
 				pageNavi += "<span>"+pageNo+"</span>";
@@ -133,9 +133,9 @@ public class CampingService {
 				break;
 			}
 		}
-		//다음 버튼
+		//�떎�쓬 踰꾪듉
 		if(pageNo <= totalPage) {
-			pageNavi += "<a href='/boardList.do?reqPage="+(pageNo)+"'>[다음]</a>";
+			pageNavi += "<a href='/boardList.do?reqPage="+(pageNo)+"'>[�떎�쓬]</a>";
 		}
 		CampingListPageData cpd = new CampingListPageData();
 		cpd.setList(list);
