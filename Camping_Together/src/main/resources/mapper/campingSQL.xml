@@ -58,4 +58,8 @@
 	<select id="selectCampingCount" resultType="_int">
 		select count(*) from camping
 	</select>
+	
+	<insert id="insertCamping" parameterType="c">
+		insert into camping values(camping_seq.nextval,'user01',#{campingTitle},#{campingContent},#{campingAddr},#{campingAddrDetail},#{campingPhone},#{filepath})
+	</insert>
 </mapper>

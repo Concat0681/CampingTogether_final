@@ -26,4 +26,9 @@ public class CampingDao {
 		int totalCount = sqlSession.selectOne("camping.selectCampingCount");
 		return totalCount;
 	}
+
+	public int insertCamping(Camping c) {
+		int result = sqlSession.insert("camping.insertCamping",c);
+		return result;
+	}
 }

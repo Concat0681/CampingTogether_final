@@ -23,7 +23,7 @@ public class MemberController {
 		if(loginMember != null) {
 			session.setAttribute("m", loginMember);
 		}
-		System.out.println("·Î±×ÀÎ ¿Ï·á");
+		System.out.println("ï¿½Î±ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½");
 		return "redirect:/";
 	}
 	
@@ -32,6 +32,29 @@ public class MemberController {
 		session.invalidate();
 		return "redirect:/";
 	}
+	
+	@RequestMapping(value="/joinFrm.do")
+	public String joinFrm() {
+		return "member/joinFrm";
+	}
+	@RequestMapping(value="/join.do")
+	public String join(Member member) {
+		int result = service.insertMember(member);
+		if(result >0){
+			return "redirect:/";
+		}else {
+			return "redirect:/joinFrm.do";
+		}
+	}
+	
+	
+	
+	//-----------------------------------¸¶ÀÌÆäÀÌÁö
+	@RequestMapping(value = "/mypageC.do")
+	public String mypageC() {
+		return "member/mypageCFrm";
+	}
+	
 	
 	
 }
