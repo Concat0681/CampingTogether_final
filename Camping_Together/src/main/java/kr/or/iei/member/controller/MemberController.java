@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.or.iei.member.model.service.MemberService;
 import kr.or.iei.member.model.vo.Member;
@@ -47,12 +48,41 @@ public class MemberController {
 		}
 	}
 	
+
 	
-	
-	//-----------------------------------¸¶ÀÌÆäÀÌÁö
+	//-----------------------------------ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	@RequestMapping(value = "/mypageC.do")
 	public String mypageC() {
 		return "member/mypageCFrm";
+	}
+	
+	
+	/*
+	@RequestMapping(value = "/updateMypageC.do")
+	public String updateMypageC(Member member, HttpSession session) {
+		Member loginMember = service.selectOneMember(member);
+		if(loginMember == session) {
+			return "member/updateMypageCFrm";
+			
+		}
+		return "member/mypageCFrm";
+	}
+	*/
+	
+	@ResponseBody
+	@RequestMapping(value = "/pwCheck.do")
+	public String checkPw(Member member) {
+		Member m = service.selectOneMember(member);
+		if(m != null) {
+			return "ok";
+		}
+		return "error";
+	}
+	
+	
+	@RequestMapping(value = "/updateMypageCFrm")
+	public String updateMypageCFrm() {
+		return "member/updateMypageCFrm";
 	}
 	
 	
