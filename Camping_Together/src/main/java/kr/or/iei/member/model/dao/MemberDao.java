@@ -18,4 +18,19 @@ public class MemberDao {
 		Member m = sqlsession.selectOne("member.selectOneMember", member);
 		return m;
 	}
+
+	public void insertMember(Member member) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//-----------------------------------마이페이지
 }
