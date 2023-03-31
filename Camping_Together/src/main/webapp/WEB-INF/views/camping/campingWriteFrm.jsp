@@ -110,45 +110,7 @@
 				return false;
 			}
 		});
-		nextBtn.eq(1).on("click",function(){
-			const campingRoomTitle = $("[name=campingRoomTitle]").val();
-			const campingRoomCount = $("[name=campingRoomCount]").val();
-			const campingRoomPrice = $("[name=campingRoomPrice]").val();
-			const campingRoomMaxPplCount = $("[name=campingRoomMaxPplCount]").val();
-			const campingRoomContent = $("[name=campingRoomContent]").val();
-			if(campingRoomTitle != "" && campingRoomCount != "" && campingRoomPrice != "" && campingRoomMaxPplCount != "" && campingRoomContent != ""){
-				contentDetail.eq(1).hide();
-				contentDetail.eq(2).show();
-				tabsLi.eq(2).css("color","blue");
-				tabsLi.eq(1).css("color","black");
-			}else{
-				alert("입력값을 모두 입력해주세요.")
-			}
-		});
-		nextBtn.eq(2).on("click",function(){
-			contentDetail.eq(2).hide();
-			contentDetail.eq(3).show();
-			tabsLi.eq(3).css("color","blue");
-			tabsLi.eq(2).css("color","black");
-		});
-		prevBtn.eq(0).on("click",function(){
-			contentDetail.eq(1).hide();
-			contentDetail.eq(0).show();
-			tabsLi.eq(0).css("color","blue");
-			tabsLi.eq(1).css("color","black");
-		});
-		prevBtn.eq(1).on("click",function(){
-			contentDetail.eq(2).hide();
-			contentDetail.eq(1).show();
-			tabsLi.eq(1).css("color","blue");
-			tabsLi.eq(2).css("color","black");
-		});
-		prevBtn.eq(2).on("click",function(){
-			contentDetail.eq(3).hide();
-			contentDetail.eq(2).show();
-			tabsLi.eq(2).css("color","blue");
-			tabsLi.eq(3).css("color","black");
-		});
+		
 	</script>
 	
 	<script>
