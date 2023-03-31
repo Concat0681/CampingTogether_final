@@ -83,4 +83,9 @@ public class CampingController {
 			return "redirect:/";
 		}
 	}
+	
+	@RequestMapping(value="/campingRoomWriteFrm.do")
+	public String campingRoomWriteFrm() {
+		return "camping/campingRoomWriteFrm";
+	}
 }
