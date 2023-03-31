@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,15 +11,31 @@
 <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
 </head>
 <body>
+
 	<div class="wrapper">
-    <div class="wrapper-top">
+	<c:choose>
+		<c:when test="${empty sessionScope.m }"> 
+		<div class="wrapper-top">
         <div class="nav-top">
             <ul class="login">
-                <li><a href="/join.do">로그인</a></li>
-                <li><a href="/joinfrm.do">회원가입</a></li>
+                <li><a href="/loginFrm.do">로그인</a></li>
+                <li><a href="/joinFrm.do">회원가입</a></li>
             </ul>
         </div>
     </div>
+    </c:when>
+		<c:otherwise>
+					<div class="wrapper-top">
+        <div class="nav-top">
+            <ul class="login">
+                <li><a href="#">쪽지함</a></li>
+                <li><a href = "/mypageC.do">[${sessionScope.m.memberName }]</a></li>
+                <li><a href="/logout.do">로그아웃</a></li>
+            </ul>
+        </div>
+    </div>
+		</c:otherwise>
+	</c:choose>
     <div class="wrapper-bottom">
             <div class="nav-bottom">
                 <ul class="nav-list">
@@ -59,7 +76,7 @@
     
     $(window).on('resize', function() {
         var windowWidth = $(window).width();
-        if (windowWidth < 1500) {
+        if (windowWidth > 1500) {
           $('.header-logo').css({
             'width': '120px',
             'height': '60px'
@@ -77,8 +94,30 @@
             'width': '120px',
             'height': '120px'
           });
-          $('.nav-list>li>a').css('font-size', '12px');
-        } else {
+          $('.nav-list>li>a').css('font-size', '18px');
+          
+          $('.wrapper-top').css({
+      		'display' : 'flex'
+      	});
+          $('.wrapper-bottom').css({
+      		'display' : 'flex'
+      	});
+        }else if(windowWidth < 1200){
+        	$('.wrapper-top').css({
+        		'display' : 'none'
+        	});
+            $('.wrapper-bottom').css({
+        		'display' : 'none'
+        	});
+        	
+        }else {
+        	$('.wrapper-top').css({
+        		'display' : 'flex'
+        	});
+            $('.wrapper-bottom').css({
+        		'display' : 'flex'
+        	});
+        	
           $('.header-logo').css({
             'width': '160px',
             'height': '80px'
@@ -90,14 +129,14 @@
           });
           $('.nav-list>li').css({
             'height': '30px',
-            'width': '200px'
+            'width': '150px'
           });
-          $('.nav-bottom').css('width', '1200px');
+          $('.nav-bottom').css('width', '900px');
           $('.freeboard').css({
             'width': '150px',
             'height': '150px'
           });
-          $('.nav-list>li>a').css('font-size', '18px');
+          $('.nav-list>li>a').css('font-size', '14px');
         }
       });
     

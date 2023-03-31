@@ -21,19 +21,7 @@
 	<a href="/usedBoardList.do">중고장터</a>
 	
 	<c:choose>
-		<c:when test="${empty sessionScope.m }">
-	<form action="/login.do" method="post">
-		<fieldset>
-			<legend>로그인</legend>
-			아이디: <input type="text" name="memberId"><br> 
-			비밀번호: <input type="text" name="memberPw"><br> 
-			<input type="submit" value="로그인">
-		</fieldset>
-	</form>
-		</c:when>
-		<c:otherwise>
-				<h3><a href = "/mypageC.do">[${sessionScope.m.memberName }]</a></h3>
-		</c:otherwise>
+		<c:when test="${empty sessionScope.m }"> </c:when>
 	</c:choose>
 	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
