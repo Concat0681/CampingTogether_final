@@ -1,9 +1,7 @@
 package kr.or.iei.camping.controller;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,15 +12,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.fasterxml.jackson.core.JsonParser;
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
 
 import common.FileManager;
 import kr.or.iei.camping.model.service.CampingService;
 import kr.or.iei.camping.model.vo.Camping;
 import kr.or.iei.camping.model.vo.CampingListPageData;
 import kr.or.iei.camping.model.vo.CampingProvide;
+import kr.or.iei.camping.model.vo.CampingRoom;
 
 @Controller
 public class CampingController {
@@ -62,8 +59,9 @@ public class CampingController {
 	
 	@ResponseBody
 	@RequestMapping(value="/detailSearchCamping.do", produces="application/json;charset=utf-8")
-	public String detailSearchCamping(String campingTypeStr, String campingServiceStr, String campingRoomServiceStr, String campingEtcStr) {
+	public String detailSearchCamping(String campingTypeStr, String campingServiceStr, String campingRoomServiceStr, String campingEtcStr, String pplCount) {
 		int reqPage = 1;
+		CampingRoom campingRoom = new CampingRoom();
 		String order = "avgReviewRating";
 		String[] campingType = campingTypeStr.split(",");
 		String[] campingService = campingServiceStr.split(",");
@@ -81,7 +79,9 @@ public class CampingController {
 		campingProvide.setCampingService(arr2);
 		campingProvide.setCampingRoomService(arr3);
 		campingProvide.setCampingEtc(arr4);
-		CampingListPageData cpd = service.selectCampingListData(reqPage, order, campingProvide, campingType);
+		campingRoom.setCampingRoomMaxPplCount(Integer.parseInt(pplCount));
+		campingRoom.setCampingRoomType(arr1);
+		CampingListPageData cpd = service.selectCampingListData(reqPage, order, campingProvide, campingRoom);
 		return new Gson().toJson(cpd);
 	}
 	
