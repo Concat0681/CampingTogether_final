@@ -58,7 +58,11 @@ public class MemberController {
 	public String mypageC() {
 		return "member/mypageCFrm";
 	}
-	
+	//------------------------------------Ã¤ÆÃ
+	@RequestMapping(value = "/allMemberChat.do")
+	public String allMemberChat() {
+		return "member/allMemberChat";
+	}
 	
 	
 }
