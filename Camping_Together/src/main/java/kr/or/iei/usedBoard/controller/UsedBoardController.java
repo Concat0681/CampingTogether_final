@@ -32,8 +32,10 @@ public class UsedBoardController {
 	public String usedBoardWriteFrm() {
 		return "usedBoard/usedBoardWriteFrm";
 	}
+	
 	@RequestMapping(value="/boardWrite.do")
 	public String boardWrite(UsedBoard ub, MultipartFile[] usedBoardPhoto, HttpServletRequest request) {
+		System.out.println("TT");
 		ArrayList<UsedBoardPhoto> photoList = new ArrayList<UsedBoardPhoto>();
 		if(!usedBoardPhoto[0].isEmpty()) {
 			String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/usedBoard/");
@@ -45,6 +47,10 @@ public class UsedBoardController {
 			}
 		}
 		int result = service.insertUsedBoard(ub, photoList);
-		return null;
+		if(result == photoList.size()+1) {
+			return "redirect:/usedBoardList.do";
+		}else {
+			return "redirect:/";			
+		}
 	}
 }

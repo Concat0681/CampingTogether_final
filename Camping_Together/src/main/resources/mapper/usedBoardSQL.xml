@@ -3,6 +3,24 @@
 <mapper namespace="usedBoard">
 	<insert id="insertUesdBoard" parameterType="ub">
 		insert into used_board 
-		values(used_board_seq.nextval, #{usedBoardWriter}, #{usedBoardTitle}, #{usedBoardContent}, #{usedBoardCategory}, 0, #{usedProductStatus}, #{exchangeStatus}, 0, #{usedTradeLocation}, 0, to_char(sysdate, 'yyyy-mm-dd'))
+		values(
+			  used_board_seq.nextval, 
+			  #{usedBoardWriter}, 
+			  #{usedBoardTitle}, 
+			  #{usedBoardContent}, 
+			  #{usedBoardCategory}, 
+			  0, 
+			  #{usedProductStatus}, 
+			  #{exchangeStatus}, 
+			  #{usedProductPrice},
+			  0, 
+			  #{usedTradeLocation}, 
+			  0, 
+			  to_char(sysdate, 'yyyy-mm-dd')
+			  )
+	</insert>
+	<insert id="insertUesdPhoto" parameterType="ubp">
+		insert into used_photo 
+		values(used_file_seq.nextval, #{usedBoardNo}, #{filepath})
 	</insert>
 </mapper>

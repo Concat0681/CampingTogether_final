@@ -15,14 +15,14 @@
             outline: none;
             text-decoration: none;
         }
+        .page-content{
+        	padding-top: 140px;
+        }
         .btn2, .btn1{
         	padding: 10px;
         	font-family: ng-bold;
         	font-size: 16px;
         	cursor: pointer;
-        }
-        .btn1:hover{
-        	
         }
         .material-symbols-outlined {
             font-variation-settings:
@@ -176,19 +176,19 @@
     </style>
 </head>
 <body>
+	<jsp:include page="/WEB-INF/views/common/header.jsp" />
 	<div class="page-content">
         <div class="content-top">
             <h1>기본정보</h1>
             <hr>
         </div>
         <form action="/boardWrite.do" method="post" enctype="multipart/form-data">
-        	<input type="hidden" value="${m.memberId }" name="usedBoardWriter">
+        	<input type="hidden" value="${sessionScope.m.memberId }" name="usedBoardWriter">
             <div class="usedWrite-wrap">
                 <div class="category">
                     <div class="usedWrite-text"><span>구분</span></div>
                     <div class="category-content">
-                        <div class="category-top">
-               
+                        <div class="category-top">             
                             <input type="radio" name="usedBoardCategory" value="1" id="1" checked>
                             <label for="1">전기/전자제품</label>
                             <input type="radio" name="usedBoardCategory" value="2" id="2">
@@ -217,7 +217,7 @@
                 <div class="image-wrap">
                     <div class="usedWrite-text" id="img-margin"><span>상품이미지</span></div>
                     <div class="usedBoard-img">
-                        <input type="file" name="usedBoardPhoto" multiple accept="image/gif, image/jpeg, image/png" id="usedBoardImg">
+                        <input type="file" name="usedBoardPhoto" accept="image/gif, image/jpeg, image/png" id="usedBoardImg" multiple>
                         <label for="usedBoardImg">
                             <div class="uploadImg">
                             	<span class="material-symbols-outlined">photo_camera</span>
@@ -272,7 +272,7 @@
                 <div class="price">
                     <div class="usedWrite-text" style="margin-right: 70px;" ><span>가격</span></div>
                     <div class="price-input">
-                        <input type="text" class="input-type" id="price-input"style="width:300px;" required>
+                        <input type="text" class="input-type" name="usedProductPrice" id="price-input"style="width:300px;" required>
                     </div>
                 </div>
                 <div class="usedWrite-content">
@@ -331,7 +331,7 @@
 							$(".img-sub-wrap").append(div);	    									
 						}
 					}
-						reader.readAsDataURL(f);
+					reader.readAsDataURL(f);
 				});
 			});
 		});
