@@ -33,7 +33,19 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
-	
+	@RequestMapping(value="/joinFrm.do")
+	public String joinFrm() {
+		return "member/joinFrm";
+	}
+	@RequestMapping(value="/join.do")
+	public String join(Member member) {
+		int result = service.insertMember(member);
+		if(result >0){
+			return "redirect:/";
+		}else {
+			return "redirect:/joinFrm.do";
+		}
+	}
 	
 	
 	
