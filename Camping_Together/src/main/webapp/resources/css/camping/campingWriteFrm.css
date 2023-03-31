@@ -22,9 +22,6 @@
 	float: left;
 	overflow: hidden;
 }
-.contentDetail{
-	display: none;
-}
 .activeTab{
 	color: blue;
 }

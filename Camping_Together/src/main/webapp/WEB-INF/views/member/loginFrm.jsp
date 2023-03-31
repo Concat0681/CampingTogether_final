@@ -13,6 +13,7 @@
 			아이디: <input type="text" name="memberId"><br> 
 			비밀번호: <input type="text" name="memberPw"><br> 
 			<input type="submit" value="로그인">
+			<a href="#">아이디 생각 안남?</a> | <a href="#">비밀번호 생각 안남?</a>
 		</fieldset>
 	</form>
 </body>

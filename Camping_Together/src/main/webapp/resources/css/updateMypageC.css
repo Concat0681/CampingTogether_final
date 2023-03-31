@@ -1,0 +1,38 @@
+@charset "UTF-8";
+
+.mypage-content{
+    border-top: 1px solid #AD8B73;
+    border-bottom: 1px solid #AD8B73;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.mypage-content>table{
+    width: 500px;
+    height: 70px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.mypage-content>table>tbody>tr>td:first-child{
+    width: 30%;
+    text-align: left;
+    padding-left: 16px;
+    font-size: 15px;
+    color: #AD8B73;
+ }
+
+.mypage-content>table>tbody>tr>td:last-child{
+    outline: none;
+    height: 70px;
+}
+
+.mypage-content>table>tbody>tr>td:last-child>input{
+    outline: none;
+    width: 90%;
+    height: 40px;
+    border-radius: 5px;
+    border: 1px solid rgb(181, 181, 181);
+}

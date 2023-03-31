@@ -18,9 +18,10 @@ public class UsedBoard {
 	private int usedBoardStatus;
 	private int usedProductStatus;
 	private int exchangeStatus;
+	private int usedProductPrice;
 	private int usedDeliveryStatus;
 	private String usedTradeLocation;
 	private int readCount;
 	private String regDate;
-	private ArrayList<UsedBoardPhoto> usedBoardPhoto;
+	private ArrayList<UsedBoardPhoto> usedBoardPhotoList;
 }
