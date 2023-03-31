@@ -90,6 +90,7 @@
 				</div>
 				
         	</div>
+        	<a href="/campingRoomWriteFrm.do">캠핑방 등록</a>
         	
 	</div>
 	
