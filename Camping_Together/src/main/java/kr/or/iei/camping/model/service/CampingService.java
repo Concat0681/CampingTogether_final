@@ -10,6 +10,7 @@ import kr.or.iei.camping.model.dao.CampingDao;
 import kr.or.iei.camping.model.vo.Camping;
 import kr.or.iei.camping.model.vo.CampingListPageData;
 import kr.or.iei.camping.model.vo.CampingProvide;
+import kr.or.iei.camping.model.vo.CampingRoom;
 
 @Service
 public class CampingService {
@@ -75,7 +76,16 @@ public class CampingService {
 				return cpd;
 	}
 
-	public CampingListPageData selectCampingListData(int reqPage, String order, CampingProvide campingProvide, String[] campingType) {
+	public int insertCamping(Camping c) {
+		int result = dao.insertCamping(c);
+		if(result > 0) {
+			return result;
+		}else {
+			return 0;
+		}
+	}
+
+	public CampingListPageData selectCampingListData(int reqPage, String order, CampingProvide campingProvide, CampingRoom campingRoom) {
 		//한 페이지당 보여줄 게시글 수 : 2
 		int numPerPage = 5;
 		//reqPage = 1 : 1~2, reqPage = 2 : 3~4
@@ -90,7 +100,8 @@ public class CampingService {
 		map.put("campingEtc", campingProvide.getCampingEtc());
 		map.put("campingRoomService", campingProvide.getCampingRoomService());
 		map.put("campingService", campingProvide.getCampingService());
-		map.put("campingType", campingType);
+		map.put("campingRoomType", campingRoom.getCampingRoomType());
+		map.put("pplCount", campingRoom.getCampingRoomMaxPplCount());
 		
 		ArrayList<Camping> list = dao.selectCampingListData(map);
 		//pageNavi 제작 시작
@@ -130,14 +141,5 @@ public class CampingService {
 		cpd.setList(list);
 		cpd.setPageNavi(pageNavi);
 		return cpd;
-	}
-
-	public int insertCamping(Camping c) {
-		int result = dao.insertCamping(c);
-		if(result > 0) {
-			return result;
-		}else {
-			return 0;
-		}
 	}
 }

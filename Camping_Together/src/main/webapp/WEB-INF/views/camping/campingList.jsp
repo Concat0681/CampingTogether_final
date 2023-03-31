@@ -267,8 +267,8 @@
 				<div class="campingList-box">
 					<div class="list-by-review">
 						<c:forEach items="${list }" var="c">
-							<div>${c.campingTitle }</div>
-							<div>${c.campingNo }</div>
+							<div><a href="/viewCamping.do?campingNo=${c.campingNo }">${c.campingTitle }</a></div>
+							<div>${c.campingAddr }</div>
 							<div>${c.avgReviewRating }</div>
 							<div>${c.maxRoomPrice }</div>
 						</c:forEach>	
@@ -298,16 +298,17 @@
 		
 		function sendOrder(obj){
 			const order = $(obj).attr("id");
-			console.log(order);
 			$.ajax({
 				url : "/campingListOrder.do",
 				data : {order : order},
 				success : function(data){
 					$(".list-by-review").empty();
 					data.list.forEach(function(c,i){
-						console.log(c)
 						const div = $("<div>")
-						div.append(c.campingTitle);
+						const a = $("<a>")
+						a.attr("href","/viewCamping.do?campingNo="+c.campingNo);
+						a.append(c.campingTitle)
+						div.append(a);
 						const div2 = $("<div>")
 						div2.append(c.avgReviewRating)
 						const div3 = $("<div>");
@@ -353,13 +354,14 @@
 					campingEtc.push($(this).val())
 			    }
 			})
+			const pplCount = $("[name=ppl_count]").val();
 			const campingTypeStr = campingType.join(",");
 			const campingServiceStr = campingService.join(",");
 			const campingRoomServiceStr = campingRoomService.join(",");
 			const campingEtcStr = campingEtc.join(",");
 			$.ajax({
 				url : "/detailSearchCamping.do",
-				data : {campingTypeStr : campingTypeStr , campingServiceStr : campingServiceStr, campingRoomServiceStr : campingRoomServiceStr, campingEtcStr : campingEtcStr},
+				data : {campingTypeStr : campingTypeStr , campingServiceStr : campingServiceStr, campingRoomServiceStr : campingRoomServiceStr, campingEtcStr : campingEtcStr, pplCount : pplCount},
 				success : function(data){
 					$(".list-by-review").empty();
 					data.list.forEach(function(c,i){
