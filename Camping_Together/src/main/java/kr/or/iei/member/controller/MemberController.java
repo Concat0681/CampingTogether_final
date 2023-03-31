@@ -16,6 +16,11 @@ public class MemberController {
 	@Autowired
 	private MemberService service;
 	
+	@RequestMapping(value="/loginFrm.do")
+	public String loginFrm() {
+		return "member/loginFrm";
+	}
+	
 	@RequestMapping(value = "/login.do")
 	public String login(Member member, HttpSession session){
 	//public String login(Member member) {
@@ -23,7 +28,6 @@ public class MemberController {
 		if(loginMember != null) {
 			session.setAttribute("m", loginMember);
 		}
-		System.out.println("ï¿½Î±ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½");
 		return "redirect:/";
 	}
 	
@@ -41,13 +45,13 @@ public class MemberController {
 	public String join(Member member) {
 		int result = service.insertMember(member);
 		if(result >0){
-			return "redirect:/";
-		}else {
+			System.out.println(result);
 			return "redirect:/joinFrm.do";
+		}else {
+			System.out.println(result);
+			return "redirect:/";
 		}
 	}
-	
-	
 	
 	//-----------------------------------¸¶ÀÌÆäÀÌÁö
 	@RequestMapping(value = "/mypageC.do")

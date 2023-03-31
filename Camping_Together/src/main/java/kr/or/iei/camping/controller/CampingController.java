@@ -1,6 +1,9 @@
 package kr.or.iei.camping.controller;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -11,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.core.JsonParser;
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 
 import common.FileManager;
 import kr.or.iei.camping.model.service.CampingService;
@@ -55,14 +60,29 @@ public class CampingController {
 		return new Gson().toJson(cpd);
 	}
 	
-	@RequestMapping(value="/detailSearchCamping.do")
-	public String detailSearchCamping(String[] campingType, CampingProvide campingProvide) {
+	@ResponseBody
+	@RequestMapping(value="/detailSearchCamping.do", produces="application/json;charset=utf-8")
+	public String detailSearchCamping(String campingTypeStr, String campingServiceStr, String campingRoomServiceStr, String campingEtcStr) {
 		int reqPage = 1;
 		String order = "avgReviewRating";
-		System.out.println(campingProvide);
-		System.out.println(campingType.length);
-		CampingListPageData cpd = service.selectCampingListData(reqPage, order);
-		return "redirect:/";
+		String[] campingType = campingTypeStr.split(",");
+		String[] campingService = campingServiceStr.split(",");
+		String[] campingRoomService = campingRoomServiceStr.split(",");
+		String[] campingEtc = campingEtcStr.split(",");
+		CampingProvide campingProvide = new CampingProvide();
+		ArrayList<String> arr1 = new ArrayList<String>();
+		ArrayList<String> arr2 = new ArrayList<String>();
+		ArrayList<String> arr3 = new ArrayList<String>();
+		ArrayList<String> arr4 = new ArrayList<String>();
+		Collections.addAll(arr1, campingType);
+		Collections.addAll(arr2, campingService);
+		Collections.addAll(arr3, campingRoomService);
+		Collections.addAll(arr4, campingEtc);
+		campingProvide.setCampingService(arr2);
+		campingProvide.setCampingRoomService(arr3);
+		campingProvide.setCampingEtc(arr4);
+		CampingListPageData cpd = service.selectCampingListData(reqPage, order, campingProvide, campingType);
+		return new Gson().toJson(cpd);
 	}
 	
 	@RequestMapping(value="/campingWrite.do")
