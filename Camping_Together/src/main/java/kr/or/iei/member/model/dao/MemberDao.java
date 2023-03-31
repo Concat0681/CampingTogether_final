@@ -20,9 +20,9 @@ public class MemberDao {
 		return m;
 	}
 
-	public void insertMember(Member member) {
-		// TODO Auto-generated method stub
-		
+	public int insertMember(Member member) {
+		int result = sqlsession.insert("member.insertMember", member);
+		return result;
 	}
 	
 	
