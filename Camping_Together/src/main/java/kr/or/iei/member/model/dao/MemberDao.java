@@ -18,4 +18,19 @@ public class MemberDao {
 		Member m = sqlsession.selectOne("member.selectOneMember", member);
 		return m;
 	}
+
+	public int insertMember(Member member) {
+		int result = sqlsession.insert("member.insertMember", member);
+		return result;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//-----------------------------------마이페이지
 }

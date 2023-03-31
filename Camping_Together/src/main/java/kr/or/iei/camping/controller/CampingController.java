@@ -1,6 +1,7 @@
 package kr.or.iei.camping.controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -18,6 +19,7 @@ import kr.or.iei.camping.model.service.CampingService;
 import kr.or.iei.camping.model.vo.Camping;
 import kr.or.iei.camping.model.vo.CampingListPageData;
 import kr.or.iei.camping.model.vo.CampingProvide;
+import kr.or.iei.camping.model.vo.CampingRoom;
 
 @Controller
 public class CampingController {
@@ -55,14 +57,32 @@ public class CampingController {
 		return new Gson().toJson(cpd);
 	}
 	
-	@RequestMapping(value="/detailSearchCamping.do")
-	public String detailSearchCamping(String[] campingType, CampingProvide campingProvide) {
+	@ResponseBody
+	@RequestMapping(value="/detailSearchCamping.do", produces="application/json;charset=utf-8")
+	public String detailSearchCamping(String campingTypeStr, String campingServiceStr, String campingRoomServiceStr, String campingEtcStr, String pplCount) {
 		int reqPage = 1;
+		CampingRoom campingRoom = new CampingRoom();
 		String order = "avgReviewRating";
-		System.out.println(campingProvide);
-		System.out.println(campingType.length);
-		CampingListPageData cpd = service.selectCampingListData(reqPage, order);
-		return "redirect:/";
+		String[] campingType = campingTypeStr.split(",");
+		String[] campingService = campingServiceStr.split(",");
+		String[] campingRoomService = campingRoomServiceStr.split(",");
+		String[] campingEtc = campingEtcStr.split(",");
+		CampingProvide campingProvide = new CampingProvide();
+		ArrayList<String> arr1 = new ArrayList<String>();
+		ArrayList<String> arr2 = new ArrayList<String>();
+		ArrayList<String> arr3 = new ArrayList<String>();
+		ArrayList<String> arr4 = new ArrayList<String>();
+		Collections.addAll(arr1, campingType);
+		Collections.addAll(arr2, campingService);
+		Collections.addAll(arr3, campingRoomService);
+		Collections.addAll(arr4, campingEtc);
+		campingProvide.setCampingService(arr2);
+		campingProvide.setCampingRoomService(arr3);
+		campingProvide.setCampingEtc(arr4);
+		campingRoom.setCampingRoomMaxPplCount(Integer.parseInt(pplCount));
+		campingRoom.setCampingRoomType(arr1);
+		CampingListPageData cpd = service.selectCampingListData(reqPage, order, campingProvide, campingRoom);
+		return new Gson().toJson(cpd);
 	}
 	
 	@RequestMapping(value="/campingWrite.do")
@@ -78,9 +98,14 @@ public class CampingController {
 		}
 		int result = service.insertCamping(c);
 		if(result > 0) {
-			return "redirect:/campingWriteFrm.do";
+			return "redirect:campingRoomWriteFrm.do";
 		}else {
 			return "redirect:/";
 		}
+	}
+	
+	@RequestMapping(value="/campingRoomWriteFrm.do")
+	public String campingRoomWriteFrm() {
+		return "camping/campingRoomWriteFrm";
 	}
 }

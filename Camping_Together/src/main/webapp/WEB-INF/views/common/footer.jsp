@@ -8,6 +8,8 @@
 <link href="/resources/css/footer.css" rel="stylesheet"/> 	
 </head>
 <body>
-	
+	<div class="wrapper">
+        footer
+    </div>
 </body>
 </html>

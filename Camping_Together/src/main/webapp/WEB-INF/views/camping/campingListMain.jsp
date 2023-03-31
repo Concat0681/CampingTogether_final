@@ -16,6 +16,8 @@
 			<div class="page-header-title">캠핑가자</div>
 			<div class="search-input-wrap">
 				<input id="searchInput" type="text" placeholder="어디로 떠나실건가요?">
+				<input id="checkIn" type="date">
+				<input id="pplCount" type="text" value="1">
 				<div>
 					<img id="mapImg" src="/resources/image/camping/map.png">
 					<label for="mapImg">지도</label>
@@ -61,6 +63,8 @@
 			const cityNameKR = $(this).find("div").text();
 			location.href="/campingList.do?cityNameEN="+cityNameEN+"&cityNameKR="+cityNameKR+"&reqPage=1&order=avgReviewRating";
 		})
+		console.log(new Date().toISOString().slice(0, 7));
+		$("#checkIn").val(new Date().toISOString().slice(0, 10));
 	</script>
 </body>
 </html>
