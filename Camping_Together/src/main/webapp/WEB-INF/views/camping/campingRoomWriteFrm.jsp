@@ -19,7 +19,7 @@
 	        			<tr>
 	        				<td style="width: 120px; font-size: 1.17em; font-weight: bold; padding-bottom: 20px;">이름</td>
 	        				<td style="padding-bottom: 20px;">
-	        					<input type="text" class="input-long" name="campingRoomTitle" >
+	        					<input type="text" class="input-long" name="roomTitle" >
 	        				</td>
 	        			</tr>
 	        			<tr>
@@ -43,11 +43,11 @@
 						<tr>
 							<td style="width: 120px; font-size: 1.17em; font-weight: bold; padding-bottom: 20px;">캠핑 유형</td>
 							<td style="padding-bottom: 20px;">
-								<input type="radio" id="campingCheck1" name="campingCheck" value="오토캠핑">
+								<input type="radio" id="campingCheck1" name="campingRoomType" value="오토캠핑">
 			        			<label for="campingCheck1" style="padding-right: 50px;">오토캠핑</label>
-			        			<input type="radio" id="campingCheck2" name="campingCheck" value="글램핑">
+			        			<input type="radio" id="campingCheck2" name="campingRoomType" value="글램핑">
 			        			<label for="campingCheck2" style="padding-right: 50px;">글램핑</label>
-			        			<input type="radio" id="campingCheck3" name="campingCheck" value="카라반">
+			        			<input type="radio" id="campingCheck3" name="campingRoomType" value="카라반">
 			        			<label for="campingCheck3">카라반</label>
 							</td>
 						</tr>
@@ -56,7 +56,7 @@
 	        			<textarea class="campingRoomContent" name="campingRoomContent"></textarea>
 	       			</div>
 	        		<div class="contentTitle"><h3>사진</h3>
-		        			<input type="file" name="campingRoomFilepath" onchange="loadImg(this);" id="campingRoomFilepath" multiple>
+	        			<input type="file" name="campingRoomFilepath" onchange="loadImg(this);" id="campingRoomFilepath" multiple>
 	        			<div id="img-viewer">
 		        			<label for="campingRoomFilepath">
 								<img id="img-view" width="200px" height="200px">
@@ -307,18 +307,25 @@
 		}
 	</script>
 	
+	
+	
 	<script>
 		$("[name=campingRoomBtn]").on("click",function(){
-			const campingRoomTitle = $("[name=campingRoomTitle]").val();
+			const roomTitle = $("[name=roomTitle]").val();
 			const campingRoomCount = $("[name=campingRoomCount]").val();
 			const campingRoomPrice = $("[name=campingRoomPrice]").val();
 			const campingRoomMaxPplCount = $("[name=campingRoomMaxPplCount]").val();
 			const campingRoomContent = $("[name=campingRoomContent]").val();
-			if(!(campingRoomTitle != "" && campingRoomCount != "" && campingRoomPrice != "" && campingRoomMaxPplCount != "" && campingRoomContent != "")){
+			const campingRoomType = $("[name=campingRoomType]:checked").val();
+			const campingRoomFilepath = $("[name=campingRoomFilepath]");
+			if(!(roomTitle != "" && campingRoomCount != "" && campingRoomPrice != "" && campingRoomMaxPplCount != "" && campingRoomContent != "" && campingRoomType != null && campingRoomFilepath.get(0).files.length != 0)){
 				alert("입력란을 모두 확인해주세요.")
+				console.log(campingRoomType);
 				return false;
 			}
 		});
 	</script>
+	
+	
 </body>
 </html>

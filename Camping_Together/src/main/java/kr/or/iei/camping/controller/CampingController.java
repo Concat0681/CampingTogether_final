@@ -20,6 +20,7 @@ import kr.or.iei.camping.model.vo.Camping;
 import kr.or.iei.camping.model.vo.CampingListPageData;
 import kr.or.iei.camping.model.vo.CampingProvide;
 import kr.or.iei.camping.model.vo.CampingRoom;
+import kr.or.iei.camping.model.vo.CampingRoomFileVO;
 
 @Controller
 public class CampingController {
@@ -118,5 +119,25 @@ public class CampingController {
 			campingProvide.setCampingEtc(arr3);
 		}
 		return campingProvide;
+	}
+	
+	@RequestMapping(value="/campingRoomWrite.do")
+	public String campingRoomWrite(CampingRoom cr, MultipartFile[] campingRoomFilepath, HttpServletRequest request) {
+		ArrayList<CampingRoomFileVO> fileList = new ArrayList<CampingRoomFileVO>();
+		if(!campingRoomFilepath[0].isEmpty()) {
+			String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/campingRoom");
+			for(MultipartFile file : campingRoomFilepath) {
+				String filepath = manager.upload(savePath, file);
+				CampingRoomFileVO campingRoomFileVO = new CampingRoomFileVO();
+				campingRoomFileVO.setFilepath(filepath);
+				fileList.add(campingRoomFileVO);
+			}
+		}
+		int result = service.insertCampingRoom(cr, fileList);
+		if(result == (fileList.size()+1)) {
+			return "redirect:/";
+		}else {
+			return "redirect:/";
+		}
 	}
 }
