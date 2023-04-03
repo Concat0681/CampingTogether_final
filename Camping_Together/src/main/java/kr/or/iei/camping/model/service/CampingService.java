@@ -40,7 +40,6 @@ public class CampingService {
 		map.put("campingService", campingProvide.getCampingService());
 		map.put("campingRoomType", campingRoom.getCampingRoomType());
 		map.put("pplCount", campingRoom.getCampingRoomMaxPplCount());
-		
 		ArrayList<Camping> list = dao.selectCampingListData(map);
 		int totalCount = dao.selectCampingCount();
 		int totalPage = (int)Math.ceil(totalCount/(double)numPerPage);
@@ -51,7 +50,7 @@ public class CampingService {
 		}
 		String pageNavi = "";
 		if(pageNo != 1) {
-			pageNavi += "<a href='/boardList.do?reqPage="+(pageNo-1)+"'>[�씠�쟾]</a>";
+			pageNavi += "<a href='/boardList.do?reqPage="+(pageNo-1)+"'>[이전]</a>";
 		}
 		for(int i=0;i<pageNaviSize;i++) {
 			if(pageNo == reqPage) {
@@ -65,7 +64,7 @@ public class CampingService {
 			}
 		}
 		if(pageNo <= totalPage) {
-			pageNavi += "<a href='/boardList.do?reqPage="+(pageNo)+"'>[�떎�쓬]</a>";
+			pageNavi += "<a href='/boardList.do?reqPage="+(pageNo)+"'>[다음]</a>";
 		}
 		CampingListPageData cpd = new CampingListPageData();
 		cpd.setList(list);

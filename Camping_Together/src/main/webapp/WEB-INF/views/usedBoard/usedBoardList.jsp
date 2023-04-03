@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,6 +22,7 @@
    .page-content{
        width: 1200px;
        margin: 0 auto;
+       padding-top: 130px;
    }
    .content-top>h1{
        margin: 20px;
@@ -81,7 +83,6 @@
    }
    .product:hover{
        border: 2px solid #E3CAA5;
-       box-shadow: 0px 0px 5px 5px rgba(227, 202, 165, 0.3);
    }
    .product-img{
        width: 100%;
@@ -150,6 +151,7 @@
 </style>
 </head>
 <body>
+	<jsp:include page="/WEB-INF/views/common/header.jsp" />
     <div class="page-content">
         <div class="content-top">
             <h1>중고장터</h1>
@@ -173,8 +175,10 @@
                     </select>
                 </div>
                 <div class="usedBoardWrite">
-                    <div class="material-symbols-outlined post">post_add</div>
-                    <div class="write"><a href="/usedBoardWriteFrm.do">작성하기</a></div>
+                	<c:if test="${not empty sessionScope.m }">
+	                    <div class="material-symbols-outlined post">post_add</div>
+	                    <div class="write"><a href="/usedBoardWriteFrm.do">작성하기</a></div>
+                    </c:if>
                 </div>
             </div>
         </div>

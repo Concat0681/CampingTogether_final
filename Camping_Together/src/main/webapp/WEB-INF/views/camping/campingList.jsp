@@ -10,8 +10,12 @@
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=n8k40j998a&submodules=geocoder"></script>
 <link href="/resources/css/camping/campingListHeader.css" rel="stylesheet">
 <link href="/resources/css/camping/campingList.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 </head>
 <body>
+	<jsp:include page="/WEB-INF/views/common/header.jsp" />
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 	<div class="page-wrap">
 		<div class="page-header" style="background-image: url(/resources/image/camping/${cityNameEN }.jpeg)">
 			<div class="page-header-title">${cityNameKR } 캠핑가자</div>
@@ -30,7 +34,18 @@
 					<div class="menu-title">날짜</div>
 					<div class="box input-wrap">
 						<label for="calendarInput"><img src="/resources/image/camping/map.png"></label>
-						<input id="calendarInput" type="text" placeholder="2023-03-28 ~ 2023-05-03">
+						<c:choose>
+							<c:when test="${not empty date }">
+								<input id="reservationDate" type="text" name="date" value="${date }" readonly>
+								<input type="hidden" name="checkIn" value="${checkIn }">
+								<input type="hidden" name="checkOut" value="${checkOut }">
+							</c:when>
+							<c:otherwise>
+								<input id="reservationDate" type="text" name="date" readonly>
+								<input type="hidden" name="checkIn">
+								<input type="hidden" name="checkOut">
+							</c:otherwise>
+						</c:choose>
 					</div>
 				</div>
 				<div class="menu">
@@ -61,7 +76,14 @@
 							<div class="menu-title">인원</div>
 							<div class="ppl-count-input-wrap">
 								<img id="minus" src="/resources/image/camping/minus.png">
-								<input type="text" name="ppl_count" value=1>
+								<c:choose>
+									<c:when test="${not empty pplCount }">
+										<input type="text" name="ppl_count" value=${pplCount }>
+									</c:when>
+									<c:otherwise>
+										<input type="text" name="ppl_count" value=1>
+									</c:otherwise>
+								</c:choose>
 								<img id="plus" src="/resources/image/camping/plus.png">
 							</div>
 						</div>
@@ -298,28 +320,7 @@
 		
 		function sendOrder(obj){
 			const order = $(obj).attr("id");
-			$.ajax({
-				url : "/campingListOrder.do",
-				data : {order : order},
-				success : function(data){
-					$(".list-by-review").empty();
-					data.list.forEach(function(c,i){
-						const div = $("<div>")
-						const a = $("<a>")
-						a.attr("href","/viewCamping.do?campingNo="+c.campingNo);
-						a.append(c.campingTitle)
-						div.append(a);
-						const div2 = $("<div>")
-						div2.append(c.avgReviewRating)
-						const div3 = $("<div>");
-						div3.append(c.maxRoomPrice);
-						$(".list-by-review").append(div).append(div2).append(div3);
-					})			
-				},
-				error : function(){
-					
-				}
-			})
+			sendDetailSearch(order);
 		}
 		
 		function resetInputs(){
@@ -329,11 +330,15 @@
 			$("input[name=campingEtc]").prop("checked", false);
 		}
 		
-		function sendDetailSearch(){
+		function sendDetailSearch(order){
 			const campingType = [];
 			const campingService = [];
 			const campingRoomService = [];
 			const campingEtc = [];
+			if(order == null){
+				order = "avgReviewRating";
+			}
+			console.log(order);
 			$('input:checkbox[name=campingType]').each(function (index) {
 				if($(this).is(":checked")==true){
 			    	campingType.push($(this).val())
@@ -361,11 +366,10 @@
 			const campingEtcStr = campingEtc.join(",");
 			$.ajax({
 				url : "/detailSearchCamping.do",
-				data : {campingTypeStr : campingTypeStr , campingServiceStr : campingServiceStr, campingRoomServiceStr : campingRoomServiceStr, campingEtcStr : campingEtcStr, pplCount : pplCount},
+				data : {order : order, campingTypeStr : campingTypeStr , campingServiceStr : campingServiceStr, campingRoomServiceStr : campingRoomServiceStr, campingEtcStr : campingEtcStr, pplCount : pplCount},
 				success : function(data){
 					$(".list-by-review").empty();
 					data.list.forEach(function(c,i){
-						console.log(c)
 						const div = $("<div>")
 						div.append(c.campingTitle);
 						const div2 = $("<div>")
@@ -465,5 +469,6 @@
 			    }).open();
 		}
 	</script>
+	<script src="resources/js/camping/dateRangePicker.js"></script>
 </body>
 </html>
