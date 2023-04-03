@@ -72,14 +72,14 @@
 	 <task:annotation-driven />
 	  -->
 	 
-	 <!-- /
+	 
 	 <beans:bean id="allMemberChat" class="common.AllMemberChat" />
-	 <beans:bean id="dmCount" class="kr.or.dm.model.service.DirectMessageHandler" />
+<!-- 	 <beans:bean id="dmCount" class="kr.or.dm.model.service.DirectMessageHandler" /> -->
 	 <websocket:handlers>
 	 	<websocket:mapping handler="allMemberChat" path="/chat.do"/>
-	 	<websocket:mapping handler="dmCount" path="/dm.do"/>
+<!-- 	 	<websocket:mapping handler="dmCount" path="/dm.do"/> -->
 	 </websocket:handlers>
-	  -->
+	  
 	
 	<context:component-scan base-package="kr.or.iei" />
 	<context:component-scan base-package="kr.or.iei.member" />
