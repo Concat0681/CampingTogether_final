@@ -24,6 +24,11 @@ public class MemberDao {
 		int result = sqlsession.insert("member.insertMember", member);
 		return result;
 	}
+
+	public int deleteMember(int memberNo) {
+		int result = sqlsession.delete("member.deleteMember",memberNo);
+		return result;
+	}
 	
 	
 	
