@@ -44,8 +44,8 @@
 							 #{type}
 						</foreach>
 					</if>
-					<if test="pplCount != null">
-						and r.camping_room_max_ppl_count <![CDATA[ <= ]]> #{pplCount}
+					<if test="pplCount != 0">
+						and r.camping_room_max_ppl_count <![CDATA[ >= ]]> #{pplCount}
 					</if>
 				</trim>
 			<choose>

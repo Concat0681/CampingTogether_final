@@ -17,7 +17,6 @@ public class CampingDao {
 	private SqlSessionTemplate sqlSession;
 
 	public ArrayList<Camping> selectCampingListData(HashMap<String, Object> map) {
-		System.out.println( map.get("campingEtc"));
 		List list = sqlSession.selectList("camping.selectCampingListData", map);
 		return (ArrayList<Camping>)list;
 	}
