@@ -65,6 +65,12 @@ public class MemberController {
 		return "member/mypageCFrm";
 	}
 	//------------------------------------ä��
+	//------------------------------------ä��
+	@RequestMapping(value ="/allMemberChatFrm.do")
+	public String allMemberChatFrm() {
+		return"member/allMemberChatFrm";
+		}
+	
 	@RequestMapping(value = "/allMemberChat.do")
 	public String allMemberChat() {
 		return "member/allMemberChat";
@@ -113,6 +119,5 @@ public class MemberController {
 	public String shopPayList() {
 		return "member/shopPayList";
 	}
-	
 	
 }
