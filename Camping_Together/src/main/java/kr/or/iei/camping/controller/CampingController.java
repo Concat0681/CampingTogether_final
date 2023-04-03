@@ -40,52 +40,35 @@ public class CampingController {
 	}
 	
 	@RequestMapping(value="/campingList.do")
-	public String campingList(String cityNameKR, String cityNameEN,int reqPage, String order,int pplCount, String checkIn, String checkOut ,Model model) {
+	public String campingList(String cityNameKR, String cityNameEN,int reqPage, String order, String pplCount, String checkIn, String checkOut, String date, Model model) {
 		CampingRoom campingRoom = new CampingRoom();
 		CampingProvide campingProvide = new CampingProvide();
-		campingRoom.setCampingRoomMaxPplCount(pplCount);
+		campingRoom.setCampingRoomMaxPplCount(Integer.parseInt(pplCount));
 		CampingListPageData cpd = service.selectCampingListData(reqPage, order, campingProvide, campingRoom);
 		model.addAttribute("cityNameKR", cityNameKR);
 		model.addAttribute("cityNameEN", cityNameEN);
 		model.addAttribute("list", cpd.getList());
 		model.addAttribute("pageNavi", cpd.getPageNavi());
+		model.addAttribute("checkIn", checkIn);
+		model.addAttribute("checkOut", checkOut);
+		model.addAttribute("pplCount", pplCount);
+		model.addAttribute("date", date);
 		return "camping/campingList";
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="/campingListOrder.do", produces="application/json;charset=utf-8")
-	public String campingListOrder(String order) {
-		int reqPage = 1;
-		CampingRoom campingRoom = new CampingRoom();
-		CampingProvide campingProvide = new CampingProvide();
-		CampingListPageData cpd = service.selectCampingListData(reqPage, order, campingProvide, campingRoom);
-		return new Gson().toJson(cpd);
-	}
-	
-	@ResponseBody
 	@RequestMapping(value="/detailSearchCamping.do", produces="application/json;charset=utf-8")
-	public String detailSearchCamping(String campingTypeStr, String campingServiceStr, String campingRoomServiceStr, String campingEtcStr, String pplCount) {
+	public String detailSearchCamping(String order, String campingTypeStr, String campingServiceStr, String campingRoomServiceStr, String campingEtcStr, String pplCount) {
 		int reqPage = 1;
 		CampingRoom campingRoom = new CampingRoom();
-		String order = "avgReviewRating";
-		String[] campingType = campingTypeStr.split(",");
-		String[] campingService = campingServiceStr.split(",");
-		String[] campingRoomService = campingRoomServiceStr.split(",");
-		String[] campingEtc = campingEtcStr.split(",");
-		CampingProvide campingProvide = new CampingProvide();
-		ArrayList<String> arr1 = new ArrayList<String>();
-		ArrayList<String> arr2 = new ArrayList<String>();
-		ArrayList<String> arr3 = new ArrayList<String>();
-		ArrayList<String> arr4 = new ArrayList<String>();
-		Collections.addAll(arr1, campingType);
-		Collections.addAll(arr2, campingService);
-		Collections.addAll(arr3, campingRoomService);
-		Collections.addAll(arr4, campingEtc);
-		campingProvide.setCampingService(arr2);
-		campingProvide.setCampingRoomService(arr3);
-		campingProvide.setCampingEtc(arr4);
+		if(campingTypeStr != "") {
+			String[] campingType = campingTypeStr.split(",");
+			ArrayList<String> arr1 = new ArrayList<String>();
+			Collections.addAll(arr1, campingType);
+			campingRoom.setCampingRoomType(arr1);
+		}
+		CampingProvide campingProvide = campingProvideSetter(campingServiceStr, campingRoomServiceStr, campingEtcStr);
 		campingRoom.setCampingRoomMaxPplCount(Integer.parseInt(pplCount));
-		campingRoom.setCampingRoomType(arr1);
 		CampingListPageData cpd = service.selectCampingListData(reqPage, order, campingProvide, campingRoom);
 		return new Gson().toJson(cpd);
 	}
@@ -112,5 +95,28 @@ public class CampingController {
 	@RequestMapping(value="/campingRoomWriteFrm.do")
 	public String campingRoomWriteFrm() {
 		return "camping/campingRoomWriteFrm";
+	}
+	
+	private CampingProvide campingProvideSetter(String campingServiceStr, String campingRoomServiceStr, String campingEtcStr) {
+		CampingProvide campingProvide = new CampingProvide();
+		if(campingServiceStr != "") {
+			String[] campingService = campingServiceStr.split(",");
+			ArrayList<String> arr1 = new ArrayList<String>();
+			Collections.addAll(arr1, campingService);
+			campingProvide.setCampingService(arr1);
+		}
+		if(campingRoomServiceStr != "") {
+			String[] campingRoomService = campingRoomServiceStr.split(",");
+			ArrayList<String> arr2 = new ArrayList<String>();
+			Collections.addAll(arr2, campingRoomService);
+			campingProvide.setCampingRoomService(arr2);
+		}
+		if(campingRoomServiceStr != "") {
+			String[] campingEtc = campingEtcStr.split(",");
+			ArrayList<String> arr3 = new ArrayList<String>();
+			Collections.addAll(arr3, campingEtc);
+			campingProvide.setCampingEtc(arr3);
+		}
+		return campingProvide;
 	}
 }

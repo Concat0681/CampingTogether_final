@@ -90,7 +90,6 @@
 				</div>
 				
         	</div>
-        	<a href="/campingRoomWriteFrm.do">캠핑방 등록</a>
         	
 	</div>
 	
@@ -122,14 +121,11 @@
 			const campingAddr = $("[name=campingAddr]").val();
 			const campingAddrDetail = $("[name=campingAddrDetail]").val();
 			const campingFilepath = $("[name=campingFilepath]");
-			console.log(phoneResult[0]);
-			if(campingTitle != "" && campingContent != "" && campingPhone != "" && phoneResult[0] == true && postcode != "" && campingAddr != "" && campingAddrDetail != "" && campingFilepath.get(0).files.length != 0){
-				contentDetail.eq(0).hide();
-				contentDetail.eq(1).show();
-			}else{
+			if(!(campingTitle != "" && campingContent != "" && campingPhone != "" && phoneResult[0] == true && postcode != "" && campingAddr != "" && campingAddrDetail != "" && campingFilepath.get(0).files.length != 0)){
 				alert("입력란을 모두 확인해주세요.")
 				return false;
 			}
+			
 		});
 		
 		
