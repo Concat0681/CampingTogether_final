@@ -27,6 +27,8 @@ public class UsedBoardController {
 	@RequestMapping(value="/usedBoardList.do")
 	public String usedBoardList(int reqPage, Model model) {
 		UsedBoardPageDate ubpd = service.selectUsedBoardList(reqPage);
+		model.addAttribute("list", ubpd.getList());
+		model.addAttribute("pageNavi", ubpd.getPageNavi());
 		return "usedBoard/usedBoardList";
 	}
 	@RequestMapping(value="/usedBoardWriteFrm.do")
@@ -48,7 +50,7 @@ public class UsedBoardController {
 		}
 		int result = service.insertUsedBoard(ub, photoList);
 		if(result == photoList.size()+1) {
-			return "redirect:/usedBoardList.do";
+			return "redirect:/usedBoardList.do?reqPage=1";
 		}else {
 			return "redirect:/";			
 		}

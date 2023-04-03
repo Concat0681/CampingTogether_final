@@ -76,13 +76,14 @@
        margin-bottom: 30px;
    }
    .product{
-       border: 2px solid #AD8B73;
+	   width: 90%;
+       border: 1px solid #AD8B73;
        border-radius: 5px;
        box-sizing: border-box;
        cursor: pointer;
    }
    .product:hover{
-       border: 2px solid #E3CAA5;
+       border: 1px solid #E3CAA5;
    }
    .product-img{
        width: 100%;
@@ -94,6 +95,8 @@
    .product-img>img{
        width: 100%;
        height: 100%;
+       border: 1px solid #ccc;
+       border-radius: 5px;
    }
    .product_title>span{
        font-size: 20px;
@@ -184,21 +187,38 @@
         </div>
         <div class="content-mid-wrap">
             <div class="content-mid">
-                <div class="product-wrap">
+            	<c:forEach items="${list }" var="ub">
+            	<div class="product-wrap">
                     <div class="product">
                         <div class="product-img">
-                            <img src="/applemarket/image/10사과두개.png">
+                        
+                        <c:choose>
+                        	<c:when test="${empty Thumbnail.ub }">
+                        		<img src="/resources/image/usedBoard/noImg.gif">
+                        	</c:when>
+                        	<c:otherwise>
+                        		<img src="/resources/upload/usedBoard/12과일바구니.png">
+                        	</c:otherwise>
+                        </c:choose>
+                         
                         </div>
                         <div class="product_title array">
-                            <span>제품이름</span>
+                            <span>${ub.usedBoardTitle }</span>
                         </div>
                         <div class="product_location array">
-                            <span>전국</span>
+                        	<c:choose>
+                        		<c:when test="${ub.usedTradeLocation eq '지역설정안함'}">
+                        			<span>전국</span>
+                        		</c:when>
+                        		<c:otherwise>
+		                            <span>${ub.usedTradeLocation }</span>
+                        		</c:otherwise>
+                        	</c:choose>
                         </div>
                         <div class="zero"></div>
                         <div class="product_mid array">
                             <div class="product-price">
-                                <span>10,000</span><span>원</span>
+                                <span>${ub.usedProductPrice }</span><span>원</span>
                             </div>
                             <div class="product-wish">
                                 <span class="material-symbols-outlined">favorite</span>
@@ -206,7 +226,7 @@
                         </div>
                         <div class="product-bottom array">
                             <div class="product-regDate">
-                                <span>23.03.29</span>
+                                <span>${ub.regDate }</span>
                             </div>
                             <div class="product-etc">
                                 <div class="product-comment">
@@ -219,12 +239,13 @@
                                 </div>
                                 <div class="product-readCount">
                                     <div class="material-symbols-outlined icon">visibility</div>
-                                    <div>30</div>
+                                    <div>${ub.readCount }</div>
                                 </div>
                             </div>
                         </div>   
                     </div>
                 </div>
+            	</c:forEach>   
             </div>
         </div>
     </div>
