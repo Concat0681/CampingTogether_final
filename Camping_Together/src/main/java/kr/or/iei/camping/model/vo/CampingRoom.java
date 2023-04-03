@@ -17,6 +17,6 @@ public class CampingRoom {
 	private int campingRoomPrice;
 	private int campingRoomCount;
 	private int campingRoomMaxPplCount;
-	private int roomTitle;
+	private String roomTitle;
 	private ArrayList<String> campingRoomType;
 }

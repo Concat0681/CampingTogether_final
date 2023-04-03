@@ -38,7 +38,7 @@
 						<input id="reservationDate" type="text" name="date" readonly>
 						<input type="hidden" name="checkIn">
 						<input type="hidden" name="checkOut">
-						<input name="pplCount" type="text" value="1">
+						<input name="pplCount" type="text" value=1>
 						<input name="reqPage" type="hidden" value="1">
 						<input name="order" type="hidden" value="avgReviewRating">
 						<button type="submit" class="searchInput-btn">검색하기</button>
@@ -82,7 +82,7 @@
 		$(".city").on("click", function(){
 			const cityNameEN = $(this).attr("id");
 			const cityNameKR = $(this).find("div").text();
-			location.href="/campingList.do?cityNameEN="+cityNameEN+"&cityNameKR="+cityNameKR+"&reqPage=1&order=avgReviewRating";
+			location.href="/campingList.do?cityNameEN="+cityNameEN+"&cityNameKR="+cityNameKR+"&reqPage=1&order=avgReviewRating&pplCount=0";
 		})
 		
 		$("#searchInput").on("click", function(){
@@ -99,31 +99,7 @@
 			$("#searchInput").val($(this).text())
 			$("[name=cityNameEN]").val($(this).attr("id"));
 		})
-
-		$("#reservationDate").daterangepicker({
-			locale: {
-			    "separator": " ~ ",                     // 시작일시와 종료일시 구분자
-			    "format": 'YYYY-MM-DD',   				// 일시 노출 포맷
-			    "applyLabel": "확인",                    // 확인 버튼 텍스트
-			    "cancelLabel": "취소",                   // 취소 버튼 텍스트
-			    "daysOfWeek": ["일", "월", "화", "수", "목", "금", "토"],
-			    "monthNames": ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"]
-			    }
-		});
-
-
-		$("#reservationDate").on('apply.daterangepicker', function(ev, picker) {
-		      $(this).val(picker.startDate.format('YYYY-MM-DD') + "~" + picker.endDate.format("YYYY-MM-DD"));
-		      $("[name=checkIn]").val(picker.startDate.format('YYYY-MM-DD'));
-		      $("[name=checkOut]").val(picker.endDate.format("YYYY-MM-DD"));
-		  });
-	
-		$("#reservationDate").on('cancel.daterangepicker', function(ev, picker) {
-			$(this).val('');
-			$("[name=checkIn]").val("");
-		    $("[name=checkOut]").val("");
-		});
-
 	</script>
+	<script src="resources/js/camping/dateRangePicker.js"></script>
 </body>
 </html>
