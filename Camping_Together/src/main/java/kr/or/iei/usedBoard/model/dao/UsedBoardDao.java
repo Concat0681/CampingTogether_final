@@ -1,5 +1,9 @@
 package kr.or.iei.usedBoard.model.dao;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -21,4 +25,15 @@ public class UsedBoardDao {
 		int result = sqlSession.insert("usedBoard.insertUesdPhoto", photo);
 		return result;
 	}
+
+	public ArrayList<UsedBoard> selectUsedBoardList(HashMap<String, Object> map) {
+		List list = sqlSession.selectList("usedBoard.selectUsedBoardList", map);
+		return (ArrayList<UsedBoard>)list;
+	}
+
+	public int selectBoardCount() {
+		int totalCount = sqlSession.selectOne("usedBoard.totalCount"); 
+		return 0;
+	}
+
 }

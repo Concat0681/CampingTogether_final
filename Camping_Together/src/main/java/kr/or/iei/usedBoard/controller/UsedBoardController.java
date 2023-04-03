@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import common.FileManager;
 import kr.or.iei.usedBoard.model.service.UsedBoardService;
 import kr.or.iei.usedBoard.model.vo.UsedBoard;
+import kr.or.iei.usedBoard.model.vo.UsedBoardPageDate;
 import kr.or.iei.usedBoard.model.vo.UsedBoardPhoto;
 
 @Controller
@@ -24,8 +25,8 @@ public class UsedBoardController {
 	private FileManager manager;
 	
 	@RequestMapping(value="/usedBoardList.do")
-	public String usedBoardList(Model model) {
-		ArrayList<UsedBoard> list = service.usedBoardList();
+	public String usedBoardList(int reqPage, Model model) {
+		UsedBoardPageDate ubpd = service.selectUsedBoardList(reqPage);
 		return "usedBoard/usedBoardList";
 	}
 	@RequestMapping(value="/usedBoardWriteFrm.do")
@@ -35,7 +36,6 @@ public class UsedBoardController {
 	
 	@RequestMapping(value="/boardWrite.do")
 	public String boardWrite(UsedBoard ub, MultipartFile[] usedBoardPhoto, HttpServletRequest request) {
-		System.out.println("TT");
 		ArrayList<UsedBoardPhoto> photoList = new ArrayList<UsedBoardPhoto>();
 		if(!usedBoardPhoto[0].isEmpty()) {
 			String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/usedBoard/");

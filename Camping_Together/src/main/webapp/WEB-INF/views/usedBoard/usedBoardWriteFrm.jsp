@@ -16,7 +16,7 @@
             text-decoration: none;
         }
         .page-content{
-        	padding-top: 140px;
+        	padding-top: 130px;
         }
         .btn2, .btn1{
         	padding: 10px;
@@ -217,7 +217,7 @@
                 <div class="image-wrap">
                     <div class="usedWrite-text" id="img-margin"><span>상품이미지</span></div>
                     <div class="usedBoard-img">
-                        <input type="file" name="usedBoardPhoto" accept="image/gif, image/jpeg, image/png" id="usedBoardImg" multiple>
+                        <input type="file" name="usedBoardPhoto" accept="image/gif, image/jpeg, image/png" style="display:none" id="usedBoardImg" multiple>
                         <label for="usedBoardImg">
                             <div class="uploadImg">
                             	<span class="material-symbols-outlined">photo_camera</span>
@@ -247,7 +247,7 @@
                         <input type="button" value="주소검색" class="btn2" onclick="searchAddr();">
                         <input type="checkbox" id="location-none"><label for="location-none">지역설정안함</label>
                         <div class="location-input" name="usedTradeLocation">
-                        	<input type="text" class="input-type" id="usedTradeLocation" style="width:300px;margin-top:10px;" required>
+                        	<input type="text" class="input-type" id="usedTradeLocation" name="usedTradeLocation" style="width:300px;margin-top:10px;" required>
                         </div>
                     </div>
                     <div class="product-status">
