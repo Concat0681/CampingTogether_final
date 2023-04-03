@@ -33,7 +33,7 @@ public class UsedBoardDao {
 
 	public int selectBoardCount() {
 		int totalCount = sqlSession.selectOne("usedBoard.totalCount"); 
-		return 0;
+		return totalCount;
 	}
 
 }
