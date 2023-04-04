@@ -11,6 +11,7 @@ import kr.or.iei.camping.model.vo.Camping;
 import kr.or.iei.camping.model.vo.CampingListPageData;
 import kr.or.iei.camping.model.vo.CampingProvide;
 import kr.or.iei.camping.model.vo.CampingRoom;
+import kr.or.iei.camping.model.vo.ViewCampingData;
 
 @Service
 public class CampingService {
@@ -70,5 +71,16 @@ public class CampingService {
 		cpd.setList(list);
 		cpd.setPageNavi(pageNavi);
 		return cpd;
+	}
+
+	public ViewCampingData selectOneCamping(int campingNo) {
+		ViewCampingData vcd = new ViewCampingData();
+		Camping camping = dao.selectOneCamping(campingNo);
+		vcd.setCamping(camping);
+		ArrayList<CampingRoom> campingRoomList = dao.selectAllCampingRoomList(campingNo);
+		vcd.setCampingRoomList(campingRoomList);
+		ArrayList<CampingProvide> campingProvideList = dao.selectAllCampingProvideList(campingNo);
+		vcd.setCampingProvideList(campingProvideList);
+		return vcd;
 	}
 }

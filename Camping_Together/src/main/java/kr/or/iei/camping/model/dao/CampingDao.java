@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.or.iei.camping.model.vo.Camping;
+import kr.or.iei.camping.model.vo.CampingProvide;
+import kr.or.iei.camping.model.vo.CampingRoom;
 
 @Repository
 public class CampingDao {
@@ -29,5 +31,20 @@ public class CampingDao {
 	public int insertCamping(Camping c) {
 		int result = sqlSession.insert("camping.insertCamping",c);
 		return result;
+	}
+
+	public Camping selectOneCamping(int campingNo) {
+		Camping camping = sqlSession.selectOne("camping.selectOneCamping", campingNo);
+		return camping;
+	}
+
+	public ArrayList<CampingRoom> selectAllCampingRoomList(int campingNo) {
+		List roomList = sqlSession.selectList("camping.selectAllCampingRoom", campingNo);
+		return (ArrayList<CampingRoom>)roomList;
+	}
+
+	public ArrayList<CampingProvide> selectAllCampingProvideList(int campingNo) {
+		List provideList = sqlSession.selectList("camping.selectAllCampingProvideList", campingNo);
+		return ( ArrayList<CampingProvide>)provideList;
 	}
 }
