@@ -23,6 +23,26 @@
 		<div class="service-info">
 			<div class="type-info">
 				<div class="type-title">캠핑유형</div>
+				<c:forEach items="${campingRoomList }" var="r">
+					<c:if test="r.campingRoomType == '오토캠핑'">
+						<div class="type-box">
+							<div class="type-icon"></div>
+							<div class="type-name">오토캠핑</div>
+						</div>
+					</c:if>
+					<c:if test="r.campingRoomType == '글램핑'">
+						<div class="type-box">
+							<div class="type-icon"></div>
+							<div class="type-name">글램핑</div>
+						</div>
+					</c:if>
+					<c:if test="r.campingRoomType == '카라반'">
+						<div class="type-box">
+							<div class="type-icon"></div>
+							<div class="type-name">카라반</div>
+						</div>
+					</c:if>
+				</c:forEach>
 			</div>
 		</div>
 	</div>
