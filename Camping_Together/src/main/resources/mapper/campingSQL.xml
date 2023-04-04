@@ -81,7 +81,7 @@
 	<select id="selectAllCampingRoom" parameterType="_int" resultType="cr">
 		select 
 			camping_room_no as campingRoomNo,
-			camping_room_title as campingRoomTitle
+			camping_room_title as campingRoomTitle,
  			camping_room_content campingRoomContent,
 			camping_room_price as campingRoomPrice,
 			camping_room_count as campingRoomCount,
