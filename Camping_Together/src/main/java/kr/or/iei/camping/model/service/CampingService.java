@@ -8,10 +8,13 @@ import org.springframework.stereotype.Service;
 
 import kr.or.iei.camping.model.dao.CampingDao;
 import kr.or.iei.camping.model.vo.Camping;
+import kr.or.iei.camping.model.vo.CampingEtc;
 import kr.or.iei.camping.model.vo.CampingListPageData;
+import kr.or.iei.camping.model.vo.CampingProvideService;
 import kr.or.iei.camping.model.vo.CampingRoom;
 import kr.or.iei.camping.model.vo.ViewCampingData;
 import kr.or.iei.camping.model.vo.CampingRoomFileVO;
+import kr.or.iei.camping.model.vo.CampingRoomService;
 
 @Service
 public class CampingService {
@@ -22,6 +25,18 @@ public class CampingService {
 	public int insertCamping(Camping c) {
 		int result = dao.insertCamping(c);
 		if(result > 0) {
+			for(CampingProvideService cps : c.getCampingProvideServiceList()) {
+				cps.setCampingNo(c.getCampingNo());
+				result += dao.insertCampingProvideService(cps);
+			}
+			for(CampingRoomService crs : c.getCampingRoomServiceList()) {
+				crs.setCampingNo(c.getCampingNo());
+				result += dao.insertCampingRoomService(crs);
+			}
+			for(CampingEtc ce : c.getCampingEtcList()) {
+				ce.setCampingNo(c.getCampingNo());
+				result += dao.insertCampingEtc(ce);
+			}
 			return result;
 		}else {
 			return 0;

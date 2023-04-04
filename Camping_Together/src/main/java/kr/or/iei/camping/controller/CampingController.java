@@ -78,13 +78,34 @@ public class CampingController {
 	}
 	
 	@RequestMapping(value="/campingWrite.do")
-	public String campingWrite(Camping c, MultipartFile[] campingFilepath, HttpServletRequest requset) {
-		ArrayList<CampingProvideService> campingProvideServiceList = new ArrayList<CampingProvideService>();
-		ArrayList<CampingRoomService> campingRoomServiceList = new ArrayList<CampingRoomService>();
-		ArrayList<CampingEtc> campingEtcList = new ArrayList<CampingEtc>();
-		c.setCampingProvideServiceList(campingProvideServiceList);
-		c.setCampingRoomServiceList(campingRoomServiceList); 
-		c.setCampingEtcList(campingEtcList);
+	public String campingWrite(Camping c, MultipartFile[] campingFilepath, HttpServletRequest requset, String[] campingService, String[] campingRoomService, String[] campingEtc) {
+		if(campingService != null) {
+			ArrayList<CampingProvideService> campingServicelist = new ArrayList<CampingProvideService>();
+			for(String str : campingService) {
+				CampingProvideService cps = new CampingProvideService();
+				cps.setCampingService(str);
+				campingServicelist.add(cps);
+			}
+			c.setCampingProvideServiceList(campingServicelist);
+		}
+		if(campingRoomService != null) {
+			ArrayList<CampingRoomService> campingRoomServicelist = new ArrayList<CampingRoomService>();
+			for(String str : campingRoomService) {
+				CampingRoomService crs = new CampingRoomService();
+				crs.setCampingRoomService(str);
+				campingRoomServicelist.add(crs);
+			}
+			c.setCampingRoomServiceList(campingRoomServicelist);
+		}
+		if(campingEtc != null) {
+			ArrayList<CampingEtc> campingEtclist = new ArrayList<CampingEtc>();
+			for(String str : campingEtc) {
+				CampingEtc ce = new CampingEtc();
+				ce.setCampingEtc(str);
+				campingEtclist.add(ce);
+			}
+			c.setCampingEtcList(campingEtclist);
+		}
 		if(!campingFilepath[0].isEmpty()) {
 			String savePath = requset.getSession().getServletContext().getRealPath("/resources/upload/camping");
 			for(MultipartFile file : campingFilepath) {
