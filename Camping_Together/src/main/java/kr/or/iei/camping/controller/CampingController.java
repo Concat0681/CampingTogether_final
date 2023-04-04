@@ -20,6 +20,7 @@ import kr.or.iei.camping.model.vo.Camping;
 import kr.or.iei.camping.model.vo.CampingListPageData;
 import kr.or.iei.camping.model.vo.CampingProvide;
 import kr.or.iei.camping.model.vo.CampingRoom;
+import kr.or.iei.camping.model.vo.ViewCampingData;
 import kr.or.iei.camping.model.vo.CampingRoomFileVO;
 
 @Controller
@@ -96,6 +97,15 @@ public class CampingController {
 	@RequestMapping(value="/campingRoomWriteFrm.do")
 	public String campingRoomWriteFrm() {
 		return "camping/campingRoomWriteFrm";
+	}
+	
+	@RequestMapping(value="/viewCamping.do")
+	public String viewCamping(int campingNo, Model model) {
+		ViewCampingData vcd = service.selectOneCamping(campingNo);
+		model.addAttribute("camping" , vcd.getCamping());
+		model.addAttribute("campingRoomList", vcd.getCampingRoomList());
+		model.addAttribute("campingProvideList", vcd.getCampingProvideList());
+		return "camping/viewCamping";
 	}
 	
 	private CampingProvide campingProvideSetter(String campingServiceStr, String campingRoomServiceStr, String campingEtcStr) {

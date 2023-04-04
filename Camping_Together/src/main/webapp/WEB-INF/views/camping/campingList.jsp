@@ -338,7 +338,6 @@
 			if(order == null){
 				order = "avgReviewRating";
 			}
-			console.log(order);
 			$('input:checkbox[name=campingType]').each(function (index) {
 				if($(this).is(":checked")==true){
 			    	campingType.push($(this).val())
@@ -371,7 +370,10 @@
 					$(".list-by-review").empty();
 					data.list.forEach(function(c,i){
 						const div = $("<div>")
-						div.append(c.campingTitle);
+						const a = $("<a>");
+						a.attr("href", "/viewCamping.do?campingNo="+c.campingNo);
+						a.append(c.campingTitle);
+						div.append(a);
 						const div2 = $("<div>")
 						div2.append(c.avgReviewRating)
 						const div3 = $("<div>");

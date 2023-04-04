@@ -16,7 +16,8 @@
 					camping_content as campingContent,
 					camping_addr as campingAddr,
 					camping_addr_detail as campingAddrDetail,
-					camping_phone as campingPhone
+					camping_phone as campingPhone,
+					filepath
 				from camping)c
 			left join camping_provide p on (p.camping_no = c.campingNo) left join camping_room r on (r.camping_no = c.campingNo)
 				<trim prefix="where" prefixOverrides="and|or">
@@ -58,8 +59,44 @@
 			</choose>
 		where rnum between #{start} and #{end}
 	</select>
+	
 	<select id="selectCampingCount" resultType="_int">
 		select count(*) from camping
+	</select>
+	
+	<select id="selectOneCamping" parameterType="_int" resultType="c">
+		select 
+			camping_no as campingNo,
+			member_id as memberId,
+			camping_title as campingTitle,
+			camping_content as campingContent,
+			camping_addr as campingAddr,
+			camping_addr_detail as campingAddrDetail,
+			camping_phone as campingPhone,
+			filepath
+		from camping
+		where camping_no = #{_parameter}
+	</select>
+	
+	<select id="selectAllCampingRoom" parameterType="_int" resultType="cr">
+		select 
+			camping_room_no as campingRoomNo,
+			camping_room_title as campingRoomTitle
+ 			camping_room_content campingRoomContent,
+			camping_room_price as campingRoomPrice,
+			camping_room_count as campingRoomCount,
+			camping_room_max_ppl_count as campingRoomMaxPplCount,
+			camping_room_type as campingRoomType
+		from camping_room where camping_no = #{_parameter}
+	</select>
+	
+	<select id="selectAllCampingProvideList" parameterType="_int" resultType="cp">
+		select
+			CAMPING_PROVIDE_NO as campingProvideNo,
+			CAMPING_SERVICE as campingService,
+			CAMPING_ROOM_SERVICE as campingRoomService,
+			CAMPING_ETC as campingEtc
+		from camping_provide where camping_no = #{_parameter}
 	</select>
 	
 	<insert id="insertCamping" parameterType="c">

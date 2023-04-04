@@ -13,11 +13,11 @@ public class CampingRoom {
 
 	private int campingRoomNo;
 	private int campingNo;
+	private String campingRoomTitle;
  	private String campingRoomContent;
 	private int campingRoomPrice;
 	private int campingRoomCount;
 	private int campingRoomMaxPplCount;
-	private String roomTitle;
 	private ArrayList<String> campingRoomType;
 	private ArrayList<CampingRoomFileVO> fileList;
 }
