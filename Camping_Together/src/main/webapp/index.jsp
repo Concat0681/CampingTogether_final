@@ -18,6 +18,7 @@
 	<button class="btn2" style="width : 100px; height : 30px;">버튼</button>
 	<button class="btn2" style="width : 100px; height : 30px;">버튼</button>
 	<a href="/usedBoardList.do">중고장터</a>
+	<a href="/noticeList.do">공지사항</a>
 	
 	<c:choose>
 		<c:when test="${empty sessionScope.m }"> </c:when>

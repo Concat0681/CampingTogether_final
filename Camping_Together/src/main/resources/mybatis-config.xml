@@ -16,5 +16,7 @@
 		<typeAlias type="kr.or.iei.camping.model.vo.CampingRoomService" alias="crs"/>
 		<typeAlias type="kr.or.iei.camping.model.vo.CampingEtc" alias="ce"/>
 		<typeAlias type="kr.or.iei.message.model.vo.Message" alias="ms"/>
+		 <typeAlias type="kr.or.iei.camping.model.vo.CampingRoomFileVO" alias="crf"/> 
+		 <typeAlias type="kr.or.iei.notice.model.vo.Notice" alias="n"/>
 	</typeAliases>
 </configuration>
