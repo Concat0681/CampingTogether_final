@@ -11,7 +11,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CampingProvide {
 
-	private ArrayList<String> campingService;
-	private ArrayList<String> campingRoomService;
-	private ArrayList<String> campingEtc;
+	private ArrayList<CampingService> campingServiceList;
+	private ArrayList<CampingRoomService> campingRoomServiceList;
+	private ArrayList<CampingEtc> campingEtcList;
+
 }

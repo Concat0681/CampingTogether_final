@@ -354,10 +354,12 @@
 			contentDetail.eq(0).show();
 		});
 		
+		const serviceArray = [];
 		nextBtn.eq(1).on("click",function(){
 			const campingService = $("[name=campingService]:checked").val();
 			const campingRoomService = $("[name=campingRoomService]:checked").val();
 			const campingEtc = $("[name=campingEtc]:checked").val();
+			serviceArray.push(campingService);
 			if(!(campingService != null && campingRoomService != null && campingEtc != null)){
 				alert("입력란을 확인하세요.");
 				console.log(campingService);
