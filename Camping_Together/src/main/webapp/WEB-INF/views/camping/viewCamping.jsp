@@ -23,30 +23,50 @@
 			</div>
 		</div>
 		<div class="service-info">
-			<div class="type-info">
+			<div class="type-box">
 				<div class="type-title">캠핑유형</div>
 				<c:forEach items="${campingRoomList }" var="r">
-					<c:if test="r.campingRoomType == '오토캠핑'">
-						<div class="type-box">
-							<div class="type-icon"></div>
-							<div class="type-name">오토캠핑</div>
-						</div>
-					</c:if>
-					<c:if test="r.campingRoomType == '글램핑'">
-						<div class="type-box">
-							<div class="type-icon"></div>
-							<div class="type-name">글램핑</div>
-						</div>
-					</c:if>
-					<c:if test="r.campingRoomType == '카라반'">
-						<div class="type-box">
-							<div class="type-icon"></div>
-							<div class="type-name">카라반</div>
-						</div>
-					</c:if>
+					<div>${r.campingRoomType}</div>
 				</c:forEach>
 			</div>
+			<div class="provide-box">
+				<c:forEach items="${campingProvideList }" var="p">
+					<c:forEach items="${p.campingService }" var="s">
+						<div>${s }</div>
+					</c:forEach>
+					<c:forEach items="${p.campingRoomService }" var="rs">
+						<div>${rs }</div>
+					</c:forEach>
+					<c:forEach items="${p.campingEtc }" var="e">
+						<div>${e }</div>
+					</c:forEach>
+				</c:forEach>
+			</div>			
 		</div>
+		<div class="page-content">
+			<div class="content-menu">
+				<div class="menu">캠핑장 예약</div>
+				<div class="menu">캠필장 정보</div>
+				<div class="menu">리뷰</div>
+			</div>
+			<div class="content-wrap"></div>
+		</div>
+		
+		<div class="hidden content-box">1</div>
+		<div class="hidden content-box">2</div>
+		<div class="hidden content-box">3</div>
 	</div>
+	<script>
+		$(".menu").on("click", function(){
+			console.log($(this).index());
+			console.log($(".content-box").eq(0).text());
+			console.log($(".content-box").eq(1).text());
+			console.log($(".content-box").eq(2).text());
+			const contentBox = $(".content-box").eq($(this).index());
+			$(".content-wrap").empty();
+			const clone = contentBox.clone();
+			clone.removeClass("hidden").appendTo($(".content-wrap"))
+		})
+	</script>
 </body>
 </html>

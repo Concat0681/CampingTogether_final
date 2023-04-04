@@ -40,13 +40,12 @@ public class CampingDao {
 	}
 
 	public ArrayList<CampingRoom> selectAllCampingRoomList(int campingNo) {
-		List roomList = sqlSession.selectList("camping.selectAllCampingRoom", campingNo);
+		List roomList = sqlSession.selectList("camping.selectAllCampingRoomList", campingNo);
 		return (ArrayList<CampingRoom>)roomList;
 	}
 
 	public ArrayList<CampingProvide> selectAllCampingProvideList(int campingNo) {
-		List provideList = sqlSession.selectList("camping.selectAllCampingProvideList", campingNo);
-		return ( ArrayList<CampingProvide>)provideList;
+		return null;
 	}
 	
 	public int insertCampingRoom(CampingRoom cr) {

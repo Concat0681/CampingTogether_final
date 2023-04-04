@@ -19,26 +19,8 @@
 					camping_phone as campingPhone,
 					filepath
 				from camping)c
-			left join camping_provide p on (p.camping_no = c.campingNo) left join camping_room r on (r.camping_no = c.campingNo)
+			left join camping_room r on (r.camping_no = c.campingNo)
 				<trim prefix="where" prefixOverrides="and|or">
-					<if test="campingEtc != null">
-						p.camping_etc in
-						<foreach collection="campingEtc" item="etc" open="(" close=")" separator=",">
-							 #{etc}
-						</foreach>
-					</if>
-					<if test="campingRoomService != null">
-						and p.camping_room_service in
-						<foreach collection="campingRoomService" item="room" open="(" close=")" separator=",">
-							 #{room}
-						</foreach>
-					</if>
-					<if test="campingService != null">
-						and p.camping_service in
-						<foreach collection="campingService" item="service" open="(" close=")" separator=",">
-							 #{service}
-						</foreach>
-					</if>
 					<if test="campingRoomType != null">
 						and r.camping_room_type in
 						<foreach collection="campingRoomTypeList" item="type" open="(" close=")" separator=",">
@@ -78,7 +60,7 @@
 		where camping_no = #{_parameter}
 	</select>
 	
-	<select id="selectAllCampingRoom" parameterType="_int" resultType="cr">
+	<select id="selectAllCampingRoomList" parameterType="_int" resultType="cr">
 		select 
 			camping_room_no as campingRoomNo,
 			camping_room_title as campingRoomTitle,
@@ -91,12 +73,7 @@
 	</select>
 	
 	<select id="selectAllCampingProvideList" parameterType="_int" resultType="cp">
-		select
-			CAMPING_PROVIDE_NO as campingProvideNo,
-			CAMPING_SERVICE as campingService,
-			CAMPING_ROOM_SERVICE as campingRoomService,
-			CAMPING_ETC as campingEtc
-		from camping_provide where camping_no = #{_parameter}
+
 	</select>
 	
 	<insert id="insertCamping" parameterType="c">
