@@ -98,7 +98,8 @@ public class CampingService {
 		return vcd;
 	}
 	
-	public int insertCampingRoom(CampingRoom cr, ArrayList<CampingRoomFileVO> fileList) {
+	public int insertCampingRoom(CampingRoom cr, ArrayList<CampingRoomFileVO> fileList, int campingNo) {
+		cr.setCampingNo(campingNo);
 		int result = dao.insertCampingRoom(cr);
 		if(result > 0) {
 			for(CampingRoomFileVO file : fileList) {

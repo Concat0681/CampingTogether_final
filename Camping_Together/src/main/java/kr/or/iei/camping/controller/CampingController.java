@@ -124,7 +124,9 @@ public class CampingController {
 	}
 	
 	@RequestMapping(value="/campingRoomWriteFrm.do")
-	public String campingRoomWriteFrm() {
+	public String campingRoomWriteFrm(HttpServletRequest request, Model model) {
+		int campingNo = Integer.parseInt(request.getParameter("campingNo"));
+		model.addAttribute("campingNo",campingNo);
 		return "camping/campingRoomWriteFrm";
 	}
 	
@@ -183,7 +185,8 @@ public class CampingController {
 				fileList.add(campingRoomFileVO);
 			}
 		}
-		int result = service.insertCampingRoom(cr, fileList);
+		int campingNo = Integer.parseInt(request.getParameter("campingNo"));
+		int result = service.insertCampingRoom(cr, fileList, campingNo);
 		if(result == (fileList.size()+1)) {
 			return "redirect:/";
 		}else {
