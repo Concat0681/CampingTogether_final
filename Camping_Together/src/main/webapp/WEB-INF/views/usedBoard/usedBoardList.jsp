@@ -77,7 +77,7 @@
    }
    .product{
 	   width: 90%;
-       border: 1px solid #AD8B73;
+       border: 1px solid #ccc;
        border-radius: 5px;
        box-sizing: border-box;
        cursor: pointer;
@@ -123,7 +123,7 @@
    }
    .product_mid{
        margin: 0 auto;
-       border-bottom: 1px solid #AD8B73;
+       border-bottom: 1px solid #ccc;
    }
 
    .product-bottom{

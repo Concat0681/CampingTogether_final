@@ -25,7 +25,6 @@ public class UsedBoardService {
 		map.put("start", start);
 		map.put("end", end);
 		ArrayList<UsedBoard> list = dao.selectUsedBoardList(map);
-		System.out.println(list.get(0).getThumbnail());
 		int totalCount = dao.selectBoardCount();
 		int totalPage = (int)Math.ceil(totalCount/(double)numPerPage);
 		int pageNaviSize = 10;
