@@ -83,6 +83,9 @@ public class CampingController {
 		ArrayList<CampingProvideService> campingProvideServiceList = new ArrayList<CampingProvideService>();
 		ArrayList<CampingRoomService> campingRoomServiceList = new ArrayList<CampingRoomService>();
 		ArrayList<CampingEtc> campingEtcList = new ArrayList<CampingEtc>();
+		c.setCampingProvideServiceList(campingProvideServiceList);
+		c.setCampingRoomServiceList(campingRoomServiceList); 
+		c.setCampingEtcList(campingEtcList);
 		if(!campingFilepath[0].isEmpty()) {
 			String savePath = requset.getSession().getServletContext().getRealPath("/resources/upload/camping");
 			for(MultipartFile file : campingFilepath) {
