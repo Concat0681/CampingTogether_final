@@ -1,0 +1,16 @@
+@charset "UTF-8";
+.page-wrap{
+	margin-top : 100px;
+}
+.header-wrap{
+	display : flex;
+}
+.camping-info{
+	padding : 50px;
+}
+.camping-info>div{
+	margin : 10px;
+}
+.img-wrap>img{
+	width : 500px;
+}

@@ -6,17 +6,19 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="resources/css/camping/viewCamping.css">
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
 	<div class="page-wrap">
 		<div class="header-wrap">
 			<div class="img-wrap">
-				<img src="resources/upload/camping/${camping.filepath }">
+				<img src="resources/upload/camping/campingbg.jpg">
 			</div>
-			<div class="header-info">
-				<div class="header-title">${camping.campingTitle }</div>
-				<div class="header-content">${camping.campingContent }</div>
+			<div class="camping-info">
+				<div class="camping-title">${camping.campingTitle }</div>
+				<div class="camping-addr">${camping.campingAddr }</div>
+				<div class="camping-content">${camping.campingContent }</div>
 				<a><button>문의하기</button></a>
 			</div>
 		</div>
