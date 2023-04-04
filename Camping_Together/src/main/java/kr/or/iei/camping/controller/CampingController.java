@@ -68,7 +68,9 @@ public class CampingController {
 		if(campingTypeStr != "") {
 			String[] campingType = campingTypeStr.split(",");
 			ArrayList<String> arr1 = new ArrayList<String>();
-			Collections.addAll(arr1, campingType);
+			for(String str : campingType) {
+				arr1.add(str);
+			}
 			campingRoom.setCampingRoomTypeList(arr1);
 		}
 		Camping camping = campingProvideSetter(campingServiceStr, campingRoomServiceStr, campingEtcStr);
