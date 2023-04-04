@@ -354,7 +354,6 @@
 			contentDetail.eq(0).show();
 		});
 		
-		const serviceArray = [];
 		nextBtn.eq(1).on("click",function(){
 			const campingService = $("[name=campingService]:checked").val();
 			const campingRoomService = $("[name=campingRoomService]:checked").val();

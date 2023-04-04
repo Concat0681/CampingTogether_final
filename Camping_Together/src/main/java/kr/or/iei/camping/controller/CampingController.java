@@ -17,11 +17,14 @@ import com.google.gson.Gson;
 import common.FileManager;
 import kr.or.iei.camping.model.service.CampingService;
 import kr.or.iei.camping.model.vo.Camping;
+import kr.or.iei.camping.model.vo.CampingEtc;
 import kr.or.iei.camping.model.vo.CampingListPageData;
 import kr.or.iei.camping.model.vo.CampingProvide;
+import kr.or.iei.camping.model.vo.CampingProvideService;
 import kr.or.iei.camping.model.vo.CampingRoom;
 import kr.or.iei.camping.model.vo.ViewCampingData;
 import kr.or.iei.camping.model.vo.CampingRoomFileVO;
+import kr.or.iei.camping.model.vo.CampingRoomService;
 
 @Controller
 public class CampingController {
@@ -77,11 +80,12 @@ public class CampingController {
 	
 	@RequestMapping(value="/campingWrite.do")
 	public String campingWrite(Camping c, MultipartFile[] campingFilepath, HttpServletRequest requset) {
-		Camping fileList = new Camping();
+		ArrayList<CampingProvideService> campingProvideServiceList = new ArrayList<CampingProvideService>();
+		ArrayList<CampingRoomService> campingRoomServiceList = new ArrayList<CampingRoomService>();
+		ArrayList<CampingEtc> campingEtcList = new ArrayList<CampingEtc>();
 		if(!campingFilepath[0].isEmpty()) {
 			String savePath = requset.getSession().getServletContext().getRealPath("/resources/upload/camping");
 			for(MultipartFile file : campingFilepath) {
-				String filename = file.getOriginalFilename();
 				String filepath = manager.upload(savePath, file);
 				c.setFilepath(filepath);
 			}
