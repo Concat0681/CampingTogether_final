@@ -13,5 +13,4 @@ public class ViewCampingData {
 
 	private Camping camping;
 	private ArrayList<CampingRoom> campingRoomList;
-	private ArrayList<CampingProvide> campingProvideList;
 }

@@ -55,8 +55,14 @@
 			camping_addr as campingAddr,
 			camping_addr_detail as campingAddrDetail,
 			camping_phone as campingPhone,
+			camping_service as campingProvideServiceList,
+			camping_room_service as campingRoomServiceList,
+			camping_etc as campingEtcList,
 			filepath
-		from camping
+		from camping 
+		left join camping_service using(camping_no)
+		left join camping_room_service using(camping_no)
+		left join camping_etc using(camping_no)
 		where camping_no = #{_parameter}
 	</select>
 	
@@ -70,10 +76,6 @@
 			camping_room_max_ppl_count as campingRoomMaxPplCount,
 			camping_room_type as campingRoomType
 		from camping_room where camping_no = #{_parameter}
-	</select>
-	
-	<select id="selectAllCampingProvideList" parameterType="_int" resultType="cp">
-
 	</select>
 	
 	<insert id="insertCamping" parameterType="c">

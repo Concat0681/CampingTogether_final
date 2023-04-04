@@ -19,7 +19,6 @@ import kr.or.iei.camping.model.service.CampingService;
 import kr.or.iei.camping.model.vo.Camping;
 import kr.or.iei.camping.model.vo.CampingEtc;
 import kr.or.iei.camping.model.vo.CampingListPageData;
-import kr.or.iei.camping.model.vo.CampingProvide;
 import kr.or.iei.camping.model.vo.CampingProvideService;
 import kr.or.iei.camping.model.vo.CampingRoom;
 import kr.or.iei.camping.model.vo.ViewCampingData;
@@ -47,12 +46,12 @@ public class CampingController {
 	@RequestMapping(value="/campingList.do")
 	public String campingList(String cityNameKR, String cityNameEN,int reqPage, String order, String pplCount, String checkIn, String checkOut, String date, Model model) {
 		CampingRoom campingRoom = new CampingRoom();
-		CampingProvide campingProvide = new CampingProvide();
+		Camping camping = new Camping();
 		campingRoom.setCampingRoomMaxPplCount(Integer.parseInt(pplCount));
-		CampingListPageData cpd = service.selectCampingListData(reqPage, order, campingProvide, campingRoom);
+		CampingListPageData cpd = service.selectCampingListData(reqPage, order, camping, campingRoom);
 		model.addAttribute("cityNameKR", cityNameKR);
 		model.addAttribute("cityNameEN", cityNameEN);
-		model.addAttribute("list", cpd.getList());
+		model.addAttribute("list", cpd.getList()); 
 		model.addAttribute("pageNavi", cpd.getPageNavi());
 		model.addAttribute("checkIn", checkIn);
 		model.addAttribute("checkOut", checkOut);
@@ -72,9 +71,9 @@ public class CampingController {
 			Collections.addAll(arr1, campingType);
 			campingRoom.setCampingRoomTypeList(arr1);
 		}
-		CampingProvide campingProvide = campingProvideSetter(campingServiceStr, campingRoomServiceStr, campingEtcStr);
+		Camping camping = campingProvideSetter(campingServiceStr, campingRoomServiceStr, campingEtcStr);
 		campingRoom.setCampingRoomMaxPplCount(Integer.parseInt(pplCount));
-		CampingListPageData cpd = service.selectCampingListData(reqPage, order, campingProvide, campingRoom);
+		CampingListPageData cpd = service.selectCampingListData(reqPage, order, camping, campingRoom);
 		return new Gson().toJson(cpd);
 	}
 	
@@ -108,31 +107,42 @@ public class CampingController {
 		ViewCampingData vcd = service.selectOneCamping(campingNo);
 		model.addAttribute("camping" , vcd.getCamping());
 		model.addAttribute("campingRoomList", vcd.getCampingRoomList());
-		model.addAttribute("campingProvideList", vcd.getCampingProvideList());
 		return "camping/viewCamping";
 	}
 	
-	private CampingProvide campingProvideSetter(String campingServiceStr, String campingRoomServiceStr, String campingEtcStr) {
-		CampingProvide campingProvide = new CampingProvide();
+	private Camping campingProvideSetter(String campingServiceStr, String campingRoomServiceStr, String campingEtcStr) {
+		Camping camping = new Camping();
 		if(campingServiceStr != "") {
 			String[] campingService = campingServiceStr.split(",");
-			ArrayList<String> arr1 = new ArrayList<String>();
-			Collections.addAll(arr1, campingService);
-			campingProvide.setCampingService(arr1);
+			ArrayList<CampingProvideService> list = new ArrayList<CampingProvideService>();
+			for(String str : campingService) {
+				CampingProvideService cps = new CampingProvideService();
+				cps.setCampingService(str);
+				list.add(cps);
+			}
+			camping.setCampingProvideServiceList(list);
 		}
 		if(campingRoomServiceStr != "") {
 			String[] campingRoomService = campingRoomServiceStr.split(",");
-			ArrayList<String> arr2 = new ArrayList<String>();
-			Collections.addAll(arr2, campingRoomService);
-			campingProvide.setCampingRoomService(arr2);
+			ArrayList<CampingRoomService> list = new ArrayList<CampingRoomService>();
+			for(String str : campingRoomService) {
+				CampingRoomService crs = new CampingRoomService();
+				crs.setCampingRoomService(str);
+				list.add(crs);
+			}
+			camping.setCampingRoomServiceList(list);
 		}
 		if(campingRoomServiceStr != "") {
 			String[] campingEtc = campingEtcStr.split(",");
-			ArrayList<String> arr3 = new ArrayList<String>();
-			Collections.addAll(arr3, campingEtc);
-			campingProvide.setCampingEtc(arr3);
+			ArrayList<CampingEtc> list = new ArrayList<CampingEtc>();
+			for(String str : campingEtc) {
+				CampingEtc cEtc = new CampingEtc();
+				cEtc.setCampingEtc(str);
+				list.add(cEtc);
+			}
+			camping.setCampingEtcList(list);
 		}
-		return campingProvide;
+		return camping;
 	}
 	
 	@RequestMapping(value="/campingRoomWrite.do")

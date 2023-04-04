@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.or.iei.camping.model.vo.Camping;
-import kr.or.iei.camping.model.vo.CampingProvide;
 import kr.or.iei.camping.model.vo.CampingRoom;
 import kr.or.iei.camping.model.vo.CampingRoomFileVO;
 
@@ -42,10 +41,6 @@ public class CampingDao {
 	public ArrayList<CampingRoom> selectAllCampingRoomList(int campingNo) {
 		List roomList = sqlSession.selectList("camping.selectAllCampingRoomList", campingNo);
 		return (ArrayList<CampingRoom>)roomList;
-	}
-
-	public ArrayList<CampingProvide> selectAllCampingProvideList(int campingNo) {
-		return null;
 	}
 	
 	public int insertCampingRoom(CampingRoom cr) {

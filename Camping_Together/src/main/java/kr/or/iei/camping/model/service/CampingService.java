@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import kr.or.iei.camping.model.dao.CampingDao;
 import kr.or.iei.camping.model.vo.Camping;
 import kr.or.iei.camping.model.vo.CampingListPageData;
-import kr.or.iei.camping.model.vo.CampingProvide;
 import kr.or.iei.camping.model.vo.CampingRoom;
 import kr.or.iei.camping.model.vo.ViewCampingData;
 import kr.or.iei.camping.model.vo.CampingRoomFileVO;
@@ -29,7 +28,7 @@ public class CampingService {
 		}
 	}
 
-	public CampingListPageData selectCampingListData(int reqPage, String order, CampingProvide campingProvide, CampingRoom campingRoom) {
+	public CampingListPageData selectCampingListData(int reqPage, String order, Camping camping, CampingRoom campingRoom) {
 		int numPerPage = 5;
 		int end = reqPage * numPerPage;
 		int start = end - numPerPage + 1;
@@ -37,9 +36,9 @@ public class CampingService {
 		map.put("start", start);
 		map.put("end", end);
 		map.put("order", order);
-		map.put("campingEtc", campingProvide.getCampingEtc());
-		map.put("campingRoomService", campingProvide.getCampingRoomService());
-		map.put("campingService", campingProvide.getCampingService());
+		map.put("campingEtc", camping.getCampingEtcList());
+		map.put("campingRoomService", camping.getCampingRoomServiceList());
+		map.put("campingService", camping.getCampingProvideServiceList());
 		map.put("campingRoomTypeList", campingRoom.getCampingRoomTypeList());
 		map.put("pplCount", campingRoom.getCampingRoomMaxPplCount());
 		ArrayList<Camping> list = dao.selectCampingListData(map);
@@ -80,8 +79,6 @@ public class CampingService {
 		vcd.setCamping(camping);
 		ArrayList<CampingRoom> campingRoomList = dao.selectAllCampingRoomList(campingNo);
 		vcd.setCampingRoomList(campingRoomList);
-		ArrayList<CampingProvide> campingProvideList = dao.selectAllCampingProvideList(campingNo);
-		vcd.setCampingProvideList(campingProvideList);
 		return vcd;
 	}
 	
