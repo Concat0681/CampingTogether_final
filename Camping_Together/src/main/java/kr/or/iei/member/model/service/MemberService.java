@@ -23,6 +23,12 @@ public class MemberService {
 		dao.insertMember(member);
 		return 0;
 	}
+
+	
+	//회원탈퇴
+	public int deleteMember(int memberNo) {
+		return dao.deleteMember(memberNo);
+	}
 	
 	
 

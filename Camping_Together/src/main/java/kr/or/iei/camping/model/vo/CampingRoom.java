@@ -19,4 +19,5 @@ public class CampingRoom {
 	private int campingRoomCount;
 	private int campingRoomMaxPplCount;
 	private ArrayList<String> campingRoomType;
+	private ArrayList<CampingRoomFileVO> fileList;
 }

@@ -24,4 +24,5 @@ public class UsedBoard {
 	private int readCount;
 	private String regDate;
 	private ArrayList<UsedBoardPhoto> usedBoardPhotoList;
+	private String Thumbnail;
 }

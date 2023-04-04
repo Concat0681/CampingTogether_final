@@ -18,9 +18,34 @@
 			  0, 
 			  to_char(sysdate, 'yyyy-mm-dd')
 			  )
+		<selectKey resultType="_int" order="AFTER" keyProperty="usedBoardNo">
+				<!-- order:insert문 이후에 실행, keyProperty: boardNo변수에 넣어줄것 -->
+				select max(used_board_no) from used_board
+		</selectKey>
 	</insert>
 	<insert id="insertUesdPhoto" parameterType="ubp">
 		insert into used_photo 
 		values(used_file_seq.nextval, #{usedBoardNo}, #{filepath})
 	</insert>
+	<select id="selectUsedBoardList" parameterType="map" resultType="ub">
+		select *
+		from
+		    (select rownum as rnum, ub.* from 
+		        (select 
+		            used_board.used_board_no as usedBoardNo,
+		            used_board_title as usedBoardTitle,
+		            used_product_price as usedProductPrice,
+		            used_trade_location as usedTradeLocation,
+		            read_count as readCount,
+		            reg_date as RegData,
+		            filepath as Thumbnail
+		        from used_board 
+		        left join (select used_board.used_board_no, max(filepath) as filepath from used_board left join used_photo on used_board.used_board_no = used_photo.used_board_no group by used_board.used_board_no)B
+		        on used_board.used_board_no = B.used_board_no
+		        order by 1 desc)ub)
+		where rnum between #{start} and #{end}
+	</select>
+	<select id="totalCount" resultType="_int">
+		select count(*) from used_board
+	</select>
 </mapper>

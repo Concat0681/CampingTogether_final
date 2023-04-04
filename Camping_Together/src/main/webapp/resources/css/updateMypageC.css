@@ -4,16 +4,17 @@
     border-top: 1px solid #AD8B73;
     border-bottom: 1px solid #AD8B73;
     display: flex;
-    align-items: center;
     justify-content: center;
     margin-top: 40px;
+    flex-direction: column;
 }
 
 .mypage-content>table{
     width: 500px;
     height: 70px;
-    margin-top: 40px;
+    margin-top: 70px;
     margin-bottom: 40px;
+    align-self: center
 }
 
 .mypage-content>table>tbody>tr>td:first-child{
@@ -29,10 +30,168 @@
     height: 70px;
 }
 
+
 .mypage-content>table>tbody>tr>td:last-child>input{
     outline: none;
     width: 90%;
     height: 40px;
     border-radius: 5px;
     border: 1px solid rgb(181, 181, 181);
+}
+
+
+.image-div{
+    margin-top: 50px;
+    width: 200px;
+    height: 200px;
+    align-self: center;
+}
+
+#profile-img{
+    border-radius: 50%;
+}
+
+.image-btn>button{
+    margin-top: 20px;
+    width: 70px;
+    height: 30px;
+    border-radius: 5px;
+    border: 0;
+    color: white;
+    cursor: pointer;
+}
+
+
+.image-btn>button:first-child{
+    background-color: #AD8B73;
+}
+
+
+.image-btn>button:last-child{
+    border: 1px solid #AD8B73;
+    background-color: white;
+    color: #AD8B73;
+}
+
+
+.btn-div{
+    margin-top: 40px;
+}
+
+.btn-div>.memberBtn{
+    border: 0;
+    border-radius: 5px;
+    width: 200px;
+    height: 50px;
+    margin-bottom: 200px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.btn-div>#update-btn{
+    background-color: #AD8B73;
+    color: white;
+}
+
+.btn-div>#delete-btn{
+    background-color: white;
+    border: 1.5px solid #AD8B73;
+    box-sizing: border-box;
+    color: #AD8B73;
+}
+
+#sample4_postcode{
+    border: 1px solid rgb(181, 181, 181);
+    width: 170px;
+    float: left;
+    margin-left: 11px;
+    box-sizing: border-box;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+
+#post-btn{
+    border: 1px solid rgb(181, 181, 181);
+    width: 100px;
+    float: left;
+    margin-left: 5px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+#sample4_roadAddress{
+    margin-bottom: 10px;
+}
+
+#detail-input{
+    margin-bottom: 15px;
+}
+
+
+/*모달*/
+.del-modalWrap{
+	display: none;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    justify-content: center;
+    align-items: center;
+    /*display: flex;*/
+}
+
+.del-modal{
+    background-color: #fff;
+    width: 350px;
+    min-width: 350px;
+    max-width: 250px;
+    height: 180px;
+    min-height: 180px;
+    max-height: 180px;
+    border-radius: 10px;
+}
+
+
+.del-top>h3{
+    text-align: center;
+    padding : 30px;
+    color: #AD8B73;
+    margin-top: 10px;
+}
+
+.btnDiv{
+	width: 190px;
+	margin : 0 auto;
+	padding : 10px 0;
+}
+
+.btnDiv>a{
+	display : block;
+	width: 90px;
+	border : none;
+	background-color : #AD8B73;
+	width: 90px;
+	height : 40px;
+	border-radius: 5px;
+	color : white;
+	margin : 0;
+	float : left;
+	margin-right : 10px;
+	text-align : center;
+	line-height : 40px;
+}
+
+.reset{
+	border:1.5px solid #AD8B73;
+	background-color : white;
+	width: 90px;
+	height : 40px;
+	border-radius: 5px;
+	color : #AD8B73;
+	font-size: 16px;
+	cursor: pointer;
+    margin-left: 0;
 }

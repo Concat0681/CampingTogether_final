@@ -13,38 +13,67 @@
 	<div class="wrap">
         <div class="contentWrap">
         	<div class="contentDetail">
-        		<h2>캠핑장 캠핑 등록</h2>
-        		<div class="contentTitle"><h3>이름</h3>
-        			<input type="text" class="campingRoomInput" name="campingRoomTitle" >
-       			</div>
-        		<div class="contentTitle"><h3>객실 수</h3>
-        			<input type="text" class="campingRoomInput" name="campingRoomCount">
-       			</div>
-        		<div class="contentTitle"><h3>1박당 가격</h3>
-        			<input type="text" class="campingRoomInput" name="campingRoomPrice">
-       			</div>
-        		<div class="contentTitle"><h3>최대인원</h3>
-        			<input type="text" class="campingRoomInput" name="campingRoomMaxPplCount">
-       			</div>
-       			<div class="contentTitle"><h3>캠핑 유형</h3></div>
-        		<div class="campingCheckDiv">
-        			<input type="checkbox" id="campingCheck1" name="campingCheck" value="오토캠핑">
-        			<label for="campingCheck1" style="padding-right: 50px;">오토캠핑</label>
-        			<input type="checkbox" id="campingCheck2" name="campingCheck" value="글램핑">
-        			<label for="campingCheck2" style="padding-right: 50px;">글램핑</label>
-        			<input type="checkbox" id="campingCheck3" name="campingCheck" value="카라반">
-        			<label for="campingCheck3">카라반</label>
-        		</div>
-        		<div class="contentTitle"><h3>설명</h3>
-        			<textarea class="campingRoomContent" name="campingRoomContent"></textarea>
-       			</div>
-        		<div class="contentTitle"><h3>사진</h3>
-        			<input type="file">
-       			</div>
-        		
+        		<h2 style="margin-bottom: 60px;">캠핑장 캠핑 등록</h2>
+        		<form action="/campingRoomWrite.do" method="post" enctype="multipart/form-data">
+	        		<table>
+	        			<tr>
+	        				<td style="width: 120px; font-size: 1.17em; font-weight: bold; padding-bottom: 20px;">이름</td>
+	        				<td style="padding-bottom: 20px;">
+	        					<input type="text" class="input-long" name="roomTitle" >
+	        				</td>
+	        			</tr>
+	        			<tr>
+	        				<td style="width: 120px; font-size: 1.17em; font-weight: bold; padding-bottom: 20px;">객실 수</td>
+	        				<td style="padding-bottom: 20px;">
+	        					<input type="text" class="input-long" name="campingRoomCount">
+	        				</td>
+	        			</tr>
+	        			<tr>
+	        				<td style="width: 120px; font-size: 1.17em; font-weight: bold; padding-bottom: 20px;">1박당 가격</td>
+	        				<td style="padding-bottom: 20px;">
+	        					<input type="text" class="input-long" name="campingRoomPrice">
+	        				</td>
+	        			</tr>
+						<tr>
+							<td style="width: 120px; font-size: 1.17em; font-weight: bold; padding-bottom: 20px;">최대인원</td>
+							<td style="padding-bottom: 20px;">
+								<input type="text" class="input-long" name="campingRoomMaxPplCount">
+							</td>
+						</tr>
+						<tr>
+							<td style="width: 120px; font-size: 1.17em; font-weight: bold; padding-bottom: 20px;">캠핑 유형</td>
+							<td style="padding-bottom: 20px;">
+								<input type="radio" id="campingCheck1" name="campingRoomType" value="오토캠핑">
+			        			<label for="campingCheck1" style="padding-right: 50px;">오토캠핑</label>
+			        			<input type="radio" id="campingCheck2" name="campingRoomType" value="글램핑">
+			        			<label for="campingCheck2" style="padding-right: 50px;">글램핑</label>
+			        			<input type="radio" id="campingCheck3" name="campingRoomType" value="카라반">
+			        			<label for="campingCheck3">카라반</label>
+							</td>
+						</tr>
+	        		</table>
+	        		<div class="contentTitle"><h3>설명</h3>
+	        			<textarea class="campingRoomContent" name="campingRoomContent"></textarea>
+	       			</div>
+	        		<div class="contentTitle"><h3>사진</h3>
+	        			<input type="file" name="campingRoomFilepath" onchange="loadImg(this);" id="campingRoomFilepath" multiple>
+	        			<div id="img-viewer">
+		        			<label for="campingRoomFilepath">
+								<img id="img-view" width="200px" height="200px">
+							</label>
+	                    </div>
+	       			</div>
+	       			<button type="submit" name="campingRoomBtn" class="btn2 nextBtn" style="margin-right: 80px;">등록</button>
+       			</form>
         	</div>
         	
-        	<div class="contentDetail">
+        	
+        	
+        	
+        	
+        	
+        	
+        	<div class="contentDetail" style="display: none;">
         		<h2>숙소 제공 편의 시설/서비스 관리하기</h2>
         		<h5>숙소에서 제공하는 편의 시설/서비스를 설정하세요.</h5>
         		<div class="contentTitle"><h3>공용시설</h3></div>
@@ -263,5 +292,40 @@
         	
         </div>
 	</div>
+	
+	<script>
+		function loadImg(f) {
+			if(f.files.length != 0 && f.files[0] != 0){
+				const reader = new FileReader();
+				reader.readAsDataURL(f.files[0]);
+				reader.onload = function(e){
+					$("#img-view").attr("src",e.target.result);
+				}
+			}else{
+				$("#img-view").attr("src","");
+			}
+		}
+	</script>
+	
+	
+	
+	<script>
+		$("[name=campingRoomBtn]").on("click",function(){
+			const roomTitle = $("[name=roomTitle]").val();
+			const campingRoomCount = $("[name=campingRoomCount]").val();
+			const campingRoomPrice = $("[name=campingRoomPrice]").val();
+			const campingRoomMaxPplCount = $("[name=campingRoomMaxPplCount]").val();
+			const campingRoomContent = $("[name=campingRoomContent]").val();
+			const campingRoomType = $("[name=campingRoomType]:checked").val();
+			const campingRoomFilepath = $("[name=campingRoomFilepath]");
+			if(!(roomTitle != "" && campingRoomCount != "" && campingRoomPrice != "" && campingRoomMaxPplCount != "" && campingRoomContent != "" && campingRoomType != null && campingRoomFilepath.get(0).files.length != 0)){
+				alert("입력란을 모두 확인해주세요.")
+				console.log(campingRoomType);
+				return false;
+			}
+		});
+	</script>
+	
+	
 </body>
 </html>

@@ -46,11 +46,11 @@
                     </li>
                     <li><a href="#">캠핑</a></li>
                     <li><a href="#">캠핑예약</a></li>
-                    <li><a href="/usedBoardList.do">중고거래</a></li>
+                    <li><a href="/usedBoardList.do?reqPage=1">중고거래</a></li>
                     <li><a href="#">투게더shop</a></li>
                     <li><a href="#">자유게시판</a>
                         <ul class="freeboard" style="display: none;">
-                            <li><a href="/allMemberChat.do">채팅</a></li>
+                            <li><a href="/allMemberChatFrm.do">채팅</a></li>
                             <li><a href="#">캠핑팁</a></li>
                             <li><a href="#">캠핑음식</a></li>
                         </ul>
