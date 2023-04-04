@@ -84,7 +84,7 @@
 						</label>
                     </div>
 	        		<div>
-		        		<button type="submit" class="btn1 nextBtn" style="margin-right: 80px;">캠핑장 등록</button>
+		        		<button type="button" class="btn1 nextBtn" style="margin-right: 80px;">다음</button>
 	        		</div>
 	        		</form>
 				</div>
@@ -341,6 +341,8 @@
 			if(!(campingTitle != "" && campingContent != "" && campingPhone != "" && phoneResult[0] == true && postcode != "" && campingAddr != "" && campingAddrDetail != "" && campingFilepath.get(0).files.length != 0)){
 				alert("입력란을 모두 확인해주세요.")
 				return false;
+			}else{
+				
 			}
 			
 		});
