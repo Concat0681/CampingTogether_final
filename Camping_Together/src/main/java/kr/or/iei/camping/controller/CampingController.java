@@ -117,7 +117,7 @@ public class CampingController {
 		}
 		int result = service.insertCamping(c);
 		if(result > 0) {
-			return "redirect:campingRoomWriteFrm.do";
+			return "redirect:campingRoomWriteFrm.do?campingNo="+c.getCampingNo();
 		}else {
 			return "redirect:/";
 		}

@@ -325,11 +325,10 @@
 			const campingPhone = $("[name=campingPhone]").val();
 			const phoneCheck = phoneReg.test(campingPhone);
 			if(phoneCheck){
-				$(".phoneComment").text("사용 가능한 전화번호입니다.");
-				$(".phoneComment").css("color","green");
+				$(".phoneComment").text("");
 				phoneResult[0] = true;
 			}else{
-				$(".phoneComment").text("사용 불가능한 전화번호입니다.");
+				$(".phoneComment").text("전화번호 형식을 지켜주세요.");
 				$(".phoneComment").css("color","red");
 				phoneResult[0] = false;
 			}

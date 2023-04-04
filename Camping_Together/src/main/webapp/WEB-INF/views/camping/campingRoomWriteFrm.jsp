@@ -64,11 +64,7 @@
 	        		<div class="contentTitle"><h3>사진</h3>
 	        			<input type="file" name="campingRoomFilepath" onchange="loadImgs(this);" id="campingRoomFilepath" multiple>
 	        			<div id="img-viewer">
-	        			<!--  
-		        			<label for="campingRoomFilepath">
-								<img id="img-view" width="200px" height="200px">
-							</label>
-							-->
+	        			
 	                    </div>
 	       			</div>
 	       			<button type="submit" name="campingRoomBtn" class="btn2 nextBtn" style="margin-right: 80px;">등록</button>

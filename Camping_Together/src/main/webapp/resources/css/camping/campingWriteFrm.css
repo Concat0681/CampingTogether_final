@@ -81,9 +81,7 @@ h3{
     font-size: 70px;
     color: #ccc
 }
-input[name=campingFilepath]{
-   	display: none;
-}
+
 
 .campingServiceTbl td{
 	width: 150px;
