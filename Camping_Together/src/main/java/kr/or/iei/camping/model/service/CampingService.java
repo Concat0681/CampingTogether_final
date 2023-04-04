@@ -36,9 +36,10 @@ public class CampingService {
 		map.put("start", start);
 		map.put("end", end);
 		map.put("order", order);
-		map.put("campingEtc", camping.getCampingEtcList());
-		map.put("campingRoomService", camping.getCampingRoomServiceList());
-		map.put("campingService", camping.getCampingProvideServiceList());
+		System.out.println(camping.getCampingEtcList());
+		map.put("campingEtcList", camping.getCampingEtcList());
+		map.put("campingRoomServiceList", camping.getCampingRoomServiceList());
+		map.put("campingProvideServiceList", camping.getCampingProvideServiceList());
 		map.put("campingRoomTypeList", campingRoom.getCampingRoomTypeList());
 		map.put("pplCount", campingRoom.getCampingRoomMaxPplCount());
 		ArrayList<Camping> list = dao.selectCampingListData(map);

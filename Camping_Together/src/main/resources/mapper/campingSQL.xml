@@ -18,28 +18,50 @@
 					camping_addr_detail as campingAddrDetail,
 					camping_phone as campingPhone,
 					filepath
-				from camping)c
-			left join camping_room r on (r.camping_no = c.campingNo)
-				<trim prefix="where" prefixOverrides="and|or">
-					<if test="campingRoomType != null">
-						and r.camping_room_type in
-						<foreach collection="campingRoomTypeList" item="type" open="(" close=")" separator=",">
-							 #{type}
-						</foreach>
-					</if>
-					<if test="pplCount != 0">
-						and r.camping_room_max_ppl_count <![CDATA[ >= ]]> #{pplCount}
-					</if>
-				</trim>
-			<choose>
-				<when test="order.equals('avgReviewRating')">
-					order by avgReviewRating desc)
-				</when>
-				<when test="order.equals('maxRoomPrice')">
-					order by maxRoomPrice desc)
-				</when>
-			</choose>
-		where rnum between #{start} and #{end}
+				from camping 
+             )c
+			<trim prefix="where" prefixOverrides="and|or">
+				<if test="campingRoomTypeList != null">
+					 campingNo in (select camping_no from camping_room where camping_room_type in
+					<foreach collection="campingRoomTypeList" item="type" open="(" close=")" separator=",">
+						 #{type}
+					</foreach>
+					)
+				</if>
+				<if test="campingEtcList != null">
+					and campingNo in (select camping_no from camping_etc where camping_etc in
+					<foreach collection="campingEtcList" item="etc" open="(" close=")" separator=",">
+						 #{etc.campingEtc}
+					</foreach>
+					)
+				</if>
+				<if test="campingRoomServiceList != null">
+					and campingNo in (select camping_no from camping_room_service where camping_room_service in
+					<foreach collection="campingRoomServiceList" item="rs" open="(" close=")" separator=",">
+						 #{rs.campingRoomService}
+					</foreach>
+					)
+				</if>
+				<if test="campingProvideServiceList != null">
+					and campingNo in (select camping_no from camping_service where camping_service in
+					<foreach collection="campingProvideServiceList" item="cps" open="(" close=")" separator=",">
+						 #{cps.campingService}
+					</foreach>
+					)
+				</if>
+				<if test="pplCount != 0">
+					and campingNo in (select camping_no from camping_room_service where camping_room_max_ppl_count <![CDATA[ >= ]]> #{pplCount}
+				</if>
+			</trim>
+		<choose>
+			<when test="order.equals('avgReviewRating')">
+				order by avgReviewRating desc)
+			</when>
+			<when test="order.equals('maxRoomPrice')">
+				order by maxRoomPrice desc)
+			</when>
+		</choose>
+	where rnum between #{start} and #{end}
 	</select>
 	
 	<select id="selectCampingCount" resultType="_int">
