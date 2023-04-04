@@ -313,6 +313,7 @@
 	<script>
 		const contentDetail = $(".contentDetail");
 		const nextBtn = $(".nextBtn");
+		const prevBtn = $(".prevBtn");
 		const phoneResult = [false];
 		
 		$("[name=campingPhone]").on("change",function(){
@@ -342,12 +343,28 @@
 				alert("입력란을 모두 확인해주세요.")
 				return false;
 			}else{
-				
+				contentDetail.eq(0).hide();
+				contentDetail.eq(1).show();
 			}
 			
 		});
 		
+		prevBtn.on("click",function(){
+			contentDetail.eq(1).hide();
+			contentDetail.eq(0).show();
+		});
 		
+		nextBtn.eq(1).on("click",function(){
+			const campingService = $("[name=campingService]:checked").val();
+			const campingRoomService = $("[name=campingRoomService]:checked").val();
+			const campingEtc = $("[name=campingEtc]:checked").val();
+			if(!(campingService != null && campingRoomService != null && campingEtc != null)){
+				alert("입력란을 확인하세요.");
+				console.log(campingService);
+				console.log(campingRoomService);
+				console.log(campingEtc);
+			}
+		});
 	</script>
 	
 	<script>
