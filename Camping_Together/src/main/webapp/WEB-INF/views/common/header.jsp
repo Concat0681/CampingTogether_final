@@ -6,8 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<!--  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+<!--  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 -->
@@ -53,12 +53,16 @@
                     <li><a href="#">캠핑예약</a></li>
                     <li><a href="/usedBoardList.do?reqPage=1">중고거래</a></li>
                     <li><a href="#">투게더shop</a></li>
-                    <li><a href="#">자유게시판</a>
-                        <ul class="freeboard" style="display: none;">
-                            <li><a href="/allMemberChatFrm.do">채팅</a></li>
-                            <li><a href="#">캠핑팁</a></li>
-                            <li><a href="#">캠핑음식</a></li>
-                        </ul>
+                    <li class="nav-item dropdown">
+    					<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">자유게시판</a>
+    					<ul class="dropdown-menu">
+      						<li><a class="dropdown-item" href="#">Action</a></li>
+     						<li><a class="dropdown-item" href="#">Another action</a></li>
+     						<li><a class="dropdown-item" href="#">Something else here</a></li>
+      						<li><hr class="dropdown-divider"></li>
+      						<li><a class="dropdown-item" href="#">Separated link</a></li>
+    					</ul>
+  					</li>
                         
                     </li>
                 </ul>
@@ -148,7 +152,7 @@
         }
       });
     	
-    $(document).ready(function(){
+    /*$(document).ready(function(){
         $("li:has(ul)").hover(
             function(){
                 $(this).children("ul").slideDown(250);
@@ -158,6 +162,7 @@
             }
         );
     });
+    */
     </script>
     
     
