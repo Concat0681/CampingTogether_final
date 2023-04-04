@@ -1,5 +1,7 @@
 package kr.or.iei.camping.model.vo;
 
+import java.util.ArrayList;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,4 +21,7 @@ public class Camping {
 	private int avgReviewRating;
 	private int maxRoomPrice;
 	private String filepath;
+	private ArrayList<CampingProvideService> campingProvideServiceList;
+	private ArrayList<CampingRoomService> campingRoomServiceList;
+	private ArrayList<CampingEtc> campingEtcList;
 }

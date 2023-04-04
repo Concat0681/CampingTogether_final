@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CampingService {
+public class CampingProvideService {
 	private int campingServiceNo;
 	private int campingNo;
 	private String campingService;
