@@ -41,7 +41,7 @@
 					</if>
 					<if test="campingRoomType != null">
 						and r.camping_room_type in
-						<foreach collection="campingRoomType" item="type" open="(" close=")" separator=",">
+						<foreach collection="campingRoomTypeList" item="type" open="(" close=")" separator=",">
 							 #{type}
 						</foreach>
 					</if>

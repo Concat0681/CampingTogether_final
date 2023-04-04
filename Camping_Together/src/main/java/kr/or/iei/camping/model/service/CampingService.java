@@ -40,7 +40,7 @@ public class CampingService {
 		map.put("campingEtc", campingProvide.getCampingEtc());
 		map.put("campingRoomService", campingProvide.getCampingRoomService());
 		map.put("campingService", campingProvide.getCampingService());
-		map.put("campingRoomType", campingRoom.getCampingRoomType());
+		map.put("campingRoomTypeList", campingRoom.getCampingRoomTypeList());
 		map.put("pplCount", campingRoom.getCampingRoomMaxPplCount());
 		ArrayList<Camping> list = dao.selectCampingListData(map);
 		int totalCount = dao.selectCampingCount();
