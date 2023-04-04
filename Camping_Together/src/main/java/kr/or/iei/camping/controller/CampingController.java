@@ -67,7 +67,7 @@ public class CampingController {
 			String[] campingType = campingTypeStr.split(",");
 			ArrayList<String> arr1 = new ArrayList<String>();
 			Collections.addAll(arr1, campingType);
-			campingRoom.setCampingRoomType(arr1);
+			campingRoom.setCampingRoomTypeList(arr1);
 		}
 		CampingProvide campingProvide = campingProvideSetter(campingServiceStr, campingRoomServiceStr, campingEtcStr);
 		campingRoom.setCampingRoomMaxPplCount(Integer.parseInt(pplCount));
