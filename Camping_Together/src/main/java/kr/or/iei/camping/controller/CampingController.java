@@ -81,7 +81,7 @@ public class CampingController {
 	}
 	
 	@RequestMapping(value="/campingWrite.do")
-	public String campingWrite(Camping c, MultipartFile[] campingFilepath, HttpServletRequest requset, String[] campingService, String[] campingRoomService, String[] campingEtc) {
+	public String campingWrite(Camping c, MultipartFile[] campingFilepath, HttpServletRequest requset, String[] campingService, String[] campingRoomService, String[] campingEtc, CampingRoom cr, MultipartFile[] campingRoomFilepath) {
 		if(campingService != null) {
 			ArrayList<CampingProvideService> campingServicelist = new ArrayList<CampingProvideService>();
 			for(String str : campingService) {
@@ -110,22 +110,35 @@ public class CampingController {
 			c.setCampingEtcList(campingEtclist);
 		}
 		if(!campingFilepath[0].isEmpty()) {
-			String savePath = requset.getSession().getServletContext().getRealPath("/resources/upload/camping");
+			String savePath = requset.getSession().getServletContext().getRealPath("/resources/upload/camping/");
 			for(MultipartFile file : campingFilepath) {
 				String filepath = manager.upload(savePath, file);
 				c.setFilepath(filepath);
 			}
 		}
-		int result = service.insertCamping(c);
+		ArrayList<CampingRoomFileVO> fileList = new ArrayList<CampingRoomFileVO>();
+		if(!campingRoomFilepath[0].isEmpty()) {
+			String savePath = requset.getSession().getServletContext().getRealPath("/resources/upload/campingRoom/");
+			for(MultipartFile file : campingRoomFilepath) {
+				String filepath = manager.upload(savePath, file);
+				CampingRoomFileVO campingRoomFileVO = new CampingRoomFileVO();
+				campingRoomFileVO.setFilepath(filepath);
+				fileList.add(campingRoomFileVO);
+			}
+		}
+		int result = service.insertCamping(c, cr, fileList);
 		if(result > 0) {
-			return "redirect:campingRoomWriteFrm.do";
+			return "redirect:/";
 		}else {
 			return "redirect:/";
 		}
 	}
 	
 	@RequestMapping(value="/campingRoomWriteFrm.do")
-	public String campingRoomWriteFrm() {
+	public String campingRoomWriteFrm(HttpServletRequest request, Model model) {
+		int campingNo = Integer.parseInt(request.getParameter("campingNo"));
+		model.addAttribute("campingNo",campingNo);
+		System.out.println(campingNo);
 		return "camping/campingRoomWriteFrm";
 	}
 	
@@ -172,6 +185,7 @@ public class CampingController {
 		return camping;
 	}
 	
+	/*
 	@RequestMapping(value="/campingRoomWrite.do")
 	public String campingRoomWrite(CampingRoom cr, MultipartFile[] campingRoomFilepath, HttpServletRequest request) {
 		ArrayList<CampingRoomFileVO> fileList = new ArrayList<CampingRoomFileVO>();
@@ -190,5 +204,11 @@ public class CampingController {
 		}else {
 			return "redirect:/";
 		}
+	}
+	*/
+	
+	@RequestMapping(value="/campingReview.do")
+	public String campingReview() {
+		return "campingReview/campingReview";
 	}
 }

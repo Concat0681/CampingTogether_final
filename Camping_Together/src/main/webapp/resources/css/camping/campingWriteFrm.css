@@ -1,11 +1,14 @@
 @charset "UTF-8";
 
+
+
 .wrap{
 	width: 700px;
 	margin: 0 auto;
 	overflow: hidden;
 }
 .tabs{
+	height: 100vh;
 	list-style: none;
 	font-size: 20px;
 }
@@ -81,9 +84,7 @@ h3{
     font-size: 70px;
     color: #ccc
 }
-input[name=campingFilepath]{
-   	display: none;
-}
+
 
 .campingServiceTbl td{
 	width: 150px;

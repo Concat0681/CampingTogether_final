@@ -1,8 +1,8 @@
 *{
 	text-decoration: none;
 	outline: none;
-	
 }
+
 
 body{
     margin: 0;
@@ -15,35 +15,39 @@ body{
     height: 80px;
     
 }
+.navbar-collapse{
+	margin-left: 100px;
+}
 
-
+.nav-item{
+	width: 200px;
+	font-size: 20px;
+	padding: 10px;
+}
 .wrapper-top{
     margin: 0 auto;
     position: fixed;
-    width: 1500px;
+    width: 100%;
     top: 0;
     left: 0;
     right: 0;
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    background-color: rgba(173, 139, 115, 0.2);
     z-index: 999;
     display: flex; 
 }
+
 .wrapper-bottom{
     margin: 0 auto;
     position: fixed;
-    width: 1400px;
-    height: 80px;
-    top: 40px;
+    width: 100%;
+    top: 50px;
     left: 0;
     right: 0;
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    background-color: rgba(173, 139, 115, 0.2);
     z-index: 999;
     display: flex;
     padding-left: 100px;
-    border-bottom-right-radius: 5px ;
-    border-bottom-left-radius: 5px; 
+    
 }
 
 .nav-list{
@@ -76,7 +80,7 @@ body{
     font-size: 18px;
 }
 .nav-top{
-    margin-left: 1150px;
+    margin-left: auto;
 }
 .nav-bottom>ul>li:hover>a{
     font-weight: bolder;
@@ -117,4 +121,17 @@ body{
     text-decoration: none;
     color: green;
 
+}
+.navbar {
+  transition: all 1s ease-in-out;
+}
+
+.navbar.bg-light {
+  background-color: #fff;
+  color: #fff;
+}
+
+.navbar.bg-light .navbar-brand,
+.navbar.bg-light .nav-link {
+  color: #fff;
 }
