@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="Message">
+<mapper namespace="message">
     <insert id="insertMessage" parameterType="ms">
-        INSERT INTO MESSAGE (MESSAGE_NO, RECEIVER, SENDER, MESSAGE_CONTENT, MESSAGE_TITLE, READ_CHECK, MESSAGE_DATE)
-        VALUES (MESSAGE_SEQ.NEXTVAL, #{receiver}, #{sender}, #{messageContent}, #{messageTitle}, #{readCheck}, SYSDATE)
+        INSERT INTO MESSAGE VALUES (MESSAGE_SEQ.NEXTVAL, #{receiver}, #{sender}, #{messageContent}, #{messageTitle},0 ,SYSDATE)
     </insert>
     
     <select id="selectMessagelist" parameterType="ms" resultType="ms">
