@@ -1,0 +1,89 @@
+@charset "UTF-8";
+
+.reviewWrap{
+	width: 1200px;
+	margin: 0 auto;
+}
+.reviewContentWrap{
+	width: 1200px;
+	margin: 0 auto;
+}
+.allStar{
+	text-align: center;
+	padding-bottom: 30px;
+}
+.reviewHeader{
+	overflow: hidden;
+}
+.allReview{
+	width: 200px;
+	height: 50px;
+	float: left;
+	margin-left: 400px;
+	text-align: center;
+	line-height: 50px;
+}
+.campingAnswer{
+	width: 200px;
+	height: 50px;
+	float: left;
+	text-align: center;
+	line-height: 50px;
+}
+
+
+
+.modal-bg {
+    background-color: rgba(51, 52, 59, 0.3);
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    display: none;
+    align-items: center;
+
+}
+.modal-wrap {
+    margin-top: 300px;
+    width: 600px;
+    background: #fff;
+    height: auto;
+    border-radius: 4px;
+}
+.modal-wrap div {
+    padding: 1.2rem;
+}
+.modal-wrap>.modal-head{
+    padding-top: 1.5rem;
+}
+.modal-wrap>.modal-head>h2{
+    font-family: ns-bold;
+}
+.modal-wrap div:not(:last-child) {
+    border-bottom: 1px solid #cecece;
+}
+.modal-wrap .modal-foot {
+    text-align: right;
+}
+.modal-wrap div.modal-head {
+    position: relative;
+}
+.close-icon {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    font-size: 25px;
+}
+.close-icon:hover {
+    cursor: pointer;
+}
+
+.modal-bg>.modal-wrap .modal-design2{
+    background-color: #3a4f7a;
+    color: #fff;
+}
+.modal-wrap .modal-btn2{
+    text-align: center;
+}
+.bs6{
+    width: 100%;
+}

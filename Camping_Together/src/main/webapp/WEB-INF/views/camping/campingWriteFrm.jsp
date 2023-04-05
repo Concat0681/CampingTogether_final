@@ -48,7 +48,23 @@
 	        		<div class="contentTitle"><h3>캠핑장 설명</h3></div>
 	        		<textarea class="campingContent" name="campingContent"></textarea>
 	        		
-					<div class="contentTitle"><h3>캠핑장 위치</h3></div>
+					<div class="contentTitle"><h3>캠핑장 사진 등록</h3></div>
+	        			<h5 style="padding-bottom: 20px">캠핑장의 메인 사진을 등록해주세요.</h5>
+	        				<div id="img-viewer1">
+		        				<input type="file" name="campingFilepath" onchange="loadImg(this);" id="campingFilepath">
+		        				<label for="campingFilepath">
+									<img id="img-view" width="620px" height="620px">
+								</label>
+	                    	</div>
+	                    	
+					
+	        		
+		        		<div>
+			        		<button type="button" class="btn1 nextBtn" style="margin-right: 80px;">다음</button>
+		        		</div>
+		        	</div>
+	        		<div class="contentDetail" style="display: none;">
+        				<div class="contentTitle"><h3>캠핑장 위치</h3></div>
 		        		<div class="address-wrap">
 							<table class="addressTbl">
 								<tr>
@@ -79,32 +95,17 @@
 								</tr>
 							</table>
 						</div>
-					
 	        		<div id="map" style="width:620px; height:500px;"></div>
-	        		
-		        		<div>
-			        		<button type="button" class="btn1 nextBtn" style="margin-right: 80px;">다음</button>
-		        		</div>
-		        	</div>
-	        		<div class="contentDetail" >
-	        			<div class="contentTitle"><h3>캠핑장 사진 등록</h3></div>
-	        			<h5 style="padding-bottom: 20px">캠핑장의 메인 사진을 등록해주세요.</h5>
-	        				<div id="img-viewer1">
-		        				<input type="file" name="campingFilepath" onchange="loadImg(this);" id="campingFilepath">
-		        				<label for="campingFilepath">
-									<img id="img-view" width="700px" height="620px">
-								</label>
-	                    	</div>
-	                    	<div>
+	        				<div>
 	        					<button type="button" class="btn1 prevBtn">이전</button>
-		        				<button type="button" class="btn1 nextBtn">다음</button>
+		        				<button type="button" class="btn1 nextBtn" style="margin-right: 80px;">다음</button>
 	        				</div>
 		        	</div>
 		        		
 		        		
 					
 					
-					<div class="contentDetail" >
+					<div class="contentDetail" style="display: none;">
 	        		<h2>숙소 제공 편의 시설/서비스 관리하기</h2>
 	        		<h5>숙소에서 제공하는 편의 시설/서비스를 설정하세요.</h5>
 	        		<div class="contentTitle"><h3>공용시설</h3></div>
@@ -317,10 +318,10 @@
 	        		</table>
 	        		<div>
 	        			<button type="button" class="btn1 prevBtn">이전</button>
-		        		<button type="button" class="btn1 nextBtn">다음</button>
+		        		<button type="button" class="btn1 nextBtn" style="margin-right: 80px;">다음</button>
 	        		</div>
         	</div>
-			<div class="contentDetail" >
+			<div class="contentDetail" style="display: none;">
         		<h2 style="margin-bottom: 60px;">캠핑장 캠핑 등록</h2>
 	        		<table>
 	        			<tr>
@@ -401,10 +402,8 @@
 			const campingTitle = $("[name=campingTitle]").val();
 			const campingPhone = $("[name=campingPhone]").val();
 			const campingContent = $("[name=campingContent]").val();
-			const postcode = $("[name=postcode]").val();
-			const campingAddr = $("[name=campingAddr]").val();
-			const campingAddrDetail = $("[name=campingAddrDetail]").val();
-			if(!(campingTitle != "" && campingContent != "" && campingPhone != "" && phoneResult[0] == true && postcode != "" && campingAddr != "" && campingAddrDetail != "")){
+			const campingFilepath = $("[name=campingFilepath]");
+			if(!(campingTitle != "" && campingContent != "" && campingPhone != "" && phoneResult[0] == true && campingFilepath.get(0).files.length != 0  )){
 				alert("입력란을 모두 확인해주세요.")
 				return false;
 			}else{
@@ -415,8 +414,10 @@
 		});
 		
 		nextBtn.eq(1).on("click",function(){
-			const campingFilepath = $("[name=campingFilepath]");
-			if(!(campingFilepath.get(0).files.length != 0)){
+			const postcode = $("[name=postcode]").val();
+			const campingAddr = $("[name=campingAddr]").val();
+			const campingAddrDetail = $("[name=campingAddrDetail]").val();
+			if(!(postcode != "" && campingAddr != "" && campingAddrDetail != "")){
 				alert("입력란을 확인해주세요.")
 				return false;
 			}else{

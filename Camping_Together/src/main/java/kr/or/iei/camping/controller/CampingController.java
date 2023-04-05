@@ -205,4 +205,9 @@ public class CampingController {
 		}
 	}
 	*/
+	
+	@RequestMapping(value="/campingReview.do")
+	public String campingReview() {
+		return "campingReview/campingReview";
+	}
 }
