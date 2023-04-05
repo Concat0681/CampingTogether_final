@@ -184,6 +184,7 @@ public class CampingController {
 		return camping;
 	}
 	
+	/*
 	@RequestMapping(value="/campingRoomWrite.do")
 	public String campingRoomWrite(CampingRoom cr, MultipartFile[] campingRoomFilepath, HttpServletRequest request) {
 		ArrayList<CampingRoomFileVO> fileList = new ArrayList<CampingRoomFileVO>();
@@ -203,4 +204,5 @@ public class CampingController {
 			return "redirect:/";
 		}
 	}
+	*/
 }
