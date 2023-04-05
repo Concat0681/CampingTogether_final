@@ -22,7 +22,6 @@ public class CampingDao {
 	private SqlSessionTemplate sqlSession;
 
 	public ArrayList<Camping> selectCampingListData(HashMap<String, Object> map) {
-		System.out.println(map);
 		List list = sqlSession.selectList("camping.selectCampingListData", map);
 		return (ArrayList<Camping>)list;
 	}
@@ -70,5 +69,10 @@ public class CampingDao {
 	public int insertCampingEtc(CampingEtc ce) {
 		int result = sqlSession.insert("camping.insertCampingEtc",ce);
 		return result;
+	}
+
+	public ArrayList<CampingRoomFileVO> selectCampingRoomFileList(int campingRoomNo) {
+		List list = sqlSession.selectList("camping.selectCampingRoomFileList", campingRoomNo);
+		return (ArrayList<CampingRoomFileVO>)list;
 	}
 }

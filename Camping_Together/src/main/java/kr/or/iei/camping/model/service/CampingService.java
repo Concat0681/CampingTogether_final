@@ -60,7 +60,6 @@ public class CampingService {
 		map.put("start", start);
 		map.put("end", end);
 		map.put("order", order);
-		System.out.println(camping.getCampingEtcList());
 		map.put("campingEtcList", camping.getCampingEtcList());
 		map.put("campingRoomServiceList", camping.getCampingRoomServiceList());
 		map.put("campingProvideServiceList", camping.getCampingProvideServiceList());
@@ -100,9 +99,14 @@ public class CampingService {
 
 	public ViewCampingData selectOneCamping(int campingNo) {
 		ViewCampingData vcd = new ViewCampingData();
+		ArrayList<CampingRoomFileVO> fileList = new ArrayList<CampingRoomFileVO>();
 		Camping camping = dao.selectOneCamping(campingNo);
 		vcd.setCamping(camping);
 		ArrayList<CampingRoom> campingRoomList = dao.selectAllCampingRoomList(campingNo);
+		for(CampingRoom r : campingRoomList) {
+			fileList = dao.selectCampingRoomFileList(r.getCampingRoomNo());
+			r.setFileList(fileList);
+		}
 		vcd.setCampingRoomList(campingRoomList);
 		return vcd;
 	}

@@ -1,10 +1,11 @@
 package kr.or.iei.camping.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -205,4 +206,9 @@ public class CampingController {
 		}
 	}
 	*/
+	
+	@RequestMapping(value="/campingReview.do")
+	public String campingReview() {
+		return "campingReview/campingReview";
+	}
 }
