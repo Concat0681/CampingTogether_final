@@ -9,8 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.or.iei.camping.model.vo.Camping;
+import kr.or.iei.camping.model.vo.CampingEtc;
+import kr.or.iei.camping.model.vo.CampingProvideService;
 import kr.or.iei.camping.model.vo.CampingRoom;
 import kr.or.iei.camping.model.vo.CampingRoomFileVO;
+import kr.or.iei.camping.model.vo.CampingRoomService;
 
 @Repository
 public class CampingDao {
@@ -19,6 +22,7 @@ public class CampingDao {
 	private SqlSessionTemplate sqlSession;
 
 	public ArrayList<Camping> selectCampingListData(HashMap<String, Object> map) {
+		System.out.println(map);
 		List list = sqlSession.selectList("camping.selectCampingListData", map);
 		return (ArrayList<Camping>)list;
 	}
@@ -50,6 +54,21 @@ public class CampingDao {
 
 	public int insertCampingRoomPhoto(CampingRoomFileVO file) {
 		int result = sqlSession.insert("camping.insertCampingRoomPhoto",file);
+		return result;
+	}
+
+	public int insertCampingProvideService(CampingProvideService cps) {
+		int result = sqlSession.insert("camping.insertCampingProvideService",cps);
+		return result;
+	}
+
+	public int insertCampingRoomService(CampingRoomService crs) {
+		int result = sqlSession.insert("camping.insertCampingRoomService",crs);
+		return result;
+	}
+
+	public int insertCampingEtc(CampingEtc ce) {
+		int result = sqlSession.insert("camping.insertCampingEtc",ce);
 		return result;
 	}
 }
