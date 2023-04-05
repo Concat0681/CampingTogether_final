@@ -5,13 +5,17 @@ import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import kr.or.iei.camping.model.dao.CampingDao;
 import kr.or.iei.camping.model.vo.Camping;
+import kr.or.iei.camping.model.vo.CampingEtc;
 import kr.or.iei.camping.model.vo.CampingListPageData;
+import kr.or.iei.camping.model.vo.CampingProvideService;
 import kr.or.iei.camping.model.vo.CampingRoom;
 import kr.or.iei.camping.model.vo.ViewCampingData;
 import kr.or.iei.camping.model.vo.CampingRoomFileVO;
+import kr.or.iei.camping.model.vo.CampingRoomService;
 
 @Service
 public class CampingService {
@@ -19,13 +23,33 @@ public class CampingService {
 	@Autowired
 	private CampingDao dao;
 
-	public int insertCamping(Camping c) {
+	public int insertCamping(Camping c, CampingRoom cr, ArrayList<CampingRoomFileVO> fileList) {
 		int result = dao.insertCamping(c);
-		if(result > 0) {
-			return result;
-		}else {
-			return 0;
-		}
+			if(result > 0) {
+				for(CampingProvideService cps : c.getCampingProvideServiceList()) {
+					cps.setCampingNo(c.getCampingNo());
+					result += dao.insertCampingProvideService(cps);
+				}
+				for(CampingRoomService crs : c.getCampingRoomServiceList()) {
+					crs.setCampingNo(c.getCampingNo());
+					result += dao.insertCampingRoomService(crs);
+				}
+				for(CampingEtc ce : c.getCampingEtcList()) {
+					ce.setCampingNo(c.getCampingNo());
+					result += dao.insertCampingEtc(ce);
+				}
+				cr.setCampingNo(c.getCampingNo());
+				result = dao.insertCampingRoom(cr);
+				if(result > 0) {
+					for(CampingRoomFileVO file : fileList) {
+						file.setCampingRoomNo(cr.getCampingRoomNo());
+						result += dao.insertCampingRoomPhoto(file);
+					}
+				}
+				return result;
+			}else {
+				return 0;
+			}
 	}
 
 	public CampingListPageData selectCampingListData(int reqPage, String order, Camping camping, CampingRoom campingRoom) {
@@ -36,9 +60,10 @@ public class CampingService {
 		map.put("start", start);
 		map.put("end", end);
 		map.put("order", order);
-		map.put("campingEtc", camping.getCampingEtcList());
-		map.put("campingRoomService", camping.getCampingRoomServiceList());
-		map.put("campingService", camping.getCampingProvideServiceList());
+		System.out.println(camping.getCampingEtcList());
+		map.put("campingEtcList", camping.getCampingEtcList());
+		map.put("campingRoomServiceList", camping.getCampingRoomServiceList());
+		map.put("campingProvideServiceList", camping.getCampingProvideServiceList());
 		map.put("campingRoomTypeList", campingRoom.getCampingRoomTypeList());
 		map.put("pplCount", campingRoom.getCampingRoomMaxPplCount());
 		ArrayList<Camping> list = dao.selectCampingListData(map);

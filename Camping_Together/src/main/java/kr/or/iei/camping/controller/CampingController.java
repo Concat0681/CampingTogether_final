@@ -68,7 +68,9 @@ public class CampingController {
 		if(campingTypeStr != "") {
 			String[] campingType = campingTypeStr.split(",");
 			ArrayList<String> arr1 = new ArrayList<String>();
-			Collections.addAll(arr1, campingType);
+			for(String str : campingType) {
+				arr1.add(str);
+			}
 			campingRoom.setCampingRoomTypeList(arr1);
 		}
 		Camping camping = campingProvideSetter(campingServiceStr, campingRoomServiceStr, campingEtcStr);
@@ -78,30 +80,64 @@ public class CampingController {
 	}
 	
 	@RequestMapping(value="/campingWrite.do")
-	public String campingWrite(Camping c, MultipartFile[] campingFilepath, HttpServletRequest requset) {
-		ArrayList<CampingProvideService> campingProvideServiceList = new ArrayList<CampingProvideService>();
-		ArrayList<CampingRoomService> campingRoomServiceList = new ArrayList<CampingRoomService>();
-		ArrayList<CampingEtc> campingEtcList = new ArrayList<CampingEtc>();
-		c.setCampingProvideServiceList(campingProvideServiceList);
-		c.setCampingRoomServiceList(campingRoomServiceList); 
-		c.setCampingEtcList(campingEtcList);
+	public String campingWrite(Camping c, MultipartFile[] campingFilepath, HttpServletRequest requset, String[] campingService, String[] campingRoomService, String[] campingEtc, CampingRoom cr, MultipartFile[] campingRoomFilepath) {
+		if(campingService != null) {
+			ArrayList<CampingProvideService> campingServicelist = new ArrayList<CampingProvideService>();
+			for(String str : campingService) {
+				CampingProvideService cps = new CampingProvideService();
+				cps.setCampingService(str);
+				campingServicelist.add(cps);
+			}
+			c.setCampingProvideServiceList(campingServicelist);
+		}
+		if(campingRoomService != null) {
+			ArrayList<CampingRoomService> campingRoomServicelist = new ArrayList<CampingRoomService>();
+			for(String str : campingRoomService) {
+				CampingRoomService crs = new CampingRoomService();
+				crs.setCampingRoomService(str);
+				campingRoomServicelist.add(crs);
+			}
+			c.setCampingRoomServiceList(campingRoomServicelist);
+		}
+		if(campingEtc != null) {
+			ArrayList<CampingEtc> campingEtclist = new ArrayList<CampingEtc>();
+			for(String str : campingEtc) {
+				CampingEtc ce = new CampingEtc();
+				ce.setCampingEtc(str);
+				campingEtclist.add(ce);
+			}
+			c.setCampingEtcList(campingEtclist);
+		}
 		if(!campingFilepath[0].isEmpty()) {
-			String savePath = requset.getSession().getServletContext().getRealPath("/resources/upload/camping");
+			String savePath = requset.getSession().getServletContext().getRealPath("/resources/upload/camping/");
 			for(MultipartFile file : campingFilepath) {
 				String filepath = manager.upload(savePath, file);
 				c.setFilepath(filepath);
 			}
 		}
-		int result = service.insertCamping(c);
+		ArrayList<CampingRoomFileVO> fileList = new ArrayList<CampingRoomFileVO>();
+		if(!campingRoomFilepath[0].isEmpty()) {
+			String savePath = requset.getSession().getServletContext().getRealPath("/resources/upload/campingRoom/");
+			for(MultipartFile file : campingRoomFilepath) {
+				String filepath = manager.upload(savePath, file);
+				CampingRoomFileVO campingRoomFileVO = new CampingRoomFileVO();
+				campingRoomFileVO.setFilepath(filepath);
+				fileList.add(campingRoomFileVO);
+			}
+		}
+		int result = service.insertCamping(c, cr, fileList);
 		if(result > 0) {
-			return "redirect:campingRoomWriteFrm.do";
+			return "redirect:/";
 		}else {
 			return "redirect:/";
 		}
 	}
 	
 	@RequestMapping(value="/campingRoomWriteFrm.do")
-	public String campingRoomWriteFrm() {
+	public String campingRoomWriteFrm(HttpServletRequest request, Model model) {
+		int campingNo = Integer.parseInt(request.getParameter("campingNo"));
+		model.addAttribute("campingNo",campingNo);
+		System.out.println(campingNo);
 		return "camping/campingRoomWriteFrm";
 	}
 	
@@ -148,6 +184,7 @@ public class CampingController {
 		return camping;
 	}
 	
+	/*
 	@RequestMapping(value="/campingRoomWrite.do")
 	public String campingRoomWrite(CampingRoom cr, MultipartFile[] campingRoomFilepath, HttpServletRequest request) {
 		ArrayList<CampingRoomFileVO> fileList = new ArrayList<CampingRoomFileVO>();
@@ -167,4 +204,5 @@ public class CampingController {
 			return "redirect:/";
 		}
 	}
+	*/
 }
