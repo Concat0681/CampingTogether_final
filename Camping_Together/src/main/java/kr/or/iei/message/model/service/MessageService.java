@@ -32,7 +32,16 @@ public class MessageService {
 		int messageCount = dao.selectMessageCount(memberId);
 		return messageCount;
 	}
+
 	
-	
+	@Transactional
+	public String updateMessageReadStatus(Message message) {
+		int result = dao.updateMessageReadStatus(message);
+		if (result > 0) {
+			return "success";
+		}else {
+			return "fail";
+		}
+	}
 
 }
