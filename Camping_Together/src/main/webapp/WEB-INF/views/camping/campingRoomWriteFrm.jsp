@@ -106,7 +106,6 @@
 			const campingRoomFilepath = $("[name=campingRoomFilepath]");
 			if(!(campingRoomTitle != "" && campingRoomCount != "" && campingRoomPrice != "" && campingRoomMaxPplCount != "" && campingRoomContent != "" && campingRoomType != null && campingRoomFilepath.get(0).files.length != 0)){
 				alert("입력란을 모두 확인해주세요.")
-				console.log(campingRoomType);
 				return false;
 			}
 		});

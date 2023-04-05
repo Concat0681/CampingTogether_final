@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import kr.or.iei.camping.model.dao.CampingDao;
 import kr.or.iei.camping.model.vo.Camping;
@@ -22,25 +23,33 @@ public class CampingService {
 	@Autowired
 	private CampingDao dao;
 
-	public int insertCamping(Camping c) {
+	public int insertCamping(Camping c, CampingRoom cr, ArrayList<CampingRoomFileVO> fileList) {
 		int result = dao.insertCamping(c);
-		if(result > 0) {
-			for(CampingProvideService cps : c.getCampingProvideServiceList()) {
-				cps.setCampingNo(c.getCampingNo());
-				result += dao.insertCampingProvideService(cps);
+			if(result > 0) {
+				for(CampingProvideService cps : c.getCampingProvideServiceList()) {
+					cps.setCampingNo(c.getCampingNo());
+					result += dao.insertCampingProvideService(cps);
+				}
+				for(CampingRoomService crs : c.getCampingRoomServiceList()) {
+					crs.setCampingNo(c.getCampingNo());
+					result += dao.insertCampingRoomService(crs);
+				}
+				for(CampingEtc ce : c.getCampingEtcList()) {
+					ce.setCampingNo(c.getCampingNo());
+					result += dao.insertCampingEtc(ce);
+				}
+				cr.setCampingNo(c.getCampingNo());
+				result = dao.insertCampingRoom(cr);
+				if(result > 0) {
+					for(CampingRoomFileVO file : fileList) {
+						file.setCampingRoomNo(cr.getCampingRoomNo());
+						result += dao.insertCampingRoomPhoto(file);
+					}
+				}
+				return result;
+			}else {
+				return 0;
 			}
-			for(CampingRoomService crs : c.getCampingRoomServiceList()) {
-				crs.setCampingNo(c.getCampingNo());
-				result += dao.insertCampingRoomService(crs);
-			}
-			for(CampingEtc ce : c.getCampingEtcList()) {
-				ce.setCampingNo(c.getCampingNo());
-				result += dao.insertCampingEtc(ce);
-			}
-			return result;
-		}else {
-			return 0;
-		}
 	}
 
 	public CampingListPageData selectCampingListData(int reqPage, String order, Camping camping, CampingRoom campingRoom) {
@@ -98,8 +107,7 @@ public class CampingService {
 		return vcd;
 	}
 	
-	public int insertCampingRoom(CampingRoom cr, ArrayList<CampingRoomFileVO> fileList, int campingNo) {
-		cr.setCampingNo(campingNo);
+	public int insertCampingRoom(CampingRoom cr, ArrayList<CampingRoomFileVO> fileList) {
 		int result = dao.insertCampingRoom(cr);
 		if(result > 0) {
 			for(CampingRoomFileVO file : fileList) {
