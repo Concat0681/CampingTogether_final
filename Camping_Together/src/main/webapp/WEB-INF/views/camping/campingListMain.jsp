@@ -35,7 +35,7 @@
 					</div>
 					</div>
 					<div class="search-input-box">
-						<input id="reservationDate" type="text" name="date" readonly>
+						<input type="text" name="date" readonly>
 						<input type="hidden" name="checkIn">
 						<input type="hidden" name="checkOut">
 						<input name="pplCount" type="text" value=1>

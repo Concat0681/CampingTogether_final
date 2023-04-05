@@ -1,4 +1,4 @@
-$('#reservationDate').daterangepicker({
+$('input[name=date]').daterangepicker({
   locale: {
     separator: ' ~ ', // 시작일시와 종료일시 구분자
     format: 'YYYY-MM-DD', // 일시 노출 포맷
@@ -22,18 +22,17 @@ $('#reservationDate').daterangepicker({
   }
 })
 
-$('#reservationDate').on('apply.daterangepicker', function (ev, picker) {
+$('input[name=date]').on('apply.daterangepicker', function (ev, picker) {
   $(this).val(
     picker.startDate.format('YYYY-MM-DD') +
       '~' +
       picker.endDate.format('YYYY-MM-DD')
   )
-  $('[name=checkIn]').val(picker.startDate.format('YYYY-MM-DD'))
-  $('[name=checkOut]').val(picker.endDate.format('YYYY-MM-DD'))
+  $('[name=checkIn]').eq(0).val(picker.startDate.format('YYYY-MM-DD'))
+  $('[name=checkOut]').eq(0).val(picker.endDate.format('YYYY-MM-DD'))
 })
 
 $('#reservationDate').on('cancel.daterangepicker', function (ev, picker) {
-  $(this).val('')
   $('[name=checkIn]').val('')
   $('[name=checkOut]').val('')
 })

@@ -55,10 +55,10 @@
 			</trim>
 		<choose>
 			<when test="order.equals('avgReviewRating')">
-				order by avgReviewRating desc)
+				order by avgReviewRating desc nulls last)
 			</when>
 			<when test="order.equals('maxRoomPrice')">
-				order by maxRoomPrice desc)
+				order by maxRoomPrice desc nulls last)
 			</when>
 		</choose>
 	where rnum between #{start} and #{end}
@@ -98,6 +98,14 @@
 			camping_room_max_ppl_count as campingRoomMaxPplCount,
 			camping_room_type as campingRoomType
 		from camping_room where camping_no = #{_parameter}
+	</select>
+	
+	<select id="selectCampingRoomFileList" parameterType="_int" resultType="crf">
+		select
+			camping_room_photo_no as campingRoomPhotoNo,
+			camping_room_no as campingRoomNo,
+			filepath
+		from camping_room_photo where camping_room_no = #{_parameter}
 	</select>
 	
 	<insert id="insertCamping" parameterType="c">
