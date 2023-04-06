@@ -70,7 +70,7 @@
 		<table class="tbl" id="noticeView">
 			<th class="td-3" colspan="6">제목</th>
 			<tr class="tr-1">
-				<th colspan="6">${n.noticeTitle }</th>
+				<td colspan="6">${n.noticeTitle }</td>
 			<tr class="tr-1">
 				<th class="td-3">글번호</th>
 				<td>${n.noticeNo }</td>
@@ -92,7 +92,7 @@
 				<tr class="tr-1">
 					<th colspan="6">
 					<a class="btn bc4" href="/noticeUpdateFrm.do?noticeNo=${n.noticeNo }">수정</a>
-					<a class="btn bc4" href="/noticeDekete.do?noticeNo=${n.noticeNo }">삭제</a>
+					<a class="btn bc4" href="/noticeDelete.do?noticeNo=${n.noticeNo }">삭제</a>
 					</th>
 				</tr>
 			</c:if>
