@@ -11,6 +11,7 @@ public class CampingReview {
 	private int campingReviewNo;
 	private int campingNo;
 	private String memberId;
+	private String campingReviewTitle;
 	private String campingReviewContent;
 	private int campingReviewRating;
 	private int campingReviewRef;

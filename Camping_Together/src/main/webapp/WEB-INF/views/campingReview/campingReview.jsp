@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -66,13 +67,13 @@
 							    </td>
 							    <td>
 							      <input type="text" name="campingReviewRating">
-							      <button id="starBtn">별점입력</button>
+							      <button type="button" id="starBtn">별점입력</button>
 							    </td>
 							</tr>
 				      		<tr>
 				      			<td>제목</td>
 				      			<td>
-				      				<input type="text">
+				      				<input type="text" name="campingReviewTitle">
 				      			</td>
 				      		</tr>
 				      		<tr>
@@ -83,7 +84,7 @@
 				      		<tr>
 				      			<td>사진 등록</td>
 				      			<td>
-				      				<input type="file" onchange="loadImg(this);" name="filepath" multiple>
+				      				<input type="file" onchange="loadImg(this);" name="campingReviewFilepath" multiple>
 				      			</td>
 				      		</tr>
 				      		<tr>
@@ -96,13 +97,14 @@
 				      	</table>
 				    </div>
 				    <div class="modal-foot">
-				      <button class="btn bc11">등록</button>
+				      <button class="reviewBtn bc1">등록</button>
 				      <button class="btn bc1 modal-close">취소</button>
 				    </div>
 			    </form>
 			  </div>
 			</div>
-
+			
+			
 		    
 		</div>
 	</div>
@@ -144,6 +146,18 @@
 		    }
 		  }
 		}
+	</script>
+	
+	<script>
+		$(".reviewBtn").on("click",function(){
+			const campingReviewRating = $("[name=campingReviewRating]").val();
+			const campingReviewTitle = $("[name=campingReviewTitle]").val();
+			const campingReviewContent = $("[name=campingReviewContent]").val();
+			if(!(campingReviewRating != "" && campingReviewTitle != "" && campingReviewContent != "")){
+				alert("입력란을 모두 확인해주세요.")
+				return false;
+			}
+		});
 	</script>
 </body>
 </html>

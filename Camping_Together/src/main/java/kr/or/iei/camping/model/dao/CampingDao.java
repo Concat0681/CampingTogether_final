@@ -11,6 +11,8 @@ import org.springframework.stereotype.Repository;
 import kr.or.iei.camping.model.vo.Camping;
 import kr.or.iei.camping.model.vo.CampingEtc;
 import kr.or.iei.camping.model.vo.CampingProvideService;
+import kr.or.iei.camping.model.vo.CampingReview;
+import kr.or.iei.camping.model.vo.CampingReviewFileVO;
 import kr.or.iei.camping.model.vo.CampingRoom;
 import kr.or.iei.camping.model.vo.CampingRoomFileVO;
 import kr.or.iei.camping.model.vo.CampingRoomService;
@@ -74,5 +76,15 @@ public class CampingDao {
 	public ArrayList<CampingRoomFileVO> selectCampingRoomFileList(int campingRoomNo) {
 		List list = sqlSession.selectList("camping.selectCampingRoomFileList", campingRoomNo);
 		return (ArrayList<CampingRoomFileVO>)list;
+	}
+
+	public int insertCampingReview(CampingReview crv) {
+		int result = sqlSession.insert("camping.insertCampingReview", crv);
+		return result;
+	}
+
+	public int insertCampingReviewPhoto(CampingReviewFileVO file) {
+		int result = sqlSession.insert("camping.insertCampingReviewPhoto", file);
+		return result;
 	}
 }

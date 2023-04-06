@@ -21,6 +21,8 @@ import kr.or.iei.camping.model.vo.Camping;
 import kr.or.iei.camping.model.vo.CampingEtc;
 import kr.or.iei.camping.model.vo.CampingListPageData;
 import kr.or.iei.camping.model.vo.CampingProvideService;
+import kr.or.iei.camping.model.vo.CampingReview;
+import kr.or.iei.camping.model.vo.CampingReviewFileVO;
 import kr.or.iei.camping.model.vo.CampingRoom;
 import kr.or.iei.camping.model.vo.ViewCampingData;
 import kr.or.iei.camping.model.vo.CampingRoomFileVO;
@@ -212,5 +214,45 @@ public class CampingController {
 		return "campingReview/campingReview";
 	}
 	
-	
+	@RequestMapping(value="/campingReviewWrite.do")
+	public String campingReviewWrite(CampingReview crv, MultipartFile[] campingReviewFilepath, HttpServletRequest request) {
+		ArrayList<CampingReviewFileVO> fileList = new ArrayList<CampingReviewFileVO>();
+		if(!campingReviewFilepath[0].isEmpty()) {
+			String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/campingReview/");
+			for(MultipartFile file : campingReviewFilepath) {
+				String filepath = manager.upload(savePath, file);
+				CampingReviewFileVO campingReviewFileVO = new CampingReviewFileVO();
+				campingReviewFileVO.setFilepath(filepath);
+				fileList.add(campingReviewFileVO);
+			}
+		}
+		int result = service.insertCampingReview(crv, fileList);
+		if(result == (fileList.size()+1)) {
+			return "redirect:/campingReview.do";
+		}else {
+			return "redirect:/";
+		}
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

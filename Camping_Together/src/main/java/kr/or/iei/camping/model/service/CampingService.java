@@ -12,6 +12,8 @@ import kr.or.iei.camping.model.vo.Camping;
 import kr.or.iei.camping.model.vo.CampingEtc;
 import kr.or.iei.camping.model.vo.CampingListPageData;
 import kr.or.iei.camping.model.vo.CampingProvideService;
+import kr.or.iei.camping.model.vo.CampingReview;
+import kr.or.iei.camping.model.vo.CampingReviewFileVO;
 import kr.or.iei.camping.model.vo.CampingRoom;
 import kr.or.iei.camping.model.vo.ViewCampingData;
 import kr.or.iei.camping.model.vo.CampingRoomFileVO;
@@ -117,6 +119,17 @@ public class CampingService {
 			for(CampingRoomFileVO file : fileList) {
 				file.setCampingRoomNo(cr.getCampingRoomNo());
 				result += dao.insertCampingRoomPhoto(file);
+			}
+		}
+		return result;
+	}
+
+	public int insertCampingReview(CampingReview crv, ArrayList<CampingReviewFileVO> fileList) {
+		int result = dao.insertCampingReview(crv);
+		if(result > 0) {
+			for(CampingReviewFileVO file : fileList) {
+				file.setCampingReviewNo(crv.getCampingReviewNo());
+				result += dao.insertCampingReviewPhoto(file);
 			}
 		}
 		return result;
