@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="notice">
+	<select id="selectNoticeList" parameterType="map" resultType="n">
+			select * from
+			(select rownum as rnum, n.*from
+				(select
+					notice_no as noticeNo,
+					notice_writer as noticeWriter,
+					notice_title as noticeTitle,
+					enroll_date as enrollDate
+				from notice order by 1 desc)n)
+		where rnum between #{start} and #{end}
+		
+	</select>
+	<select id="totalCount" resultType="_int">
+		select count(*) from notice
+	</select>
+	<insert id="insertNoitce" parameterType="n">
+		insert into notice values
+		(notice_seq.nextval,#{noticeWriter},#{noticeTitle},#{noticeContent},to_char(sysdate, 'yyyy-mm-dd hh24:mi:ss'))
+	</insert>
+	<select id="selectOneNotice" parameterType="_int" resultType="n">
+		select
+			notice_no as noticeNo,
+			notice_title as noticeTitle,
+			notice_writer as noticeWriter,
+			notice_content as noticeContent,
+			enroll_date as enrollDate
+		from notice where notice_no=#{_parameter}
+	</select>
+	<update id="updateNotice" parameterType="n">
+		update notice set 
+			notice_title = #{noticeTitle},
+			notice_content = #{noticeContent}
+		where notice_no = #{noticeNo}
+	</update>
+	<delete id="deleteNotice" parameterType="n">
+		delete from notice where notice_no = #{_parameter}
+	</delete>
+</mapper>

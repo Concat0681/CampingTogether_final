@@ -18,28 +18,50 @@
 					camping_addr_detail as campingAddrDetail,
 					camping_phone as campingPhone,
 					filepath
-				from camping)c
-			left join camping_room r on (r.camping_no = c.campingNo)
-				<trim prefix="where" prefixOverrides="and|or">
-					<if test="campingRoomType != null">
-						and r.camping_room_type in
-						<foreach collection="campingRoomTypeList" item="type" open="(" close=")" separator=",">
-							 #{type}
-						</foreach>
-					</if>
-					<if test="pplCount != 0">
-						and r.camping_room_max_ppl_count <![CDATA[ >= ]]> #{pplCount}
-					</if>
-				</trim>
-			<choose>
-				<when test="order.equals('avgReviewRating')">
-					order by avgReviewRating desc)
-				</when>
-				<when test="order.equals('maxRoomPrice')">
-					order by maxRoomPrice desc)
-				</when>
-			</choose>
-		where rnum between #{start} and #{end}
+				from camping 
+             )c
+			<trim prefix="where" prefixOverrides="and|or">
+				<if test="campingRoomTypeList != null">
+					 campingNo in (select camping_no from camping_room where camping_room_type in
+					<foreach collection="campingRoomTypeList" item="type" open="(" close=")" separator=",">
+						 #{type}
+					</foreach>
+					)
+				</if>
+				<if test="campingEtcList != null">
+					and campingNo in (select camping_no from camping_etc where camping_etc in
+					<foreach collection="campingEtcList" item="etc" open="(" close=")" separator=",">
+						 #{etc.campingEtc}
+					</foreach>
+					)
+				</if>
+				<if test="campingRoomServiceList != null">
+					and campingNo in (select camping_no from camping_room_service where camping_room_service in
+					<foreach collection="campingRoomServiceList" item="rs" open="(" close=")" separator=",">
+						 #{rs.campingRoomService}
+					</foreach>
+					)
+				</if>
+				<if test="campingProvideServiceList != null">
+					and campingNo in (select camping_no from camping_service where camping_service in
+					<foreach collection="campingProvideServiceList" item="cps" open="(" close=")" separator=",">
+						 #{cps.campingService}
+					</foreach>
+					)
+				</if>
+				<if test="pplCount != 0">
+					and campingNo in (select camping_no from camping_room_service where camping_room_max_ppl_count <![CDATA[ >= ]]> #{pplCount}
+				</if>
+			</trim>
+		<choose>
+			<when test="order.equals('avgReviewRating')">
+				order by avgReviewRating desc nulls last)
+			</when>
+			<when test="order.equals('maxRoomPrice')">
+				order by maxRoomPrice desc nulls last)
+			</when>
+		</choose>
+	where rnum between #{start} and #{end}
 	</select>
 	
 	<select id="selectCampingCount" resultType="_int">
@@ -78,20 +100,42 @@
 		from camping_room where camping_no = #{_parameter}
 	</select>
 	
+	<select id="selectCampingRoomFileList" parameterType="_int" resultType="crf">
+		select
+			camping_room_photo_no as campingRoomPhotoNo,
+			camping_room_no as campingRoomNo,
+			filepath
+		from camping_room_photo where camping_room_no = #{_parameter}
+	</select>
+	
 	<insert id="insertCamping" parameterType="c">
 		insert into camping values(camping_seq.nextval,'user01',#{campingTitle},#{campingContent},#{campingAddr},#{campingAddrDetail},#{campingPhone},#{filepath})
+		<selectKey resultType="_int" order="AFTER" keyProperty="campingNo">
+			select max(camping_no) from camping
+		</selectKey>
 	</insert>
 	
 	
 	<insert id="insertCampingRoom" parameterType="cr">
-		insert into camping_room values(camping_room_seq.nextval,'2',#{campingRoomContent},#{campingRoomPrice},#{campingRoomCount},#{campingRoomMaxPplCount},#{roomTitle},#{campingRoomType[0]})
+		insert into camping_room values(camping_room_seq.nextval,#{campingNo},#{campingRoomContent},#{campingRoomPrice},#{campingRoomCount},#{campingRoomMaxPplCount},#{campingRoomTitle},#{campingRoomType})
 		<selectKey resultType="_int" order="AFTER" keyProperty="campingRoomNo">
 			select max(camping_room_no) from camping_room
 		</selectKey>
 	</insert>
 	
 	<insert id="insertCampingRoomPhoto" parameterType="crf">
-		insert into camping_room_photo values(camping_room_photo_seq.nextval,'23',#{filepath})
+		insert into camping_room_photo values(camping_room_photo_seq.nextval,#{campingRoomNo},#{filepath})
 	</insert>
 	
+	<insert id="insertCampingProvideService" parameterType="cps">
+		insert into camping_service values(camping_service_seq.nextval,#{campingNo},#{campingService})
+	</insert>
+	
+	<insert id="insertCampingRoomService" parameterType="crs">
+		insert into camping_room_service values(camping_room_service_seq.nextval,#{campingNo},#{campingRoomService})
+	</insert>
+	
+	<insert id="insertCampingEtc" parameterType="ce">
+		insert into camping_etc values(camping_etc_seq.nextval,#{campingNo},#{campingEtc})
+	</insert>
 </mapper>

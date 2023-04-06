@@ -1,4 +1,4 @@
-	/* 占쎄텢占쎌뒠占쎈막 font 占쎄퐨占쎈섧 */
+	/* �뜝�럡�뀬�뜝�럩�뮔�뜝�럥留� font �뜝�럡�맖�뜝�럥�꽘 */
 @font-face {
   font-family: ng-bold;
   src: url(../font/Nanum_Gothic/NanumGothic-Bold.ttf);
@@ -13,7 +13,7 @@
 }
 
 /* 
-    占쎄텢占쎌뵠占쎈뱜 占쎄텢占쎌뒠 占쎄퉳占쎄맒 
+    �뜝�럡�뀬�뜝�럩逾졾뜝�럥諭� �뜝�럡�뀬�뜝�럩�뮔 �뜝�럡�돰�뜝�럡留� 
     balck : #252A34
     darkgray : #393E46
     lightgray : #EEEEEE
@@ -23,15 +23,15 @@
     point-pink : #F85F73
     point-violet : #892CDC
 */
-/* 占쎌읈筌ｋ똾源�域뱄옙 疫꿸퀡�궚 margin, padding 占쎌젫椰꾬옙 */
-/* 疫꿸퀡�궚 疫뀐옙占쎈뎁 占쎄퉳 獄쏉옙 占쎈？占쎈뱜 占쎄퐬占쎌젟 */
+/* �뜝�럩�쓧嶺뚳퐢�샑繹먲옙�윜諭꾩삕 �뼨轅명�∽옙沅� margin, padding �뜝�럩�젷濾곌쒀�삕 */
+/* �뼨轅명�∽옙沅� �뼨�먯삕�뜝�럥�럞 �뜝�럡�돰 �뛾�룊�삕 �뜝�럥竊잌뜝�럥諭� �뜝�럡�맟�뜝�럩�젧 */
 
 * {
   margin: 0;
   padding: 0;
   font-family: ng-regular;
 }
-/* 疫꿸퀡�궚 甕곌쑵�뱣 3揶쏉옙 */
+/* �뼨轅명�∽옙沅� �뵓怨뚯뫓占쎈괏 3�뤆�룊�삕 */
 .btn1{
 	background-color : #AD8B73;
 	border : none;
@@ -51,7 +51,7 @@
 	border-radius : 5px;
 }
 
-/*페이지네이션*/
+/*�럹�씠吏��꽕�씠�뀡*/
 .pagination {
     list-style-type: none;
     display: flex;

@@ -13,5 +13,12 @@
 		<typeAlias type="kr.or.iei.camping.model.vo.CampingRoom" alias="cr"/>
 		<typeAlias type="kr.or.iei.usedBoard.model.vo.UsedBoardPhoto" alias="ubp"/>
 		<typeAlias type="kr.or.iei.camping.model.vo.CampingRoomFileVO" alias="crf"/> 
+		<typeAlias type="kr.or.iei.camping.model.vo.CampingProvideService" alias="cps"/>
+		<typeAlias type="kr.or.iei.camping.model.vo.CampingRoomService" alias="crs"/>
+		<typeAlias type="kr.or.iei.camping.model.vo.CampingEtc" alias="ce"/>
+		<typeAlias type="kr.or.iei.message.model.vo.Message" alias="ms"/>
+		 <typeAlias type="kr.or.iei.camping.model.vo.CampingRoomFileVO" alias="crf"/> 
+		 <typeAlias type="kr.or.iei.notice.model.vo.Notice" alias="n"/>
+		 <typeAlias type="kr.or.iei.board.food.model.vo.BoardFood" alias="bf"/>
 	</typeAliases>
 </configuration>
