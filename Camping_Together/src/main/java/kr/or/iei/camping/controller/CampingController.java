@@ -211,4 +211,6 @@ public class CampingController {
 	public String campingReview() {
 		return "campingReview/campingReview";
 	}
+	
+	
 }

@@ -9,44 +9,141 @@
 <link href="/resources/css/default.css" rel="stylesheet"/>
 <link href="/resources/css/campingReview.css" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
 </head>
 <body>
 	<div class="reviewWrap">
 		<div class="reviewContentWrap">
 			<div class="reviewHeader">
 				<h2 style="text-align: center; padding-bottom: 50px;">최고에요</h2>
-				<div class="allStar">별별별별별</div>
+				<div class="allStar">
+					<span class="material-symbols-outlined">star</span>
+					<span class="material-symbols-outlined">star</span>
+					<span class="material-symbols-outlined">star</span>
+					<span class="material-symbols-outlined">star</span>
+					<span class="material-symbols-outlined">star</span>
+				</div>
 				<div>
 					<div class="allReview">전체 리뷰 500</div>
 					<div class="campingAnswer">캠핑장 답변 250</div>
 				</div>
 			</div>
 			
-			<h2>모달</h2>
-        <button class="btn bc11 modal-open-btn" target="#test-modal">
-          	모달1
-        </button>
-			
-			<div id="test-modal" class="modal-bg">
-		      <div class="modal-wrap">
-		        <div class="modal-head">
-		          <h2>모달 제목</h2>
-		          <span class="material-icons close-icon modal-close">close</span>
-		        </div>
-		        <div class="modal-content">
-		          <p>모달내용</p>
-		          <p>모달내용</p>
-		          <p>모달내용</p>
-		          <p>모달내용</p>
-		        </div>
-		        <div class="modal-foot">
-		          <button class="btn bc6 btn-pill">확인</button>
-		          <button class="btn bc33 modal-close btn-pill">취소</button>
-		        </div>
-		      </div>
-		    </div>
+	        <button class="btn1 modal-open-btn" target="#test-modal">
+	          	리뷰작성
+	        </button>
+		    
+		    <div id="test-modal" class="modal-bg">
+			  <div class="modal-wrap">
+			    <div class="modal-head">
+			      <h2>리뷰 작성</h2>
+			      <span class="material-icons close-icon modal-close">close</span>
+			    </div>
+			    <div class="modal-content">
+			    	<form action="/campingReviewWrite.do" method="post" enctype="multipart/form-data">
+				      	<table>
+				      		<tr>
+				      			<td colspan="2">만족하셨나요?</td>
+				      		</tr>
+				      		<tr>
+							    <td>
+							      <div class="star-wrap star-wrap2">
+							        <span class="material-symbols-outlined">star</span>
+							        <span class="material-symbols-outlined">star</span>
+							        <span class="material-symbols-outlined">star</span>
+							        <span class="material-symbols-outlined">star</span>
+							        <span class="material-symbols-outlined">star</span>
+							        <div class="star-on">
+							          <div class="star-wrap star-on-wrap">
+							            <span class="material-symbols-outlined">star</span>
+							            <span class="material-symbols-outlined">star</span>
+							            <span class="material-symbols-outlined">star</span>
+							            <span class="material-symbols-outlined">star</span>
+							            <span class="material-symbols-outlined">star</span>
+							          </div>
+							        </div>
+							      </div>
+							    </td>
+							    <td>
+							      <input type="text" name="campingReviewRating">
+							      <button id="starBtn">별점입력</button>
+							    </td>
+							</tr>
+				      		<tr>
+				      			<td>제목</td>
+				      			<td>
+				      				<input type="text">
+				      			</td>
+				      		</tr>
+				      		<tr>
+				      			<td colspan="2">
+				      				<textarea name="campingReviewContent"></textarea>
+				      			</td>
+				      		</tr>
+				      		<tr>
+				      			<td>사진 등록</td>
+				      			<td>
+				      				<input type="file" onchange="loadImg(this);" name="filepath" multiple>
+				      			</td>
+				      		</tr>
+				      		<tr>
+				      			<td>
+				      				<div id="img-viewer">
+		        			
+		                    		</div>
+				      			</td>
+				      		</tr>
+				      	</table>
+				    </div>
+				    <div class="modal-foot">
+				      <button class="btn bc11">등록</button>
+				      <button class="btn bc1 modal-close">취소</button>
+				    </div>
+			    </form>
+			  </div>
+			</div>
+
 		    
 		</div>
 	</div>
+	
+	<script>
+	$(document).ready(function() {
+		  $('.modal-open-btn').click(function() {
+		    $('#test-modal').css('display', 'flex');
+		  });
+
+		  $('.modal-close').click(function() {
+		    $('#test-modal').css('display', 'none');
+		  });
+		});
+	</script>
+	
+	<script>
+		$(function() {
+		  $("#starBtn").on("click",function() {
+		    const campingReviewRating = $("[name=campingReviewRating]").val();
+		    const starScore = campingReviewRating * 30;
+		    $(".star-on-wrap").css("width", starScore + "px");
+		  });
+		});
+	</script>
+	
+	<script>
+		function loadImg(input) {
+		  // 기존에 있는 이미지 삭제
+		  $('#img-viewer img').remove();
+		  
+		  if (input.files && input.files.length > 0) {
+		    for (let i = 0; i < input.files.length; i++) {
+		      const reader = new FileReader();
+		      reader.readAsDataURL(input.files[i]);
+		      reader.onload = function(e) {
+		        $("<img>").attr("src", e.target.result).attr("id", "img-" + i).appendTo("#img-viewer"); // 이미지를 보여줄 DOM 엘리먼트에 추가
+		      }
+		    }
+		  }
+		}
+	</script>
 </body>
 </html>
