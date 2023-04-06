@@ -1,6 +1,6 @@
 package kr.or.iei.board.food.model.vo;
 
-import com.sun.org.glassfish.gmbal.DescriptorFields;
+import java.util.ArrayList;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,5 +16,5 @@ public class BoardFood {
 	private String boardFoodContent;
 	private int	readCount;
 	private String enrollDate;
-	private String filepath;
+	private ArrayList<FileVO> fileList;
 }

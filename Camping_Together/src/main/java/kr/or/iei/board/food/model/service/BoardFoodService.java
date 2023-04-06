@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 import kr.or.iei.board.food.model.dao.BoardFoodDao;
 import kr.or.iei.board.food.model.vo.BoardFood;
 import kr.or.iei.board.food.model.vo.BoardFoodPageData;
-import kr.or.iei.notice.model.vo.NoticePageData;
+import kr.or.iei.board.food.model.vo.BoardFoodViewData;
+import kr.or.iei.board.food.model.vo.FileVO;
+import kr.or.iei.board.food.model.vo.FoodComment;
 
 @Service
 public class BoardFoodService {
@@ -18,13 +20,25 @@ public class BoardFoodService {
 	private BoardFoodDao dao;
 
 	public BoardFoodPageData selectFoodList(int reqPage) {
+//		
+////		ArrayList<Frip> list = dao.selectAllFrip(conn);
+//		
+//	      for(boardFood bf : list) {
+//	         ArrayList<String> fripFiles = dao.selectFripFiles(bf.getFripNo());
+//	         bf.setFilePath(fripFiles);
+//	        
+//	      }
+//	      return list;
+//		
+		
+		
 		int numPerPage = 12;
 		int end = numPerPage * reqPage;
 		int start = end - numPerPage +1 ;
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("start", start);
-		map.put("end", end);
+		map.put("end", end); 
 		ArrayList<BoardFood> list = dao.selectFoodList(map);
 		
 		int totalCount = dao.selectFoodCount();
@@ -44,7 +58,7 @@ public class BoardFoodService {
 				// 이전버튼
 				if (pageNo != 1) {
 					pageNavi += "<li>";
-					pageNavi += "<a class='page-item' href='/boarFoodList.do?reqPage=" + (pageNo - 1) + "'>";
+					pageNavi += "<a class='page-item' href='/boardFoodList.do?reqPage=" + (pageNo - 1) + "'>";
 					pageNavi += "<span class='material-icons'>chevron_left</span>";
 					pageNavi += "</a></li>";
 				}
@@ -52,12 +66,12 @@ public class BoardFoodService {
 				for (int i = 0; i < pageNaviSize; i++) {
 					if (pageNo == reqPage) {
 						pageNavi += "<li>";
-						pageNavi += "<a class='page-item active-page' href='/boarFoodList.do?reqPage=" + (pageNo) + "'>";
+						pageNavi += "<a class='page-item active-page' href='/boardFoodList.do?reqPage=" + (pageNo) + "'>";
 						pageNavi += pageNo;
 						pageNavi += "</a></li>";
 					} else {
 							pageNavi += "<li>";
-							pageNavi += "<a class='page-item' href='/boarFoodList.do?reqPage=" + (pageNo) + "'>";
+							pageNavi += "<a class='page-item' href='/boardFoodList.do?reqPage=" + (pageNo) + "'>";
 							pageNavi += pageNo;
 							pageNavi += "</a></li>";
 					}
@@ -69,7 +83,7 @@ public class BoardFoodService {
 				// 다음버튼
 				if(pageNo <= totalPage) {
 					pageNavi += "<li>";
-					pageNavi += "<a class='page-item' href='/boarFoodList.do?reqPage=" + (pageNo) + "'>";
+					pageNavi += "<a class='page-item' href='/boardFoodList.do?reqPage=" + (pageNo) + "'>";
 					pageNavi += "<span class='material-icons'>chevron_right</span>";
 					pageNavi += "</a></li>";
 				}
@@ -77,4 +91,37 @@ public class BoardFoodService {
 		BoardFoodPageData bfpd = new BoardFoodPageData(list, pageNavi);
 		return bfpd;
 	}
+
+	public int insertBoardFood(BoardFood b, ArrayList<FileVO> fileList) {
+		int result = dao.insertBoardFood(b);
+		System.out.println(b);
+		if(result>0) {
+			for(FileVO file : fileList) {
+				file.setBoardFoodNo(b.getBoardFoodNo());
+				result += dao.insertFile(file);
+			}
+		}
+		return result;
+	}
+
+	public BoardFoodViewData selectOneBoardFood(int boardFoodNo) {
+		int result = dao.updateReadCount(boardFoodNo);
+		if(result>0) {
+			BoardFood bf = dao.selectOneBoardFood(boardFoodNo);
+			
+			//댓글 
+			ArrayList<FoodComment> commentList = dao.selectFoodComment(boardFoodNo);
+			//대댓글
+			ArrayList<FoodComment> reCommentList = dao.selectReCommentList(boardFoodNo);
+		
+			
+			BoardFoodViewData bfvd = new BoardFoodViewData(bf,commentList,reCommentList);
+
+			return bfvd;
+		}else {
+			return null;
+			
+		}
+	}
+
 }
