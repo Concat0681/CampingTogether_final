@@ -1,6 +1,7 @@
 package kr.or.iei.notice.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -15,8 +16,8 @@ public class NoticeDao {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
-	public ArrayList<Notice> selectNoticeList() {
-		List list = sqlSession.selectList("notice.selectNoticeList");
+	public ArrayList<Notice> selectNoticeList(HashMap<String,Object> map) {
+		List list = sqlSession.selectList("notice.selectNoticeList",map);
 		return (ArrayList<Notice>)list;
 	}
 
@@ -38,5 +39,10 @@ public class NoticeDao {
 	public int deleteNotice(int noticeNo) {
 		int result = sqlSession.delete("notice.deleteNotice",noticeNo);
 		return result;
+	}
+
+	public int selectNoticeCount() {
+		int totalCount = sqlSession.selectOne("notice.totalCount");
+		return totalCount;
 	}
 }

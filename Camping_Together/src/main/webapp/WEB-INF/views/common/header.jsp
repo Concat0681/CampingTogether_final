@@ -57,7 +57,7 @@
                         <ul class="freeboard" style="display: none;">
                             <li><a href="/allMemberChatFrm.do">채팅</a></li>
                             <li><a href="#">캠핑팁</a></li>
-                            <li><a href="#">캠핑음식</a></li>
+                            <li><a href="/boardFoodList.do?reqPage=1">캠핑음식</a></li>
                         </ul>
                         
                     </li>

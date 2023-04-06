@@ -13,6 +13,9 @@
 	<link rel="stylesheet" href="/summernote/summernote-lite.css">
 	
 <style>
+.note-editable{
+	text-align: left;
+}
 * {
 	text-decoration: none;
 	margin: 0px;
@@ -97,12 +100,15 @@ p{
 				<th class="td-3" colspan="6">제목</th>
 				<tr class="tr-1">
 					<th colspan="6">
-						<input type="text" name="noticeTitle"value="${n.noticeTitle }" class="input-form">
+						<input type="text" name="noticeTitle" id="noticeTitle" value="${n.noticeTitle }" class="input-form">
 					</th>
 				</tr>
 				<tr class="tr-1">
 					<th class="td-3">글번호</th>
-					<td>${n.noticeNo }</td>
+					<td>
+					<input type="hidden" name="noticeNo" value="${n.noticeNo }">
+					${n.noticeNo }
+					</td>
 					<th class="td-3">작성자</th>
 					<td>${n.noticeWriter }</td>
 					<th class="td-3">작성일</th>
@@ -110,8 +116,8 @@ p{
 				</tr>
 				<tr class="tr-1">
 					<td colspan="6">
-						<div id="noticeContent" style="height: 400px; text-align: left;">
-							<textarea name="noticeContent">${n.noticeContent}</textarea>
+						<div>
+							<textarea name="noticeContent" id="noticeContent">${n.noticeContent}</textarea>
 						</div>
 					</td>
 				</tr>
@@ -124,10 +130,7 @@ p{
 		</div>
 	</form>
 		<script>
-		//써머노트 태그제거
-		const t = $("[name=noticeContent]").text();
-		$("#noticeContent").html(t);
-		
+	
 		$("#noticeContent").summernote({
 			height : 400,
 			lang : "ko-KR"

@@ -1,4 +1,4 @@
-package kr.or.iei.notice.model.service;
+package kr.or.iei.board.food.model.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,27 +6,28 @@ import java.util.HashMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import kr.or.iei.notice.model.dao.NoticeDao;
-import kr.or.iei.notice.model.vo.Notice;
+import kr.or.iei.board.food.model.dao.BoardFoodDao;
+import kr.or.iei.board.food.model.vo.BoardFood;
+import kr.or.iei.board.food.model.vo.BoardFoodPageData;
 import kr.or.iei.notice.model.vo.NoticePageData;
 
 @Service
-public class NoticeService {
+public class BoardFoodService {
 
 	@Autowired
-	private NoticeDao dao;
+	private BoardFoodDao dao;
 
-	public NoticePageData selectNoticeList(int reqPage) {
-		int numPerPage = 10;
+	public BoardFoodPageData selectFoodList(int reqPage) {
+		int numPerPage = 12;
 		int end = numPerPage * reqPage;
-		int start = end - numPerPage + 1;
-
+		int start = end - numPerPage +1 ;
+		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("start", start);
 		map.put("end", end);
-		ArrayList<Notice> list = dao.selectNoticeList(map);
-
-		int totalCount = dao.selectNoticeCount();
+		ArrayList<BoardFood> list = dao.selectFoodList(map);
+		
+		int totalCount = dao.selectFoodCount();
 		int totalPage = (int) Math.ceil(totalCount / (double) numPerPage);
 		// 네비게이션 사이즈
 				int pageNaviSize = 5; // 기본값 5
@@ -43,7 +44,7 @@ public class NoticeService {
 				// 이전버튼
 				if (pageNo != 1) {
 					pageNavi += "<li>";
-					pageNavi += "<a class='page-item' href='/noticeList.do?reqPage=" + (pageNo - 1) + "'>";
+					pageNavi += "<a class='page-item' href='/boarFoodList.do?reqPage=" + (pageNo - 1) + "'>";
 					pageNavi += "<span class='material-icons'>chevron_left</span>";
 					pageNavi += "</a></li>";
 				}
@@ -51,12 +52,12 @@ public class NoticeService {
 				for (int i = 0; i < pageNaviSize; i++) {
 					if (pageNo == reqPage) {
 						pageNavi += "<li>";
-						pageNavi += "<a class='page-item active-page' href='/noticeList.do?reqPage=" + (pageNo) + "'>";
+						pageNavi += "<a class='page-item active-page' href='/boarFoodList.do?reqPage=" + (pageNo) + "'>";
 						pageNavi += pageNo;
 						pageNavi += "</a></li>";
 					} else {
 							pageNavi += "<li>";
-							pageNavi += "<a class='page-item' href='/noticeList.do?reqPage=" + (pageNo) + "'>";
+							pageNavi += "<a class='page-item' href='/boarFoodList.do?reqPage=" + (pageNo) + "'>";
 							pageNavi += pageNo;
 							pageNavi += "</a></li>";
 					}
@@ -68,28 +69,12 @@ public class NoticeService {
 				// 다음버튼
 				if(pageNo <= totalPage) {
 					pageNavi += "<li>";
-					pageNavi += "<a class='page-item' href='/noticeList.do?reqPage=" + (pageNo) + "'>";
+					pageNavi += "<a class='page-item' href='/boarFoodList.do?reqPage=" + (pageNo) + "'>";
 					pageNavi += "<span class='material-icons'>chevron_right</span>";
 					pageNavi += "</a></li>";
 				}
 				pageNavi += "</ul>";
-		NoticePageData npd = new NoticePageData(list, pageNavi);
-		return npd;
-	}
-
-	public int insertNoitce(Notice n) {
-		return dao.insertNotice(n);
-	}
-
-	public Notice selectOneNotice(int noticeNo) {
-		return dao.selectOneNotice(noticeNo);
-	}
-
-	public int updateNotice(Notice n) {
-		return dao.updateNotice(n);
-	}
-
-	public int deleteNotice(int noticeNo) {
-		return dao.deleteNotice(noticeNo);
+		BoardFoodPageData bfpd = new BoardFoodPageData(list, pageNavi);
+		return bfpd;
 	}
 }
