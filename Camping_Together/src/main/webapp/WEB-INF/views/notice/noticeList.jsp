@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <style>
 *{
@@ -71,7 +72,7 @@
 }
 </style>
 <body>
-<%-- 	<jsp:include page="/WEB-INF/views/common/header.jsp"/> --%>
+	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 	<div class="page-content">
 		<c:if test="${not empty sessionScope.m && sessionScope.m.memberGrade eq 'a' }">
 			<a class="btn bc4 writeBtn" href="/noticeWriteFrm.do">글쓰기</a>			
@@ -92,8 +93,9 @@
 					<td>${n.enrollDate }</td>
 				</tr>
 			</c:forEach>
-			
+
 	</table>
+	<div id="pageNavi">${pageNavi }</div>
 	</div>
 </body>
 </html>
