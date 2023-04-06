@@ -31,4 +31,44 @@
 		delete from member where member_no = #{_parameter}
 	</delete>
 	
+	<!-- 캠핑장 결제 내역리스트 
+	<select id="selectPayList" parameterType="map" resultType="m">
+		 select * from
+			(select rownum as rnum, m.*from
+				(select
+					board_no as boardNo,
+					board_title as boardTitle,
+					board_writer as boardWriter,
+					board_date as boardDate
+				from board order by 1 desc)b)
+			where rnum between #{start} and #{end}
+	</select>
+	-->
+	
+	<!-- 캠핑장 결제 내역리스트 -->
+	<select id="selectPayList" parameterType="_int" resultType="cp">
+		select 
+			camping_room_title as campingRoomTitle, 
+			camping_room_price as campingRoomPrice, 
+			camping_payment_date as campingPaymentDate, 
+			check_in as checkIn, 
+			check_out as checkOut
+		from 
+			camping_payment 
+			join camping_reservation using(CAMPING_RESERVATION_NO) 
+			join camping_room using(camping_room_no)
+		where member_no = ${_parameter}
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 </mapper>
