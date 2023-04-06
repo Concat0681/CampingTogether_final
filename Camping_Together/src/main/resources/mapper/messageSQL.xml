@@ -6,16 +6,42 @@
     </insert>
     
     <select id="selectMessagelist" parameterType="ms" resultType="ms">
-        SELECT MESSAGE_NO, RECEIVER, SENDER, MESSAGE_CONTENT, MESSAGE_TITLE, READ_CHECK, MESSAGE_DATE
+        SELECT 
+        	MESSAGE_NO as messageNo, 
+        	RECEIVER, 
+        	SENDER, 
+        	MESSAGE_CONTENT as messageContent, 
+        	MESSAGE_TITLE as messageTitle, 
+        	READ_CHECK as readCheck, 
+        	MESSAGE_DATE as messageDate
         FROM MESSAGE
         WHERE RECEIVER = #{receiver}
         ORDER BY MESSAGE_NO DESC
     </select>
     
     <select id="selectOneMessage" parameterType="ms" resultType="ms">
-        SELECT MESSAGE_NO, RECEIVER, SENDER, MESSAGE_CONTENT, MESSAGE_TITLE, READ_CHECK, MESSAGE_DATE
+        SELECT 
+        	MESSAGE_NO as messageNo, 
+        	RECEIVER, 
+        	SENDER, 
+        	MESSAGE_CONTENT as messageContent, 
+        	MESSAGE_TITLE as messageTitle, 
+        	READ_CHECK as readCheck, 
+        	MESSAGE_DATE as messageDate
         FROM MESSAGE
         WHERE MESSAGE_NO = #{messageNo}
     </select>
+    
+    <update id="updateMessageReadStatus" parameterType="ms">
+		update message
+		set read_check = 1
+		where message_no = #{messageNo}
+	</update>
+
+	<select id="messageCount" parameterType="string" resultType="_int">
+		select count(*)
+		from message
+		where receiver = #{memberId}
+	</select>
 </mapper>
 

@@ -31,4 +31,10 @@ public class MessageDao {
 		return messageCount;
 	}
 
+	public int updateMessageReadStatus(Message message) {
+		return sqlSession.update("message.updateMessageReadStatus", message);
+	}
+
+
+
 }

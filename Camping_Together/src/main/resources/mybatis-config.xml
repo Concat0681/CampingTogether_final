@@ -7,6 +7,7 @@
 	</settings>
 	<typeAliases>
 		<typeAlias type="kr.or.iei.member.model.vo.Member" alias="m"/>
+		<typeAlias type="kr.or.iei.member.model.vo.CampingPayment" alias="cp"/>
 		<typeAlias type="kr.or.iei.usedBoard.model.vo.UsedBoard" alias="ub"/>
 		<typeAlias type="kr.or.iei.camping.model.vo.Camping" alias="c"/>
 		<typeAlias type="kr.or.iei.camping.model.vo.CampingRoom" alias="cr"/>
@@ -18,5 +19,6 @@
 		<typeAlias type="kr.or.iei.message.model.vo.Message" alias="ms"/>
 		 <typeAlias type="kr.or.iei.camping.model.vo.CampingRoomFileVO" alias="crf"/> 
 		 <typeAlias type="kr.or.iei.notice.model.vo.Notice" alias="n"/>
+		 <typeAlias type="kr.or.iei.board.food.model.vo.BoardFood" alias="bf"/>
 	</typeAliases>
 </configuration>
