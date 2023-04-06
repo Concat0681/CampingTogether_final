@@ -68,13 +68,40 @@
 				<div class="weather-list"></div>
 			</div>
 			<div class="campingRoom-list">
-				<c:forEach items="${campingRoomList}" var="r">
+				<c:forEach items="${campingRoomList}" var="r" varStatus="i">
 				<div class="room-wrap"> 
 					<div class="room-img-box">
-						<c:forEach items="${r.fileList }" var="f">
-							<img class="room-img" src="resources/upload/campingRoom/${f.filepath }">
-						</c:forEach>
-						<img class="room-img" src="resources/image/camping/sokcho.jpeg">
+						<div id="carousel-${i.index }" class="carousel slide" data-bs-ride="carousel">
+							<div class="carousel-indicators">
+								<button type="button" data-bs-target="#carousel-${i.index }" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+								<button type="button" data-bs-target="#carousel-${i.index }" data-bs-slide-to="1" aria-label="Slide 2"></button>
+								<button type="button" data-bs-target="#carousel-${i.index }" data-bs-slide-to="2" aria-label="Slide 3"></button>
+							</div>
+							<div class="carousel-inner">
+								<c:forEach items="${r.fileList }" var="f" varStatus="j">
+									<c:choose>
+										<c:when test="${j.index == 0 }">
+											<div class="carousel-item active">
+												<img src="resources/upload/campingRoom/${f.filepath }" class="d-block w-100" alt="resources/upload/camping/campingbg.jpg">
+											</div>
+										</c:when>
+										<c:otherwise>
+											<div class="carousel-item">
+												<img src="resources/upload/campingRoom/${f.filepath }" class="d-block w-100" alt="resources/upload/camping/campingbg.jpg">
+											</div>
+										</c:otherwise>
+									</c:choose>
+								</c:forEach>
+							</div>
+							<button class="carousel-control-prev" type="button" data-bs-target="#carousel-${i.index }" data-bs-slide="prev">
+								<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+								<span class="visually-hidden">Previous</span>
+							</button>
+							<button class="carousel-control-next" type="button" data-bs-target="#carousel-${i.index }" data-bs-slide="next">
+								<span class="carousel-control-next-icon" aria-hidden="true"></span>
+								<span class="visually-hidden">Next</span>
+							</button>
+						</div>
 					</div>
 					<div class="room-box">
 						<div>${r.campingRoomTitle }</div>
@@ -88,6 +115,24 @@
 						</div>
 					</div>
 				</div>
+				
+						<!-- 객실 정보 모달 -->
+				<div class="modal fade" id="modal-${i.index}" tabindex="-1" aria-labelledby="modal-${i.index}Label" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+						    <div class="modal-header">
+							    <h1 class="modal-title fs-5" id="modal-${i.index}Label">Modal title</h1>
+						        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+							<div class="modal-body">${r.campingRoomTitle}</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+						        <button type="button" class="btn btn-primary">Save changes</button>
+			    	        </div>
+					    </div>
+		 		    </div>
+				</div>
+				
 				</c:forEach>
 			</div>
 		</div>
@@ -142,10 +187,24 @@
 				  $('[name=checkIn]').val('')
 				  $('[name=checkOut]').val('')
 				})
+				
+				const carousel = clone.find(".carousel");
+				carousel.each(function(i, c){
+					const id = $(c).attr("id");
+					new bootstrap.Carousel('#'+id)
+				})
+				
+				const modal = clone.find(".modal")
+				const roomInfo = clone.find(".room-basic-info");
+				roomInfo.each(function(i,r){
+					$(r).attr("data-bs-toggle","modal").attr("data-bs-target", "#"+modal.eq(i).attr("id"))
+				})
 			}
 			clone.removeClass("content-hidden content-box").addClass("cotent-wrapper").appendTo($(".content-wrap"))
 		})
+		
 		$(".menu").eq(0).click()
+		
 	</script>
 </body>
 </html>

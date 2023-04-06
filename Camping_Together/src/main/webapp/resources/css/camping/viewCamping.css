@@ -2,7 +2,7 @@
 .page-wrap{
 	width: 80%;
 	margin: 0 auto;
-	margin-top : 130px;
+	margin-top : 150px;
 }
 .header-wrap{
 	display : flex;
@@ -65,4 +65,13 @@
 .room-price-box{
 	display: flex;
 	justify-content: space-between;
+}
+.room-img-box{
+	width: 40%;
+}
+.room-box{
+	width: 60%;
+}
+.carousel-item > img{
+	height: 200px;
 }
