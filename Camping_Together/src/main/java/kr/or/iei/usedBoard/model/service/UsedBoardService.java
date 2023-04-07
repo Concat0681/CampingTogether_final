@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import kr.or.iei.usedBoard.model.dao.UsedBoardDao;
 import kr.or.iei.usedBoard.model.vo.UsedBoard;
+import kr.or.iei.usedBoard.model.vo.UsedBoardComment;
 import kr.or.iei.usedBoard.model.vo.UsedBoardPageDate;
 import kr.or.iei.usedBoard.model.vo.UsedBoardPhoto;
 
@@ -33,15 +34,15 @@ public class UsedBoardService {
 		if(reqPage > 3) {
 			pageNo = reqPage - 2;
 		}
-		String pageNavi = "";
+		String pageNavi = "<ul class='pagination circle-style'>";
 		if(pageNo != 1) {
-			pageNavi += "<a class='page-item' href='/usedBoardList.do?reqPage="+(pageNo-1)+"'><span class='material-icons'>chevron_left</span></a>";
+			pageNavi += "<li><a class='page-item' href='/usedBoardList.do?reqPage="+(pageNo-1)+"'><span class='material-icons'>chevron_left</span></a></li>";
 		}
 			for(int i=0; i<pageNaviSize; i++) {
 				if(pageNo == reqPage) {
-					pageNavi += "<a class='page-item active-page'>"+pageNo+"</a>";
+					pageNavi += "<li><a class='page-item active-page'>"+pageNo+"</a></li>";
 				}else {
-					pageNavi += "<a class='page-item' href='/usedBoardList.do>reqPage="+pageNo+"'>"+pageNo+"</a>";
+					pageNavi += "<li><a class='page-item' href='/usedBoardList.do>reqPage="+pageNo+"'>"+pageNo+"</a></li>";
 				}
 				pageNo++;
 				if(pageNo > totalPage) {
@@ -49,7 +50,7 @@ public class UsedBoardService {
 				}
 			}
 		if(pageNo <= totalPage) {
-			pageNavi += "<a class='page-item' href='/usedBoardList.do?reqPage="+(pageNo+1)+"'><span class='material-icons'>chevron_right </span></a>";
+			pageNavi += "<li><a class='page-item' href='/usedBoardList.do?reqPage="+(pageNo+1)+"'><span class='material-icons'>chevron_right </span></a></li>";
 		}
 		UsedBoardPageDate ubpd = new UsedBoardPageDate(list, pageNavi);
 		return ubpd;
@@ -76,5 +77,13 @@ public class UsedBoardService {
 		ArrayList<UsedBoardPhoto> list = dao.selectUsedPhoto(usedBoardNo);
 		ub.setUsedBoardPhotoList(list);
 		return ub;
+	}
+
+	public int usedBoardCommentInsert(UsedBoardComment ubc) {
+		return dao.usedBoardCommentInsert(ubc);
+	}
+
+	public ArrayList<UsedBoardComment> selectCommentList(int usedBoardNo) {
+		return dao.selectCommentList(usedBoardNo);
 	}
 }

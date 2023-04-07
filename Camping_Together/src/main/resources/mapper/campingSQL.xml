@@ -190,7 +190,7 @@
 	</insert>
 	
 	<insert id="insertCampingReview" parameterType="crv">
-		insert into camping_review values(camping_review_seq.nextval,'42','user01',#{campingReviewTitle},#{campingReviewContent},#{campingReviewRating},null)
+		insert into camping_review values(camping_review_seq.nextval,#{campingNo},'user01',#{campingReviewTitle},#{campingReviewContent},#{campingReviewRating},null)
 		<selectKey resultType="_int" order="AFTER" keyProperty="campingReviewNo">
 			select max(camping_review_no) from camping_review
 		</selectKey>

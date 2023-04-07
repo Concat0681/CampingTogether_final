@@ -218,7 +218,7 @@ public class CampingController {
 	}
 	
 	@RequestMapping(value="/campingReviewWrite.do")
-	public String campingReviewWrite(CampingReview crv, MultipartFile[] campingReviewFilepath, HttpServletRequest request) {
+	public String campingReviewWrite(CampingReview crv, MultipartFile[] campingReviewFilepath, HttpServletRequest request, int campingNo) {
 		ArrayList<CampingReviewFileVO> fileList = new ArrayList<CampingReviewFileVO>();
 		if(!campingReviewFilepath[0].isEmpty()) {
 			String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/campingReview/");
@@ -229,9 +229,10 @@ public class CampingController {
 				fileList.add(campingReviewFileVO);
 			}
 		}
+		crv.setCampingNo(campingNo);
 		int result = service.insertCampingReview(crv, fileList);
 		if(result == (fileList.size()+1)) {
-			return "redirect:/campingReview.do";
+			return "redirect:/viewCamping.do?campingNo="+campingNo;
 		}else {
 			return "redirect:/";
 		}

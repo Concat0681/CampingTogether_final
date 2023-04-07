@@ -64,7 +64,7 @@
    		font-weight: bold;
    }
    .write>a:hover{
-		color: E3CAA5;
+		color: #E3CAA5;
    }
    .post{
        float: left;
@@ -296,15 +296,9 @@
             	</c:forEach>   
             </div>
         </div>
+        <div class="pagenation">
+	        ${pageNavi }
+        </div>
     </div>
-    <script>
-		$("#favorite").on("click", function(){
-			<!--
-			$(this).css("font-variation-settings", "'FILL' 1");
-			$(this).css("color", "red");
-			-->
-			$(this).toggleClass("fill-icon");
-		});
-    </script>
 </body>
 </html>
