@@ -29,7 +29,6 @@ public class NoticeController {
 	@RequestMapping(value="/noticeWrite.do")
 	public String noticeWrite(Notice n) {
 		int result = service.insertNoitce(n);
-		System.out.println(n);
 		if(result>0) {
 			return "redirect:/noticeList.do?reqPage=1";
 		}else {

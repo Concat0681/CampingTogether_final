@@ -25,7 +25,6 @@ public class UsedBoardService {
 		map.put("start", start);
 		map.put("end", end);
 		ArrayList<UsedBoard> list = dao.selectUsedBoardList(map);
-		System.out.println(list.get(0).getThumbnail());
 		int totalCount = dao.selectBoardCount();
 		int totalPage = (int)Math.ceil(totalCount/(double)numPerPage);
 		int pageNaviSize = 10;
@@ -66,5 +65,16 @@ public class UsedBoardService {
 			}
 		}
 		return result;
+	}
+
+	public UsedBoard selectOneUsedBoard(int usedBoardNo) {
+		//1. 조회수update
+		int result = dao.updateReadCount(usedBoardNo);
+		//2. 상세정보조회
+		UsedBoard ub = dao.selectOneUsedBoard(usedBoardNo);
+		//3. 첨부이미지조회
+		ArrayList<UsedBoardPhoto> list = dao.selectUsedPhoto(usedBoardNo);
+		ub.setUsedBoardPhotoList(list);
+		return ub;
 	}
 }

@@ -28,8 +28,8 @@ public class CampingDao {
 		return (ArrayList<Camping>)list;
 	}
 
-	public int selectCampingCount() {
-		int totalCount = sqlSession.selectOne("camping.selectCampingCount");
+	public int selectCampingCount(HashMap<String, Object> map) {
+		int totalCount = sqlSession.selectOne("camping.selectCampingCount" , map);
 		return totalCount;
 	}
 

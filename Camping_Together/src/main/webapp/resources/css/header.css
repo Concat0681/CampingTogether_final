@@ -1,8 +1,15 @@
 *{
-	text-decoration: none;
-	outline: none;
+	text-decoration: none !important;
+	outline: none !important;
 }
 
+.nav-link{
+	color: #fff ;
+	font-weight: bolder;
+}
+.nav-link-down:hover{
+	color: #AD8B73 !important ;
+}
 
 body{
     margin: 0;
