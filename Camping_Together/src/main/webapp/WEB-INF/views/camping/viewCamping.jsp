@@ -252,7 +252,7 @@
 			          const span =
 			            '<span class=material-symbols-outlined>' +
 			            weatherIcon[icon] +
-			            '</span>';
+			            '</span>'
 			          div1.append(span).append(div2).append(div3)
 			          $('.weather-list').append(div1)
 			        }
