@@ -19,6 +19,9 @@
        'GRAD' 0,
        'opsz' 48
    }
+   .fill-icon{
+    	font-variation-settings: 'FILL' 1
+	}
    .page-content{
        width: 1200px;
        margin: 0 auto;
@@ -57,6 +60,12 @@
    .usedBoardWrite>span{
        font-size: 25px;
    }
+   .write>a{
+   		font-weight: bold;
+   }
+   .write>a:hover{
+		color: E3CAA5;
+   }
    .post{
        float: left;
        margin-right: 5px;
@@ -77,7 +86,7 @@
    }
    .product{
 	   width: 90%;
-       border: 1px solid #AD8B73;
+       border: 1px solid #ccc;
        border-radius: 5px;
        box-sizing: border-box;
        cursor: pointer;
@@ -90,7 +99,19 @@
        height: 250px;
        margin: 0 auto;
        padding: 20px;
-       box-sizing: border-box;      
+       box-sizing: border-box;  
+       position: relative;    
+   }
+   .sel-status{
+   		position:absolute;
+   		margin-top: 18px;
+   		margin-left: 185px;
+   		padding: 6px;
+   		background-color: #E3CAA5;
+   		font-size: 14px;
+   		font-weight: bold;
+   		border-radius: 5px;
+   		color: #FFFBE9;
    }
    .product-img>img{
        width: 100%;
@@ -123,7 +144,7 @@
    }
    .product_mid{
        margin: 0 auto;
-       border-bottom: 1px solid #AD8B73;
+       border-bottom: 1px solid #ccc;
    }
 
    .product-bottom{
@@ -148,8 +169,9 @@
        margin-left: 8px;
    }
    .icon{
-       font-size: 18px;
-       line-height: 27px;
+       font-size: 15px;
+       line-height: 23px;
+       margin-right: 3px;
    }
 </style>
 </head>
@@ -162,19 +184,34 @@
                 <div class="category">
                     <select class="used-category" name="usedBoardCategory">
                         <option value="0">전체종류</option>
-                        <option value="1">침낭/매트</option>
-                        <option value="2">겨울용품</option>
-                        <option value="3">전기/전자제품</option>
-                        <option value="4">차박용품</option>
-                        <option value="5">기타캠핑용품</option>
+                        <option value="1">전기/전자제품</option>
+                        <option value="2">캠핑카/카라반용품</option>
+                        <option value="3">화로/버너/BBQ</option>
+                        <option value="4">안전/위생용품</option>
+                        <option value="8">텐트/타프</option>
+                        <option value="5">침낭/매트</option>
+                        <option value="6">차박용품</option>
+                        <option value="7">조명기구</option>
+                        <option value="8">기타캠핑용품</option>
+                        <option value="9">기타생활용품</option>
+                        
                     </select>
                     <select class="used-location" name="usedTradeLocation">
-                        <option value="0">전국</option>
-                        <option value="1">서울</option>
-                        <option value="2">인천</option>
-                        <option value="3">경기</option>
-                        <option value="4">충북</option>
-                        <option value="5">충남</option>
+                        <option>전국</option>
+                        <option>서울</option>
+                        <option>인천</option>
+                        <option>경기</option>
+                        <option>대전</option>
+                        <option>대구</option>
+                        <option>부산</option>
+                        <option>강원</option>
+                        <option>광주</option>
+                        <option>울산</option>
+                        <option>경남</option>
+                        <option>경북</option>
+                        <option>전남</option>
+                        <option>전북</option>
+                        <option>제주</option>
                     </select>
                 </div>
                 <div class="usedBoardWrite">
@@ -191,18 +228,29 @@
             	<div class="product-wrap">
                     <div class="product">
                         <div class="product-img">
-                        
                         <c:choose>
-                        	<c:when test="${empty Thumbnail.ub }">
+                        	<c:when test="${ub.usedBoardStatus eq 0}">
+                        	<div class="sel-status">
+	                        	<span>판매중</span>                    		
+                        	</div>                      
+                       		</c:when>
+                       		<c:otherwise>
+                       		<div class="sel-status" style="background-color: #ccc; color:#fff;">
+	                        	<span>판매완료</span>                    		
+                        	</div>
+                       		</c:otherwise>
+                       	</c:choose>
+                        <c:choose>
+                        	<c:when test="${empty ub.thumbnail }">
                         		<img src="/resources/image/usedBoard/noImg.gif">
                         	</c:when>
                         	<c:otherwise>
-                        		<img src="/resources/upload/usedBoard/12과일바구니.png">
+                        		<img src="/resources/upload/usedBoard/${ub.thumbnail }">
                         	</c:otherwise>
                         </c:choose>
                          
                         </div>
-                        <div class="product_title array">
+                        <div class="product_title array" onclick="location.href='/usedBoardView.do?usedBoardNo=${ub.usedBoardNo}'">
                             <span>${ub.usedBoardTitle }</span>
                         </div>
                         <div class="product_location array">
@@ -221,7 +269,7 @@
                                 <span>${ub.usedProductPrice }</span><span>원</span>
                             </div>
                             <div class="product-wish">
-                                <span class="material-symbols-outlined">favorite</span>
+                                <span id="favorite" class="material-symbols-outlined">favorite</span>
                             </div>
                         </div>
                         <div class="product-bottom array">
@@ -229,13 +277,13 @@
                                 <span>${ub.regDate }</span>
                             </div>
                             <div class="product-etc">
+                            	<div class="product-wishView">
+                                    <div class="material-symbols-outlined icon">favorite</div>
+                                    <div>20</div>
+                                </div>
                                 <div class="product-comment">
                                     <div class="material-symbols-outlined icon">chat_bubble</div>
                                     <div>10</div>
-                                </div>
-                                <div class="product-wishView">
-                                    <div class="material-symbols-outlined icon">favorite</div>
-                                    <div>20</div>
                                 </div>
                                 <div class="product-readCount">
                                     <div class="material-symbols-outlined icon">visibility</div>
@@ -249,5 +297,14 @@
             </div>
         </div>
     </div>
+    <script>
+		$("#favorite").on("click", function(){
+			<!--
+			$(this).css("font-variation-settings", "'FILL' 1");
+			$(this).css("color", "red");
+			-->
+			$(this).toggleClass("fill-icon");
+		});
+    </script>
 </body>
 </html>

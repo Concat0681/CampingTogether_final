@@ -20,5 +20,10 @@
 		 <typeAlias type="kr.or.iei.camping.model.vo.CampingRoomFileVO" alias="crf"/> 
 		 <typeAlias type="kr.or.iei.notice.model.vo.Notice" alias="n"/>
 		 <typeAlias type="kr.or.iei.board.food.model.vo.BoardFood" alias="bf"/>
+		 <typeAlias type="kr.or.iei.camping.model.vo.CampingReview" alias="crv"/>
+		 <typeAlias type="kr.or.iei.camping.model.vo.CampingReviewFileVO" alias="crvf"/>
+		 <typeAlias type="kr.or.iei.board.food.model.vo.FileVO" alias="f"/>
+		 <typeAlias type="kr.or.iei.board.food.model.vo.BoardFoodViewData" alias="bfvd"/>
+		 <typeAlias type="kr.or.iei.usedBoard.model.vo.UsedBoardPhoto" alias="ubp"/>
 	</typeAliases>
 </configuration>

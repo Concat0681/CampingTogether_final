@@ -1,5 +1,8 @@
 @charset "UTF-8";
 
+.page-wrap{
+    margin-top: 150px;
+}
 .page-content{
     width: 100%;
     display : flex;
@@ -68,4 +71,8 @@
     min-width: 40%;
     width: 60%;
     margin-left: 50px;
+}
+
+.hidden{
+    display: none;
 }

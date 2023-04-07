@@ -4,7 +4,7 @@
 	<select id="selectCampingListData" parameterType="map" resultType="c">
 		select * from
 			(select 
-				rownum as rnum, 
+				rownum as rnum,
 				c.*,
 				(select avg(camping_review_rating) from camping_review join camping using(camping_no) where camping_no = c.campingNo ) as avgReviewRating,
 				(select max(camping_room_price) from camping_room join camping using(camping_no) where camping_no = c.campingNo) as maxRoomPrice
@@ -18,11 +18,13 @@
 					camping_addr_detail as campingAddrDetail,
 					camping_phone as campingPhone,
 					filepath
-				from camping 
-             )c
+				from camping)c
 			<trim prefix="where" prefixOverrides="and|or">
+				<if test="campingAddr != null">
+					 campingAddr like '%'||#{campingAddr}||'%'
+				</if>
 				<if test="campingRoomTypeList != null">
-					 campingNo in (select camping_no from camping_room where camping_room_type in
+					 and campingNo in (select camping_no from camping_room where camping_room_type in
 					<foreach collection="campingRoomTypeList" item="type" open="(" close=")" separator=",">
 						 #{type}
 					</foreach>
@@ -50,7 +52,7 @@
 					)
 				</if>
 				<if test="pplCount != 0">
-					and campingNo in (select camping_no from camping_room_service where camping_room_max_ppl_count <![CDATA[ >= ]]> #{pplCount}
+					and campingNo in (select camping_no from camping_room where camping_room_max_ppl_count <![CDATA[ >= ]]> #{pplCount} )
 				</if>
 			</trim>
 		<choose>
@@ -61,11 +63,59 @@
 				order by maxRoomPrice desc nulls last)
 			</when>
 		</choose>
-	where rnum between #{start} and #{end}
+	<if test="start != null">
+		where rnum between #{start} and #{end}
+	</if>
 	</select>
 	
-	<select id="selectCampingCount" resultType="_int">
-		select count(*) from camping
+	<select id="selectCampingCount" parameterType="map" resultType="_int">
+			select count(*) from
+				(select 
+					camping_no,
+					member_id,
+					camping_title,
+					camping_content,
+					camping_addr,
+					camping_addr_detail,
+					camping_phone
+				from camping
+				<trim prefix="where" prefixOverrides="and|or">
+					<if test="campingAddr != null">
+						 camping_addr like '%'||#{campingAddr}||'%'
+					</if>
+					<if test="campingRoomTypeList != null">
+						 and camping_no in (select camping_no from camping_room where camping_room_type in
+						<foreach collection="campingRoomTypeList" item="type" open="(" close=")" separator=",">
+							 #{type}
+						</foreach>
+						)
+					</if>
+					<if test="campingEtcList != null">
+						and camping_no in (select camping_no from camping_etc where camping_etc in
+						<foreach collection="campingEtcList" item="etc" open="(" close=")" separator=",">
+							 #{etc.campingEtc}
+						</foreach>
+						)
+					</if>
+					<if test="campingRoomServiceList != null">
+						and camping_no in (select camping_no from camping_room_service where camping_room_service in
+						<foreach collection="campingRoomServiceList" item="rs" open="(" close=")" separator=",">
+							 #{rs.campingRoomService}
+						</foreach>
+						)
+					</if>
+					<if test="campingProvideServiceList != null">
+						and camping_no in (select camping_no from camping_service where camping_service in
+						<foreach collection="campingProvideServiceList" item="cps" open="(" close=")" separator=",">
+							 #{cps.campingService}
+						</foreach>
+						)
+					</if>
+					<if test="pplCount != 0">
+						and camping_no in (select camping_no from camping_room where camping_room_max_ppl_count <![CDATA[ >= ]]> #{pplCount} )
+					</if>
+				</trim>
+				)
 	</select>
 	
 	<select id="selectOneCamping" parameterType="_int" resultType="c">
@@ -137,5 +187,16 @@
 	
 	<insert id="insertCampingEtc" parameterType="ce">
 		insert into camping_etc values(camping_etc_seq.nextval,#{campingNo},#{campingEtc})
+	</insert>
+	
+	<insert id="insertCampingReview" parameterType="crv">
+		insert into camping_review values(camping_review_seq.nextval,'42','user01',#{campingReviewTitle},#{campingReviewContent},#{campingReviewRating},null)
+		<selectKey resultType="_int" order="AFTER" keyProperty="campingReviewNo">
+			select max(camping_review_no) from camping_review
+		</selectKey>
+	</insert>
+	
+	<insert id="insertCampingReviewPhoto" parameterType="crvf">
+		insert into camping_review_photo values(camping_review_photo_seq.nextval,#{campingReviewNo},#{filepath})
 	</insert>
 </mapper>

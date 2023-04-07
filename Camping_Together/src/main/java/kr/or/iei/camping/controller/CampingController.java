@@ -1,11 +1,9 @@
 package kr.or.iei.camping.controller;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +19,8 @@ import kr.or.iei.camping.model.vo.Camping;
 import kr.or.iei.camping.model.vo.CampingEtc;
 import kr.or.iei.camping.model.vo.CampingListPageData;
 import kr.or.iei.camping.model.vo.CampingProvideService;
+import kr.or.iei.camping.model.vo.CampingReview;
+import kr.or.iei.camping.model.vo.CampingReviewFileVO;
 import kr.or.iei.camping.model.vo.CampingRoom;
 import kr.or.iei.camping.model.vo.ViewCampingData;
 import kr.or.iei.camping.model.vo.CampingRoomFileVO;
@@ -48,12 +48,14 @@ public class CampingController {
 	public String campingList(String cityNameKR, String cityNameEN,int reqPage, String order, String pplCount, String checkIn, String checkOut, String date, Model model) {
 		CampingRoom campingRoom = new CampingRoom();
 		Camping camping = new Camping();
+		camping.setCampingAddr(cityNameKR);
 		campingRoom.setCampingRoomMaxPplCount(Integer.parseInt(pplCount));
 		CampingListPageData cpd = service.selectCampingListData(reqPage, order, camping, campingRoom);
 		model.addAttribute("cityNameKR", cityNameKR);
 		model.addAttribute("cityNameEN", cityNameEN);
 		model.addAttribute("list", cpd.getList()); 
 		model.addAttribute("pageNavi", cpd.getPageNavi());
+		model.addAttribute("allList", cpd.getAllList());
 		model.addAttribute("checkIn", checkIn);
 		model.addAttribute("checkOut", checkOut);
 		model.addAttribute("pplCount", pplCount);
@@ -63,8 +65,10 @@ public class CampingController {
 	
 	@ResponseBody
 	@RequestMapping(value="/detailSearchCamping.do", produces="application/json;charset=utf-8")
-	public String detailSearchCamping(String order, String campingTypeStr, String campingServiceStr, String campingRoomServiceStr, String campingEtcStr, String pplCount) {
-		int reqPage = 1;
+	public String detailSearchCamping(String order, String campingTypeStr, String campingServiceStr, String campingRoomServiceStr, String campingEtcStr, String pplCount, String cityAddr, int reqPage) {
+		if(reqPage == 0) {
+			reqPage = 1;
+		}
 		CampingRoom campingRoom = new CampingRoom();
 		if(campingTypeStr != "") {
 			String[] campingType = campingTypeStr.split(",");
@@ -75,6 +79,7 @@ public class CampingController {
 			campingRoom.setCampingRoomTypeList(arr1);
 		}
 		Camping camping = campingProvideSetter(campingServiceStr, campingRoomServiceStr, campingEtcStr);
+		camping.setCampingAddr(cityAddr);
 		campingRoom.setCampingRoomMaxPplCount(Integer.parseInt(pplCount));
 		CampingListPageData cpd = service.selectCampingListData(reqPage, order, camping, campingRoom);
 		return new Gson().toJson(cpd);
@@ -211,4 +216,46 @@ public class CampingController {
 	public String campingReview() {
 		return "campingReview/campingReview";
 	}
+	
+	@RequestMapping(value="/campingReviewWrite.do")
+	public String campingReviewWrite(CampingReview crv, MultipartFile[] campingReviewFilepath, HttpServletRequest request) {
+		ArrayList<CampingReviewFileVO> fileList = new ArrayList<CampingReviewFileVO>();
+		if(!campingReviewFilepath[0].isEmpty()) {
+			String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/campingReview/");
+			for(MultipartFile file : campingReviewFilepath) {
+				String filepath = manager.upload(savePath, file);
+				CampingReviewFileVO campingReviewFileVO = new CampingReviewFileVO();
+				campingReviewFileVO.setFilepath(filepath);
+				fileList.add(campingReviewFileVO);
+			}
+		}
+		int result = service.insertCampingReview(crv, fileList);
+		if(result == (fileList.size()+1)) {
+			return "redirect:/campingReview.do";
+		}else {
+			return "redirect:/";
+		}
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

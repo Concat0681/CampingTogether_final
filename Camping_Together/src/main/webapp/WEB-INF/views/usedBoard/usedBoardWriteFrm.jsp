@@ -16,6 +16,8 @@
             text-decoration: none;
         }
         .page-content{
+        	width: 1200px;
+            margin: 0 auto;
         	padding-top: 130px;
         }
         .btn2, .btn1{
@@ -40,10 +42,6 @@
         }
         .long{
             width: 1000px;
-        }
-        .page-content{
-            width: 1200px;
-            margin: 0 auto;
         }
         .content-top>h1{
             margin: 20px;
