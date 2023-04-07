@@ -18,7 +18,7 @@
 <link href="/resources/css/default.css" rel="stylesheet"/> 	
 <link href="/resources/css/main.css" rel="stylesheet"/> 	
 </head>
-<body>
+<body onload="init()">
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 	<div class="wrapper">
 		<div class="wrapperTop">
@@ -105,7 +105,7 @@
 		<div class="wrapperMiddle-notice"> 
 			<div class="notice-area">
 				<div class="notice-Box"> 
-					공지사항 <span><a href="/noticeList.do">+</a></span> 
+					공지사항 <span><a href="/noticeList.do?reqPage=1">+</a></span> 
 					<ul class="notice-list">
 						<li> 공지사항1</li>
 						<li> 공지사항2</li>
@@ -139,6 +139,17 @@
 
 </body>
 <script>
+
+$(document).ready(function() {
+    const navbarTop = $('.wrapper-top');
+    const navbarBottom = $('.navbar');
+    const navItem = $('.nav-item');
+    const navLink = $('.nav-link');
+
+    navbarTop.css('backgroundColor', 'rgba(173, 139, 115, 0.2)');
+    navbarBottom.css('backgroundColor', 'rgba(173, 139, 115, 0.2)');
+});
+
 
 $('.bxslider').bxSlider({
     minSlides: 3,

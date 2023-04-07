@@ -10,10 +10,14 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
 -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+<link href="/resources/css/bootStrap.css" rel="stylesheet"/>
 <link href="/resources/css/default.css" rel="stylesheet"/>
 <link href="/resources/css/header.css" rel="stylesheet"/> 	
+
+
 </head>
 <body>	
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -55,7 +59,7 @@
 
 	<c:choose>
 		<c:when test="${empty sessionScope.m }"> 
-		<div class="wrapper-top">
+		<div class="wrapper-top" style="background-color: rgba(173, 139, 115, 1);" >
         <div class="nav-top">
             <ul class="login">
             	<li><a href="/noticeList.do">공지사항</a></li>
@@ -66,7 +70,7 @@
     </div>
     </c:when>
 		<c:otherwise>
-	<div class="wrapper-top" style="background-color: rgba(173, 139, 115, 0.2);">
+	<div class="wrapper-top" style="background-color: rgba(173, 139, 115, 1);">
         <div class="nav-top">
             <ul class="login">
                 <!-- <li><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">쪽지보내기</button></li> -->
@@ -79,9 +83,9 @@
     </div>
 		</c:otherwise>
 	</c:choose>
-    <nav class="wrapper-bottom navbar navbar-expand-lg" style="background-color: rgba(173, 139, 115, 0.2);">
+    <nav class="wrapper-bottom navbar navbar-expand-lg" style="background-color: rgba(173, 139, 115, 1);">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#"><img src="/resources/image/usedBoard/noImg.gif" width="150px" height="75px"></a>
+    <a class="navbar-brand" href="/"><img src="/resources/image/usedBoard/noImg.gif" width="150px" height="75px"></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -115,59 +119,67 @@
   </div>
 </nav>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-	 <script>
- 	// 스크롤 이벤트에 대한 리스너 등록
-    window.addEventListener('scroll', function() {
-      // 현재 스크롤 위치를 가져옴
-      var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+<script>
+	const navbarTop = document.querySelector('.wrapper-top');
+	const navbarBottom = document.querySelector('.navbar');
+	const navItem = document.querySelectorAll('.nav-item');
+	const navLink =  document.querySelectorAll('.nav-link');
+ 	
+	
+	
+	function init() {
+		document.addEventListener('onload', function() {
+			navbarTop.style.backgroundColor = 'rgba(173, 139, 115, 0.2)';
+			navbarBottom.style.backgroundColor = 'rgba(173, 139, 115, 0.2)';
+		});
+		
+		  window.addEventListener('scroll', function() {
+		      // 현재 스크롤 위치를 가져옴
+		      var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
-      // 네비바 엘리먼트 선택
-      const navbarTop = document.querySelector('.wrapper-top');
-      const navbarBottom = document.querySelector('.navbar');
-      const navItem = document.querySelectorAll('.nav-item');
-      const navLink =  document.querySelectorAll('.nav-link');
-    	  
-      	
-      // 현재 스크롤 위치가 300px 이상인 경우에만 실행
-      if (scrollTop >= 300) {
-        // 네비바의 배경색을 1초 동안 투명도 1로 변경
-        navbarTop.style.transition = 'background-color 1s';
-        navbarTop.style.backgroundColor = 'rgba(173, 139, 115, 1)';
-        
-      } else {
-        // 네비바의 배경색을 원래대로 복원
-        navbarTop.style.transition = 'background-color 1s';
-        navbarTop.style.backgroundColor = 'rgba(173, 139, 115, 0.2)';
-       
-      }
-      if (scrollTop >= 300) {
-          // 네비바의 배경색을 1초 동안 투명도 1로 변경
-          navbarBottom.style.transition = 'background-color 1s';
-          navbarBottom.style.backgroundColor = 'rgba(173, 139, 115, 1)';
-        } else {
-          // 네비바의 배경색을 원래대로 복원
-          navbarBottom.style.transition = 'background-color 1s';
-          navbarBottom.style.backgroundColor = 'rgba(173, 139, 115, 0.2)';
-          
-        }
-      if (scrollTop >= 300) {
-          //네비바의 컨텐츠 글자색을 흰색으로
-          for(let i=0; i < navLink.length; i++){
-        	  navItem[i].style = 'color';
-        	  navItem[i].style.color = 'rgb(255, 255, 255)';
-          }
-          
-        } else {
-          // 네비바의 컨텐츠 글자색을 원래대로 복원
-          for(let i=0; i < navLink.length; i++){
-        	  navItem[i].style = 'color';
-        	  navItem[i].style.color = '#AD8B73';
-          }
-      
-        }
-      
-      
-    });
+		      // 현재 스크롤 위치가 300px 이상인 경우에만 실행
+		      if (scrollTop >= 300) {
+		        // 네비바의 배경색을 1초 동안 투명도 1로 변경
+		        navbarTop.style.transition = 'background-color 1s';
+		        navbarTop.style.backgroundColor = 'rgba(173, 139, 115, 1)';
+		        
+		      } else {
+		        // 네비바의 배경색을 원래대로 복원
+		        navbarTop.style.transition = 'background-color 1s';
+		        navbarTop.style.backgroundColor = 'rgba(173, 139, 115, 0.2)';
+		       
+		      }
+		      if (scrollTop >= 300) {
+		          // 네비바의 배경색을 1초 동안 투명도 1로 변경
+		          navbarBottom.style.transition = 'background-color 1s';
+		          navbarBottom.style.backgroundColor = 'rgba(173, 139, 115, 1)';
+		        } else {
+		          // 네비바의 배경색을 원래대로 복원
+		          navbarBottom.style.transition = 'background-color 1s';
+		          navbarBottom.style.backgroundColor = 'rgba(173, 139, 115, 0.2)';
+		          
+		        }
+		      if (scrollTop >= 300) {
+		          //네비바의 컨텐츠 글자색을 흰색으로
+		          for(let i=0; i < navLink.length; i++){
+		        	  navItem[i].style = 'color';
+		        	  navItem[i].style.color = 'rgb(255, 255, 255)';
+		          }
+		          
+		        } else {
+		          // 네비바의 컨텐츠 글자색을 원래대로 복원
+		          for(let i=0; i < navLink.length; i++){
+		        	  navItem[i].style = 'color';
+		        	  navItem[i].style.color = '#AD8B73';
+		          }
+		      
+		        }
+		      
+		      
+		    });
+	}
+	
+ 	
     document.addEventListener('DOMContentLoaded', function() {
         document.querySelectorAll('li:has(ul)').forEach(function(element) {
             element.addEventListener('mouseenter', function() {

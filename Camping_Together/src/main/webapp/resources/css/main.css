@@ -28,9 +28,14 @@
     font-size: larger;
     font-weight: bold;
     border-radius: 15px;
-    background-color : #AD8B73;
+    background-color : #E3CAA5;
     border: none;
     text-align: center;
+    transition: 1s;
+}
+.mainSelect:hover{
+	transition: 1s;
+    border-radius: 0px;
 }
 .mainSearch{
 	margin-left: 10px;

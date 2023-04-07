@@ -36,9 +36,23 @@ public class MemberDao {
 	}
 
 
+	/*
 	public ArrayList<CampingPayment> selectPayList(int memberNo) {
 		List list = sqlsession.selectList("member.selectPayList",memberNo);
 		return (ArrayList<CampingPayment>)list;
+	}
+	*/
+
+	//로그인회원 캠핑장 결제 리스트
+	public ArrayList<CampingPayment> selectPayList(HashMap<String, Object> map) {
+		List list = sqlsession.selectList("member.selectPayList",map);
+		return (ArrayList<CampingPayment>)list;
+	}
+
+	//로그인회원 캠핑장 결제내역 총 게시물 수
+	public int selectPayListCount(int memberNo) {
+		int totalCount = sqlsession.selectOne("member.totalCount",memberNo);
+		return totalCount;
 	}
 	
 	
@@ -49,5 +63,9 @@ public class MemberDao {
 	
 	
 	
-	//-----------------------------------����������
 }
+
+
+
+
+

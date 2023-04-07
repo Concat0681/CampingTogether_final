@@ -195,3 +195,36 @@
 	cursor: pointer;
     margin-left: 0;
 }
+
+
+
+
+/*캠핑장 결제 내역*/
+.list-content{
+    width: 900px;
+    margin: 0 auto;
+}
+
+
+.list-content>table{
+    width: 100%; 
+    text-align: center;
+    border-collapse : collapse;
+    margin-top: 60px;
+    font-size: 15px;
+}
+
+
+.list-content>table>tbody>tr{
+    height: 60px;
+    border-bottom: 1px solid #AD8B73;
+}
+
+
+.list-content>table>tbody>tr:first-child{
+    height: 55px;
+    background-color: #AD8B73;
+    color: white;
+}
+
+
