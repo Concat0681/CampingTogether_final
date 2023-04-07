@@ -104,7 +104,7 @@
             	자유게시판
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">캠핑 레시피</a></li>
+            <li><a class="dropdown-item" href="/boardFoodList.do?reqPage=1">캠핑 레시피</a></li>
             <li><a class="dropdown-item" href="#">캠핑 Tip</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="#">채팅</a></li>

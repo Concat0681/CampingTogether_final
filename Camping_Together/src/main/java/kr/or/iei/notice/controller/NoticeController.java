@@ -1,7 +1,5 @@
 package kr.or.iei.notice.controller;
 
-import java.util.ArrayList;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.or.iei.notice.model.service.NoticeService;
 import kr.or.iei.notice.model.vo.Notice;
+import kr.or.iei.notice.model.vo.NoticePageData;
 
 @Controller
 public class NoticeController {
@@ -17,9 +16,10 @@ public class NoticeController {
 	private NoticeService service;
 	
 	@RequestMapping(value = "/noticeList.do")
-	public String noticeList(Model model) {
-		ArrayList<Notice> list = service.selectNoticeList();
-		model.addAttribute("list",list);
+	public String noticeList(int reqPage, Model model) {
+		NoticePageData npd = service.selectNoticeList(reqPage);
+		model.addAttribute("list", npd.getList());
+		model.addAttribute("pageNavi",npd.getPageNavi());
 		return "notice/noticeList";
 	}
 	@RequestMapping(value="/noticeWriteFrm.do")
@@ -29,9 +29,8 @@ public class NoticeController {
 	@RequestMapping(value="/noticeWrite.do")
 	public String noticeWrite(Notice n) {
 		int result = service.insertNoitce(n);
-		System.out.println(n);
 		if(result>0) {
-			return "redirect:/noticeList.do";
+			return "redirect:/noticeList.do?reqPage=1";
 		}else {
 			return "redirect:/noticeWriterFrm.do";
 		}
@@ -69,7 +68,7 @@ public class NoticeController {
 	public String noticeDelete(int noticeNo) {
 		int result = service.deleteNotice(noticeNo);
 		if(result>0) {
-			return "redirect:/noticeList.do";
+			return "redirect:/noticeList.do?reqPage=1";
 		}else {
 			return "redirect:/noticeView.do?noticeNo="+noticeNo;
 		}

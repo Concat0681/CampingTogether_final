@@ -1,5 +1,8 @@
 @charset "UTF-8";
 
+.page-wrap{
+    margin-top: 150px;
+}
 .page-content{
 	display: flex;
 	justify-content: center;

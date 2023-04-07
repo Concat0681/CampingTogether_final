@@ -7,28 +7,71 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
-<link href="/resources/css/default.css" rel="stylesheet"/>
-<link rel="stylesheet" href="resources/css/mypageC.css">
+<link rel="stylesheet" href="resources/css/updateMypageC.css">
+
+
+<script src="resources/js/moment.js"></script>
+
 </head>
 <body>
-		<div class= "title-wrap">
-			<div class="title-list">
-				<ul>
-					<li><a href="/shopPayList.do">캠핑장 결제 내역</a></li>
-					<li><a href="#">캠핑용품 구매 내역</a></li>
-					<li><a href="#">포인트</a></li>
-					<li><a href="#">내가 쓴 리뷰</a></li>
-					<li><a href="#">내가 쓴 댓글</a></li>
-					<li><a href="#">개인정보 수정 및 탈퇴</a></li>
-				</ul>
+	<jsp:include page="/WEB-INF/views/common/mypageMenu.jsp" />
+		
+		<div class="input-div">
+			<div class="input-title">
+				<h2>캠핑장 결제 내역</h2>
 			</div>
 		</div>
-		
-		
-			<div class="input-title">
-				<h2>개인정보 수정</h2>
+		<div class="pay-list">
+			<div class="list-content">
+				<table border="1">
+				<c:forEach items="${list }" var="p">
+					<tr>
+						<th>캠핑방 이름</th>
+						<th>결제 날짜</th>
+						<th>체크인 날짜</th>
+						<th>체크아웃 날짜</th>
+						<th>결제 금액</th>
+					</tr>
+					<tr>
+						<td>${p.campingRoomTitle }</td>
+						<td>${p.campingPaymentDate }</td>
+						<td id="checkIn">${p.checkIn }</td>
+						<td id="checkOut">${p.checkOut }</td>
+						<td id="total-price"></td>
+					</tr>
+
+				</c:forEach>
+					
+				</table>
 			</div>
+			</div>
+			  
+			<div class="page-navi">
+
+		  </div>
 		
-		
+			
+			
+			
+		<script>
+			var totalPrice = $("#total-price");
+			var checkIn = $("#checkIn").text();
+			var checkOut = $("#checkOut").text();
+			console.log(checkIn);
+			
+			var date1 = moment(checkIn).format('yyyy-dd-mm');
+			var date2 = moment(checkOut).format('yyyy-dd-mm');
+			console.log(date1);
+			console.log(date2);
+			
+			var totalCheck = moment.duration(date2.diff(date1)).asDays();
+			
+			//var totalCheck = date1.diff(date2, "days"); 
+			console.log(totalCheck);
+			
+			
+		</script>
 </body>
 </html>
+
+

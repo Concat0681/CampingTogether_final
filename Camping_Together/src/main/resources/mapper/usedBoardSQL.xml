@@ -34,11 +34,12 @@
 		        (select 
 		            used_board.used_board_no as usedBoardNo,
 		            used_board_title as usedBoardTitle,
+		            used_board_status as usedBoardStatus,
 		            used_product_price as usedProductPrice,
 		            used_trade_location as usedTradeLocation,
 		            read_count as readCount,
-		            reg_date as RegData,
-		            filepath as Thumbnail
+		            reg_date as regDate,
+		            filepath as thumbnail
 		        from used_board 
 		        left join (select used_board.used_board_no, max(filepath) as filepath from used_board left join used_photo on used_board.used_board_no = used_photo.used_board_no group by used_board.used_board_no)B
 		        on used_board.used_board_no = B.used_board_no
@@ -48,4 +49,34 @@
 	<select id="totalCount" resultType="_int">
 		select count(*) from used_board
 	</select>
+	<update id="updateReadCount" parameterType="_int">
+		update used_board set read_count = read_count + 1 where used_board_no = #{_parameter}
+	</update>
+	<select id="selectOneUsedBoard" parameterType="_int" resultType="ub">
+		select 
+			used_board_no as usedBoardNo,
+			used_board_writer as usedBoardWriter,
+			used_Board_Title as usedBoardTitle,
+			used_board_content as usedBoardContent,
+			used_board_category as usedBoardCategory,
+			used_board_status as usedBoardStatus,
+			used_product_status as usedProductStatus,
+			exchange_status as exchangeStatus,
+			used_product_price as usedProductPrice,
+			used_delivery_status as usedDeliveryStatus,
+			used_trade_location as usedTradeLocation,
+			read_count as readCount,
+			reg_date as regDate
+		from used_board
+		where used_board_no = #{_parameter}
+	</select>
 </mapper>
+
+
+
+
+
+
+
+
+
