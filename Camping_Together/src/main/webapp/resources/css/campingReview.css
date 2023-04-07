@@ -62,18 +62,18 @@
   border-bottom: 1px solid #ccc;
 }
 
-.review-modal-wrap .modal-content {
+.review-modal-wrap .review-modal-content {
   flex-grow: 1;
   padding: 1rem;
 }
 
-.review-modal-wrap .modal-foot {
+.review-modal-wrap .review-modal-foot {
   text-align: right;
   margin-top: auto;
   padding: 1rem;
 }
 
-.review-modal-wrap div.modal-head {
+.review-modal-wrap div.review-modal-head {
   position: relative;
   padding: 1rem;
 }

@@ -156,7 +156,7 @@
 							</div>
 						</div>
 						
-				        <button class="btn1 review-modal-open-btn" target="#test-modal" onclick="modalOpenFunc(this);">
+				        <button class="btn1 review-modal-open-btn" target="#test-modal">
 				          	리뷰작성
 				        </button>
 					    
@@ -468,20 +468,27 @@
 			}
 		});
 	</script>
-	<script>	
-		$(function(){
-			
-		$('.review-modal-open-btn').on("click",function(){
-			
+	<script>
+	$(document).ready(function() {
+		  $('.review-modal-open-btn').click(function() {
 		    $('#test-modal').css('display', 'flex');
-		});
-			
+		  });
 
 		  $('.review-modal-close').click(function() {
 		    $('#test-modal').css('display', 'none');
 		  });
 		});
+	</script>
 	
+	<script>
+		$("input[name='campingReviewRating']").on("input", function() {
+		  var value = $(this).val();
+		  var newValue = value.replace(/[^\d]/g, "");
+		  if (newValue > 5) {
+		    newValue = 5;
+		  }
+		  $(this).val(newValue);
+		});
 	</script>
 </body>
 </html>

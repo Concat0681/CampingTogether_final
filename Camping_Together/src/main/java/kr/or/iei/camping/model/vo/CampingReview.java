@@ -1,5 +1,7 @@
 package kr.or.iei.camping.model.vo;
 
+import java.util.ArrayList;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,4 +17,5 @@ public class CampingReview {
 	private String campingReviewContent;
 	private int campingReviewRating;
 	private int campingReviewRef;
+	private ArrayList<CampingReviewFileVO> fileList;
 }

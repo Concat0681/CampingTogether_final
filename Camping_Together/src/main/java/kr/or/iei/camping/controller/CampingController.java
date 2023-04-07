@@ -232,7 +232,7 @@ public class CampingController {
 		crv.setCampingNo(campingNo);
 		int result = service.insertCampingReview(crv, fileList);
 		if(result == (fileList.size()+1)) {
-			return "redirect:/campingReview.do";
+			return "redirect:/viewCamping.do?campingNo="+campingNo;
 		}else {
 			return "redirect:/";
 		}
