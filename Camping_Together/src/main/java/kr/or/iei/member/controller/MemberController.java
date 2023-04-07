@@ -134,18 +134,16 @@ public class MemberController {
 		MemberPageData mpd = service.selectPayList(memberNo, reqPage);	
 		model.addAttribute("list", mpd.getList() );
 		model.addAttribute("navi", mpd.getPageNavi() );
-		System.out.println(mpd.getList());
-		System.out.println(mpd.getPageNavi());
 		return "member/shopPayList";
 	}
 	
 	//캠핑용품 결제 리스트
-	/*
+	
 	@RequestMapping(value = "/productPayList.do")
 	public String productPayList(int reqPage,int memberNo, Model model) {
-		
+		return "member/productPayList";
 	}
-	*/
+	
 	
 }
 
