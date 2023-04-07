@@ -23,8 +23,7 @@
 		</div>
 		<div class="pay-list">
 			<div class="list-content">
-				<table border="1">
-				<c:forEach items="${list }" var="p">
+				<table>
 					<tr>
 						<th>캠핑방 이름</th>
 						<th>결제 날짜</th>
@@ -32,44 +31,56 @@
 						<th>체크아웃 날짜</th>
 						<th>결제 금액</th>
 					</tr>
+				<c:forEach items="${list }" var="p">
 					<tr>
 						<td>${p.campingRoomTitle }</td>
 						<td>${p.campingPaymentDate }</td>
-						<td id="checkIn">${p.checkIn }</td>
-						<td id="checkOut">${p.checkOut }</td>
-						<td id="total-price"></td>
+						<td class="checkIn">${p.checkIn }</td>
+						<td class="checkOut">${p.checkOut }</td>
+						<td class="total-price"></td>
+					<td class="oneDayPay" style="display:none;">${p.campingRoomPrice }</td>
 					</tr>
-
+					
 				</c:forEach>
 					
 				</table>
 			</div>
-			</div>
-			  
 			<div class="page-navi">
-
+				${navi }
 		  </div>
+		</div>
+			  
 		
 			
 			
-			
 		<script>
-			var totalPrice = $("#total-price");
-			var checkIn = $("#checkIn").text();
-			var checkOut = $("#checkOut").text();
-			console.log(checkIn);
+		
+
+				
+			///////////
 			
-			var date1 = moment(checkIn).format('yyyy-dd-mm');
-			var date2 = moment(checkOut).format('yyyy-dd-mm');
-			console.log(date1);
-			console.log(date2);
-			
-			var totalCheck = moment.duration(date2.diff(date1)).asDays();
-			
-			//var totalCheck = date1.diff(date2, "days"); 
-			console.log(totalCheck);
-			
-			
+			const checkInTag = $(".checkIn");
+			console.log(checkInTag);
+				
+			for(let i=0; i<checkInTag.length; i++ ) {
+				const checkIn = $(".checkIn");
+				const checkOut = $(".checkOut");
+				const totalPrice = $(".total-price");
+				const oneDayPay = $(".oneDayPay");
+				console.log(checkIn[i].innerText);
+					
+				const date1 = moment(checkIn[i].innerText);
+				const date2 = moment(checkOut[i].innerText);
+				
+				const totalCheck = moment.duration(date2.diff(date1)).asDays();
+				//console.log(oneDayPay[i]);
+				//console.log(oneDayPay[i].innerText);
+				//console.log(totalCheck);
+				console.log(oneDayPay[i].innerText * totalCheck);
+				totalPrice.eq(i).text(oneDayPay[i].innerText * totalCheck);
+				
+			}
+
 		</script>
 </body>
 </html>

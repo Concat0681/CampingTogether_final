@@ -35,7 +35,7 @@
 
 
 
-.modal-bg {
+.review-modal-bg {
   background-color: rgba(0, 0, 0, 0.3);
   position: fixed;
   top: 0;
@@ -47,7 +47,7 @@
   justify-content: center;
 }
 
-.modal-wrap {
+.review-modal-wrap {
   width: 600px;
   background: #fff;
   display: flex;
@@ -58,22 +58,22 @@
 
 
 
-.modal-wrap div:not(:last-child) {
+.review-modal-wrap div:not(:last-child) {
   border-bottom: 1px solid #ccc;
 }
 
-.modal-wrap .modal-content {
+.review-modal-wrap .modal-content {
   flex-grow: 1;
   padding: 1rem;
 }
 
-.modal-wrap .modal-foot {
+.review-modal-wrap .modal-foot {
   text-align: right;
   margin-top: auto;
   padding: 1rem;
 }
 
-.modal-wrap div.modal-head {
+.review-modal-wrap div.modal-head {
   position: relative;
   padding: 1rem;
 }
@@ -89,7 +89,7 @@
   cursor: pointer;
 }
 
-.modal-open-btn{
+.review-modal-open-btn{
 	width: 400px;
 	height: 50px;
 	cursor: pointer;
@@ -143,12 +143,26 @@
 }
 
 
+.w-100{
+	width: 100%!important;
+    height: 500px;
+}
+.carousel-inner{
+	position: relative;
+    width: 500px;
+    height: 500px;
+    overflow: hidden;
+}
+.carousel {
+    position: relative;
+    width: 500px;
+}
 
 
 .posting-comment {
   display: flex;
   border-top: 2px solid #ccc;
-
+  padding-top: 50px;
   list-style-type: none;
 }
 .posting-comment > li {
@@ -158,9 +172,9 @@
   width: 15%;
   display: flex;
   justify-content: center;
-  align-items: center;
+  <!--align-items: center;
   min-height: 100px;
-  border-right: 1px solid #ccc;
+  <!--border-right: 1px solid #ccc;
 }
 .posting-comment.reply > li:first-child {
   width: 20%;
