@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+    <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,6 +21,7 @@
    .detail-wrap{
    		width: 80%;
    		margin: 30px auto;
+   		border-bottom: 1px solid #ccc;
    }
    .detail-info{
    		display: flex;
@@ -39,7 +41,7 @@
    .wish-list{
 		position: absolute;
 		margin-left: 890px;
-		top: 25px;
+		top: 32px;
    }
    .wish-list>span{
    		font-size: 30px;
@@ -59,7 +61,43 @@
    }
    .detail-content-img>img{
    		width: 100%;
-   		cursor: hover;
+   		cursor: pointer;
+   }
+   .comment-wrap{
+   		width: 80%;
+   		margin: 50px auto;
+   }
+   .comment-box-wrap{
+   		overflow: hidden;
+   }
+	.comment-box{
+		width: 95%;
+		display: flex;
+		margin: 0 auto;
+	}
+   #comment-box{
+   		width: 800px;
+   		height: 80px;
+   		border: 1px solid #ccc;
+   		resize: none;
+   		padding: 8px;
+   		box-sizing: border-box;
+   		border-radius: 5px;
+   }
+   .btn2{
+		width: 100px;
+		height: 80px;
+		font-weight: bold;
+   }
+   .btn2:hover{
+   		background-color: #CEAB93;
+   }
+   .font-bold{
+   		font-weight: bold;
+   }
+   .comment-list{
+   		display: flex;
+   		min-height: 80px;
    }
 </style>
 </head>
@@ -86,13 +124,13 @@
         	</div>
         	<div class="detail-price-wrap">
         		<div class="detail-price">
-        			<p>판매금액 : ${ub.usedProductPrice }</p>
+        			<p class="font-bold">판매금액 : <fmt:formatNumber value="${ub.usedProductPrice }" pattern="#,###" /></p>
         			<div class="detail-info">
-        				<span>상품상태 : ${ub.usedProductStatus }</span>
+        				<span class="font-bold">상품상태 : </span><span>&nbsp;${ub.usedProductStatus }</span>
         				<span>&nbsp; | &nbsp;</span>
-        				<span>교환여부 : ${ub.exchangeStatus }</span>
+        				<span class="font-bold">교환여부 :</span> <span>&nbsp;${ub.exchangeStatus }</span>
         				<span>&nbsp; | &nbsp;</span>
-        				<span>거래지역 : ${ub.usedTradeLocation }</span>
+        				<span class="font-bold">거래지역 :</span><span>&nbsp;${ub.usedTradeLocation }</span>
         			</div>
         		</div>
         		<div class="wish-list">
@@ -101,7 +139,7 @@
         	</div>
         	<div class="detail-content-wrap">
         		<div class="seller-phone">
-        			<span id="phone-check">연락처를 확인하려면 클릭하세요.</span>
+        			<span id="phone-check" class="font-bold">연락처를 확인하려면 클릭하세요.</span>
         		</div>
         		<div class="detail-content">
         			<c:forEach items="${ub.usedBoardPhotoList}" var="ubp">
@@ -113,9 +151,37 @@
         				<span>${ub.usedBoardContent }</span>
         			</div>
         		</div>
-        		<div class="blackList-report">
+        		<div style="text-align: right" class="blackList-report">
         			<a href="#">신고하기</a>
         		</div>
+        	</div>
+        </div>
+        <div class="comment-wrap">
+        	<div class="comment-box-wrap">
+        		<c:choose>
+        			<c:when test="${not empty sessionScope.m }">
+	        			<form action="/usedBoardCommentWrite.do" method="post">
+	        				<div class="comment-box">
+		        				<div class="comment-content">
+		    	    				<textarea placeholder="내용을 입력해 주세요." name="usedBoardCommnetContent" id="comment-box"></textarea>
+		        				</div>
+	    	    				<input type="hidden" name="usedBoardCommentWriter" value="${sessionScope.m.memberId }">
+	    	    				<input type="hidden" name="usedBoardNo" value="${ub.usedBoardNo }">
+	    	    				<div class="comment-submit">
+		    	    				<input type="submit" value="작성" class="btn2">
+	    	    				</div>
+	        				</div>
+        				</form>
+        			</c:when>
+        		</c:choose>
+        	</div>
+        	<div class="comment-list-wrap">
+        		<c:forEach items="${list }" var="ubc">
+	        		<div class="comment-list">
+	        			<div class="comment-writer">${ubc.usedBoardCommentWriter }</div>
+	        			<div class="comment-write-content">${ubc.usedBoardCommnetContent }</div>
+	        		</div>        		
+        		</c:forEach>
         	</div>
         </div>
 	</div>

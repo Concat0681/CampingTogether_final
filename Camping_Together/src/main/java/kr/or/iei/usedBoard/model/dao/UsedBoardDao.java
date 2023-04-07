@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.or.iei.usedBoard.model.vo.UsedBoard;
+import kr.or.iei.usedBoard.model.vo.UsedBoardComment;
 import kr.or.iei.usedBoard.model.vo.UsedBoardPhoto;
 
 @Repository
@@ -49,6 +50,16 @@ public class UsedBoardDao {
 	public ArrayList<UsedBoardPhoto> selectUsedPhoto(int usedBoardNo) {
 		List list = sqlSession.selectList("usedBoard.selectUsedPhoto", usedBoardNo);
 		return (ArrayList<UsedBoardPhoto>)list;
+	}
+
+	public int usedBoardCommentInsert(UsedBoardComment ubc) {
+		int result = sqlSession.insert("usedBoard.insertUsedBoardComment", ubc);
+		return result;
+	}
+
+	public ArrayList<UsedBoardComment> selectCommentList(int usedBoardNo) {
+		List list = sqlSession.selectList("usedBoard.selectCommentList", usedBoardNo);
+		return (ArrayList<UsedBoardComment>)list;
 	}
 
 }

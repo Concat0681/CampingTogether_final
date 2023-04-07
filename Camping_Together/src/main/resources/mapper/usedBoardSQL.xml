@@ -77,6 +77,21 @@
 		from used_photo
 		where used_board_no = #{_parameter}
 	</select>
+	
+	<insert id="insertUsedBoardComment" parameterType="ubc">
+		insert into used_board_comment values(used_board_comment_seq.nextval, #{usedBoardNo}, #{usedBoardCommentWriter}, #{usedBoardCommnetContent}, to_char(sysdate, 'yyyy-mm-dd'))
+	</insert>
+	
+	<select id="selectCommentList" parameterType="_int" resultType="ubc">
+		select 
+			used_board_comment_no as usedBoardCommentNo,
+			used_board_no as usedBoardNo,
+			used_board_comment_writer as usedBoardCommentWriter,
+			used_board_comment_content as usedBoardCommnetContent,
+			reg_date as regDate
+		from used_board_comment
+		where used_board_no = #{_parameter}
+	</select>
 </mapper>
 
 
