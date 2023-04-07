@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import common.FileManager;
 import kr.or.iei.usedBoard.model.service.UsedBoardService;
 import kr.or.iei.usedBoard.model.vo.UsedBoard;
+import kr.or.iei.usedBoard.model.vo.UsedBoardComment;
 import kr.or.iei.usedBoard.model.vo.UsedBoardPageDate;
 import kr.or.iei.usedBoard.model.vo.UsedBoardPhoto;
 
@@ -59,7 +60,15 @@ public class UsedBoardController {
 	@RequestMapping(value="/usedBoardView.do")
 	public String usedBoardView(int usedBoardNo, Model model) {
 		UsedBoard ub = service.selectOneUsedBoard(usedBoardNo);
+		ArrayList<UsedBoardComment> list = service.selectCommentList(usedBoardNo);
 		model.addAttribute("ub", ub);
+		model.addAttribute("list", list);
 		return "usedBoard/usedBoardView";
+	}
+	@RequestMapping(value="/usedBoardCommentWrite.do")
+	public String usedBoardCommentWrite(UsedBoardComment ubc) {
+		System.out.println(ubc);
+		int result = service.usedBoardCommentInsert(ubc);
+		return "redirect:/usedBoardView.do?usedBoardNo="+ubc.getUsedBoardNo();
 	}
 }
