@@ -67,8 +67,9 @@ public class CampingService {
 		map.put("campingProvideServiceList", camping.getCampingProvideServiceList());
 		map.put("campingRoomTypeList", campingRoom.getCampingRoomTypeList());
 		map.put("pplCount", campingRoom.getCampingRoomMaxPplCount());
+		map.put("campingAddr", camping.getCampingAddr());
 		ArrayList<Camping> list = dao.selectCampingListData(map);
-		int totalCount = dao.selectCampingCount();
+		int totalCount = dao.selectCampingCount(map);
 		int totalPage = (int)Math.ceil(totalCount/(double)numPerPage);
 		int pageNaviSize = 5;
 		int pageNo = 1;
@@ -77,13 +78,13 @@ public class CampingService {
 		}
 		String pageNavi = "";
 		if(pageNo != 1) {
-			pageNavi += "<a href='/boardList.do?reqPage="+(pageNo-1)+"'>[이전]</a>";
+			pageNavi += "<a onclick='sendDetailSearch("+null+","+(pageNo-1)+")'>[이전]</a>";
 		}
 		for(int i=0;i<pageNaviSize;i++) {
 			if(pageNo == reqPage) {
 				pageNavi += "<span>"+pageNo+"</span>";
 			} else {
-				pageNavi += "<a href='/boardList.do?reqPage="+pageNo+"'>"+pageNo+"</a>";
+				pageNavi += "<a onclick='sendDetailSearch("+null+","+pageNo+")'>"+pageNo+"</a>";
 			}
 			pageNo++;
 			if(pageNo > totalPage) {
@@ -91,11 +92,15 @@ public class CampingService {
 			}
 		}
 		if(pageNo <= totalPage) {
-			pageNavi += "<a href='/boardList.do?reqPage="+(pageNo)+"'>[다음]</a>";
+			pageNavi += "<a onclick='sendDetailSearch("+null+","+(pageNo)+")'>[다음]</a>";
 		}
+		map.put("start", null);
+		map.put("end", null);
+		ArrayList<Camping> allList = dao.selectCampingListData(map);
 		CampingListPageData cpd = new CampingListPageData();
 		cpd.setList(list);
 		cpd.setPageNavi(pageNavi);
+		cpd.setAllList(allList);
 		return cpd;
 	}
 

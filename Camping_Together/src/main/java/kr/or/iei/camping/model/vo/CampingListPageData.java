@@ -12,5 +12,6 @@ import lombok.NoArgsConstructor;
 public class CampingListPageData {
 	
 	private ArrayList<Camping> list;
+	private ArrayList<Camping> allList;
 	private String pageNavi;
 }
