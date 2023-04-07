@@ -36,4 +36,19 @@ public class UsedBoardDao {
 		return totalCount;
 	}
 
+	public int updateReadCount(int usedBoardNo) {
+		int result = sqlSession.update("usedBoard.updateReadCount", usedBoardNo);
+		return result;
+	}
+
+	public UsedBoard selectOneUsedBoard(int usedBoardNo) {
+		UsedBoard ub = sqlSession.selectOne("usedBoard.selectOneUsedBoard", usedBoardNo);
+		return ub;
+	}
+
+	public ArrayList<UsedBoardPhoto> selectUsedPhoto(int usedBoardNo) {
+		List list = sqlSession.selectList("usedBoard.selectUsedPhoto", usedBoardNo);
+		return (ArrayList<UsedBoardPhoto>)list;
+	}
+
 }

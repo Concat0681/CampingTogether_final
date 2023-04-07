@@ -104,7 +104,27 @@
 			  </div>
 			</div>
 			
-			
+			<div style="margin-top: 50px;">
+		        <ul class="posting-comment">
+		          <li>
+		            <span class="material-icons">account_box</span>
+		          </li>
+		          <li>
+		            <p class="comment-info">
+		              <span>리뷰제목</span>
+		            </p>
+		            <p>
+		            	<span>별별별별별</span>
+		            </p>
+		            <p class="comment-content">댓글내용댓글내용댓글내용</p>
+		            <p class="comment-link">
+		              <a href="#">수정</a>
+		              <a href="#">삭제</a>
+		              <a href="#">답글달기</a>
+		            </p>
+		          </li>
+		        </ul>
+      		</div>
 		    
 		</div>
 	</div>

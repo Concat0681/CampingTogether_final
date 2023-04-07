@@ -55,4 +55,11 @@ public class UsedBoardController {
 			return "redirect:/";			
 		}
 	}
+	
+	@RequestMapping(value="/usedBoardView.do")
+	public String usedBoardView(int usedBoardNo, Model model) {
+		UsedBoard ub = service.selectOneUsedBoard(usedBoardNo);
+		model.addAttribute("ub", ub);
+		return "usedBoard/usedBoardView";
+	}
 }
