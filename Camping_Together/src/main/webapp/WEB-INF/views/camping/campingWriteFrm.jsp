@@ -19,8 +19,10 @@
 </style>
 </head>
 <body>
+	<jsp:include page="/WEB-INF/views/common/header.jsp" />
+
 	<div class="wrap">
-        <div class="contentWrap">
+        <div class="contentWrap" style="margin-top: 200px;">
         	<div class="contentDetail activeContent">
         		<h2 style="margin-bottom: 60px;">캠핑장을 찾고 있는 여행객들을 정확히 사로잡아보세요!</h2>
         		<form action="/campingWrite.do" method="post" enctype="multipart/form-data">

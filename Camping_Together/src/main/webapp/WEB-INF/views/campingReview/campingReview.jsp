@@ -102,8 +102,8 @@
 				      	</table>
 				    </div>
 				    <div class="modal-foot">
-				      <button class="reviewBtn bc1">등록</button>
-				      <button class="btn bc1 modal-close">취소</button>
+				      <button type="submit" class="reviewBtn bc1">등록</button>
+				      <button type="button" class="btn bc1 modal-close">취소</button>
 				    </div>
 			    </form>
 			  </div>
@@ -111,7 +111,7 @@
 			
 			<div style="margin-top: 50px;">
 		        <ul class="posting-comment">
-		          <li>
+		          <li style="padding-left: 90px;">
 		            <span class="material-icons">account_box</span>
 		          </li>
 		          <li>
@@ -122,11 +122,7 @@
 		            	<span style="padding-left: 10px;">별별별별별</span>
 		            </p>
 		            <p class="comment-content">댓글내용댓글내용댓글내용</p>
-		            <p class="comment-link">
-		              <a href="#">수정</a>
-		              <a href="#">삭제</a>
-		              <a href="#">답글달기</a>
-		            </p>
+		            
 		            
 		            <!-- 캐러셀 컨테이너 정의 -->
 					<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" style="width: 500px;">
@@ -153,7 +149,27 @@
 					    <span class="visually-hidden">다음</span>
 					  </button>
 					</div>
-		            
+		            <p class="comment-link">
+		              <a href="#">수정</a>
+		              <a href="#">삭제</a>
+		              <a href="#">답글달기</a>
+		            </p>
+		          </li>
+		        </ul>
+		        <ul class="posting-comment reply">
+		          <li style="padding-left: 90px;">
+		            <span class="material-icons">subdirectory_arrow_right</span>
+		            <span class="material-icons">account_box</span>
+		          </li>
+		          <li>
+		            <p class="comment-info">
+		              <span>user01</span>
+		            </p>
+		            <p class="comment-content">댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용</p>
+		            <p class="comment-link">
+		              <a href="#">수정</a>
+		              <a href="#">삭제</a>
+		            </p>
 		          </li>
 		        </ul>
       		</div>
