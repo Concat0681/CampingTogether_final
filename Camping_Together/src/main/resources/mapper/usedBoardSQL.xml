@@ -70,6 +70,13 @@
 		from used_board
 		where used_board_no = #{_parameter}
 	</select>
+	
+	<select id="selectUsedPhoto" parameterType="_int" resultType="ubp">
+		select
+			filepath as filepath
+		from used_photo
+		where used_board_no = #{_parameter}
+	</select>
 </mapper>
 
 

@@ -92,7 +92,7 @@
           <a class="nav-link" href="#">캠핑예약</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/usedBoardList.do">중고장터</a>
+          <a class="nav-link" href="/usedBoardList.do?reqPage=1">중고장터</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">투게더SHOP</a>
