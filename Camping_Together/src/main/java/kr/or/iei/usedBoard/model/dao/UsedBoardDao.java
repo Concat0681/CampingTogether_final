@@ -46,4 +46,9 @@ public class UsedBoardDao {
 		return ub;
 	}
 
+	public ArrayList<UsedBoardPhoto> selectUsedPhoto(int usedBoardNo) {
+		List list = sqlSession.selectList("usedBoard.selectUsedPhoto", usedBoardNo);
+		return (ArrayList<UsedBoardPhoto>)list;
+	}
+
 }

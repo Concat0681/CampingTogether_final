@@ -72,6 +72,9 @@ public class UsedBoardService {
 		int result = dao.updateReadCount(usedBoardNo);
 		//2. 상세정보조회
 		UsedBoard ub = dao.selectOneUsedBoard(usedBoardNo);
+		//3. 첨부이미지조회
+		ArrayList<UsedBoardPhoto> list = dao.selectUsedPhoto(usedBoardNo);
+		ub.setUsedBoardPhotoList(list);
 		return ub;
 	}
 }

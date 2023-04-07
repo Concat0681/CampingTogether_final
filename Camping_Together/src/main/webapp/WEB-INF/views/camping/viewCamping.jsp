@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=n8k40j998a&submodules=geocoder"></script>
 <link rel="stylesheet" href="resources/css/camping/viewCamping.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
@@ -140,7 +141,6 @@
 		<div class="content-hidden content-box">3</div>
 	</div>
 	<script src="resources/js/camping/dateRangePicker.js"></script>
-	<script src="resources/js/weather/weather.js"></script>
 	<script>
 		$(".menu").on("click", function(){
 			const index = $(".menu").index($(this));
@@ -202,6 +202,66 @@
 			}
 			clone.removeClass("content-hidden content-box").addClass("cotent-wrapper").appendTo($(".content-wrap"))
 		})
+		
+		var weatherIcon = {
+		  '01': 'sunny',
+		  '02': 'cloudy',
+		  '03': 'cloudy',
+		  '04': 'cloudy',
+		  '09': 'rainy',
+		  10: 'rainy',
+		  11: 'thunderstorm',
+		  13: 'cloudy_snowing',
+		  50: 'fas fa-smog'
+		}
+		
+		const campingAddr = $(".camping-addr").text();
+		
+		naver.maps.Service.geocode({
+	        address: campingAddr
+	    }, function(status, response) {
+	        if (status !== naver.maps.Service.Status.OK) {
+	            return alert('Something wrong!');
+	        }
+	
+	        var result = response.result, // 검색 결과의 컨테이너
+	        items = result.items; // 검색 결과의 배열
+	        const lng = items[1].point.x;
+	        const lat = items[1].point.y;
+	        
+			var apiURI =
+			  'https://api.openweathermap.org/data/2.5/forecast?lat='+lat+'&lon='+lng+'&appid=d8d8cf6db7ad526a7ec43b51070a4d75'
+			$(function () {
+			  $.ajax({
+			    url: apiURI,
+			    dataType: 'json',
+			    type: 'GET',
+			    async: 'false',
+			    success: function (resp) {
+			      const date = new Date()
+			      const hours = date.getHours()
+			      const compareHours = Math.floor(hours / 3) * 3
+			      resp.list.forEach(r => {
+			        if (r.dt_txt.substr(11, 2) == compareHours) {
+			          const div1 = $('<div>').addClass('weather-info')
+			          const icon = r.weather[0].icon.substr(0, 2)
+			          const temp = Math.floor(r.main.temp - 273.15) + 'º'
+			          const div2 = $('<div>').addClass('weather-temp').append(temp)
+			          const date = r.dt_txt.substr(5, 6)
+			          const div3 = $('<div>').addClass('weather-date').append(date)
+			          const span =
+			            '<span class=material-symbols-outlined>' +
+			            weatherIcon[icon] +
+			            '</span>';
+			          div1.append(span).append(div2).append(div3)
+			          $('.weather-list').append(div1)
+			        }
+			      })
+			    }
+			  })
+			})
+	    });	
+
 		
 		$(".menu").eq(0).click()
 		
