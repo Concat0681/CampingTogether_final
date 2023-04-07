@@ -1,10 +1,11 @@
 package kr.or.iei.camping.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,10 +18,15 @@ import com.google.gson.Gson;
 import common.FileManager;
 import kr.or.iei.camping.model.service.CampingService;
 import kr.or.iei.camping.model.vo.Camping;
+import kr.or.iei.camping.model.vo.CampingEtc;
 import kr.or.iei.camping.model.vo.CampingListPageData;
-import kr.or.iei.camping.model.vo.CampingProvide;
+import kr.or.iei.camping.model.vo.CampingProvideService;
+import kr.or.iei.camping.model.vo.CampingReview;
+import kr.or.iei.camping.model.vo.CampingReviewFileVO;
 import kr.or.iei.camping.model.vo.CampingRoom;
+import kr.or.iei.camping.model.vo.ViewCampingData;
 import kr.or.iei.camping.model.vo.CampingRoomFileVO;
+import kr.or.iei.camping.model.vo.CampingRoomService;
 
 @Controller
 public class CampingController {
@@ -43,12 +49,12 @@ public class CampingController {
 	@RequestMapping(value="/campingList.do")
 	public String campingList(String cityNameKR, String cityNameEN,int reqPage, String order, String pplCount, String checkIn, String checkOut, String date, Model model) {
 		CampingRoom campingRoom = new CampingRoom();
-		CampingProvide campingProvide = new CampingProvide();
+		Camping camping = new Camping();
 		campingRoom.setCampingRoomMaxPplCount(Integer.parseInt(pplCount));
-		CampingListPageData cpd = service.selectCampingListData(reqPage, order, campingProvide, campingRoom);
+		CampingListPageData cpd = service.selectCampingListData(reqPage, order, camping, campingRoom);
 		model.addAttribute("cityNameKR", cityNameKR);
 		model.addAttribute("cityNameEN", cityNameEN);
-		model.addAttribute("list", cpd.getList());
+		model.addAttribute("list", cpd.getList()); 
 		model.addAttribute("pageNavi", cpd.getPageNavi());
 		model.addAttribute("checkIn", checkIn);
 		model.addAttribute("checkOut", checkOut);
@@ -65,62 +71,123 @@ public class CampingController {
 		if(campingTypeStr != "") {
 			String[] campingType = campingTypeStr.split(",");
 			ArrayList<String> arr1 = new ArrayList<String>();
-			Collections.addAll(arr1, campingType);
-			campingRoom.setCampingRoomType(arr1);
+			for(String str : campingType) {
+				arr1.add(str);
+			}
+			campingRoom.setCampingRoomTypeList(arr1);
 		}
-		CampingProvide campingProvide = campingProvideSetter(campingServiceStr, campingRoomServiceStr, campingEtcStr);
+		Camping camping = campingProvideSetter(campingServiceStr, campingRoomServiceStr, campingEtcStr);
 		campingRoom.setCampingRoomMaxPplCount(Integer.parseInt(pplCount));
-		CampingListPageData cpd = service.selectCampingListData(reqPage, order, campingProvide, campingRoom);
+		CampingListPageData cpd = service.selectCampingListData(reqPage, order, camping, campingRoom);
 		return new Gson().toJson(cpd);
 	}
 	
 	@RequestMapping(value="/campingWrite.do")
-	public String campingWrite(Camping c, MultipartFile[] campingFilepath, HttpServletRequest requset) {
-		Camping fileList = new Camping();
+	public String campingWrite(Camping c, MultipartFile[] campingFilepath, HttpServletRequest requset, String[] campingService, String[] campingRoomService, String[] campingEtc, CampingRoom cr, MultipartFile[] campingRoomFilepath) {
+		if(campingService != null) {
+			ArrayList<CampingProvideService> campingServicelist = new ArrayList<CampingProvideService>();
+			for(String str : campingService) {
+				CampingProvideService cps = new CampingProvideService();
+				cps.setCampingService(str);
+				campingServicelist.add(cps);
+			}
+			c.setCampingProvideServiceList(campingServicelist);
+		}
+		if(campingRoomService != null) {
+			ArrayList<CampingRoomService> campingRoomServicelist = new ArrayList<CampingRoomService>();
+			for(String str : campingRoomService) {
+				CampingRoomService crs = new CampingRoomService();
+				crs.setCampingRoomService(str);
+				campingRoomServicelist.add(crs);
+			}
+			c.setCampingRoomServiceList(campingRoomServicelist);
+		}
+		if(campingEtc != null) {
+			ArrayList<CampingEtc> campingEtclist = new ArrayList<CampingEtc>();
+			for(String str : campingEtc) {
+				CampingEtc ce = new CampingEtc();
+				ce.setCampingEtc(str);
+				campingEtclist.add(ce);
+			}
+			c.setCampingEtcList(campingEtclist);
+		}
 		if(!campingFilepath[0].isEmpty()) {
-			String savePath = requset.getSession().getServletContext().getRealPath("/resources/upload/camping");
+			String savePath = requset.getSession().getServletContext().getRealPath("/resources/upload/camping/");
 			for(MultipartFile file : campingFilepath) {
-				String filename = file.getOriginalFilename();
 				String filepath = manager.upload(savePath, file);
 				c.setFilepath(filepath);
 			}
 		}
-		int result = service.insertCamping(c);
+		ArrayList<CampingRoomFileVO> fileList = new ArrayList<CampingRoomFileVO>();
+		if(!campingRoomFilepath[0].isEmpty()) {
+			String savePath = requset.getSession().getServletContext().getRealPath("/resources/upload/campingRoom/");
+			for(MultipartFile file : campingRoomFilepath) {
+				String filepath = manager.upload(savePath, file);
+				CampingRoomFileVO campingRoomFileVO = new CampingRoomFileVO();
+				campingRoomFileVO.setFilepath(filepath);
+				fileList.add(campingRoomFileVO);
+			}
+		}
+		int result = service.insertCamping(c, cr, fileList);
 		if(result > 0) {
-			return "redirect:campingRoomWriteFrm.do";
+			return "redirect:/";
 		}else {
 			return "redirect:/";
 		}
 	}
 	
 	@RequestMapping(value="/campingRoomWriteFrm.do")
-	public String campingRoomWriteFrm() {
+	public String campingRoomWriteFrm(HttpServletRequest request, Model model) {
+		int campingNo = Integer.parseInt(request.getParameter("campingNo"));
+		model.addAttribute("campingNo",campingNo);
+		System.out.println(campingNo);
 		return "camping/campingRoomWriteFrm";
 	}
 	
-	private CampingProvide campingProvideSetter(String campingServiceStr, String campingRoomServiceStr, String campingEtcStr) {
-		CampingProvide campingProvide = new CampingProvide();
+	@RequestMapping(value="/viewCamping.do")
+	public String viewCamping(int campingNo, Model model) {
+		ViewCampingData vcd = service.selectOneCamping(campingNo);
+		model.addAttribute("camping" , vcd.getCamping());
+		model.addAttribute("campingRoomList", vcd.getCampingRoomList());
+		return "camping/viewCamping";
+	}
+	
+	private Camping campingProvideSetter(String campingServiceStr, String campingRoomServiceStr, String campingEtcStr) {
+		Camping camping = new Camping();
 		if(campingServiceStr != "") {
 			String[] campingService = campingServiceStr.split(",");
-			ArrayList<String> arr1 = new ArrayList<String>();
-			Collections.addAll(arr1, campingService);
-			campingProvide.setCampingService(arr1);
+			ArrayList<CampingProvideService> list = new ArrayList<CampingProvideService>();
+			for(String str : campingService) {
+				CampingProvideService cps = new CampingProvideService();
+				cps.setCampingService(str);
+				list.add(cps);
+			}
+			camping.setCampingProvideServiceList(list);
 		}
 		if(campingRoomServiceStr != "") {
 			String[] campingRoomService = campingRoomServiceStr.split(",");
-			ArrayList<String> arr2 = new ArrayList<String>();
-			Collections.addAll(arr2, campingRoomService);
-			campingProvide.setCampingRoomService(arr2);
+			ArrayList<CampingRoomService> list = new ArrayList<CampingRoomService>();
+			for(String str : campingRoomService) {
+				CampingRoomService crs = new CampingRoomService();
+				crs.setCampingRoomService(str);
+				list.add(crs);
+			}
+			camping.setCampingRoomServiceList(list);
 		}
 		if(campingRoomServiceStr != "") {
 			String[] campingEtc = campingEtcStr.split(",");
-			ArrayList<String> arr3 = new ArrayList<String>();
-			Collections.addAll(arr3, campingEtc);
-			campingProvide.setCampingEtc(arr3);
+			ArrayList<CampingEtc> list = new ArrayList<CampingEtc>();
+			for(String str : campingEtc) {
+				CampingEtc cEtc = new CampingEtc();
+				cEtc.setCampingEtc(str);
+				list.add(cEtc);
+			}
+			camping.setCampingEtcList(list);
 		}
-		return campingProvide;
+		return camping;
 	}
 	
+	/*
 	@RequestMapping(value="/campingRoomWrite.do")
 	public String campingRoomWrite(CampingRoom cr, MultipartFile[] campingRoomFilepath, HttpServletRequest request) {
 		ArrayList<CampingRoomFileVO> fileList = new ArrayList<CampingRoomFileVO>();
@@ -140,4 +207,52 @@ public class CampingController {
 			return "redirect:/";
 		}
 	}
+	*/
+	
+	@RequestMapping(value="/campingReview.do")
+	public String campingReview() {
+		return "campingReview/campingReview";
+	}
+	
+	@RequestMapping(value="/campingReviewWrite.do")
+	public String campingReviewWrite(CampingReview crv, MultipartFile[] campingReviewFilepath, HttpServletRequest request) {
+		ArrayList<CampingReviewFileVO> fileList = new ArrayList<CampingReviewFileVO>();
+		if(!campingReviewFilepath[0].isEmpty()) {
+			String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/campingReview/");
+			for(MultipartFile file : campingReviewFilepath) {
+				String filepath = manager.upload(savePath, file);
+				CampingReviewFileVO campingReviewFileVO = new CampingReviewFileVO();
+				campingReviewFileVO.setFilepath(filepath);
+				fileList.add(campingReviewFileVO);
+			}
+		}
+		int result = service.insertCampingReview(crv, fileList);
+		if(result == (fileList.size()+1)) {
+			return "redirect:/campingReview.do";
+		}else {
+			return "redirect:/";
+		}
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

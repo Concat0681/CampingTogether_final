@@ -1,0 +1,77 @@
+@charset "UTF-8";
+.page-wrap{
+	width: 80%;
+	margin: 0 auto;
+	margin-top : 150px;
+}
+.header-wrap{
+	display : flex;
+}
+.camping-info{
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	padding : 0 50px;
+	width: 100%;
+}
+.camping-info>div{
+	margin : 10px;
+}
+.img-wrap>img{
+	width : 500px;
+	height: 300px;
+}
+.content-hidden{
+	display: none;
+}
+.service-info{
+	display: flex;
+	flex-direction: column;
+	height: 200px;
+}
+.type-box{
+	height: 50%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+.provide-box{
+	height: 50%;
+}
+.content-menu{
+	display: flex;
+}
+.content-header{
+	display: flex;
+}
+.content-menu>div{
+	background-color: antiquewhite;
+	margin: 5px;
+	padding: 5px;
+}
+.type-content{
+	display: flex;
+}
+.weather-list{
+    display: flex;
+}
+.room-wrap{
+	display: flex;
+}
+.room-img{
+	width: 350px;
+	height: 220px;
+}
+.room-price-box{
+	display: flex;
+	justify-content: space-between;
+}
+.room-img-box{
+	width: 40%;
+}
+.room-box{
+	width: 60%;
+}
+.carousel-item > img{
+	height: 200px;
+}

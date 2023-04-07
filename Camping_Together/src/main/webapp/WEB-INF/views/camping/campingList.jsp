@@ -36,12 +36,12 @@
 						<label for="calendarInput"><img src="/resources/image/camping/map.png"></label>
 						<c:choose>
 							<c:when test="${not empty date }">
-								<input id="reservationDate" type="text" name="date" value="${date }" readonly>
+								<input type="text" name="date" value="${date }" readonly>
 								<input type="hidden" name="checkIn" value="${checkIn }">
 								<input type="hidden" name="checkOut" value="${checkOut }">
 							</c:when>
 							<c:otherwise>
-								<input id="reservationDate" type="text" name="date" readonly>
+								<input type="text" name="date" readonly>
 								<input type="hidden" name="checkIn">
 								<input type="hidden" name="checkOut">
 							</c:otherwise>
@@ -338,7 +338,6 @@
 			if(order == null){
 				order = "avgReviewRating";
 			}
-			console.log(order);
 			$('input:checkbox[name=campingType]').each(function (index) {
 				if($(this).is(":checked")==true){
 			    	campingType.push($(this).val())
@@ -371,7 +370,10 @@
 					$(".list-by-review").empty();
 					data.list.forEach(function(c,i){
 						const div = $("<div>")
-						div.append(c.campingTitle);
+						const a = $("<a>");
+						a.attr("href", "/viewCamping.do?campingNo="+c.campingNo);
+						a.append(c.campingTitle);
+						div.append(a);
 						const div2 = $("<div>")
 						div2.append(c.avgReviewRating)
 						const div3 = $("<div>");

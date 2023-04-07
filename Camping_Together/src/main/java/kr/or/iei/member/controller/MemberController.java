@@ -1,14 +1,19 @@
 package kr.or.iei.member.controller;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.or.iei.member.model.service.MemberService;
+import kr.or.iei.member.model.vo.CampingPayment;
 import kr.or.iei.member.model.vo.Member;
+import kr.or.iei.member.model.vo.MemberPageData;
 
 @Controller
 public class MemberController {
@@ -115,9 +120,18 @@ public class MemberController {
 		}
 	}
 	
+	//캠핑장 결제 내역 리스트
+	@RequestMapping(value = "/cmapingPayList.do")
+	public String cmapingPayList(int reqPage,int memberNo, Model model) {
+		ArrayList<CampingPayment> list = service.selectPayList(memberNo);
+		model.addAttribute("list", list );
+		return "member/shopPayList";
+	}
+	
+	/*
 	@RequestMapping(value = "/shopPayList.do")
 	public String shopPayList() {
 		return "member/shopPayList";
 	}
-	
+	*/
 }
