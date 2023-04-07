@@ -1,6 +1,12 @@
 *{
 	text-decoration: none !important;
 	outline: none !important;
+	
+}
+a {
+  color: var(--text-color);
+  color: #fff;
+  font-family: ng-extra-bold;
 }
 
 .nav-link{
@@ -14,6 +20,7 @@
 body{
     margin: 0;
     padding: 0;
+    
 }
 
 .header-logo {
@@ -142,3 +149,4 @@ body{
 .navbar.bg-light .nav-link {
   color: #fff;
 }
+
