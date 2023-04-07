@@ -58,6 +58,7 @@
 		<div class="wrapper-top">
         <div class="nav-top">
             <ul class="login">
+            	<li><a href="/noticeList.do">공지사항</a></li>
                 <li><a href="/loginFrm.do">로그인</a></li>
                 <li><a href="/joinFrm.do">회원가입</a></li>
             </ul>
@@ -69,6 +70,7 @@
         <div class="nav-top">
             <ul class="login">
                 <!-- <li><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">쪽지보내기</button></li> -->
+                <li><a href="/notice/noticeList.jsp">공지사항</a></li>
                 <li><a href = "/messageMain.do">쪽지함</a></li>
                 <li><a href = "/mypageC.do">[${sessionScope.m.memberName }]</a></li>
                 <li><a href="/logout.do">로그아웃</a></li>
@@ -112,7 +114,7 @@
     </div>
   </div>
 </nav>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 	 <script>
  	// 스크롤 이벤트에 대한 리스너 등록
     window.addEventListener('scroll', function() {
@@ -122,8 +124,9 @@
       // 네비바 엘리먼트 선택
       const navbarTop = document.querySelector('.wrapper-top');
       const navbarBottom = document.querySelector('.navbar');
-      const navLink = document.querySelectorAll('.nav-item');
-	
+      const navItem = document.querySelectorAll('.nav-item');
+      const navLink =  document.querySelectorAll('.nav-link');
+    	  
       	
       // 현재 스크롤 위치가 300px 이상인 경우에만 실행
       if (scrollTop >= 300) {
@@ -150,18 +153,20 @@
       if (scrollTop >= 300) {
           //네비바의 컨텐츠 글자색을 흰색으로
           for(let i=0; i < navLink.length; i++){
-            navLink[i].style = 'color';
-            navLink[i].style.color = 'rgb(255, 255, 255)';
+        	  navItem[i].style = 'color';
+        	  navItem[i].style.color = 'rgb(255, 255, 255)';
           }
           
         } else {
           // 네비바의 컨텐츠 글자색을 원래대로 복원
           for(let i=0; i < navLink.length; i++){
-            navLink[i].style = 'color';
-            navLink[i].style.color = 'rgb(173, 139, 115)';
+        	  navItem[i].style = 'color';
+        	  navItem[i].style.color = '#AD8B73';
           }
       
         }
+      
+      
     });
     document.addEventListener('DOMContentLoaded', function() {
         document.querySelectorAll('li:has(ul)').forEach(function(element) {
@@ -176,7 +181,7 @@
 
     
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    
    
 </body>
 </html>

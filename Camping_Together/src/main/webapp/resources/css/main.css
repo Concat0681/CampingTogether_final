@@ -1,0 +1,166 @@
+@charset "UTF-8";
+.backGround{
+    z-index: 0;
+    position: absolute;
+    width: 100%;
+   height: 1000px;
+}
+.wrapper{
+	height: 1000px;
+}
+
+
+.inputBox{
+    width: 700px;
+    z-index: 99;
+    position: absolute;
+    top: 300px;
+    margin: 100px;
+    left: 50%;
+    margin-left: -400px;
+    text-align: center;
+    
+}
+.mainSelect{
+    width: 150px;
+    height: 50px;
+    line-height: 50px;
+    font-size: larger;
+    font-weight: bold;
+    border-radius: 15px;
+    background-color : #AD8B73;
+    border: none;
+    text-align: center;
+}
+.mainSearch{
+	margin-left: 10px;
+    width: 500px;
+    height: 50px;
+    border-radius: 15px;
+    border: none;
+    padding-left: 10px;
+    cursor: pointer;
+}
+.mainSearch:hover{
+    box-shadow: 0 0 0 2px;
+}
+.mainSelect>option{
+	border-bottom-left-radius: 15px;
+	border-bottom-right-radius: 15px;
+}
+
+.best-campingSite{
+	top: 500px;
+    z-index: 99;
+    position: absolute;
+    background-color: transparent;
+    width: 1100px;
+    height: 450px;
+    left: 50%;
+    margin-left: -600px;
+    
+}
+.capmingListBox>h3{
+	color: #fff;
+}
+.capmingSilder{
+	margin: auto;
+	text-align: center;
+	margin: 0 auto;
+}
+.bxslider{
+	color: #fff;
+}
+
+.bx-wrapper{
+	border: none;
+    background: none;
+	background-color: rgba(0, 0, 0, 0.7);
+}
+
+.capmingSilder li {
+  position: relative;
+  overflow: hidden;
+}
+
+.capmingSilder li img {
+  transition: all 0.3s ease-in-out;
+}
+
+.capmingSilder li:hover img {
+  transform: scale(1.2);
+}
+
+.caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 5px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  font-size: 18px;
+  text-align: center;
+  opacity: 0;
+  transition: all 0.3s ease-in-out;
+}
+
+.capmingSilder li:hover .caption {
+  opacity: 1;
+}
+
+.capmingSilder li:hover img {
+  transform: scale(1.2);
+}
+.wrapperMiddle-notice{
+	height: 250px;
+	width: 100%;
+	background-color: #d9dbe9;
+}
+.notice-area{
+	width: 100%;
+	padding: 50px;
+	display: flex;
+}
+
+.notice-Box{
+	font-size: 18px;
+	width: calc(100%/2);
+	margin-left: 100px;
+	padding-right: 150px;
+}
+.notice-Box>p{
+	font-weight: bolder;
+	font-size: 20px;
+}
+.notice-Box>span{
+	font-weight: bolder;
+	
+}
+.notice-list{
+	list-style-type: none;
+	padding: 15px;
+	
+}
+.notice-list>li{
+	padding-bottom: 10px;
+	
+}
+
+.notice-list>li:before{
+	content: "-";
+	width: 10px;
+    height: 10px;
+	
+}
+.notice-Box>span{
+	float: right;
+	font-size: 25px;
+}
+.notice-img{
+	width: calc(100%/2);
+	background-color: black;
+	height: 168px;
+}
+
+
