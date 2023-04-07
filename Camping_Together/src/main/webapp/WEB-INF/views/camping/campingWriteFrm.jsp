@@ -387,7 +387,7 @@
 		const phoneResult = [false];
 		
 		$("[name=campingPhone]").on("change",function(){
-			const phoneReg = /01\d{1}-\d{4}-\d{4}/;
+			const phoneReg = /01\d{1}-\d{4}-\d{4}$/;
 			const campingPhone = $("[name=campingPhone]").val();
 			const phoneCheck = phoneReg.test(campingPhone);
 			if(phoneCheck){
