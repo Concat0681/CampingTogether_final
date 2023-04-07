@@ -8,7 +8,6 @@
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=n8k40j998a&submodules=geocoder"></script>
-<link href="/resources/css/camping/campingListHeader.css" rel="stylesheet">
 <link href="/resources/css/camping/campingList.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 </head>
@@ -19,33 +18,7 @@
 	<div class="page-wrap">
 		<div class="page-header" style="background-image: url(/resources/image/camping/${cityNameEN }.jpeg)">
 			<div class="page-header-title">${cityNameKR } 캠핑가자</div>
-			<div class="search-input-wrap">
-				<form action="/campingList.do" method="get">
-					<div class="search-input-box"  style="position : relative">
-					<input id="searchInput" name="cityNameKR" type="text" placeholder="어디로 떠나실건가요?" required>
-					<input name="cityNameEN" type="hidden">
-					<!-- search-content -->
-					<div class="hidden-search">
-						<ul>
-							<li id="incheon" class="cityName">인천</li>
-							<li id="seoul" class="cityName">서울</li>
-							<li id="jeju" class="cityName">제주</li>
-							<li id="sokcho" class="cityName">속초</li>
-							<li id="ganglueng" class="cityName">강릉</li>
-						</ul>
-					</div>
-					</div>
-					<div class="search-input-box">
-						<input type="text" name="date" readonly>
-						<input type="hidden" name="checkIn">
-						<input type="hidden" name="checkOut">
-						<input name="pplCount" type="text" value=1>
-						<input name="reqPage" type="hidden" value="1">
-						<input name="order" type="hidden" value="avgReviewRating">
-						<button type="submit" class="searchInput-btn">검색하기</button>
-					</div>
-				</form>
-			</div>
+			<jsp:include page="/WEB-INF/views/camping/campingListHeader.jsp" />
 		</div>
 		<div class="page-content">
 			<div class="sidebar-menu">
@@ -512,21 +485,6 @@
 		
 		$(function(){
 			startMap();
-		})
-		
-		$("#searchInput").on("click", function(){
-			$(".hidden-search").show();
-		})
-		
-		$("#searchInput").on("blur", function(){
-			setTimeout(() => {
-				$(".hidden-search").hide();
-			  }, 200);
-		})
-		
-		$(".cityName").on("click", function(){
-			$("#searchInput").val($(this).text())
-			$("[name=cityNameEN]").val($(this).attr("id"));
 		})
 	</script>
 	<script src="resources/js/camping/dateRangePicker.js"></script>
