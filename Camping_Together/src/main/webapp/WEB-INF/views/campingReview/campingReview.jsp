@@ -11,8 +11,13 @@
 <link href="/resources/css/campingReview.css" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
+
+
+
 </head>
 <body>
+	<jsp:include page="/WEB-INF/views/common/header.jsp" />
+
 	<div class="reviewWrap">
 		<div class="reviewContentWrap">
 			<div class="reviewHeader">
@@ -34,7 +39,7 @@
 	          	리뷰작성
 	        </button>
 		    
-		    <div id="test-modal" class="modal-bg">
+		    <div id="test-modal" class="modal-bg" style="z-index: 1000;">
 			  <div class="modal-wrap">
 			    <div class="modal-head">
 			      <h2>리뷰 작성</h2>
@@ -114,7 +119,7 @@
 		              <span>리뷰제목</span>
 		            </p>
 		            <p>
-		            	<span>별별별별별</span>
+		            	<span style="padding-left: 10px;">별별별별별</span>
 		            </p>
 		            <p class="comment-content">댓글내용댓글내용댓글내용</p>
 		            <p class="comment-link">
@@ -122,9 +127,38 @@
 		              <a href="#">삭제</a>
 		              <a href="#">답글달기</a>
 		            </p>
+		            
+		            <!-- 캐러셀 컨테이너 정의 -->
+					<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" style="width: 500px;">
+					  <!-- 캐러셀 내용 정의 -->
+					  <div class="carousel-inner" style="width: 500px; height: 500px;">
+					    <div class="carousel-item active">
+					      <img src="resources/upload/campingRoom/도라.jfif" class="d-block w-100" alt="..." style="width: 500px;">
+					    </div>
+					    <div class="carousel-item">
+					      <img src="resources/upload/campingRoom/도라.jfif" class="d-block w-100" alt="..." style="width: 500px;">
+					    </div>
+					    <div class="carousel-item">
+					      <img src="resources/upload/campingRoom/도라.jfif" class="d-block w-100" alt="..." style="width: 500px;">
+					    </div>
+					  </div>
+					  
+					  <!-- 이전/다음 버튼 정의 -->
+					  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+					    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					    <span class="visually-hidden">이전</span>
+					  </button>
+					  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+					    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+					    <span class="visually-hidden">다음</span>
+					  </button>
+					</div>
+		            
 		          </li>
 		        </ul>
       		</div>
+      		
+      		
 		    
 		</div>
 	</div>
