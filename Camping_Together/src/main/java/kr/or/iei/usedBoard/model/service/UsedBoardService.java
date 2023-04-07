@@ -66,4 +66,12 @@ public class UsedBoardService {
 		}
 		return result;
 	}
+
+	public UsedBoard selectOneUsedBoard(int usedBoardNo) {
+		//1. 조회수update
+		int result = dao.updateReadCount(usedBoardNo);
+		//2. 상세정보조회
+		UsedBoard ub = dao.selectOneUsedBoard(usedBoardNo);
+		return ub;
+	}
 }
