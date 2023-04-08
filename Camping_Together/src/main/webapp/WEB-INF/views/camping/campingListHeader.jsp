@@ -14,7 +14,7 @@
 			<form action="/campingList.do" method="get">
 				<div class="input-group search-city-box">
 					<label class="input-group-text" for="searchInput"><span class="material-symbols-outlined">search</span></label>
-					<input class="form-control" id="searchInput" name="cityNameKR" type="text" placeholder="어디로 떠나실건가요?" readonly required>
+					<input class="form-control" id="searchInput" name="cityNameKR" type="text" placeholder="어디로 떠나실건가요?" required>
 					<input name="cityNameEN" type="hidden">
 					<div class="hidden-search">
 						<ul>
@@ -27,8 +27,9 @@
 					</div>
 				</div>
 				<div class="input-group search-date-box">
-					<label class="input-group-text" for="date"><span class="material-symbols-outlined">calendar_month</span></label>
-					<input class="form-control" type="text" id="date" name="date" readonly>
+					<label class="input-group-text" for="search_checkin"><span class="material-symbols-outlined">calendar_month</span></label>
+					<input class="form-control" type="text" id="search_checkin" name="date" readonly>
+					<input class="form-control" type="text" id="search_checkout" name="date" readonly>
 					<input type="hidden" name="checkIn">
 					<input type="hidden" name="checkOut">				
 				</div>
@@ -39,7 +40,7 @@
 				<input name="reqPage" type="hidden" value="1">
 				<input name="order" type="hidden" value="avgReviewRating">
 				<div class="input-group search-submit-box">
-					<button type="submit" class="searchInput-btn">검색하기</button>
+					<button type="submit" class="btn btn-outline-secondary searchInput-btn">검색하기</button>
 				</div>
 			<!-- search-content -->
 			</form>
