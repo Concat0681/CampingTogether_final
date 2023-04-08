@@ -30,15 +30,11 @@ if ($('#search_checkin, #search_checkout').length) {
       autoApply: true,
       autoUpdateInput: false,
       ranges: {
-        Today: [moment(), moment()],
-        Yesterday: [moment().subtract(1, '일'), moment().subtract(1, '일')],
-        'Last 7 Days': [moment().subtract(6, '일'), moment()],
-        'Last 30 Days': [moment().subtract(29, '일'), moment()],
-        'This Month': [moment().startOf('월'), moment().endOf('월')],
-        'Last Month': [
-          moment().subtract(1, '월').startOf('월'),
-          moment().subtract(1, '월').endOf('월')
-        ]
+        오늘: [moment(), moment()],
+        내일: [moment(), moment().add(1, 'days')],
+        '2일': [moment(), moment().add(2, 'days')],
+        '3일': [moment(), moment().add(3, 'days')],
+        일주일: [moment(), moment().add(7, 'days')]
       }
     },
     function (start, end, label) {
