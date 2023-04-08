@@ -32,13 +32,74 @@
 	<update id="updateReadCount" parameterType="bf">
 		update board_food set read_count = read_count+1 where board_food_no = #{_parameter}
 	</update>
-	<select id="selectOneBoardFood" parameterType="_int" resultType="bfvd" >
-		select * from board_food where board_food_no = #{_parameter}
+	<select id="selectOneBoardFood" parameterType="_int" resultType="bf" >
+				select 
+					board_food_no as boardFoodNo,
+					board_food_writer as boardFoodWriter,
+					board_food_title as boardFoodTitle,
+					board_food_content as boardFoodContent,
+					read_count as readCount,
+					enroll_date as enrollDate,
+					file_no as fileNo,
+					filepath
+			from board_food left join file_tbl using(board_food_no) where board_food_no = #{_parameter}
 	</select>
-	<select id="selectFoodComment" parameterType="bfvd" resultType="bfvd">
-		select * from food_comment where board_food_ref = #{boardFoodNo} and food_comment_ref is null order by 1
+	<select id="selectFoodComment" parameterType="_int" resultType="fc">
+		select 
+			food_comment_no as foodCommentNo,
+			food_comment_writer as foodCommentWriter,
+			board_food_ref as boardFoodRef,
+			food_comment_ref as foodCommentRef,
+			food_comment_content as foodCommentContent,
+			food_comment_date as foodCommentDate
+		 from food_comment where board_food_ref = #{boardFoodNo} and food_comment_ref is null order by 1
 	</select>
-	<select id="selectReCommentList" parameterType="bfvd" resultType="bfvd">
-	select * from food_comment where board_food_ref = #{boardFoodNo} and food_comment_ref is not null order by 1
+	<select id="selectReCommentList" parameterType="_int" resultType="fc">
+		select
+			food_comment_no as foodCommentNo,
+			food_comment_writer as foodCommentWriter,
+			board_food_ref as boardFoodRef,
+			food_comment_ref as foodCommentRef,
+			food_comment_content as foodCommentContent,
+			food_comment_date as foodCommentDate
+		 from food_comment where board_food_ref = #{boardFoodNo} and food_comment_ref is not null order by 1
 	</select>
+	<update id="updateBoardFood" parameterType="bf">
+		update board_food set
+			board_food_title = #{boardFoodTitle},
+			board_food_content = #{boardFoodContent}
+		where board_food_no = #{boardFoodNo}
+	</update>
+	<delete id="deleteFile" parameterType="_int">
+		delete from file_tbl where file_no = #{fileNo}
+	</delete>
+	<select id="selectFileList" parameterType="_int" resultType="f">
+		select
+			file_no as fileNo,
+			board_food_no as boardFoodNo,
+			filepath
+		from file_tbl where board_food_no = #{_parameter}
+	
+	</select>
+	<delete id="deleteBoardFood" parameterType="_int">
+		delete from board_food where board_food_no = #{boardFoodNo}
+	</delete>
+	<insert id="insertFoodComment" parameterType="fc">
+		insert into food_comment values(food_comment_seq.nextval,#{foodCommentWriter},#{boardFoodRef},
+		<choose>
+			<when test="foodCommentRef == 0">
+				null,
+			</when>
+			<otherwise>
+				#{foodCommentRef},
+			</otherwise>
+		</choose>
+		#{foodCommentContent},to_char(sysdate, 'yyyy-mm-dd hh24:mi:ss'))
+	</insert>
+	<update id="updateFoodComment" parameterType="fc">
+		update food_comment set food_comment_content= #{foodCommentContent} where food_comment_no = #{foodCommentNo}
+	</update>
+	<delete id="deleteFoodComment" parameterType="_int">
+		delete from food_comment where food_comment_no = #{foodCommentNo}
+	</delete>
 </mapper>

@@ -11,7 +11,6 @@ import org.springframework.stereotype.Repository;
 import kr.or.iei.board.food.model.vo.BoardFood;
 import kr.or.iei.board.food.model.vo.FileVO;
 import kr.or.iei.board.food.model.vo.FoodComment;
-import kr.or.iei.notice.model.vo.Notice;
 
 @Repository
 public class BoardFoodDao {
@@ -57,6 +56,41 @@ public class BoardFoodDao {
 	public ArrayList<FoodComment> selectReCommentList(int boardFoodNo) {
 		List list = sqlSession.selectList("boardFood.selectReCommentList",boardFoodNo);
 		return (ArrayList<FoodComment>)list;
+	}
+
+	public int updateBoardFood(BoardFood bf) {
+		int result = sqlSession.update("boardFood.updateBoardFood",bf);
+		return result;
+	}
+
+	public int deleteFile(int no) {
+		int result = sqlSession.delete("boardFood.deleteFile",no);
+		return result;
+	}
+
+	public ArrayList<FileVO> selectFileList(int boardFoodNo) {
+		List list = sqlSession.selectList("boardFood.selectFileList", boardFoodNo);
+		return (ArrayList<FileVO>)list;
+	}
+
+	public int deleteBoardFood(int boardFoodNo) {
+		int result = sqlSession.delete("boardFood.deleteBoardFood",boardFoodNo);
+		return result;
+	}
+
+	public int insertFoodComment(FoodComment fc) {
+		int result = sqlSession.insert("boardFood.insertFoodComment",fc);
+		return result;
+	}
+
+	public int updateFoodComment(FoodComment fc) {
+		int result = sqlSession.update("boardFood.updateFoodComment",fc);
+		return result;
+	}
+
+	public int deleteFoodComment(int foodCommentNo) {
+		int result = sqlSession.delete("boardFood.deleteFoodComment", foodCommentNo);
+		return result;
 	}
 
 
