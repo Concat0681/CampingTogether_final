@@ -46,7 +46,7 @@ public class CampingController {
 	}
 	
 	@RequestMapping(value="/campingList.do")
-	public String campingList(String cityNameKR, String cityNameEN,int reqPage, String order, String pplCount, String checkIn, String checkOut, String date, Model model) {
+	public String campingList(String cityNameKR, String cityNameEN,int reqPage, String order, String pplCount, String checkIn, String checkOut, Model model) {
 		CampingRoom campingRoom = new CampingRoom();
 		Camping camping = new Camping();
 		camping.setCampingAddr(cityNameKR);
@@ -60,7 +60,6 @@ public class CampingController {
 		model.addAttribute("checkIn", checkIn);
 		model.addAttribute("checkOut", checkOut);
 		model.addAttribute("pplCount", pplCount);
-		model.addAttribute("date", date);
 		return "camping/campingList";
 	}
 	

@@ -11,15 +11,15 @@
 
 
 .inputBox{
-    width: 700px;
+    width: 70%;
     z-index: 99;
     position: absolute;
     top: 300px;
-    margin: 100px;
-    left: 50%;
-    margin-left: -400px;
-    text-align: center;
-    
+    left: 15%;
+    text-align: center; 
+}
+.inputBox>div{
+  width: 100%;
 }
 .mainSelect{
     width: 150px;
@@ -55,15 +55,13 @@
 }
 
 .best-campingSite{
-	top: 500px;
+	  top: 500px;
     z-index: 99;
     position: absolute;
     background-color: transparent;
-    width: 1100px;
+    width: 70%;
     height: 450px;
-    left: 50%;
-    margin-left: -600px;
-    
+    left: 15%;
 }
 .capmingListBox>h3{
 	color: #fff;
