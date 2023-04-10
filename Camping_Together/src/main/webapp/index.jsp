@@ -120,9 +120,8 @@
 		<div class="wrapperMiddle-tradeBox">
 			<div class="wrapperMiddle-tradeContent">
 				<div class="tradeContentBoarder">
-					중고거래 컨텐츠1
 					<div>
-					<img src="/resources/image/camping/seoul.jpeg" style="width:100%; height: 100%;"></div>
+					<img src="/resources/image/camping/seoul.jpeg" style="width:200px;"></div>
 				</div>
 			</div>
 			<div class="wrapperMiddle-tradeContent">
