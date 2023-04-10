@@ -5,7 +5,6 @@ import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import kr.or.iei.camping.model.dao.CampingDao;
 import kr.or.iei.camping.model.vo.Camping;
@@ -76,15 +75,15 @@ public class CampingService {
 		if(reqPage > 3) {
 			pageNo = reqPage - 2 ;
 		}
-		String pageNavi = "";
+		String pageNavi = "<ul class='pagination circle-style'>";
 		if(pageNo != 1) {
-			pageNavi += "<a onclick='sendDetailSearch("+null+","+(pageNo-1)+")'>[이전]</a>";
+			pageNavi += "<li><a class='page-item'onclick='sendNavi("+(pageNo-1)+")'><span class='material-symbols-outlined'>chevron_left</span></a></li>";
 		}
 		for(int i=0;i<pageNaviSize;i++) {
 			if(pageNo == reqPage) {
-				pageNavi += "<span>"+pageNo+"</span>";
+				pageNavi += "<li><a class='page-item active-page'>"+pageNo+"</a></li>";
 			} else {
-				pageNavi += "<a onclick='sendDetailSearch("+null+","+pageNo+")'>"+pageNo+"</a>";
+				pageNavi += "<li><a class='page-item' onclick='sendNavi("+pageNo+")'>"+pageNo+"</a></li>";
 			}
 			pageNo++;
 			if(pageNo > totalPage) {
@@ -92,7 +91,7 @@ public class CampingService {
 			}
 		}
 		if(pageNo <= totalPage) {
-			pageNavi += "<a onclick='sendDetailSearch("+null+","+(pageNo)+")'>[다음]</a>";
+			pageNavi += "<li><a class='page-item' onclick='sendNavi("+(pageNo)+")'><span class='material-symbols-outlined'>chevron_right</span></a></li>";
 		}
 		map.put("start", null);
 		map.put("end", null);

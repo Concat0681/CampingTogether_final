@@ -298,7 +298,7 @@ button{
 			
 			 <%--대댓글 출력 --%>
             <c:forEach items="${fcreList }" var="fcc" varStatus="i">
-            	<c:if test="${fcc.foodCommentRef eq fcc.foodCommentNo }">
+            	<c:if test="${fcc.foodCommentRef eq fc.foodCommentNo }">
             	<ul class="posting-comment reply">
             		<li>
             			<span class="material-icons">subdirectory_arrow_right</span>
@@ -309,9 +309,9 @@ button{
             				<span>${fcc.foodCommentWriter }</span>
             				<span>${fcc.foodCommentDate }</span>
             			</p>
-            			<p class="comment-content">${fcc.foodComment }</p>
+            			<p class="comment-content">${fcc.foodCommentContent }</p>
             			
-            			<textarea name="foodCommentContent" class="input-form" style="min-height:96px;display:none;">${fcc.foodComment }</textarea>
+            			<textarea name="foodCommentContent" class="input-form" style="min-height:96px;display:none;">${fcc.foodCommentContent }</textarea>
             			
             			<p class="comment-link">
             				<c:if test="${sessionScope.m.memberId eq fc.foodCommentWriter }">
@@ -327,7 +327,7 @@ button{
             <%-- 댓글에 대한 대댓글 입력양식 --%>
             <c:if test="${not empty sessionScope.m }">
             	<div class="inputCommentBox inputReCommentBox">
-            		<form action="/insertNoticeComment.do" method="post">
+            		<form action="/insertFoodComment.do" method="post">
             			<ul>
             				<li>
             					<span class="material-icons">subdirectory_arrow_right</span>
@@ -335,7 +335,7 @@ button{
             				<li>
             					<input type="hidden" name="foodCommentWriter" value="${sessionScope.m.memberId }">
             					<input type="hidden" name="boardFoodRef" value="${bf.boardFoodNo }">
-            					<input type="hidden" name="foodCommentRef" value="${bf.boardFoodNo } }"><%--현재 출력하고 있는 번호 --%>
+            					<input type="hidden" name="foodCommentRef" value="${fc.foodCommentNo }"><%--현재 출력하고 있는 번호 --%>
             					<textarea name="foodCommentContent" class="input-form"></textarea>
             				</li>
             				<li>

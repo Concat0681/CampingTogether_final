@@ -9,8 +9,9 @@ a {
 }
 
 .nav-link{
-	color: #fff ;
+	color: #fff;
 	font-weight: bolder;
+	text-align: center;
 }
 .nav-link-down:hover{
 	color: #AD8B73 !important ;
@@ -37,6 +38,14 @@ body{
 	font-size: 20px;
 	padding: 10px;
 }
+.nav-top>ul>li:hover>a{
+    font-weight: bolder;
+    color: #AD8B73;
+    text-decoration: none;
+    transition-duration: 0.5s;
+}
+
+
 .wrapper-top{
     margin: 0 auto;
     position: fixed;
@@ -98,7 +107,7 @@ body{
 .nav-top{
     margin-left: auto;
 }
-.nav-bottom>ul>li:hover>a{
+.collapse>ul>li:hover>a{
     font-weight: bolder;
     font-size: 1.4em;
     color: #AD8B73;
@@ -152,3 +161,6 @@ body{
   color: #fff;
 }
 
+.dropdown-menu{
+	margin-left: 25px;
+}

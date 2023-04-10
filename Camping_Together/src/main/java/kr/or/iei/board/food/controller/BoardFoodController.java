@@ -8,7 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.google.gson.JsonObject;
 
 import common.FileManager;
 import kr.or.iei.board.food.model.service.BoardFoodService;
@@ -64,7 +69,8 @@ public class BoardFoodController {
 		BoardFoodViewData bfvd = service.selectOneBoardFood(boardFoodNo);
 		model.addAttribute("bf",bfvd.getBf());
 		model.addAttribute("fcList", bfvd.getCommentList());
-		model.addAttribute("fcreList",bfvd.getRecommentList());
+		model.addAttribute("fcreList",bfvd.getReCommentList());
+		System.out.println(model);
 		if(bfvd!=null) {
 			return "boardFood/boarFoodView";
 		}else {
@@ -127,6 +133,7 @@ public class BoardFoodController {
 	}
 	@RequestMapping(value = "/insertFoodComment.do")
 	public String foodCommentInsert(FoodComment fc) {
+		int result = service.insertFoodComment(fc);
 		return "redirect:/boardFoodView.do?boardFoodNo="+fc.getBoardFoodRef();
 	}
 	@RequestMapping(value = "/updateFoodComment.do")
@@ -139,4 +146,11 @@ public class BoardFoodController {
 		int result = service.deleteFoodComment(foodCommentNo);
 		return "redirect:/boardFoodView.do?boardFoodNo="+boardFoodNo;
 	}
+//	  @RequestMapping(value="/SummerNoteImageFile.do" , method = RequestMethod.POST)
+//		public @ResponseBody JsonObject SummerNoteImageFile(@RequestParam("file") MultipartFile file) {
+//			JsonObject jsonObject = service.SummerNoteImageFile(file);
+//			 System.out.println("json!! : "+jsonObject);
+//			 System.out.println("여기까지 도달함");
+//			return jsonObject;
+//		}
 }

@@ -3,10 +3,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
 <link href="/resources/css/camping/campingListHeader.css" rel="stylesheet">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 </head>
 <body>
 	<div class="search-input-wrap">
@@ -28,10 +29,8 @@
 				</div>
 				<div class="input-group search-date-box">
 					<label class="input-group-text" for="search_checkin"><span class="material-symbols-outlined">calendar_month</span></label>
-					<input class="form-control" type="text" id="search_checkin" name="date" readonly>
-					<input class="form-control" type="text" id="search_checkout" name="date" readonly>
-					<input type="hidden" name="checkIn">
-					<input type="hidden" name="checkOut">				
+					<input class="form-control" type="text" id="search_checkin" name="checkIn" readonly>
+					<input class="form-control" type="text" id="search_checkout" name="checkOut" readonly>			
 				</div>
 				<div class="input-group">
 					<input class="form-control" name="pplCount" id="pplCount" type="text" value=1>
@@ -40,7 +39,7 @@
 				<input name="reqPage" type="hidden" value="1">
 				<input name="order" type="hidden" value="avgReviewRating">
 				<div class="input-group search-submit-box">
-					<button type="submit" class="btn btn-outline-secondary searchInput-btn">검색하기</button>
+					<button type="submit" class="btn searchInput-btn">검색하기</button>
 				</div>
 			<!-- search-content -->
 			</form>

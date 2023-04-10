@@ -21,18 +21,22 @@
 			<legend>회원가입</legend>
 			
 			아디:<input type="text" name="memberId" id="memberId" placeholder="아이디를 입력해주세요." required maxlength="12">
-			<span class="point successIdChk"></span><br/>
+			<span class="point successIdChk"></span><br>
 			<span class="point">※ 영문자, 소문자 입력가능, 최대 12자 까지 입력</span>
-			<input type="hidden" id="idDoubleChk"/><!-- <span id="idChk"></span>  --><br>
-			비번:<input type="password" name="memberPw"><br>
-			이름:<input type="text" name="memberName"><br>
-			전번:<input type="text" name="memberPhone"><br>
-			메일:<input type="text" name="memberEmail"><br>
+			<input type="hidden" id="idDoubleChk"><!-- <span id="idChk"></span>  --><br>
+			비번:<input type="password" name="memberPw" id="memberPw"><br>
+			<span class="point successPwChk"></span>
+			<span class="point">※ 영문자, 소문자 입력가능, 최소 8자부터 최대 16자 까지 입력</span><br>
+			비번확인:<input type="password" name="pwDoubleChk" id="pwDoubleChk"><br>
+			<input type="hidden" id="pwDoubleChk">
+			이름:<input type="text" name="memberName" id="memberName"><br>
+			전번:<input type="text" name="memberPhone" id="memberPhone"><br>
+			메일:<input type="text" name="memberEmail" id="memberEmail"><br>
 			주소:<input type="text" name="memberAddr" id="sample4_extraAddress" placeholder="주소를 입력해주세요" readonly><br>
 			<input type="text" id="sample4_postcode" placeholder="우편번호" readonly>
 			<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
 			<input type="text" id="sample4_roadAddress" placeholder="도로명주소" readonly><br>
-			<select name="memberGrade">
+			<select name="memberGrade" id="memberGrade">
 			<option value="s">사업자</option>
 			<option value="c">일반회원</option>
 			</select>

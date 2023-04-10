@@ -72,11 +72,9 @@ public class MemberService {
 				pageNo = reqPage-2;
 			}
 				
-		//占쎈읂占쎌뵠筌욑옙占쎄퐬�뜮占� 占쎄문占쎄쉐 占쎈뻻占쎌삂
-		String pageNavi = "";
 
-		//�럹�씠吏��꽕鍮� �깮�꽦 �떆�옉
-			String pageNavi = "<ul class='pagination circle-style'>";
+		//페이지네비 생성 시작
+		String pageNavi = "<ul class='pagination circle-style'>";
 		
 		//占쎌뵠占쎌읈 甕곤옙
 		if(pageNo != 1) {
