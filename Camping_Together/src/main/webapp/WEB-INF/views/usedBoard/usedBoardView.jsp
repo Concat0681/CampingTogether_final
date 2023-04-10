@@ -30,6 +30,7 @@
    }
    .content-top>h2{
         margin: 20px;
+        font-family: ng-bold;
    }
    .category-info>p{
    		margin: 0;
@@ -141,7 +142,8 @@
    .comment-list{
    		display: flex;
    		min-height: 80px;
-   		margin-top: 50px;
+   		margin-top: 30px;
+   		margin-bottom: 50px;
    }
    .comment-writer-wrap{
    		width: 10%;
@@ -304,6 +306,11 @@
         		}
         	</script>
         	<div class="comment-list-wrap">
+        		<div class="comment-count">
+        			<span>댓글</span>
+        			<sapn>${ubc.commentCount }</sapn>
+        			<span>개</span>
+        		</div>
         		<c:forEach items="${list }" var="ubc">
 	        		<div class="comment-list">	        			
 	        			<div class="comment-writer-wrap">
@@ -320,9 +327,10 @@
 	        						<c:when test="${sessionScope.m.memberId eq ubc.usedBoardCommentWriter }">
 	        							<a href="#">수정</a>
 	        							<a href="#">삭제</a>
+	        							::
 	        						</c:when>
 	        					</c:choose>
-	        					:: ${ubc.regDate }
+	        					${ubc.regDate }
 	        				</div>
 	        				<p>${ubc.getUsedBoardCommentContent() }</p>
 	        			</div>

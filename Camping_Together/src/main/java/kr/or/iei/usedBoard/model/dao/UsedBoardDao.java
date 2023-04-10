@@ -61,5 +61,4 @@ public class UsedBoardDao {
 		List list = sqlSession.selectList("usedBoard.selectCommentList", usedBoardNo);
 		return (ArrayList<UsedBoardComment>)list;
 	}
-
 }

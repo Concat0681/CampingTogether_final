@@ -43,9 +43,10 @@
         .long{
             width: 1000px;
         }
-        .content-top>h1{
+        .content-top>h2{
             margin: 20px;
             padding-top: 20px;
+            font-family: ng-bold;
         }
         .category-bottom{
         	margin-left: 40px;
@@ -180,7 +181,7 @@
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
 	<div class="page-content">
         <div class="content-top">
-            <h1>기본정보</h1>
+            <h2>기본정보</h2>
             <hr>
         </div>
         <form action="/boardWrite.do" method="post" enctype="multipart/form-data">

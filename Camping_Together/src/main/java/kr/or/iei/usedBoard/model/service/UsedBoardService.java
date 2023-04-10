@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.iei.usedBoard.model.dao.UsedBoardDao;
 import kr.or.iei.usedBoard.model.vo.UsedBoard;
@@ -55,7 +56,8 @@ public class UsedBoardService {
 		UsedBoardPageDate ubpd = new UsedBoardPageDate(list, pageNavi);
 		return ubpd;
 	}
-
+	
+	@Transactional
 	public int insertUsedBoard(UsedBoard ub, ArrayList<UsedBoardPhoto> photoList) {
 		//1.board insert, 2. boardNo Á¶È¸, 3. photo insert
 		int result = dao.insertUsedBoard(ub);
@@ -79,6 +81,7 @@ public class UsedBoardService {
 		return ub;
 	}
 
+	@Transactional
 	public int usedBoardCommentInsert(UsedBoardComment ubc) {
 		return dao.usedBoardCommentInsert(ubc);
 	}
@@ -87,3 +90,7 @@ public class UsedBoardService {
 		return dao.selectCommentList(usedBoardNo);
 	}
 }
+
+
+
+
