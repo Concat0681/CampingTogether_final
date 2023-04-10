@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.or.iei.member.model.service.MemberService;
@@ -64,13 +66,20 @@ public class MemberController {
 	
 	}
 	
-
+	@RequestMapping(value = "/idCheck.do", method = RequestMethod.POST)
+	@ResponseBody
+	public int idCheck(@RequestParam("memberId") String memberId) {
+		return service.idCheck(memberId);
+	}
+	
+	
+	
 	@RequestMapping(value = "/mypageC.do")
 	public String mypageC() {
 		return "member/mypageCFrm";
 	}
-	//------------------------------------ä��
-	//------------------------------------ä��
+	//------------------------------------채占쏙옙
+	//------------------------------------채占쏙옙
 	@RequestMapping(value ="/allMemberChatFrm.do")
 	public String allMemberChatFrm() {
 		return"member/allMemberChatFrm";
@@ -109,7 +118,7 @@ public class MemberController {
 		return "member/updateMypageCFrm";
 	}
 	
-	//회원탈퇴
+	//�쉶�썝�깉�눜
 	@RequestMapping(value = "/deleteMember.do")
 	public String deleteMember(int memberNo) {
 		int result = service.deleteMember(memberNo);
@@ -120,7 +129,7 @@ public class MemberController {
 		}
 	}
 	
-	//캠핑장 결제 내역 리스트
+	//罹좏븨�옣 寃곗젣 �궡�뿭 由ъ뒪�듃
 	/*
 	@RequestMapping(value = "/cmapingPayList.do")
 	public String cmapingPayList(int reqPage,int memberNo, Model model) {
@@ -134,16 +143,17 @@ public class MemberController {
 		MemberPageData mpd = service.selectPayList(memberNo, reqPage);	
 		model.addAttribute("list", mpd.getList() );
 		model.addAttribute("navi", mpd.getPageNavi() );
-		System.out.println(mpd.getList());
-		System.out.println(mpd.getPageNavi());
 		return "member/shopPayList";
 	}
 	
-	//캠핑용품 결제 리스트
+
+	//罹좏븨�슜�뭹 寃곗젣 由ъ뒪�듃
 	/*
+	//캠핑용품 결제 리스트
+	
 	@RequestMapping(value = "/productPayList.do")
 	public String productPayList(int reqPage,int memberNo, Model model) {
-		
+		return "member/productPayList";
 	}
 	*/
 	

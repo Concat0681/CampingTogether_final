@@ -60,32 +60,32 @@
 	<c:choose>
 		<c:when test="${empty sessionScope.m }"> 
 		<div class="wrapper-top" style="background-color: rgba(173, 139, 115, 1);" >
-        <div class="nav-top">
+        <div class="nav-top" style="color: #fff;">
             <ul class="login">
-            	<li><a href="/noticeList.do">공지사항</a></li>
-                <li><a href="/loginFrm.do">로그인</a></li>
-                <li><a href="/joinFrm.do">회원가입</a></li>
+            	<li><a class="nav-linkT" href="/noticeList.do">공지사항</a></li>
+                <li><a class="nav-linkT" href="/loginFrm.do">로그인</a></li>
+                <li><a class="nav-linkT" href="/joinFrm.do">회원가입</a></li>
             </ul>
         </div>
     </div>
     </c:when>
 		<c:otherwise>
-	<div class="wrapper-top" style="background-color: rgba(173, 139, 115, 1);">
-        <div class="nav-top">
+	<div class="wrapper-top" style="background-color: rgba(255, 255, 255, 1);">
+        <div class="nav-top" style="color: #fff;">
             <ul class="login">
                 <!-- <li><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">쪽지보내기</button></li> -->
-                <li><a href="/notice/noticeList.jsp">공지사항</a></li>
-                <li><a href = "/messageMain.do">쪽지함</a></li>
-                <li><a href = "/mypageC.do">[${sessionScope.m.memberName }]</a></li>
-                <li><a href="/logout.do">로그아웃</a></li>
+                <li><a class="nav-linkT" href="/notice/noticeList.jsp">공지사항</a></li>
+                <li><a class="nav-linkT" href = "/messageMain.do">쪽지함</a></li>
+                <li><a class="nav-linkT" href = "/mypageC.do">[${sessionScope.m.memberName }]</a></li>
+                <li><a class="nav-linkT" href="/logout.do">로그아웃</a></li>
             </ul>
         </div>
     </div>
 		</c:otherwise>
 	</c:choose>
-    <nav class="wrapper-bottom navbar navbar-expand-lg" style="background-color: rgba(173, 139, 115, 1);">
+    <nav class="wrapper-bottom navbar navbar-expand-lg" style="background-color: rgba(255, 255, 255, 1);">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/"><img src="/resources/image/usedBoard/noImg.gif" width="150px" height="75px"></a>
+    <a class="navbar-brand" href="/"><img src="/resources/image/logo/logo250x80.png" width="150px" height="75px"></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -122,7 +122,7 @@
 <script>
 	const navbarTop = document.querySelector('.wrapper-top');
 	const navbarBottom = document.querySelector('.navbar');
-	const navItem = document.querySelectorAll('.nav-item');
+	const navLinkt = document.querySelectorAll('.nav-linkT');
 	const navLink =  document.querySelectorAll('.nav-link');
  	
 	
@@ -141,7 +141,7 @@
 		      if (scrollTop >= 300) {
 		        // 네비바의 배경색을 1초 동안 투명도 1로 변경
 		        navbarTop.style.transition = 'background-color 1s';
-		        navbarTop.style.backgroundColor = 'rgba(173, 139, 115, 1)';
+		        navbarTop.style.backgroundColor = 'rgba(255, 255, 255, 1)';
 		        
 		      } else {
 		        // 네비바의 배경색을 원래대로 복원
@@ -152,7 +152,7 @@
 		      if (scrollTop >= 300) {
 		          // 네비바의 배경색을 1초 동안 투명도 1로 변경
 		          navbarBottom.style.transition = 'background-color 1s';
-		          navbarBottom.style.backgroundColor = 'rgba(173, 139, 115, 1)';
+		          navbarBottom.style.backgroundColor = 'rgba(255, 255, 255, 1)';
 		        } else {
 		          // 네비바의 배경색을 원래대로 복원
 		          navbarBottom.style.transition = 'background-color 1s';
@@ -162,18 +162,49 @@
 		      if (scrollTop >= 300) {
 		          //네비바의 컨텐츠 글자색을 흰색으로
 		          for(let i=0; i < navLink.length; i++){
-		        	  navItem[i].style = 'color';
-		        	  navItem[i].style.color = 'rgb(255, 255, 255)';
+		        	  navLink[i].style = 'color';
+		        	  navLink[i].style.color = '#AD8B73';
 		          }
 		          
 		        } else {
 		          // 네비바의 컨텐츠 글자색을 원래대로 복원
 		          for(let i=0; i < navLink.length; i++){
-		        	  navItem[i].style = 'color';
-		        	  navItem[i].style.color = '#AD8B73';
+		        	  navLink[i].style = 'color';
+		        	  navLink[i].style.color = 'rgb(255, 255, 255)';
 		          }
 		      
 		        }
+		      if (scrollTop >= 300) {
+		          //네비바의 컨텐츠 글자색을 흰색으로
+		          for(let i=0; i < navLink.length; i++){
+		        	  navLink[i].style = 'color';
+		        	  navLink[i].style.color = '#AD8B73';
+		          }
+		          
+		        } else {
+		          // 네비바의 컨텐츠 글자색을 원래대로 복원
+		          for(let i=0; i < navLink.length; i++){
+		        	  navLink[i].style = 'color';
+		        	  navLink[i].style.color = 'rgb(255, 255, 255)';
+		          }
+		      
+		        }
+		        if (scrollTop >= 300) {
+			          //네비바의 컨텐츠 글자색을 흰색으로
+			          for(let i=0; i < navLinkt.length; i++){
+			        	  navLinkt[i].style = 'color';
+			        	  navLinkt[i].style.color = '#AD8B73';
+			          }
+			          
+			        } else {
+			          // 네비바의 컨텐츠 글자색을 원래대로 복원
+			          for(let i=0; i < navLinkt.length; i++){
+			        	  navLinkt[i].style = 'color';
+			        	  navLinkt[i].style.color = 'rgb(255, 255, 255)';
+			          }
+			      
+			        }
+		        
 		      
 		      
 		    });

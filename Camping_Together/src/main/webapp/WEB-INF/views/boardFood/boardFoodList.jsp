@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -130,19 +131,30 @@ a {
 .posting-item{
 	margin-bottom: 50px;
 }
+p{
+	color: black;
+	
+}
 </style>
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
-	<div class="div-posting-wrap">
+	<div class="div-posting-wrap" style="margin-top: 150px;">
 
         <div class="posting-wrap" style="margin-top: 50px;">    
            
         <c:forEach items="${list }" var="b">
                 <div class="posting-item">
                     <a href="/boardFoodView.do?boardFoodNo=${b.boardFoodNo }">
-                        <div class="posting-img">
-                            <img src="/resources/image/chatting/camping-g3d79aec66_640.jpg">
-                        </div>
+            		        <c:if test="${fn:length(b.filepath) > 0}">
+			                        <div class="posting-img">
+		    	                    	<img src="/resources/upload/boardFood/${b.filepath }">
+			                        </div>
+			                     </c:if>
+            		        <c:if test="${fn:length(b.filepath) < 1}">
+			                        <div class="posting-img">
+		                           		 <img src="/resources/image/chatting/camping-g3d79aec66_640.jpg">
+			                        </div>
+			                </c:if>
                         <div class="posting-content">
                             <p class="posting-title">${b.boardFoodTitle }</p>
                             <div class="posting-detail">

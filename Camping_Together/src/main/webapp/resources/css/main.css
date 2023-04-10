@@ -133,6 +133,8 @@
 	width: calc(100%/2);
 	margin-left: 100px;
 	padding-right: 150px;
+	min-height: 170px;
+	min-width: 365px;
 }
 .notice-Box>p{
 	font-weight: bolder;
@@ -167,5 +169,29 @@
 	background-color: black;
 	height: 168px;
 }
+.wrapperMiddle-tradeBox{
+	width: 100%;
+	min-width: 1900px;
+	display: flex;
+	padding: 100px;
+	background-color: green;
+}
 
-
+.wrapperMiddle-tradeContent{
+	width: calc(100%/3);
+	min-height: 400px;
+	height: 400px;
+	background-color: blue;
+	float: left;
+	padding: 25px;
+}
+.tradeContentBoarder{
+	padding: 25px;
+	border: 1px solid #fff;
+	height: 300px;
+	background-color: red;
+}
+.tradeContentBoarder>img{
+	max-height: 200px;
+	max-width: 200px;
+}

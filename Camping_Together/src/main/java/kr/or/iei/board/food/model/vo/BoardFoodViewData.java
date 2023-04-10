@@ -12,5 +12,5 @@ import lombok.NoArgsConstructor;
 public class BoardFoodViewData {
 	private BoardFood bf;
 	private ArrayList<FoodComment> commentList;
-	private ArrayList<FoodComment> recommentList;
+	private ArrayList<FoodComment> reCommentList;
 }

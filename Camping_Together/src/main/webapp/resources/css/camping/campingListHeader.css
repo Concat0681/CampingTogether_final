@@ -38,11 +38,18 @@
 .search-input-box>form>div{
 	flex-grow: 1;
 	height: 50px;
+	margin : 0 3px;
+}
+.search-input-box>form>div>input{
+	text-align: center;
 }
 .search-input-box>form>div>label{
 	line-height: inherit;
 	text-align: center;
 	background-color: white;
+}
+.search-input-box>form>div>button{
+	width: 100%;
 }
 .hidden-search{
 	display: none;

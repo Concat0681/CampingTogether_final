@@ -1,10 +1,18 @@
 package kr.or.iei.board.food.model.service;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.UUID;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.google.gson.JsonObject;
 
 import kr.or.iei.board.food.model.dao.BoardFoodDao;
 import kr.or.iei.board.food.model.vo.BoardFood;
@@ -123,5 +131,79 @@ public class BoardFoodService {
 			
 		}
 	}
+
+	public BoardFood getBoardFood(int boardFoodNo) {
+		
+		return dao.selectOneBoardFood(boardFoodNo);
+	}
+
+	public int boardFoodUpdate(BoardFood bf, ArrayList<FileVO> fileList, int[] fileNo) {
+		int resulut = dao.updateBoardFood(bf);
+		if(resulut>0) {
+			if(fileNo != null) {
+				for(int no : fileNo) {
+					resulut += dao.deleteFile(no);
+				}
+			}
+			for(FileVO f : fileList) {
+				f.setBoardFoodNo(bf.getBoardFoodNo());
+				resulut += dao.insertFile(f);
+			}
+		}
+		return resulut;
+	}
+
+	public ArrayList<FileVO> deleteBoardFood(int boardFoodNo) {
+		ArrayList<FileVO> fileList = dao.selectFileList(boardFoodNo);
+		int result = dao.deleteBoardFood(boardFoodNo);
+		if(result>0) {
+			return fileList;
+		}else {
+			return null;
+		}
+	}
+
+	public int insertFoodComment(FoodComment fc) {
+		int result = dao.insertFoodComment(fc);
+		return result;
+	}
+
+	public int updateFoodComment(FoodComment fc) {
+		int result = dao.updateFoodComment(fc);
+		return result;
+	}
+
+	public int deleteFoodComment(int foodCommentNo) {
+		int result = dao.deleteFoodComment(foodCommentNo);
+		return result;
+	}
+
+//	public JsonObject SummerNoteImageFile(MultipartFile file) {
+//		JsonObject jsonObject = new JsonObject();
+//		String fileRoot = "C:\\summernoteImg\\";
+//		String originalFileName = file.getOriginalFilename();
+//		String extension = originalFileName.substring(originalFileName.lastIndexOf("."));
+//		
+//		String saveFileName = UUID.randomUUID()+extension;
+//			
+//		File targetFile = new File(fileRoot+saveFileName);
+//		
+//		try {
+//			InputStream fileStream = file.getInputStream();
+//			FileUtils.copyInputStreamToFile(fileStream, targetFile);
+//			jsonObject.addProperty("url", "/summernoteImg/"+saveFileName);
+//			jsonObject.addProperty("responseCode", "succcess");
+//		} catch(IOException e) {
+//			FileUtils.deleteQuietly(targetFile);
+//			jsonObject.addProperty("responseCode", "error");
+//			e.printStackTrace();
+//		}	
+//		return jsonObject;
+//
+//
+//	}
+	
+	
+	
 
 }

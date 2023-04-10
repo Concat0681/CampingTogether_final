@@ -5,19 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-
 <title>Insert title here</title>
-	<script src="https://code.jquery.com/jquery-3.6.1.js"></script>
-<!-- 	<script src="/summernote/summernote-lite.js"></script> -->
-<!-- 	<script src="/summernote/lang/summernote-ko-KR.js"></script> -->
-<!-- 	<link rel="stylesheet" href="/summernote/summernote-lite.css"> -->
-
-<script src="${pageContext.request.contextPath}/summernote/summernote-lite.js"></script>
-<script src="${pageContext.request.contextPath}/summernote/lang/summernote-ko-KR.js"></script>
-
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/summernote/summernote-lite.css">	
-
-	
 </head>
 <style>
 *{
@@ -73,15 +61,20 @@ textarea.input-form {
   color: #fff
 }
 </style>
+	<script src="https://code.jquery.com/jquery-3.6.1.js"></script>
+	<script src="/summernote/summernote-lite.js"></script>
+	<script src="/summernote/lang/summernote-ko-KR.js"></script>
+	<link rel="stylesheet" href="/summernote/summernote-lite.css">
 <body>
 <div class="page-content">
-		<div class="page-title">사진게시판 작성</div>
-		<form action="/boardFoodWrite.do" method="post" enctype="multipart/form-data">
+		<div class="page-title">사진게시판 수정</div>
+		<form action="/boardFoodUpdate.do" method="post" enctype="multipart/form-data" id="updateFrm">
 			<table class="tbl">
 				<tr class="tr-1">
 					<th class="td-2">제목</th>
 					<td colspan="3">
-						<input type="text" name="boardFoodTitle" class="input-form">
+						<input type="text" name="boardFoodTitle" class="input-form" value="${bf.boardFoodTitle }">
+						<input type="hidden" name="boardFoodNo" value="${bf.boardFoodNo }">
 					</td>
 				</tr>
 				<tr class="tr-1">
@@ -91,10 +84,17 @@ textarea.input-form {
 						<input type="hidden" name="boardFoodWriter" value="${sessionScope.m.memberId }">
 					</td>
 					<th class="td-2">이미지</th>
-					<td>
-						<%--accept 허용 할 확장자 onchange : 미리보기(이미지)--%>
-						<input type="file" name="imageFile" accept=".jpg,.png,.jpeg" onchange="loadImg(this);" >
+					<td style="width:600px">
+							<p>
+								${bf.filepath }
+								<!-- 파일 삭제 시 db는 fileno ,서버는 path 가 필요함 -->
+								<button type="button" onclick="deleteFile(this,${bf.fileNo},'${bf.filepath }')">삭제</button>
+							</p>
 					</td>
+				</tr>
+				<tr class="tr-1">
+					<th class="td-2">첨부파일 추가</th>
+					<td colspan="3"><input type="file" name="imageFile" accept=".jpg,.png,.jpeg" onchange="loadImg(this);" multiple></td>
 				</tr>
 				<tr class="tr-1">
 					<th class="td-2">이미지 미리보기</th>
@@ -107,12 +107,12 @@ textarea.input-form {
 				<tr class="tr-1">
 					<th class="td-2">내용</th>
 					<td colspan="3">
-						<textarea name="boardFoodContent" id="boardFoodContent" class="input-form"></textarea>
+						<textarea name="boardFoodContent" id="boardFoodContent" class="input-form">${bf.boardFoodContent }</textarea>
 					</td>
 				</tr>
 				<tr class="tr-1">
 					<th colspan="4">
-						<button type="submit" class="btn bc2 bs4">등록</button>
+						<button type="submit" class="btn bc2 bs4">수정</button>
 					</th>
 				</tr>
 			</table>
@@ -142,32 +142,29 @@ textarea.input-form {
 		//써머노트
 		$("#boardFoodContent").summernote({
 			height : 300,
-			lang : "ko-KR",
-// 				callbacks: {
-// 					onImageUpload : function(files){
-// 						sendFile(files[0],this);
-// 					}
-// 				}
+			lang : "ko-KR"
 		});
-// 		function sendFile(file, editor){
-// 			var data = new FormData();
-// 			data.append("file", file);
-// 			console.log(file);
-// 			$.ajax({
-// 				data : data,
-// 				type : "POST",
-// 				url : "SummerNoteImageFile",
-// 				contentType : false,
-// 				processData : false,
-// 				success : function(data){
-// 					console.log(data);
-// 					console.log(editor);
-// 					$(editor).summernote("insertImage",data.url);
-// 				}
-// 			});
-// 		}
-
-
+		
+		
+		function deleteFile(obj,fileNo, filepath){
+			//fileNo, filepath input 만들어 준 후 숨기기 (form전송)
+			//<input>
+			const fileNoInput = $("<input>");
+			//<input name="fileNo">
+			fileNoInput.attr("name","fileNo");
+			//<input name="fileNo" value="10">
+			fileNoInput.val(fileNo);
+			//<input name="fileNo" value="10" style="display:none;">
+			fileNoInput.hide();
+			
+			const filepathInput = $("<input>");
+			filepathInput.attr("name","filepath");
+			filepathInput.val(filepath);
+			filepathInput.hide();
+			
+			$("#updateFrm").append(fileNoInput).append(filepathInput);
+			$(obj).parent().remove();
+		}
 	</script>
 </body>
 </html>
