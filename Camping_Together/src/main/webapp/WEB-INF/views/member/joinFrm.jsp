@@ -24,14 +24,14 @@
 			<span class="point successIdChk"></span><br>
 			<span class="point">※ 영문자, 소문자 입력가능, 최대 12자 까지 입력</span>
 			<input type="hidden" id="idDoubleChk"><!-- <span id="idChk"></span>  --><br>
-			비번:<input type="password" name="memberPw" id="memberPw"><br>
+			비번:<input type="password" name="memberPw" id="memberPw" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,16}" required title="조건에 맞춰 다시 작성해주세요!"><br>
 			<span class="point successPwChk"></span>
-			<span class="point">※ 영문자, 소문자 입력가능, 최소 8자부터 최대 16자 까지 입력</span><br>
-			비번확인:<input type="password" name="pwDoubleChk" id="pwDoubleChk"><br>
-			<input type="hidden" id="pwDoubleChk">
-			이름:<input type="text" name="memberName" id="memberName"><br>
-			전번:<input type="text" name="memberPhone" id="memberPhone"><br>
-			메일:<input type="text" name="memberEmail" id="memberEmail"><br>
+			<span class="point">※ 최소 하나의 대문자, 소문자, 숫자, 특수문자(!@#$%^&*)를 포함한 최소 8자부터 최대 16자의 비밀번호를 입력해주세요</span><br>
+			비번확인:<input type="text" name="pwDoubleChk" id="pwDoubleChk">
+			<input type="hidden" id="pwDoubleChk"><span class="point pwDoubleChk"></span><br>
+			이름:<input type="text" name="memberName" id="memberName" pattern=""><br>
+			전번:<input type="text" name="memberPhone" id="memberPhone" oninput="oninputPhone(this)"><br>
+			메일:<input type="email" name="memberEmail" id="memberEmail"><br>
 			주소:<input type="text" name="memberAddr" id="sample4_extraAddress" placeholder="주소를 입력해주세요" readonly><br>
 			<input type="text" id="sample4_postcode" placeholder="우편번호" readonly>
 			<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
@@ -91,6 +91,7 @@
 	
 	
 <script>
+
 $("[name=memberId]").blur(function(){
 	const memberId = $("#memberId").val();
 	if(memberId == "" || memberId.length < 6){
@@ -118,11 +119,21 @@ $("[name=memberId]").blur(function(){
 		});
 	}
 });
+
+$("#pwDoubleChk").blur(function(){
+	if($("#pwDoubleChk").val() == $("#memberPw").val()){
+		$(".pwDoubleChk").text("비밀번호가 일치합니다.");
+		$(".pwDoubleChk").css("color", "green");
+	}else{
+		$(".pwDoubleChk").text("비밀번호가 일치하지 않습니다.");
+		$(".pwDoubleChk").css("color", "red");
+	}
+});
+
+
 </script>	
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
-
-
    function sample4_execDaumPostcode() {
         new daum.Postcode({
             oncomplete: function(data) {
@@ -174,7 +185,11 @@ $("[name=memberId]").blur(function(){
             }
         }).open();
     }
-   
+   function oninputPhone(target) {
+	    target.value = target.value
+	        .replace(/[^0-9]/g, '')
+	        .replace(/(^02.{0}|^01.{1}|[0-9]{3,4})([0-9]{3,4})([0-9]{4})/g, "$1-$2-$3");
+	}
 </script>
 </body>
 </html>

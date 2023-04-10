@@ -3,6 +3,8 @@ package kr.or.iei.member.model.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.mail.internet.MimeMessage;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -136,6 +138,11 @@ public class MemberService {
 			MemberPageData mpd = new MemberPageData(list,pageNavi);
 			 return mpd;
 			}
+
+	public MimeMessage createMimeMessage() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	
 		
