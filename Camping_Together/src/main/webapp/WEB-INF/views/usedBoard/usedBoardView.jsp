@@ -110,6 +110,9 @@
         </div>
         <div class="detail-wrap">
         	<div class="detail-top-wrap">
+        		<div class="category-info">
+        			<p style="#ccc">${ub.usedBoardCategory }</p>
+        		</div>
         		<div class="detail-title">
         			<h3>${ub.usedBoardTitle }</h3>
         		</div>
