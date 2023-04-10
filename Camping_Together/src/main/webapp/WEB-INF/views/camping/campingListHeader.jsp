@@ -39,7 +39,7 @@
 				<input name="reqPage" type="hidden" value="1">
 				<input name="order" type="hidden" value="avgReviewRating">
 				<div class="input-group search-submit-box">
-					<button type="submit" class="btn btn-outline-secondary searchInput-btn">검색하기</button>
+					<button type="submit" class="btn searchInput-btn">검색하기</button>
 				</div>
 			<!-- search-content -->
 			</form>
