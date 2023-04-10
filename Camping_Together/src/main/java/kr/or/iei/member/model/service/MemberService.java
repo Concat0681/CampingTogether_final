@@ -74,6 +74,9 @@ public class MemberService {
 				
 		//�럹�씠吏��꽕鍮� �깮�꽦 �떆�옉
 		String pageNavi = "";
+
+		//페이지네비 생성 시작
+			String pageNavi = "<ul class='pagination circle-style'>";
 		
 		//�씠�쟾 踰�
 		if(pageNo != 1) {
@@ -95,13 +98,51 @@ public class MemberService {
 			//�떎�쓬踰꾪듉
 			if(pageNo<=totalPage) {
 			 pageNavi += "<a href='/cmapingPayList.do?reqPage="+pageNo+"&memberNo="+memberNo+" '>[�떎�쓬]</a>";
+			pageNavi += "<li>";
+			pageNavi += "<a class='page-item' href='/cmapingPayList.do?reqPage="+(pageNo-1)+"&memberNo="+memberNo+"'>";
+			pageNavi += "<span class='material-icons'>chevron_left</span>";
+			pageNavi += "</a></li>";
+
 			}
+			
+			//페이지 숫자 생성
+			for(int i=0; i<pageNaviSize; i++) {
+				if(pageNo == reqPage) {
+					pageNavi += "<li>";
+					pageNavi += "<a class='page-item active-page' href='/cmapingPayList.do?reqPage="+pageNo+"&memberNo="+memberNo+"'>";
+					pageNavi += pageNo;
+					pageNavi += "</a></li>";
+				}else {
+					pageNavi += "<li>";
+					pageNavi += "<a class='page-item' href='/cmapingPayList.do?reqPage="+pageNo+"&memberNo="+memberNo+"'>";
+					pageNavi += pageNo;
+					pageNavi += "</a></li>";
+				}
+				pageNo++;
+				//for문을 중간에 탈출해야하는 경우가 있음 - 페이지가 끝나면 그 이후페이지(없는페이지)는 출력X
+				if(pageNo>totalPage) {
+					break;
+				}
+			}
+			
+			//다음버튼
+			if(pageNo <= totalPage) {
+				pageNavi += "<li>";
+				pageNavi += "<a class='page-item' href='/cmapingPayList.do?reqPage="+pageNo+"&memberNo="+memberNo+"'>";
+				pageNavi += "<span class='material-icons'>chevron_right</span>";
+				pageNavi += "</a></li>";
+			}
+			pageNavi += "</ul>";
+			
 			MemberPageData mpd = new MemberPageData(list,pageNavi);
 			 return mpd;
 			}
 
 	
 		
+
+	
+	
 		/*
 		//�씠�쟾 踰꾪듉
 		if(pageNo != 1) {

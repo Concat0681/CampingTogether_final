@@ -16,5 +16,7 @@ public class BoardFood {
 	private String boardFoodContent;
 	private int	readCount;
 	private String enrollDate;
+	private String filepath;
+	private int fileNo;
 	private ArrayList<FileVO> fileList;
 }

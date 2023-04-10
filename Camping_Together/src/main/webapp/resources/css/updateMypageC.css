@@ -212,6 +212,7 @@
     border-collapse : collapse;
     margin-top: 60px;
     font-size: 15px;
+    margin-bottom: 50px;
 }
 
 
@@ -220,11 +221,16 @@
     border-bottom: 1px solid #AD8B73;
 }
 
+.list-content>table>tbody>tr:first-child>th:first-child{
+    border-top-left-radius: 13px;
+}
+.list-content>table>tbody>tr:first-child>th:last-child{
+    border-top-right-radius: 13px;
+}
 
 .list-content>table>tbody>tr:first-child{
     height: 55px;
     background-color: #AD8B73;
     color: white;
 }
-
 

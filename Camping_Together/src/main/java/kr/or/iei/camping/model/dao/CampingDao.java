@@ -87,4 +87,6 @@ public class CampingDao {
 		int result = sqlSession.insert("camping.insertCampingReviewPhoto", file);
 		return result;
 	}
+
+	
 }

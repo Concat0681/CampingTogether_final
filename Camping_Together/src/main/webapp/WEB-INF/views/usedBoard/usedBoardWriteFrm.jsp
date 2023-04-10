@@ -55,8 +55,6 @@
         }
         input[name=usedBoardCategory]+label{
             display: inline-block;
-            height: 30px;
-            line-height: 30px;
             text-align: center;
             cursor: pointer;
             border: 2px solid #E3CAA5;
@@ -84,7 +82,7 @@
         }
         .category-content{
             text-align: center;
-            height: 150px;
+            height: 130px;
         }
         .category{
             margin: 30px 0px;
@@ -118,7 +116,6 @@
             display: none;
         }
         .image-guide{
-            padding-top: 15px;
             height: 180px;
         }
         .image-guide>p{
@@ -159,9 +156,12 @@
         	border-bottom: 1px solid #ccc;
         }
         .button-wrap{
-       		padding-top: 30px;
-       		padding-bottom: 30px;
-       		text-align: center;
+       		padding: 30px 0px;      		
+       		margin-right: 20px;
+       		text-align: right;
+       	}
+       	.button-wrap>input{
+       		margin-left: 5px;
        	}
         .txt{
         	resize: none;
@@ -170,6 +170,9 @@
         }
         input[type=checkbox], input[type=radio] {
     		accent-color: #AD8B73;
+		}
+		#usedTradeLocation{
+			margin-left: 105px;
 		}
     </style>
 </head>
@@ -280,7 +283,7 @@
                     </div>
                 </div>
                 <div class="button-wrap">
-                	<a href="/usedBoardList.do" class="btn2">취소</a>
+                	<input type="button" onclick="location.href='usedBoardList.do?reqPage=1'" class="btn2" value="취소">
                 	<input type="submit" class="btn1" value="작성완료">
                 </div>                
             </div>
