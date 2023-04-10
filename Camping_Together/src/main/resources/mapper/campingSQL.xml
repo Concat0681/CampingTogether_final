@@ -199,4 +199,32 @@
 	<insert id="insertCampingReviewPhoto" parameterType="crvf">
 		insert into camping_review_photo values(camping_review_photo_seq.nextval,#{campingReviewNo},#{filepath})
 	</insert>
+	
+	<select id="selectCampingReview" parameterType="_int" resultType="crv">
+		select
+			camping_review_no as campingReviewNo,
+			camping_no as campingNo,
+			member_id as memberId,
+			camping_review_title as campingReviewTitle,
+			camping_review_content as campingReviewContent,
+			camping_review_rating as campingReviewRating,
+			camping_review_ref as campingReviewRef
+		from camping_review where camping_no = #{_parameter}
+	</select>
+	
+	<select id="selectCampingReviewNo" parameterType="_int" resultType="_int">
+		select camping_review_no from camping_review where camping_no = #{_parameter}
+	</select>
+	
+	<select id="selectCampingReviewPhoto" parameterType="_int" resultType="crvf">
+		select
+			camping_review_photo_no as campingReviewPhotoNo,
+			camping_review_no as campingReviewNo,
+			filepath
+		from camping_review_photo where camping_review_no = #{_parameter}
+	</select>
+	
+	<insert id="insertReviewComment" parameterType="crv">
+		insert into camping_review values(camping_review_seq.nextval,#{campingNo},#{memberId},'reviewcomment',#{campingReviewContent},null,#{campingReviewRef})
+	</insert>
 </mapper>

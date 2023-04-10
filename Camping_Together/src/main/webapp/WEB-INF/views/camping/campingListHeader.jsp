@@ -21,6 +21,7 @@
 						<ul>
 							<li id="incheon" class="cityName">인천</li>
 							<li id="seoul" class="cityName">서울</li>
+							<li id="busan" class="cityName">부산</li>
 							<li id="jeju" class="cityName">제주</li>
 							<li id="sokcho" class="cityName">속초</li>
 							<li id="ganglueng" class="cityName">강릉</li>
