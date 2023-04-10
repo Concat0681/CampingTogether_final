@@ -155,7 +155,7 @@ public class MemberController {
 	public String productPayList(int reqPage,int memberNo, Model model) {
 		return "member/productPayList";
 	}
-	
+	*/
 	
 }
 
