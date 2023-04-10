@@ -8,9 +8,16 @@
 
 <title>Insert title here</title>
 	<script src="https://code.jquery.com/jquery-3.6.1.js"></script>
-	<script src="/summernote/summernote-lite.js"></script>
-	<script src="/summernote/lang/summernote-ko-KR.js"></script>
-	<link rel="stylesheet" href="/summernote/summernote-lite.css">
+<!-- 	<script src="/summernote/summernote-lite.js"></script> -->
+<!-- 	<script src="/summernote/lang/summernote-ko-KR.js"></script> -->
+<!-- 	<link rel="stylesheet" href="/summernote/summernote-lite.css"> -->
+
+<script src="${pageContext.request.contextPath}/summernote/summernote-lite.js"></script>
+<script src="${pageContext.request.contextPath}/summernote/lang/summernote-ko-KR.js"></script>
+
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/summernote/summernote-lite.css">	
+
+	
 </head>
 <style>
 *{
@@ -135,8 +142,32 @@ textarea.input-form {
 		//써머노트
 		$("#boardFoodContent").summernote({
 			height : 300,
-			lang : "ko-KR"
+			lang : "ko-KR",
+// 				callbacks: {
+// 					onImageUpload : function(files){
+// 						sendFile(files[0],this);
+// 					}
+// 				}
 		});
+// 		function sendFile(file, editor){
+// 			var data = new FormData();
+// 			data.append("file", file);
+// 			console.log(file);
+// 			$.ajax({
+// 				data : data,
+// 				type : "POST",
+// 				url : "SummerNoteImageFile",
+// 				contentType : false,
+// 				processData : false,
+// 				success : function(data){
+// 					console.log(data);
+// 					console.log(editor);
+// 					$(editor).summernote("insertImage",data.url);
+// 				}
+// 			});
+// 		}
+
+
 	</script>
 </body>
 </html>
