@@ -9,13 +9,10 @@
 <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=n8k40j998a&submodules=geocoder"></script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-<link href="/resources/css/camping/campingList.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+<link href="/resources/css/camping/campingList.css" rel="stylesheet">>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
-	<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 	<div class="page-wrap">
 		<div class="page-header" style="background-image: url(/resources/image/camping/${cityNameEN }.jpeg)">
 			<div class="page-header-title">${cityNameKR } 캠핑가자</div>

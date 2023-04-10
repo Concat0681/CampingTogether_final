@@ -8,6 +8,9 @@
     display : flex;
     padding: 50px;
 }
+.search-input-box{
+    width: 70%;
+}
 .sidebar-menu{
     max-width: 300px;
     width: 100%;
