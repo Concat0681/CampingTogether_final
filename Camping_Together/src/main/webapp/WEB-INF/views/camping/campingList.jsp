@@ -14,7 +14,7 @@
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
 	<div class="page-wrap">
-		<div class="page-header" style="background-image: url(/resources/image/camping/${cityNameEN }.jpeg)">
+		<div class="page-header" style="background-image: url(/resources/image/camping/${cityNameEN }.jpg)">
 			<div class="page-header-title">${cityNameKR } 캠핑가자</div>
 			<jsp:include page="/WEB-INF/views/camping/campingListHeader.jsp" />
 		</div>
