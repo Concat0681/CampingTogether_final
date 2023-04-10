@@ -8,13 +8,11 @@
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=n8k40j998a&submodules=geocoder"></script>
-<link href="/resources/css/camping/campingList.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+<link href="/resources/css/camping/campingList.css" rel="stylesheet">>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
-	<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 	<div class="page-wrap">
 		<div class="page-header" style="background-image: url(/resources/image/camping/${cityNameEN }.jpeg)">
 			<div class="page-header-title">${cityNameKR } 캠핑가자</div>
@@ -24,18 +22,16 @@
 			<div class="sidebar-menu">
 				<div class="menu">
 					<div class="menu-title">날짜</div>
-					<div class="box input-wrap">
-						<label for="calendarInput"><img src="/resources/image/camping/map.png"></label>
+					<div class="input-group date-input-wrap">
+						<label class="input-group-text" for="detail_search_checkin"><span class="material-symbols-outlined">calendar_month</span></label>
 						<c:choose>
-							<c:when test="${not empty date }">
-								<input type="text" name="date" value="${date }" readonly>
-								<input type="hidden" name="checkIn" value="${checkIn }">
-								<input type="hidden" name="checkOut" value="${checkOut }">
+							<c:when test="${not empty checkIn }">
+								<input class="form-control" type="text" id="detail_search_checkin" name="checkIn" value="${checkIn }">
+								<input class="form-control" type="text"  id="detail_search_checkout" name="checkOut" value="${checkOut }">
 							</c:when>
 							<c:otherwise>
-								<input type="text" name="date" readonly>
-								<input type="hidden" name="checkIn">
-								<input type="hidden" name="checkOut">
+								<input class="form-control" type="text" id="detail_search_checkin" name="checkIn">
+								<input class="form-control" type="text"  id="detail_search_checkout" name="checkOut">
 							</c:otherwise>
 						</c:choose>
 					</div>
@@ -44,21 +40,21 @@
 					<div class="menu-title">상세조건</div>
 					<input type=hidden id="cityAddr" name="cityAddr" value="${cityNameKR }">
 					<div class="box button-wrap">
-						<button type="button" onclick="resetInputs();">초기화</button>
-						<button type="button" onclick="sendDetailSearch();">적용</button>
+						<button class="btn2" type="button" onclick="resetInputs();">초기화</button>
+						<button class="btn3" type="button" onclick="sendDetailSearch(null, 1);">적용</button>
 					</div>
 					<div class="sub-menu">
 						<div class="menu-title">캠핑유형</div>
 						<div class="checkbox-wrap">
-							<div class="checkbox-box">
+							<div class="input-box">
 								<input id="autoCamping" type="checkbox" name="campingType" value="오토캠핑">
 								<label for="autoCamping">오토캠핑</label>
 							</div>
-							<div class="checkbox-box">
+							<div class="input-box">
 								<input id="glenCamping" type="checkbox" name="campingType" value="글램핑">
 								<label for="glenCamping">글램핑</label>
 							</div>
-							<div class="checkbox-box">
+							<div class="input-box">
 								<input id="caraban" type="checkbox" name="campingType" value="카라반">
 								<label for="caraban">카라반</label>
 							</div>
@@ -66,9 +62,9 @@
 					</div>
 					<div class="sub-menu">
 						<div class="ppl-count-wrap box">
-							<div class="menu-title">인원</div>
+							<div class="menu-title sub-menu-title">인원</div>
 							<div class="ppl-count-input-wrap">
-								<img id="minus" src="/resources/image/camping/minus.png">
+								<span id="minus" class="material-symbols-outlined">remove</span>
 								<c:choose>
 									<c:when test="${not empty pplCount }">
 										<input type="text" name="ppl_count" value=${pplCount }>
@@ -77,14 +73,14 @@
 										<input type="text" name="ppl_count" value=1>
 									</c:otherwise>
 								</c:choose>
-								<img id="plus" src="/resources/image/camping/plus.png">
+								<span id="plus" class="material-symbols-outlined">add</span>
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class="menu">
 					<div class="menu-title">공용시설</div>
-					<div class="box input-wrap" style="flex-wrap: wrap; justify-content : flex-start;">
+					<div class="box input-wrap">
 						<div class="input-box">
 							<input id="electric" type="checkbox" name="campingService" value="전기사용가능">
 							<label for="electric">전기사용가능</label>
@@ -169,7 +165,7 @@
 				</div>
 				<div class="menu">
 					<div class="menu-title">객실내시설</div>
-					<div class="box input-wrap" style="flex-wrap: wrap; justify-content : flex-start;">
+					<div class="box input-wrap">
 						<div class="input-box">
 							<input type="checkbox" id="serviceCheck21" name="campingRoomService" value="객실샤워실">
         					<label for="serviceCheck21">객실샤워실</label>
@@ -226,7 +222,7 @@
 				</div>
 				<div class="menu">
 					<div class="menu-title">기타</div>
-					<div class="box input-wrap" style="flex-wrap: wrap; justify-content : flex-start;">
+					<div class="box input-wrap">
 						<div class="input-box">
 							<input type="checkbox" id="serviceCheck34" name="campingEtc" value="장비대여">
        						<label for="serviceCheck34">장비대여</label>
@@ -276,18 +272,32 @@
 			</div>
 			<div class="campingList-content">
 				<div class="campingList-header">
-					<button type="button" id="avgReviewRating" onclick="sendOrder(this);">평점순</button>
-					<button type="button" id="maxRoomPrice" onclick="sendOrder(this);">가격순</button>
-					<button type="button" name="viewByMap">지도로 보기</button>
+					<button class="order-menu clicked" type="button" id="avgReviewRating" onclick="sendOrder(this, 1);">평점순</button>
+					<button class="order-menu btn1" type="button" id="maxRoomPrice" onclick="sendOrder(this, 1);">가격순</button>
+					<button class="order-menu btn1" type="button" name="viewByMap">지도로 보기</button>
 				</div>
 				<div class="campingList-box">
 					<div class="list-by-review">
 						<c:forEach items="${list }" var="c">
-							<div class="camping-box">							
-								<div class="campingTitle"><a href="/viewCamping.do?campingNo=${c.campingNo }">${c.campingTitle }</a></div>
-								<div class="campingAddr">${c.campingAddr }</div>
-								<div>${c.avgReviewRating }</div>
-								<div>${c.maxRoomPrice }</div>
+							<div class="camping-box" onclick="viewCamping('${c.campingNo }')">
+								<c:choose>
+									<c:when test="c.filepath == null">
+										<img src="/resources/upload/camping/campingbg.jpg">															
+									</c:when>
+									<c:otherwise>
+										<img src="/resources/upload/campingRoom/${c.filepath}">	
+									</c:otherwise>
+								</c:choose>	
+								<div>
+									<div class="camping-room-info">
+										<div class="campingTitle">${c.campingTitle }</div>
+										<div class="campingAddr">${c.campingAddr }</div>
+										<div>${c.avgReviewRating }</div>
+									</div>
+									<div>
+										<div>${c.maxRoomPrice } 원</div>
+									</div>
+								</div>
 							</div>
 						</c:forEach>	
 						<div>${pageNavi }</div>
@@ -320,11 +330,20 @@
 			}			
 		})
 		
-		function sendOrder(obj){
+		function sendOrder(obj , reqPage){
 			const order = $(obj).attr("id");
 			$(".list-by-map").addClass("hidden")
 			$(".list-by-review").removeClass("hidden")
-			const reqPage = 1;
+			sendDetailSearch(order, reqPage);
+		}
+		
+		$(".order-menu").on("click", function(){
+			$(".order-menu").removeClass("clicked").removeClass("btn1").addClass("btn1");
+			$(this).addClass("clicked").removeClass("btn1")
+		})
+		
+		function sendNavi(reqPage){
+			const order = $(".clicked").attr("id")
 			sendDetailSearch(order, reqPage);
 		}
 		
@@ -347,11 +366,12 @@
 			const campingService = [];
 			const campingRoomService = [];
 			const campingEtc = [];
+			
 			if(order == null){
-				order = "avgReviewRating";
-			}
-			if(reqPage == null){
-				reqPage = 1;
+				order = $(".clicked").attr("id")
+				if(order == null){
+					order = "avgReviewRating"
+				}
 			}
 			$('input:checkbox[name=campingType]').each(function (index) {
 				if($(this).is(":checked")==true){
@@ -385,18 +405,21 @@
 				success : function(data){
 					$(".list-by-review").empty();
 					data.list.forEach(function(c,i){
-						const div = $("<div>").addClass("campingTitle").attr("id", c.campingNo);
-						const a = $("<a>");
-						a.attr("href", "/viewCamping.do?campingNo="+c.campingNo);
-						a.append(c.campingTitle);
-						div.append(a);
-						const div2 = $("<div>")
-						div2.append(c.avgReviewRating)
-						const div3 = $("<div>");
-						div3.append(c.maxRoomPrice);
+						const div = $("<div>").addClass("camping-box").attr("onclick", "viewCamping("+c.campingNo+")");
+						const img = $("<img>").attr("src","/resources/upload/campingRoom/"+c.filepath+"")
+						const div2 = $("<div>").addClass("camping-room-info")
+						const div3 = $("<div>").addClass("campingTitle");
+						div3.append(c.campingTitle)
 						const div4 = $("<div>").addClass("campingAddr");
 						div4.append(c.campingAddr);
-						$(".list-by-review").append(div).append(div2).append(div3).append(div4);
+						const div5 = $("<div>").append(c.avgReviewRating)
+						div2.append(div3).append(div4).append(div5)
+						const div6 = $("<div>").append(c.maxRoomPrice+" 원")
+						const div7 = $("<div>").append(div6)
+						const div8 = $("<div>")
+						div8.append(div2).append(div7)
+						div.append(img).append(div8)
+						$(".list-by-review").append(div)
 					})
 					$(".list-by-review").append(data.pageNavi);
 					$("#allList").empty();
@@ -481,6 +504,75 @@
 				    });		
 				})
 		    });	
+		}
+		
+		if ($('#detail_search_checkin, #detail_search_checkout').length) {
+		  // check if element is available to bind ITS ONLY ON HOMEPAGE
+		  var currentDate = moment().format('MM-DD')
+
+		  $('#detail_search_checkin, #detail_search_checkout').daterangepicker(
+		    {
+		      locale: {
+		        format: 'MM-DD',
+		        applyLabel: '확인', // 확인 버튼 텍스트
+		        cancelLabel: '취소', // 취소 버튼 텍스트
+		        daysOfWeek: ['일', '월', '화', '수', '목', '금', '토'],
+		        monthNames: [
+		          '1월',
+		          '2월',
+		          '3월',
+		          '4월',
+		          '5월',
+		          '6월',
+		          '7월',
+		          '8월',
+		          '9월',
+		          '10월',
+		          '11월',
+		          '12월'
+		        ]
+		      },
+
+		      alwaysShowCalendars: true,
+		      minDate: currentDate,
+		      autoApply: true,
+		      autoUpdateInput: false,
+		      ranges: {
+		        오늘: [moment(), moment()],
+		        내일: [moment(), moment().add(1, 'days')],
+		        '2일': [moment(), moment().add(2, 'days')],
+		        '3일': [moment(), moment().add(3, 'days')],
+		        일주일: [moment(), moment().add(7, 'days')]
+		      }
+		    },
+		    function (start, end, label) {
+		      // console.log("New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')");
+		      // Lets update the fields manually this event fires on selection of range
+		      var selectedStartDate = start.format('MM-DD') // selected start
+		      var selectedEndDate = end.format('MM-DD') // selected end
+
+		      $checkinInput = $('#detail_search_checkin')
+		      $checkoutInput = $('#detail_search_checkout')
+
+		      // Updating Fields with selected dates
+		      $checkinInput.val(selectedStartDate)
+		      $checkoutInput.val(selectedEndDate)
+
+		      // Setting the Selection of dates on calender on CHECKOUT FIELD (To get this it must be binded by Ids not Calss)
+		      var checkOutPicker = $checkoutInput.data('daterangepicker')
+		      checkOutPicker.setStartDate(selectedStartDate)
+		      checkOutPicker.setEndDate(selectedEndDate)
+
+		      // Setting the Selection of dates on calender on CHECKIN FIELD (To get this it must be binded by Ids not Calss)
+		      var checkInPicker = $checkinInput.data('daterangepicker')
+		      checkInPicker.setStartDate(selectedStartDate)
+		      checkInPicker.setEndDate(selectedEndDate)
+		    }
+		  )
+		} // End Daterange Picker
+	
+		function viewCamping(campingNo){
+			location.href="/viewCamping.do?campingNo="+campingNo;
 		}
 		
 		$(function(){

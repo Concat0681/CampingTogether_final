@@ -8,28 +8,43 @@
     display : flex;
     padding: 50px;
 }
+.search-input-box{
+    width: 70%;
+}
 .sidebar-menu{
     max-width: 300px;
     width: 100%;
-    border: 1px solid black;
+    border: 1px solid #dedede;
 }
 .menu{
-    padding: 20px;
+    padding: 15px;
+}
+.menu:first-of-type{
+    margin-top: 15px;
+}
+.menu-title{
+    font-family: ng-bold;
+    margin-bottom: 20px;
 }
 .input-wrap>label>img{
     width: 30px;
     height: 30px;
 }
 .box{
-    width: 85%;
-    margin: 0 auto;
     display: flex;
-    padding: 10px 0;
+    flex-wrap: wrap;
+    padding: 0 5px;
     padding-bottom: 20px;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid #dedede;
 }
-.input-wrap{
-    justify-content: center;
+.date-input-wrap{
+    padding: 5px;
+}
+.date-input-wrap>label{
+    background-color: white;
+}
+.date-input-wrap>*{
+    height: 40px;
 }
 .button-wrap{
     justify-content: space-around;
@@ -40,19 +55,17 @@
 .sub-menu{
     padding : 10px 0;
 }
-.checkbox-wrap{
-    padding: 10px;
-}
-.checkbox-box{
-    margin: 5px;
-}
 .ppl-count-wrap{
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 }
+.sub-menu-title{
+    margin: 0;
+}
 .ppl-count-input-wrap{
 	display: flex;
+    align-items: center;
 }
 .ppl-count-input-wrap>img{
 	width: 30px;
@@ -63,8 +76,32 @@
 	font-size: 20px;
 	width: 30px;
 }
+.checkbox-wrap{
+    margin-top: 10px;
+}
+.checkbox-wrap>div{
+    margin : 10px 5px;
+}
+input[name="ppl_count"]{
+    margin: 0 10px;
+    border: none;
+}
 .input-box{
     width: 50%;
+}
+.input-box>input{
+    margin-right: 5px;
+}
+.campingList-header>button{
+    width: 100px;
+    margin-bottom: 20px;
+    height: 30px;
+}
+.clicked{
+    background-color : #E3CAA5;
+	border : none;
+	color : white;
+	border-radius : 5px;
 }
 .campingList-content{
     padding: 10px;
@@ -72,7 +109,39 @@
     width: 60%;
     margin-left: 50px;
 }
-
 .hidden{
     display: none;
 }
+.camping-box{
+    position: relative;
+}
+.camping-box:hover{
+    box-shadow: rgb(0 0 0 / 12%) 0px 6px 16px;
+}
+.camping-box>img{
+    width: 100%;
+    height: 250px;
+    margin: 10px 0;
+}
+.camping-box>div{
+    position: absolute;
+    transform: translate( -50%, -50% );
+    color: black
+}
+.camping-box>div:first-of-type{
+    display: flex;
+    bottom: 11px;
+    font-size: 18px;
+    left: 50%;
+    width: 100%;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+.camping-box>div:first-of-type>div:last-of-type{
+    display: flex;
+    align-items: flex-end;
+}
+.pagination{
+    margin-top: 20px;
+}
+

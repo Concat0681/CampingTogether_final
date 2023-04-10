@@ -1,11 +1,18 @@
 package kr.or.iei.board.food.model.service;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.UUID;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.google.gson.JsonObject;
 
 import kr.or.iei.board.food.model.dao.BoardFoodDao;
 import kr.or.iei.board.food.model.vo.BoardFood;
@@ -158,7 +165,6 @@ public class BoardFoodService {
 
 	public int insertFoodComment(FoodComment fc) {
 		int result = dao.insertFoodComment(fc);
-		System.out.println(fc);
 		return result;
 	}
 
@@ -171,5 +177,33 @@ public class BoardFoodService {
 		int result = dao.deleteFoodComment(foodCommentNo);
 		return result;
 	}
+
+//	public JsonObject SummerNoteImageFile(MultipartFile file) {
+//		JsonObject jsonObject = new JsonObject();
+//		String fileRoot = "C:\\summernoteImg\\";
+//		String originalFileName = file.getOriginalFilename();
+//		String extension = originalFileName.substring(originalFileName.lastIndexOf("."));
+//		
+//		String saveFileName = UUID.randomUUID()+extension;
+//			
+//		File targetFile = new File(fileRoot+saveFileName);
+//		
+//		try {
+//			InputStream fileStream = file.getInputStream();
+//			FileUtils.copyInputStreamToFile(fileStream, targetFile);
+//			jsonObject.addProperty("url", "/summernoteImg/"+saveFileName);
+//			jsonObject.addProperty("responseCode", "succcess");
+//		} catch(IOException e) {
+//			FileUtils.deleteQuietly(targetFile);
+//			jsonObject.addProperty("responseCode", "error");
+//			e.printStackTrace();
+//		}	
+//		return jsonObject;
+//
+//
+//	}
+	
+	
+	
 
 }
