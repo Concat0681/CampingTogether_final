@@ -89,6 +89,17 @@ input[name="ppl_count"]{
 .input-box>input{
     margin-right: 5px;
 }
+.campingList-header>button{
+    width: 100px;
+    margin-bottom: 20px;
+    height: 30px;
+}
+.clicked{
+    background-color : #E3CAA5;
+	border : none;
+	color : white;
+	border-radius : 5px;
+}
 .campingList-content{
     padding: 10px;
     min-width: 40%;
@@ -126,5 +137,8 @@ input[name="ppl_count"]{
 .camping-box>div:first-of-type>div:last-of-type{
     display: flex;
     align-items: flex-end;
+}
+.pagination{
+    margin-top: 20px;
 }
 

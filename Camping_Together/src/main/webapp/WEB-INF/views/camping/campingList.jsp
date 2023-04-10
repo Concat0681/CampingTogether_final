@@ -8,6 +8,7 @@
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=n8k40j998a&submodules=geocoder"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 <link href="/resources/css/camping/campingList.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 </head>
@@ -43,7 +44,7 @@
 					<input type=hidden id="cityAddr" name="cityAddr" value="${cityNameKR }">
 					<div class="box button-wrap">
 						<button class="btn2" type="button" onclick="resetInputs();">초기화</button>
-						<button class="btn3" type="button" onclick="sendDetailSearch('avgReviewRating' , 1);">적용</button>
+						<button class="btn3" type="button" onclick="sendDetailSearch(null, 1);">적용</button>
 					</div>
 					<div class="sub-menu">
 						<div class="menu-title">캠핑유형</div>
@@ -275,8 +276,8 @@
 			<div class="campingList-content">
 				<div class="campingList-header">
 					<button class="order-menu clicked" type="button" id="avgReviewRating" onclick="sendOrder(this, 1);">평점순</button>
-					<button class="order-menu" type="button" id="maxRoomPrice" onclick="sendOrder(this, 1);">가격순</button>
-					<button type="button" name="viewByMap">지도로 보기</button>
+					<button class="order-menu btn1" type="button" id="maxRoomPrice" onclick="sendOrder(this, 1);">가격순</button>
+					<button class="order-menu btn1" type="button" name="viewByMap">지도로 보기</button>
 				</div>
 				<div class="campingList-box">
 					<div class="list-by-review">
@@ -336,10 +337,13 @@
 			const order = $(obj).attr("id");
 			$(".list-by-map").addClass("hidden")
 			$(".list-by-review").removeClass("hidden")
-			const orderMenu = $(".order-menu").removeClass("clicked")
-			$(obj).addClass("clicked")
 			sendDetailSearch(order, reqPage);
 		}
+		
+		$(".order-menu").on("click", function(){
+			$(".order-menu").removeClass("clicked").removeClass("btn1").addClass("btn1");
+			$(this).addClass("clicked").removeClass("btn1")
+		})
 		
 		function sendNavi(reqPage){
 			const order = $(".clicked").attr("id")
@@ -365,6 +369,13 @@
 			const campingService = [];
 			const campingRoomService = [];
 			const campingEtc = [];
+			
+			if(order == null){
+				order = $(".clicked").attr("id")
+				if(order == null){
+					order = "avgReviewRating"
+				}
+			}
 			$('input:checkbox[name=campingType]').each(function (index) {
 				if($(this).is(":checked")==true){
 			    	campingType.push($(this).val())
@@ -406,7 +417,7 @@
 						div4.append(c.campingAddr);
 						const div5 = $("<div>").append(c.avgReviewRating)
 						div2.append(div3).append(div4).append(div5)
-						const div6 = $("<div>").append(c.maxRoomPrice)
+						const div6 = $("<div>").append(c.maxRoomPrice+" 원")
 						const div7 = $("<div>").append(div6)
 						const div8 = $("<div>")
 						div8.append(div2).append(div7)
