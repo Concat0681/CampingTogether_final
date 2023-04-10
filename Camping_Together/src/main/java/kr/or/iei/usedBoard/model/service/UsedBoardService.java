@@ -36,13 +36,13 @@ public class UsedBoardService {
 		}
 		String pageNavi = "<ul class='pagination circle-style'>";
 		if(pageNo != 1) {
-			pageNavi += "<li><a class='page-item' href='/usedBoardList.do?reqPage="+(pageNo-1)+"'><span class='material-icons'>chevron_left</span></a></li>";
+			pageNavi += "<li><a class='page-item' href='/usedBoardList.do?reqPage="+(pageNo-1)+"'><span class='material-symbols-outlined'>chevron_left</span></a></li>";
 		}
 			for(int i=0; i<pageNaviSize; i++) {
 				if(pageNo == reqPage) {
 					pageNavi += "<li><a class='page-item active-page'>"+pageNo+"</a></li>";
 				}else {
-					pageNavi += "<li><a class='page-item' href='/usedBoardList.do>reqPage="+pageNo+"'>"+pageNo+"</a></li>";
+					pageNavi += "<li><a class='page-item' href='/usedBoardList.do?reqPage="+pageNo+"'>"+pageNo+"</a></li>";
 				}
 				pageNo++;
 				if(pageNo > totalPage) {
@@ -50,7 +50,7 @@ public class UsedBoardService {
 				}
 			}
 		if(pageNo <= totalPage) {
-			pageNavi += "<li><a class='page-item' href='/usedBoardList.do?reqPage="+(pageNo+1)+"'><span class='material-icons'>chevron_right </span></a></li>";
+			pageNavi += "<li><a class='page-item' href='/usedBoardList.do?reqPage="+(pageNo+1)+"'><span class='material-symbols-outlined'>chevron_right </span></a></li>";
 		}
 		UsedBoardPageDate ubpd = new UsedBoardPageDate(list, pageNavi);
 		return ubpd;
