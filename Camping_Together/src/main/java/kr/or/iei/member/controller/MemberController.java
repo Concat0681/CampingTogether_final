@@ -75,7 +75,7 @@ public class MemberController {
 	public int idCheck(@RequestParam("memberId") String memberId) {
 		return service.idCheck(memberId);
 	}
-	
+	/*
 	@Service
 	@RequiredArgsConstructor
 	public class EmailService {
@@ -108,7 +108,7 @@ public class MemberController {
 	        }
 	        authNum = key.toString();
 	    }
-	    /*
+	    
 	    //메일 양식 작성
 	    public MimeMessage createEmailForm(String email) throws MessagingException, UnsupportedEncodingException {
 
@@ -234,6 +234,7 @@ public class MemberController {
 	*/
 	
 }
+
 
 
 
