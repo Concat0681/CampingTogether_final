@@ -2,6 +2,7 @@ package kr.or.iei.camping.model.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import kr.or.iei.camping.model.vo.CampingEtc;
 import kr.or.iei.camping.model.vo.CampingListPageData;
 import kr.or.iei.camping.model.vo.CampingProvideService;
 import kr.or.iei.camping.model.vo.CampingReview;
+import kr.or.iei.camping.model.vo.CampingReviewData;
 import kr.or.iei.camping.model.vo.CampingReviewFileVO;
 import kr.or.iei.camping.model.vo.CampingRoom;
 import kr.or.iei.camping.model.vo.ViewCampingData;
@@ -138,6 +140,28 @@ public class CampingService {
 			}
 		}
 		return result;
+	}
+
+	public CampingReviewData selectCampingReview(int campingNo) {
+		CampingReviewData crd = new CampingReviewData();
+		ArrayList<CampingReview> crv = dao.selectCampingReview(campingNo);
+		crd.setReviewList(crv);
+		if(crv != null) {
+			List<Integer> campingReviewNoList = dao.selectCampingReviewNo(campingNo);
+			int campingReviewNo = campingReviewNoList.get(0);
+			ArrayList<CampingReviewFileVO> fileList = dao.selectCampingReviewPhoto(campingReviewNo);
+			crd.setFileList(fileList);
+		}
+		return crd;
+	}
+
+	public int insertReviewComment(CampingReview crv) {
+		int result = dao.insertReviewComment(crv);
+		if(result > 0) {
+			return result;
+		}else {
+			return 0;
+		}
 	}
 
 	

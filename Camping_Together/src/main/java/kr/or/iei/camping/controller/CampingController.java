@@ -20,6 +20,7 @@ import kr.or.iei.camping.model.vo.CampingEtc;
 import kr.or.iei.camping.model.vo.CampingListPageData;
 import kr.or.iei.camping.model.vo.CampingProvideService;
 import kr.or.iei.camping.model.vo.CampingReview;
+import kr.or.iei.camping.model.vo.CampingReviewData;
 import kr.or.iei.camping.model.vo.CampingReviewFileVO;
 import kr.or.iei.camping.model.vo.CampingRoom;
 import kr.or.iei.camping.model.vo.ViewCampingData;
@@ -150,8 +151,11 @@ public class CampingController {
 	@RequestMapping(value="/viewCamping.do")
 	public String viewCamping(int campingNo, Model model) {
 		ViewCampingData vcd = service.selectOneCamping(campingNo);
+		CampingReviewData crd = service.selectCampingReview(campingNo);
 		model.addAttribute("camping" , vcd.getCamping());
 		model.addAttribute("campingRoomList", vcd.getCampingRoomList());
+		model.addAttribute("campingReview", crd.getReviewList());
+		model.addAttribute("campingReviewPhoto", crd.getFileList());
 		return "camping/viewCamping";
 	}
 	
@@ -233,6 +237,16 @@ public class CampingController {
 		int result = service.insertCampingReview(crv, fileList);
 		if(result == (fileList.size()+1)) {
 			return "redirect:/viewCamping.do?campingNo="+campingNo;
+		}else {
+			return "redirect:/";
+		}
+	}
+	
+	@RequestMapping(value="/insertReviewComment.do")
+	public String insertReviewComment(CampingReview crv) {
+		int result = service.insertReviewComment(crv);
+		if(result > 0) {
+			return "redirect:/viewCamping.do?campingNo="+crv.getCampingNo();
 		}else {
 			return "redirect:/";
 		}

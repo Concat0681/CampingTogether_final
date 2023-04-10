@@ -88,5 +88,26 @@ public class CampingDao {
 		return result;
 	}
 
+	public ArrayList<CampingReview> selectCampingReview(int campingNo) {
+		List list = sqlSession.selectList("camping.selectCampingReview",campingNo);
+		return (ArrayList<CampingReview>)list;
+	}
+
+	public List<Integer> selectCampingReviewNo(int campingNo) {
+	    return sqlSession.selectList("camping.selectCampingReviewNo", campingNo);
+	}
+
+	public ArrayList<CampingReviewFileVO> selectCampingReviewPhoto(int campingReviewNo) {
+		List list = sqlSession.selectList("camping.selectCampingReviewPhoto",campingReviewNo);
+		return (ArrayList<CampingReviewFileVO>)list;
+	}
+
+	public int insertReviewComment(CampingReview crv) {
+		int result = sqlSession.insert("camping.insertReviewComment", crv);
+		return result;
+	}
+
+	
+
 	
 }
