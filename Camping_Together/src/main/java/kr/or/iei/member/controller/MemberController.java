@@ -78,8 +78,8 @@ public class MemberController {
 	public String mypageC() {
 		return "member/mypageCFrm";
 	}
-	//------------------------------------채占쏙옙
-	//------------------------------------채占쏙옙
+	//------------------------------------梨꾢뜝�룞�삕
+	//------------------------------------梨꾢뜝�룞�삕
 	@RequestMapping(value ="/allMemberChatFrm.do")
 	public String allMemberChatFrm() {
 		return"member/allMemberChatFrm";
@@ -118,7 +118,7 @@ public class MemberController {
 		return "member/updateMypageCFrm";
 	}
 	
-	//�쉶�썝�깉�눜
+	//占쎌돳占쎌뜚占쎄퉱占쎈닚
 	@RequestMapping(value = "/deleteMember.do")
 	public String deleteMember(int memberNo) {
 		int result = service.deleteMember(memberNo);
@@ -129,7 +129,7 @@ public class MemberController {
 		}
 	}
 	
-	//罹좏븨�옣 寃곗젣 �궡�뿭 由ъ뒪�듃
+	//筌�醫뤿릅占쎌삢 野껉퀣�젫 占쎄땀占쎈열 �뵳�딅뮞占쎈뱜
 	/*
 	@RequestMapping(value = "/cmapingPayList.do")
 	public String cmapingPayList(int reqPage,int memberNo, Model model) {
@@ -147,15 +147,15 @@ public class MemberController {
 	}
 	
 
-	//罹좏븨�슜�뭹 寃곗젣 由ъ뒪�듃
+	//筌�醫뤿릅占쎌뒠占쎈�� 野껉퀣�젫 �뵳�딅뮞占쎈뱜
 	/*
-	//캠핑용품 결제 리스트
+	//罹좏븨�슜�뭹 寃곗젣 由ъ뒪�듃
 	
 	@RequestMapping(value = "/productPayList.do")
 	public String productPayList(int reqPage,int memberNo, Model model) {
 		return "member/productPayList";
 	}
-	
+	*/
 	
 }
 
