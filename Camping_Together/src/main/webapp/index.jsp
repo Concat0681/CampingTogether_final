@@ -117,25 +117,40 @@
 				</div>
 			</div>	
 		</div>
-		<div class="wrapperMiddle-trade"></div>
+		<div class="wrapperMiddle-tradeBox">
+			<div class="wrapperMiddle-tradeContent">
+				<div class="tradeContentBoarder">
+					중고거래 컨텐츠1
+					<div>
+					<img src="/resources/image/camping/seoul.jpeg" style="width:100%; height: 100%;"></div>
+				</div>
+			</div>
+			<div class="wrapperMiddle-tradeContent">
+				<div class="tradeContentBoarder">
+					중고거래 컨텐츠2
+					<div class="tradeImg"></div>
+				</div>
+			</div>
+			<div class="wrapperMiddle-tradeContent">
+				<div class="tradeContentBoarder">
+					중고거래 컨텐츠3
+					<div class="tradeImg"></div>
+				</div>
+			</div>
+		</div>
 		<div class="wrapperMiddle-shop"></div>
 		<div class="wrapperBottom"></div>
  	
 	
 	<button class="btn1" style="width : 100px; height : 30px;">버튼</button>
 	<button class="btn2" style="width : 100px; height : 30px;">버튼</button>
-	<button class="btn2" style="width : 100px; height : 30px;">버튼</button>
+	<button class="btn3" style="width : 100px; height : 30px;">버튼</button>
 
 	<a href="/usedBoardList.do">중고장터</a>
 
 	
 	<a href="/noticeList.do?reqPage=1">공지사항</a>
 	
-	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 </body>
 <script>

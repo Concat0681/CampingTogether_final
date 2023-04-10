@@ -28,9 +28,13 @@ public class MemberService {
 		dao.insertMember(member);
 		return 0;
 	}
+	
+	public int idCheck(String memberId) {
+		return dao.idCheck(memberId);
+	}
 
 	
-	//회원탈퇴
+	//�쉶�썝�깉�눜
 	public int deleteMember(int memberNo) {
 		return dao.deleteMember(memberNo);
 	}
@@ -42,8 +46,8 @@ public class MemberService {
 		int end = reqPage * numPerpage;
 		int start = end - numPerpage + 1;
 		
-		//계산된 start, end를 가지고 게시물 목록 조회
-		//Mybatis는 매개변수는 한개만 설정이 가능 -> 필요한 값이 여러개면 1개로 묶어야함 (vo또는 map)
+		//怨꾩궛�맂 start, end瑜� 媛�吏�怨� 寃뚯떆臾� 紐⑸줉 議고쉶
+		//Mybatis�뒗 留ㅺ컻蹂��닔�뒗 �븳媛쒕쭔 �꽕�젙�씠 媛��뒫 -> �븘�슂�븳 媛믪씠 �뿬�윭媛쒕㈃ 1媛쒕줈 臾띠뼱�빞�븿 (vo�삉�뒗 map)
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("start",start);
 		map.put("end",end);
@@ -51,16 +55,16 @@ public class MemberService {
 		
 		ArrayList<CampingPayment> list = dao.selectPayList(map);
 		
-		//pageNavi 제작 시작
-		//전체 게시물 수 필요 -> 전체 게시물 수 조회 
+		//pageNavi �젣�옉 �떆�옉
+		//�쟾泥� 寃뚯떆臾� �닔 �븘�슂 -> �쟾泥� 寃뚯떆臾� �닔 議고쉶 
 		System.out.println(memberNo);
 		int totalCount = dao.selectPayListCount(memberNo);
 		
-		//전체게시물로 전체 페이지 수 계산
+		//�쟾泥닿쾶�떆臾쇰줈 �쟾泥� �럹�씠吏� �닔 怨꾩궛
 		int totalPage = (int)Math.ceil(totalCount/(double)numPerpage);
 		
 		
-		//pageNavi사이즈
+		//pageNavi�궗�씠利�
 		int pageNaviSize = 5;
 				
 		int pageNo = 1;
@@ -68,15 +72,15 @@ public class MemberService {
 				pageNo = reqPage-2;
 			}
 				
-		//페이지네비 생성 시작
+		//�럹�씠吏��꽕鍮� �깮�꽦 �떆�옉
 		String pageNavi = "";
 		
-		//이전 버
+		//�씠�쟾 踰�
 		if(pageNo != 1) {
-			pageNavi += "<a href='/cmapingPayList.do?reqPage="+(pageNo-1)+"&memberNo="+memberNo+"'>[이전]</a>";
+			pageNavi += "<a href='/cmapingPayList.do?reqPage="+(pageNo-1)+"&memberNo="+memberNo+"'>[�씠�쟾]</a>";
 			}
 			
-			//페이지 숫자 생성
+			//�럹�씠吏� �닽�옄 �깮�꽦
 			for(int i=0;i<pageNaviSize;i++) {
 			if(pageNo ==  reqPage) {
 				pageNavi += "<span>"+pageNo+"</span>";
@@ -88,21 +92,23 @@ public class MemberService {
 			 break;
 				}
 			}
-			//다음버튼
+			//�떎�쓬踰꾪듉
 			if(pageNo<=totalPage) {
-			 pageNavi += "<a href='/cmapingPayList.do?reqPage="+pageNo+"&memberNo="+memberNo+" '>[다음]</a>";
+			 pageNavi += "<a href='/cmapingPayList.do?reqPage="+pageNo+"&memberNo="+memberNo+" '>[�떎�쓬]</a>";
 			}
 			MemberPageData mpd = new MemberPageData(list,pageNavi);
 			 return mpd;
 			}
+
+	
 		
 		/*
-		//이전 버튼
+		//�씠�쟾 踰꾪듉
 		if(pageNo != 1) {
-		pageNavi += "<a href='/cmapingPayList.do?reqPage="+(pageNo-1)+"&memberNo="+memberNo+"'>[이전]</a>";
+		pageNavi += "<a href='/cmapingPayList.do?reqPage="+(pageNo-1)+"&memberNo="+memberNo+"'>[�씠�쟾]</a>";
 		}
 		
-		//페이지 숫자 생성
+		//�럹�씠吏� �닽�옄 �깮�꽦
 		for(int i=0;i<pageNaviSize;i++) {
 		if(pageNo ==  reqPage) {
 			pageNavi += "<span>"+pageNo+"</span>";
@@ -114,9 +120,9 @@ public class MemberService {
 		 break;
 			}
 		}
-		//다음버튼
+		//�떎�쓬踰꾪듉
 		if(pageNo<=totalPage) {
-		 pageNavi += "<a href='/cmapingPayList.do?reqPage="+pageNo+"&memberNo="+memberNo+" '>[다음]</a>";
+		 pageNavi += "<a href='/cmapingPayList.do?reqPage="+pageNo+"&memberNo="+memberNo+" '>[�떎�쓬]</a>";
 		}
 		MemberPageData mpd = new MemberPageData(list,pageNavi);
 		 return mpd;

@@ -20,7 +20,10 @@
 		<fieldset>
 			<legend>회원가입</legend>
 			
-			아디:<input type="text" name="memberId"><!-- <span id="idChk"></span>  --><br>
+			아디:<input type="text" name="memberId" id="memberId" placeholder="아이디를 입력해주세요." required maxlength="12">
+			<span class="point successIdChk"></span><br/>
+			<span class="point">※ 영문자, 소문자 입력가능, 최대 12자 까지 입력</span>
+			<input type="hidden" id="idDoubleChk"/><!-- <span id="idChk"></span>  --><br>
 			비번:<input type="password" name="memberPw"><br>
 			이름:<input type="text" name="memberName"><br>
 			전번:<input type="text" name="memberPhone"><br>
@@ -81,6 +84,37 @@
 	</script>
 	 -->
 	 
+	
+	
+<script>
+$("[name=memberId]").blur(function(){
+	const memberId = $("#memberId").val();
+	if(memberId == "" || memberId.length < 6){
+		$(".successIdChk").text("아이디는 6자 이상 12자 이하로 입력해주세요 ");
+		$(".successIdChk").css("color", "red");
+		$("#idDoubleChk").val("false");
+	}else{
+		$.ajax({
+			url : "${pageContext.request.contextPath}/idCheck.do?memberId="+ memberId,
+			type : "post",
+			cache : false,
+			success : function(data) {
+				if (data == 0) {
+					$(".successIdChk").text("사용가능한 아이디입니다");
+					$(".successIdChk").css("color", "green");
+					$("#idDoubleChk").val("true");
+				} else {
+					$(".successIdChk").text("사용중인 아이디입니다");
+					$(".successIdChk").css("color", "red");
+					$("#idDoubleChk").val("false");
+				}
+			}, error : function() {
+				console.log("실패");
+			}
+		});
+	}
+});
+</script>	
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 

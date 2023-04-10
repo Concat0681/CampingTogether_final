@@ -60,7 +60,7 @@
 	<c:choose>
 		<c:when test="${empty sessionScope.m }"> 
 		<div class="wrapper-top" style="background-color: rgba(173, 139, 115, 1);" >
-        <div class="nav-top">
+        <div class="nav-top" style="color: #fff;">
             <ul class="login">
             	<li><a href="/noticeList.do">공지사항</a></li>
                 <li><a href="/loginFrm.do">로그인</a></li>
@@ -71,7 +71,7 @@
     </c:when>
 		<c:otherwise>
 	<div class="wrapper-top" style="background-color: rgba(173, 139, 115, 1);">
-        <div class="nav-top">
+        <div class="nav-top" style="color: #fff;">
             <ul class="login">
                 <!-- <li><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">쪽지보내기</button></li> -->
                 <li><a href="/notice/noticeList.jsp">공지사항</a></li>
