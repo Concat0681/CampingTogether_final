@@ -78,13 +78,13 @@ public class CampingService {
 		}
 		String pageNavi = "";
 		if(pageNo != 1) {
-			pageNavi += "<a onclick='sendDetailSearch("+null+","+(pageNo-1)+")'>[이전]</a>";
+			pageNavi += "<a class='navi' onclick='sendNavi("+(pageNo-1)+")'>[이전]</a>";
 		}
 		for(int i=0;i<pageNaviSize;i++) {
 			if(pageNo == reqPage) {
 				pageNavi += "<span>"+pageNo+"</span>";
 			} else {
-				pageNavi += "<a onclick='sendDetailSearch("+null+","+pageNo+")'>"+pageNo+"</a>";
+				pageNavi += "<a class='navi' onclick='sendNavi("+pageNo+")'>"+pageNo+"</a>";
 			}
 			pageNo++;
 			if(pageNo > totalPage) {
@@ -92,7 +92,7 @@ public class CampingService {
 			}
 		}
 		if(pageNo <= totalPage) {
-			pageNavi += "<a onclick='sendDetailSearch("+null+","+(pageNo)+")'>[다음]</a>";
+			pageNavi += "<a class='navi' onclick='sendNavi("+(pageNo)+")'>[다음]</a>";
 		}
 		map.put("start", null);
 		map.put("end", null);
