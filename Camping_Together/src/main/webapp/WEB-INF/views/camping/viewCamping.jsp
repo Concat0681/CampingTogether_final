@@ -275,7 +275,8 @@
 						            </p>
 						          </li>
 						        </ul>
-					        
+					        	
+				        	<c:if test="${cr.campingReviewRating == 0}">
 						        <ul class="posting-comment reply">
 						          <li style="padding-left: 90px;">
 						            <span class="material-icons">subdirectory_arrow_right</span>
@@ -283,15 +284,16 @@
 						          </li>
 						          <li>
 						            <p class="comment-info">
-						              <span>user01</span>
+						              <span>${cr.memberId }</span>
 						            </p>
-						            <p class="comment-content">댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용</p>
+						            <p class="comment-content">${cr.campingReviewContent }</p>
 						            <p class="comment-link">
 						              <a href="#">수정</a>
 						              <a href="#">삭제</a>
 						            </p>
 						          </li>
 						        </ul>
+					        </c:if>
 				      		</div>
 			      		</c:if>
 			      		
