@@ -74,17 +74,10 @@
         <div class="nav-top" style="color: #fff;">
             <ul class="login">
                 <!-- <li><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">쪽지보내기</button></li> -->
-<<<<<<< HEAD
                 <li><a href="/notice/noticeList.jsp">공지사항</a></li>
                 <li><a href = "/messageMain.do">쪽지함</a></li>
                 <li><a href = "/cmapingPayList.do?reqPage=1&memberNo=${sessionScope.m.memberNo }">[${sessionScope.m.memberName }]</a></li>
                 <li><a href="/logout.do">로그아웃</a></li>
-=======
-                <li><a class="nav-linkT" href="/notice/noticeList.jsp">공지사항</a></li>
-                <li><a class="nav-linkT" href = "/messageMain.do">쪽지함</a></li>
-                <li><a class="nav-linkT" href = "/mypageC.do">[${sessionScope.m.memberName }]</a></li>
-                <li><a class="nav-linkT" href="/logout.do">로그아웃</a></li>
->>>>>>> main
             </ul>
         </div>
     </div>
