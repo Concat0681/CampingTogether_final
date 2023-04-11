@@ -44,7 +44,7 @@
 					member_no
 				from camping_payment 
 			join camping_reservation using(CAMPING_RESERVATION_NO) 
-			join camping_room using(camping_room_no) order by 1 desc)m)
+			join camping_room using(camping_room_no) order by camping_payment_date desc)m)
 			where rnum between #{start} and #{end} and member_no = #{memberNo}
 	</select>
 	
@@ -52,30 +52,29 @@
 			select count(*) from camping_payment
 				join camping_reservation using(CAMPING_RESERVATION_NO)
 			 where member_no = #{_parameter}
-		<!--   -->
 	</select>
 	
 	
-	
-	<!-- 캠핑장 결제 내역리스트 
-	<select id="selectPayList" parameterType="_int" resultType="cp">
-		select 
-			camping_room_title as campingRoomTitle, 
-			camping_room_price as campingRoomPrice, 
-			camping_payment_date as campingPaymentDate, 
-			check_in as checkIn, 
-			check_out as checkOut
-		from 
-			camping_payment 
-			join camping_reservation using(CAMPING_RESERVATION_NO) 
-			join camping_room using(camping_room_no)
-		where member_no = #{_parameter}
+	<!-- 쇼핑몰 결제 내역 리스트 -->
+	<select id="selectProcuctPayList" parameterType="map" resultType="pp">
+		select * from
+			(select rownum as rnum, p.*from
+				(select
+					shop_title as productName,
+					sell_count as buyCount,
+					order_date as productPaymentDate,
+					total_price as totalPrice,
+				    shop_order.member_id
+		from shop_order
+			join shop using(shop_no)
+		order by order_date desc)p)
+		where rnum between #{start} and #{end} and member_id=#{memberId}
 	</select>
-	-->
 	
-	
-	
-	
+	<select id="productTotalCount" parameterType="String" resultType="_int">
+		select count(*) from shop_order
+		where member_id = #{memberId}
+	</select>
 	
 	
 	

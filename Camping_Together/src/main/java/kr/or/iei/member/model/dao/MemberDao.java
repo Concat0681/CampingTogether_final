@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import kr.or.iei.member.model.vo.CampingPayment;
 import kr.or.iei.member.model.vo.Member;
+import kr.or.iei.member.model.vo.ProductPayment;
 
 @Repository
 public class MemberDao {
@@ -52,6 +53,18 @@ public class MemberDao {
 	//로그인회원 캠핑장 결제내역 총 게시물 수
 	public int selectPayListCount(int memberNo) {
 		int totalCount = sqlsession.selectOne("member.totalCount",memberNo);
+		return totalCount;
+	}
+
+	//로그인회원 SHOP 결제 리스트
+	public ArrayList<ProductPayment> selectProductPayList(HashMap<String, Object> map) {
+		List list = sqlsession.selectList("member.selectProcuctPayList",map);
+		return (ArrayList<ProductPayment>)list;
+	}
+
+	//로그인회원 쇼핑몰 결제내역 총 게시물 수
+	public int selectProductPayListCount(String memberId) {
+		int totalCount = sqlsession.selectOne("member.productTotalCount",memberId);
 		return totalCount;
 	}
 	

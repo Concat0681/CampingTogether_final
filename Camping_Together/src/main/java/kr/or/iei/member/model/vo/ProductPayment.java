@@ -1,23 +1,17 @@
 package kr.or.iei.member.model.vo;
 
-import java.util.ArrayList;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+public class ProductPayment {
 
-
-public class MemberPageData {
+	private String productName;
+	private int buyCount;
+	private String productPaymentDate;
+	private int totalPrice;
 	
-	private ArrayList<CampingPayment> list;
-	private String pageNavi;
 }
-
-
-

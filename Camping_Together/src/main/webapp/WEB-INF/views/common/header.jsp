@@ -76,7 +76,7 @@
                 <!-- <li><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">쪽지보내기</button></li> -->
                 <li><a href="/notice/noticeList.jsp">공지사항</a></li>
                 <li><a href = "/messageMain.do">쪽지함</a></li>
-                <li><a href = "/mypageC.do">[${sessionScope.m.memberName }]</a></li>
+                <li><a href = "/cmapingPayList.do?reqPage=1&memberNo=${sessionScope.m.memberNo }">[${sessionScope.m.memberName }]</a></li>
                 <li><a href="/logout.do">로그아웃</a></li>
             </ul>
         </div>

@@ -6,18 +6,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 
+public class ProductPageData {
 
-public class MemberPageData {
-	
-	private ArrayList<CampingPayment> list;
+	private ArrayList<ProductPayment> list;
 	private String pageNavi;
 }
-
-
-

@@ -14,6 +14,7 @@ import kr.or.iei.member.model.service.MemberService;
 import kr.or.iei.member.model.vo.CampingPayment;
 import kr.or.iei.member.model.vo.Member;
 import kr.or.iei.member.model.vo.MemberPageData;
+import kr.or.iei.member.model.vo.ProductPageData;
 
 @Controller
 public class MemberController {
@@ -121,14 +122,6 @@ public class MemberController {
 	}
 	
 	//캠핑장 결제 내역 리스트
-	/*
-	@RequestMapping(value = "/cmapingPayList.do")
-	public String cmapingPayList(int reqPage,int memberNo, Model model) {
-		ArrayList<CampingPayment> list = service.selectPayList(memberNo, reqPage);	
-		model.addAttribute("list", list );
-		return "member/shopPayList";
-	}
-	*/
 	@RequestMapping(value = "/cmapingPayList.do")
 	public String cmapingPayList(int reqPage,int memberNo, Model model) {
 		MemberPageData mpd = service.selectPayList(memberNo, reqPage);	
@@ -137,10 +130,13 @@ public class MemberController {
 		return "member/shopPayList";
 	}
 	
-	//캠핑용품 결제 리스트
 	
+	//캠핑용품 결제 리스트
 	@RequestMapping(value = "/productPayList.do")
-	public String productPayList(int reqPage,int memberNo, Model model) {
+	public String productPayList(int reqPage,String memberId, Model model) {
+		ProductPageData ppd = service.productPayList(memberId, reqPage);	
+		model.addAttribute("list", ppd.getList() );
+		model.addAttribute("navi", ppd.getPageNavi() );
 		return "member/productPayList";
 	}
 	
