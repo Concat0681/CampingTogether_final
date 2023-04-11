@@ -134,7 +134,8 @@ public class MemberController {
 	//캠핑장 결제 내역 리스트
 	@RequestMapping(value = "/cmapingPayList.do")
 	public String cmapingPayList(int reqPage,int memberNo, Model model) {
-		MemberPageData mpd = service.selectPayList(memberNo, reqPage);	
+		MemberPageData mpd = service.selectPayList(memberNo, reqPage);
+		System.out.println(mpd.getList());
 		model.addAttribute("list", mpd.getList() );
 		model.addAttribute("navi", mpd.getPageNavi() );
 		return "member/shopPayList";
