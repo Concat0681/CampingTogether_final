@@ -57,15 +57,7 @@ public class MemberService {
 		map.put("memberNo", memberNo);
 		
 		ArrayList<CampingPayment> list = dao.selectPayList(map);
-		
-<<<<<<< HEAD
-		//pageNavi 제작 시작
-		//전체 게시물 수 필요 -> 전체 게시물 수 조회 
-=======
-		//pageNavi 占쎌젫占쎌삂 占쎈뻻占쎌삂
-		//占쎌읈筌ｏ옙 野껊슣�뻻�눧占� 占쎈땾 占쎈툡占쎌뒄 -> 占쎌읈筌ｏ옙 野껊슣�뻻�눧占� 占쎈땾 鈺곌퀬�돳 
-		System.out.println(memberNo);
->>>>>>> main
+
 		int totalCount = dao.selectPayListCount(memberNo);
 		
 		//占쎌읈筌ｋ떯苡띰옙�뻻�눧�눖以� 占쎌읈筌ｏ옙 占쎈읂占쎌뵠筌욑옙 占쎈땾 �④쑴沅�
@@ -143,8 +135,6 @@ public class MemberService {
 			MemberPageData mpd = new MemberPageData(list,pageNavi);
 			 return mpd;
 			}
-<<<<<<< HEAD
-
 	
 	//캠핑용품 결제 리스트
 	public ProductPageData productPayList(String memberId, int reqPage) {
@@ -225,9 +215,6 @@ public class MemberService {
 	}
 		
 
-
-=======
-
 	
 		
 
@@ -259,7 +246,6 @@ public class MemberService {
 		 return mpd;
 		}
 		 */
->>>>>>> main
 	}
 	
 

@@ -56,7 +56,6 @@ public class MemberDao {
 		return totalCount;
 	}
 
-<<<<<<< HEAD
 	//로그인회원 SHOP 결제 리스트
 	public ArrayList<ProductPayment> selectProductPayList(HashMap<String, Object> map) {
 		List list = sqlsession.selectList("member.selectProcuctPayList",map);
@@ -67,10 +66,11 @@ public class MemberDao {
 	public int selectProductPayListCount(String memberId) {
 		int totalCount = sqlsession.selectOne("member.productTotalCount",memberId);
 		return totalCount;
-=======
+		
+	}
+	
 	public int idCheck(String memberId) {
 		return sqlsession.selectOne("member.idCheck", memberId);
->>>>>>> main
 	}
 	
 	
