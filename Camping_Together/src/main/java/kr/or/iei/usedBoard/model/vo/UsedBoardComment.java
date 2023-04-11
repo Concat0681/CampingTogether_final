@@ -15,7 +15,7 @@ public class UsedBoardComment {
 	private String regDate;
 	private int commentCount;
 	
-	public String getUsedBoardCommentContent() {
+	public String getUsedBoardCommentContentBr() {
 		return usedBoardCommentContent.replaceAll("\r\n", "<br>");
 	}
 }

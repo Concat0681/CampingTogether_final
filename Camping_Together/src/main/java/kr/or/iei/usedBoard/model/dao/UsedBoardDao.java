@@ -61,4 +61,19 @@ public class UsedBoardDao {
 		List list = sqlSession.selectList("usedBoard.selectCommentList", usedBoardNo);
 		return (ArrayList<UsedBoardComment>)list;
 	}
+
+	public int commentCount(int usedBoardNo) {
+		int commentCount = sqlSession.selectOne("usedBoard.commentCount", usedBoardNo);
+		return commentCount;
+	}
+
+	public int updateUsedBoardComment(UsedBoardComment ubc) {
+		int result = sqlSession.update("usedBoard.updateUsedBoardComment", ubc);
+		return result;
+	}
+
+	public int deleteUsedBoardComment(int usedBoardCommentNo) {
+		int result = sqlSession.delete("usedBoard.deleteUsedBoardComment", usedBoardCommentNo);
+		return result;
+	}
 }

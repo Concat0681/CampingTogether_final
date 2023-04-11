@@ -26,44 +26,44 @@ public class UsedBoard {
 	private ArrayList<UsedBoardPhoto> usedBoardPhotoList;
 	private String thumbnail;
 	
-	public String getUsedBoardCategory() {
+	public String getUsedBoardCategoryText() {
 		String category = "";
 		if(usedBoardCategory == 1) {
-			category = "Àü±â/ÀüÀÚÁ¦Ç°";
+			category = "ì „ê¸°/ì „ìì œí’ˆ";
 		}else if(usedBoardCategory == 2) {
-			category = "Ä·ÇÎÄ«/Ä«¶ó¹İ¿ëÇ°";
+			category = "ìº í•‘ì¹´/ì¹´ë¼ë°˜ìš©í’ˆ";
 		}else if(usedBoardCategory == 3) {
-			category = "È­·Î/¹ö³Ê/BBQ";
+			category = "í™”ë¡œ/ë²„ë„ˆ/BBQ";
 		}else if(usedBoardCategory == 4) {
-			category = "¾ÈÀü/À§»ı¿ëÇ°";
+			category = "ì•ˆì „/ìœ„ìƒìš©í’ˆ";
 		}else if(usedBoardCategory == 5) {
-			category = "ÅÙÆ®/Å¸ÇÁ";
+			category = "í…íŠ¸/íƒ€í”„";
 		}else if(usedBoardCategory == 6) {
-			category = "Ä§³¶/¸ÅÆ®";
+			category = "ì¹¨ë‚­/ë§¤íŠ¸";
 		}else if(usedBoardCategory == 7) {
-			category = "Â÷¹Ú¿ëÇ°";
+			category = "ì°¨ë°•ìš©í’ˆ";
 		}else if(usedBoardCategory == 8) {
-			category = "Á¶¸í±â±¸";
+			category = "ì¡°ëª…ê¸°êµ¬";
 		}else if(usedBoardCategory == 9) {
-			category = "±âÅ¸Ä·ÇÎ¿ëÇ°";
+			category = "ê¸°íƒ€ìº í•‘ìš©í’ˆ";
 		}else if(usedBoardCategory == 10) {
-			category = "±âÅ¸»ıÈ°¿ëÇ°";
+			category = "ê¸°íƒ€ìƒí™œìš©í’ˆ";
 		}
 		return category;
 	}
-	public String getUsedProductStatus() {
+	public String getUsedProductStatusText() {
 		if(usedProductStatus == 0) {
-			return "Áß°í »óÇ°";
+			return "ì¤‘ê³  ìƒí’ˆ";
 		}else if(usedProductStatus == 1){
-			return "»õ »óÇ°";
+			return "ìƒˆ ìƒí’ˆ";
 		}
 		return null;
 	}
-	public String getExchangeStatus() {
+	public String getExchangeStatusText() {
 		if(exchangeStatus == 0) {
-			return "±³È¯°¡´É";
+			return "êµí™˜ê°€ëŠ¥";
 		}else if(exchangeStatus == 1) {
-			return "±³È¯ºÒ°¡´É";
+			return "êµí™˜ë¶ˆê°€ëŠ¥";
 		}
 		return null;
 	}
