@@ -9,7 +9,6 @@ a {
 }
 
 .nav-link{
-	color: #fff;
 	font-weight: bolder;
 	text-align: center;
 }
@@ -72,6 +71,7 @@ body{
     z-index: 999;
     display: flex;
     padding-left: 100px;
+    border-bottom: 1px solid black;
     
 }
 
@@ -156,11 +156,7 @@ body{
   color: #fff;
 }
 
-.navbar.bg-light .navbar-brand,
-.navbar.bg-light .nav-link {
-  color: #fff;
-}
-
 .dropdown-menu{
 	margin-left: 25px;
+	
 }

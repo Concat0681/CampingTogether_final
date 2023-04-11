@@ -120,17 +120,21 @@
 </nav>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-	const navbarTop = document.querySelector('.wrapper-top');
-	const navbarBottom = document.querySelector('.navbar');
-	const navLinkt = document.querySelectorAll('.nav-linkT');
-	const navLink =  document.querySelectorAll('.nav-link');
- 	
+	
+const navbarTop = document.querySelector('.wrapper-top');
+const navbarBottom = document.querySelector('.navbar');
+const navLinkt = document.querySelectorAll('.nav-linkT');
+const navLink =  document.querySelectorAll('.nav-link');
 	
 	
 	function init() {
-		document.addEventListener('onload', function() {
+		document.addEventListener('load', function() {
 			navbarTop.style.backgroundColor = 'rgba(173, 139, 115, 0.2)';
 			navbarBottom.style.backgroundColor = 'rgba(173, 139, 115, 0.2)';
+			for(let i=0; i < navLink.length; i++){
+	        	  navLink[i].style = 'color';
+	        	  navLink[i].style.color = 'rgb(255, 255, 255)';
+	          }
 		});
 		
 		  window.addEventListener('scroll', function() {
@@ -222,6 +226,8 @@
         });
     });
 
+    
+    
     
     </script>
     
