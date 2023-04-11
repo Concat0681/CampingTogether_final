@@ -11,6 +11,11 @@ public class UsedBoardComment {
 	private int usedBoardCommentNo;
 	private int usedBoardNo;
 	private String usedBoardCommentWriter;
-	private String usedBoardCommnetContent;
+	private String usedBoardCommentContent;
 	private String regDate;
+	private int commentCount;
+	
+	public String getUsedBoardCommentContent() {
+		return usedBoardCommentContent.replaceAll("\r\n", "<br>");
+	}
 }

@@ -1,4 +1,4 @@
-	/* �뜝�럡�뀬�뜝�럩�뮔�뜝�럥留� font �뜝�럡�맖�뜝�럥�꽘 */
+	/* 占쎈쐻占쎈윞占쎈�э옙�쐻占쎈윪占쎈츛占쎈쐻占쎈윥筌랃옙 font 占쎈쐻占쎈윞占쎈쭡占쎈쐻占쎈윥占쎄퐯 */
 @font-face {
   font-family: ng-bold;
   src: url(../font/Nanum_Gothic/NanumGothic-Bold.ttf);
@@ -13,7 +13,7 @@
 }
 
 /* 
-    �뜝�럡�뀬�뜝�럩逾졾뜝�럥諭� �뜝�럡�뀬�뜝�럩�뮔 �뜝�럡�돰�뜝�럡留� 
+    占쎈쐻占쎈윞占쎈�э옙�쐻占쎈윪�얠±�쐻占쎈윥獄�占� 占쎈쐻占쎈윞占쎈�э옙�쐻占쎈윪占쎈츛 占쎈쐻占쎈윞占쎈룿占쎈쐻占쎈윞筌랃옙 
     balck : #252A34
     darkgray : #393E46
     lightgray : #EEEEEE
@@ -23,22 +23,22 @@
     point-pink : #F85F73
     point-violet : #892CDC
 */
-/* �뜝�럩�쓧嶺뚳퐢�샑繹먲옙�윜諭꾩삕 �뼨轅명�∽옙沅� margin, padding �뜝�럩�젷濾곌쒀�삕 */
-/* �뼨轅명�∽옙沅� �뼨�먯삕�뜝�럥�럞 �뜝�럡�돰 �뛾�룊�삕 �뜝�럥竊잌뜝�럥諭� �뜝�럡�맟�뜝�럩�젧 */
+/* 占쎈쐻占쎈윪占쎌벁癲ル슪�맊占쎌깙濚밸㉡�삕占쎌쐺獄�袁⑹굲 占쎈섀饔낅챸占썩댙�삕亦낉옙 margin, padding 占쎈쐻占쎈윪占쎌졆癲꾧퀗��占쎌굲 */
+/* 占쎈섀饔낅챸占썩댙�삕亦낉옙 占쎈섀占쎈Ŋ�굲占쎈쐻占쎈윥占쎈윛 占쎈쐻占쎈윞占쎈룿 占쎈쎗占쎈즸占쎌굲 占쎈쐻占쎈윥塋딆엺�쐻占쎈윥獄�占� 占쎈쐻占쎈윞占쎈쭫占쎈쐻占쎈윪占쎌젳 */
 
 * {
   margin: 0;
   padding: 0;
   font-family: ng-regular;
 }
-/* �뼨轅명�∽옙沅� �뵓怨뚯뫓占쎈괏 3�뤆�룊�삕 */
+/* 占쎈섀饔낅챸占썩댙�삕亦낉옙 占쎈탶�⑤슣維볟뜝�럥愿� 3占쎈쨬占쎈즸占쎌굲 */
 .btn1{
 	background-color : #AD8B73;
 	border : none;
 	color : white;
 	border-radius : 5px;
 }
-.btn2{
+.btn3{
 	background-color : #CEAB93;
 	border : none;
 	color : white;
@@ -51,7 +51,7 @@
 	border-radius : 5px;
 }
 
-/*�럹�씠吏��꽕�씠�뀡*/
+/*占쎈읂占쎌뵠筌욑옙占쎄퐬占쎌뵠占쎈��*/
 .pagination {
     list-style-type: none;
     display: flex;
@@ -75,7 +75,7 @@
     height: 100%;
     font-size: 18px;
 }
-    .pagination > li > a.page-item > span.material-icons {
+    .pagination > li > a.page-item > span.material-symbols-outlined {
     display: block;
     width: 100%;
     height: 100%;

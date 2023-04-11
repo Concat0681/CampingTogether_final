@@ -5,13 +5,13 @@
 }
 a {
   color: var(--text-color);
-  color: #fff;
   font-family: ng-extra-bold;
 }
 
 .nav-link{
-	color: #fff ;
+	color: #fff;
 	font-weight: bolder;
+	text-align: center;
 }
 .nav-link-down:hover{
 	color: #AD8B73 !important ;
@@ -38,6 +38,14 @@ body{
 	font-size: 20px;
 	padding: 10px;
 }
+.nav-top>ul>li:hover>a{
+    font-weight: bolder;
+    color: #AD8B73;
+    text-decoration: none;
+    transition-duration: 0.5s;
+}
+
+
 .wrapper-top{
     margin: 0 auto;
     position: fixed;
@@ -45,9 +53,12 @@ body{
     top: 0;
     left: 0;
     right: 0;
-    background-color: rgba(173, 139, 115, 0.2);
+    background-color: rgba(206, 171, 147, 0.2);
     z-index: 999;
     display: flex; 
+}
+.wrapper-top>a{
+	color: #fff;
 }
 
 .wrapper-bottom{
@@ -96,7 +107,7 @@ body{
 .nav-top{
     margin-left: auto;
 }
-.nav-bottom>ul>li:hover>a{
+.collapse>ul>li:hover>a{
     font-weight: bolder;
     font-size: 1.4em;
     color: #AD8B73;
@@ -150,3 +161,6 @@ body{
   color: #fff;
 }
 
+.dropdown-menu{
+	margin-left: 25px;
+}

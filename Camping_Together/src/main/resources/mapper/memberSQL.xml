@@ -21,6 +21,9 @@
 		
 	</select>
 	
+	<select id="idCheck" resultType="integer">
+		select count(*) from member where member_id =#{member_id}
+	</select>
 	
 	<insert id="insertMember" parameterType="m"> <!--  insert delete update ResultType 절대 안씀 -->
 		insert into member values(member_seq.nextval,#{memberId},#{memberPw}, to_char(sysdate, 'yyyy-mm-dd'),#{memberPhone}, default, #{memberAddr}, null ,#{memberEmail},#{memberGrade},#{memberName})

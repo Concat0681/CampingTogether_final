@@ -2,10 +2,10 @@ package kr.or.iei.camping.model.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import kr.or.iei.camping.model.dao.CampingDao;
 import kr.or.iei.camping.model.vo.Camping;
@@ -13,6 +13,7 @@ import kr.or.iei.camping.model.vo.CampingEtc;
 import kr.or.iei.camping.model.vo.CampingListPageData;
 import kr.or.iei.camping.model.vo.CampingProvideService;
 import kr.or.iei.camping.model.vo.CampingReview;
+import kr.or.iei.camping.model.vo.CampingReviewData;
 import kr.or.iei.camping.model.vo.CampingReviewFileVO;
 import kr.or.iei.camping.model.vo.CampingRoom;
 import kr.or.iei.camping.model.vo.ViewCampingData;
@@ -76,15 +77,15 @@ public class CampingService {
 		if(reqPage > 3) {
 			pageNo = reqPage - 2 ;
 		}
-		String pageNavi = "";
+		String pageNavi = "<ul class='pagination circle-style'>";
 		if(pageNo != 1) {
-			pageNavi += "<a onclick='sendDetailSearch("+null+","+(pageNo-1)+")'>[이전]</a>";
+			pageNavi += "<li><a class='page-item'onclick='sendNavi("+(pageNo-1)+")'><span class='material-symbols-outlined'>chevron_left</span></a></li>";
 		}
 		for(int i=0;i<pageNaviSize;i++) {
 			if(pageNo == reqPage) {
-				pageNavi += "<span>"+pageNo+"</span>";
+				pageNavi += "<li><a class='page-item active-page'>"+pageNo+"</a></li>";
 			} else {
-				pageNavi += "<a onclick='sendDetailSearch("+null+","+pageNo+")'>"+pageNo+"</a>";
+				pageNavi += "<li><a class='page-item' onclick='sendNavi("+pageNo+")'>"+pageNo+"</a></li>";
 			}
 			pageNo++;
 			if(pageNo > totalPage) {
@@ -92,7 +93,7 @@ public class CampingService {
 			}
 		}
 		if(pageNo <= totalPage) {
-			pageNavi += "<a onclick='sendDetailSearch("+null+","+(pageNo)+")'>[다음]</a>";
+			pageNavi += "<li><a class='page-item' onclick='sendNavi("+(pageNo)+")'><span class='material-symbols-outlined'>chevron_right</span></a></li>";
 		}
 		map.put("start", null);
 		map.put("end", null);
@@ -138,6 +139,28 @@ public class CampingService {
 			}
 		}
 		return result;
+	}
+
+	public CampingReviewData selectCampingReview(int campingNo) {
+		CampingReviewData crd = new CampingReviewData();
+		ArrayList<CampingReview> crv = dao.selectCampingReview(campingNo);
+		crd.setReviewList(crv);
+		if(crv != null) {
+			List<Integer> campingReviewNoList = dao.selectCampingReviewNo(campingNo);
+			int campingReviewNo = campingReviewNoList.get(0);
+			ArrayList<CampingReviewFileVO> fileList = dao.selectCampingReviewPhoto(campingReviewNo);
+			crd.setFileList(fileList);
+		}
+		return crd;
+	}
+
+	public int insertReviewComment(CampingReview crv) {
+		int result = dao.insertReviewComment(crv);
+		if(result > 0) {
+			return result;
+		}else {
+			return 0;
+		}
 	}
 
 	

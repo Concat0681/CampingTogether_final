@@ -6,9 +6,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <style>
    a{
+   	   color: var(--text-color);
        color: black;
        text-decoration: none;
    }
@@ -27,9 +29,10 @@
        margin: 0 auto;
        padding-top: 130px;
    }
-   .content-top>h1{
+   .content-top>h2{
        margin: 20px;
        padding-top: 20px;
+       font-family: ng-bold;
    }
    .category-wrap{
        margin: 20px;
@@ -179,7 +182,7 @@
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
     <div class="page-content">
         <div class="content-top">
-            <h1>중고장터</h1>
+            <h2>중고장터</h2>
             <div class="category-wrap">
                 <div class="category">
                     <select class="used-category" name="usedBoardCategory">
@@ -225,6 +228,7 @@
         <div class="content-mid-wrap">
             <div class="content-mid">
             	<c:forEach items="${list }" var="ub">
+            	<input type="hidden" id="usedBoardNo" value="${ub.usedBoardNo }">
             	<div class="product-wrap">
                     <div class="product">
                         <div class="product-img">
@@ -299,6 +303,6 @@
         <div class="pagenation">
 	        ${pageNavi }
         </div>
-    </div>
+    </div>  
 </body>
 </html>

@@ -13,7 +13,6 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <link href="/resources/css/campingReview.css" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
@@ -231,70 +230,92 @@
 						  </div>
 						</div>
 						
-						<div style="margin-top: 50px;">
-					        <ul class="posting-comment">
-					          <li style="padding-left: 90px;">
-					            <span class="material-icons">account_box</span>
-					          </li>
-					          <li>
-					            <p class="comment-info">
-					              <span>리뷰제목</span>
-					            </p>
-					            <p>
-					            	<span style="padding-left: 10px;">별별별별별</span>
-					            </p>
-					            <p class="comment-content">댓글내용댓글내용댓글내용</p>
-					            
-					            
-					            <!-- 캐러셀 컨테이너 정의 -->
-								<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" style="width: 500px;">
-								  <!-- 캐러셀 내용 정의 -->
-								  <div class="carousel-inner" style="width: 500px; height: 500px;">
-								    <div class="carousel-item active">
-								      <img src="resources/upload/campingRoom/도라.jfif" class="d-block w-100" alt="..." style="width: 500px; height: 500px;">
-								    </div>
-								    <div class="carousel-item">
-								      <img src="resources/upload/campingRoom/도라.jfif" class="d-block w-100" alt="..." style="width: 500px; height: 500px;">
-								    </div>
-								    <div class="carousel-item">
-								      <img src="resources/upload/campingRoom/도라.jfif" class="d-block w-100" alt="..." style="width: 500px; height: 500px;">
-								    </div>
-								  </div>
-								  
-								  <!-- 이전/다음 버튼 정의 -->
-								  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-								    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-								    <span class="visually-hidden">이전</span>
-								  </button>
-								  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-								    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-								    <span class="visually-hidden">다음</span>
-								  </button>
-								</div>
-					            <p class="comment-link">
-					              <a href="#">수정</a>
-					              <a href="#">삭제</a>
-					              <a href="#">답글달기</a>
-					            </p>
-					          </li>
-					        </ul>
-					        <ul class="posting-comment reply">
-					          <li style="padding-left: 90px;">
-					            <span class="material-icons">subdirectory_arrow_right</span>
-					            <span class="material-icons">account_box</span>
-					          </li>
-					          <li>
-					            <p class="comment-info">
-					              <span>user01</span>
-					            </p>
-					            <p class="comment-content">댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용</p>
-					            <p class="comment-link">
-					              <a href="#">수정</a>
-					              <a href="#">삭제</a>
-					            </p>
-					          </li>
-					        </ul>
-			      		</div>
+					<c:forEach items="${campingReview }" var="cr">
+						<c:if test="${cr.campingReviewRating != 0}">
+							<div style="margin-top: 50px;">
+						        <ul class="posting-comment">
+						          <li style="padding-left: 90px;">
+						            <span class="material-icons">account_box</span>
+						          </li>
+						          <li>
+						            <p class="comment-info">
+						              <span>${cr.campingReviewTitle }</span>
+						            </p>
+						            <p>
+						            	<span style="padding-left: 10px;">${cr.campingReviewRating }</span>
+						            </p>
+						            <p class="comment-content">${cr.campingReviewContent }</p>
+						            
+						            
+						            <!-- 캐러셀 컨테이너 정의 -->
+									<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" style="width: 500px;">
+									  <!-- 캐러셀 내용 정의 -->
+									  <c:forEach items="${campingReviewPhoto }" var="crp">
+									  	<div class="carousel-inner" style="width: 500px; height: 500px;">
+										    <div class="carousel-item active">
+										      <img src="resources/upload/campingRoom/${crp.filepath }" class="d-block w-100" alt="..." style="width: 500px; height: 500px;">
+										    </div>
+										  </div>
+									  </c:forEach>
+									  
+									  <!-- 이전/다음 버튼 정의 -->
+									  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+									    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+									    <span class="visually-hidden">이전</span>
+									  </button>
+									  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+									    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+									    <span class="visually-hidden">다음</span>
+									  </button>
+									</div>
+						            <p class="comment-link">
+						              <a href="#">수정</a>
+						              <a href="#">삭제</a>
+						              <a href="javascript:void(0)" class="recShow"><span class="material-symbols-outlined">sms</span></a>
+						            </p>
+						          </li>
+						        </ul>
+					        	
+				        	<c:if test="${cr.campingReviewRating == 0}">
+						        <ul class="posting-comment reply">
+						          <li style="padding-left: 90px;">
+						            <span class="material-icons">subdirectory_arrow_right</span>
+						            <span class="material-icons">account_box</span>
+						          </li>
+						          <li>
+						            <p class="comment-info">
+						              <span>${cr.memberId }</span>
+						            </p>
+						            <p class="comment-content">${cr.campingReviewContent }</p>
+						            <p class="comment-link">
+						              <a href="#">수정</a>
+						              <a href="#">삭제</a>
+						            </p>
+						          </li>
+						        </ul>
+					        </c:if>
+				      		</div>
+			      		</c:if>
+			      		
+			      		<div class="inputCommentBox inputRecommentBox">
+							<form action="/insertReviewComment.do" method="post">
+								<ul class="comment-ul">
+									<li>
+										<span class="material-icons" style="font-size:100px;">subdirectory_arrow_right</span>
+									</li>
+									<li>
+										<input type="hidden" name="memberId" value="user01">
+										<input type="hidden" name="campingNo" value="${camping.campingNo }">
+										<input type="hidden" name="campingReviewRef" value="${cr.campingReviewNo }">
+										<textarea name="campingReviewContent" class="input-form" style="min-height: 100px;" placeholder="댓글을 입력해주세요"></textarea>
+									</li>
+									<li>
+										<button type="submit" class="btn bc1 bs2">등록</button>
+									</li>
+								</ul>
+							</form>
+						</div>
+					</c:forEach>
 					    
 					</div>
 				</div>
@@ -488,6 +509,19 @@
 		    newValue = 5;
 		  }
 		  $(this).val(newValue);
+		});
+	</script>
+	
+	<script>
+		$(".recShow>span").on("click",function(){
+			const idx = $(".recShow>span").index(this);
+			if($(this).text()=="sms"){
+				$(this).text("close");
+			}else{
+				$(this).text("sms");
+			}
+			$(".inputRecommentBox").eq(idx).toggle();
+			$(".inputRecommentBox").eq(idx).find("textarea").focus();
 		});
 	</script>
 </body>

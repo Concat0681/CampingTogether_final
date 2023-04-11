@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.or.iei.member.model.service.MemberService;
@@ -65,13 +67,20 @@ public class MemberController {
 	
 	}
 	
-
+	@RequestMapping(value = "/idCheck.do", method = RequestMethod.POST)
+	@ResponseBody
+	public int idCheck(@RequestParam("memberId") String memberId) {
+		return service.idCheck(memberId);
+	}
+	
+	
+	
 	@RequestMapping(value = "/mypageC.do")
 	public String mypageC() {
 		return "member/mypageCFrm";
 	}
-	//------------------------------------ä��
-	//------------------------------------ä��
+	//------------------------------------梨꾢뜝�룞�삕
+	//------------------------------------梨꾢뜝�룞�삕
 	@RequestMapping(value ="/allMemberChatFrm.do")
 	public String allMemberChatFrm() {
 		return"member/allMemberChatFrm";
@@ -110,7 +119,7 @@ public class MemberController {
 		return "member/updateMypageCFrm";
 	}
 	
-	//회원탈퇴
+	//占쎌돳占쎌뜚占쎄퉱占쎈닚
 	@RequestMapping(value = "/deleteMember.do")
 	public String deleteMember(int memberNo) {
 		int result = service.deleteMember(memberNo);
@@ -121,7 +130,19 @@ public class MemberController {
 		}
 	}
 	
+<<<<<<< HEAD
 	//캠핑장 결제 내역 리스트
+=======
+	//筌�醫뤿릅占쎌삢 野껉퀣�젫 占쎄땀占쎈열 �뵳�딅뮞占쎈뱜
+	/*
+	@RequestMapping(value = "/cmapingPayList.do")
+	public String cmapingPayList(int reqPage,int memberNo, Model model) {
+		ArrayList<CampingPayment> list = service.selectPayList(memberNo, reqPage);	
+		model.addAttribute("list", list );
+		return "member/shopPayList";
+	}
+	*/
+>>>>>>> main
 	@RequestMapping(value = "/cmapingPayList.do")
 	public String cmapingPayList(int reqPage,int memberNo, Model model) {
 		MemberPageData mpd = service.selectPayList(memberNo, reqPage);	
@@ -130,6 +151,13 @@ public class MemberController {
 		return "member/shopPayList";
 	}
 	
+<<<<<<< HEAD
+=======
+
+	//筌�醫뤿릅占쎌뒠占쎈�� 野껉퀣�젫 �뵳�딅뮞占쎈뱜
+	/*
+	//罹좏븨�슜�뭹 寃곗젣 由ъ뒪�듃
+>>>>>>> main
 	
 	//캠핑용품 결제 리스트
 	@RequestMapping(value = "/productPayList.do")
@@ -139,7 +167,7 @@ public class MemberController {
 		model.addAttribute("navi", ppd.getPageNavi() );
 		return "member/productPayList";
 	}
-	
+	*/
 	
 }
 

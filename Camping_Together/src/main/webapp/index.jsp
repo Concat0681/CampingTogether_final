@@ -6,9 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bxslider/4.2.15/jquery.bxslider.min.css" rel="stylesheet" media="all">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bxslider/4.2.15/jquery.bxslider.min.js"></script>
 
     <script>
       $(document).ready(function(){
@@ -26,26 +26,7 @@
 				<img src="/resources/image/main/back1.jpg" style="width: 100%; height:1000px;">
 			</div>
 			<div class="inputBox" style="display: block;">
-				<form action="#" method="post">
-					<div class="row g-2">
-					  <div class="col-md">
-					    <div class="main">
-					      <select class="mainSelect">
-					        <option value="1">지역</option>
-					        <option value="2">캠핑장</option>
-					      </select>
-					      
-					    </div>
-					  </div>
-					  
-					  <div class="col-md">
-					    <div class="form-floating">
-					      <input type="text" class="mainSearch" placeholder=" 선택한 분류에 맞게 지역 & 캠핑장을 입력해주세요">
-					    </div>
-					  </div>
-					  
-					</div>
-				</form>
+				<jsp:include page="/WEB-INF/views/camping/campingListHeader.jsp" />
 			</div>
 			<div class="best-campingSite">
 				<div class="capmingListBox">
@@ -66,35 +47,35 @@
 						  <ul class="bxslider">
 						    <li>
 						      <img src="/resources/image/camping/busan.jpeg" />
-						      <div class="caption">부산</div>
+						      <div class="caption" id="busan">부산</div>
 						    </li>
 						    <li>
 						      <img src="/resources/image/camping/incheon.jpeg"/>
-						      <div class="caption">인천</div>
+						      <div class="caption" id="incheon">인천</div>
 						    </li>
 						    <li>
 						      <img src="/resources/image/camping/seoul.jpeg" />
-						      <div class="caption">서울</div>
+						      <div class="caption" id="seoul">서울</div>
 						    </li>
 						    <li>
 						      <img src="/resources/image/camping/sokcho.jpeg" />
-						      <div class="caption">속초</div>
+						      <div class="caption" id="sokcho">속초</div>
 						    </li>
 						    <li>
 						      <img src="/resources/image/camping/ganglueng.jpeg" />
-						      <div class="caption">강릉</div>
+						      <div class="caption" id="ganglueng">강릉</div>
 						    </li>
 						    <li>
 						      <img src="/resources/image/camping/jeju.jpeg"/>
-						      <div class="caption">제주</div>
+						      <div class="caption" id="jeju">제주</div>
 						    </li>
 						    <li>
 						      <img src="/resources/image/camping/seoul.jpeg" />
-						      <div class="caption">서울</div>
+						      <div class="caption" id="seoul">서울</div>
 						    </li>
 						    <li>
 						      <img src="/resources/image/camping/sokcho.jpeg" />
-						      <div class="caption">속초</div>
+						      <div class="caption" id="sokcho">속초</div>
 						    </li>
 						  </ul>
 					</div>
@@ -117,27 +98,42 @@
 				</div>
 			</div>	
 		</div>
-		<div class="wrapperMiddle-trade"></div>
+		<div class="wrapperMiddle-tradeBox">
+			<div class="wrapperMiddle-tradeContent">
+				<div class="tradeContentBoarder">
+					<div>
+					<img src="/resources/image/camping/seoul.jpeg" style="width:200px;"></div>
+				</div>
+			</div>
+			<div class="wrapperMiddle-tradeContent">
+				<div class="tradeContentBoarder">
+					중고거래 컨텐츠2
+					<div class="tradeImg"></div>
+				</div>
+			</div>
+			<div class="wrapperMiddle-tradeContent">
+				<div class="tradeContentBoarder">
+					중고거래 컨텐츠3
+					<div class="tradeImg"></div>
+				</div>
+			</div>
+		</div>
 		<div class="wrapperMiddle-shop"></div>
 		<div class="wrapperBottom"></div>
  	
 	
 	<button class="btn1" style="width : 100px; height : 30px;">버튼</button>
 	<button class="btn2" style="width : 100px; height : 30px;">버튼</button>
-	<button class="btn2" style="width : 100px; height : 30px;">버튼</button>
+	<button class="btn3" style="width : 100px; height : 30px;">버튼</button>
 
 	<a href="/usedBoardList.do">중고장터</a>
 
 	
 	<a href="/noticeList.do?reqPage=1">공지사항</a>
 	
-	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 </body>
+<script src="resources/js/camping/dateRangePicker.js"></script>
 <script>
 
 $(document).ready(function() {
@@ -150,6 +146,11 @@ $(document).ready(function() {
     navbarBottom.css('backgroundColor', 'rgba(173, 139, 115, 0.2)');
 });
 
+$(".caption").prev().on("click", function(){
+	const cityNameEN = $(this).next().attr("id");
+	const cityNameKR = $(this).next().text();
+	location.href="/campingList.do?cityNameEN="+cityNameEN+"&cityNameKR="+cityNameKR+"&reqPage=1&order=avgReviewRating&pplCount=0";
+})
 
 $('.bxslider').bxSlider({
     minSlides: 3,
@@ -157,6 +158,7 @@ $('.bxslider').bxSlider({
     slideWidth: 170,
     slideMargin: 10
   });
+
 
 const inputBox = $('.inputBox');
 
