@@ -95,7 +95,7 @@
        cursor: pointer;
    }
    .product:hover{
-       border: 1px solid #E3CAA5;
+       box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.2);
    }
    .product-img{
        width: 100%;
@@ -230,7 +230,7 @@
             	<c:forEach items="${list }" var="ub">
             	<input type="hidden" id="usedBoardNo" value="${ub.usedBoardNo }">
             	<div class="product-wrap">
-                    <div class="product">
+                    <div class="product" onclick="location.href='/usedBoardView.do?usedBoardNo=${ub.usedBoardNo}'">
                         <div class="product-img">
                         <c:choose>
                         	<c:when test="${ub.usedBoardStatus eq 0}">
@@ -254,7 +254,7 @@
                         </c:choose>
                          
                         </div>
-                        <div class="product_title array" onclick="location.href='/usedBoardView.do?usedBoardNo=${ub.usedBoardNo}'">
+                        <div class="product_title array">
                             <span>${ub.usedBoardTitle }</span>
                         </div>
                         <div class="product_location array">
@@ -273,7 +273,7 @@
                                 <span>${ub.usedProductPrice }</span><span>원</span>
                             </div>
                             <div class="product-wish">
-                                <span id="favorite" class="material-symbols-outlined">favorite</span>
+                                <span id="favorite" class="material-symbols-outlined" style="z-index:1000;">favorite</span>
                             </div>
                         </div>
                         <div class="product-bottom array">
@@ -304,5 +304,10 @@
 	        ${pageNavi }
         </div>
     </div>  
+    <script>
+    	$("#favorite").on("click", function{
+    		alert("야호");
+    	});
+    </script>
 </body>
 </html>
