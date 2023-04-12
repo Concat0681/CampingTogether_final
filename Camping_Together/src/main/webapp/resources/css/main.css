@@ -1,14 +1,24 @@
 @charset "UTF-8";
+
+@import url('style.css');
+
+
 .backGround{
     z-index: 0;
     position: absolute;
     width: 100%;
    height: 1000px;
+   
 }
 .wrapper{
+	min-width: 1400px;
+}
+.wrapperBox{
+	width: 100%;
+}
+.wrapperTop{
 	height: 1000px;
 }
-
 
 .inputBox{
     width: 70%;
@@ -168,7 +178,6 @@
 }
 .wrapperMiddle-tradeBox{
 	width: 100%;
-	min-width: 1900px;
 	display: flex;
 	padding: 100px;
 	background-color: green;
@@ -200,5 +209,5 @@
 	min-width: 1070px;
 }
 .search-input-wrap{
-	min-width: 1300px;
+	min-width: 910px;
 }

@@ -16,7 +16,7 @@ import com.sun.xml.internal.ws.developer.Serialization;
 @Service
 public class MailService {
 	
-	
+	@Autowired
 	private JavaMailSenderImpl mailSender;
 	private int authNumber; 
 	// 난수 발생
@@ -45,9 +45,9 @@ public class MailService {
 			try {
 				MimeMessage message = mailSender.createMimeMessage();
 				helper = new MimeMessageHelper(message,true,"utf-8");
-				helper.setFrom(setFrom);
-				helper.setTo(toMail);
-				helper.setSubject(title);
+				helper.setFrom(setFrom); // 내주소 설정
+				helper.setTo(toMail); // 입력받은 메일
+				helper.setSubject(title); // 메일 제목
 				// true 전달 > html 형식으로 전송 , 작성하지 않으면 단순 텍스트로 전달.
 				helper.setText(content,true);
 				mailSender.send(message);

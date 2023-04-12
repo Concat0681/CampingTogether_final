@@ -44,7 +44,9 @@ body{
     transition-duration: 0.5s;
 }
 
-
+.headerBox{
+	width: 100%;
+}
 .wrapper-top{
     margin: 0 auto;
     position: fixed;
