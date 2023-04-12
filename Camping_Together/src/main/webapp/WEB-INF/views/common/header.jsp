@@ -70,7 +70,7 @@
     </div>
     </c:when>
 		<c:otherwise>
-	<div class="wrapper-top" style="background-color: rgba(255, 255, 255, 1);">
+	<div class="wrapper-top" style="background-color: rgba(173, 139, 115, 1);">
         <div class="nav-top" style="color: #fff;">
             <ul class="login">
                 <!-- <li><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">쪽지보내기</button></li> -->

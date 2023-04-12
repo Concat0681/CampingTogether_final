@@ -78,6 +78,7 @@
     border: 1px solid rgb(181, 181, 181);
 }
 
+
 #pwCheck{
     background-color: #AD8B73;
     color: white;
@@ -143,7 +144,7 @@
     padding-left: 10px;
 }
 
-.reset{
+.btnDiv>.ok{
     background-color: #AD8B73;
 	border:1.5px solid #AD8B73;
 	width: 90px;
@@ -155,6 +156,8 @@
 
 }
 
-
+.title-wrap>.title-list>ul>li>a{
+    width: 100%;
+}
 
 
