@@ -6,17 +6,32 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bxslider/4.2.15/jquery.bxslider.min.css" rel="stylesheet" media="all">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bxslider/4.2.15/jquery.bxslider.min.js"></script>
-
-    <script>
-      $(document).ready(function(){
-        $(".slider").bxSlider();
-      });
-    </script>
-<link href="/resources/css/default.css" rel="stylesheet"/> 	
-<link href="/resources/css/main.css" rel="stylesheet"/> 	
+  
+  <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
+  <!-- bxSlider CSS link -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bxslider/4.2.15/jquery.bxslider.min.css" rel="stylesheet" />	
+  <!-- jQuery library (served from Google) link -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <!-- bxSlider JavaScript link -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bxslider/4.2.15/jquery.bxslider.min.js"></script>
+ 
+	<script>
+	$(document).ready(function(){
+		  $('.bxslider').bxSlider({
+		    minSlides: 3,
+		    maxSlides: 6,
+		    slideWidth: 170,
+		    slideMargin: 10
+		  });
+		});
+	</script>
+  <!-- my JavaScript and CSS file --> 
+  <link href="/resources/css/default.css" rel="stylesheet"/> 	
+  <link href="/resources/css/main.css" rel="stylesheet"/> 
+  
+   	
+   	
+   	
 </head>
 <body onload="init()">
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
@@ -125,16 +140,13 @@
 	<button class="btn1" style="width : 100px; height : 30px;">버튼</button>
 	<button class="btn2" style="width : 100px; height : 30px;">버튼</button>
 	<button class="btn3" style="width : 100px; height : 30px;">버튼</button>
-
-	<a href="/usedBoardList.do">중고장터</a>
-
 	
-	<a href="/noticeList.do?reqPage=1">공지사항</a>
-	
-
 </body>
+
 <script src="resources/js/camping/dateRangePicker.js"></script>
+
 <script>
+
 
 $(document).ready(function() {
     const navbarTop = $('.wrapper-top');
@@ -144,6 +156,7 @@ $(document).ready(function() {
 
     navbarTop.css('backgroundColor', 'rgba(173, 139, 115, 0.2)');
     navbarBottom.css('backgroundColor', 'rgba(173, 139, 115, 0.2)');
+    navLink.css('color', '#fff');
 });
 
 $(".caption").prev().on("click", function(){
@@ -152,16 +165,10 @@ $(".caption").prev().on("click", function(){
 	location.href="/campingList.do?cityNameEN="+cityNameEN+"&cityNameKR="+cityNameKR+"&reqPage=1&order=avgReviewRating&pplCount=0";
 })
 
-$('.bxslider').bxSlider({
-    minSlides: 3,
-    maxSlides: 6,
-    slideWidth: 170,
-    slideMargin: 10
-  });
+
 
 
 const inputBox = $('.inputBox');
-
 function checkWindowSize() {
   if (window.innerWidth <= 800) {
     inputBox.hide();
@@ -169,9 +176,6 @@ function checkWindowSize() {
     inputBox.show();
   }
 }
-
 $(window).on('resize', checkWindowSize);
-
-
 </script>
 </html>

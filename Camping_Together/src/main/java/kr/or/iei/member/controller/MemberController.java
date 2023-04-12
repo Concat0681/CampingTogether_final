@@ -1,10 +1,19 @@
 package kr.or.iei.member.controller;
 
-import java.util.ArrayList;
+import java.io.UnsupportedEncodingException;
 
+import java.util.ArrayList;
+import java.util.Random;
+
+import javax.mail.Address;
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.or.iei.member.model.service.MailService;
 import kr.or.iei.member.model.service.MemberService;
 import kr.or.iei.member.model.vo.CampingPayment;
 import kr.or.iei.member.model.vo.Member;
@@ -24,6 +34,20 @@ public class MemberController {
 	
 	@Autowired
 	private MemberService service;
+	@Autowired
+	private MailService mailService;
+	
+	
+	@RequestMapping(value="/mailCheck.do", method=RequestMethod.POST)
+	@ResponseBody
+	public String mailCheck(String memberEmail) {
+		System.out.println("이메일 인증 요청 성공 ");
+		System.out.println("이메일 인증 이메일 : " + memberEmail);
+		return mailService.mailCheck(memberEmail);
+	}
+	
+	
+	
 	
 	@RequestMapping(value="/loginFrm.do")
 	public String loginFrm() {
@@ -72,8 +96,6 @@ public class MemberController {
 	public int idCheck(@RequestParam("memberId") String memberId) {
 		return service.idCheck(memberId);
 	}
-	
-	
 	
 	@RequestMapping(value = "/mypageC.do")
 	public String mypageC() {
@@ -154,6 +176,7 @@ public class MemberController {
 	
 	
 }
+
 
 
 

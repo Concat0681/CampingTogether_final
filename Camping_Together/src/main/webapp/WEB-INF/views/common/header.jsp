@@ -62,7 +62,7 @@
 		<div class="wrapper-top" style="background-color: rgba(173, 139, 115, 1);" >
         <div class="nav-top" style="color: #fff;">
             <ul class="login">
-            	<li><a class="nav-linkT" href="/noticeList.do">공지사항</a></li>
+            	<li><a class="nav-linkT" href="/noticeList.do?reqPage=1">공지사항</a></li>
                 <li><a class="nav-linkT" href="/loginFrm.do">로그인</a></li>
                 <li><a class="nav-linkT" href="/joinFrm.do">회원가입</a></li>
             </ul>
@@ -111,7 +111,7 @@
             <li><a class="dropdown-item" href="/boardFoodList.do?reqPage=1">캠핑 레시피</a></li>
             <li><a class="dropdown-item" href="#">캠핑 Tip</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">채팅</a></li>
+            <li><a class="dropdown-item" href="allMemberChatFrm.do">채팅</a></li>
           </ul>
         </li>
       </ul>
@@ -120,17 +120,21 @@
 </nav>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-	const navbarTop = document.querySelector('.wrapper-top');
-	const navbarBottom = document.querySelector('.navbar');
-	const navLinkt = document.querySelectorAll('.nav-linkT');
-	const navLink =  document.querySelectorAll('.nav-link');
- 	
+	
+const navbarTop = document.querySelector('.wrapper-top');
+const navbarBottom = document.querySelector('.navbar');
+const navLinkt = document.querySelectorAll('.nav-linkT');
+const navLink =  document.querySelectorAll('.nav-link');
 	
 	
 	function init() {
-		document.addEventListener('onload', function() {
+		document.addEventListener('load', function() {
 			navbarTop.style.backgroundColor = 'rgba(173, 139, 115, 0.2)';
 			navbarBottom.style.backgroundColor = 'rgba(173, 139, 115, 0.2)';
+			for(let i=0; i < navLink.length; i++){
+	        	  navLink[i].style = 'color';
+	        	  navLink[i].style.color = 'rgb(255, 255, 255)';
+	          }
 		});
 		
 		  window.addEventListener('scroll', function() {
@@ -222,6 +226,8 @@
         });
     });
 
+    
+    
     
     </script>
     
