@@ -102,4 +102,11 @@
 	<delete id="deleteFoodComment" parameterType="_int">
 		delete from food_comment where food_comment_no = #{foodCommentNo}
 	</delete>
+	<select id="getFile" parameterType="_int" resultType="f">
+		select
+			file_no as fileNo,
+			board_food_no as boardFoodNo,
+			filepath
+		from file_tbl where file_no = #{_parameter}
+	</select>
 </mapper>

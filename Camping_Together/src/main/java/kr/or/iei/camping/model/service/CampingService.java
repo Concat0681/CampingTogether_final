@@ -63,6 +63,7 @@ public class CampingService {
 		map.put("start", start);
 		map.put("end", end);
 		map.put("order", order);
+		map.put("sido", camping.getCampingSido());
 		map.put("campingEtcList", camping.getCampingEtcList());
 		map.put("campingRoomServiceList", camping.getCampingRoomServiceList());
 		map.put("campingProvideServiceList", camping.getCampingProvideServiceList());
@@ -144,13 +145,13 @@ public class CampingService {
 	public CampingReviewData selectCampingReview(int campingNo) {
 		CampingReviewData crd = new CampingReviewData();
 		ArrayList<CampingReview> crv = dao.selectCampingReview(campingNo);
-		crd.setReviewList(crv);
-		if(crv != null) {
-			List<Integer> campingReviewNoList = dao.selectCampingReviewNo(campingNo);
-			int campingReviewNo = campingReviewNoList.get(0);
-			ArrayList<CampingReviewFileVO> fileList = dao.selectCampingReviewPhoto(campingReviewNo);
-			crd.setFileList(fileList);
+		if(crv.size() > 0) {
+			for(CampingReview r : crv) {
+				ArrayList<CampingReviewFileVO> fileList = dao.selectCampingReviewPhoto(r.getCampingReviewNo());
+				r.setFileList(fileList);
+			}
 		}
+		crd.setReviewList(crv);
 		return crd;
 	}
 

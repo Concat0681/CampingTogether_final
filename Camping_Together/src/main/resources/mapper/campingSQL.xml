@@ -14,14 +14,18 @@
 					member_id as memberId,
 					camping_title as campingTitle,
 					camping_content as campingContent,
+					camping_sido as campingSido,
 					camping_addr as campingAddr,
 					camping_addr_detail as campingAddrDetail,
 					camping_phone as campingPhone,
 					filepath
 				from camping)c
 			<trim prefix="where" prefixOverrides="and|or">
+				<if test="campingSido != null">
+					 and campingSido like '%'||#{campingSido }||'%'
+				</if>
 				<if test="campingAddr != null">
-					 campingAddr like '%'||#{campingAddr}||'%'
+					 and campingAddr like '%'||#{campingAddr}||'%'
 				</if>
 				<if test="campingRoomTypeList != null">
 					 and campingNo in (select camping_no from camping_room where camping_room_type in
@@ -118,25 +122,66 @@
 				)
 	</select>
 	
-	<select id="selectOneCamping" parameterType="_int" resultType="c">
+	<select id="selectOneCamping" parameterType="_int" resultMap="getOneCamping">
 		select 
-			camping_no as campingNo,
-			member_id as memberId,
-			camping_title as campingTitle,
-			camping_content as campingContent,
-			camping_addr as campingAddr,
-			camping_addr_detail as campingAddrDetail,
-			camping_phone as campingPhone,
-			camping_service as campingProvideServiceList,
-			camping_room_service as campingRoomServiceList,
-			camping_etc as campingEtcList,
-			filepath
-		from camping 
-		left join camping_service using(camping_no)
-		left join camping_room_service using(camping_no)
-		left join camping_etc using(camping_no)
+			*
+		from camping
 		where camping_no = #{_parameter}
 	</select>
+	
+	<select id="selectCampingProvideServiceList" parameterType="_int" resultType="cps">
+		select
+			camping_service_no as campingServiceNo,
+			camping_no as campingNo,
+			camping_service as campingService
+		from camping_service where camping_no = #{_parameter}
+	</select>
+	
+	<select id="selectCampingRoomServiceList" parameterType="_int" resultType="crs">
+		select
+			camping_room_service_no as campingRoomServiceNo,
+			camping_no as campingNo,
+			camping_room_service campingRoomService
+		from camping_room_service where camping_no = #{_parameter}
+	</select>
+	
+	<select id="selectCampingEtcList" parameterType="_int" resultType="ce">
+		select
+			camping_etc_no as campingEtcNo,
+			camping_no as campingNo,
+			camping_etc as campingEtc
+		from camping_etc where camping_no = #{_parameter}
+	</select>
+	
+	<resultMap type="c" id="getOneCamping">
+		<result column="camping_no" property="campingNo"/>
+		<result column="member_id" property="memberId"/>
+		<result column="camping_title" property="campingTitle"/>
+		<result column="camping_content" property="campingContent"/>
+		<result column="camping_sido" property="campingSido"/>
+		<result column="camping_addr" property="campingAddr"/>
+		<result column="camping_addr_detail" property="campingAddrDetail"/>
+		<result column="camping_phone" property="campingPhone"/>
+		<result column="filepath" property="filepath"/>
+		<collection property="campingProvideServiceList"
+					select="selectCampingProvideServiceList"
+					column="camping_no"
+					ofType="cps"
+					javaType="java.util.ArrayList"
+		/>
+		<collection property="campingRoomServiceList"
+					select="selectCampingRoomServiceList"
+					column="camping_no"
+					ofType="crs"
+					javaType="java.util.ArrayList"
+		/>
+		<collection property="campingEtcList"
+					select="selectCampingEtcList"
+					column="camping_no"
+					ofType="ce"
+					javaType="java.util.ArrayList"
+		/>
+	</resultMap>
 	
 	<select id="selectAllCampingRoomList" parameterType="_int" resultType="cr">
 		select 
@@ -159,7 +204,7 @@
 	</select>
 	
 	<insert id="insertCamping" parameterType="c">
-		insert into camping values(camping_seq.nextval,'user01',#{campingTitle},#{campingContent},#{campingAddr},#{campingAddrDetail},#{campingPhone},#{filepath})
+		insert into camping values(camping_seq.nextval,'user01',#{campingTitle},#{campingContent},#{campingAddr},#{campingAddrDetail},#{campingPhone},#{filepath},#{campingSido})
 		<selectKey resultType="_int" order="AFTER" keyProperty="campingNo">
 			select max(camping_no) from camping
 		</selectKey>
@@ -190,7 +235,7 @@
 	</insert>
 	
 	<insert id="insertCampingReview" parameterType="crv">
-		insert into camping_review values(camping_review_seq.nextval,#{campingNo},'user01',#{campingReviewTitle},#{campingReviewContent},#{campingReviewRating},null)
+		insert into camping_review values(camping_review_seq.nextval,#{campingNo},'user01',#{campingReviewTitle},#{campingReviewContent},#{campingReviewRating},null,to_char(sysdate,'yyyy-mm-dd hh24:mi'))
 		<selectKey resultType="_int" order="AFTER" keyProperty="campingReviewNo">
 			select max(camping_review_no) from camping_review
 		</selectKey>

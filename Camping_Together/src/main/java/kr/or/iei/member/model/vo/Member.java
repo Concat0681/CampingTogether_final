@@ -2,6 +2,9 @@ package kr.or.iei.member.model.vo;
 
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+
+import kr.or.iei.board.food.model.vo.FileVO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -20,5 +23,6 @@ public class Member {
 	private String memberEmail;
 	private String memberGrade;
 	private String memberName;
+	private ArrayList<FileVO> fileList;
 	
 }

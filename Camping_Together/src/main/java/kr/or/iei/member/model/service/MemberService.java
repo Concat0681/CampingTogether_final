@@ -3,6 +3,8 @@ package kr.or.iei.member.model.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.mail.internet.MimeMessage;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,13 +15,14 @@ import kr.or.iei.member.model.vo.Member;
 import kr.or.iei.member.model.vo.MemberPageData;
 import kr.or.iei.member.model.vo.ProductPageData;
 import kr.or.iei.member.model.vo.ProductPayment;
+import kr.or.iei.member.model.vo.ReviewPageData;
 
 @Service
 public class MemberService {
 
 	@Autowired
 	private MemberDao dao;
-
+	
 	public Member selectOneMember(Member member) {
 		return dao.selectOneMember(member);
 	}
@@ -70,11 +73,10 @@ public class MemberService {
 
 		// 이전버튼
 		if (pageNo != 1) {
-
 			pageNavi += "<li>";
 			pageNavi += "<a class='page-item' href='/cmapingPayList.do?reqPage=" + (pageNo - 1) + "&memberNo="
 					+ memberNo + "'>";
-			pageNavi += "<span class='material-icons'>chevron_left</span>";
+			pageNavi += "<span class='material-symbols-outlined'>chevron_left</span>";
 			pageNavi += "</a></li>";
 
 		}
@@ -83,36 +85,51 @@ public class MemberService {
 		for (int i = 0; i < pageNaviSize; i++) {
 			if (pageNo == reqPage) {
 				pageNavi += "<li>";
-				pageNavi += "<a class='page-item active-page' href='/cmapingPayList.do?reqPage=" + pageNo + "&memberNo="
-						+ memberNo + "'>";
+				pageNavi += "<a class='page-item active-page' href='/cmapingPayList.do?reqPage=" + pageNo + "&memberNo="+ memberNo + "'>";
 				pageNavi += pageNo;
 				pageNavi += "</a></li>";
 			} else {
 				pageNavi += "<li>";
-				pageNavi += "<a class='page-item' href='/cmapingPayList.do?reqPage=" + pageNo + "&memberNo=" + memberNo
-						+ "'>";
+				pageNavi += "<a class='page-item' href='/cmapingPayList.do?reqPage=" + pageNo + "&memberNo=" + memberNo+ "'>";
 				pageNavi += pageNo;
 				pageNavi += "</a></li>";
 			}
-			pageNo++;
-			// for
-			if (pageNo > totalPage) {
-				break;
+			pageNavi += "</ul>";
+			
+			MemberPageData mpd = new MemberPageData(list,pageNavi);
+			 return mpd;
 			}
+
+		//�씠�쟾 踰꾪듉
+		if(pageNo != 1) {
+		pageNavi += "<a href='/cmapingPayList.do?reqPage="+(pageNo-1)+"&memberNo="+memberNo+"'>[�씠�쟾]</a>";
+		}
+		
+		//�럹�씠吏� �닽�옄 �깮�꽦
+		for(int i=0;i<pageNaviSize;i++) {
+		if(pageNo ==  reqPage) {
+			pageNavi += "<span>"+pageNo+"</span>";
+		}else {
+			pageNavi += "<a href='/cmapingPayList.do?reqPage="+pageNo+"&memberNo="+memberNo+"'>"+pageNo+"</a>";
+				}
+		pageNo++;
+		if(pageNo > totalPage) {
+		 break;
 		}
 
 		// 다음버튼
 		if (pageNo <= totalPage) {
 			pageNavi += "<li>";
-			pageNavi += "<a class='page-item' href='/cmapingPayList.do?reqPage=" + pageNo + "&memberNo=" + memberNo
-					+ "'>";
-			pageNavi += "<span class='material-icons'>chevron_right</span>";
+			pageNavi += "<a class='page-item' href='/cmapingPayList.do?reqPage=" + pageNo + "&memberNo=" + memberNo+ "'>";
+			pageNavi += "<span class='material-symbols-outlined'>chevron_right</span>";
 			pageNavi += "</a></li>";
 		}
 		pageNavi += "</ul>";
 
 		MemberPageData mpd = new MemberPageData(list, pageNavi);
 		return mpd;
+		}
+		return null;
 	}
 
 	// 캠핑용품 결제 리스트
@@ -153,9 +170,8 @@ public class MemberService {
 		if (pageNo != 1) {
 
 			pageNavi += "<li>";
-			pageNavi += "<a class='page-item' href='/cmapingPayList.do?reqPage=" + (pageNo - 1) + "&memberNo="
-					+ memberId + "'>";
-			pageNavi += "<span class='material-icons'>chevron_left</span>";
+			pageNavi += "<a class='page-item' href='/cmapingPayList.do?reqPage=" + (pageNo - 1) + "&memberNo="+ memberId + "'>";
+			pageNavi += "<span class='material-symbols-outlined'>chevron_left</span>";
 			pageNavi += "</a></li>";
 
 		}
@@ -164,14 +180,12 @@ public class MemberService {
 		for (int i = 0; i < pageNaviSize; i++) {
 			if (pageNo == reqPage) {
 				pageNavi += "<li>";
-				pageNavi += "<a class='page-item active-page' href='/cmapingPayList.do?reqPage=" + pageNo + "&memberNo="
-						+ memberId + "'>";
+				pageNavi += "<a class='page-item active-page' href='/cmapingPayList.do?reqPage=" + pageNo + "&memberNo="+ memberId + "'>";
 				pageNavi += pageNo;
 				pageNavi += "</a></li>";
 			} else {
 				pageNavi += "<li>";
-				pageNavi += "<a class='page-item' href='/cmapingPayList.do?reqPage=" + pageNo + "&memberNo=" + memberId
-						+ "'>";
+				pageNavi += "<a class='page-item' href='/cmapingPayList.do?reqPage=" + pageNo + "&memberNo=" + memberId+ "'>";
 				pageNavi += pageNo;
 				pageNavi += "</a></li>";
 			}
@@ -185,8 +199,7 @@ public class MemberService {
 		// 다음버튼
 		if (pageNo <= totalPage) {
 			pageNavi += "<li>";
-			pageNavi += "<a class='page-item' href='/cmapingPayList.do?reqPage=" + pageNo + "&memberNo=" + memberId
-					+ "'>";
+			pageNavi += "<a class='page-item' href='/cmapingPayList.do?reqPage=" + pageNo + "&memberNo=" + memberId+ "'>";
 			pageNavi += "<span class='material-icons'>chevron_right</span>";
 			pageNavi += "</a></li>";
 		}
@@ -196,4 +209,13 @@ public class MemberService {
 		return ppd;
 	}
 
+	//내가쓴 리뷰 리스트
+	public ReviewPageData myReviewList(String memberId, int reqPage) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
+
+
+

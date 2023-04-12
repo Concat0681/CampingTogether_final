@@ -178,32 +178,11 @@ public class BoardFoodService {
 		return result;
 	}
 
-//	public JsonObject SummerNoteImageFile(MultipartFile file) {
-//		JsonObject jsonObject = new JsonObject();
-//		String fileRoot = "C:\\summernoteImg\\";
-//		String originalFileName = file.getOriginalFilename();
-//		String extension = originalFileName.substring(originalFileName.lastIndexOf("."));
-//		
-//		String saveFileName = UUID.randomUUID()+extension;
-//			
-//		File targetFile = new File(fileRoot+saveFileName);
-//		
-//		try {
-//			InputStream fileStream = file.getInputStream();
-//			FileUtils.copyInputStreamToFile(fileStream, targetFile);
-//			jsonObject.addProperty("url", "/summernoteImg/"+saveFileName);
-//			jsonObject.addProperty("responseCode", "succcess");
-//		} catch(IOException e) {
-//			FileUtils.deleteQuietly(targetFile);
-//			jsonObject.addProperty("responseCode", "error");
-//			e.printStackTrace();
-//		}	
-//		return jsonObject;
-//
-//
-//	}
-	
-	
-	
+	public FileVO getFile(int fileNo) {
+
+		return dao.getFile(fileNo);
+	}
+
+
 
 }

@@ -36,11 +36,11 @@
         	
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label">받는 사람:</label>
-            <input type="text" class="form-control" id="recipient-name" placeholder="아이디를 적어주세요" name="receiver">
+            <input type="text" class="form-control" id="receiver-name" placeholder="아이디를 적어주세요" name="receiver">
           </div>
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label">제목:</label>
-            <input type="text" class="form-control" id="recipient-name" name="messageTitle">
+            <input type="text" class="form-control" id="message-title" name="messageTitle">
           </div>
           <div class="mb-3">
             <label for="message-text" class="col-form-label">내용:</label>
@@ -56,13 +56,13 @@
     </div>
   </div>
 </div>
-
+<div calss="headerBox">
 	<c:choose>
 		<c:when test="${empty sessionScope.m }"> 
 		<div class="wrapper-top" style="background-color: rgba(173, 139, 115, 1);" >
         <div class="nav-top" style="color: #fff;">
             <ul class="login">
-            	<li><a class="nav-linkT" href="/noticeList.do">공지사항</a></li>
+            	<li><a class="nav-linkT" href="/noticeList.do?reqPage=1">공지사항</a></li>
                 <li><a class="nav-linkT" href="/loginFrm.do">로그인</a></li>
                 <li><a class="nav-linkT" href="/joinFrm.do">회원가입</a></li>
             </ul>
@@ -70,7 +70,7 @@
     </div>
     </c:when>
 		<c:otherwise>
-	<div class="wrapper-top" style="background-color: rgba(255, 255, 255, 1);">
+	<div class="wrapper-top" style="background-color: rgba(173, 139, 115, 1);">
         <div class="nav-top" style="color: #fff;">
             <ul class="login">
                 <!-- <li><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">쪽지보내기</button></li> -->
@@ -84,53 +84,63 @@
 		</c:otherwise>
 	</c:choose>
     <nav class="wrapper-bottom navbar navbar-expand-lg" style="background-color: rgba(255, 255, 255, 1);">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="/"><img src="/resources/image/logo/logo250x80.png" width="150px" height="75px"></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link" href="/campingListMain.do">캠핑</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">캠핑예약</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/usedBoardList.do?reqPage=1">중고장터</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">투게더SHOP</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            	자유게시판
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/boardFoodList.do?reqPage=1">캠핑 레시피</a></li>
-            <li><a class="dropdown-item" href="#">캠핑 Tip</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">채팅</a></li>
-          </ul>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
+	  <div class="container-fluid">
+	    <a class="navbar-brand" href="/"><img src="/resources/image/logo/logo250x80.png" width="150px" height="75px"></a>
+	    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+	      <span class="navbar-toggler-icon"></span>
+	    </button>
+	    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+	      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+	        <li class="nav-item">
+	          <a class="nav-link" href="/campingListMain.do">캠핑</a>
+	        </li>
+	        <li class="nav-item">
+	          <a class="nav-link" href="#">캠핑예약</a>
+	        </li>
+	        <li class="nav-item">
+	          <a class="nav-link" href="/usedBoardList.do?reqPage=1">중고장터</a>
+	        </li>
+	        <li class="nav-item">
+	          <a class="nav-link" href="#">투게더SHOP</a>
+	        </li>
+	        <li class="nav-item dropdown">
+	          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+	            	자유게시판
+	          </a>
+	          <ul class="dropdown-menu">
+	            <li><a class="dropdown-item" href="/boardFoodList.do?reqPage=1">캠핑 레시피</a></li>
+	            <li><a class="dropdown-item" href="#">캠핑 Tip</a></li>
+	            <li><hr class="dropdown-divider"></li>
+	            <li><a class="dropdown-item" href="allMemberChatFrm.do">채팅</a></li>
+	          </ul>
+	        </li>
+	      </ul>
+	    </div>
+	  </div>
+	</nav>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-	const navbarTop = document.querySelector('.wrapper-top');
-	const navbarBottom = document.querySelector('.navbar');
-	const navLinkt = document.querySelectorAll('.nav-linkT');
-	const navLink =  document.querySelectorAll('.nav-link');
- 	
+	
+const navbarTop = document.querySelector('.wrapper-top');
+const navbarBottom = document.querySelector('.navbar');
+const navLinkt = document.querySelectorAll('.nav-linkT');
+const navLink =  document.querySelectorAll('.nav-link');
 	
 	
 	function init() {
-		document.addEventListener('onload', function() {
+		document.addEventListener('load', function() {
 			navbarTop.style.backgroundColor = 'rgba(173, 139, 115, 0.2)';
 			navbarBottom.style.backgroundColor = 'rgba(173, 139, 115, 0.2)';
+			for(let i=0; i < navLink.length; i++){
+	        	  navLink[i].style = 'color';
+	        	  navLink[i].style.color = 'rgb(255, 255, 255)';
+	          }
+			if(onload=init()){
+				
+			}else{
+				
+			}
 		});
 		
 		  window.addEventListener('scroll', function() {
@@ -222,6 +232,8 @@
         });
     });
 
+    
+    
     
     </script>
     
