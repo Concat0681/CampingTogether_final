@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,23 +16,35 @@
 			<form action="/campingList.do" method="get">
 				<div class="input-group search-city-box">
 					<label class="input-group-text" for="sido"><span class="material-symbols-outlined">search</span></label>
-					<input class="form-control" id="sido" name="campingSido" type="text" placeholder="어디로 떠나실건가요?" required>
+					<c:choose>
+						<c:when test="${not empty campingSido }">
+							<input class="form-control" id="sido" name="campingSido" type="text" value="${campingSido }" required>
+						</c:when>
+						<c:otherwise>
+							<input class="form-control" id="sido" name="campingSido" type="text" placeholder="도" required>						
+						</c:otherwise>
+					</c:choose>
 					<div class="hidden-sido-search">
 						<ul>
 							<li id="gyeonggi-do" class="sido">경기</li>
-							<li id="gyeonggi-do" class="sido">강원</li>
+							<li id="gangwon-do" class="sido">강원</li>
+							<li id="chungcheong-do" class="sido">충청</li>
+							<li id="jeonla-do" class="sido">전라</li>
+							<li id="gyeongsang-do" class="sido">경상</li>
+							<li id="jeju-do" class="sido">제주</li>
+							<li id="all" class="sido">모두보기</li>
 						</ul>
 					</div>
-					<input class="form-control" id="searchInput" name="cityNameKR" type="text">
+					<input class="form-control" id="searchInput" name="cityNameKR" placeholder="도시" type="text">
 					<input name="cityNameEN" type="hidden">
 					<div class="hidden-search">
 						<ul>
-							<li id="Incheon" class="cityName">인천</li>
-							<li id="seoul" class="cityName">서울</li>
-							<li id="busan" class="cityName">부산</li>
-							<li id="jeju" class="cityName">제주</li>
-							<li id="sokcho" class="cityName">속초</li>
-							<li id="ganglueng" class="cityName">강릉</li>
+							<li id="Incheon" class="cityName gyeonggi-do all">인천</li>
+							<li id="seoul" class="cityName gyeonggi-do all">서울</li>
+							<li id="busan" class="cityName gyeongsang-do all">부산</li>
+							<li id="daegu" class="cityName gyeongsang-do all">대구</li>
+							<li id="sokcho" class="cityName all">속초</li>
+							<li id="ganglueng" class="cityName all">강릉</li>
 						</ul>
 					</div>
 				</div>
