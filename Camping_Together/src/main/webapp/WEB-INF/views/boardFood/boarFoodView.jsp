@@ -237,7 +237,7 @@ button{
 				<td colspan="5">
 					<c:if test="${not empty bf.filepath}">
 					<img src="/resources/image/file.png" width="16px">
-					<a href="/boardFileDown.do?boarFooddNo=${bf.boardFoodNo }" >
+					<a href="/boardFoodFileDown.do?fileNo=${bf.fileNo }" >
 						${bf.filepath }
 					</a>
 					<input type="hidden" name="imageFile" accept=".jpg,.png,.jpeg" onchange="loadImg(this);" >
