@@ -102,10 +102,6 @@ public class MemberService {
 			 return mpd;
 			}
 
-	public MimeMessage createMimeMessage() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 		//�씠�쟾 踰꾪듉
 		if(pageNo != 1) {
 		pageNavi += "<a href='/cmapingPayList.do?reqPage="+(pageNo-1)+"&memberNo="+memberNo+"'>[�씠�쟾]</a>";
@@ -121,12 +117,6 @@ public class MemberService {
 		pageNo++;
 		if(pageNo > totalPage) {
 		 break;
-
-			pageNo++;
-			// for
-			if (pageNo > totalPage) {
-				break;
-			}
 		}
 
 		// 다음버튼
@@ -141,6 +131,8 @@ public class MemberService {
 
 		MemberPageData mpd = new MemberPageData(list, pageNavi);
 		return mpd;
+		}
+		return null;
 	}
 
 	// 캠핑용품 결제 리스트
@@ -225,3 +217,6 @@ public class MemberService {
 	}
 
 }
+
+
+
