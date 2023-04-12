@@ -136,11 +136,7 @@ const navLink =  document.querySelectorAll('.nav-link');
 	        	  navLink[i].style = 'color';
 	        	  navLink[i].style.color = 'rgb(255, 255, 255)';
 	          }
-			if(onload=init()){
-				
-			}else{
-				
-			}
+			
 		});
 		
 		  window.addEventListener('scroll', function() {
