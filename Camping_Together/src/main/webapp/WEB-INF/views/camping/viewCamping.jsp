@@ -119,12 +119,12 @@
 												<c:choose>
 													<c:when test="${j.index == 0 }">
 														<div class="carousel-item active">
-															<img src="resources/upload/campingRoom/${f.filepath }" class="d-block w-100" alt="resources/upload/camping/campingbg.jpg">
+															<img src="resources/upload/campingRoom/${f.filepath }" alt="resources/upload/camping/campingbg.jpg">
 														</div>
 													</c:when>
 													<c:otherwise>
 														<div class="carousel-item">
-															<img src="resources/upload/campingRoom/${f.filepath }" class="d-block w-100" alt="resources/upload/camping/campingbg.jpg">
+															<img src="resources/upload/campingRoom/${f.filepath }" alt="resources/upload/camping/campingbg.jpg">
 														</div>
 													</c:otherwise>
 												</c:choose>
@@ -146,9 +146,12 @@
 										<div>가격</div>
 										<div>${r.campingRoomPrice }</div>
 									</div>
-									<div class="room-basic-info">객실기본정보</div>
+									<div class="room-basic-info">
+									<div>객실기본정보</div>
+									<span class="material-symbols-outlined">chevron_right</span>
+									</div>
 									<div class="room-btn-box">
-										<button type="button">예약하기</button>
+										<button type="button" class="btn2">예약하기</button>
 									</div>
 								</div>
 							</div>

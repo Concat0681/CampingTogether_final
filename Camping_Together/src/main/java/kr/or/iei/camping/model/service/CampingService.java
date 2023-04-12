@@ -148,7 +148,10 @@ public class CampingService {
 		crd.setReviewList(crv);
 		if(crv != null) {
 			List<Integer> campingReviewNoList = dao.selectCampingReviewNo(campingNo);
-			int campingReviewNo = campingReviewNoList.get(0);
+			int campingReviewNo = 0;
+			if(campingReviewNoList.size() > 0) {
+				campingReviewNo = campingReviewNoList.get(0);				
+			}
 			ArrayList<CampingReviewFileVO> fileList = dao.selectCampingReviewPhoto(campingReviewNo);
 			crd.setFileList(fileList);
 		}

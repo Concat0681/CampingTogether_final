@@ -27,14 +27,23 @@
 	font-size: 25px;
 	font-family: ng-bold;
 }
+.camping-addr{
+	font-weight: lighter;
+	font-size: medium;
+	color: grey;
+}
 .camping-detail{
-	background-color: rgb(250,250,250);;
 	padding: 10px;
 }
 .camping-detail>div:first-of-type{
 	display: flex;
 	justify-content: space-between;
-	margin-bottom: 20px;
+	padding: 15px;
+	padding-bottom: 20px;
+	background-color: rgb(250,250,250);;
+}
+.camping-detail>div:first-of-type>div{
+	font-family: ng-bold;	
 }
 .camping-detail>div:first-of-type>button{
 	color: #CEAB93;
@@ -45,15 +54,19 @@
 	overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: 4; /* 라인수 */
+    -webkit-line-clamp: 2; /* 라인수 */
     -webkit-box-orient: vertical;
     word-wrap:break-word; 
     line-height: 1.2em;
-    height: 100px;
-	padding: 10px;
+    height: 50px;
+	padding: 10px 15px;
+	margin-bottom: 50px;
+	background-color: rgb(250,250,250);;
 }
 .opened{
 	display: block;
+	height: 100px;
+	margin-bottom: 0;
 	overflow: scroll;
 }
 .img-wrap>img{
@@ -67,6 +80,8 @@
 	display: flex;
 	flex-direction: column;
 	height: 400px;
+	font-size: 10px;
+	margin-top: 30px;
 }
 .provide-box{
 	display: flex;
@@ -77,18 +92,21 @@
 .provide-box>div{
 	display: flex;
 	flex-direction: column;
-	margin-bottom: 5px;
+	margin-bottom: 20px;
 }
 .provide-box>div>div:first-of-type{
-	margin-bottom: 15px;
+	font-size: 15px;
+	font-family: ng-bold;
+	margin-bottom: 20px;
 }
 .provide-box>div>div:last-of-type{
 	display: flex;
 }
 .provide-box>div>div>div{
 	text-align: center;
-	margin: 0 5px;
 	width: 92px;
+	padding: 10px 0;
+	border-bottom: 1px solid #dedede;
 }
 .content-menu{
 	display: flex;
@@ -99,12 +117,17 @@
 }
 .content-header>div:first-of-type{
 	width: 30%;
-	align-items: center;
 }
 .content-header>div:first-of-type>div{
 	height: 50px;
+	line-height: 50px;
 }
-.content-header>div:last-of-type>div{
+.weather-list{
+	width: 70%;
+	text-align: center;
+}
+.weather-list>div{
+	display: inline-block;
 	text-align: center;
 	margin: 0 10px;
 }
@@ -122,20 +145,17 @@
 .type-content{
 	display: flex;
 }
-.weather-list{
-    display: flex;
-}
 .content-box{
 	padding: 10px;
 	margin-top: 30px;
 }
 .campingRoom-list{
-	margin-top: 20px;
+	margin-top: 30px;
 	border: 1px solid #dedede;
-	padding: 30px;
 }
 .room-wrap{
 	display: flex;
+	padding: 30px;
 }
 .room-img{
 	width: 350px;
@@ -147,9 +167,34 @@
 }
 .room-img-box{
 	width: 40%;
+	height: 200px;
+}
+.room-img-box>div{
+	width: 100%;
+	height: 100%;
 }
 .room-box{
 	width: 60%;
+	padding: 0 20px;
+}
+.room-box>div:first-of-type{
+	font-family: ng-bold;
+	font-size: 18px;
+}
+.room-price-box{
+	padding-top: 40px;
+}
+.room-price-box>div{
+	font-family: ng-bold;
+}
+.room-basic-info{
+	display: flex;
+	justify-content: space-between;
+	margin : 20px 0;
+}
+.room-btn-box>button{
+	width: 100%;
+	height: 30px;
 }
 .carousel-item > img{
 	height: 200px;
