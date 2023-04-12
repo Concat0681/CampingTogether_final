@@ -51,23 +51,28 @@
     border-radius: 50%;
 }
 
-.image-btn>button{
-    margin-top: 20px;
+.image-btn>label{
+    margin-top : 15px;
     width: 70px;
     height: 30px;
     border-radius: 5px;
     border: 0;
     color: white;
-    cursor: pointer;
+    display: inline-block;
+    line-height: 30px;
 }
 
+.img>p{
+    color: rgb(162, 162, 162);
+    padding-top: 5px;
+}
 
-.image-btn>button:first-child{
+.image-btn>label:first-child{
     background-color: #AD8B73;
 }
 
 
-.image-btn>button:last-child{
+.image-btn>label:last-child{
     border: 1px solid #AD8B73;
     background-color: white;
     color: #AD8B73;
@@ -168,7 +173,7 @@
 	padding : 10px 0;
 }
 
-.btnDiv>a{
+.btnDiv>#delete-btn{
 	display : block;
 	width: 90px;
 	border : none;
@@ -184,7 +189,7 @@
 	line-height : 40px;
 }
 
-.reset{
+.btnDiv>#reset{
 	border:1.5px solid #AD8B73;
 	background-color : white;
 	width: 90px;

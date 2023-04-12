@@ -145,16 +145,13 @@ public class CampingService {
 	public CampingReviewData selectCampingReview(int campingNo) {
 		CampingReviewData crd = new CampingReviewData();
 		ArrayList<CampingReview> crv = dao.selectCampingReview(campingNo);
-		crd.setReviewList(crv);
-		if(crv != null) {
-			List<Integer> campingReviewNoList = dao.selectCampingReviewNo(campingNo);
-			int campingReviewNo = 0;
-			if(campingReviewNoList.size() > 0) {
-				campingReviewNo = campingReviewNoList.get(0);				
+		if(crv.size() > 0) {
+			for(CampingReview r : crv) {
+				ArrayList<CampingReviewFileVO> fileList = dao.selectCampingReviewPhoto(r.getCampingReviewNo());
+				r.setFileList(fileList);
 			}
-			ArrayList<CampingReviewFileVO> fileList = dao.selectCampingReviewPhoto(campingReviewNo);
-			crd.setFileList(fileList);
 		}
+		crd.setReviewList(crv);
 		return crd;
 	}
 

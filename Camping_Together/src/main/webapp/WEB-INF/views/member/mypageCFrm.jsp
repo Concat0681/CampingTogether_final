@@ -40,7 +40,7 @@
                              <h3>비밀번호를 확인해 주세요.</h3>               
                         </div>
                         <div class="btnDiv">
-	                  		<button type="button" class="reset" id="reset">확인</button>
+	                  		<button type="button" class="ok" id="reset">확인</button>
                   		</div>
                  </div>
 			</div>
