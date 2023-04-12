@@ -35,8 +35,16 @@
 							<li id="all" class="sido">모두보기</li>
 						</ul>
 					</div>
-					<input class="form-control" id="searchInput" name="cityNameKR" placeholder="도시" type="text">
-					<input name="cityNameEN" type="hidden">
+					<c:choose>
+						<c:when test="${not empty cityNameKR }">
+							<input class="form-control" id="searchInput" name="cityNameKR" value="${cityNameKR }" type="text">
+							<input name="cityNameEN" type="hidden" value="${cityNameEN }">
+						</c:when>
+						<c:otherwise>
+							<input class="form-control" id="searchInput" name="cityNameKR" placeholder="도시" type="text">
+							<input name="cityNameEN" type="hidden">
+						</c:otherwise>
+					</c:choose>
 					<div class="hidden-search">
 						<ul>
 							<li id="Incheon" class="cityName gyeonggi-do all">인천</li>
