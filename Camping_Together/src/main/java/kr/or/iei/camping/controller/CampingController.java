@@ -156,7 +156,6 @@ public class CampingController {
 		model.addAttribute("camping" , vcd.getCamping());
 		model.addAttribute("campingRoomList", vcd.getCampingRoomList());
 		model.addAttribute("campingReview", crd.getReviewList());
-		model.addAttribute("campingReviewPhoto", crd.getFileList());
 		model.addAttribute("checkIn", checkIn);
 		model.addAttribute("checkOut", checkOut);
 		return "camping/viewCamping";

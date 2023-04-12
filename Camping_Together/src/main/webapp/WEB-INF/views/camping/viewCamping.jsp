@@ -304,13 +304,22 @@
 						            <!-- 캐러셀 컨테이너 정의 -->
 									<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" style="width: 500px;">
 									  <!-- 캐러셀 내용 정의 -->
-									  <c:forEach items="${campingReviewPhoto }" var="crp">
-									  	<div class="carousel-inner" style="width: 500px; height: 500px;">
-										    <div class="carousel-item active">
-										      <img src="resources/upload/campingRoom/${crp.filepath }" class="d-block w-100" alt="..." style="width: 500px; height: 500px;">
-										    </div>
-										  </div>
-									  </c:forEach>
+									  	<div class="carousel-inner">
+									  		<c:forEach items="${cr.fileList }" var="f" varStatus="j">
+												<c:choose>
+													<c:when test="${j.index == 0 }">
+														<div class="carousel-item active">
+															<img src="resources/upload/campingRoom/${f.filepath }">
+														</div>
+													</c:when>
+													<c:otherwise>
+														<div class="carousel-item">
+															<img src="resources/upload/campingRoom/${f.filepath }">
+														</div>
+													</c:otherwise>
+												</c:choose>
+											</c:forEach>	
+										</div>
 									  
 									  <!-- 이전/다음 버튼 정의 -->
 									  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
