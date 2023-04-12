@@ -36,9 +36,12 @@
 	display: flex;
 }
 .search-input-box>form>div{
-	flex-grow: 1;
+	width: 40%;
 	height: 50px;
 	margin : 0 3px;
+}
+.search-input-box>form>div:nth-of-type(n+3){
+	width: 10%;
 }
 .search-input-box>form>div>input{
 	text-align: center;
@@ -51,6 +54,18 @@
 .searchInput-btn{
 	width: 100%;
 	border: 1px solid #dedede;
+}
+.hidden-sido-search{
+	display: none;
+	position : absolute; 
+	top : 50px;
+	z-index: 1000; 
+	background-color: white;
+	width: 100%;
+}
+.hidden-sido-search>ul{
+	list-style-type: none;
+	padding : 0;
 }
 .hidden-search{
 	display: none;

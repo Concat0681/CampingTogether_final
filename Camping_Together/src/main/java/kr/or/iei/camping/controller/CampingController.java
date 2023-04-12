@@ -46,9 +46,10 @@ public class CampingController {
 	}
 	
 	@RequestMapping(value="/campingList.do")
-	public String campingList(String cityNameKR, String cityNameEN,int reqPage, String order, String pplCount, String checkIn, String checkOut, Model model) {
+	public String campingList(String campingSido, String cityNameKR, String cityNameEN,int reqPage, String order, String pplCount, String checkIn, String checkOut, Model model) {
 		CampingRoom campingRoom = new CampingRoom();
 		Camping camping = new Camping();
+		camping.setCampingSido(campingSido);
 		camping.setCampingAddr(cityNameKR);
 		campingRoom.setCampingRoomMaxPplCount(Integer.parseInt(pplCount));
 		CampingListPageData cpd = service.selectCampingListData(reqPage, order, camping, campingRoom);
@@ -60,6 +61,7 @@ public class CampingController {
 		model.addAttribute("checkIn", checkIn);
 		model.addAttribute("checkOut", checkOut);
 		model.addAttribute("pplCount", pplCount);
+		model.addAttribute("campingSido", campingSido);
 		return "camping/campingList";
 	}
 	
@@ -148,13 +150,15 @@ public class CampingController {
 	}
 	
 	@RequestMapping(value="/viewCamping.do")
-	public String viewCamping(int campingNo, Model model) {
+	public String viewCamping(String checkIn, String checkOut, int campingNo, Model model) {
 		ViewCampingData vcd = service.selectOneCamping(campingNo);
 		CampingReviewData crd = service.selectCampingReview(campingNo);
 		model.addAttribute("camping" , vcd.getCamping());
 		model.addAttribute("campingRoomList", vcd.getCampingRoomList());
 		model.addAttribute("campingReview", crd.getReviewList());
 		model.addAttribute("campingReviewPhoto", crd.getFileList());
+		model.addAttribute("checkIn", checkIn);
+		model.addAttribute("checkOut", checkOut);
 		return "camping/viewCamping";
 	}
 	

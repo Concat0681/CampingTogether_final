@@ -36,11 +36,11 @@
         	
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label">받는 사람:</label>
-            <input type="text" class="form-control" id="recipient-name" placeholder="아이디를 적어주세요" name="receiver">
+            <input type="text" class="form-control" id="receiver-name" placeholder="아이디를 적어주세요" name="receiver">
           </div>
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label">제목:</label>
-            <input type="text" class="form-control" id="recipient-name" name="messageTitle">
+            <input type="text" class="form-control" id="message-title" name="messageTitle">
           </div>
           <div class="mb-3">
             <label for="message-text" class="col-form-label">내용:</label>

@@ -14,12 +14,19 @@
 		<div class="search-input-box" >
 			<form action="/campingList.do" method="get">
 				<div class="input-group search-city-box">
-					<label class="input-group-text" for="searchInput"><span class="material-symbols-outlined">search</span></label>
-					<input class="form-control" id="searchInput" name="cityNameKR" type="text" placeholder="어디로 떠나실건가요?" required>
+					<label class="input-group-text" for="sido"><span class="material-symbols-outlined">search</span></label>
+					<input class="form-control" id="sido" name="campingSido" type="text" placeholder="어디로 떠나실건가요?" required>
+					<div class="hidden-sido-search">
+						<ul>
+							<li id="gyeonggi-do" class="sido">경기</li>
+							<li id="gyeonggi-do" class="sido">강원</li>
+						</ul>
+					</div>
+					<input class="form-control" id="searchInput" name="cityNameKR" type="text">
 					<input name="cityNameEN" type="hidden">
 					<div class="hidden-search">
 						<ul>
-							<li id="incheon" class="cityName">인천</li>
+							<li id="Incheon" class="cityName">인천</li>
 							<li id="seoul" class="cityName">서울</li>
 							<li id="busan" class="cityName">부산</li>
 							<li id="jeju" class="cityName">제주</li>

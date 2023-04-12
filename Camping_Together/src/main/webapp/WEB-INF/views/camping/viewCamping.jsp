@@ -26,44 +26,81 @@
 			<div class="camping-info">
 				<div class="camping-title">${camping.campingTitle }</div>
 				<div class="camping-addr">${camping.campingAddr }</div>
-				<div class="camping-content">${camping.campingContent }</div>
-				<a><button>문의하기</button></a>
+				<div class="camping-detail">
+					<div>
+						<div>캠핑 기본정보</div>
+						<button type="button" onclick="openCampingContent(this);">더보기</button>
+					</div>
+					<div class="camping-content">
+						${camping.campingContent }
+					</div>
+				</div>
+				<div>
+					<button id="sendInquiryBtn" class="btn3" data-bs-toggle="modal" data-bs-target="#exampleModal">문의하기</button>
+					<input type="hidden" id="campingMemberId" value="${camping.memberId }" >
+				</div>
 			</div>
 		</div>
 		<div class="service-info">
-			<div class="type-box">
-				<div class="type-title">캠핑유형</div>
-				<div class="type-content">
-					<c:forEach items="${campingRoomList }" var="r">
-						<div>${r.campingRoomType}</div>
-					</c:forEach>
-				</div>
-			</div>
 			<div class="provide-box">
-				<c:forEach items="${camping.campingProvideServiceList }" var="ps">
-					<div>${ps.campingService }</div>
-				</c:forEach>
-				<c:forEach items="${camping.campingRoomServiceList }" var="rs">
-					<div>${rs.campingRoomService }</div>
-				</c:forEach>
-				<c:forEach items="${campingEtcList }" var="e">
-					<div>${e.campingEtc }</div>
-				</c:forEach>
+				<div class="provice-service-wrap">
+					<div class="provide-title">공용시설</div>
+					<div class="provice-service-box">
+						<c:forEach items="${camping.campingProvideServiceList }" var="ps">
+							<div class="provide-service-list">
+								<span class="material-symbols-outlined"></span>
+								<div>${ps.campingService }</div>
+							</div>
+						</c:forEach>
+					</div>
+				</div>
+				<div class="room-service-wrap">
+					<div class="provide-title">객실내 시설</div>
+					<div class="room-service-box">
+						<c:forEach items="${camping.campingRoomServiceList }" var="rs">
+							<div class="room-service-list">
+								<span class="material-symbols-outlined"></span>
+								<div>${rs.campingRoomService }</div>
+							</div>
+						</c:forEach>
+					</div>
+				</div>
+				<div class="etc-list-wrap">
+					<div class="provide-title">기타</div>
+					<div class="etc-list-box">
+						<c:forEach items="${camping.campingEtcList }" var="e">
+							<div class="etc-list">
+								<span class="material-symbols-outlined"></span>
+								<div>${e.campingEtc }</div>
+							</div>
+						</c:forEach>
+					</div>
+				</div>
 			</div>			
 		</div>
 		<div class="page-content">
 			<div class="content-menu">
-				<div class="menu">캠핑장예약</div>
-				<div class="menu">캠필장정보</div>
-				<div class="menu">리뷰</div>
+				<div class="menu"><button class="btn1">캠핑장예약</button></div>
+				<div class="menu"><button class="btn1">캠핑장정보</button></div>
+				<div class="menu"><button class="btn1">캠핑예약</button></div>
 			</div>
 			<div class="content-wrap">
 				<div class="content-box">
 					<div class="content-header">
-						<div class="date-range-wrap">
-							<input type="text" name="date" readonly>
-							<input type="hidden" name="checkIn">
-							<input type="hidden" name="checkOut">
+						<div class="date-input-wrap">
+							<div class="input-group date-input-box">
+								<label class="input-group-text" for="search_checkin"><span class="material-symbols-outlined">calendar_month</span></label>
+								<c:choose>
+									<c:when test="${not empty checkIn }">
+										<input class="form-control" type="text" id="search_checkin" name="checkIn" value="${checkIn }" readonly>
+										<input class="form-control" type="text" id="search_checkout" name="checkOut" value="${checkOut }" readonly>	
+									</c:when>
+									<c:otherwise>
+										<input class="form-control" type="text" id="search_checkin" name="checkIn" readonly>
+										<input class="form-control" type="text" id="search_checkout" name="checkOut" readonly>	
+									</c:otherwise>
+								</c:choose>
+							</div>
 						</div>
 						<div class="weather-list"></div>
 					</div>
@@ -324,13 +361,102 @@
 	</div>
 	<script src="resources/js/camping/dateRangePicker.js"></script>
 	<script>
-		$(".menu").on("click", function(){
-			const index = $(".menu").index($(this));
+		var provideServiceIcon = {
+				  '인터넷': 'signal_cellular_alt',
+				  '주차장': 'local_parking',
+				  '라운지': 'weekend',
+				  '전기사용기능': 'power',
+				  'BBQ': 'outdoor_grill',
+				  '개수대' : 'countertops',
+				  '공용샤워실': 'shower',
+				  '매점' : 'storefront',
+				  '공용화장실' : 'wc',
+				  '물놀이시설' : 'pool',
+				  '카페' : 'local_cafe',
+				  '편의점' : 'local_convenience_store',
+				  '카페' : 'local_cafe',
+				  '노래방' : 'music_note',
+				  '주방/식당' : 'soup_kitchen',
+				  '세탁기' : 'local_laundry_service',
+				  '건조기' : 'dry_cleaning',
+				  '탈수기' : 'dry_cleaning',
+				  '공용PC' : 'computer',
+				  '전자레인지' : 'microwave',
+				  '취사가능' : 'cooking'
+		}
+		
+		var roomServiceIcon = {
+				  '객실샤워실': 'shower',
+				  '드라이기': 'mode_fan',
+				  '와이파이': 'wifi',
+				  'TV': 'tv',
+				  '욕실용품': 'soap',
+				  '미니바' : 'nightlife',
+				  '에어컨': 'air',
+				  '냉장고' : 'kitchen',
+				  '욕조' : 'bathtub',
+				  '다리미' : 'iron',
+				  '전기밥솥' : 'cooking',
+				  '객실스파' : 'hot_tub',
+				  '세면도구' : 'self_care'
+		}
+		var etcIcon = {
+				  '장비대여': 'architecture',
+				  '사이트주차': 'local_parking',
+				  '카드결제': 'credit_card',
+				  '조식포함': 'local_dining',
+				  '객실내흡연': 'smoking_rooms',
+				  '발렛파킹' : 'local_parking',
+				  '반려견동반': 'pets',
+				  '객실내취사' : 'restaurant_menu',
+				  '픽업가능' : 'airport_shuttle',
+				  '캠프파이어' : 'fireplace',
+				  '금연' : 'smoke_free'
+		}
+		
+		const serviceList = $(".provide-service-list")
+		serviceList.each(function(i, s){
+			const value = $(s).find("div").text();
+			const icon = provideServiceIcon[value];
+			$(s).find("span").text(icon)
+		})
+		
+		const roomServiceList = $(".room-service-list")
+		roomServiceList.each(function(i, s){
+			const value = $(s).find("div").text();
+			const icon = roomServiceIcon[value];
+			$(s).find("span").text(icon)
+		})
+		
+		const etcList = $(".etc-list")
+		etcList.each(function(i, s){
+			const value = $(s).find("div").text();
+			const icon = etcIcon[value];
+			$(s).find("span").text(icon)
+		})
+		
+		$(".menu>button").on("click", function(){
+			const index = $(".menu>button").index($(this));
+			$(".menu").removeClass("clicked")
+			$(".menu").eq(index).addClass("clicked")
 			const contentBoxList = $(".content-box");
 			contentBoxList.hide();
 			const contentBox = $(".content-box").eq(index);	
 			contentBox.show();
-			//console.log(contentBox.text())
+		})
+		
+		function openCampingContent(obj){
+			$(".camping-content").toggleClass("opened");
+			if($(".camping-content").hasClass("opened")){
+				$(obj).text("접기")
+			} else {
+				$(obj).text("더보기")
+			}
+		}
+		
+		$("#sendInquiryBtn").on("click", function(){
+			const receiver = $("#campingMemberId").val()
+			$("#receiver-name").val(receiver)
 		})
 		
 		const inputDate = $("input[name=date]")
@@ -442,7 +568,6 @@
 			  })
 			})
 	    });	
-
 		
 		$(".menu").eq(0).click()
 		

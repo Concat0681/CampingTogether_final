@@ -63,6 +63,7 @@ public class CampingService {
 		map.put("start", start);
 		map.put("end", end);
 		map.put("order", order);
+		map.put("sido", camping.getCampingSido());
 		map.put("campingEtcList", camping.getCampingEtcList());
 		map.put("campingRoomServiceList", camping.getCampingRoomServiceList());
 		map.put("campingProvideServiceList", camping.getCampingProvideServiceList());
