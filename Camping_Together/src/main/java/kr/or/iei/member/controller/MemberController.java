@@ -196,14 +196,6 @@ public class MemberController {
 	@RequestMapping(value = "/usedWishList.do")
 	public String usedWishList(int reqPage,String memberId, Model model) {
 	return "member/usedWishList";
+	
 	}
-
 }
-
-
-<<<<<<< HEAD
-=======
-
-
-
->>>>>>> main
