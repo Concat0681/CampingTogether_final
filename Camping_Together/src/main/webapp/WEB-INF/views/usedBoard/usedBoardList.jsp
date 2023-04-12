@@ -305,9 +305,10 @@
         </div>
     </div>  
     <script>
-    	$("#favorite").on("click", function{
-    		alert("야호");
-    	});
+    	$("#favorite").on("click", function(){
+			alert("bb");
+			window.event.stopPropagation();
+    	})
     </script>
 </body>
 </html>
