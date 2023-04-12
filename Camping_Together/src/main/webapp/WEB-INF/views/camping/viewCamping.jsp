@@ -147,8 +147,10 @@
 										<div>${r.campingRoomPrice }</div>
 									</div>
 									<div class="room-basic-info">
-									<div>객실기본정보</div>
-									<span class="material-symbols-outlined">chevron_right</span>
+										<a>
+											<span>객실기본정보</span>
+											<span class="material-symbols-outlined">chevron_right</span>
+										</a>
 									</div>
 									<div class="room-btn-box">
 										<button type="button" class="btn2">예약하기</button>
@@ -156,20 +158,32 @@
 								</div>
 							</div>
 							
-									<!-- 객실 정보 모달 -->
-							<div class="modal room-info-modal fade" id="modal-${i.index}" tabindex="-1" aria-labelledby="modal-${i.index}Label" aria-hidden="true">
-								<div class="modal-dialog">
-									<div class="modal-content">
-									    <div class="modal-header">
-										    <h1 class="modal-title fs-5" id="modal-${i.index}Label">Modal title</h1>
-									        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+									<!-- 객실 정보 collapse -->
+							<div class="room-info-content collapse" id="collapse-${i.index}" style=" border-top : 1px solid #dedede;">
+								<div class="card card-body" style="border: none; border-radius: 0; width : 80%; margin : 0 auto">
+									<div class="card-title">
+										<button type="button" class="btn-close"></button>
+									</div>
+									<div class="card-content">
+										<div>
+											<div>캠핑방 내용</div>
+											<div>${r.campingRoomContent }</div>
 										</div>
-										<div class="modal-body">${r.campingRoomTitle}</div>
-										<div class="modal-footer">
-											<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-									        <button type="button" class="btn btn-primary">Save changes</button>
-						    	        </div>
-								    </div>
+										<div class="room-detail-info">
+											<div>
+												<div>캠핑방 가격</div>
+												<div>${r.campingRoomPrice } 원</div>
+											</div>
+											<div>
+												<div>캠핑방 최대인원</div>
+												<div>${r.campingRoomMaxPplCount } 명</div>
+											</div>
+											<div>
+												<div>캠핑방 유형</div>
+												<div>${r.campingRoomType }</div>
+											</div>
+										</div>
+									</div>
 					 		    </div>
 							</div>
 						</c:forEach>
@@ -507,10 +521,11 @@
 			new bootstrap.Carousel('#'+id)
 		})
 		
-		const modal = $(".room-info-modal")
+		const roomInfoContent = $(".room-info-content")
 		const roomInfo = $(".room-basic-info");
 		roomInfo.each(function(i,r){
-			$(r).attr("data-bs-toggle","modal").attr("data-bs-target", "#"+modal.eq(i).attr("id"));
+			$(r).find("a").attr("data-bs-toggle","collapse").attr("href", "#"+roomInfoContent.eq(i).attr("id"));
+			roomInfoContent.find("button").eq(i).attr("data-bs-toggle","collapse").attr("href", "#"+roomInfoContent.eq(i).attr("id"));
 		})
 		
 		var weatherIcon = {
