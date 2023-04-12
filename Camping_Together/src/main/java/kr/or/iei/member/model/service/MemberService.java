@@ -13,6 +13,7 @@ import kr.or.iei.member.model.vo.Member;
 import kr.or.iei.member.model.vo.MemberPageData;
 import kr.or.iei.member.model.vo.ProductPageData;
 import kr.or.iei.member.model.vo.ProductPayment;
+import kr.or.iei.member.model.vo.ReviewPageData;
 
 @Service
 public class MemberService {
@@ -70,11 +71,10 @@ public class MemberService {
 
 		// 이전버튼
 		if (pageNo != 1) {
-
 			pageNavi += "<li>";
 			pageNavi += "<a class='page-item' href='/cmapingPayList.do?reqPage=" + (pageNo - 1) + "&memberNo="
 					+ memberNo + "'>";
-			pageNavi += "<span class='material-icons'>chevron_left</span>";
+			pageNavi += "<span class='material-symbols-outlined'>chevron_left</span>";
 			pageNavi += "</a></li>";
 
 		}
@@ -83,14 +83,12 @@ public class MemberService {
 		for (int i = 0; i < pageNaviSize; i++) {
 			if (pageNo == reqPage) {
 				pageNavi += "<li>";
-				pageNavi += "<a class='page-item active-page' href='/cmapingPayList.do?reqPage=" + pageNo + "&memberNo="
-						+ memberNo + "'>";
+				pageNavi += "<a class='page-item active-page' href='/cmapingPayList.do?reqPage=" + pageNo + "&memberNo="+ memberNo + "'>";
 				pageNavi += pageNo;
 				pageNavi += "</a></li>";
 			} else {
 				pageNavi += "<li>";
-				pageNavi += "<a class='page-item' href='/cmapingPayList.do?reqPage=" + pageNo + "&memberNo=" + memberNo
-						+ "'>";
+				pageNavi += "<a class='page-item' href='/cmapingPayList.do?reqPage=" + pageNo + "&memberNo=" + memberNo+ "'>";
 				pageNavi += pageNo;
 				pageNavi += "</a></li>";
 			}
@@ -104,9 +102,8 @@ public class MemberService {
 		// 다음버튼
 		if (pageNo <= totalPage) {
 			pageNavi += "<li>";
-			pageNavi += "<a class='page-item' href='/cmapingPayList.do?reqPage=" + pageNo + "&memberNo=" + memberNo
-					+ "'>";
-			pageNavi += "<span class='material-icons'>chevron_right</span>";
+			pageNavi += "<a class='page-item' href='/cmapingPayList.do?reqPage=" + pageNo + "&memberNo=" + memberNo+ "'>";
+			pageNavi += "<span class='material-symbols-outlined'>chevron_right</span>";
 			pageNavi += "</a></li>";
 		}
 		pageNavi += "</ul>";
@@ -153,9 +150,8 @@ public class MemberService {
 		if (pageNo != 1) {
 
 			pageNavi += "<li>";
-			pageNavi += "<a class='page-item' href='/cmapingPayList.do?reqPage=" + (pageNo - 1) + "&memberNo="
-					+ memberId + "'>";
-			pageNavi += "<span class='material-icons'>chevron_left</span>";
+			pageNavi += "<a class='page-item' href='/cmapingPayList.do?reqPage=" + (pageNo - 1) + "&memberNo="+ memberId + "'>";
+			pageNavi += "<span class='material-symbols-outlined'>chevron_left</span>";
 			pageNavi += "</a></li>";
 
 		}
@@ -164,14 +160,12 @@ public class MemberService {
 		for (int i = 0; i < pageNaviSize; i++) {
 			if (pageNo == reqPage) {
 				pageNavi += "<li>";
-				pageNavi += "<a class='page-item active-page' href='/cmapingPayList.do?reqPage=" + pageNo + "&memberNo="
-						+ memberId + "'>";
+				pageNavi += "<a class='page-item active-page' href='/cmapingPayList.do?reqPage=" + pageNo + "&memberNo="+ memberId + "'>";
 				pageNavi += pageNo;
 				pageNavi += "</a></li>";
 			} else {
 				pageNavi += "<li>";
-				pageNavi += "<a class='page-item' href='/cmapingPayList.do?reqPage=" + pageNo + "&memberNo=" + memberId
-						+ "'>";
+				pageNavi += "<a class='page-item' href='/cmapingPayList.do?reqPage=" + pageNo + "&memberNo=" + memberId+ "'>";
 				pageNavi += pageNo;
 				pageNavi += "</a></li>";
 			}
@@ -185,8 +179,7 @@ public class MemberService {
 		// 다음버튼
 		if (pageNo <= totalPage) {
 			pageNavi += "<li>";
-			pageNavi += "<a class='page-item' href='/cmapingPayList.do?reqPage=" + pageNo + "&memberNo=" + memberId
-					+ "'>";
+			pageNavi += "<a class='page-item' href='/cmapingPayList.do?reqPage=" + pageNo + "&memberNo=" + memberId+ "'>";
 			pageNavi += "<span class='material-icons'>chevron_right</span>";
 			pageNavi += "</a></li>";
 		}
@@ -194,6 +187,12 @@ public class MemberService {
 
 		ProductPageData ppd = new ProductPageData(list, pageNavi);
 		return ppd;
+	}
+
+	//내가쓴 리뷰 리스트
+	public ReviewPageData myReviewList(String memberId, int reqPage) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

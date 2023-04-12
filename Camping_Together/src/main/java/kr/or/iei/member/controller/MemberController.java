@@ -12,11 +12,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import common.FileManager;
 import kr.or.iei.member.model.service.MemberService;
 import kr.or.iei.member.model.vo.CampingPayment;
 import kr.or.iei.member.model.vo.Member;
 import kr.or.iei.member.model.vo.MemberPageData;
 import kr.or.iei.member.model.vo.ProductPageData;
+import kr.or.iei.member.model.vo.ReviewPageData;
 
 @Controller
 public class MemberController {
@@ -24,6 +26,12 @@ public class MemberController {
 	
 	@Autowired
 	private MemberService service;
+	
+	@Autowired
+	private FileManager manager;
+	
+	
+	
 	
 	@RequestMapping(value="/loginFrm.do")
 	public String loginFrm() {
@@ -152,9 +160,21 @@ public class MemberController {
 		return "member/productPayList";
 	}
 	
+	//내가 쓴 캠핑장리뷰
+	@RequestMapping(value = "/myRiview.do")
+	public String myRiview(int reqPage,String memberId, Model model) {
+		ReviewPageData rpd = service.myReviewList(memberId, reqPage);
+		
+		return "member/myReviewList";
+	}
 	
+	
+	//찜한목록
+	@RequestMapping(value = "/usedWishList.do")
+	public String usedWishList(int reqPage,String memberId, Model model) {
+	return "member/usedWishList";
+	}
+
 }
-
-
 
 
