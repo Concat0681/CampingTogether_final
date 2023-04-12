@@ -37,7 +37,7 @@
 	<div class="wrapper wrapperBox">
 		<div class="wrapper wrapperTop">
 			<div class="backGround">
-				<img src="/resources/image/main/back1.jpg" style="width: 100%; min-width:1300px; height:1000px;">
+				<img src="/resources/image/main/back1.jpg" style="width: 100%; min-width:1400px; height:1000px;">
 			</div>
 			<div class="inputBox" style="display: block;">
 				<jsp:include page="/WEB-INF/views/camping/campingListHeader.jsp" />
