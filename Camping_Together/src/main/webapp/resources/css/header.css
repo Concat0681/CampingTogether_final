@@ -39,7 +39,7 @@ body{
 }
 .nav-top>ul>li:hover>a{
     font-weight: bolder;
-    color: #AD8B73;
+    color: #E3CAA5;
     text-decoration: none;
     transition-duration: 0.5s;
 }

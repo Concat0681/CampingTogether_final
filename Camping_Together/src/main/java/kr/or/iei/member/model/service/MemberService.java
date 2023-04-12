@@ -20,7 +20,7 @@ public class MemberService {
 	
 	@Autowired
 	private MemberDao dao;
-
+	
 	public Member selectOneMember(Member member) {
 			return dao.selectOneMember(member);
 		}
