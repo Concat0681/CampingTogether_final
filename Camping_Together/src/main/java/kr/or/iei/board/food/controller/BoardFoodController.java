@@ -1,19 +1,21 @@
 package kr.or.iei.board.food.controller;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-
-import com.google.gson.JsonObject;
 
 import common.FileManager;
 import kr.or.iei.board.food.model.service.BoardFoodService;
@@ -146,11 +148,51 @@ public class BoardFoodController {
 		int result = service.deleteFoodComment(foodCommentNo);
 		return "redirect:/boardFoodView.do?boardFoodNo="+boardFoodNo;
 	}
-//	  @RequestMapping(value="/SummerNoteImageFile.do" , method = RequestMethod.POST)
-//		public @ResponseBody JsonObject SummerNoteImageFile(@RequestParam("file") MultipartFile file) {
-//			JsonObject jsonObject = service.SummerNoteImageFile(file);
-//			 System.out.println("json!! : "+jsonObject);
-//			 System.out.println("여기까지 도달함");
-//			return jsonObject;
-//		}
+	@RequestMapping(value="/boardFoodFileDown.do")
+	public void boardFileDown(int fileNo, HttpServletRequest request, HttpServletResponse response) {
+		//fileNo : DB에서 filename, filepath를 조회해오기위한 용도
+		//request : 파일위치 찾을 때 사용
+		//response : 파일다운로드 로직 구현 시 사용
+		//리턴을 하지않음 - 페이지이동이 필요없으므로
+		
+		//filename과 filepath를 찾아오기위해서
+		FileVO file = service.getFile(fileNo);
+		System.out.println(file);
+		//파일경로
+		String root = request.getSession().getServletContext().getRealPath("/resources/upload/boardFood/");
+		String downFile = root+file.getFilepath();
+		
+		//파일을 읽어오기위한 주스트림생성(속도개선을위한 보조스트림생성)
+		try {
+			FileInputStream fis = new FileInputStream(downFile);
+			BufferedInputStream bis = new BufferedInputStream(fis);
+			//읽어온 파일을 사용자에게 내보낼 스트림생성
+			ServletOutputStream sos = response.getOutputStream();
+			BufferedOutputStream bos = new BufferedOutputStream(sos);
+			
+			//파일명 처리
+			String resFilename = new String(file.getFilepath().getBytes("UTF-8"), "ISO-8859-1");
+			response.setContentType("application/octet-stream");//파일형식이란것을 알려줌
+			response.setHeader("Content-Disposition", "attachment;filename="+resFilename);//파일이름을 알려줌
+			//파일전송
+			while(true) {
+				int read = bis.read();
+				//파일을 계속 읽다가 다읽으면 종료
+				if(read != -1) {
+					bos.write(read);
+				}else {
+					break;
+				}
+			}
+			bos.close();
+			bis.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+	}
+
 }

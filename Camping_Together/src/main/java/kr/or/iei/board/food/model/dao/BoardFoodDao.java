@@ -93,5 +93,11 @@ public class BoardFoodDao {
 		return result;
 	}
 
+	public FileVO getFile(int fileNo) {
+		List list = sqlSession.selectList("boardFood.getFile",fileNo);
+		System.out.println(list.size());
+		return (FileVO)list.get(0);
+	}
+
 
 }
