@@ -284,7 +284,7 @@
 						  </div>
 						</div>
 						
-					<c:forEach items="${campingReview }" var="cr">
+					<c:forEach items="${campingReview }" var="cr" varStatus="i">
 						<c:if test="${cr.campingReviewRating != 0}">
 							<div style="margin-top: 50px;">
 						        <ul class="posting-comment">
@@ -302,34 +302,34 @@
 						            
 						            
 						            <!-- 캐러셀 컨테이너 정의 -->
-									<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" style="width: 500px;">
+									<div id="carouselExampleControls-${i.index }" class="carousel slide" data-bs-ride="carousel" style="width: 500px;">
 									  <!-- 캐러셀 내용 정의 -->
 									  	<div class="carousel-inner">
 									  		<c:forEach items="${cr.fileList }" var="f" varStatus="j">
 												<c:choose>
 													<c:when test="${j.index == 0 }">
 														<div class="carousel-item active">
-															<img src="resources/upload/campingRoom/${f.filepath }">
+															<img src="resources/upload/campingReview/${f.filepath }">
 														</div>
 													</c:when>
 													<c:otherwise>
 														<div class="carousel-item">
-															<img src="resources/upload/campingRoom/${f.filepath }">
+															<img src="resources/upload/campingReview/${f.filepath }">
 														</div>
 													</c:otherwise>
 												</c:choose>
+											  <!-- 이전/다음 버튼 정의 -->
+											  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls-${i.index }" data-bs-slide="prev">
+											    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+											    <span class="visually-hidden">이전</span>
+											  </button>
+											  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls-${i.index }" data-bs-slide="next">
+											    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+											    <span class="visually-hidden">다음</span>
+											  </button>
 											</c:forEach>	
 										</div>
 									  
-									  <!-- 이전/다음 버튼 정의 -->
-									  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-									    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-									    <span class="visually-hidden">이전</span>
-									  </button>
-									  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-									    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-									    <span class="visually-hidden">다음</span>
-									  </button>
 									</div>
 						            <p class="comment-link">
 						              <a href="#">수정</a>
