@@ -6,6 +6,7 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,7 @@ public class MailService {
 	// 난수 발생
 	public String mailCheck(String memberEmail) {
 
-		System.out.println("넘어오냐? ");
+		
 		Random r = new Random();
 		int checkNum = r.nextInt(888888) + 111111;
 		System.out.println("인증번호 : " + checkNum);
@@ -38,22 +39,24 @@ public class MailService {
 			    "<br>" + 
 			    "해당 인증번호를 인증번호 확인란에 입력해 주세요."; //이메일 내용 삽입
 		
-		//이메일 전송
-		try {
-			MimeMessage message = mailSender.createMimeMessage();
-			MimeMessageHelper helper = new MimeMessageHelper(message,true,"utf-8");
-			helper.setFrom(setFrom);
-			helper.setTo(toMail);
-			helper.setSubject(title);
-			// true 전달 > html 형식으로 전송 , 작성하지 않으면 단순 텍스트로 전달.
-			helper.setText(content,true);
-			mailSender.send(message);
-		} catch (MessagingException e) {
-			e.printStackTrace();
-		}
+		//이메일 전송 
 		
-		String num = Integer.toString(authNumber);
-		return num;
+			MimeMessageHelper helper;
+			try {
+				MimeMessage message = mailSender.createMimeMessage();
+				helper = new MimeMessageHelper(message,true,"utf-8");
+				helper.setFrom(setFrom);
+				helper.setTo(toMail);
+				helper.setSubject(title);
+				// true 전달 > html 형식으로 전송 , 작성하지 않으면 단순 텍스트로 전달.
+				helper.setText(content,true);
+				mailSender.send(message);
+				System.out.println("전송 완료");
+			} catch (MessagingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return Integer.toString(checkNum);
 	}
 
 }

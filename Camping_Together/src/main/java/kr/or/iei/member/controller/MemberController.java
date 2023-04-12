@@ -33,10 +33,11 @@ public class MemberController {
 	
 	@Autowired
 	private MemberService service;
+	@Autowired
 	private MailService mailService;
 	
 	
-	@RequestMapping(value="/mailCheck.do", method=RequestMethod.GET)
+	@RequestMapping(value="/mailCheck.do", method=RequestMethod.POST)
 	@ResponseBody
 	public String mailCheck(String memberEmail) {
 		System.out.println("이메일 인증 요청 성공 ");

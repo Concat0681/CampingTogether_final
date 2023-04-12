@@ -120,7 +120,7 @@ $('#mail-Confirm-Btn').click(function() {
 	const checkInput = $('.mail-check-input') // 인증번호 입력하는곳 
 	
 	$.ajax({
-		type : 'get',
+		type : 'post',
 		url : "/mailCheck.do",
 		data: {memberEmail:memberEamil},
 		success : function (data) {
