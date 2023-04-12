@@ -36,11 +36,11 @@
         	
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label">받는 사람:</label>
-            <input type="text" class="form-control" id="recipient-name" placeholder="아이디를 적어주세요" name="receiver">
+            <input type="text" class="form-control" id="receiver-name" placeholder="아이디를 적어주세요" name="receiver">
           </div>
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label">제목:</label>
-            <input type="text" class="form-control" id="recipient-name" name="messageTitle">
+            <input type="text" class="form-control" id="message-title" name="messageTitle">
           </div>
           <div class="mb-3">
             <label for="message-text" class="col-form-label">내용:</label>
@@ -74,10 +74,10 @@
         <div class="nav-top" style="color: #fff;">
             <ul class="login">
                 <!-- <li><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">쪽지보내기</button></li> -->
-                <li><a class="nav-linkT" href="/notice/noticeList.jsp">공지사항</a></li>
-                <li><a class="nav-linkT" href = "/messageMain.do">쪽지함</a></li>
-                <li><a class="nav-linkT" href = "/mypageC.do">[${sessionScope.m.memberName }]</a></li>
-                <li><a class="nav-linkT" href="/logout.do">로그아웃</a></li>
+                <li><a href="/notice/noticeList.jsp">공지사항</a></li>
+                <li><a href = "/messageMain.do">쪽지함</a></li>
+                <li><a href = "/cmapingPayList.do?reqPage=1&memberNo=${sessionScope.m.memberNo }">[${sessionScope.m.memberName }]</a></li>
+                <li><a href="/logout.do">로그아웃</a></li>
             </ul>
         </div>
     </div>

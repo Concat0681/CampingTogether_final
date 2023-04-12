@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.iei.usedBoard.model.dao.UsedBoardDao;
 import kr.or.iei.usedBoard.model.vo.UsedBoard;
@@ -36,13 +37,13 @@ public class UsedBoardService {
 		}
 		String pageNavi = "<ul class='pagination circle-style'>";
 		if(pageNo != 1) {
-			pageNavi += "<li><a class='page-item' href='/usedBoardList.do?reqPage="+(pageNo-1)+"'><span class='material-icons'>chevron_left</span></a></li>";
+			pageNavi += "<li><a class='page-item' href='/usedBoardList.do?reqPage="+(pageNo-1)+"'><span class='material-symbols-outlined'>chevron_left</span></a></li>";
 		}
 			for(int i=0; i<pageNaviSize; i++) {
 				if(pageNo == reqPage) {
 					pageNavi += "<li><a class='page-item active-page'>"+pageNo+"</a></li>";
 				}else {
-					pageNavi += "<li><a class='page-item' href='/usedBoardList.do>reqPage="+pageNo+"'>"+pageNo+"</a></li>";
+					pageNavi += "<li><a class='page-item' href='/usedBoardList.do?reqPage="+pageNo+"'>"+pageNo+"</a></li>";
 				}
 				pageNo++;
 				if(pageNo > totalPage) {
@@ -50,14 +51,15 @@ public class UsedBoardService {
 				}
 			}
 		if(pageNo <= totalPage) {
-			pageNavi += "<li><a class='page-item' href='/usedBoardList.do?reqPage="+(pageNo+1)+"'><span class='material-icons'>chevron_right </span></a></li>";
+			pageNavi += "<li><a class='page-item' href='/usedBoardList.do?reqPage="+(pageNo+1)+"'><span class='material-symbols-outlined'>chevron_right </span></a></li>";
 		}
 		UsedBoardPageDate ubpd = new UsedBoardPageDate(list, pageNavi);
 		return ubpd;
 	}
-
+	
+	@Transactional
 	public int insertUsedBoard(UsedBoard ub, ArrayList<UsedBoardPhoto> photoList) {
-		//1.board insert, 2. boardNo Á¶È¸, 3. photo insert
+		//1.board insert, 2. boardNo ï¿½ï¿½È¸, 3. photo insert
 		int result = dao.insertUsedBoard(ub);
 		if(result > 0) {
 			for(UsedBoardPhoto photo : photoList) {
@@ -69,16 +71,17 @@ public class UsedBoardService {
 	}
 
 	public UsedBoard selectOneUsedBoard(int usedBoardNo) {
-		//1. Á¶È¸¼öupdate
+		//1. ï¿½ï¿½È¸ï¿½ï¿½update
 		int result = dao.updateReadCount(usedBoardNo);
-		//2. »ó¼¼Á¤º¸Á¶È¸
+		//2. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¸
 		UsedBoard ub = dao.selectOneUsedBoard(usedBoardNo);
-		//3. Ã·ºÎÀÌ¹ÌÁöÁ¶È¸
+		//3. Ã·ï¿½ï¿½ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½È¸
 		ArrayList<UsedBoardPhoto> list = dao.selectUsedPhoto(usedBoardNo);
 		ub.setUsedBoardPhotoList(list);
 		return ub;
 	}
 
+	@Transactional
 	public int usedBoardCommentInsert(UsedBoardComment ubc) {
 		return dao.usedBoardCommentInsert(ubc);
 	}
@@ -86,4 +89,22 @@ public class UsedBoardService {
 	public ArrayList<UsedBoardComment> selectCommentList(int usedBoardNo) {
 		return dao.selectCommentList(usedBoardNo);
 	}
+
+	public int commentCount(int usedBoardNo) {
+		return dao.commentCount(usedBoardNo);
+	}
+
+	@Transactional
+	public int updateUsedBoardComment(UsedBoardComment ubc) {
+		return dao.updateUsedBoardComment(ubc);
+	}
+	
+	@Transactional
+	public int deleteUsedBoardComment(int usedBoardCommentNo) {
+		return dao.deleteUsedBoardComment(usedBoardCommentNo);
+	}
 }
+
+
+
+

@@ -70,6 +70,12 @@
 		        		<div class="address-wrap">
 							<table class="addressTbl">
 								<tr>
+									<td>도/시</td>
+									<td>
+										<input type="text" name="campingSido" id="campingSido" readonly>
+									</td>
+								</tr>
+								<tr>
 									<td>지번</td>
 									<td>
 										<input type="text" name="postcode" id="postcode" readonly>
@@ -583,6 +589,8 @@
 			        oncomplete: function(data) {
 			        	$("#postcode").val(data.zonecode);
 			        	$("#address").val(data.address);
+			        	$("#campingSido").val(data.sido);
+			        	console.log(data.sido)
 			        	$("#detailAddress").focus();
 			            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
 			            // 예제를 참고하여 다양한 활용법을 확인해 보세요.

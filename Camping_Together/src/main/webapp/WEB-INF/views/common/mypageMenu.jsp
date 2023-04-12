@@ -14,11 +14,11 @@
 			<div class="title-list">
 				<ul>
 					<li><a href="/cmapingPayList.do?reqPage=1&memberNo=${sessionScope.m.memberNo }">캠핑장 결제 내역</a></li>
-					<li><a href="/productPayList.do?reqPage=1&memberNo=${sessionScope.m.memberNo }">캠핑용품 구매 내역</a></li>
+					<li><a href="/productPayList.do?reqPage=1&memberId=${sessionScope.m.memberId }">shop 구매 내역</a></li>
 					<li><a href="#">포인트</a></li>
 					<li><a href="#">내가 쓴 리뷰</a></li>
 					<li><a href="#">내가 쓴 댓글</a></li>
-					<li><a href="#">개인정보 수정 및 탈퇴</a></li>
+					<li><a href="/mypageC.do">개인정보 수정 및 탈퇴</a></li>
 				</ul>
 			</div>
 		</div>

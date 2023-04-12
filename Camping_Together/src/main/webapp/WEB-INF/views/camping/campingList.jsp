@@ -14,10 +14,20 @@
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
 	<div class="page-wrap">
-		<div class="page-header" style="background-image: url(/resources/image/camping/${cityNameEN }.jpeg)">
-			<div class="page-header-title">${cityNameKR } 캠핑가자</div>
-			<jsp:include page="/WEB-INF/views/camping/campingListHeader.jsp" />
-		</div>
+		<c:choose>
+			<c:when test="${not empty cityNameEN }">
+				<div class="page-header" style="background-image: url(/resources/image/camping/${cityNameEN }.jpg)">
+					<div class="page-header-title">${cityNameKR } 캠핑가자</div>
+					<jsp:include page="/WEB-INF/views/camping/campingListHeader.jsp" />
+				</div>
+			</c:when>
+			<c:otherwise>
+				<div class="page-header" style="background-image: url(/resources/image/camping/sido/${campingSido }.jpg)">
+					<div class="page-header-title">${campingSido } 캠핑가자</div>
+					<jsp:include page="/WEB-INF/views/camping/campingListHeader.jsp" />
+				</div>
+			</c:otherwise>
+		</c:choose>
 		<div class="page-content">
 			<div class="sidebar-menu">
 				<div class="menu">
@@ -39,6 +49,7 @@
 				<div class="menu">
 					<div class="menu-title">상세조건</div>
 					<input type=hidden id="cityAddr" name="cityAddr" value="${cityNameKR }">
+					<input type=hidden id="campingSido" name="campingSido" value="${campingSido }">
 					<div class="box button-wrap">
 						<button class="btn2" type="button" onclick="resetInputs();">초기화</button>
 						<button class="btn3" type="button" onclick="sendDetailSearch(null, 1);">적용</button>
@@ -278,16 +289,15 @@
 				</div>
 				<div class="campingList-box">
 					<div class="list-by-review">
+						<c:if test="${empty list }">
+							<div class="no-result-wrap">
+								<img src="/resources/image/logo/logo250x80.png">
+								<h3>검색결과가 없습니다</h3>
+							</div>
+						</c:if>
 						<c:forEach items="${list }" var="c">
-							<div class="camping-box" onclick="viewCamping('${c.campingNo }')">
-								<c:choose>
-									<c:when test="c.filepath == null">
-										<img src="/resources/upload/camping/campingbg.jpg">															
-									</c:when>
-									<c:otherwise>
-										<img src="/resources/upload/campingRoom/${c.filepath}">	
-									</c:otherwise>
-								</c:choose>	
+							<div class="camping-box" onclick="viewCamping('${c.campingNo }','${checkIn }','${checkOut }')">
+								<img src="resources/upload/camping/${c.filepath}">	
 								<div>
 									<div class="camping-room-info">
 										<div class="campingTitle">${c.campingTitle }</div>
@@ -307,7 +317,7 @@
 					</div>
 					<div id="allList" class="hidden">
 						<c:forEach items="${allList }" var="c">			
-								<div class="allCampingTitle"><a href="/viewCamping.do?campingNo=${c.campingNo }">${c.campingTitle }</a></div>				
+								<div class="allCampingTitle"><a href="/viewCamping.do?campingNo=${c.campingNo }&checkIn=${checkIn}&checkOut=${checkOut}">${c.campingTitle }</a></div>				
 								<div class="allCampingAddr">${c.campingAddr }</div>
 						</c:forEach>
 					</div>
@@ -359,6 +369,81 @@
 			$("input[name=campingRoomService]").prop("checked", false);
 			$("input[name=campingEtc]").prop("checked", false);
 			$("input[name=ppl_count]").val(1);	
+		}
+		
+		/* 네이버 지도 api */
+		function startMap(){
+			const cityAddr = $("#cityAddr").val();
+			const sido = $("#campingSido").val();
+			var zoomMap = null;
+			var searchAddr = null;
+			if(cityAddr == ""){
+				searchAddr = sido;
+				zoomMap = 9;
+			} else {
+				searchAddr = cityAddr;
+				zoomMap = 11;
+			}
+			naver.maps.Service.geocode({
+		        address: searchAddr
+		    }, function(status, response) {
+		        if (status !== naver.maps.Service.Status.OK) {
+		            return alert('Something wrong!');
+		        }
+		
+		        var result = response.result, // 검색 결과의 컨테이너
+		        items = result.items; // 검색 결과의 배열
+		        const cityLng = items[1].point.x;
+		        const cityLat = items[1].point.y;
+		        
+		        map = new naver.maps.Map("map",{
+					center : new naver.maps.LatLng(cityLat, cityLng),
+					zoom : zoomMap,
+					zoomControl : true,
+					zoomControlOptions : {
+						position : naver.maps.Position.TOP_RIGHT,
+						style : naver.maps.ZoomControlStyle.SMALL
+					}
+		        });
+		        
+				const addrList = $(".allCampingAddr");
+				addrList.each(function(i, addr){
+					naver.maps.Service.geocode({
+				        address: $(addr).text()
+				    }, function(status, response) {
+				        if (status !== naver.maps.Service.Status.OK) {
+				            return alert('Something wrong!');
+				        }
+				
+				        var result = response.result, // 검색 결과의 컨테이너
+				        items = result.items; // 검색 결과의 배열
+				        const lng = items[1].point.x;
+				        const lat = items[1].point.y;
+				        
+				        const marker = new naver.maps.Marker({
+							position : new naver.maps.LatLng(lat, lng), 
+							map : map
+						})
+				       	const campingTitle = $(".allCampingTitle").eq(i).find("a").text();
+				        const href = $(".allCampingTitle").eq(i).find("a").attr("href");
+				        let contentString = [
+							"<div class='iw_inner'>",
+							"	<div><a  href="+href+">"+campingTitle+"</a></div>",
+							"	<p>"+$(addr).text()+"</p>",
+							"</div>"
+						].join("");
+						let infoWindow = new naver.maps.InfoWindow();
+						
+						naver.maps.Event.addListener(marker,"click",function(e){
+							infoWindow = new naver.maps.InfoWindow({
+								content : contentString
+							});
+							//생성된 infoWindow를 map의 marker위치에 생성
+							infoWindow.open(map, marker);
+						})
+				    });		
+				})
+		    });	
 		}
 		
 		function sendDetailSearch(order, reqPage){
@@ -441,71 +526,6 @@
 			})
 		}
 		
-		/* 네이버 지도 api */
-		function startMap(){
-			const cityAddr = $("#cityAddr").val();
-			naver.maps.Service.geocode({
-		        address: cityAddr
-		    }, function(status, response) {
-		        if (status !== naver.maps.Service.Status.OK) {
-		            return alert('Something wrong!');
-		        }
-		
-		        var result = response.result, // 검색 결과의 컨테이너
-		        items = result.items; // 검색 결과의 배열
-		        const cityLng = items[1].point.x;
-		        const cityLat = items[1].point.y;
-		        
-		        map = new naver.maps.Map("map",{
-					center : new naver.maps.LatLng(cityLat, cityLng),
-					zoom : 10,
-					zoomControl : true,
-					zoomControlOptions : {
-						position : naver.maps.Position.TOP_RIGHT,
-						style : naver.maps.ZoomControlStyle.SMALL
-					}
-		        });
-		        
-				const addrList = $(".allCampingAddr");
-				addrList.each(function(i, addr){
-					naver.maps.Service.geocode({
-				        address: $(addr).text()
-				    }, function(status, response) {
-				        if (status !== naver.maps.Service.Status.OK) {
-				            return alert('Something wrong!');
-				        }
-				
-				        var result = response.result, // 검색 결과의 컨테이너
-				        items = result.items; // 검색 결과의 배열
-				        const lng = items[1].point.x;
-				        const lat = items[1].point.y;
-				        
-				        const marker = new naver.maps.Marker({
-							position : new naver.maps.LatLng(lat, lng), 
-							map : map
-						})
-				       	const campingTitle = $(".allCampingTitle").eq(i).find("a").text();
-				        const href = $(".allCampingTitle").eq(i).find("a").attr("href");
-				        let contentString = [
-							"<div class='iw_inner'>",
-							"	<div><a  href="+href+">"+campingTitle+"</a></div>",
-							"	<p>"+$(addr).text()+"</p>",
-							"</div>"
-						].join("");
-						let infoWindow = new naver.maps.InfoWindow();
-						
-						naver.maps.Event.addListener(marker,"click",function(e){
-							infoWindow = new naver.maps.InfoWindow({
-								content : contentString
-							});
-							//생성된 infoWindow를 map의 marker위치에 생성
-							infoWindow.open(map, marker);
-						})
-				    });		
-				})
-		    });	
-		}
-		
 		if ($('#detail_search_checkin, #detail_search_checkout').length) {
 		  // check if element is available to bind ITS ONLY ON HOMEPAGE
 		  var currentDate = moment().format('MM-DD')
@@ -571,8 +591,8 @@
 		  )
 		} // End Daterange Picker
 	
-		function viewCamping(campingNo){
-			location.href="/viewCamping.do?campingNo="+campingNo;
+		function viewCamping(campingNo, checkIn, checkOut){
+			location.href="/viewCamping.do?campingNo="+campingNo+"&checkIn="+checkIn+"&checkOut="+checkOut;
 		}
 		
 		$(function(){

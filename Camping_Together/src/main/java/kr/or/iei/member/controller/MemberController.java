@@ -26,6 +26,7 @@ import kr.or.iei.member.model.service.MemberService;
 import kr.or.iei.member.model.vo.CampingPayment;
 import kr.or.iei.member.model.vo.Member;
 import kr.or.iei.member.model.vo.MemberPageData;
+import kr.or.iei.member.model.vo.ProductPageData;
 
 @Controller
 public class MemberController {
@@ -100,8 +101,8 @@ public class MemberController {
 	public String mypageC() {
 		return "member/mypageCFrm";
 	}
-	//------------------------------------채占쏙옙
-	//------------------------------------채占쏙옙
+	//------------------------------------梨꾢뜝�룞�삕
+	//------------------------------------梨꾢뜝�룞�삕
 	@RequestMapping(value ="/allMemberChatFrm.do")
 	public String allMemberChatFrm() {
 		return"member/allMemberChatFrm";
@@ -140,7 +141,7 @@ public class MemberController {
 		return "member/updateMypageCFrm";
 	}
 	
-	//�쉶�썝�깉�눜
+	//占쎌돳占쎌뜚占쎄퉱占쎈닚
 	@RequestMapping(value = "/deleteMember.do")
 	public String deleteMember(int memberNo) {
 		int result = service.deleteMember(memberNo);
@@ -151,33 +152,28 @@ public class MemberController {
 		}
 	}
 	
-	//罹좏븨�옣 寃곗젣 �궡�뿭 由ъ뒪�듃
-	/*
+
+	//캠핑장 결제 내역 리스트
 	@RequestMapping(value = "/cmapingPayList.do")
 	public String cmapingPayList(int reqPage,int memberNo, Model model) {
-		ArrayList<CampingPayment> list = service.selectPayList(memberNo, reqPage);	
-		model.addAttribute("list", list );
-		return "member/shopPayList";
-	}
-	*/
-	@RequestMapping(value = "/cmapingPayList.do")
-	public String cmapingPayList(int reqPage,int memberNo, Model model) {
-		MemberPageData mpd = service.selectPayList(memberNo, reqPage);	
+		MemberPageData mpd = service.selectPayList(memberNo, reqPage);
+		System.out.println(mpd.getList());
 		model.addAttribute("list", mpd.getList() );
 		model.addAttribute("navi", mpd.getPageNavi() );
 		return "member/shopPayList";
 	}
-	
 
-	//罹좏븨�슜�뭹 寃곗젣 由ъ뒪�듃
-	/*
-	//캠핑용품 결제 리스트
+
 	
+	//캠핑용품 결제 리스트
 	@RequestMapping(value = "/productPayList.do")
-	public String productPayList(int reqPage,int memberNo, Model model) {
+	public String productPayList(int reqPage,String memberId, Model model) {
+		ProductPageData ppd = service.productPayList(memberId, reqPage);	
+		model.addAttribute("list", ppd.getList() );
+		model.addAttribute("navi", ppd.getPageNavi() );
 		return "member/productPayList";
 	}
-	*/
+	
 	
 }
 
