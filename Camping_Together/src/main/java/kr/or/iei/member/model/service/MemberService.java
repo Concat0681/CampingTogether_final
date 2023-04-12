@@ -3,6 +3,8 @@ package kr.or.iei.member.model.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.mail.internet.MimeMessage;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,7 +22,7 @@ public class MemberService {
 
 	@Autowired
 	private MemberDao dao;
-
+	
 	public Member selectOneMember(Member member) {
 		return dao.selectOneMember(member);
 	}
@@ -92,11 +94,27 @@ public class MemberService {
 				pageNavi += pageNo;
 				pageNavi += "</a></li>";
 			}
-			pageNo++;
-			// for
-			if (pageNo > totalPage) {
-				break;
+			pageNavi += "</ul>";
+			
+			MemberPageData mpd = new MemberPageData(list,pageNavi);
+			 return mpd;
 			}
+
+		//�씠�쟾 踰꾪듉
+		if(pageNo != 1) {
+		pageNavi += "<a href='/cmapingPayList.do?reqPage="+(pageNo-1)+"&memberNo="+memberNo+"'>[�씠�쟾]</a>";
+		}
+		
+		//�럹�씠吏� �닽�옄 �깮�꽦
+		for(int i=0;i<pageNaviSize;i++) {
+		if(pageNo ==  reqPage) {
+			pageNavi += "<span>"+pageNo+"</span>";
+		}else {
+			pageNavi += "<a href='/cmapingPayList.do?reqPage="+pageNo+"&memberNo="+memberNo+"'>"+pageNo+"</a>";
+				}
+		pageNo++;
+		if(pageNo > totalPage) {
+		 break;
 		}
 
 		// 다음버튼
@@ -110,6 +128,8 @@ public class MemberService {
 
 		MemberPageData mpd = new MemberPageData(list, pageNavi);
 		return mpd;
+		}
+		return null;
 	}
 
 	// 캠핑용품 결제 리스트
@@ -196,3 +216,6 @@ public class MemberService {
 	}
 
 }
+
+
+

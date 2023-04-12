@@ -59,7 +59,7 @@ public class UsedBoardService {
 	
 	@Transactional
 	public int insertUsedBoard(UsedBoard ub, ArrayList<UsedBoardPhoto> photoList) {
-		//1.board insert, 2. boardNo Á¶È¸, 3. photo insert
+		//1.board insert, 2. boardNo ï¿½ï¿½È¸, 3. photo insert
 		int result = dao.insertUsedBoard(ub);
 		if(result > 0) {
 			for(UsedBoardPhoto photo : photoList) {
@@ -71,11 +71,11 @@ public class UsedBoardService {
 	}
 
 	public UsedBoard selectOneUsedBoard(int usedBoardNo) {
-		//1. Á¶È¸¼öupdate
+		//1. ï¿½ï¿½È¸ï¿½ï¿½update
 		int result = dao.updateReadCount(usedBoardNo);
-		//2. »ó¼¼Á¤º¸Á¶È¸
+		//2. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¸
 		UsedBoard ub = dao.selectOneUsedBoard(usedBoardNo);
-		//3. Ã·ºÎÀÌ¹ÌÁöÁ¶È¸
+		//3. Ã·ï¿½ï¿½ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½È¸
 		ArrayList<UsedBoardPhoto> list = dao.selectUsedPhoto(usedBoardNo);
 		ub.setUsedBoardPhotoList(list);
 		return ub;
@@ -88,6 +88,20 @@ public class UsedBoardService {
 
 	public ArrayList<UsedBoardComment> selectCommentList(int usedBoardNo) {
 		return dao.selectCommentList(usedBoardNo);
+	}
+
+	public int commentCount(int usedBoardNo) {
+		return dao.commentCount(usedBoardNo);
+	}
+
+	@Transactional
+	public int updateUsedBoardComment(UsedBoardComment ubc) {
+		return dao.updateUsedBoardComment(ubc);
+	}
+	
+	@Transactional
+	public int deleteUsedBoardComment(int usedBoardCommentNo) {
+		return dao.deleteUsedBoardComment(usedBoardCommentNo);
 	}
 }
 

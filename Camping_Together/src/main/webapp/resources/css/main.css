@@ -55,13 +55,12 @@
 }
 
 .best-campingSite{
-	  top: 500px;
+	top: 500px;
     z-index: 99;
     position: absolute;
     background-color: transparent;
-    width: 70%;
-    height: 450px;
-    left: 15%;
+    width: 60%;
+    left: 21%;
 }
 .capmingListBox>h3{
 	color: #fff;
@@ -192,4 +191,14 @@
 .tradeContentBoarder>img{
 	max-height: 200px;
 	max-width: 200px;
+}
+.nav-link{
+	color: #fff;
+}
+.bx-wrapper{
+	margin: 0;
+	min-width: 1070px;
+}
+.search-input-wrap{
+	min-width: 1300px;
 }

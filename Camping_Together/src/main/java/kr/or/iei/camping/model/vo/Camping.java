@@ -15,6 +15,7 @@ public class Camping {
 	private String memberId;
 	private String campingTitle;
 	private String campingContent;
+	private String campingSido;
 	private String campingAddr;
 	private String campingAddrDetail;
 	private String campingPhone;

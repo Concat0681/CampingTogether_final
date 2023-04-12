@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="inquiry">
+<select id="selectInquiry" parameterType="map" resultType="i">
+	select * from
+			(select rownum as rnum, i.*from
+				(select
+					inquiry_no as inquiryNO,
+					inquiry_writer as inquiryWriter,
+					inquiry_title as inquiryTitle,
+					inquiry_content as inquiryContent,
+					reg_date as regDate,
+					status
+				from inquiry order by 1 desc)i) 
+			where rnum between #{start} and #{end}
+			
+			
+			
+<!-- 		where rnum between #{start} and #{end}select * from -->
+<!-- 			(select rownum as rnum, i.*from -->
+<!-- 				(select -->
+<!-- 					inquiry_no as inquiryNO, -->
+<!-- 					inquiry_writer as inquiryWriter, -->
+<!-- 					inquiry_title as inquiryTitle, -->
+<!-- 					inquiry_content as inquiryContent, -->
+<!-- 					read_count as readCount, -->
+<!-- 					reg_date as regDate, -->
+<!--                     group_no as groupNo, -->
+<!--                     group_ord as groupOrd, -->
+<!--                     depth -->
+<!-- 				from inquiry order by group_no desc, group_ord asc)i)  -->
+<!-- 		where rnum between #{start} and #{end} -->
+</select>
+<select id="selectTotalCount" resultType="_int">
+	select count(*) from inquiry
+</select>
+</mapper>

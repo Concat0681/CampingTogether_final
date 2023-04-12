@@ -34,6 +34,7 @@
    }
    .category-info>p{
    		margin: 0;
+   		margin-left: 3px;
    		color: #CEAB93;
    }
    .detail-wrap{
@@ -43,16 +44,26 @@
    }
    .detail-title>h3{
    		margin-bottom: 0;
-   		font-family: ng-bold;
+   		font-family: ng-extra-bold;
+   		color: #AD8B73;
    }
    .detail-info{
    		display: flex;
    }
    .detail-top-wrap, .detail-price-wrap, .comment-list-wrap{
    		padding-left: 20px;
-   		padding-bottom: 15px;
+   		padding-bottom: 10px;
    		padding-top: 15px;
    		border-bottom: 1px solid #ccc;
+   }
+   .detail-top-wrap{
+   		padding-bottom: 5px;
+   		border-bottom: 3px double #AD8B73;
+   }
+   .detail-price-wrap{
+   		border-bottom: 3px double #AD8B73;
+   		border-radius: 5px;
+   		padding-bottom: 0;
    }
    .comment-list-wrap{
    		border: 0;
@@ -72,11 +83,12 @@
    .wish-list{
 		position: absolute;
 		margin-left: 890px;
-		top: 32px;
+		top: 50px;
    }
    .wish-list>span{
    		font-size: 30px;
    		font-weight: 100;
+   		color: #AD8B73;
    		cursor: pointer;
    }
    .detail-content-wrap{
@@ -159,6 +171,9 @@
    		width: 100%;
    		border-radius: 50px;
    }
+   .user-id{
+   		display: inline-block;
+   }
    .user-id>p{
    		font-family: ng-extra-bold;
    		color: #AD8B73;
@@ -170,18 +185,31 @@
    		padding: 10px;
    		border-radius: 8px;
    		word-break:break-all;
+   		overflow: hidden;
    }
    .comment-write-info{
-   		text-align: right;
+   		display: inline-block;
+   		float: right;
    		color: #ccc;
    		font-family: ng-bold;
-   		font-size: 14px;
+   		font-size: 13px;
    }
    .comment-write-info>a:hover{
    		color: #E3CAA5;
    }
    .comment-write-content>p{
    		margin-bottom: 0;
+   }
+   .comment-modify-link{
+   		color: #CEAB93;
+   		font-size: 13px;
+   		text-align: right;
+   }
+   .comment-modify-link>a{
+   		margin-left: 5px;
+   }
+   .comment-modify-link>a:hover{
+   		color: #E3CAA5;
    }
 </style>
 </head>
@@ -195,29 +223,28 @@
         <div class="detail-wrap">
         	<div class="detail-top-wrap">
         		<div class="category-info">
-        			<p class="font-bold">${ub.getUsedBoardCategory() }</p>
+        			<p class="font-bold">${ub.getUsedBoardCategoryText() }</p>
         		</div>
         		<div class="detail-title">
         			<h3>${ub.usedBoardTitle }</h3>
         		</div>
-        		<div class="detail-info">
-	        			<span class="font-bold">${ub.usedBoardWriter }</span>
-	        			<span>&nbsp; :: &nbsp;</span>
-	        			<span>${ub.regDate }</span>
-	        			<span>&nbsp; :: &nbsp;</span>
-	        			<span class="material-symbols-outlined">visibility</span>
-	        			<span>${ub.readCount }</span>
-        		</div>
+        		
         	</div>
         	<div class="detail-price-wrap">
+        		<div class="detail-info">
+	        			<p class="font-bold">${ub.usedBoardWriter }</p>
+	        			<p style="color:#ccc;">&nbsp; :: &nbsp;</p>
+	        			<p style="color:#ccc;">${ub.regDate }</p>
+	        			<p style="color:#ccc;">&nbsp; :: &nbsp;</p>
+	        			<p class="material-symbols-outlined" style="color:#ccc;">visibility</p>
+	        			<p style="color:#ccc;">${ub.readCount }</p>
+        		</div>
         		<div class="detail-price">
         			<p class="font-bold">판매금액 : <fmt:formatNumber value="${ub.usedProductPrice }" pattern="#,###" /></p>
         			<div class="detail-info">
-        				<span class="font-bold">상품상태 : </span><span>&nbsp;${ub.getUsedProductStatus() }</span>
-        				<span>&nbsp; || &nbsp;</span>
-        				<span class="font-bold">교환여부 :</span> <span>&nbsp;${ub.getExchangeStatus() }</span>
-        				<span>&nbsp; || &nbsp;</span>
-        				<span class="font-bold">거래지역 :</span><span>&nbsp;${ub.usedTradeLocation }</span>
+        				<p class="font-bold">상품상태 : </p><p>&nbsp;${ub.getUsedProductStatusText() }&nbsp;&nbsp;&nbsp;&nbsp;</p>
+        				<p class="font-bold">교환여부 :</p> <p>&nbsp;${ub.getExchangeStatusText() }&nbsp;&nbsp;&nbsp;&nbsp;</p>
+        				<p class="font-bold">거래지역 :</p><p>&nbsp;${ub.usedTradeLocation }</p>
         			</div>
         		</div>
         		<div class="wish-list">
@@ -227,6 +254,18 @@
         	<div class="detail-content-wrap">
         		<div class="seller-phone">
         			<span id="phone-check" class="font-bold">연락처를 확인하려면 클릭하세요.</span>
+        		</div>
+        		<%-- 연락처 모달 --%>
+        		<div class="modal-phone-wrapper">
+        			<div class="modal-phone">
+        				<div class="modal-header">
+        					<h3>판매자 정보</h3>
+        					<hr>
+        				</div>
+        				<div class="sell-user-wrap">
+        					<div class="sell-user"></div>
+        				</div>
+        			</div>
         		</div>
         		<div class="detail-content">
 					<div class="detail-content-img">
@@ -299,6 +338,7 @@
         			$("#comment-box").text("");
         			$("#comment-box").attr("disabled", true);
         			$("#comment-box").text("로그인 후 이용할 수 있습니다.");
+        			$("#comment-box").css("color", "#ccc");
         			$("[type='submit']").on("click", function(){
         				alert("로그인 후 이용할 수 있습니다.");
         				return false;
@@ -307,9 +347,7 @@
         	</script>
         	<div class="comment-list-wrap">
         		<div class="comment-count">
-        			<span>댓글</span>
-        			<sapn>${ubc.commentCount }</sapn>
-        			<span>개</span>
+        			<span>댓글(${commentCount })</span>
         		</div>
         		<c:forEach items="${list }" var="ubc">
 	        		<div class="comment-list">	        			
@@ -317,27 +355,67 @@
 	        				<div class="user-profile">
 	        					<img src="/resources/image/member/img.jpeg">
 	        				</div>
+	        			</div>	
+	        			   
+	        			<div class="modify-wrap" style="display:none;">     			
+        					<textarea name="usedBoardCommentContent" id="comment-box">${ubc.usedBoardCommentContent }</textarea>
+        					<div class="comment-modify-link">
+        						<a href="javascript:void(0)" onclick="modifyComplete(this, ${ubc.usedBoardCommentNo }, ${ub.usedBoardNo });">수정완료</a>
+        						<a href="javascript:void(0)" onclick="modifyCancle(this, '${ubc.usedBoardCommentContent}');">수정취소</a>
+        					</div>
+        				</div>
+	        			<div class="comment-write-content">
 	        				<div class="user-id">
 	        					<p>${ubc.usedBoardCommentWriter }</p>
 	        				</div>
-	        			</div>
-	        			<div class="comment-write-content">
 	        				<div class="comment-write-info">
 	        					<c:choose>
-	        						<c:when test="${sessionScope.m.memberId eq ubc.usedBoardCommentWriter }">
-	        							<a href="#">수정</a>
-	        							<a href="#">삭제</a>
+	        						<c:when test="${not empty sessionScope.m && sessionScope.m.memberId eq ubc.usedBoardCommentWriter }">
+	        							<a href="javascript:void(0)" onclick="modifyComment(this);">수정</a>
+	        							<a href="javascript:void(0)" onclick="deleteComment(${ubc.usedBoardCommentNo}, ${ubc.usedBoardNo });">삭제</a>
 	        							::
 	        						</c:when>
 	        					</c:choose>
 	        					${ubc.regDate }
 	        				</div>
-	        				<p>${ubc.getUsedBoardCommentContent() }</p>
+	        				<p>${ubc.getUsedBoardCommentContentBr() }</p>
 	        			</div>
 	        		</div>        		
         		</c:forEach>
         	</div>
         </div>
 	</div>
+	<script>
+		<%-- 댓글수정 --%>
+		function modifyComment(obj){
+			$(obj).parent().parent().prev().show();
+			$(obj).parent().parent().hide();			
+		}
+		<%-- 댓글 수정 완료 --%>
+		function modifyComplete(obj, usedBoardCommentNo, usedBoardNo){
+			const form = $("<form action='/usedBoardCommentUpdate.do' method='post'></form>");
+			const commentNoInput = $("<input type='text' name='usedBoardCommentNo'>");
+			commentNoInput.val(usedBoardCommentNo);
+			const usedBoardNoInput = $("<input type='text' name='usedBoardNo'>");
+			usedBoardNoInput.val(usedBoardNo);
+			
+			const usedBoardCommentContent = $(obj).parent().prev().clone();
+			form.append(commentNoInput).append(usedBoardNoInput).append(usedBoardCommentContent);
+			$("body").append(form);
+			form.submit();
+		}
+		<%-- 댓글 수정 취소 --%>
+		function modifyCancle(obj, currentContent){
+			$(obj).parent().parent().next().show();
+			$(obj).parent().prev().val(currentContent);
+			$(obj).parent().parent().hide();
+		}
+		<%-- 댓글삭제 --%>
+		function deleteComment(usedBoardCommentNo, usedBoardNo){
+			if(confirm("댓글을 삭제하시겠습니까?")){
+				location.href="/usedBoardCommentDelete.do?usedBoardCommentNo="+usedBoardCommentNo+"&usedBoardNo="+usedBoardNo;
+			}
+		}
+	</script>
 </body>
 </html>

@@ -37,6 +37,8 @@
 		<beans:property name="password" value="1234" />
 	</beans:bean>
 	
+	
+	
 	<!--  Mybatis 성정 객체 -->
 	<beans:bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<beans:property name="dataSource" ref="dataSource" />
@@ -60,6 +62,24 @@
 	<!-- 파일업로드용 객체 -->
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<beans:property name="maxUploadSize" value="10485760" />
+	</beans:bean>
+	
+		<!-- email 인증 관련 -->
+	<beans:bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<beans:property name="host" value="smtp.gmail.com" />
+		<beans:property name="port" value="587" />
+		<beans:property name="username" value="bumjin098@gmail.com" /> 
+		<beans:property name="password" value="ogtpsqnbclkexlfc" />
+		<beans:property name="javaMailProperties">
+			<beans:props>
+				<beans:prop key="mail.transport.protocol">smtp</beans:prop>
+				<beans:prop key="mail.smtp.auth">true</beans:prop>
+				<beans:prop key="mail.smtp.starttls.enable">true</beans:prop>
+				<beans:prop key="mail.debug">true</beans:prop>
+				<beans:prop key="mail.smtp.ssl.trust">smtp.gmail.com</beans:prop>
+				<beans:prop key="mail.smtp.ssl.protocols">TLSv1.2</beans:prop>
+			</beans:props>
+		</beans:property>
 	</beans:bean>
 	
 	 <!-- AOP Annotation 설정 활성화 -->
@@ -88,6 +108,7 @@
 	<context:component-scan base-package="kr.or.iei.notice" />
 	<context:component-scan base-package="kr.or.iei.camping" />
 	<context:component-scan base-package="kr.or.iei.board" />
+	<context:component-scan base-package="kr.or.iei.inquiry" />
 	<context:component-scan base-package="common" />
 	
 	

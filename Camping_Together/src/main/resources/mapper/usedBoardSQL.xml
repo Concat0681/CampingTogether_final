@@ -79,7 +79,7 @@
 	</select>
 	
 	<insert id="insertUsedBoardComment" parameterType="ubc">
-		insert into used_board_comment values(used_board_comment_seq.nextval, #{usedBoardNo}, #{usedBoardCommentWriter}, #{usedBoardCommentContent}, to_char(sysdate, 'yyyy-mm-dd'))
+		insert into used_board_comment values(used_board_comment_seq.nextval, #{usedBoardNo}, #{usedBoardCommentWriter}, #{usedBoardCommentContent}, to_char(sysdate, 'yyyy-mm-dd hh24:mi:ss'))
 	</insert>
 	
 	<select id="selectCommentList" parameterType="_int" resultType="ubc">
@@ -91,7 +91,17 @@
 			reg_date as regDate
 		from used_board_comment
 		where used_board_no = #{_parameter}
+		order by 1
 	</select>
+	<select id="commentCount" parameterType="_int" resultType="_int">
+		select count(*) from used_board_comment where used_board_no = #{_parameter}
+	</select>
+	<update id="updateUsedBoardComment" parameterType="ubc">
+		update used_board_comment set used_board_comment_content = '${usedBoardCommentContent}' where used_board_comment_no = #{usedBoardCommentNo}
+	</update>
+	<delete id="deleteUsedBoardComment" parameterType="_int">
+		delete from used_board_comment where used_board_comment_no = #{_parameter}
+	</delete>
 </mapper>
 
 

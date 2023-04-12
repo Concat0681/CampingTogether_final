@@ -1,6 +1,6 @@
 @charset "UTF-8";
 .page-wrap{
-	width: 80%;
+	width: 70%;
 	margin: 0 auto;
 	margin-top : 150px;
 }
@@ -11,11 +11,63 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-	padding : 0 50px;
+	padding : 0 30px;
 	width: 100%;
+	height: 300px;
 }
-.camping-info>div{
-	margin : 10px;
+
+.camping-info>div:last-of-type{
+	text-align: center;
+}
+.camping-info>div:last-of-type>button{
+	width: 50%;
+	height: 30px;
+}
+.camping-title{
+	font-size: 25px;
+	font-family: ng-bold;
+}
+.camping-addr{
+	font-weight: lighter;
+	font-size: medium;
+	color: grey;
+}
+.camping-detail{
+	padding: 10px;
+}
+.camping-detail>div:first-of-type{
+	display: flex;
+	justify-content: space-between;
+	padding: 15px;
+	padding-bottom: 20px;
+	background-color: rgb(250,250,250);;
+}
+.camping-detail>div:first-of-type>div{
+	font-family: ng-bold;	
+}
+.camping-detail>div:first-of-type>button{
+	color: #CEAB93;
+	border: none;
+	background-color: inherit;
+}
+.camping-content{
+	overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* 라인수 */
+    -webkit-box-orient: vertical;
+    word-wrap:break-word; 
+    line-height: 1.2em;
+    height: 50px;
+	padding: 10px 15px;
+	margin-bottom: 50px;
+	background-color: rgb(250,250,250);;
+}
+.opened{
+	display: block;
+	height: 100px;
+	margin-bottom: 0;
+	overflow: scroll;
 }
 .img-wrap>img{
 	width : 500px;
@@ -27,36 +79,83 @@
 .service-info{
 	display: flex;
 	flex-direction: column;
-	height: 200px;
+	height: 400px;
+	font-size: 10px;
+	margin-top: 30px;
 }
-.type-box{
-	height: 50%;
+.provide-box{
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
+	height: 100%;
 }
-.provide-box{
-	height: 50%;
+.provide-box>div{
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 20px;
+}
+.provide-box>div>div:first-of-type{
+	font-size: 15px;
+	font-family: ng-bold;
+	margin-bottom: 20px;
+}
+.provide-box>div>div:last-of-type{
+	display: flex;
+}
+.provide-box>div>div>div{
+	text-align: center;
+	width: 92px;
+	padding: 10px 0;
+	border-bottom: 1px solid #dedede;
 }
 .content-menu{
 	display: flex;
+	border-bottom: 1px solid #dedede;
 }
 .content-header{
 	display: flex;
 }
+.content-header>div:first-of-type{
+	width: 30%;
+}
+.content-header>div:first-of-type>div{
+	height: 50px;
+	line-height: 50px;
+}
+.weather-list{
+	width: 70%;
+	text-align: center;
+}
+.weather-list>div{
+	display: inline-block;
+	text-align: center;
+	margin: 0 10px;
+}
 .content-menu>div{
-	background-color: antiquewhite;
-	margin: 5px;
-	padding: 5px;
+	margin-right: 15px;
+	padding-bottom: 30px ;
+}
+.content-menu>div>button{
+	width: 100px;
+	height: 30px;
+}
+.clicked{
+	border-bottom: 4px solid #AD8B73; 
 }
 .type-content{
 	display: flex;
 }
-.weather-list{
-    display: flex;
+.content-box{
+	padding: 10px;
+	margin-top: 30px;
+}
+.campingRoom-list{
+	margin-top: 30px;
+	border: 1px solid #dedede;
 }
 .room-wrap{
 	display: flex;
+	padding: 30px;
 }
 .room-img{
 	width: 350px;
@@ -68,9 +167,74 @@
 }
 .room-img-box{
 	width: 40%;
+	height: 200px;
+}
+.room-img-box>div{
+	width: 100%;
+	height: 100%;
 }
 .room-box{
 	width: 60%;
+	padding: 0 20px;
+}
+.room-box>div:first-of-type{
+	font-family: ng-bold;
+	font-size: 18px;
+}
+.room-price-box{
+	padding-top: 40px;
+}
+.room-price-box>div{
+	font-family: ng-bold;
+}
+.room-basic-info>a{
+	display: flex;
+	justify-content: space-between;
+	margin : 20px 0;
+}
+.room-basic-info>a:hover{
+	color: #AD8B73;
+}
+.room-btn-box>button{
+	width: 100%;
+	height: 30px;
+}
+.card-body{
+	padding: 30px;
+}
+.card-body>div{
+	margin : 10px 0;
+	padding-bottom : 10px; 
+}
+.card-title{
+	display: flex;
+	justify-content: flex-end;
+	border-bottom: 1px solid #dedede;
+}
+.card-content{
+	display: flex;
+}
+.card-content>div:first-of-type{
+	width: 60%;
+	height: 165px;
+	overflow: scroll;
+	padding-right: 20px;
+}
+.room-detail-info{
+	width: 40%;
+	height: 80%;
+	padding : 0 20px;
+	padding-top: 25px;
+	border-left: 1px solid #dedede;
+}
+.card-content>div>div:first-of-type{
+	font-family: ng-bold;
+	margin-bottom: 20px;
+}
+.room-detail-info>div{
+	display: flex;
+	justify-content: space-between;
+	margin: 20px 0;
 }
 .carousel-item > img{
 	height: 200px;
