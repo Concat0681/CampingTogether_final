@@ -187,7 +187,8 @@ public class MemberController {
 	@RequestMapping(value = "/myRiview.do")
 	public String myRiview(int reqPage,String memberId, Model model) {
 		ReviewPageData rpd = service.myReviewList(memberId, reqPage);
-		
+		model.addAttribute("list",rpd.getList());
+		model.addAttribute("navi", rpd.getPageNavi());
 		return "member/myReviewList";
 	}
 	

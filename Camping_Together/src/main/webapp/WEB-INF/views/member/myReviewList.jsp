@@ -21,21 +21,22 @@
 			<div class="list-content">
 				<table>
 					<tr>
-						<th>번호</th>
+						<th calss="number">번호</th>
 						<th>캠핑장 명</th>
 						<th>리뷰 사진</th>
 						<th>내용</th>
 						<th>작성일</th>
 					</tr>
-			<!-- 	<c:forEach items="${list }" var="p">  -->
+				<c:forEach items="${list }" var="r">  
 					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
+						<td>${r.rnum }</td>
+						<td><div class="title">${r.campingTitle }</div></td> <!-- div사이즈(너비)지정, 내려가지말고 한줄로, 넘어가는걸 숨겨, ..찍어줘,, -->
+						<td><div><img class="review-img"  src="/resources/upload/campingReview/${r.filepath }"></div></td> 
+						<td>${r.campingReviewContent }</td>
+						<td>${r.campingReviewDate }</td>
 					</tr>
 					
-				<!-- </c:forEach> -->
+				</c:forEach> 
 					
 				</table>
 			</div>

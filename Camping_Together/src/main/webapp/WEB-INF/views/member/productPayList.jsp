@@ -21,7 +21,7 @@
 			<div class="list-content">
 				<table>
 					<tr>
-						<th>상품명</th>
+						<th class="name">상품명</th>
 						<th>구매수량</th>
 						<th>결제날짜</th>
 						<th>결제금액</th>

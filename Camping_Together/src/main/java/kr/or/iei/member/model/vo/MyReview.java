@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MyReview {
+	private String rnum;
 	private String campingTitle;
 	private String filepath;
 	private String campingReviewContent;
