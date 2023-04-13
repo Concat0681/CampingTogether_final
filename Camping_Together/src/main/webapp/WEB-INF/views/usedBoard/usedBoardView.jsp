@@ -17,6 +17,15 @@
 	  'GRAD' 0,
 	  'opsz' 48
 	}
+	.fill{
+		font-variation-settings: 'FILL' 1
+	}
+	.wght{
+		font-variation-settings: 'wght' 600
+	}
+	.detail-content-wrap{
+		position: relative;
+	}
 	.detail-content-wrap a{
 		font-family: ng-bold;
 	}
@@ -42,10 +51,25 @@
    		margin: 30px auto;
    		border-bottom: 1px solid #ccc;
    }
+   .detail-title{
+   		display: flex;
+   }
    .detail-title>h3{
    		margin-bottom: 0;
    		font-family: ng-extra-bold;
    		color: #AD8B73;
+   }
+   .detail-title>.sell-status{
+   		background-color: #CEAB93; 
+   		padding: 6px 8px;;
+   		text-align: center;
+   		border-radius: 20px;
+   		margin-left: 10px;
+   		color: #FFFBE9;
+   		font-size: 13px;
+   }
+   .detail-title>.sell-status>span{
+   		font-family: ng-extra-bold;
    }
    .detail-info{
    		display: flex;
@@ -211,6 +235,81 @@
    .comment-modify-link>a:hover{
    		color: #E3CAA5;
    }
+   /*모달 css*/
+	.modal-phone-wrapper{
+		position: absolute;
+		border-radius: 8px;
+		z-index: 998;
+		background-color: #CEAB93;
+		box-sizing: border-box;
+		height: 200px;
+		top: 40px;
+		padding: 15px;
+		left: 1px;
+		display: none;
+		border: 4px double #FFFBE9;
+		width: 300px;
+	}
+	.sell-user{
+		display: flex;
+		width: 90%;
+		margin: 0 auto;
+	}
+	.sell-user-info{
+		margin-bottom: 3px;
+	}
+	.sell-user-info>.sell-user-id{
+		text-align: center;
+		margin-bottom: 3px;
+	}
+	.sell-user-info>.user-phone{
+		margin-bottom: 3px;
+	}
+	.sell-user-info>.user-blacklist-info{
+   		text-align: center;
+   }
+	.modal-phone-header{
+		border-bottom: 4px double #FFFBE9;
+	}
+	.modal-phone-header>.header-title>p{
+		font-family: ng-extra-bold;
+		color: #FFFBE9;
+		font-size: 18px;
+		margin-bottom: 10px;
+	}
+	.modal-phone-header>.header-title{
+		margin-bottom: 0;
+		display: inline-block;
+	}
+	#modal-cancle{
+   		cursor: pointer;
+   		color: #FFFBE9;
+		margin-bottom: 0;
+		padding-top: 4px;
+		float: right;
+   }
+   .sell-user-wrap>.sell-user-img{
+   		width: 50px;
+   		height: 50px;
+   		margin-bottom: 0;   
+   		margin-top: 20px;		
+   }
+   .sell-user-img>img{
+   		border-radius: 50%;
+   		width: 100%;
+   }
+   .sell-user-info{
+   		margin-left: 30px;
+   }
+   .user-phone{
+   		display: flex;
+   }
+   .user-phone>div{
+   		color: #FFFBE9;
+   		font-size: 20px;
+   		line-height: 25px;
+   		margin-right: 5px;
+   }
 </style>
 </head>
 <body>
@@ -227,12 +326,13 @@
         		</div>
         		<div class="detail-title">
         			<h3>${ub.usedBoardTitle }</h3>
+        			<div class="sell-status"><span>판매중</span></div>
         		</div>
         		
         	</div>
         	<div class="detail-price-wrap">
         		<div class="detail-info">
-	        			<p class="font-bold">${ub.usedBoardWriter }</p>
+	        			<p class="font-bold" style="color:#AD8B73;">${ub.usedBoardWriter }</p>
 	        			<p style="color:#ccc;">&nbsp; :: &nbsp;</p>
 	        			<p style="color:#ccc;">${ub.regDate }</p>
 	        			<p style="color:#ccc;">&nbsp; :: &nbsp;</p>
@@ -240,11 +340,11 @@
 	        			<p style="color:#ccc;">${ub.readCount }</p>
         		</div>
         		<div class="detail-price">
-        			<p class="font-bold">판매금액 : <fmt:formatNumber value="${ub.usedProductPrice }" pattern="#,###" /></p>
+        			<p class="font-bold" style="color:#AD8B73;">판매금액 : <fmt:formatNumber value="${ub.usedProductPrice }" pattern="#,###" /></p>
         			<div class="detail-info">
-        				<p class="font-bold">상품상태 : </p><p>&nbsp;${ub.getUsedProductStatusText() }&nbsp;&nbsp;&nbsp;&nbsp;</p>
-        				<p class="font-bold">교환여부 :</p> <p>&nbsp;${ub.getExchangeStatusText() }&nbsp;&nbsp;&nbsp;&nbsp;</p>
-        				<p class="font-bold">거래지역 :</p><p>&nbsp;${ub.usedTradeLocation }</p>
+        				<p class="font-bold" style="color:#AD8B73;">상품상태 : </p><p>&nbsp;${ub.getUsedProductStatusText() }&nbsp;&nbsp;&nbsp;&nbsp;</p>
+        				<p class="font-bold" style="color:#AD8B73;">교환여부 :</p> <p>&nbsp;${ub.getExchangeStatusText() }&nbsp;&nbsp;&nbsp;&nbsp;</p>
+        				<p class="font-bold" style="color:#AD8B73;">거래지역 :</p><p>&nbsp;${ub.usedTradeLocation }</p>
         			</div>
         		</div>
         		<div class="wish-list">
@@ -253,20 +353,49 @@
         	</div>
         	<div class="detail-content-wrap">
         		<div class="seller-phone">
-        			<span id="phone-check" class="font-bold">연락처를 확인하려면 클릭하세요.</span>
+        			<span id="phone-check" class="font-bold" onclick="sellUserCheck('${ub.usedBoardWriter}')">연락처를 확인하려면 클릭하세요.</span>
         		</div>
         		<%-- 연락처 모달 --%>
         		<div class="modal-phone-wrapper">
-        			<div class="modal-phone">
-        				<div class="modal-header">
-        					<h3>판매자 정보</h3>
-        					<hr>
+        			<div class="modal-wrap">
+        				<div class="modal-phone-header">
+        					<div class="header-title">
+	        					<p>판매자 정보</p>
+        					</div>
+        					<div class="material-symbols-outlined fill" id="modal-cancle">cancel</div>
         				</div>
-        				<div class="sell-user-wrap">
-        					<div class="sell-user"></div>
+        				<div class="sell-user">
+        					<div class="sell-user-wrap">
+	        					<div class="sell-user-img">
+	        						<img src="/resources/image/member/img.jpeg">
+	        					</div>
+	        				</div>
+	        				<div class="sell-user-info">
+		        				<div class="sell-user-id">
+	        						<p style="font-family: ng-extra-bold; color:#FFFBE9;margin-bottom: 0;">user01</p>
+	        					</div>
+	        					<div class="user-phone">
+	        						<div class="material-symbols-outlined wght">phone_in_talk</div>
+	        						<span style="font-family: ng-extra-bold;color:#FFFBE9;">010-0000-0000</span>
+	        					</div>
+	        					<div class="user-blacklist-info">
+	        						<span style="color:#FFFBE9;">신고건수 0건</span>
+	        					</div>
+	        				</div>
         				</div>
         			</div>
         		</div>
+        		<script>
+        			function sellUserCheck(usedBoardWriter){
+        			/* 필요한 회원정보 : 아이디, 사진, 연락처, 판매중인물품 */
+        			/* 사기조회 : 신고건수 */
+        				$(".modal-phone-wrapper").slideToggle();
+        				
+        			}
+        			$("#modal-cancle").on("click", function(){
+        				$(".modal-phone-wrapper").slideUp();
+        			});
+        		</script>
         		<div class="detail-content">
 					<div class="detail-content-img">
 						<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">

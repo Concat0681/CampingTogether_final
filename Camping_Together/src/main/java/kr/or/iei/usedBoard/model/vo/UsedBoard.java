@@ -26,6 +26,9 @@ public class UsedBoard {
 	private ArrayList<UsedBoardPhoto> usedBoardPhotoList;
 	private String thumbnail;
 	
+	//멤버정보관련변수 - 아이디/사진/전화번호
+	
+	
 	public String getUsedBoardCategoryText() {
 		String category = "";
 		if(usedBoardCategory == 1) {
