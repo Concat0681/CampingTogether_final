@@ -29,6 +29,9 @@ $('#sido').on('blur', function () {
 
 $('.sido').on('click', function () {
   $('#sido').val($(this).text())
+  $('#searchInput').val('')
+  $('#searchInput').attr('placeholder', '도시')
+  $('[name=cityNameEN]').val('')
   $('.cityName').hide()
   $('.' + $(this).attr('id')).show()
 })
