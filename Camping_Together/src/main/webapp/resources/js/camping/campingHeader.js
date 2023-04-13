@@ -29,4 +29,17 @@ $('#sido').on('blur', function () {
 
 $('.sido').on('click', function () {
   $('#sido').val($(this).text())
+  $('.cityName').hide()
+  $('.' + $(this).attr('id')).show()
+})
+
+$(function () {
+  if ($('#campingSido').val() != '') {
+    $('.cityName').hide()
+    $('.sido').each(function (i, c) {
+      if ($(c).text() == $('#campingSido').val()) {
+        $('.' + $(c).attr('id')).show()
+      }
+    })
+  }
 })

@@ -23,7 +23,7 @@
 			</c:when>
 			<c:otherwise>
 				<div class="page-header" style="background-image: url(/resources/image/camping/sido/${campingSido }.jpg)">
-					<div class="page-header-title">${campingSido } 캠핑가자</div>
+					<div class="page-header-title">${campingSido }도 캠핑가자</div>
 					<jsp:include page="/WEB-INF/views/camping/campingListHeader.jsp" />
 				</div>
 			</c:otherwise>
@@ -36,7 +36,7 @@
 						<label class="input-group-text" for="detail_search_checkin"><span class="material-symbols-outlined">calendar_month</span></label>
 						<c:choose>
 							<c:when test="${not empty checkIn }">
-								<input class="form-control" type="text" id="detail_search_checkin" name="checkIn" value="${checkIn }">
+								<input class="form-control" type="text" id="detail_search_checkin" name="checkIn" value="${checkIn }" >
 								<input class="form-control" type="text"  id="detail_search_checkout" name="checkOut" value="${checkOut }">
 							</c:when>
 							<c:otherwise>
