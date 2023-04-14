@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 
 import common.FileManager;
+import kr.or.iei.camping.model.service.CampingService;
 import kr.or.iei.member.model.service.MailService;
 import kr.or.iei.member.model.service.MemberService;
 import kr.or.iei.member.model.vo.CampingPayment;
@@ -30,6 +31,7 @@ import kr.or.iei.member.model.vo.Member;
 import kr.or.iei.member.model.vo.MemberPageData;
 import kr.or.iei.member.model.vo.ProductPageData;
 import kr.or.iei.member.model.vo.ReviewPageData;
+//import kr.or.iei.member.model.vo.SellCampingPageData;
 
 @Controller
 public class MemberController {
@@ -39,6 +41,10 @@ public class MemberController {
 	private MemberService service;
 	@Autowired
 	private MailService mailService;
+	
+	@Autowired
+	private CampingService cmapingService;
+	
 	
 	
 	@RequestMapping(value="/mailCheck.do", method=RequestMethod.POST)
@@ -51,10 +57,8 @@ public class MemberController {
 	
 	
 	
-	
 	@Autowired
 	private FileManager manager;
-	
 	
 	
 	
@@ -107,11 +111,12 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/mypageC.do")
-	public String mypageC() {
+	public String mypageC(Model model) {
+		model.addAttribute("index",5);
 		return "member/mypageCFrm";
 	}
-	//------------------------------------梨꾢뜝�룞�삕
-	//------------------------------------梨꾢뜝�룞�삕
+	
+	
 	@RequestMapping(value ="/allMemberChatFrm.do")
 	public String allMemberChatFrm() {
 		return"member/allMemberChatFrm";
@@ -135,8 +140,9 @@ public class MemberController {
 	}
 	
 	
-	@RequestMapping(value = "/updateMypageCFrm")
-	public String updateMypageCFrm() {
+	@RequestMapping(value = "/updateMypageCFrm") 
+	public String updateMypageCFrm(Model model) {
+		model.addAttribute("index",5);
 		return "member/updateMypageCFrm";
 	}
 	
@@ -148,7 +154,7 @@ public class MemberController {
 	}
 	
 	
-	//占쎌돳占쎌뜚占쎄퉱占쎈닚
+	//회원 탈퇴
 	@RequestMapping(value = "/deleteMember.do")
 	public String deleteMember(int memberNo) {
 		int result = service.deleteMember(memberNo);
@@ -164,9 +170,9 @@ public class MemberController {
 	@RequestMapping(value = "/cmapingPayList.do")
 	public String cmapingPayList(int reqPage,int memberNo, Model model) {
 		MemberPageData mpd = service.selectPayList(memberNo, reqPage);
-		System.out.println(mpd.getList());
 		model.addAttribute("list", mpd.getList() );
 		model.addAttribute("navi", mpd.getPageNavi() );
+		model.addAttribute("index",0);
 		return "member/shopPayList";
 	}
 
@@ -178,6 +184,7 @@ public class MemberController {
 		ProductPageData ppd = service.productPayList(memberId, reqPage);	
 		model.addAttribute("list", ppd.getList() );
 		model.addAttribute("navi", ppd.getPageNavi() );
+		model.addAttribute("index",1);
 		return "member/productPayList";
 	}
 	
@@ -187,6 +194,7 @@ public class MemberController {
 		ReviewPageData rpd = service.myReviewList(memberId, reqPage);
 		model.addAttribute("list",rpd.getList());
 		model.addAttribute("navi", rpd.getPageNavi());
+		model.addAttribute("index",2);
 		return "member/myReviewList";
 	}
 	
@@ -194,18 +202,22 @@ public class MemberController {
 	//찜한목록
 	@RequestMapping(value = "/usedWishList.do")
 	public String usedWishList(int reqPage,String memberId, Model model) {
-	return "member/usedWishList";
+		model.addAttribute("index",4);
+		return "member/usedWishList";
 	
 	}
 	
 	
-	//shop 상품 판매
+	/*
+	//판매자 my캠핑장
 	@RequestMapping(value = "/sellList.do")
-	public String sellList() {
+	public String sellList(int reqPage,String memberId, Model model) {
+		SellCampingPageData apd = service.sellCampingList(memberId, reqPage);
+		model.addAttribute("list",apd.getList());
+		model.addAttribute("navi", apd.getPageNavi());
 		return "member/sellList";
 	}
-	
-	
+	*/
 	
 	
 	

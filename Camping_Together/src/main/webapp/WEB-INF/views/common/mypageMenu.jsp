@@ -19,7 +19,7 @@
 <body>
 		<div class= "title-wrap">
 			<div class="title-list">
-				<ul style="padding : 0;">
+				<ul style="padding : 0;" index="${index }">
 					<li><a href="/cmapingPayList.do?reqPage=1&memberNo=${sessionScope.m.memberNo }">캠핑장 결제 내역</a></li>
 					<li><a href="/productPayList.do?reqPage=1&memberId=${sessionScope.m.memberId }">shop 구매 내역</a></li>
 					<li><a href="/myRiview.do?reqPage=1&memberId=${sessionScope.m.memberId }">내가 쓴 캠핑장 리뷰</a></li>
@@ -29,5 +29,17 @@
 				</ul>
 			</div>
 		</div>
+		
+		
+		
+		<script>
+		const index = $(".title-list>ul").attr("index");
+		$(".title-list>ul>li").eq(index).addClass("active-tab");
+		</script>
+		
+		
 </body>
 </html>
+
+
+
