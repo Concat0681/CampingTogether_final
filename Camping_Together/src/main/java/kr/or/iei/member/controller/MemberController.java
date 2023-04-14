@@ -169,8 +169,6 @@ public class MemberController {
 		model.addAttribute("navi", mpd.getPageNavi() );
 		return "member/shopPayList";
 	}
-
-
 	
 	//캠핑용품 결제 리스트
 	@RequestMapping(value = "/productPayList.do")
@@ -189,7 +187,6 @@ public class MemberController {
 		model.addAttribute("navi", rpd.getPageNavi());
 		return "member/myReviewList";
 	}
-	
 	
 	//찜한목록
 	@RequestMapping(value = "/usedWishList.do")

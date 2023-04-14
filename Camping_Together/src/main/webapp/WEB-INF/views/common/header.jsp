@@ -63,7 +63,7 @@
         <div class="nav-top" style="color: #fff;">
             <ul class="login">
             	<li><a class="nav-linkT" href="/noticeList.do?reqPage=1">공지사항</a></li>
-                <li><a class="nav-linkT" href="/loginFrm.do">로그인</a></li>
+                <li><a class="nav-linkT" href="/joinFrm.do">로그인</a></li>
                 <li><a class="nav-linkT" href="/joinFrm.do">회원가입</a></li>
             </ul>
         </div>
