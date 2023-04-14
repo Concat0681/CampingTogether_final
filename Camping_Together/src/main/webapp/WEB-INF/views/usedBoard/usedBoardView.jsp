@@ -344,7 +344,7 @@
 	        			<p style="color:#ccc;">${ub.readCount }</p>
         		</div>
         		<div class="detail-price">
-        			<p class="font-bold" style="color:#AD8B73;">판매금액 : <fmt:formatNumber value="${ub.usedProductPrice }" pattern="#,###" /></p>
+        			<p class="font-bold" style="color:#AD8B73;"><fmt:formatNumber value="${ub.usedProductPrice }" pattern="#,###" /></p>
         			<div class="detail-info">
         				<p class="font-bold" style="color:#AD8B73;">상품상태 : </p><p>&nbsp;${ub.getUsedProductStatusText() }&nbsp;&nbsp;&nbsp;&nbsp;</p>
         				<p class="font-bold" style="color:#AD8B73;">교환여부 :</p> <p>&nbsp;${ub.getExchangeStatusText() }&nbsp;&nbsp;&nbsp;&nbsp;</p>

@@ -203,7 +203,8 @@
                 <div class="category">
                     <div class="usedWrite-text"><span>구분</span></div>
                     <div class="category-content">
-                        <div class="category-top">             
+                        <div class="category-top">
+                        	<input type="hidden" id="usedBoardCategory" value="${ub.usedBoardCategory }">             
                             <input type="radio" name="usedBoardCategory" value="1" id="1">
                             <label for="1">전기/전자제품</label>
                             <input type="radio" name="usedBoardCategory" value="2" id="2">
@@ -254,7 +255,7 @@
                     <c:forEach items="${ub.usedBoardPhotoList }" var="ubp">
                     	<div class="img-sub">
                     		<img style='width:100%;height:100%;'src="/resources/upload/usedBoard/${ubp.filepath }">
-                    		<div class='material-symbols-outlined delete-img' onclick='delImg(this, ${ubp.fileNo}, ${ubp.filepath})'>close</div>
+                    		<div class='material-symbols-outlined delete-img' onclick='deleteImg(this, ${ubp.fileNo}, ${ubp.filepath})'>close</div>
                     	</div>
                     </c:forEach>
                     </div>               
@@ -273,6 +274,7 @@
                         </div>
                     </div>
                     <div class="product-status">
+                    	<input type="hidden" id = "usedProductStatus" value="${ub.usedProductStatus}">
                         <div class="usedWrite-text" style="margin-right: 70px;" name="usedProductStatus"><span>상태</span></div>
                         <div class="product-status-radio">
 	                        <input type="radio" name="usedProductStatus" value="0" id="status0" checked>
@@ -282,6 +284,7 @@
                         </div>
                     </div>
                     <div class="exchange-status">
+                    	<input type="hidden" id="exchangeStatus" value="${ub.exchangeStatus }">
                         <div class="usedWrite-text" style="margin-right: 70px;" name="exchangeStatus"><span>교환</span></div>
                         <div class="exchange-status-radio">
 	                        <input type="radio" name="exchangeStatus" value="0" id="exchange0" checked>
@@ -305,7 +308,7 @@
                 </div>
                 <div class="button-wrap">
                 	<input type="button" onclick="location.href='usedBoardList.do?reqPage=1'" class="btn2" value="취소">
-                	<input type="submit" class="btn1" value="작성완료">
+                	<input type="submit" class="btn1" value="수정완료">
                 </div>                
             </div>
         </form>
@@ -365,9 +368,30 @@
             }
 		});
 		
-		function delImg(obj){
+		function deleteImg(obj, fileNo, filepath){
+			const fileNoInput = $("<input>");
+			fileNoInput.attr("name", "fileNo");
+			fileNoInput.val(fileNo);
+			fileNoInput.hide();
+			
+			const filepathInput = $("<input>");
+			filepathInput.attr("name", "filepath");
+			filepathInput.val(filepath);
+			filepathInput.hide();
+			
 			$(obj).parent().remove();
 		}
+		
+		$(function(){
+    		const selectCategory = $("#usedBoardCategory").val();
+    		const usedProductStatus = $("#usedProductStatus").val();
+    		const exchangeStatus = $("#exchangeStatus").val();
+
+    		$("[name=usedBoardCategory][value="+selectCategory+"]").prop("checked", true);
+    		$("[name=usedProductStatus][value="+usedProductStatus+"]").prop("checked", true);
+    		$("[name=exchangeStatus][value="+exchangeStatus+"]").prop("checked", true);
+    	});
+	
     </script>
 </body>
 </html>
