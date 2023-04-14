@@ -26,7 +26,10 @@ public class UsedBoard {
 	private ArrayList<UsedBoardPhoto> usedBoardPhotoList;
 	private String thumbnail;
 	
-	//멤버정보관련변수 - 아이디/사진/전화번호
+	//판매자정보관련변수 - 사진/전화번호/신고횟수
+	private String profilePath;
+	private String sellerPhone;
+	private int sellerblackCount;
 	
 	
 	public String getUsedBoardCategoryText() {

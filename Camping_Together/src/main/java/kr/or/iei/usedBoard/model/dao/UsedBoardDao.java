@@ -76,4 +76,19 @@ public class UsedBoardDao {
 		int result = sqlSession.delete("usedBoard.deleteUsedBoardComment", usedBoardCommentNo);
 		return result;
 	}
+
+	public UsedBoard sellUserCheck(String usedBoardWriter) {
+		UsedBoard ub = sqlSession.selectOne("usedBoard.sellUserCheck", usedBoardWriter);
+		return ub;
+	}
+
+	public int sellerBlackCount(String usedBoardWriter) {
+		int blackCount = sqlSession.selectOne("usedBoard.sellerBlackCount", usedBoardWriter);
+		return blackCount;
+	}
+
+	public int deleteUsedBoard(int usedBoardNo) {
+		int result = sqlSession.delete("usedBoard.deleteUsedBoard", usedBoardNo);
+		return result;
+	}
 }

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -203,7 +204,7 @@
                     <div class="usedWrite-text"><span>구분</span></div>
                     <div class="category-content">
                         <div class="category-top">             
-                            <input type="radio" name="usedBoardCategory" value="1" id="1" checked>
+                            <input type="radio" name="usedBoardCategory" value="1" id="1">
                             <label for="1">전기/전자제품</label>
                             <input type="radio" name="usedBoardCategory" value="2" id="2">
                             <label for="2">캠핑카/카라반용품</label>
@@ -250,11 +251,17 @@
                         </p>
                     </div>
                     <div class="img-sub-wrap">
+                    <c:forEach items="${ub.usedBoardPhotoList }" var="ubp">
+                    	<div class="img-sub">
+                    		<img style='width:100%;height:100%;'src="/resources/upload/usedBoard/${ubp.filepath }">
+                    		<div class='material-symbols-outlined delete-img' onclick='delImg(this, ${ubp.fileNo}, ${ubp.filepath})'>close</div>
+                    	</div>
+                    </c:forEach>
                     </div>               
                 </div>
                 <div class="usedBoard-title" >
                     <div class="usedWrite-text" style="margin-right: 70px;"><span>제목</span></div>
-                    <input type="text" name="usedBoardTitle" class="input-type long" placeholder="제목을 입력하세요" required>
+                    <input type="text" name="usedBoardTitle" class="input-type long" value="${ub.usedBoardTitle }" required>
                 </div>
                 <div class="location-wrap">
                     <div class="delivery_location">
@@ -262,7 +269,7 @@
                         <input type="button" value="주소검색" class="btn2" onclick="searchAddr();">
                         <input type="checkbox" id="location-none"><label for="location-none">지역설정안함</label>
                         <div class="location-input" name="usedTradeLocation">
-                        	<input type="text" class="input-type" id="usedTradeLocation" name="usedTradeLocation" style="width:300px;margin-top:10px;" required>
+                        	<input type="text" class="input-type" id="usedTradeLocation" name="usedTradeLocation" style="width:300px;margin-top:10px;" value="${ub.usedTradeLocation }" required>
                         </div>
                     </div>
                     <div class="product-status">
@@ -287,13 +294,13 @@
                 <div class="price">
                     <div class="usedWrite-text" style="margin-right: 70px;" ><span>가격</span></div>
                     <div class="price-input">
-                        <input type="text" class="input-type" name="usedProductPrice" id="price-input"style="width:300px;" required>
+                        <input type="text" class="input-type" name="usedProductPrice" id="price-input"style="width:300px;" value="${ub.usedProductPrice }"required >
                     </div>
                 </div>
                 <div class="usedWrite-content">
                     <div class="usedWrite-text" style="margin-right: 70px;"><span>설명</span></div>
                     <div class="usedWrite-content-input">
-                    	<textarea class="input-type txt" placeholder="내용을 입력하세요." name="usedBoardContent" required></textarea>
+                    	<textarea class="input-type txt" placeholder="내용을 입력하세요." name="usedBoardContent" required>${ub.usedBoardContent }</textarea>
                     </div>
                 </div>
                 <div class="button-wrap">
