@@ -9,11 +9,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.google.gson.Gson;
 
 import common.FileManager;
 import kr.or.iei.shop.model.service.ShopService;
 import kr.or.iei.shop.model.vo.Shop;
+import kr.or.iei.shop.model.vo.ShopListMainData;
 import kr.or.iei.shop.model.vo.ShopPhoto;
 
 @Controller
@@ -25,20 +29,34 @@ public class ShopController {
 	private FileManager manager;
 	
 	@RequestMapping(value="/shopMainList.do")
-	public String shopList(Model model) {
-		int start = 1;
-		int end = 8;
-		for(int campingCategory=0;campingCategory<3;campingCategory++) {
-			ArrayList<Shop> list = service.selectShopList(campingCategory, start, end);
-			if(campingCategory == 0) {
-				model.addAttribute("campingList", list);
-			} else if(campingCategory == 1) {
-				model.addAttribute("carList", list);
+	public String shopMainList(Model model) {
+	    int reqPage = 1;
+		for(int shopCategory=0;shopCategory<3;shopCategory++) {
+			ShopListMainData slmd = service.selectShopList(shopCategory, reqPage);
+			if(shopCategory == 0) {
+				model.addAttribute("campingList", slmd.getShopList());
+				model.addAttribute("campingPageNavi", slmd.getPageNavi());
+			} else if(shopCategory == 1) {
+				model.addAttribute("carList", slmd.getShopList());
+				model.addAttribute("carPageNavi", slmd.getPageNavi());
 			} else {
-				model.addAttribute("etcList", list);
+				model.addAttribute("etcList", slmd.getShopList());
+				model.addAttribute("etcPageNavi", slmd.getPageNavi());
 			}
 		}
 		return "shop/shopMainList";
+	}
+	
+	@RequestMapping(value="/shopList.do")
+	public String shopList(int shopCategory, int reqPage) {
+		return "shop/shopList";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/getMoreList.do", produces = "application/json;charset=utf-8")
+	public String getMoreList(int shopCategory, int reqPage) {
+		ShopListMainData slmd = service.selectShopList(shopCategory, reqPage);
+		return new Gson().toJson(slmd);
 	}
 	
 	@RequestMapping(value="/insertShopFrm.do")
@@ -49,7 +67,6 @@ public class ShopController {
 	@Transactional
 	@RequestMapping(value="/insertShop.do")
 	public String insertShop(Shop shop,  MultipartFile[] shopFileList, HttpServletRequest requset) {
-		System.out.println(shop);
 		int result = service.insertShop(shop);
 		int finalResult = 1;
 		if(result > 0) {
@@ -76,5 +93,12 @@ public class ShopController {
 		} else {
 			return "redirect:/";
 		}
+	}
+	
+	@RequestMapping(value="/viewShop.do")
+	public String viewShop(int shopNo, Model model) {
+		Shop shop = service.selectOneShop(shopNo);
+		model.addAttribute("shop", shop);
+		return "shop/viewShop";
 	}
 }

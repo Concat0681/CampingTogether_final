@@ -16,6 +16,7 @@ import kr.or.iei.camping.model.vo.CampingReviewFileVO;
 import kr.or.iei.camping.model.vo.CampingRoom;
 import kr.or.iei.camping.model.vo.CampingRoomFileVO;
 import kr.or.iei.camping.model.vo.CampingRoomService;
+import kr.or.iei.camping.model.vo.SellCampingList;
 
 @Repository
 public class CampingDao {
@@ -42,7 +43,7 @@ public class CampingDao {
 		Camping camping = sqlSession.selectOne("camping.selectOneCamping", campingNo);
 		return camping;
 	}
-
+	
 	public ArrayList<CampingRoom> selectAllCampingRoomList(int campingNo) {
 		List roomList = sqlSession.selectList("camping.selectAllCampingRoomList", campingNo);
 		return (ArrayList<CampingRoom>)roomList;
@@ -107,7 +108,8 @@ public class CampingDao {
 		return result;
 	}
 
-	
-
-	
+	public ArrayList<SellCampingList> getSellCampingList(HashMap<String, Object> map) {
+		List list = sqlSession.selectList("camping.getSellCampingList", map);
+		return (ArrayList<SellCampingList>)list;
+	}
 }
