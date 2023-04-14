@@ -132,7 +132,6 @@ public class MemberService {
 		}
 		return null;
 	}
-}
 	// 캠핑용품 결제 리스트
 	public ProductPageData productPayList(String memberId, int reqPage) {
 		int numPerpage = 5;
