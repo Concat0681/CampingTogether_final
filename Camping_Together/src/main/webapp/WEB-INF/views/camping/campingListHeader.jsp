@@ -18,10 +18,10 @@
 					<label class="input-group-text" for="sido"><span class="material-symbols-outlined">search</span></label>
 					<c:choose>
 						<c:when test="${not empty campingSido }">
-							<input class="form-control" id="sido" name="campingSido" type="text" value="${campingSido }" required>
+							<input class="form-control" id="sido" name="campingSido" type="text" value="${campingSido }" onkeydown="return false;" style="caret-color: transparent !important;"   required>
 						</c:when>
 						<c:otherwise>
-							<input class="form-control" id="sido" name="campingSido" type="text" placeholder="도" required>						
+							<input class="form-control" id="sido" name="campingSido" type="text" placeholder="도"  onkeydown="return false;" style="caret-color: transparent !important;"   required>						
 						</c:otherwise>
 					</c:choose>
 					<div class="hidden-sido-search">
@@ -37,17 +37,17 @@
 					</div>
 					<c:choose>
 						<c:when test="${not empty cityNameKR }">
-							<input class="form-control" id="searchInput" name="cityNameKR" value="${cityNameKR }" type="text">
+							<input class="form-control" id="searchInput" name="cityNameKR" value="${cityNameKR }" type="text" readonly>
 							<input name="cityNameEN" type="hidden" value="${cityNameEN }">
 						</c:when>
 						<c:otherwise>
-							<input class="form-control" id="searchInput" name="cityNameKR" placeholder="도시" type="text">
+							<input class="form-control" id="searchInput" name="cityNameKR" placeholder="도시" type="text" readonly>
 							<input name="cityNameEN" type="hidden">
 						</c:otherwise>
 					</c:choose>
 					<div class="hidden-search">
 						<ul>
-							<li id="Incheon" class="cityName gyeonggi-do all">인천</li>
+							<li id="incheon" class="cityName gyeonggi-do all">인천</li>
 							<li id="seoul" class="cityName gyeonggi-do all">서울</li>
 							<li id="busan" class="cityName gyeongsang-do all">부산</li>
 							<li id="daegu" class="cityName gyeongsang-do all">대구</li>
