@@ -72,11 +72,20 @@ public class UsedBoardService {
 	}
 
 	public UsedBoard selectOneUsedBoard(int usedBoardNo) {
-		//1. ��ȸ��update
+		//1.조회수
 		int result = dao.updateReadCount(usedBoardNo);
-		//2. ��������ȸ
+		//2.게시글정보
 		UsedBoard ub = dao.selectOneUsedBoard(usedBoardNo);
-		//3. ÷���̹�����ȸ
+		//3.게시글 첨부사진
+		ArrayList<UsedBoardPhoto> list = dao.selectUsedPhoto(usedBoardNo);
+		ub.setUsedBoardPhotoList(list);
+		return ub;
+	}
+	
+	public UsedBoard selectUpdateUsedBoard(int usedBoardNo) {
+		//1.게시글정보
+		UsedBoard ub = dao.selectOneUsedBoard(usedBoardNo);
+		//2.게시글 첨부사진
 		ArrayList<UsedBoardPhoto> list = dao.selectUsedPhoto(usedBoardNo);
 		ub.setUsedBoardPhotoList(list);
 		return ub;
@@ -103,6 +112,25 @@ public class UsedBoardService {
 	@Transactional
 	public int deleteUsedBoardComment(int usedBoardCommentNo) {
 		return dao.deleteUsedBoardComment(usedBoardCommentNo);
+	}
+
+	public UsedBoard sellUserCheck(String usedBoardWriter) {
+		return dao.sellUserCheck(usedBoardWriter);
+	}
+
+	public int sellerBlackCount(String usedBoardWriter) {
+		return dao.sellerBlackCount(usedBoardWriter);
+	}
+
+	@Transactional
+	public ArrayList<UsedBoardPhoto> deleteUsedBoard(int usedBoardNo) {
+		ArrayList<UsedBoardPhoto> photoList = dao.selectUsedPhoto(usedBoardNo);
+		int result = dao.deleteUsedBoard(usedBoardNo);
+		if(result > 0) {
+			return photoList;
+		}else {
+			return null;			
+		}
 	}
 }
 

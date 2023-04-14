@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -202,8 +203,9 @@
                 <div class="category">
                     <div class="usedWrite-text"><span>구분</span></div>
                     <div class="category-content">
-                        <div class="category-top">             
-                            <input type="radio" name="usedBoardCategory" value="1" id="1" checked>
+                        <div class="category-top">
+                        	<input type="hidden" id="usedBoardCategory" value="${ub.usedBoardCategory }">             
+                            <input type="radio" name="usedBoardCategory" value="1" id="1">
                             <label for="1">전기/전자제품</label>
                             <input type="radio" name="usedBoardCategory" value="2" id="2">
                             <label for="2">캠핑카/카라반용품</label>
@@ -231,7 +233,7 @@
                 <div class="image-wrap">
                     <div class="usedWrite-text" id="img-margin"><span>상품이미지</span></div>
                     <div class="usedBoard-img">
-                        <input type="file" name="usedBoardPhoto" accept="image/gif, image/jpeg, image/png" id="usedBoardImg" multiple>
+                        <input type="file" name="usedBoardPhoto" accept="image/gif, image/jpeg, image/png" style="display:none;" id="usedBoardImg" multiple>
                         <label for="usedBoardImg">
                             <div class="uploadImg">
                             	<span class="material-symbols-outlined">photo_camera</span>
@@ -250,11 +252,17 @@
                         </p>
                     </div>
                     <div class="img-sub-wrap">
+                    <c:forEach items="${ub.usedBoardPhotoList }" var="ubp">
+                    	<div class="img-sub">
+                    		<img style='width:100%;height:100%;'src="/resources/upload/usedBoard/${ubp.filepath }">
+                    		<div class='material-symbols-outlined delete-img' onclick='deleteImg(this, ${ubp.fileNo}, ${ubp.filepath})'>close</div>
+                    	</div>
+                    </c:forEach>
                     </div>               
                 </div>
                 <div class="usedBoard-title" >
                     <div class="usedWrite-text" style="margin-right: 70px;"><span>제목</span></div>
-                    <input type="text" name="usedBoardTitle" class="input-type long" placeholder="제목을 입력하세요" required>
+                    <input type="text" name="usedBoardTitle" class="input-type long" value="${ub.usedBoardTitle }" required>
                 </div>
                 <div class="location-wrap">
                     <div class="delivery_location">
@@ -262,10 +270,11 @@
                         <input type="button" value="주소검색" class="btn2" onclick="searchAddr();">
                         <input type="checkbox" id="location-none"><label for="location-none">지역설정안함</label>
                         <div class="location-input" name="usedTradeLocation">
-                        	<input type="text" class="input-type" id="usedTradeLocation" name="usedTradeLocation" style="width:300px;margin-top:10px;" required>
+                        	<input type="text" class="input-type" id="usedTradeLocation" name="usedTradeLocation" style="width:300px;margin-top:10px;" value="${ub.usedTradeLocation }" required>
                         </div>
                     </div>
                     <div class="product-status">
+                    	<input type="hidden" id = "usedProductStatus" value="${ub.usedProductStatus}">
                         <div class="usedWrite-text" style="margin-right: 70px;" name="usedProductStatus"><span>상태</span></div>
                         <div class="product-status-radio">
 	                        <input type="radio" name="usedProductStatus" value="0" id="status0" checked>
@@ -275,6 +284,7 @@
                         </div>
                     </div>
                     <div class="exchange-status">
+                    	<input type="hidden" id="exchangeStatus" value="${ub.exchangeStatus }">
                         <div class="usedWrite-text" style="margin-right: 70px;" name="exchangeStatus"><span>교환</span></div>
                         <div class="exchange-status-radio">
 	                        <input type="radio" name="exchangeStatus" value="0" id="exchange0" checked>
@@ -287,18 +297,18 @@
                 <div class="price">
                     <div class="usedWrite-text" style="margin-right: 70px;" ><span>가격</span></div>
                     <div class="price-input">
-                        <input type="text" class="input-type" name="usedProductPrice" id="price-input"style="width:300px;" required>
+                        <input type="text" class="input-type" name="usedProductPrice" id="price-input"style="width:300px;" value="${ub.usedProductPrice }"required >
                     </div>
                 </div>
                 <div class="usedWrite-content">
                     <div class="usedWrite-text" style="margin-right: 70px;"><span>설명</span></div>
                     <div class="usedWrite-content-input">
-                    	<textarea class="input-type txt" placeholder="내용을 입력하세요." name="usedBoardContent" required></textarea>
+                    	<textarea class="input-type txt" placeholder="내용을 입력하세요." name="usedBoardContent" required>${ub.usedBoardContent }</textarea>
                     </div>
                 </div>
                 <div class="button-wrap">
                 	<input type="button" onclick="location.href='usedBoardList.do?reqPage=1'" class="btn2" value="취소">
-                	<input type="submit" class="btn1" value="작성완료">
+                	<input type="submit" class="btn1" value="수정완료">
                 </div>                
             </div>
         </form>
@@ -358,23 +368,30 @@
             }
 		});
 		
-		function delImg(obj){
-			const index = $(".delete-img").index($(obj));
-			console.log(index);
+		function deleteImg(obj, fileNo, filepath){
+			const fileNoInput = $("<input>");
+			fileNoInput.attr("name", "fileNo");
+			fileNoInput.val(fileNo);
+			fileNoInput.hide();
 			
-			const dataTransfer = new DataTransfer();
-			let files = $("#usedBoardImg")[0].files;
-			let fileArray = Array.from(files);
-			fileArray.splice(index, 1);
+			const filepathInput = $("<input>");
+			filepathInput.attr("name", "filepath");
+			filepathInput.val(filepath);
+			filepathInput.hide();
 			
-			fileArray.forEach(function(file, items){
-				dataTransfer.items.add(file);
-			});
-			
-			$("#usedBoardImg")[0].files = dataTransfer.files;
-		
 			$(obj).parent().remove();
 		}
+		
+		$(function(){
+    		const selectCategory = $("#usedBoardCategory").val();
+    		const usedProductStatus = $("#usedProductStatus").val();
+    		const exchangeStatus = $("#exchangeStatus").val();
+
+    		$("[name=usedBoardCategory][value="+selectCategory+"]").prop("checked", true);
+    		$("[name=usedProductStatus][value="+usedProductStatus+"]").prop("checked", true);
+    		$("[name=exchangeStatus][value="+exchangeStatus+"]").prop("checked", true);
+    	});
+	
     </script>
 </body>
 </html>

@@ -6,6 +6,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
+
+<link href="/resources/css/default.css" rel="stylesheet"/> 
 <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 <style>
 .tab-content > div:last-child {
@@ -34,7 +36,10 @@ label.active {
   font-family: ng-regular;
   src: url(../font/Nanum_Gothic/NanumGothic-Regular.ttf);
 }
-
+.active{
+	transition-duration: 0.5s;
+	background-color: rgba(173, 139, 115, 1) !important;
+}
 input {
 	height: 40px;
     width: 100%;
@@ -172,6 +177,8 @@ input:focus {
     	width: 80%;
     	display: inline-block;
     	min-width: 250px;
+    	height: 60px;
+    	line-height: 60px;
     }
     .searchPw{
     	float: right;
@@ -204,12 +211,20 @@ input:focus {
     .btn-primary{
     	width: 150px;
     }
+    .btn-primatypuls{
+    	width: 120px;
+    	height: 40px;
+	    padding-bottom: 5px;
+	    line-height: 20px;
+	    margin-left: 30px;
+	 }
     .memberGrade{
     	width: 100px;
     	font-family: ng-extra-bold;
     	font-weight:bold;
         font-size: 15px;
         border: none;
+        border-radius: 5px;
     }
     .memberGrade>option{
     	width: 100px;
@@ -219,19 +234,35 @@ input:focus {
         font-size: 15px;
         border: none;
     }
+    .confirm{
+    	transition-duration: 0.5s;
+    	background-color: rgba(173, 139, 115, 0.5);
+    }
+    .cancel{
+    	transition-duration: 0.5s;
+    	background-color: rgba(173, 139, 115, 0.5);
+    }
+    .confirm:hover{
+    	transition-duration: 0.5s;
+    	background-color: #CEAB93;
+    }
+    .cancel:hover{
+    	transition-duration: 0.5s;
+    	background-color: #CEAB93;
+    }
 </style>
 </head>
 <body>
 	<div class="wrapper" style="display: grid; margin-top: 50px;">
 		<div class="myform">
 	      	<ul class="tab-group">
-	        <li class="tab active"><a href="#signup">Sign Up</a></li>
-	        <li class="tab"><a href="#login">Log In</a></li>
+	        <li class="tab"><a href="#signup">Sign Up</a></li>
+	        <li class="tab active"><a href="#login">Log In</a></li>
 	      </ul>
 	      <div class="tab-content">
 	        <div id="login">   
 				    <div class="logo">Wellcome Back! Camping Together
-				    	
+				    	<img src="">
 				    </div>
 					    <form action="/login.do" method="post" autocomplete="off">
 					        <input type="text" placeholder=" &#xf007;   UserId" name="memberId"/>
@@ -257,12 +288,12 @@ input:focus {
 				</div>
 	            
 	            <div class="field-wrap">
-	            <input type="text" name="memberId" id="memberId" class="signup-input" placeholder="아이디  입력" required maxlength="12">
+	            <input type="text" name="memberId" id="memberId" class="signup-input" placeholder="아이디  입력" required maxlength="12"><br>
 	            <span class="point successIdChk"></span>
 	            <input type="hidden" id="idDoubleChk" >
 	            </div>
 	          <div class="field-wrap">
-	            <input type="password" name="memberPw" id="memberPw" class="signup-input" placeholder="비밀번호 입력" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,16}" required maxlength="16" title="조건에 맞춰 다시 작성해주세요!"><br>
+	            <input type="password" name="memberPw" id="memberPw" class="signup-input" placeholder="비밀번호 입력" pattern="(?=.*\d)(?=.*[a-z])(?=.*[!@#$%^&*]).{8,16}" required maxlength="16" title="조건에 맞춰 다시 작성해주세요!"><br>
 				<span class="point successPwChk"></span>
 	          </div>
 	          <div class="field-wrap">
@@ -278,12 +309,13 @@ input:focus {
 	          <div class="field-wrap">
 	          	<div class="form-group email-form">
 					<div class="input-group">
-						<input type="email" class="form-control signup-input" name="memberEmail" id="memberEmail" placeholder="이메일 입력" >
-						<input class="form-control mail-check-input signup-input" placeholder="인증번호 6자리를 입력해주세요!" disabled="disabled" maxlength="6" style="display:none; width:200px;" ><button type="button" class="btn btn-primary" id="mail-Confirm-Btn">본인인증</button>	
+						<input type="email" class="form-control signup-input" name="memberEmail" id="memberEmail" placeholder="이메일 입력" required="required">
+						<div class="mail-check-inputBox" style="display:none;">
+							<input class="form-control signup-input mail-check-input" placeholder="인증번호 6자리를 입력해주세요!" maxlength="6" style="width:200px;" required pattern="" >
+							<span class="point successEmailChk"></span>
+						</div>
 						<button type="button" class="btn btn-primary" id="mail-Confirm-Btn">본인인증</button><span id="mail-check-warn"></span>
-					</div>   
-					<div class="mail-check-box">
-				</div>
+					</div> 
 					
 				</div>
 	          
@@ -292,8 +324,8 @@ input:focus {
 				<input type="text" name="memberAddr" id="sample4_extraAddress" class="signup-input" placeholder="주소 입력" readonly><br>
 				<input type="text" id="sample4_detailAddress" class="signup-input" placeholder="상세주소"><span><input type="button" onclick="sample4_execDaumPostcode()" class="signup-input addrbtn" value="주소 찾기" style="background-color:#CEAB93 "></span><br>
 				<div class="field-wrap" >
-					<input type="submit" value="회원가입" style="width:40%; cursor: pointer;" >
-					<input type="reset" value="취소" style="width:40%; float: right; cursor: pointer;">
+					<input type="submit" class="confirm" value="회원가입" style="width:40%; cursor: pointer;"  disabled="disabled">
+					<input type="reset" class="cancel" value="취소" style="width:40%; float: right; cursor: pointer;" >
 				
 				</div>
 	          </form>
@@ -309,6 +341,8 @@ input:focus {
 <br>
 <input type="hidden" id="sample4_extraAddress" placeholder="참고항목">
 <script>
+
+
 
 $('.form').find('input, textarea').on('keyup blur focus', function (e) {
 	  
@@ -338,7 +372,7 @@ $('.form').find('input, textarea').on('keyup blur focus', function (e) {
 	    }
 
 	});
-
+	//로그인 / 회원가입 버튼
 	$('.tab a').on('click', function (e) {
 	  e.preventDefault();
 	  $(this).parent().addClass('active');
@@ -347,10 +381,13 @@ $('.form').find('input, textarea').on('keyup blur focus', function (e) {
 	  $('.tab-content > div').not(target).hide();
 	  $(target).fadeIn(1000);
 	});
+	
+	//코드 입력창 보이는 버튼
 	$("#mail-Confirm-Btn").on('click', function() {
-		$('.mail-check-input').css("display","block");
-		
+		$('.mail-check-inputBox').css("display","block");
+		$('.confirm').attr("disabled", false);
 	});
+	
 	
 
 //아이디 조건 출력 및 조건 일치 확인
@@ -439,6 +476,7 @@ $("#pwDoubleChk").blur(function(){
 	}
 });
 
+//이메일 보내기
 $('#mail-Confirm-Btn').click(function() {
 	const memberEmail = $('#memberEmail').val() // 이메일 주소
 	console.log('완성된 이메일 : ' + memberEmail); // 이메일 오는지 확인
@@ -451,15 +489,16 @@ $('#mail-Confirm-Btn').click(function() {
 			console.log("data : " +  data);
 			checkInput.attr('disabled',false);
 			code =data;
-			alert('인증번호가 전송되었습니다.')
+			alert('인증번호가 전송되었습니다.');
 		}, error : function() {
+			alert('인증번호 전송이 실패 하였습니다.');
 			console.log("실패");
 		}
 	}); // end ajax
 }); // end send eamil
 
-//인증번호 비교 
-// blur -> focus가 벗어나는 경우 발생
+
+//이메일 인증번호 일치 span
 $('.mail-check-input').blur(function () {
 	const inputCode = $(this).val();
 	const resultMsg = $('#mail-check-warn');
@@ -468,14 +507,13 @@ $('.mail-check-input').blur(function () {
 		resultMsg.html('인증번호가 일치합니다.');
 		resultMsg.css('color','green');
 		$('#mail-Check-Btn').attr('disabled',true);
-		$('#userEamil1').attr('readonly',true);
-		$('#userEmail2').attr('onFocus', 'this.initialSelect = this.selectedIndex');
-         $('#userEmail2').attr('onChange', 'this.selectedIndex = this.initialSelect');
+		$('#memberEmail').attr('readonly',true);
 	}else{
-		$resultMsg.html('인증번호가 불일치 합니다. 다시 입력해주세요 .');
-		$resultMsg.css('color','red');
+		resultMsg.html('인증번호가 불일치 합니다.');
+		resultMsg.css('color','red');
 	}
 });
+
 
 
 </script>	
