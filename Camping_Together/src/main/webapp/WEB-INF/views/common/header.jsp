@@ -130,6 +130,41 @@
 	  </div>
 	</nav>
 </div>
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/"><img src="/resources/image/logo/logo250x80.png" width="150px" height="75px"></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="/campingListMain.do">캠핑</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">캠핑예약</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/usedBoardList.do?reqPage=1">중고장터</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">투게더SHOP</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            	자유게시판
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/boardFoodList.do?reqPage=1">캠핑 레시피</a></li>
+            <li><a class="dropdown-item" href="#">캠핑 Tip</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="allMemberChatFrm.do">채팅</a></li>
+             <li><a class="dropdown-item" href="inquiryList.do?reqPage=1">문의사항</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
 	

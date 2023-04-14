@@ -10,9 +10,28 @@
 					inquiry_title as inquiryTitle,
 					inquiry_content as inquiryContent,
 					reg_date as regDate,
-					status
+					status,
+					secret
 				from inquiry order by 1 desc)i) 
 			where rnum between #{start} and #{end}
+
+<!-- 	select * from -->
+<!-- 			(select rownum as rnum, i.*from -->
+<!-- 				(select -->
+<!-- 					a.inquiry_no as inquiryNO, -->
+<!-- 					a.inquiry_writer as inquiryWriter, -->
+<!-- 					a.inquiry_title as inquiryTitle, -->
+<!-- 					a.inquiry_content as inquiryContent, -->
+<!-- 					a.reg_date as regDate, -->
+<!-- 					a.status, -->
+<!-- 					a.secret, -->
+<!--                     b.admin_inquiry_no as adminInquiryNo, -->
+<!--                     b.admin_inquiry_answer as adminInquiryAnswer, -->
+<!--                     b.reg_date as adminRegDate -->
+<!-- 				from inquiry a -->
+<!--                 left join admin_inquiry b on (a.inquiry_no=b.inquiry_no) -->
+<!--                 order by 1 desc)i)  -->
+<!-- 			where rnum between #{start} and #{and} -->
 			
 			
 			
@@ -33,5 +52,45 @@
 </select>
 <select id="selectTotalCount" resultType="_int">
 	select count(*) from inquiry
+</select>
+<insert id="insertInquiry" parameterType="i">
+		insert into inquiry values
+		<choose>
+			<when test="secret == 1">
+				(inquiry_seq.nextval, #{inquiryWriter}, #{inquiryTitle}, #{inquiryContent}, to_char(sysdate,'YYYY-MM-DD'),0,1)
+			</when>
+			<otherwise>
+				(inquiry_seq.nextval, #{inquiryWriter}, #{inquiryTitle}, #{inquiryContent}, to_char(sysdate,'YYYY-MM-DD'),0,0)
+			</otherwise>
+		</choose>
+	
+</insert>
+<update id="updateInquiry" parameterType="i">
+	update inquiry set
+	 inquiry_title = #{inquiryTitle}, inquiry_content = #{inquiryContent} 
+	 where inquiry_no = #{inquiryNo}
+</update>
+<delete id="deleteInquiry" parameterType="_int">
+	delete from inquiry where inquiry_no = #{_parameter}
+</delete>
+<insert id="insertAdminInquiry" parameterType="ai">
+	insert into admin_inquiry values(admin_inquiry_seq.nextval,#{inquiryNo},#{adminInquiryAnswer},to_char(sysdate,'YYYY-MM-DD hh24:mi:ss'))
+</insert>
+<update id="updateInquiryStatus" parameterType="_int">
+	update inquiry set
+	status = 1
+	where inquiry_no = #{inquiryNo}
+</update>
+<select id="selectAdminInquiryList" parameterType="ai" resultType="ai">
+	select admin_inquiry_answer as adminInquiryAnswer, reg_date as regDate from admin_inquiry 
+</select>
+<select id="selectAllAdminInquiry" parameterType="_int" resultType="ai">
+		select
+			admin_inquiry_no as adminInquiryNo, 
+			inquiry_no as inquiryNo,
+			admin_inquiry_answer as adminInquiryAnswer,
+			 reg_date as regDate
+		  from admin_inquiry 
+		  where inquiry_no = #{parameter}	
 </select>
 </mapper>

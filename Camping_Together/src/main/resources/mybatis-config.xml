@@ -30,5 +30,6 @@
 		 <typeAlias type="kr.or.iei.usedBoard.model.vo.UsedBoardComment" alias="ubc"/>
 		 <typeAlias type="kr.or.iei.board.food.model.vo.FoodComment" alias="fc"/>
 		 <typeAlias type="kr.or.iei.inquiry.model.vo.Inquiry" alias="i"/>
+		 <typeAlias type="kr.or.iei.inquiry.model.vo.AdminInquiry" alias="ai"/>
 	</typeAliases>
 </configuration>
