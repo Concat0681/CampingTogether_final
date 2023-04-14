@@ -122,17 +122,7 @@ public class MemberController {
 		return "member/allMemberChat";
 	}
 	
-	/*
-	@RequestMapping(value = "/updateMypageC.do")
-	public String updateMypageC(Member member, HttpSession session) {
-		Member loginMember = service.selectOneMember(member);
-		if(loginMember == session) {
-			return "member/updateMypageCFrm";
-			
-		}
-		return "member/mypageCFrm";
-	}
-	*/
+	
 	
 	@ResponseBody
 	@RequestMapping(value = "/pwCheck.do")
@@ -149,6 +139,14 @@ public class MemberController {
 	public String updateMypageCFrm() {
 		return "member/updateMypageCFrm";
 	}
+	
+	
+	//장바구니
+	@RequestMapping(value = "/shopWishList.do")
+	public String shopWishList() {
+		return "member/shopWishList";
+	}
+	
 	
 	//占쎌돳占쎌뜚占쎄퉱占쎈닚
 	@RequestMapping(value = "/deleteMember.do")
@@ -187,7 +185,8 @@ public class MemberController {
 	@RequestMapping(value = "/myRiview.do")
 	public String myRiview(int reqPage,String memberId, Model model) {
 		ReviewPageData rpd = service.myReviewList(memberId, reqPage);
-		
+		model.addAttribute("list",rpd.getList());
+		model.addAttribute("navi", rpd.getPageNavi());
 		return "member/myReviewList";
 	}
 	
@@ -198,4 +197,17 @@ public class MemberController {
 	return "member/usedWishList";
 	
 	}
+	
+	
+	//shop 상품 판매
+	@RequestMapping(value = "/sellList.do")
+	public String sellList() {
+		return "member/sellList";
+	}
+	
+	
+	
+	
+	
+	
 }

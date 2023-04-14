@@ -8,6 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<jsp:include page="/WEB-INF/views/common/header.jsp" />
 	<jsp:include page="/WEB-INF/views/common/mypageMenu.jsp" />
 
 
@@ -25,7 +26,7 @@
 					</div>
 					<div class="image-btn">
 						<label for="update" class="update">수정</label>
-						<input id="update" type="file" name="profileFilename" accept=".jpg, .jpeg, .png" onchange="readURL(this);" style="display:none;">
+						<input id="update" type="file" name="profileFilename" accept=".jpg, .jpeg, .png" onchange="openFile(event);" style="display : none;">
 						<label for="delete" class="delete">삭제</label>
 					</div>
 				</div>
@@ -67,13 +68,10 @@
 					</tr>
 					<tr>
 						<td>주소 변경</td>
-						<td><input type="text" class="postNo-input"
-							id="sample4_postcode" placeholder="우편번호" readonly> <input
-							type="button" onclick="sample4_execDaumPostcode()" id="post-btn"
-							value="우편번호 찾기"><br> <input type="text"
-							class="input" name="memberAddr" id="sample4_roadAddress">
-							<input type="text" class="input" placeholder="상세주소"
-							id="detail-input"> <!-- <input type="text" id="sample4_roadAddress" placeholder="도로명주소" readonly><br> -->
+						<td><input type="text" class="postNo-input" id="sample4_postcode" placeholder="우편번호" readonly> 
+							<input type="button" onclick="sample4_execDaumPostcode()" id="post-btn" value="우편번호 찾기"><br> 
+							<input type="text" class="input" name="memberAddr" id="sample4_roadAddress">
+							<input type="text" class="input" placeholder="상세주소" id="detail-input"> <!-- <input type="text" id="sample4_roadAddress" placeholder="도로명주소" readonly><br> -->
 
 						</td>
 
@@ -153,28 +151,17 @@
 							// 우편번호와 주소 정보를 해당 필드에 넣는다.
 							document.getElementById('sample4_postcode').value = data.zonecode;
 							document.getElementById("sample4_roadAddress").value = roadAddr;
-							document.getElementById("sample4_jibunAddress").value = data.jibunAddress;
-
-							// 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
-							if (roadAddr !== '') {
-								document.getElementById("sample4_extraAddress").value = extraRoadAddr;
-							} else {
-								document.getElementById("sample4_extraAddress").value = '';
-							}
-
+							
 							var guideTextBox = document.getElementById("guide");
 							// 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
 							if (data.autoRoadAddress) {
-								var expRoadAddr = data.autoRoadAddress
-										+ extraRoadAddr;
-								guideTextBox.innerHTML = '(예상 도로명 주소 : '
-										+ expRoadAddr + ')';
+								var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
+								guideTextBox.innerHTML = '(예상 도로명 주소 : '+ expRoadAddr + ')';
 								guideTextBox.style.display = 'block';
 
 							} else if (data.autoJibunAddress) {
 								var expJibunAddr = data.autoJibunAddress;
-								guideTextBox.innerHTML = '(예상 지번 주소 : '
-										+ expJibunAddr + ')';
+								guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
 								guideTextBox.style.display = 'block';
 							}
 						}
@@ -190,21 +177,40 @@
 		});
 		
 		
-		
-		function readURL(input){
-			if(input.files && input.files[0]){
-				var reader = new FileReader();
-				reader.readAsDataURL(input.files[0]);
-			}else{
-				document.getElementById('profile-img').src = "/resources/image/member/img.jpeg";
-			}
+		/*
+		 function readFile(update){
+			  	var reader = new FileReader();
+			    
+			    reader.onload = function(e){
+			    	$('#profile-img').attr('src', e.target.result);
+			    }
+			    reader.readAsDataURL(update.files[0]);
+			  }
+			  
+			  $("#update").change(function(){
+			    readFile(this);
+			  });
+			*/
 			
-		}		
+			
+			var openFile = function(event) {
+			    var input = event.target;
+
+			    var reader = new FileReader();
+			    reader.onload = function(){
+			      var dataURL = reader.result;
+			      var img = document.getElementById('profile-img');
+			      img.src = dataURL;
+			    };
+			    reader.readAsDataURL(input.files[0]);
+			  };
+	
 		
-		
-		
-		
-		
+			  $(".delete").on("click",function(){
+				  $("#update").val("");
+				  $("#profile-img").attr("src","/resources/image/member/img.jpeg");
+			  });
+
 		
 		
 		

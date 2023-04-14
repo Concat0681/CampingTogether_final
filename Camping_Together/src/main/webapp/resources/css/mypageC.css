@@ -29,11 +29,17 @@
     cursor: pointer;
 }
 
-.title-list>ul>li:hover{
+.title-list>ul>li:hover>a{
     background-color: #AD8B73;
     color: white;
     cursor: pointer;
 }
+
+.title-list>ul>li:hover{
+    background-color: #AD8B73;
+    cursor: pointer;
+}
+
 
 .title-list>ul>li>a{
     color: #CEAB93;
@@ -158,6 +164,9 @@
 
 .title-wrap>.title-list>ul>li>a{
     width: 100%;
+    display: inline-block;
 }
 
-
+.title-wrap{
+    margin-top: 220px;
+}

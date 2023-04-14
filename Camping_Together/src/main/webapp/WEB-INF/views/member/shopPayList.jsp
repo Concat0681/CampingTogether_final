@@ -14,6 +14,7 @@
 
 </head>
 <body>
+	<jsp:include page="/WEB-INF/views/common/header.jsp" />
 	<jsp:include page="/WEB-INF/views/common/mypageMenu.jsp" />
 		
 		<div class="input-div">
@@ -25,7 +26,7 @@
 			<div class="list-content">
 				<table>
 					<tr>
-						<th>캠핑방 이름</th>
+						<th class="camping-name">캠핑방 명</th>
 						<th>결제 날짜</th>
 						<th>체크인 날짜</th>
 						<th>체크아웃 날짜</th>

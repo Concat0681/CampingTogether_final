@@ -13,6 +13,7 @@ import kr.or.iei.member.model.dao.MemberDao;
 import kr.or.iei.member.model.vo.CampingPayment;
 import kr.or.iei.member.model.vo.Member;
 import kr.or.iei.member.model.vo.MemberPageData;
+import kr.or.iei.member.model.vo.MyReview;
 import kr.or.iei.member.model.vo.ProductPageData;
 import kr.or.iei.member.model.vo.ProductPayment;
 import kr.or.iei.member.model.vo.ReviewPageData;
@@ -131,7 +132,7 @@ public class MemberService {
 		}
 		return null;
 	}
-
+}
 	// 캠핑용품 결제 리스트
 	public ProductPageData productPayList(String memberId, int reqPage) {
 		int numPerpage = 5;
@@ -209,10 +210,82 @@ public class MemberService {
 		return ppd;
 	}
 
+	
 	//내가쓴 리뷰 리스트
 	public ReviewPageData myReviewList(String memberId, int reqPage) {
-		// TODO Auto-generated method stub
-		return null;
+		int numPerpage = 5;
+
+		// reqPage = 1 -> 1~2, reqPage = 2 -> 2~3
+		int end = reqPage * numPerpage;
+		int start = end - numPerpage + 1;
+
+		// 계산된 start, end를 가지고 게시물 목록 조회
+		// Mybatis는 매개변수는 한개만 설정이 가능 -> 필요한 값이 여러개면 1개로 묶어야함 (vo또는 map)
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("start", start);
+		map.put("end", end);
+		map.put("memberId", memberId);
+		
+		ArrayList<MyReview> list = dao.selectMyReviewList(map);
+		
+		
+		int totalCount = dao.selectMyReviewListCount(memberId);
+
+		// 전체게시물로 전체 페이지 수 계산
+		int totalPage = (int) Math.ceil(totalCount / (double) numPerpage);
+		
+		// pageNavi사이즈
+				int pageNaviSize = 5;
+
+				int pageNo = 1;
+				if (reqPage > 3) {
+					pageNo = reqPage - 2;
+				}
+
+				// 페이지네비 생성 시작
+				String pageNavi = "<ul class='pagination circle-style'>";
+
+				// 이전 버
+				if (pageNo != 1) {
+
+					pageNavi += "<li>";
+					pageNavi += "<a class='page-item' href='/myRiview.do?reqPage=" + (pageNo - 1) + "&memberId="+ memberId + "'>";
+					pageNavi += "<span class='material-symbols-outlined'>chevron_left</span>";
+					pageNavi += "</a></li>";
+
+				}
+
+				// 페이지 숫자 생성
+				for (int i = 0; i < pageNaviSize; i++) {
+					if (pageNo == reqPage) {
+						pageNavi += "<li>";
+						pageNavi += "<a class='page-item active-page' href='/myRiview.do?reqPage=" + pageNo + "&memberId="+ memberId + "'>";
+						pageNavi += pageNo;
+						pageNavi += "</a></li>";
+					} else {
+						pageNavi += "<li>";
+						pageNavi += "<a class='page-item' href='/myRiview.do?reqPage=" + pageNo + "&memberId=" + memberId+ "'>";
+						pageNavi += pageNo;
+						pageNavi += "</a></li>";
+					}
+					pageNo++;
+					// for문을 중간에 탈출해야하는 경우가 있음 - 페이지가 끝나면 그 이후페이지(없는페이지)는 출력X
+					if (pageNo > totalPage) {
+						break;
+					}
+				}
+
+				// 다음버튼
+				if (pageNo <= totalPage) {
+					pageNavi += "<li>";
+					pageNavi += "<a class='page-item' href='/myRiview.do?reqPage=" + pageNo + "&memberNo=" + memberId+ "'>";
+					pageNavi += "<span class='material-icons'>chevron_right</span>";
+					pageNavi += "</a></li>";
+				}
+				pageNavi += "</ul>";
+
+				ReviewPageData rpd = new ReviewPageData(list, pageNavi);
+				return rpd;
 	}
 
 }
