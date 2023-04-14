@@ -1,0 +1,38 @@
+package kr.or.iei.shop.model.dao;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import kr.or.iei.shop.model.vo.Shop;
+
+@Repository
+public class ShopDao {
+
+	@Autowired
+	private SqlSessionTemplate sqlSession;
+
+	public ArrayList<Shop> selectShopList(HashMap<String, Object> map) {
+		List list = sqlSession.selectList("shop.selectShopList", map);
+		return (ArrayList<Shop>)list;
+	}
+
+	public int insertShop(Shop shop) {
+		int result = sqlSession.insert("shop.insertShop", shop);
+		return result;
+	}
+
+	public int insertShopPhoto(HashMap<String, Object> map) {
+		int result = sqlSession.insert("shop.insertShopPhoto", map);
+		return result;
+	}
+
+	public int selectLatestShop() {
+		int shopNo = sqlSession.selectOne("shop.selectLatestShop");
+		return shopNo;
+	}
+}

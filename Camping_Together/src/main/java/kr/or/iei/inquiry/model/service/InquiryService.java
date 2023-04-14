@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.or.iei.inquiry.model.dao.InquiryDao;
+import kr.or.iei.inquiry.model.vo.AdminInquiry;
 import kr.or.iei.inquiry.model.vo.Inquiry;
 import kr.or.iei.inquiry.model.vo.InquiryPageData;
 
@@ -25,7 +26,6 @@ public class InquiryService {
 		map.put("start", start);
 		map.put("end", end); 
 		ArrayList<Inquiry> list = dao.selectInquiry(map);
-		System.out.println("service: "+list);
 		
 		int totalCount = dao.selectInquiryCount();
 		int totalPage = (int) Math.ceil(totalCount / (double) numPerPage);
@@ -36,19 +36,19 @@ public class InquiryService {
 		String pageNavi = "<ul class='pagination circle-style'>";
 		if (pageNo != 1) {
 			pageNavi += "<li>";
-			pageNavi += "<a class='page-item' href='/boardFoodList.do?reqPage=" + (pageNo - 1) + "'>";
+			pageNavi += "<a class='page-item' href='/inquiryList.do?reqPage=" + (pageNo - 1) + "'>";
 			pageNavi += "<span class='material-icons'>chevron_left</span>";
 			pageNavi += "</a></li>";
 		}
 		for (int i = 0; i < pageNaviSize; i++) {
 			if (pageNo == reqPage) {
 				pageNavi += "<li>";
-				pageNavi += "<a class='page-item active-page' href='/boardFoodList.do?reqPage=" + (pageNo) + "'>";
+				pageNavi += "<a class='page-item active-page' href='/inquiryList.do?reqPage=" + (pageNo) + "'>";
 				pageNavi += pageNo;
 				pageNavi += "</a></li>";
 			} else {
 					pageNavi += "<li>";
-					pageNavi += "<a class='page-item' href='/boardFoodList.do?reqPage=" + (pageNo) + "'>";
+					pageNavi += "<a class='page-item' href='/inquiryList.do?reqPage=" + (pageNo) + "'>";
 					pageNavi += pageNo;
 					pageNavi += "</a></li>";
 			}
@@ -59,12 +59,41 @@ public class InquiryService {
 		}
 		if(pageNo <= totalPage) {
 			pageNavi += "<li>";
-			pageNavi += "<a class='page-item' href='/boardFoodList.do?reqPage=" + (pageNo) + "'>";
+			pageNavi += "<a class='page-item' href='/inquiryList.do?reqPage=" + (pageNo) + "'>";
 			pageNavi += "<span class='material-icons'>chevron_right</span>";
 			pageNavi += "</a></li>";
 		}
 		pageNavi += "</ul>";
 			InquiryPageData ipd = new InquiryPageData(list, pageNavi);
 			return ipd;
+	}
+
+	public int insertInquiry(Inquiry iq) {
+		return dao.insertInquiry(iq);
+	}
+
+	public int updateInquiry(Inquiry iq) {
+		return dao.updateInquiry(iq);
+	}
+
+	public int deleteInquiry(int inquiryNo) {
+		return dao.deleteInquiry(inquiryNo);
+	}
+
+	public int insertAdminInquiry(AdminInquiry ai, int inquiryNo) {
+		int result = dao.insertAdminInquiry(ai);
+			if(result>0) {
+				dao.updateInquiryStatus(inquiryNo);
+			}
+		return result;
+	}
+
+	public ArrayList<AdminInquiry> selectAdminInquiryList(AdminInquiry ai) {
+		ArrayList<AdminInquiry> list = dao.selectAdminInquiryList(ai);
+		return list;
+	}
+
+	public AdminInquiry selectAllAdminInquiry(int inquiryNo) {
+		return dao.selectAllAdminInquiry(inquiryNo);
 	}
 }

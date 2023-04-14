@@ -1,0 +1,12 @@
+@charset "UTF-8";
+
+.page-wrap{
+	margin-top : 150px;
+}
+#img-viewer>img{
+	width: 300px;
+	height: 300px;
+}
+.wrong{
+	color : red;
+}

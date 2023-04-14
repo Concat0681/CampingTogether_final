@@ -60,6 +60,7 @@
     color: white;
     display: inline-block;
     line-height: 30px;
+    cursor: pointer;
 }
 
 .img>p{
@@ -220,7 +221,6 @@
     margin-bottom: 50px;
 }
 
-
 .list-content>table>tbody>tr{
     height: 60px;
     border-bottom: 1px solid #AD8B73;
@@ -229,6 +229,7 @@
 .list-content>table>tbody>tr:first-child>th:first-child{
     border-top-left-radius: 13px;
 }
+
 .list-content>table>tbody>tr:first-child>th:last-child{
     border-top-right-radius: 13px;
 }
@@ -239,3 +240,69 @@
     color: white;
 }
 
+.review-img{  
+    width: 140px;
+    height: 120px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.list-content>table tr .number{
+    width: 70px;
+}
+.list-content>table tr .name{
+    width: 220px;
+}
+
+.list-content>table tr .content{
+    width: 80px;
+}
+
+.list-content>table tr .date{
+    width: 20%;
+}
+
+.re-content{
+    width: 150px;
+    margin: 0 auto;
+    white-space :nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: rgb(137, 137, 137);
+    font-size: 100;
+}
+
+.re-content>a{
+    color: #a9a9a9;
+    height: 140px;
+    line-height: 140px;
+    text-overflow: ellipsis;
+    font-family: nb-regular;
+}
+
+.rnum{
+    color: #AD8B73;
+    font-weight: 600;
+}
+
+.list-content>table tr .camping-name{
+    width: 280px;
+    color: white;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.list-content>table tr .camping-name>a{
+    width: 100%;
+    height: 140px;
+    display: inline-block;
+    line-height: 140px;
+}
+
+.camping-title{
+    color: #AD8B73;
+}
+
+.camping-title>a:hover{
+    text-decoration: underline;
+}

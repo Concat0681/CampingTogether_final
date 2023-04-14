@@ -76,7 +76,18 @@
                 <!-- <li><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">쪽지보내기</button></li> -->
                 <li><a href="/notice/noticeList.jsp">공지사항</a></li>
                 <li><a href = "/messageMain.do">쪽지함</a></li>
-                <li><a href = "/cmapingPayList.do?reqPage=1&memberNo=${sessionScope.m.memberNo }">[${sessionScope.m.memberName }]</a></li>
+                <c:choose>
+                	<c:when test="${sessionScope.m.memberGrade eq 'c' }">
+		                <li><a href = "/cmapingPayList.do?reqPage=1&memberNo=${sessionScope.m.memberNo }">[${sessionScope.m.memberName }]</a></li>
+               			 <li><a href="/shopWishList.do?reqPage=1&memberId=${sessionScope.m.memberId }">장바구니</a></li>
+                	</c:when>
+                	<c:when test="${sessionScope.m.memberGrade eq 's' }">
+		                <li><a href = "/sellList.do?reqPage=1&memberId=${sessionScope.m.memberId }">[${sessionScope.m.memberName }]</a></li>
+                	</c:when>
+                	<c:when test="${sessionScope.m.memberGrade eq 'a' }">
+		                <li><a href = "#">[${sessionScope.m.memberName }]</a></li>
+                	</c:when>
+                </c:choose>
                 <li><a href="/logout.do">로그아웃</a></li>
             </ul>
         </div>
@@ -119,6 +130,41 @@
 	  </div>
 	</nav>
 </div>
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/"><img src="/resources/image/logo/logo250x80.png" width="150px" height="75px"></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="/campingListMain.do">캠핑</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">캠핑예약</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/usedBoardList.do?reqPage=1">중고장터</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">투게더SHOP</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            	자유게시판
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/boardFoodList.do?reqPage=1">캠핑 레시피</a></li>
+            <li><a class="dropdown-item" href="#">캠핑 Tip</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="allMemberChatFrm.do">채팅</a></li>
+             <li><a class="dropdown-item" href="inquiryList.do?reqPage=1">문의사항</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
 	
