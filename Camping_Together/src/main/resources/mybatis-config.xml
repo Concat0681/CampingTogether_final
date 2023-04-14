@@ -9,6 +9,7 @@
 		<typeAlias type="kr.or.iei.member.model.vo.Member" alias="m"/>
 		<typeAlias type="kr.or.iei.member.model.vo.CampingPayment" alias="cp"/>
 		<typeAlias type="kr.or.iei.member.model.vo.ProductPayment" alias="pp"/>
+		<typeAlias type="kr.or.iei.member.model.vo.MyReview" alias="mr"/>
 		<typeAlias type="kr.or.iei.usedBoard.model.vo.UsedBoard" alias="ub"/>
 		<typeAlias type="kr.or.iei.camping.model.vo.Camping" alias="c"/>
 		<typeAlias type="kr.or.iei.camping.model.vo.CampingRoom" alias="cr"/>
@@ -31,5 +32,6 @@
 		 <typeAlias type="kr.or.iei.inquiry.model.vo.Inquiry" alias="i"/>
 		 <typeAlias type="kr.or.iei.shop.model.vo.Shop" alias="s"/>
 		 <typeAlias type="kr.or.iei.shop.model.vo.ShopPhoto" alias="sp"/>
+		 <typeAlias type="kr.or.iei.inquiry.model.vo.AdminInquiry" alias="ai"/>
 	</typeAliases>
 </configuration>

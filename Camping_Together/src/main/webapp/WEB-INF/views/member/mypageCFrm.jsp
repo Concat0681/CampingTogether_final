@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="resources/css/mypageC.css">
 </head>
 <body>
+	<jsp:include page="/WEB-INF/views/common/header.jsp" />
 	<jsp:include page="/WEB-INF/views/common/mypageMenu.jsp" />
 	
 	<div class="all-wrap">

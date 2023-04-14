@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProductPayment {
-
+	private String rnum;
 	private String productName;
 	private int buyCount;
 	private String productPaymentDate;
