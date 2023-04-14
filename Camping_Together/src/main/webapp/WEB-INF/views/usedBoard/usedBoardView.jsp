@@ -10,7 +10,8 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <style>
-	P{
+
+	p{
 		margin-bottom: 8px !important;
 	}
 	.material-symbols-outlined {
@@ -343,7 +344,7 @@
 	        			<p style="color:#ccc;">${ub.readCount }</p>
         		</div>
         		<div class="detail-price">
-        			<p class="font-bold" style="color:#AD8B73;">판매금액 : <fmt:formatNumber value="${ub.usedProductPrice }" pattern="#,###" /></p>
+        			<p class="font-bold" style="color:#AD8B73;"><fmt:formatNumber value="${ub.usedProductPrice }" pattern="#,###" /></p>
         			<div class="detail-info">
         				<p class="font-bold" style="color:#AD8B73;">상품상태 : </p><p>&nbsp;${ub.getUsedProductStatusText() }&nbsp;&nbsp;&nbsp;&nbsp;</p>
         				<p class="font-bold" style="color:#AD8B73;">교환여부 :</p> <p>&nbsp;${ub.getExchangeStatusText() }&nbsp;&nbsp;&nbsp;&nbsp;</p>
@@ -369,20 +370,19 @@
         				</div>
         				<div class="sell-user">
         					<div class="sell-user-wrap">
-	        					<div class="sell-user-img">
-	        						<img src="/resources/image/member/img.jpeg">
+	        					<div class="sell-user-img" id="seller-profile">
 	        					</div>
 	        				</div>
 	        				<div class="sell-user-info">
 		        				<div class="sell-user-id">
-	        						<p style="font-family: ng-extra-bold; color:#FFFBE9;margin-bottom: 0;">user01</p>
+	        						<p style="font-family: ng-extra-bold; color:#FFFBE9;margin-bottom: 0;">${ub.usedBoardWriter }</p>
 	        					</div>
 	        					<div class="user-phone">
 	        						<div class="material-symbols-outlined wght">phone_in_talk</div>
-	        						<span style="font-family: ng-extra-bold;color:#FFFBE9;">010-0000-0000</span>
+	        						<span style="font-family: ng-extra-bold;color:#FFFBE9;" id="seller-phone"></span>
 	        					</div>
 	        					<div class="user-blacklist-info">
-	        						<span style="color:#FFFBE9;">신고건수 0건</span>
+	        						<span style="color:#FFFBE9;" id="seller-blackCount"></span>
 	        					</div>
 	        				</div>
         				</div>
@@ -390,8 +390,24 @@
         		</div>
         		<script>
         			function sellUserCheck(usedBoardWriter){
-        			/* 필요한 회원정보 : 아이디, 사진, 연락처, 판매중인물품 */
-        			/* 사기조회 : 신고건수 */
+        			/* 필요한 회원정보 : 아이디, 사진, 연락처, 신고당한 횟수 */
+        				$.ajax({
+        					url: "/sellUserCheck.do",
+        					type: "get",
+        					data: {usedBoardWriter:usedBoardWriter},
+        					success: function(data){
+        						$("#seller-profile").empty();
+								$("#seller-phone").text(data.sellerPhone);
+								$("#seller-blackCount").text("신고건수 "+data.sellerblackCount+"건");
+								let img = "";
+								if(data.profilePath == null){
+									img = "<img src='/resources/image/member/img.jpeg'>";
+								}else{
+									img = "<img src='/resources/image/member/"+data.profilePath+"'>";
+								}
+								$("#seller-profile").append(img);
+        					}
+        				});
         				$(".modal-phone-wrapper").slideToggle();
         				
         			}
@@ -438,8 +454,8 @@
         			<c:choose>
         				<c:when test="${sessionScope.m.memberId eq ub.usedBoardWriter }">
         				<div style="text-align: right;" class="usedBoard-link">
-							<a href="#">수정</a>
-							<a href="#">삭제</a>
+							<a href="/usedBoardUpdateFrm.do?usedBoardNo=${ub.usedBoardNo }">수정</a>
+							<a href="javascript:void(0)" onclick="deleteUsedBoard(${ub.usedBoardNo});">삭제</a>
 						</div>        				
         				</c:when>
         				<c:otherwise>
@@ -546,6 +562,12 @@
 		function deleteComment(usedBoardCommentNo, usedBoardNo){
 			if(confirm("댓글을 삭제하시겠습니까?")){
 				location.href="/usedBoardCommentDelete.do?usedBoardCommentNo="+usedBoardCommentNo+"&usedBoardNo="+usedBoardNo;
+			}
+		}
+		<%-- 게시글 삭제 --%>
+		function deleteUsedBoard(usedBoardNo){
+			if(confirm("게시글을 삭제하시겠습니까?")){
+				location.href="/usedBoardDelete.do?usedBoardNo="+usedBoardNo;
 			}
 		}
 	</script>

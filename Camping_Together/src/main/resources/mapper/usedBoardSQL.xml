@@ -102,6 +102,22 @@
 	<delete id="deleteUsedBoardComment" parameterType="_int">
 		delete from used_board_comment where used_board_comment_no = #{_parameter}
 	</delete>
+	<select id="sellUserCheck" parameterType="string" resultType="ub">
+	   select 
+	           member_phone as sellerPhone,
+	           profile_filepath as profilePath
+	   from member 
+	   left join profile using(member_no)
+	   where member_id like #{_parameter}
+	</select>
+	<select id="sellerBlackCount" parameterType="string" resultType="_int">
+		select count(*)
+		from blacklist
+		where blacklist_status = 1 and blacklist_member_id like #{_parameter}
+	</select>
+	<delete id="deleteUsedBoard" parameterType="_int">
+		delete from used_Board where used_board_no = #{_parameter}
+	</delete>
 </mapper>
 
 

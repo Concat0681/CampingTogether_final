@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import common.FileManager;
-import kr.or.iei.camping.model.vo.CampingRoomFileVO;
 import kr.or.iei.shop.model.service.ShopService;
 import kr.or.iei.shop.model.vo.Shop;
 import kr.or.iei.shop.model.vo.ShopPhoto;
@@ -31,7 +30,13 @@ public class ShopController {
 		int end = 8;
 		for(int campingCategory=0;campingCategory<3;campingCategory++) {
 			ArrayList<Shop> list = service.selectShopList(campingCategory, start, end);
-			model.addAttribute("list"+campingCategory, list);
+			if(campingCategory == 0) {
+				model.addAttribute("campingList", list);
+			} else if(campingCategory == 1) {
+				model.addAttribute("carList", list);
+			} else {
+				model.addAttribute("etcList", list);
+			}
 		}
 		return "shop/shopMainList";
 	}

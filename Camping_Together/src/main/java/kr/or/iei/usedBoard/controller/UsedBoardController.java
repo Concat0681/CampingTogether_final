@@ -8,10 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.gson.Gson;
+
 import common.FileManager;
-import kr.or.iei.member.model.vo.Member;
 import kr.or.iei.usedBoard.model.service.UsedBoardService;
 import kr.or.iei.usedBoard.model.vo.UsedBoard;
 import kr.or.iei.usedBoard.model.vo.UsedBoardComment;
@@ -84,4 +86,43 @@ public class UsedBoardController {
 		int result = service.deleteUsedBoardComment(usedBoardCommentNo);
 		return "redirect:/usedBoardView.do?usedBoardNo="+usedBoardNo;
 	}
+	@ResponseBody
+	@RequestMapping(value="/sellUserCheck.do", produces = "application/json;charset=utf-8")
+	public String sellUserCheck(String usedBoardWriter) {
+		//유저정보 등록
+		UsedBoard ub = service.sellUserCheck(usedBoardWriter);
+		//블랙횟수
+		int blackCount = service.sellerBlackCount(usedBoardWriter); 
+		ub.setSellerblackCount(blackCount);
+		Gson gson = new Gson();
+		String result = gson.toJson(ub);
+		return result;
+	}
+	@RequestMapping(value="/usedBoardDelete.do")
+	public String usedBoardDelete(int usedBoardNo, HttpServletRequest request) {
+		//1. 파일불러오기(+게시글삭제)
+		ArrayList<UsedBoardPhoto> list = service.deleteUsedBoard(usedBoardNo);
+		//2. 삭제하기
+		if( list == null ) {
+			return "redirect:/usedBoardView.do?usedBoardNo="+usedBoardNo;
+		}else {
+			//파일 삭제
+			String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/usedBoard/");
+			for(UsedBoardPhoto photo : list) {
+				manager.deleteFile(savePath, photo.getFilepath());
+			}
+			return "redirect:/usedBoardList.do?reqPage=1";
+		}
+	}
+	@RequestMapping(value="/usedBoardUpdateFrm.do")
+	public String usedBoardUpdateFrm(int usedBoardNo, Model model) {
+		UsedBoard ub = service.selectUpdateUsedBoard(usedBoardNo);
+		model.addAttribute("ub", ub);
+		return "usedBoard/usedBoardUpdateFrm";
+	}
 }
+
+
+
+
+
