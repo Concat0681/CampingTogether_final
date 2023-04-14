@@ -124,14 +124,26 @@
         }
         .img-sub-wrap{
             overflow: hidden;
-            margin-left: 250px;
+            margin-left: 250px;           
         }
         .img-sub{
             float: left;
             width: 80px;
             height: 80px;
             border: 1px solid #ccc;
-            margin-left: 10px;
+            margin-left: 10px; 
+            position: relative;         
+        }
+        .delete-img{
+        	position: absolute;
+			left: 59px;
+			bottom: 0px;
+        	cursor: pointer;
+        	background-color: #000;
+        	opacity: 75%;
+        	font-size: 20px;
+        	color: #fff;
+        	font-variation-settings:'wght' 400
         }
         .usedBoard-title{
             padding: 30px 0px;
@@ -219,7 +231,7 @@
                 <div class="image-wrap">
                     <div class="usedWrite-text" id="img-margin"><span>상품이미지</span></div>
                     <div class="usedBoard-img">
-                        <input type="file" name="usedBoardPhoto" accept="image/gif, image/jpeg, image/png" style="display:none" id="usedBoardImg" multiple>
+                        <input type="file" name="usedBoardPhoto" accept="image/gif, image/jpeg, image/png" id="usedBoardImg" multiple>
                         <label for="usedBoardImg">
                             <div class="uploadImg">
                             	<span class="material-symbols-outlined">photo_camera</span>
@@ -237,7 +249,8 @@
                                                           최대 지원 사이즈인 640 X 640으로 리사이즈 해서 올려주세요.(개당 이미지 최대 10M)
                         </p>
                     </div>
-                    <div class="img-sub-wrap"></div>               
+                    <div class="img-sub-wrap">
+                    </div>               
                 </div>
                 <div class="usedBoard-title" >
                     <div class="usedWrite-text" style="margin-right: 70px;"><span>제목</span></div>
@@ -324,19 +337,16 @@
 					sel_files.push(f);
 					const reader = new FileReader();
 					reader.onload = function(e){
-						img.push("<img style='width:100%;height:100%;'src=\""+e.target.result+"\" />");		
-						if(false){
-							$(".uploadImg").append(img);
-						}else{
-							const div = $("<div>").addClass("img-sub");
-							div.append(img);
-							$(".img-sub-wrap").append(div);	    									
-						}
+						img.push("<img style='width:100%;height:100%;'src=\""+e.target.result+"\" /><div class='material-symbols-outlined delete-img' onclick='delImg(this)'>close</div>");
+						const div = $("<div class='img-sub'></div>");
+						div.append(img);
+						$(".img-sub-wrap").append(div);	   
 					}
-					reader.readAsDataURL(f);
+				reader.readAsDataURL(f);
 				});
 			});
 		});
+		
 		$("#price-input").on("change", function(){
 			const priceVal = $(this).val();
 			const regExp = /^[0-9]+$/;
@@ -347,6 +357,24 @@
                 $(this).focus();
             }
 		});
+		
+		function delImg(obj){
+			const index = $(".delete-img").index($(obj));
+			console.log(index);
+			
+			const dataTransfer = new DataTransfer();
+			let files = $("#usedBoardImg")[0].files;
+			let fileArray = Array.from(files);
+			fileArray.splice(index, 1);
+			
+			fileArray.forEach(function(file, items){
+				dataTransfer.items.add(file);
+			});
+			
+			$("#usedBoardImg")[0].files = dataTransfer.files;
+		
+			$(obj).parent().remove();
+		}
     </script>
 </body>
 </html>

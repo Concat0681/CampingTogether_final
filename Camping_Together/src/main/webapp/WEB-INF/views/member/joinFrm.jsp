@@ -6,82 +6,410 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
-<style>
-	#sample4_extraAddress{
-		width: 250px;
-	} 
 
+<link href="/resources/css/default.css" rel="stylesheet"/> 
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+<style>
+.tab-content > div:last-child {
+  display:none;
+}
+
+
+
+label.active {
+  transform:translateY(50px);
+  left:2px;
+  font-size:14px;
+  .req {
+    opacity:0;
+  }
+}
+@font-face {
+  font-family: ng-bold;
+  src: url(../font/Nanum_Gothic/NanumGothic-Bold.ttf);
+}
+@font-face {
+  font-family: ng-extra-bold;
+  src: url(../font/Nanum_Gothic/NanumGothic-ExtraBold.ttf);
+}
+@font-face {
+  font-family: ng-regular;
+  src: url(../font/Nanum_Gothic/NanumGothic-Regular.ttf);
+}
+.active{
+	transition-duration: 0.5s;
+	background-color: rgba(173, 139, 115, 1) !important;
+}
+input {
+	height: 40px;
+    width: 100%;
+    margin: 20px auto;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    color: white;
+    background: rgba(173, 139, 115, 0.5);
+    padding-left:5px;
+    font-family: FontAwesome, "Open Sans", Verdana, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+    }
+button {
+	height:50px;
+	width: 80%;
+	border-radius: 4px;
+	margin-bottom: 20px;
+    border: none;
+    background: #CEAB93;
+    color: #ffffff;
+    font-family: sans-serif;
+    font-weight: 700;
+    font-size: 14pt;
+    cursor: pointer;
+}
+form {
+	width: 90%;
+	margin: 40px auto;
+	text-align: center;
+	    	
+}
+    
+input:focus {
+	outline: none
+}
+.logo {
+	color: white;
+	font-family: sans-serif;
+	font-size: 15pt;
+	font-weight: 600;
+	text-align: center;
+	padding-top: 40px
+	}
+.tab-group{
+	list-style-type: none;
+	display: block;
+	padding: 15px;
+	display: flex;
+	text-align: center;
+	
+	
+}
+.tab-group>li{
+	margin: 20px;
+	width: calc(100%/2);
+	background-color: #CEAB93;
+	text-align: center;
+	border-radius: 8px;
+	padding: 12px;
+}
+.signup-input{
+	border: none;
+}
+    
+    .myform {
+    	
+        background: url(/resources/image/loginBackground1.jpeg);
+        background-color:#0b2144;
+        width: 40%;
+        margin: auto;
+        height: 600px;
+        -webkit-box-shadow: 0px 0px 3px 1px rgba(38, 35, 128, 1);
+        -moz-box-shadow: 0px 0px 3px 1px rgba(38, 35, 128, 1);
+        box-shadow: 0px 30px 60px -6px #000;
+        max-width: 500px;
+    	min-width: 400px;
+    	display: inline-table;
+    }
+    
+    .myform a {
+        text-decoration: none;
+        color: white;
+        font-family: ng-extra-bold;
+        font-size: 20px;
+        
+    }
+    .myform a:hover {
+        text-decoration: underline;
+        color: white;
+        font-family: ng-extra-bold;
+        font-size: 20px;
+        
+    }
+    
+     ::-webkit-input-placeholder {
+        /* Chrome/Opera/Safari */
+         color: #fbfbfb;
+       
+    }
+	.fa-cloud-upload{
+  		font-size:90px;
+  
+	}
+    
+    ::-moz-placeholder {
+        /* Firefox 19+ */
+        color: #cccccc;
+          }
+    
+    :-ms-input-placeholder {
+        /* IE 10+ */
+         color: #cccccc;
+         }
+    
+    :-moz-placeholder {
+        /* Firefox 18- */
+        color: #cccccc;
+      
+    }
+  @media screen and (max-width:500px){
+        .myform{
+            width:80%;
+        }
+    }
+    @media screen and (max-width:800px){
+        .myform{
+            width:60%;
+        }
+    }
+    .searchBox{
+    	text-align: center;
+    	width: 80%;
+    	display: inline-block;
+    	min-width: 250px;
+    	height: 60px;
+    	line-height: 60px;
+    }
+    .searchPw{
+    	float: right;
+    }
+    .searchId{
+    	float: left;
+    }
+    .formBox{
+    	padding: 20px;
+    }
+    .signup-input{
+    	margin: 5px auto;
+    	border: none;
+    }
+    .signup-input:focus{
+    	background-color: rgba(173, 139, 115, 1);
+    }
+    .signup{
+    text-align: left;
+    }
+    .addrbtn{
+    	cursor: pointer;
+    }
+    .mail-check-input{
+    	border: none;
+    }
+    .mail-confirmBox{
+    	width: 150px;
+    }
+    .btn-primary{
+    	width: 150px;
+    }
+    .btn-primatypuls{
+    	width: 120px;
+    	height: 40px;
+	    padding-bottom: 5px;
+	    line-height: 20px;
+	    margin-left: 30px;
+	 }
+    .memberGrade{
+    	width: 100px;
+    	font-family: ng-extra-bold;
+    	font-weight:bold;
+        font-size: 15px;
+        border: none;
+        border-radius: 5px;
+    }
+    .memberGrade>option{
+    	width: 100px;
+    	text-align: center;
+    	font-family: ng-extra-bold;
+    	font-weight:bold;
+        font-size: 15px;
+        border: none;
+    }
+    .confirm{
+    	transition-duration: 0.5s;
+    	background-color: rgba(173, 139, 115, 0.5);
+    }
+    .cancel{
+    	transition-duration: 0.5s;
+    	background-color: rgba(173, 139, 115, 0.5);
+    }
+    .confirm:hover{
+    	transition-duration: 0.5s;
+    	background-color: #CEAB93;
+    }
+    .cancel:hover{
+    	transition-duration: 0.5s;
+    	background-color: #CEAB93;
+    }
 </style>
 </head>
 <body>
-	
-	
-	<form action="/join.do" method="post">
-		<fieldset>
-			<legend>회원가입</legend>
-			
-			아디:<input type="text" name="memberId" id="memberId" placeholder="아이디를 입력해주세요." required maxlength="12">
-			<span class="point successIdChk"></span><br>
-			<span class="point">※ 영문자, 소문자 입력가능, 최대 12자 까지 입력</span>
-			<input type="hidden" id="idDoubleChk"><!-- <span id="idChk"></span>  --><br>
-			비번:<input type="password" name="memberPw" id="memberPw" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,16}" required title="조건에 맞춰 다시 작성해주세요!"><br>
-			<span class="point successPwChk"></span>
-			<span class="point">※ 최소 하나의 대문자, 소문자, 숫자, 특수문자(!@#$%^&*)를 포함한 최소 8자부터 최대 16자의 비밀번호를 입력해주세요</span><br>
-			비번확인:<input type="text" name="pwDoubleChk" id="pwDoubleChk">
-			<input type="hidden" id="pwDoubleChk"><span class="point pwDoubleChk"></span><br>
-			이름:<input type="text" name="memberName" id="memberName" pattern=""><br>
-			전번:<input type="text" name="memberPhone" id="memberPhone" oninput="oninputPhone(this)"><br>
-			<div class="form-group email-form">
-				<label for="memberEamil">이메일</label>
-				<div class="input-group">
-				<input type="text" class="form-control" name="memberEamil" id="memberEamil1" placeholder="이메일" >
-					<select class="form-control" name="memberEamil" id="memberEamil2" >
-						<option>@naver.com</option>
-						<option>@daum.net</option>
-						<option>@gmail.com</option>
-						<option>@hanmail.com</option>
-					 	<option>@yahoo.co.kr</option>
+	<div class="wrapper" style="display: grid; margin-top: 50px;">
+		<div class="myform">
+	      	<ul class="tab-group">
+	        <li class="tab"><a href="#signup">Sign Up</a></li>
+	        <li class="tab active"><a href="#login">Log In</a></li>
+	      </ul>
+	      <div class="tab-content">
+	        <div id="login">   
+				    <div class="logo">Wellcome Back! Camping Together
+				    	<img src="">
+				    </div>
+					    <form action="/login.do" method="post" autocomplete="off">
+					        <input type="text" placeholder=" &#xf007;   UserId" name="memberId"/>
+					        <input type="password" placeholder=" &#xf023;  Password" name="memberPw" />
+					        <div>
+						        <button type="submit">로그인 </button>
+						        <hr>
+						        <div class="searchBox"> <a href="#" class="searchId">아이디 찾기</a> <a href="#" class="searchPw">비밀번호 찾기</a> </div>
+						    </div>
+					    </form>
+					
+	        </div>
+	        
+	        <div id="signup">   
+	          <div class="logo">Let`s Join Camping Together
+			  </div>
+	          <form action="/join.do" method="post" class="signup" autocomplete="off">
+	            <div class="field-wrap">
+		            <select name="memberGrade" id="memberGrade" class="memberGrade">
+						<option value="s" >사업자</option>
+						<option value="c" >일반회원</option>
 					</select>
-				</div>   
-			<div class="input-group-addon">
-				<button type="button" class="btn btn-primary" id="mail-Confirm-Btn">본인인증</button>
-			</div>
-				<div class="mail-check-box">
-			<input class="form-control mail-check-input" placeholder="인증번호 6자리를 입력해주세요!" disabled="disabled" maxlength="6">
-			</div>
-				<span id="mail-check-warn"></span>
-			</div>
-			주소:<input type="text" name="memberAddr" id="sample4_extraAddress" placeholder="주소를 입력해주세요" readonly><br>
-			<input type="text" id="sample4_postcode" placeholder="우편번호" readonly>
-			<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
-			<input type="text" id="sample4_roadAddress" placeholder="도로명주소" readonly><br>
-			<select name="memberGrade" id="memberGrade">
-			<option value="s">사업자</option>
-			<option value="c">일반회원</option>
-			</select>
-			<input type="submit" value="회원가입">
-			<input type="reset" value="취소">
-		</fieldset>
-	
-
-
-
+				</div>
+	            
+	            <div class="field-wrap">
+	            <input type="text" name="memberId" id="memberId" class="signup-input" placeholder="아이디  입력" required maxlength="12"><br>
+	            <span class="point successIdChk"></span>
+	            <input type="hidden" id="idDoubleChk" >
+	            </div>
+	          <div class="field-wrap">
+	            <input type="password" name="memberPw" id="memberPw" class="signup-input" placeholder="비밀번호 입력" pattern="(?=.*\d)(?=.*[a-z])(?=.*[!@#$%^&*]).{8,16}" required maxlength="16" title="조건에 맞춰 다시 작성해주세요!"><br>
+				<span class="point successPwChk"></span>
+	          </div>
+	          <div class="field-wrap">
+	          	<input type="password" name="pwDoubleChk" id="pwDoubleChk" class="signup-input" placeholder="비밀번호 재확인"><br>
+				<input type="hidden" id="pwDoubleChk"><span class="point pwDoubleChk"></span>
+	          </div>
+	          <div class="field-wrap">
+	          	<input type="text" name="memberName" id="memberName" class="signup-input" placeholder="이름 입력" pattern=".{2,10}" required  maxlength="10">
+	          </div>
+	          <div class="field-wrap">
+	          	<input type="text" name="memberPhone" id="memberPhone" oninput="oninputPhone(this)" class="signup-input" placeholder="전화번호 입력(- 입력 제외)" required  maxlength="13"><br>
+	          </div>
+	          <div class="field-wrap">
+	          	<div class="form-group email-form">
+					<div class="input-group">
+						<input type="email" class="form-control signup-input" name="memberEmail" id="memberEmail" placeholder="이메일 입력" required="required">
+						<div class="mail-check-inputBox" style="display:none;">
+							<input class="form-control signup-input mail-check-input" placeholder="인증번호 6자리를 입력해주세요!" maxlength="6" style="width:200px;" required pattern="" >
+							<span class="point successEmailChk"></span>
+						</div>
+						<button type="button" class="btn btn-primary" id="mail-Confirm-Btn">본인인증</button><span id="mail-check-warn"></span>
+					</div> 
+					
+				</div>
+	          
+	          </div>
+	          <div class="field-wrap"></div>
+				<input type="text" name="memberAddr" id="sample4_extraAddress" class="signup-input" placeholder="주소 입력" readonly><br>
+				<input type="text" id="sample4_detailAddress" class="signup-input" placeholder="상세주소"><span><input type="button" onclick="sample4_execDaumPostcode()" class="signup-input addrbtn" value="주소 찾기" style="background-color:#CEAB93 "></span><br>
+				<div class="field-wrap" >
+					<input type="submit" class="confirm" value="회원가입" style="width:40%; cursor: pointer;"  disabled="disabled">
+					<input type="reset" class="cancel" value="취소" style="width:40%; float: right; cursor: pointer;" >
+				
+				</div>
+	          </form>
+	        </div>
+	        
+	      </div><!-- tab-content -->
+	      
+	</div> <!-- /form -->
+	</div>
+<input type="hidden" id="sample4_postcode" placeholder="우편번호" readonly>
+<input type="hidden" id="sample4_roadAddress" placeholder="도로명주소" readonly><br>
 <input type="hidden" id="sample4_jibunAddress" placeholder="지번주소" readonly>
-<input type="hidden" id="sample4_detailAddress" placeholder="상세주소"><br>
+<br>
 <input type="hidden" id="sample4_extraAddress" placeholder="참고항목">
-			
-	</form>
-	<a href="/">메인으로</a>
-
 <script>
 
+
+
+$('.form').find('input, textarea').on('keyup blur focus', function (e) {
+	  
+	  const $this = $(this),
+	      label = $this.prev('label');
+
+		  if (e.type === 'keyup') {
+				if ($this.val() === '') {
+	          label.removeClass('active highlight');
+	        } else {
+	          label.addClass('active highlight');
+	        }
+	    } else if (e.type === 'blur') {
+	    	if( $this.val() === '' ) {
+	    		label.removeClass('active highlight'); 
+				} else {
+			    label.removeClass('highlight');   
+				}   
+	    } else if (e.type === 'focus') {
+	      
+	      if( $this.val() === '' ) {
+	    		label.removeClass('highlight'); 
+				} 
+	      else if( $this.val() !== '' ) {
+			    label.addClass('highlight');
+				}
+	    }
+
+	});
+	//로그인 / 회원가입 버튼
+	$('.tab a').on('click', function (e) {
+	  e.preventDefault();
+	  $(this).parent().addClass('active');
+	  $(this).parent().siblings().removeClass('active');
+	  target = $(this).attr('href');
+	  $('.tab-content > div').not(target).hide();
+	  $(target).fadeIn(1000);
+	});
+	
+	//코드 입력창 보이는 버튼
+	$("#mail-Confirm-Btn").on('click', function() {
+		$('.mail-check-inputBox').css("display","block");
+		$('.confirm').attr("disabled", false);
+	});
+	
+	
+
+//아이디 조건 출력 및 조건 일치 확인
 $("[name=memberId]").blur(function(){
 	const memberId = $("#memberId").val();
+	const number = memberId.search(/[0-9]/g);
+	const english = memberId.search(/[a-z]/ig);
+	const spece = memberId.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
+	const korean = memberId.search(/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/);
 	if(memberId == "" || memberId.length < 6){
 		$(".successIdChk").text("아이디는 6자 이상 12자 이하로 입력해주세요 ");
-		$(".successIdChk").css("color", "red");
-		$("#idDoubleChk").val("false");
-	}else{
+		$(".successIdChk").css("color", "white");
+		$("#idDoubleChk").val(false);
+	}else if (memberId.search(/\s/) != -1) {
+        $(".successIdChk").text("아이디는 공백 없이 입력해주세요.");
+  		$(".successIdChk").css("color", "white");
+  		$("#idDoubleChk").val(false);
+     }else if(memberId.korean > 1 || english < 0 || number < 0){
+    	$(".successIdChk").text("아이디는 영문과 숫자를 포함하여 입력해주세요");
+   		$(".successIdChk").css("color", "white");
+   		$("#idDoubleChk").val(false);
+     }else{
 		$.ajax({
 			url : "${pageContext.request.contextPath}/idCheck.do?memberId="+ memberId,
 			type : "post",
@@ -89,7 +417,7 @@ $("[name=memberId]").blur(function(){
 			success : function(data) {
 				if (data == 0) {
 					$(".successIdChk").text("사용가능한 아이디입니다");
-					$(".successIdChk").css("color", "green");
+					$(".successIdChk").css("color", "white");
 					$("#idDoubleChk").val("true");
 				} else {
 					$(".successIdChk").text("사용중인 아이디입니다");
@@ -100,7 +428,41 @@ $("[name=memberId]").blur(function(){
 				console.log("실패");
 			}
 		});
-	}
+     }
+});
+
+
+//비밀번호  조건 출력 및 조건 일치 확인
+$("[name=memberPw]").blur(function(){
+	const memberPw = $("#memberPw").val();
+	const number = memberPw.search(/[0-9]/g);
+	const english = memberPw.search(/[a-z]/ig);
+	const spece = memberPw.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
+	if (memberPw.length<8 || memberPw.length>16) {
+    	$(".successPwChk").text("비밀번호는 8자 이상 16자 이하로 입력해주세요");
+ 		$(".successPwChk").css("color", "white");
+         
+     } else if (memberPw.search(/\s/) != -1) {
+        $(".successPwChk").text("비밀번호는 공백 없이 입력해주세요.");
+  		$(".successPwChk").css("color", "white");
+         
+     } else if (number < 0 || english < 0 || spece < 0) {
+        $(".successPwChk").text("영문,숫자,특수문자를 혼합하여 입력해주세요.");
+   		$(".successPwChk").css("color", "white");
+         
+     } else if ((number < 0 && english < 0) || (english < 0 && spece < 0) || (spece < 0 && number < 0)) {
+    	 $(".successPwChk").text("영문,숫자,특수문자를 포한하여 입력해주세요");
+    	 $(".successPwChk").css("color", "white");
+          
+     } else if (/(\w)\1\1\1/.test(memberPw)) {
+    	$(".successPwChk").text("같은 문자를 4번 이상 사용할 수 없습니다.");
+    	$(".successPwChk").css("color", "white");
+          
+     } else {
+    	$(".successPwChk").text("사용가능한 비밀번호 입니다!");
+     	$(".successPwChk").css("color", "white");
+         return true;
+     }
 });
 
 //비밀번호 확인
@@ -114,28 +476,29 @@ $("#pwDoubleChk").blur(function(){
 	}
 });
 
+//이메일 보내기
 $('#mail-Confirm-Btn').click(function() {
-	const memberEamil = $('#memberEamil1').val() + $('#memberEamil2').val(); // 이메일 주소 값 합쳐서 전달 하기
-	console.log('완성된 이메일 : ' + memberEamil); // 이메일 오는지 확인
-	const checkInput = $('.mail-check-input') // 인증번호 입력하는곳 
-	
+	const memberEmail = $('#memberEmail').val() // 이메일 주소
+	console.log('완성된 이메일 : ' + memberEmail); // 이메일 오는지 확인
+	const checkInput = $('.mail-check-input') // 인증번호 입력하는곳  
 	$.ajax({
 		type : 'post',
 		url : "/mailCheck.do",
-		data: {memberEmail:memberEamil},
+		data: {memberEmail:memberEmail},
 		success : function (data) {
 			console.log("data : " +  data);
 			checkInput.attr('disabled',false);
 			code =data;
-			alert('인증번호가 전송되었습니다.')
+			alert('인증번호가 전송되었습니다.');
 		}, error : function() {
+			alert('인증번호 전송이 실패 하였습니다.');
 			console.log("실패");
 		}
 	}); // end ajax
 }); // end send eamil
 
-//인증번호 비교 
-// blur -> focus가 벗어나는 경우 발생
+
+//이메일 인증번호 일치 span
 $('.mail-check-input').blur(function () {
 	const inputCode = $(this).val();
 	const resultMsg = $('#mail-check-warn');
@@ -144,15 +507,15 @@ $('.mail-check-input').blur(function () {
 		resultMsg.html('인증번호가 일치합니다.');
 		resultMsg.css('color','green');
 		$('#mail-Check-Btn').attr('disabled',true);
-		$('#userEamil1').attr('readonly',true);
-		$('#userEamil2').attr('readonly',true);
-		$('#userEmail2').attr('onFocus', 'this.initialSelect = this.selectedIndex');
-         $('#userEmail2').attr('onChange', 'this.selectedIndex = this.initialSelect');
+		$('#memberEmail').attr('readonly',true);
 	}else{
-		$resultMsg.html('인증번호가 불일치 합니다. 다시 입력해주세요 .');
-		$resultMsg.css('color','red');
+		resultMsg.html('인증번호가 불일치 합니다.');
+		resultMsg.css('color','red');
 	}
 });
+
+
+
 </script>	
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>

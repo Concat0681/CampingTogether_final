@@ -29,8 +29,13 @@
   <link href="/resources/css/default.css" rel="stylesheet"/> 	
   <link href="/resources/css/main.css" rel="stylesheet"/> 
    	
+<style>
+
+.search-input-wrap{
+	min-width: 1200px;
+}
    	
-   	
+</style>
 </head>
 <body onload="init()">
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>

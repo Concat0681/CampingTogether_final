@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="shop">
+	<select id="selectShopList" parameterType="map" resultMap="selectShop">
+		select * from
+			(select
+				rownum as rnum,
+				s.*
+			from
+				(select 
+					*
+				from shop
+				<if test="shopCategory != null">
+					where shop_category = ${shopCategory}
+				</if>				
+				)s
+			)
+		<if test="start != null">
+			where rnum between #{start} and #{end}
+		</if>
+	</select>
+	
+	<select id="selectShopPhotoList" parameterType="_int" resultType="sp">
+		select
+			file_no as fileNo,
+			shop_no as shopNo,
+			file_path as filepath
+		from shop_photo
+		where shop_no = #{_parameter}
+	</select>
+	
+	<select id="selectOneShop" parameterType="_int" resultType="s" resultMap="selectShop">
+		select * from shop where shop_no = #{_parameter}
+	</select>
+	
+	<resultMap type="s" id="selectShop">
+		<result column="shop_no" property="shopNo"/>
+		<result column="member_id" property="memberId"/>
+		<result column="shop_category" property="shopCategory"/>
+		<result column="shop_title" property="shopTitle"/>
+		<result column="shop_price" property="shopPrice"/>
+		<result column="delivary_price" property="delivaryPrice"/>
+		<result column="shop_content" property="shopContent"/>
+		<result column="max_count" property="maxCount"/>
+		<result column="score" property="score"/>
+		<result column="sell_count" property="sellCount"/>
+		<collection property="shopPhotoList"
+					select="selectShopPhotoList"
+					column="shop_no"
+					ofType="sp"
+					javaType="java.util.ArrayList"
+		/>
+	</resultMap>
+	
+	<select id="selectLatestShop" resultType="_int">
+		select max(shop_no) from shop
+	</select>
+	
+	<select id="selectShopCount" parameterType="map" resultType="_int">
+		select count(shop_no) from shop where shop_category = #{shopCategory}
+	</select>
+	
+	<insert id="insertShop" parameterType="s">
+		insert into shop
+		values(
+			shop_seq.nextval, #{shopCategory}, #{shopTitle}, #{shopPrice}, #{delivaryPrice}, #{shopContent}, #{maxCount}, 0, #{memberId}
+		)
+	</insert>
+	
+	<insert id="insertShopPhoto" parameterType="map">
+		insert into shop_photo
+		values(
+			shop_photo_seq.nextval, #{shopNo}, #{filepath}
+		)
+	</insert>
+</mapper>

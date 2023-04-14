@@ -69,13 +69,16 @@ input:focus {
 	}
     
     .myform {
-        background: #0b2144;
+    	
+        background: url(/resources/image/loginBackground1.jpeg);
+        background-color:#0b2144;
         width: 40%;
         margin: auto;
         height: 600px;
         -webkit-box-shadow: 0px 0px 3px 1px rgba(38, 35, 128, 1);
         -moz-box-shadow: 0px 0px 3px 1px rgba(38, 35, 128, 1);
-        box-shadow: 0px 0px 3px 1px rgba(38, 35, 128, 1);
+        box-shadow: 0px 30px 60px -6px #000;
+        max-width: 500px;
     }
     
     .myform a {
@@ -98,10 +101,10 @@ input:focus {
          color: #cccccc;
        
     }
-.fa-cloud-upload{
-  font-size:90px;
+	.fa-cloud-upload{
+  		font-size:90px;
   
-}
+	}
     
     ::-moz-placeholder {
         /* Firefox 19+ */
@@ -140,12 +143,19 @@ input:focus {
     .searchId{
     	float: left;
     }
+    .formBox{
+    	padding: 100px;
+    }
 </style>
 </head>
 <body>
+
+
+<div class="formBox">
+	 
 	<div class="myform">
     <div class="logo">Let`s Join Camping Together
-    	<div><i class="fa fa-cloud-upload" aria-hidden="true"></i></div>
+    	<div><img src=""></div>
     </div>
 	    <form action="/login.do" method="post">
 	        <input type="text" placeholder=" &#xf007;   UserId" name="memberId"/>
@@ -157,5 +167,7 @@ input:focus {
 		    </div>
 	    </form>
 	</div>
+	
+</div>
 </body>
 </html>

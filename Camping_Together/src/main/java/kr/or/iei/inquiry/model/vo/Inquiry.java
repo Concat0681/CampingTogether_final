@@ -14,6 +14,11 @@ public class Inquiry {
 	private	String inquiryContent;
 	private String regDate;
 	private int status;
+	private int secret;
+	
+	private int adminInquiryNo;
+	private String adminInquiryAnswer;
+	private String adminRegDate;
 //	private int readCount;
 //	private int groupNo;
 //	private int groupOrd;
