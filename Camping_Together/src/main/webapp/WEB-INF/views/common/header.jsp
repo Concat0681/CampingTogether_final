@@ -112,6 +112,7 @@
             <li><a class="dropdown-item" href="#">캠핑 Tip</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="allMemberChatFrm.do">채팅</a></li>
+             <li><a class="dropdown-item" href="inquiryList.do?reqPage=1">문의사항</a></li>
           </ul>
         </li>
       </ul>

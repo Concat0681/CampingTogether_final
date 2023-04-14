@@ -71,9 +71,9 @@
 }
 /*모달*/
 .modal-bg {
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.0);
     position: fixed;
-    width: 100%;
+    width: 1200px;
     height: 100vh;
     display: none;
     align-items: center;
@@ -81,10 +81,13 @@
 }
 
 .modal-wrap {
-    margin-top: 150px;
+	background-color: #f8f7f9;
+    box-shadow:rgba(0, 0, 0, 0.2) 0px 2px 8px 3px;	
+    border-radius: 8px;
+	margin : 0 auto;   
     width: 600px;
     background: #fff;
-    height: auto;
+    height: 620px;
 }
 
 .modal-wrap div {
@@ -102,7 +105,9 @@
 .modal-wrap div.modal-head {
     position: relative;
 }
-
+.modal-foot{
+	margin-top: 5px;
+}
 .close-icon {
     position: absolute;
     top: 16px;
@@ -114,9 +119,6 @@
     cursor: pointer;
 }
 
-.content-box{
-
-}
 .update-box{
     width: 100%;
     padding: 0px 15px;
@@ -130,13 +132,102 @@
 }
 .content-box{
 	display: flex;
-	padding: 10px 50px 10px;
+	padding: 10px 10px 0px 0px;
+	margin-bottom: 50px;
+}
+.adminAnswer{
+	display: flex;
+	padding: 10px 10px 0px 0px;
+}
+.update-box-btn{
+	width:60px;
+	border:none;
+	background-color: #E3CAA5;
+	color: #fff;
+	font-weight: 300;
+	padding: 10px
+}
+.modal-title span{
+ margin-right: 20px;
+ font-size: 14px; 
+ font-weight: bold;
+}
+.modal-title input{
+	width: 100%;
+	height: 35px;
+	margin-bottom: 15px;
 }
 </style>
 <body>	
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 	<div class="page-content">
-	
+	<%--insert 모달창 --%>
+			<div id="insert-modal" class="modal-bg insert-wrap">
+			<div class="modal-wrap">
+				<div class="modal-head">
+					<h4>문의사항</h4>
+					<span class="material-icons close-icon modal-close">close</span>
+				</div>
+				<div class="modal-content">
+					<div class=modal-title>
+						<span>제목</span><input type="text" class="inquiryTitle" name="inquiryTitle" placeholder="제목을 입력해 주세요.">
+						<input type="hidden" class="inquiryWriter" name="inquiryWriter" value="${sessionScope.m.memberId }">
+						<span>내용</span><textarea class="inquiryContent" name="inquiryContent" style="width: 100%; height: 250px; resize: none;" placeholder="내용을 입력해 주세요."></textarea>
+					</div>
+					<div class="secretCheck">
+						<label for="checkbox">
+						<input type="checkbox" class="checkbox" id="checkbox" name="checkbox" value="1">
+						<span>비밀글로 문의하기</span>
+						</label>
+					</div>
+				</div>
+				<div class="modal-foot">
+					<button onclick="insertInquiry();" class="modalCheck update-box-btn">확인</button>
+					<button class="modal-close update-box-btn">취소</button>
+				</div>
+			</div>
+			</div>
+			<%--update 모달창 --%>
+		<div id="update-modal" class="modal-bg update-wrap">
+			<div class="modal-wrap">
+				<div class="modal-head">
+					<h4>수정하기</h4>
+					<span class="material-icons close-icon modal-close">close</span>
+				</div>
+				<div class="modal-content">
+					<div class=modal-title>
+						<span>제목</span><input type="text" class="updateInquiryTitle" name="updateInquiryTitle" >
+						
+						<span>내용</span><textarea class="updateInquiryContent" name="updateInquiryContent" style="width: 100%; height: 300px; resize: none;"></textarea>
+					</div>
+				</div>
+				<div class="modal-foot">
+					<button onclick="updateInquiry();" class="modalCheck update-box-btn">확인</button>
+					<button class="modal-close update-box-btn">취소</button>
+				</div>
+			</div>
+		</div>
+		
+		<!-- 답변 모달창 -->
+		<div id="answer-modal" class="modal-bg answer-wrap">
+			<div class="modal-wrap">
+				<div class="modal-head">
+					<h4>답변하기</h4>
+					<span class="material-icons close-icon modal-close">close</span>
+				</div>
+				<div class="modal-content">
+					<div class=modal-title>
+						<span>문의 내용</span><textarea class="InquiryContent" name="InquiryContent" style="width: 100%; height: 170px; resize: none;"></textarea>
+						<span>답변 내용</span><textarea class="adminInquiryAnswer" name="adminInquiryAnswer" style="width: 100%; height: 170px; resize: none;"></textarea>
+					</div>
+				</div>
+				<div class="modal-foot">
+					<input type="hidden" class="adminInquiryNo" value="">
+					<button onclick="admingInquiry();" class="modalCheck update-box-btn">확인</button>
+					<button class="modal-close update-box-btn">취소</button>
+				</div>
+			</div>
+		</div>
 	
 <%-- 		<c:if test="${not empty sessionScope.m"> --%>
 			
@@ -146,74 +237,77 @@
 		<h3 class="page-title">문의사항</h3>
 		<table class="tbl">
 			<tr class="tr-2">
-				<th style="width:10%">번호</th>
-				<th style="width:45%">제목</th>
+				<th style="width:45%; ">제목</th>
 				<th style="width:15%">작성자</th>
 				<th style="width:15%">작성일</th>
 				<th style="width:15%">답변상태</th>
 			</tr>	
 			
 			<c:forEach items="${list }" var="i">
-      		 <tr class="tr-1">
-<%--          <td align="center">${ i.inquiryNo }</td> --%>
-<!--          <td> -->
-<%--          <c:choose> --%>
-<%--          <c:when  test="${i.depth gt 0 }"> --%>
-<%--          <c:forEach begin="1" end="${i.depth }" step="1"> --%>
-<!--          	<span style="padding-left:20px;"></span> -->
-<%--          </c:forEach> --%>
-<!--          <span>└Re</span> -->
-<%--          <a>${i.inquiryTitle }</a> --%>
-<%--          	</c:when> --%>
-<%--          	<c:otherwise> --%>
-<%--          <a>${i.inquiryTitle }</a> --%>
-<%--          	</c:otherwise> --%>
-<%--          </c:choose> --%>
-<!--          </td> -->
-         
-<%--            <c:if test="${ i.depth gt 0 }"> --%>
-<!-- 				<span>&nbsp;&nbsp;&nbsp;&nbsp;└Re</span>              -->
-<%--            </c:if> --%>
-<%--            <a href="/">${ i.inquiryTitle }</a> --%>
-<!--          </td> -->
-         <td>${ i.inquiryNo }</td>
-         <td class="Title">${ i.inquiryTitle }</td>
-         <td>${ i.inquiryWriter }</td>
-         <td>${ i.regDate }</td>
-         <td>
-         	<c:choose>
-         		<c:when test="${i.status eq '0'}">
-         			<span>답변대기</span>
-         		</c:when>
-         		<c:when test="${i.status eq '1'}">
-         			<span>답변완료</span>
-         		</c:when>
-         	</c:choose>
-         </td>
-       </tr>
-       <tr class="test"style="display:none;">
+				
+         <tr class="tr-1">
+         <c:if test="${i.secret eq '1' }">
+	         <c:choose>
+	         	<c:when test="${not empty sessionScope.m && sessionScope.m.memberId eq i.inquiryWriter || sessionScope.m.memberGrade eq 'a' }">
+		         	<th class="Title" style="text-align: left;">${i.inquiryTitle }</th>
+	         	</c:when>
+	         	<c:otherwise>
+		         	<th class="secretBoard" style="text-align: left; color: rgb(153, 153, 153);">
+		         	<span class="material-symbols-outlined">lock</span>
+		         	비밀글입니다.
+		         	</th>	         	
+	         	</c:otherwise>
+	         </c:choose>
+         </c:if>
+          <c:if test="${i.secret eq '0' }">
+		         	<th class="Title" style="text-align: left;">${i.inquiryTitle }</th>
+          </c:if>
+	         <td>${ i.inquiryWriter }</td>
+	         <td>${ i.regDate }</td>
+	         <input type="hidden" class="InquiryNo" name="InquiryNo" value="${i.inquiryNo }">
+	         <input type="hidden" class="InquiryNo" id="InquiryWriter" value="${i.inquiryWriter }">
+	         <td>
+	         	<c:choose>
+	         		<c:when test="${i.status eq '0'}">
+	         			<span>답변대기</span>
+	         		</c:when>
+	         		<c:when test="${i.status eq '1'}">
+	         			<span>답변완료</span>
+	         		</c:when>
+	         	</c:choose>
+	         </td>
+       	</tr>
+       	<tr class="test"style="display:none;">
        	 	<td colspan="5" class="tr-1" style="background-color:#f7f7f7; ">
        	 		<div>
        	 			<div  class="content-box">
        	 				<div>
-       	 					<span>아이콘</span>
+       	 					<span><img src="/resources/image/inquiry/q.png" style="width:20px; margin-right:10px;"></span>
        	 				</div>
-			       		<div>
-			       			${i.inquiryContent }
-	       	 			</div>
+			       		<div>${i.inquiryContent }</div>
+       	 			</div>
+       	 			<div class="adminAnswer">
+       	 				<div>
+       	 					<c:if test="${i.status eq 1 }">
+		       	 				<span><img src="/resources/image/inquiry/a.png" style="width:20px; margin-right:10px;"></span>
+       	 					</c:if>
+       	 				</div>
        	 			</div>
 		       		 <c:if test="${not empty sessionScope.m && sessionScope.m.memberId eq i.inquiryWriter }">
 	       	 			<div class="update-box">
-	       	 				<button>수정</button>
-	       	 				<sapn class="divder"></sapn>
-	       	 				<button>삭제</button>
+	     
+	       	 				<button type="button" class="modal-open-update-btn updateBtn" target="update-modal">수정</button>
+	       	 				<span class="divder"></span>
+	       	 				<button onclick="deleteInquiry(this,${i.inquiryNo });">삭제</button>
 	       	 			</div>
 			       	</c:if>
 			       	<c:if test="${not empty sessionScope.m && sessionScope.m.memberGrade eq 'a' }">
 			       		<div class="update-box">
-	       	 				<button onclick="">답변하기</button>
-	       	 				<sapn class="divder"></sapn>
-	       	 				<button onclick="">삭제</button>
+			       			<input type="hidden" value="${i.inquiryNo }">
+			       			<input type="hidden" value="${i.inquiryContent }">
+	       	 				<button onclick="" class="modal-open-answer-btn answerBtn" >답변하기</button>
+	       	 				<span class="divder"></span>
+	       	 				<button onclick="deleteInquiry(this,${i.inquiryNo });">삭제</button>
 	       	 			</div>
 			       	</c:if>
        	 		</div>
@@ -227,37 +321,151 @@
 	
 	<div id="pageNavi">${pageNavi }</div>
 	
-	<button type="button" class="modal-open-btn" target="test-modal">문의하기</button>	
+	<button type="button" class="modal-open-insert-btn" target="insert-modal">문의하기</button>
+	<!--값을 가져오기 위한 input hidden 값들  -->	
+	<input type="hidden" id="memberId" value="${sessionScope.m.memberId }">
 	
+			
 	
-			<%--거래완료 모달창 --%>
-			<div id="test-modal" class="modal-bg">
-			<div class="modal-wrap">
-				<div class="modal-head">
-					<h2>구매평가</h2>
-					<span class="material-icons close-icon modal-close">close</span>
-				</div>
-				<div class="modal-content">
-					<div class=modal-title>
-					</div>
-				</div>
-				<div class="modal-foot">
-					<button class="btn bc11 modalCheck">확인</button>
-					<button class="btn bc1 modal-close">취소</button>
-				</div>
-			</div>
-			</div>
-	
-	
+	<!--  -->
 	<script>
+		//제목 클릭시 내용, 관리자 답변 select
 		$(".Title").on("click",function(){
-				$(this).parent().next().toggle();
+			$(this).parent().next().toggle();
+			var inquiryNo = $(this).next().next().next().val();
+			//무한반복 제거...
+			$(this).parent().next().children().children().children().eq(1).children().next().remove();
+			$.ajax({
+				url : "/selectAdminInquiry.do",
+				type : "POST",
+				dataType : "JSON",
+				data : {inquiryNo : inquiryNo},
+				context : this,
+				success : function(data) {
+					$(this).parent().next().children().children().children().eq(1).append("<div class=>"+data.adminInquiryAnswer+"</div");
+				}
+				});
+			
+				
 		});
-
-		$(".modal-open-btn").on("click",function(){
-					$(".modal-bg").show();
+		//비밀글 alert 함수
+		$(".secretBoard").on("click", function(){
+			alert("비밀글입니다.")
+			});
+		//모달 창 띄우기
+		$(".modal-open-insert-btn").on("click",function(){
+					$(".insert-wrap").show();
 					
 			});
+		//모달 창 닫기
+		$(".modal-close").on("click",function(){
+			$(".insert-wrap").hide();	
+			})
+		
+		//insert
+		function insertInquiry(){
+			var inquiryWriter = $("[name=inquiryWriter]").val();
+			var inquiryTitle = $("[name=inquiryTitle]").val();
+			var inquiryContent = $("[name=inquiryContent]").val();
+			var secret = $("[name=checkbox]:checked").val();
+			$.ajax({
+				url : "/insertInquriry.do",
+				type : "post",
+				dataType : "JSON",
+				data : {inquiryWriter : inquiryWriter, inquiryTitle: inquiryTitle,  inquiryContent: inquiryContent, secret : secret},
+				success : function(data){
+									
+					if(data==1){
+						location.reload();
+					}else{
+					}
+					
+				},
+			});
+		}
+		//update
+		function updateInquiry(){
+			var inquiryNo = $("[name=InquiryNo]").val();
+			var inquiryTitle = $("[name=updateInquiryTitle]").val();
+			var inquiryContent = $("[name=updateInquiryContent]").val();
+			$.ajax({
+				url : "/updateInquiry.do",
+				type : "post",
+				dataType : "JSON",
+				data : {inquiryNo : inquiryNo, inquiryTitle : inquiryTitle, inquiryContent : inquiryContent},
+				success : function(data){
+					if(data==1){ 
+						console.log(data)
+						location.reload();
+						
+					}else{
+					}
+				},
+			});
+		}
+		//답변하기 
+		function admingInquiry() {
+			var adminInquiryAnswer = $("[name=adminInquiryAnswer]").val();
+			var adminInquiryNo = $(".adminInquiryNo").val();
+			console.log(adminInquiryAnswer);
+			console.log(adminInquiryNo);
+			$.ajax({
+				url : "/insertAdminInquiry.do",
+				type : "post",
+				dataType : "JSON",
+				data : {inquiryNo : adminInquiryNo, adminInquiryAnswer : adminInquiryAnswer},
+				success : function(data){
+					console.log(data);
+					if(data==1){
+						location.reload();
+					}else{
+						
+					}
+				},
+			});
+		}
+		//모달창 띄우기
+		$(".modal-open-update-btn").on("click",function(){
+				$(".update-wrap").show();
+			});
+		// 모달창 닫기
+		$(".modal-close").on("click",function(){
+			$(".update-wrap").hide();	
+			})
+		
+		// 수정 밸류 값 찾기
+		$(".updateBtn").on("click",function(){
+				var inquiryContent = $(this).parent().prev().children().next().text();
+				$("[name=updateInquiryContent]").val(inquiryContent);
+				var inquiryTitle =$(this).parent().parent().parent().parent().prev().children().eq(0).text();
+				$("[name=updateInquiryTitle]").val(inquiryTitle);
+				
+			});
+		
+		//delete
+		function deleteInquiry(obj, inquiryNo){
+			if(confirm("삭제하시겠습니까?")){
+				location.href="/deleteInquiry.do?inquiryNo="+inquiryNo;
+		}
+	}
+		$(".modal-open-answer-btn").on("click",function(){
+			$(".answer-wrap").show();
+		});
+		$(".modal-close").on("click",function(){
+			$(".answer-wrap").hide();	
+			})
+	$(".answerBtn").on("click",function(){
+		
+	//사용자가 작성한 문의내용을 답글창에 띄우기 위한 코드
+			var inquiryContent = $(this).prev().val();		
+			$("[name=InquiryContent]").val(inquiryContent)
+			var inquiryNo = $(this).prev().prev().val();
+			$(".adminInquiryNo").val(inquiryNo);
+// 			var adminInquiryAnswer = 
+		console.log(inquiryNo);
+		});	
+		
+		
 	</script>
 </body>
 </html>
