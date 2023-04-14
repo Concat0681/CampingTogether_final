@@ -11,5 +11,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CampingReviewData {
 	private ArrayList<CampingReview> reviewList;
+	private ArrayList<CampingReview> reviewCommentList;
 	private ArrayList<CampingReviewFileVO> fileList;
 }

@@ -164,5 +164,27 @@ public class CampingService {
 		}
 	}
 
+	public CampingReviewData selectReviewCommentList(int campingNo) {
+		CampingReviewData reviewCommentList = new CampingReviewData();
+		ArrayList<CampingReview> crv = dao.selectReviewCommentList(campingNo);
+		reviewCommentList.setReviewCommentList(crv);
+		return reviewCommentList;
+	}
+
+	public ArrayList<CampingReviewFileVO> deleteCampingReview(int campingReviewNo) {
+		ArrayList<CampingReviewFileVO> fileList = dao.selectCampingReviewFile(campingReviewNo);
+		int result = dao.deleteCampingReview(campingReviewNo);
+		if(result>0) {
+			return fileList;
+		}else {
+			return null;
+		}
+	}
+
+	public int deleteCampingReviewComment(int campingReviewNo) {
+		int result = dao.deleteCampingReviewComment(campingReviewNo);
+		return result;
+	}
+
 	
 }
