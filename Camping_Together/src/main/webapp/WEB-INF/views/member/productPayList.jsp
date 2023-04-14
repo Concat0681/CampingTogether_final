@@ -11,6 +11,7 @@
 
 </head>
 <body>
+	<jsp:include page="/WEB-INF/views/common/header.jsp" />
 	<jsp:include page="/WEB-INF/views/common/mypageMenu.jsp" />
 		<div class="input-div">
 			<div class="input-title">
@@ -21,13 +22,16 @@
 			<div class="list-content">
 				<table>
 					<tr>
+						<th>No</th>
 						<th class="name">상품명</th>
 						<th>구매수량</th>
 						<th>결제날짜</th>
 						<th>결제금액</th>
 					</tr>
+					
 				<c:forEach items="${list }" var="p"> 
 					<tr>
+						<td>${p.rnum }</td>
 						<td>${p.productName }</td>
 						<td>${p.buyCount }</td>
 						<td>${p.productPaymentDate }</td>

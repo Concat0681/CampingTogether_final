@@ -249,7 +249,7 @@ public class MemberService {
 				if (pageNo != 1) {
 
 					pageNavi += "<li>";
-					pageNavi += "<a class='page-item' href='/cmapingPayList.do?reqPage=" + (pageNo - 1) + "&memberNo="+ memberId + "'>";
+					pageNavi += "<a class='page-item' href='/myRiview.do?reqPage=" + (pageNo - 1) + "&memberId="+ memberId + "'>";
 					pageNavi += "<span class='material-symbols-outlined'>chevron_left</span>";
 					pageNavi += "</a></li>";
 
@@ -259,12 +259,12 @@ public class MemberService {
 				for (int i = 0; i < pageNaviSize; i++) {
 					if (pageNo == reqPage) {
 						pageNavi += "<li>";
-						pageNavi += "<a class='page-item active-page' href='/cmapingPayList.do?reqPage=" + pageNo + "&memberNo="+ memberId + "'>";
+						pageNavi += "<a class='page-item active-page' href='/myRiview.do?reqPage=" + pageNo + "&memberId="+ memberId + "'>";
 						pageNavi += pageNo;
 						pageNavi += "</a></li>";
 					} else {
 						pageNavi += "<li>";
-						pageNavi += "<a class='page-item' href='/cmapingPayList.do?reqPage=" + pageNo + "&memberNo=" + memberId+ "'>";
+						pageNavi += "<a class='page-item' href='/myRiview.do?reqPage=" + pageNo + "&memberId=" + memberId+ "'>";
 						pageNavi += pageNo;
 						pageNavi += "</a></li>";
 					}
@@ -278,7 +278,7 @@ public class MemberService {
 				// 다음버튼
 				if (pageNo <= totalPage) {
 					pageNavi += "<li>";
-					pageNavi += "<a class='page-item' href='/cmapingPayList.do?reqPage=" + pageNo + "&memberNo=" + memberId+ "'>";
+					pageNavi += "<a class='page-item' href='/myRiview.do?reqPage=" + pageNo + "&memberNo=" + memberId+ "'>";
 					pageNavi += "<span class='material-icons'>chevron_right</span>";
 					pageNavi += "</a></li>";
 				}

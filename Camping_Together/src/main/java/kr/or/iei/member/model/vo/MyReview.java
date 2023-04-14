@@ -13,4 +13,7 @@ public class MyReview {
 	private String filepath;
 	private String campingReviewContent;
 	private String campingReviewDate;
+	
+	
+	private int campingNo;
 }
