@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="shop">
-	<select id="selectShopList" parameterType="map" resultMap="selectShopList">
+	<select id="selectShopList" parameterType="map" resultMap="selectShop">
 		select * from
 			(select
 				rownum as rnum,
@@ -29,7 +29,11 @@
 		where shop_no = #{_parameter}
 	</select>
 	
-	<resultMap type="s" id="selectShopList">
+	<select id="selectOneShop" parameterType="_int" resultType="s" resultMap="selectShop">
+		select * from shop where shop_no = #{_parameter}
+	</select>
+	
+	<resultMap type="s" id="selectShop">
 		<result column="shop_no" property="shopNo"/>
 		<result column="member_id" property="memberId"/>
 		<result column="shop_category" property="shopCategory"/>
@@ -50,6 +54,10 @@
 	
 	<select id="selectLatestShop" resultType="_int">
 		select max(shop_no) from shop
+	</select>
+	
+	<select id="selectShopCount" parameterType="map" resultType="_int">
+		select count(shop_no) from shop where shop_category = #{shopCategory}
 	</select>
 	
 	<insert id="insertShop" parameterType="s">

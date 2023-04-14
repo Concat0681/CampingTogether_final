@@ -122,11 +122,11 @@
 				)
 	</select>
 	
-	<select id="selectOneCamping" parameterType="_int" resultMap="getOneCamping">
+	<select id="selectOneCamping" parameterType="map" resultMap="getOneCamping">
 		select 
 			*
 		from camping
-		where camping_no = #{_parameter}
+		where camping_no = #{campingNo}
 	</select>
 	
 	<select id="selectCampingProvideServiceList" parameterType="_int" resultType="cps">
@@ -135,6 +135,27 @@
 			camping_no as campingNo,
 			camping_service as campingService
 		from camping_service where camping_no = #{_parameter}
+	</select>
+	
+	<select id="getSellCampingList" parameterType="map" resultType="scl">
+		select * from	
+			(Select
+				rownum as rnum,
+		        c.camping_title,
+		        c.camping_sido,
+		        cr.camping_room_title,
+		        (select filepath from camping_room_photo crp
+		        where camping_room_photo_no =
+		            (select min(camping_room_photo_no)
+		            from camping_room_photo crp
+		            where crp.camping_room_no = cr.camping_room_no)
+		        )filepath
+		    from camping c JOIN CAMPING_ROOM CR ON (C.CAMPING_NO = CR.CAMPING_NO)
+		    WHERE MEMBER_ID = #{member_id})
+		<if test="start != null">
+			where rnum between #{start} and #{end}
+		</if>
+    	order by 1 desc;
 	</select>
 	
 	<select id="selectCampingRoomServiceList" parameterType="_int" resultType="crs">

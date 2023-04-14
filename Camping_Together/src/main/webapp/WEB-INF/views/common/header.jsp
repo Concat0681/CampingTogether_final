@@ -56,7 +56,7 @@
     </div>
   </div>
 </div>
-<div calss="headerBox">
+<div class="headerBox">
 	<c:choose>
 		<c:when test="${empty sessionScope.m }"> 
 		<div class="wrapper-top" style="background-color: rgba(173, 139, 115, 1);" >
@@ -74,7 +74,7 @@
         <div class="nav-top" style="color: #fff;">
             <ul class="login">
                 <!-- <li><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">쪽지보내기</button></li> -->
-                <li><a href="/notice/noticeList.jsp">공지사항</a></li>
+                <li><a href="/noticeList.do?reqPage=1">공지사항</a></li>
                 <li><a href = "/messageMain.do">쪽지함</a></li>
                 <c:choose>
                 	<c:when test="${sessionScope.m.memberGrade eq 'c' }">
@@ -96,7 +96,7 @@
 	</c:choose>
     <nav class="wrapper-bottom navbar navbar-expand-lg" style="background-color: rgba(255, 255, 255, 1);">
 	  <div class="container-fluid">
-	    <a class="navbar-brand" href="/"><img src="/resources/image/logo/logo250x80.png" width="150px" height="75px"></a>
+	    <a class="navbar-brand" href="/"><img src="/resources/image/logo/logo250x80.png" width="250px" height="80px"></a>
 	    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 	      <span class="navbar-toggler-icon"></span>
 	    </button>
@@ -112,7 +112,7 @@
 	          <a class="nav-link" href="/usedBoardList.do?reqPage=1">중고장터</a>
 	        </li>
 	        <li class="nav-item">
-	          <a class="nav-link" href="#">투게더SHOP</a>
+	          <a class="nav-link" href="/shopMainList.do">투게더SHOP</a>
 	        </li>
 	        <li class="nav-item dropdown">
 	          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -130,41 +130,6 @@
 	  </div>
 	</nav>
 </div>
-  <div class="container-fluid">
-    <a class="navbar-brand" href="/"><img src="/resources/image/logo/logo250x80.png" width="150px" height="75px"></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link" href="/campingListMain.do">캠핑</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">캠핑예약</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/usedBoardList.do?reqPage=1">중고장터</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">투게더SHOP</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            	자유게시판
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/boardFoodList.do?reqPage=1">캠핑 레시피</a></li>
-            <li><a class="dropdown-item" href="#">캠핑 Tip</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="allMemberChatFrm.do">채팅</a></li>
-             <li><a class="dropdown-item" href="inquiryList.do?reqPage=1">문의사항</a></li>
-          </ul>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
 	

@@ -231,7 +231,7 @@
                 <div class="image-wrap">
                     <div class="usedWrite-text" id="img-margin"><span>상품이미지</span></div>
                     <div class="usedBoard-img">
-                        <input type="file" name="usedBoardPhoto" accept="image/gif, image/jpeg, image/png" style="display:none;" id="usedBoardImg" multiple>
+                        <input type="file" name="usedBoardPhoto" accept="image/gif, image/jpeg, image/png" id="usedBoardImg" multiple>
                         <label for="usedBoardImg">
                             <div class="uploadImg">
                             	<span class="material-symbols-outlined">photo_camera</span>
@@ -359,6 +359,20 @@
 		});
 		
 		function delImg(obj){
+			const index = $(".delete-img").index($(obj));
+			console.log(index);
+			
+			const dataTransfer = new DataTransfer();
+			let files = $("#usedBoardImg")[0].files;
+			let fileArray = Array.from(files);
+			fileArray.splice(index, 1);
+			
+			fileArray.forEach(function(file, items){
+				dataTransfer.items.add(file);
+			});
+			
+			$("#usedBoardImg")[0].files = dataTransfer.files;
+		
 			$(obj).parent().remove();
 		}
     </script>

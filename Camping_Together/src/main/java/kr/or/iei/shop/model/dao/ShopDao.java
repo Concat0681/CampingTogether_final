@@ -35,4 +35,14 @@ public class ShopDao {
 		int shopNo = sqlSession.selectOne("shop.selectLatestShop");
 		return shopNo;
 	}
+
+	public Shop selectOneShop(int shopNo) {
+		Shop shop = sqlSession.selectOne("shop.selectOneShop", shopNo);
+		return shop;
+	}
+
+	public int selectShopCount(HashMap<String, Object> map) {
+		int totalCount = sqlSession.selectOne("shop.selectShopCount", map);
+		return totalCount;
+	}
 }
