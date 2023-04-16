@@ -16,6 +16,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -40,7 +41,7 @@ public class MemberController {
 	@Autowired
 	private MailService mailService;
 	
-	
+	//이메일 인증
 	@RequestMapping(value="/mailCheck.do", method=RequestMethod.POST)
 	@ResponseBody
 	public String mailCheck(String memberEmail) {
@@ -49,15 +50,12 @@ public class MemberController {
 		return mailService.mailCheck(memberEmail);
 	}
 	
-	
-	
-	
 	@Autowired
 	private FileManager manager;
 	
 	
 	
-	
+	/* 로그인 폼 ---- 로그인은 회원가입 페이지에서 통합
 	@RequestMapping(value="/loginFrm.do")
 	public String loginFrm() {
 		return "member/loginFrm";
@@ -72,17 +70,21 @@ public class MemberController {
 		}
 		return "redirect:/";
 	}
+	*/
 	
+	//로그아웃
 	@RequestMapping(value = "/logout.do")
 	public String logout(HttpSession session){
 		session.invalidate();
 		return "redirect:/";
 	}
 	
+	//회원가입 폼
 	@RequestMapping(value="/joinFrm.do")
 	public String joinFrm() {
 		return "member/joinFrm";
 	}
+	//회원가입
 	@RequestMapping(value="/join.do")
 	public String join(Member member) {
 		int result = service.insertMember(member);
@@ -100,10 +102,29 @@ public class MemberController {
 	
 	}
 	
+	//아이디 체크 
 	@RequestMapping(value = "/idCheck.do", method = RequestMethod.POST)
 	@ResponseBody
 	public int idCheck(@RequestParam("memberId") String memberId) {
 		return service.idCheck(memberId);
+	}
+	
+	//Id 찾기
+	@RequestMapping(value="/searchId.do", method=RequestMethod.POST)
+	@ResponseBody
+	public String searchId(@RequestParam String name, @RequestParam String email) {
+		Member member = new Member();
+		member.setMemberName(name);
+		member.setMemberEmail(email);
+		Member searchedMember = service.selectOneMember(member);
+		if (searchedMember == null) { // 이름과 이메일이 일치하는 회원이 없으면 null 반환
+			System.out.println("fail");
+			return "일치하는 회원 정보가 없습니다.";
+		} else {
+			System.out.println("complete");
+			return searchedMember.getMemberId(); // 일치하는 회원이 있으면 아이디 반환
+			
+		}
 	}
 	
 	@RequestMapping(value = "/mypageC.do")

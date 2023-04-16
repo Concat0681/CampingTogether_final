@@ -146,7 +146,8 @@ const navLink =  document.querySelectorAll('.nav-link');
 			for(let i=0; i < navLink.length; i++){
 	        	  navLink[i].style = 'color';
 	        	  navLink[i].style.color = 'rgb(255, 255, 255)';
-	          }
+	        		
+			}
 			
 		});
 		
