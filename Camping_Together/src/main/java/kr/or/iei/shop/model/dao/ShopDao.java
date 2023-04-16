@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.or.iei.shop.model.vo.Shop;
+import kr.or.iei.shop.model.vo.ShopReview;
+import kr.or.iei.shop.model.vo.ShopReviewPhoto;
 
 @Repository
 public class ShopDao {
@@ -34,5 +36,40 @@ public class ShopDao {
 	public int selectLatestShop() {
 		int shopNo = sqlSession.selectOne("shop.selectLatestShop");
 		return shopNo;
+	}
+
+	public Shop selectOneShop(int shopNo) {
+		Shop shop = sqlSession.selectOne("shop.selectOneShop", shopNo);
+		return shop;
+	}
+
+	public int selectShopCount(HashMap<String, Object> map) {
+		int totalCount = sqlSession.selectOne("shop.selectShopCount", map);
+		return totalCount;
+	}
+
+	public int insertShopReview(ShopReview sr) {
+		int result = sqlSession.insert("shop.insertShopReview", sr);
+		return result;
+	}
+
+	public int selectLatestShopReview() {
+		int shopReviewNo = sqlSession.selectOne("shop.selectLatestShopReview");
+		return shopReviewNo;
+	}
+
+	public int insertShopReviewPhoto(ShopReviewPhoto srp) {
+		int result = sqlSession.insert("shop.insertShopReviewPhoto", srp);
+		return result;
+	}
+
+	public ArrayList<ShopReview> selectShopReviewList(HashMap<String, Object> map) {
+		List list = sqlSession.selectList("shop.selectShopReviewList", map);
+		return (ArrayList<ShopReview>)list;
+	}
+
+	public int selectShopReviewCount(HashMap<String, Object> map) {
+		int totalCount = sqlSession.selectOne("shop.selectShopReviewCount", map);
+		return totalCount;
 	}
 }

@@ -359,17 +359,19 @@
 		});
 		
 		function delImg(obj){
-			const dataTransfer = new DataTransfer();
-			const index = $(".img-sub").index(obj);
+			const index = $(".delete-img").index($(obj));
+			console.log(index);
 			
+			const dataTransfer = new DataTransfer();
 			let files = $("#usedBoardImg")[0].files;
 			let fileArray = Array.from(files);
 			fileArray.splice(index, 1);
 			
-			fileArray.forEach(file => {dataTransfer.items.add(file);});
+			fileArray.forEach(function(file, items){
+				dataTransfer.items.add(file);
+			});
 			
 			$("#usedBoardImg")[0].files = dataTransfer.files;
-			
 		
 			$(obj).parent().remove();
 		}

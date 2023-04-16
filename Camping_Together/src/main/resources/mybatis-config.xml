@@ -19,10 +19,11 @@
 		<typeAlias type="kr.or.iei.camping.model.vo.CampingRoomService" alias="crs"/>
 		<typeAlias type="kr.or.iei.camping.model.vo.CampingEtc" alias="ce"/>
 		<typeAlias type="kr.or.iei.message.model.vo.Message" alias="ms"/>
-		 <typeAlias type="kr.or.iei.camping.model.vo.CampingRoomFileVO" alias="crf"/> 
+		 <typeAlias type="kr.or.iei.camping.model.vo.SellCampingList" alias="scl"/> 
 		 <typeAlias type="kr.or.iei.notice.model.vo.Notice" alias="n"/>
 		 <typeAlias type="kr.or.iei.board.food.model.vo.BoardFood" alias="bf"/>
 		 <typeAlias type="kr.or.iei.camping.model.vo.CampingReview" alias="crv"/>
+		 <typeAlias type="kr.or.iei.camping.model.vo.CampingReviewFileVO" alias="crvf"/>
 		 <typeAlias type="kr.or.iei.camping.model.vo.CampingReviewFileVO" alias="crvf"/>
 		 <typeAlias type="kr.or.iei.board.food.model.vo.FileVO" alias="f"/>
 		 <typeAlias type="kr.or.iei.board.food.model.vo.BoardFoodViewData" alias="bfvd"/>
@@ -32,6 +33,8 @@
 		 <typeAlias type="kr.or.iei.inquiry.model.vo.Inquiry" alias="i"/>
 		 <typeAlias type="kr.or.iei.shop.model.vo.Shop" alias="s"/>
 		 <typeAlias type="kr.or.iei.shop.model.vo.ShopPhoto" alias="sp"/>
+		 <typeAlias type="kr.or.iei.shop.model.vo.ShopReview" alias="sr"/>
+		 <typeAlias type="kr.or.iei.shop.model.vo.ShopReviewPhoto" alias="srp"/>
 		 <typeAlias type="kr.or.iei.inquiry.model.vo.AdminInquiry" alias="ai"/>
 	</typeAliases>
 </configuration>

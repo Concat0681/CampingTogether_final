@@ -3,3 +3,38 @@
 .page-wrap{
 	margin-top: 150px;
 }
+.shop-wrap{
+	width: 90%;
+	margin: 0 auto;
+}
+.shop-list{
+	min-width: 600px;
+	display: flex;
+	flex-wrap: wrap;
+}
+.shop-list>div{
+	width: 25%;
+	display: flex;
+	justify-content: center;
+	min-width: 300px;
+	margin: 25px 0;
+}
+.carousel-item>img{
+	width : 250px;
+	height : 200px;
+}
+.carousel{
+	width: 250px;
+}
+.shop-footer{
+	width: 100%;
+	text-align: center;
+	margin-top: 30px;
+}
+.shop-footer>button{
+	width: 30%;
+	height: 30px;
+}
+.hidden{
+	display: none;
+}

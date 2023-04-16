@@ -285,7 +285,6 @@
 						</div>
 						
 					<c:forEach items="${campingReview }" var="cr" varStatus="i">
-						<c:if test="${cr.campingReviewRating != 0}">
 							<div style="margin-top: 50px;">
 						        <ul class="posting-comment">
 						          <li style="padding-left: 90px;">
@@ -309,12 +308,12 @@
 												<c:choose>
 													<c:when test="${j.index == 0 }">
 														<div class="carousel-item active">
-															<img src="resources/upload/campingReview/${f.filepath }">
+															<img src="resources/upload/campingReview/${f.filepath }" style="width: 500px; height: 500px;">
 														</div>
 													</c:when>
 													<c:otherwise>
 														<div class="carousel-item">
-															<img src="resources/upload/campingReview/${f.filepath }">
+															<img src="resources/upload/campingReview/${f.filepath }" style="width: 500px; height: 500px;">
 														</div>
 													</c:otherwise>
 												</c:choose>
@@ -332,33 +331,108 @@
 									  
 									</div>
 						            <p class="comment-link">
-						              <a href="#">수정</a>
-						              <a href="#">삭제</a>
+						            
+						              <button class="review-modal-open-btn2" target="#update-modal">
+							          	수정
+							          </button>
+						              
+						              <a href="javascript:void(0)" onclick="deleteComment(this,${cr.campingReviewNo },${camping.campingNo })">삭제</a>
 						              <a href="javascript:void(0)" class="recShow"><span class="material-symbols-outlined">sms</span></a>
 						            </p>
+									    <div id="update-modal" class="review-modal-bg2" style="z-index: 1000;">
+										  <div class="review-modal-wrap2">
+										    <div class="review-modal-head2">
+										      <h2>리뷰 수정</h2>
+										      <span class="material-icons close-icon review-modal-close2">close</span>
+										    </div>
+										    <div class="review-modal-content2">
+										    	<form action="/updateCampingReview.do" method="post" enctype="multipart/form-data">
+										    		<input type="hidden" name="campingNo" value="${camping.campingNo }">
+											      	<table>
+											      		<tr>
+											      			<td colspan="2">만족하셨나요?</td>
+											      		</tr>
+											      		<tr>
+														    <td>
+														      <div class="star-wrap2 star-wrap22">
+														        <span class="material-symbols-outlined">star</span>
+														        <span class="material-symbols-outlined">star</span>
+														        <span class="material-symbols-outlined">star</span>
+														        <span class="material-symbols-outlined">star</span>
+														        <span class="material-symbols-outlined">star</span>
+														        <div class="star-on">
+														          <div class="star-wrap2 star-on-wrap2">
+														            <span class="material-symbols-outlined">star</span>
+														            <span class="material-symbols-outlined">star</span>
+														            <span class="material-symbols-outlined">star</span>
+														            <span class="material-symbols-outlined">star</span>
+														            <span class="material-symbols-outlined">star</span>
+														          </div>
+														        </div>
+														      </div>
+														    </td>
+														    <td>
+														      <input type="text" class="updateStar" name="campingReviewRating">
+														      <button type="button" id="starBtn2">별점입력</button>
+														    </td>
+														</tr>
+											      		<tr>
+											      			<td>제목</td>
+											      			<td>
+											      				<input type="text" name="campingReviewTitle">
+											      			</td>
+											      		</tr>
+											      		<tr>
+											      			<td colspan="2">
+											      				<textarea name="campingReviewContent"></textarea>
+											      			</td>
+											      		</tr>
+											      		<tr>
+											      			<td>사진 등록</td>
+											      			<td>
+											      				<input type="file" onchange="loadImg(this);" name="campingReviewFilepath" multiple>
+											      			</td>
+											      		</tr>
+											      		<tr>
+											      			<td>
+											      				<div id="img-viewer">
+									        			
+									                    		</div>
+											      			</td>
+											      		</tr>
+											      	</table>
+											    </div>
+											    <div class="review-modal-foot2">
+											      <button type="submit" class="reviewBtn2 bc1">수정</button>
+											      <button type="button" class="btn bc1 review-modal-close2">취소</button>
+											    </div>
+										    </form>
+										  </div>
+										</div>
 						          </li>
 						        </ul>
 					        	
-				        	<c:if test="${cr.campingReviewRating == 0}">
-						        <ul class="posting-comment reply">
-						          <li style="padding-left: 90px;">
-						            <span class="material-icons">subdirectory_arrow_right</span>
-						            <span class="material-icons">account_box</span>
-						          </li>
-						          <li>
-						            <p class="comment-info">
-						              <span>${cr.memberId }</span>
-						            </p>
-						            <p class="comment-content">${cr.campingReviewContent }</p>
-						            <p class="comment-link">
-						              <a href="#">수정</a>
-						              <a href="#">삭제</a>
-						            </p>
-						          </li>
-						        </ul>
-					        </c:if>
+					        	<c:forEach items="${campingReviewComment }" var="crc">
+					        		<c:if test="${crc.campingReviewRef == cr.campingReviewNo }">
+								        <ul class="posting-comment reply">
+								          <li style="padding-left: 90px;">
+								            <span class="material-icons">subdirectory_arrow_right</span>
+								            <span class="material-icons">account_box</span>
+								          </li>
+								          <li>
+								            <p class="comment-info">
+								              <span>${crc.memberId }</span>
+								            </p>
+								            <p class="comment-content">${crc.campingReviewContent }</p>
+								            <p class="comment-link">
+								              <a href="#">수정</a>
+								              <a href="javascript:void(0)" onclick="deleteComment2(this,${crc.campingReviewNo },${camping.campingNo })">삭제</a>
+								            </p>
+								          </li>
+								        </ul>
+							        </c:if>
+						        </c:forEach>
 				      		</div>
-			      		</c:if>
 			      		
 			      		<div class="inputCommentBox inputRecommentBox">
 							<form action="/insertReviewComment.do" method="post">
@@ -658,7 +732,7 @@
 		  var value = $(this).val();
 		  var newValue = value.replace(/[^\d]/g, "");
 		  if (newValue > 5) {
-		    newValue = 5;
+		    newValue = "";
 		  }
 		  $(this).val(newValue);
 		});
@@ -674,6 +748,57 @@
 			}
 			$(".inputRecommentBox").eq(idx).toggle();
 			$(".inputRecommentBox").eq(idx).find("textarea").focus();
+		});
+	</script>
+	
+	<script>
+		function deleteComment(obj,campingReviewNo,campingNo){
+			if(confirm("댓글을 삭제하시겠습니까?")){
+				location.href="/deleteCampingReview.do?campingReviewNo="+campingReviewNo+"&campingNo="+campingNo;
+			}
+		}
+		
+	</script>
+	
+	<script>
+		function deleteComment2(obj,campingReviewNo,campingNo){
+			if(confirm("댓글을 삭제하시겠습니까?")){
+				location.href="/deleteCampingReviewComment.do?campingReviewNo="+campingReviewNo+"&campingNo="+campingNo;
+			}
+		}
+		
+	</script>
+	
+	<script>
+		$(document).ready(function() {
+			  $('.review-modal-open-btn2').click(function() {
+			    $('#update-modal').css('display', 'flex');
+			  });
+	
+			  $('.review-modal-close2').click(function() {
+			    $('#update-modal').css('display', 'none');
+			  });
+			});
+	</script>
+	
+	<script>
+		$(".updateStar").on("input", function() {
+		  var value = $(this).val();
+		  var newValue = value.replace(/[^\d]/g, "");
+		  if (newValue > 5) {
+		    newValue = "";
+		  }
+		  $(this).val(newValue);
+		});
+	</script>
+	
+	<script>
+		$(function() {
+		  $("#starBtn2").on("click",function() {
+		    const campingReviewRating = $(".updateStar").val();
+		    const starScore = campingReviewRating * 30;
+		    $(".star-on-wrap2").css("width", starScore + "px");
+		  });
 		});
 	</script>
 </body>

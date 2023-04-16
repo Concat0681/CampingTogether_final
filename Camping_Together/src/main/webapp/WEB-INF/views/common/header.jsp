@@ -112,7 +112,7 @@
 	          <a class="nav-link" href="/usedBoardList.do?reqPage=1">중고장터</a>
 	        </li>
 	        <li class="nav-item">
-	          <a class="nav-link" href="#">투게더SHOP</a>
+	          <a class="nav-link" href="/shopMainList.do">투게더SHOP</a>
 	        </li>
 	        <li class="nav-item dropdown">
 	          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
