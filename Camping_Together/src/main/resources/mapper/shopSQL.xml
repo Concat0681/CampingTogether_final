@@ -30,7 +30,10 @@
 	</select>
 	
 	<select id="selectOneShop" parameterType="_int" resultType="s" resultMap="selectShop">
-		select * from shop where shop_no = #{_parameter}
+		select 
+			s.*,
+			(select round(avg(shop_review_rating),1) from shop_review where shop_no = #{_parameter}) as avgRating
+		from shop s where s.shop_no = #{_parameter}
 	</select>
 	
 	<resultMap type="s" id="selectShop">
@@ -52,12 +55,59 @@
 		/>
 	</resultMap>
 	
+	<select id="selectShopReviewPhotoList" parameterType="_int" resultType="srp">
+		select
+			shop_review_photo_no as shopReviewPhotoNo,
+			shop_review_no as shopReviewNo,
+			filepath
+		from shop_review_photo
+		where shop_review_no = #{_parameter}
+	</select>
+	
+	<select id="selectShopReviewList" parameterType="map" resultType="sr" resultMap="shopReviewList">
+		select * from
+			(select 
+				rownum as rnum,
+				r.*, 
+				m.member_photo as memberPhoto
+			from shop_review r left join member m on(r.member_id = m.member_id)
+			where shop_no = #{shopNo}
+			order by 1 desc)
+		<if test="start != null">
+			where rnum between #{start} and #{end}
+		</if>
+	</select>
+	
+	<resultMap type="sr" id="shopReviewList">
+		<result column="shop_review_no" property="shopReviewNo"/>
+		<result column="member_id" property="memberId"/>
+		<result column="shop_no " property="shopNo"/>
+		<result column="shop_review_content" property="shopReviewContent"/>
+		<result column="shop_review_rating" property="shopReviewRating"/>
+		<result column="shop_review_ref" property="shopReviewRef"/>
+		<result column="review_date" property="reviewDate"/>
+		<collection property="reviewPhotoList"
+					select="selectShopReviewPhotoList"
+					column="shop_review_no"
+					ofType="srp"
+					javaType="java.util.ArrayList"
+		/>
+	</resultMap>
+	
 	<select id="selectLatestShop" resultType="_int">
 		select max(shop_no) from shop
 	</select>
 	
+	<select id="selectLatestShopReview" resultType="_int">
+		select max(shop_review_no) from shop_review
+	</select>
+	
 	<select id="selectShopCount" parameterType="map" resultType="_int">
 		select count(shop_no) from shop where shop_category = #{shopCategory}
+	</select>
+	
+	<select id="selectShopReviewCount" parameterType="map" resultType="_int">
+		select count(shop_review_no) from shop_review where shop_no = #{shopNo}
 	</select>
 	
 	<insert id="insertShop" parameterType="s">
@@ -77,13 +127,9 @@
 	<insert id="insertShopReview" parameterType="sr">
 		insert into shop_review
 		values(
-			shop_review_seq.nextval, #{memberId}, #{shopNo}, #{shopReviewContent}, #{shopReviewRating}, 0
+			shop_review_seq.nextval, #{memberId}, #{shopNo}, #{shopReviewContent}, #{shopReviewRating}, 0, to_char(sysdate, 'yyyy-mm-dd')
 		)
 	</insert>
-	
-	<select id="selectLatestShopReview" resultType="_int">
-		select max(shop_review_no) from shop_review
-	</select>
 	
 	<insert id="insertShopReviewPhoto" parameterType="srp">
 		insert into shop_review_photo 

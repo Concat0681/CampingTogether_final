@@ -83,13 +83,61 @@
 				<div class="content-menu">상품상세</div>
 				<div class="content-menu">상품후가</div>
 				<div class="content-menu">배송/교환/환불안내</div>
-				<div></div>
+				<div><input id="menu" type="hidden" value="${menu }"></div>
 			</div>
 			<div class="content-box-wrap">
 				<div class="content-box hidden">
 					${shop.shopContent } 
 				</div>
 				<div class="content-box hidden">
+					<div class="review-list-header">
+					<div>Review</div>
+					<div>
+						<div>총점</div>
+						<div class="avg-icon-wrap">
+							<span class="material-symbols-outlined avgRating">star</span>
+							<span class="material-symbols-outlined avgRating">star</span>
+							<span class="material-symbols-outlined avgRating">star</span>
+							<span class="material-symbols-outlined avgRating">star</span>
+							<span class="material-symbols-outlined avgRating">star</span>
+						</div>
+						<div id="avgRating">${shop.avgRating }</div>
+					</div>
+					</div>
+					<div class="review-list-wrap">
+						<c:forEach items="${shopReviewList }" var="r">
+							<div class="review-box">
+								<div class="member-info-wrap">
+									<div class="profile-box">
+										<img src="resources/upload/member/${r.memberPhoto }" onerror="this.onerror=null; this.src='resources/image/member/img.jpeg';">
+									</div>
+									<div class="member-info-box">
+										<div class="reviewRating hidden">${r.shopReviewRating }</div>
+										<div class="rating-icon-wrap">
+											<span class="material-symbols-outlined rating">star</span>
+											<span class="material-symbols-outlined rating">star</span>
+											<span class="material-symbols-outlined rating">star</span>
+											<span class="material-symbols-outlined rating">star</span>
+											<span class="material-symbols-outlined rating">star</span>
+										</div>
+										<div class="member-info">
+											<div>${r.memberId }</div>
+											<div>${r.reviewDate }</div>
+										</div>
+									</div>
+								</div>
+								<div class="review-content-box">
+									<div class="review-img-wrap">
+										<c:forEach items="${r.reviewPhotoList }" var="p">
+											<img src="resources/upload/shopReview/${p.filepath }">
+										</c:forEach>
+									</div>
+									<div>${r.shopReviewContent }</div>
+								</div>
+							</div>
+						</c:forEach>
+						<div class="pagination">${reviewPageNavi }</div>
+					</div>
 					<button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#commentFrm" aria-expanded="false" aria-controls="collapseCommentFrm">댓글쓰기</button>
 					<div class="collapse" id="commentFrm">
 						<div class="card card-body">
@@ -189,12 +237,24 @@
 			const index = $(".star").index(this);
 			if($(".star").eq(index).hasClass("star-clicked")){
 				$(".star").removeClass("star-clicked");
+				$("#shopReviewRating").val(0)
 			} else {
 				$(".star").removeClass("star-clicked");
 				$(".star").slice(0, index+1).addClass("star-clicked");				
+				$("#shopReviewRating").val($((".star-clicked")).length);
 			}
-			$("#shopReviewRating").val($((".star-clicked")).length)
 		})
+		$(".reviewRating").each(function(i, r){
+			const index = $(".reviewRating").index($(r));
+			const val = $(r).text();
+			const ratings = $(".rating-icon-wrap").eq(index).children();
+			ratings.slice(0, val).addClass("star-checked")
+		})
+		function calAvgRating(){
+			const index = $("#avgRating").text();
+			$(".avgRating").slice(0, index).addClass("star-checked");
+		}
+		
 		function uploadPhoto(input){
 			
 			$('#img-viewer').empty();
@@ -235,10 +295,14 @@
 		         }     
 			});  
 		})
+		function sendNavi(shopNo, reqPage){
+			location.href="/viewShop.do?shopNo="+shopNo+"&reqPage="+reqPage+"&menu=1";
+		}
 		
-		$(".content-menu").eq(0).click()
+		$(".content-menu").eq($("#menu").val()).click()
 		calTotalPrice()
 		calPrice()
+		calAvgRating()
 	</script>
 </body>
 </html>

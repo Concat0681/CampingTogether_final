@@ -62,4 +62,14 @@ public class ShopDao {
 		int result = sqlSession.insert("shop.insertShopReviewPhoto", srp);
 		return result;
 	}
+
+	public ArrayList<ShopReview> selectShopReviewList(HashMap<String, Object> map) {
+		List list = sqlSession.selectList("shop.selectShopReviewList", map);
+		return (ArrayList<ShopReview>)list;
+	}
+
+	public int selectShopReviewCount(HashMap<String, Object> map) {
+		int totalCount = sqlSession.selectOne("shop.selectShopReviewCount", map);
+		return totalCount;
+	}
 }

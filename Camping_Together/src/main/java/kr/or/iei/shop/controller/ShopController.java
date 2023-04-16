@@ -20,6 +20,7 @@ import kr.or.iei.shop.model.vo.Shop;
 import kr.or.iei.shop.model.vo.ShopListMainData;
 import kr.or.iei.shop.model.vo.ShopPhoto;
 import kr.or.iei.shop.model.vo.ShopReview;
+import kr.or.iei.shop.model.vo.ShopReviewListData;
 import kr.or.iei.shop.model.vo.ShopReviewPhoto;
 
 @Controller
@@ -98,9 +99,13 @@ public class ShopController {
 	}
 	
 	@RequestMapping(value="/viewShop.do")
-	public String viewShop(int shopNo, Model model) {
+	public String viewShop(int shopNo, int reqPage, int menu, Model model) {
 		Shop shop = service.selectOneShop(shopNo);
+		ShopReviewListData srld = service.selectShopReviewList(shopNo, reqPage);
 		model.addAttribute("shop", shop);
+		model.addAttribute("menu", menu);
+		model.addAttribute("shopReviewList", srld.getShopReviewList());
+		model.addAttribute("reviewPageNavi", srld.getReviewPageNavi());
 		return "shop/viewShop";
 	}
 	
@@ -108,16 +113,13 @@ public class ShopController {
 	@ResponseBody
 	@RequestMapping(value="/insertShopReview.do")
 	public String insertShopReview(ShopReview sr, MultipartFile[] photoList, HttpServletRequest request ) {
-		System.out.println(!photoList[0].isEmpty());
 		sr.setMemberId("user01");
 		int result = service.insertShopReview(sr);
 		int finalResult = 1;
 		ArrayList<ShopReviewPhoto> srpList = new ArrayList<ShopReviewPhoto>();
 		if(result > 0 ) {
-			System.out.println("result"+result);
 			if(!photoList[0].isEmpty()) {
-				System.out.println("!photoList[0].isEmpty() :" + !photoList[0].isEmpty());
-				String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/shopReview");
+				String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/shopReview/");
 				for(MultipartFile file : photoList) {
 					String filepath = manager.upload(savePath, file);
 					ShopReviewPhoto srp = new ShopReviewPhoto();
@@ -126,7 +128,6 @@ public class ShopController {
 				}
 			}
 			int shopReviewNo = service.selectLatestShopReview();
-			System.out.println(srpList);
 			for(ShopReviewPhoto srp : srpList) {
 				srp.setShopReviewNo(shopReviewNo);
 				int photoResult = service.insertShopReviewPhoto(srp);

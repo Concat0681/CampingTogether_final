@@ -13,9 +13,11 @@ public class ShopReview {
 	
 	private int shopReviewNo;
 	private String memberId;
+	private String memberPhoto;
 	private int shopNo;
 	private String ShopReviewContent;
 	private int shopReviewRating;
 	private int shopReviewRef;
+	private String reviewDate;
 	private ArrayList<ShopReviewPhoto> reviewPhotoList;
 }
