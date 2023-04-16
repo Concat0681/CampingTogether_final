@@ -20,6 +20,7 @@ import kr.or.iei.shop.model.vo.Shop;
 import kr.or.iei.shop.model.vo.ShopListMainData;
 import kr.or.iei.shop.model.vo.ShopPhoto;
 import kr.or.iei.shop.model.vo.ShopReview;
+import kr.or.iei.shop.model.vo.ShopReviewPhoto;
 
 @Controller
 public class ShopController {
@@ -103,10 +104,41 @@ public class ShopController {
 		return "shop/viewShop";
 	}
 	
+	@Transactional
 	@ResponseBody
 	@RequestMapping(value="/insertShopReview.do")
-	public String insertShopReview(ShopReview sr, MultipartFile[] reviewPhotoList) {
-		System.out.println(sr);
-		return "ok";
+	public String insertShopReview(ShopReview sr, MultipartFile[] photoList, HttpServletRequest request ) {
+		System.out.println(!photoList[0].isEmpty());
+		sr.setMemberId("user01");
+		int result = service.insertShopReview(sr);
+		int finalResult = 1;
+		ArrayList<ShopReviewPhoto> srpList = new ArrayList<ShopReviewPhoto>();
+		if(result > 0 ) {
+			System.out.println("result"+result);
+			if(!photoList[0].isEmpty()) {
+				System.out.println("!photoList[0].isEmpty() :" + !photoList[0].isEmpty());
+				String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/shopReview");
+				for(MultipartFile file : photoList) {
+					String filepath = manager.upload(savePath, file);
+					ShopReviewPhoto srp = new ShopReviewPhoto();
+					srp.setFilepath(filepath);
+					srpList.add(srp);
+				}
+			}
+			int shopReviewNo = service.selectLatestShopReview();
+			System.out.println(srpList);
+			for(ShopReviewPhoto srp : srpList) {
+				srp.setShopReviewNo(shopReviewNo);
+				int photoResult = service.insertShopReviewPhoto(srp);
+				if(photoResult == 0) {
+					finalResult = 0;
+				}
+			}
+		}
+		if(finalResult > 0) {
+			return "success";
+		} else {
+			return "fail";
+		}
 	}
 }

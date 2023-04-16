@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import kr.or.iei.shop.model.dao.ShopDao;
 import kr.or.iei.shop.model.vo.Shop;
 import kr.or.iei.shop.model.vo.ShopListMainData;
+import kr.or.iei.shop.model.vo.ShopReview;
+import kr.or.iei.shop.model.vo.ShopReviewPhoto;
 
 @Service
 public class ShopService {
@@ -58,5 +60,20 @@ public class ShopService {
 	public Shop selectOneShop(int shopNo) {
 		Shop shop = dao.selectOneShop(shopNo);
 		return shop;
+	}
+
+	public int insertShopReview(ShopReview sr) {
+		int result = dao.insertShopReview(sr);
+		return result;
+	}
+
+	public int selectLatestShopReview() {
+		int shopReviewNo = dao.selectLatestShopReview();
+		return shopReviewNo;
+	}
+
+	public int insertShopReviewPhoto(ShopReviewPhoto srp) {
+		int result = dao.insertShopReviewPhoto(srp);
+		return result;
 	}
 }

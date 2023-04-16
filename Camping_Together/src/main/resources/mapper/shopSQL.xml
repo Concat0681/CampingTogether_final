@@ -73,4 +73,22 @@
 			shop_photo_seq.nextval, #{shopNo}, #{filepath}
 		)
 	</insert>
+	
+	<insert id="insertShopReview" parameterType="sr">
+		insert into shop_review
+		values(
+			shop_review_seq.nextval, #{memberId}, #{shopNo}, #{shopReviewContent}, #{shopReviewRating}, 0
+		)
+	</insert>
+	
+	<select id="selectLatestShopReview" resultType="_int">
+		select max(shop_review_no) from shop_review
+	</select>
+	
+	<insert id="insertShopReviewPhoto" parameterType="srp">
+		insert into shop_review_photo 
+		values(
+			shop_review_photo_seq.nextval, #{shopReviewNo}, #{filepath}
+		)
+	</insert>
 </mapper>

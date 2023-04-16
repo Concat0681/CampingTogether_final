@@ -95,6 +95,7 @@
 						<div class="card card-body">
 							<form id="commentForm" action="/insertShopComment.do" method="post" enctype="multipart/form-data">
 								<input type="hidden" name="memeberId" value="${sessionScope.m.memberId }">
+								<input type="hidden" name="shopNo" value="${shop.shopNo }">
 								<div class="review-frm-header">
 									<div>${shop.shopTitle }</div>
 									<div class="star-icon-wrap">
@@ -110,7 +111,7 @@
 								<div class="review-frm-content">
 									<div>
 										<div id="img-viewer"></div>
-										<input type="file" name="reviewPhotoList" onchange="uploadPhoto(this)" multiple>
+										<input type="file" name="photoList" onchange="uploadPhoto(this)" multiple>
 									</div>
 									<div>
 										<textarea name="shopReviewContent" placeholder="내용을 입력해주세요"></textarea>
@@ -212,13 +213,15 @@
 			event.preventDefault();
 			var form = $('#commentForm')[0];  	    
 		    var data = new FormData(form);  	   
-		    
+		    console.log(data);
 		    $.ajax({             
 		    	type: "POST",          
-		        url: "/insertShopReview.do",        
-		        data: data,          
+		        url: "/insertShopReview.do",   
+		        enctype: 'multipart/form-data', 
+		        data: data,  
 		        processData: false,    
-		        contentType: false,        
+		        contentType: false, 
+		        cache:false,
 		        success: function (data) { 
 		        	alert("complete");     
 		        	$('#commentForm')[0].reset();
