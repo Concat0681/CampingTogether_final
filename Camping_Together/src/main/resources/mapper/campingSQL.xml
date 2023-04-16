@@ -151,11 +151,11 @@
 		            where crp.camping_room_no = cr.camping_room_no)
 		        )filepath
 		    from camping c JOIN CAMPING_ROOM CR ON (C.CAMPING_NO = CR.CAMPING_NO)
-		    WHERE MEMBER_ID = #{member_id})
+		    WHERE MEMBER_ID = #{member_id}
+		    order by 1 desc)
 		<if test="start != null">
 			where rnum between #{start} and #{end}
 		</if>
-    	order by 1 desc;
 	</select>
 	
 	<select id="selectCampingRoomServiceList" parameterType="_int" resultType="crs">

@@ -19,6 +19,7 @@ import kr.or.iei.shop.model.service.ShopService;
 import kr.or.iei.shop.model.vo.Shop;
 import kr.or.iei.shop.model.vo.ShopListMainData;
 import kr.or.iei.shop.model.vo.ShopPhoto;
+import kr.or.iei.shop.model.vo.ShopReview;
 
 @Controller
 public class ShopController {
@@ -100,5 +101,12 @@ public class ShopController {
 		Shop shop = service.selectOneShop(shopNo);
 		model.addAttribute("shop", shop);
 		return "shop/viewShop";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/insertShopReview.do")
+	public String insertShopReview(ShopReview sr, MultipartFile[] reviewPhotoList) {
+		System.out.println(sr);
+		return "ok";
 	}
 }
