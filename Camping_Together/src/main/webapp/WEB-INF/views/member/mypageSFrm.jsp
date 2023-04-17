@@ -11,14 +11,20 @@
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
 	<jsp:include page="/WEB-INF/views/common/sellerPageMenu.jsp" />
 
+
+	<div class="input-div">
+		<div class="input-title">
+			<h2>개인정보 수정</h2>
+		</div>
+	</div>
+
 	<form action="/updateMypageC.do">
-			<div class="mypage-content">
+			<div class="mypage-content spage">
 
 				<table>
 					<tr>
 						<td>아이디</td>
-						<td><input type="text" class="input" name="memberId"
-							value="${sessionScope.m.memberId }" readonly></td>
+						<td><input type="text" class="input" name="memberId" value="${sessionScope.m.memberId }" readonly></td>
 					</tr>
 					<tr>
 						<td>회원구분</td>
@@ -26,7 +32,7 @@
 							value=<c:choose>
 									<c:when test="${sessionScope.m.memberGrade eq 'c'}"> 일반회원 </c:when>
 									<c:when test="${sessionScope.m.memberGrade eq 'a'}"> 관리자 </c:when>
-									<c:when test="${sessionScope.m.memberGrade eq 'b'}"> 사업자 </c:when>
+									<c:when test="${sessionScope.m.memberGrade eq 's'}"> 사업자 </c:when>
 								</c:choose>>
 						</td>
 					</tr>
@@ -72,9 +78,8 @@
 				</table>
 			</div>
 			
-			<div class="btn-div">
-				<button type="submit" id="update-btn" class="memberBtn">수정하기</button>
-				<button type="button" class="memberBtn" id="delete-btn">회원탈퇴</button>
+			<div class="update-btn">
+				<button type="submit" id="update-btn" class="updateBtn">수정하기</button>
 			</div>
 		</form>
 

@@ -83,3 +83,22 @@
     width: 500px;
     height: 130px;
 }
+
+
+.spage{
+    width: 900px;
+}
+
+.update-btn{
+    width: 600px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.update-btn>.updateBtn{
+   background-color: #AD8B73;
+   border: 0;
+   width: 300px;
+}
