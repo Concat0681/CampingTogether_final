@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 public class SellCampingList {
 	private int rnum;
 	private String campingTitle;
-	private String cmapingSido;
+	private String campingSido;
 	private String campingRoomTitle;
 	private String filpath;
 }

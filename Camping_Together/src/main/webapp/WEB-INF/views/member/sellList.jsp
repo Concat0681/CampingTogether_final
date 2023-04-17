@@ -29,7 +29,7 @@
 				<c:forEach items="${list }" var="l">  
 					<tr>
 						<td>${l.campingTitle }</td> 
-						<td></td> 
+						<td>${l.campingSido }</td> 
 						<td></td>
 						<td></td>
 					</tr>
