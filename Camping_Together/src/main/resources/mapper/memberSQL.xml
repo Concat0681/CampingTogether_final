@@ -21,9 +21,39 @@
 		
 	</select>
 	
+	<!-- 이름과 이메일로 아이디 찾가 -->
+	<select id="searchOneMemberId" parameterType="m" resultType="m">
+		select 
+		    member_no as memberNo,
+		    member_id as memberId,
+		    member_pw as memberPw,
+		    member_name as memberName,
+		    member_phone as memberPhone,
+		    member_addr as memberAddr,
+		    member_photo as memberPhoto,
+		    member_grade as memberGrade,
+		    member_email as memberEmail
+		from member where member_email = #{memberEmail} and member_name =#{memberName} 
+	</select>
+	
+	<!-- 아이디와 이메일로 아이디 찾가 -->
+	<select id="searchOneMemberPw" parameterType="m" resultType="m">
+		select 
+		    member_no as memberNo,
+		    member_id as memberId,
+		    member_pw as memberPw,
+		    member_name as memberName,
+		    member_phone as memberPhone,
+		    member_addr as memberAddr,
+		    member_photo as memberPhoto,
+		    member_grade as memberGrade,
+		    member_email as memberEmail
+		from member where member_email = #{memberEmail} and member_id =#{memberId} 
+	</select>
+	
 	<!-- 회원 가입시 아이디 중복체크 -->
-	<select id="idCheck" resultType="integer">
-		select count(*) from member where member_id =#{member_id}
+	<select id="idCheck" resultType="_int">
+		select count(*) from member where member_id =#{memberId}
 	</select>
 	
 	<!-- 회원 가입 -->
