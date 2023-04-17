@@ -195,17 +195,15 @@
 				<div class="reviewWrap">
 					<div class="reviewContentWrap">
 						<div class="reviewHeader">
-							<h2 style="text-align: center; padding-bottom: 50px;">최고에요</h2>
+							<h2 style="text-align: center; padding-bottom: 30px; padding-top: 30px;">${camping.campingTitle }</h2>
 							<div class="allStar">
-								<span class="material-symbols-outlined">star</span>
-								<span class="material-symbols-outlined">star</span>
-								<span class="material-symbols-outlined">star</span>
-								<span class="material-symbols-outlined">star</span>
-								<span class="material-symbols-outlined">star</span>
+								<c:forEach begin="1" end="${campingReviewRatingAvg}">
+							        <span class="material-symbols-outlined" style="color: gold;">star</span>
+							    </c:forEach>
 							</div>
 							<div>
-								<div class="allReview">전체 리뷰 500</div>
-								<div class="campingAnswer">캠핑장 답변 250</div>
+								<div class="allReview">전체 리뷰 ${campingReviewCount-campingReviewCommentCount }</div>
+								<div class="campingAnswer">캠핑장 답변 ${campingReviewCommentCount }</div>
 							</div>
 						</div>
 						
@@ -262,18 +260,17 @@
 							      			</td>
 							      		</tr>
 							      		<tr>
-							      			<td>사진 등록</td>
-							      			<td>
-							      				<input type="file" onchange="loadImg(this);" name="campingReviewFilepath" multiple>
-							      			</td>
-							      		</tr>
-							      		<tr>
-							      			<td>
-							      				<div id="img-viewer">
-					        			
-					                    		</div>
-							      			</td>
-							      		</tr>
+										  <td>사진 등록</td>
+										  <td>
+										    <input type="file" onchange="loadImg(this);" name="campingReviewFilepath" multiple>
+										  </td>
+										</tr>
+										<tr>
+										  <td>
+										    <div id="img-viewer">
+										    </div>
+										  </td>
+										</tr>
 							      	</table>
 							    </div>
 							    <div class="review-modal-foot">
@@ -292,10 +289,12 @@
 						          </li>
 						          <li>
 						            <p class="comment-info">
-						              <span>${cr.campingReviewTitle }</span>
+						              <span style="font-size: 20px;font-weight: 900;">${cr.campingReviewTitle }</span>
 						            </p>
-						            <p>
-						            	<span style="padding-left: 10px;">${cr.campingReviewRating }</span>
+						            <p style="padding-left: 10px;">
+						            	<c:forEach begin="1" end="${cr.campingReviewRating }" var="star">
+										    <span class="material-symbols-outlined" style="color: gold;">star</span>
+										</c:forEach>
 						            </p>
 						            <p class="comment-content">${cr.campingReviewContent }</p>
 						            
@@ -303,7 +302,7 @@
 						            <!-- 캐러셀 컨테이너 정의 -->
 									<div id="carouselExampleControls-${i.index }" class="carousel slide" data-bs-ride="carousel" style="width: 500px;">
 									  <!-- 캐러셀 내용 정의 -->
-									  	<div class="carousel-inner">
+									  	<div class="carousel-inner" style="${empty cr.fileList ? 'height:0;' : ''}">
 									  		<c:forEach items="${cr.fileList }" var="f" varStatus="j">
 												<c:choose>
 													<c:when test="${j.index == 0 }">
@@ -424,9 +423,10 @@
 								              <span>${crc.memberId }</span>
 								            </p>
 								            <p class="comment-content">${crc.campingReviewContent }</p>
+								            <textarea name="campingReviewContent" class="input-form hide-textarea" style="min-height:96px;display:none;width: 930px;">${crc.campingReviewContent }</textarea>
 								            <p class="comment-link">
-								              <a href="#">수정</a>
-								              <a href="javascript:void(0)" onclick="deleteComment2(this,${crc.campingReviewNo },${camping.campingNo })">삭제</a>
+								              <a href="javascript:void(0)" onclick="updateComment2(this,${crc.campingReviewNo },${camping.campingNo })">수정</a>
+								              <a href="javascript:void(0)" class="deleteComment2" onclick="deleteComment2(this,${crc.campingReviewNo },${camping.campingNo })">삭제</a>
 								            </p>
 								          </li>
 								        </ul>
@@ -689,19 +689,22 @@
 	
 	<script>
 		function loadImg(input) {
-		  // 기존에 있는 이미지 삭제
-		  $('#img-viewer img').remove();
-		  
-		  if (input.files && input.files.length > 0) {
-		    for (let i = 0; i < input.files.length; i++) {
-		      const reader = new FileReader();
-		      reader.readAsDataURL(input.files[i]);
-		      reader.onload = function(e) {
-		        $("<img>").attr("src", e.target.result).attr("id", "img-" + i).appendTo("#img-viewer"); // 이미지를 보여줄 DOM 엘리먼트에 추가
-		      }
-		    }
-		  }
-		}
+			  // 기존에 있는 이미지 삭제
+			  $('#img-viewer img').remove();
+			  
+			  if (input.files && input.files.length > 0) {
+			    for (let i = 0; i < input.files.length; i++) {
+			      const reader = new FileReader();
+			      reader.readAsDataURL(input.files[i]);
+			      reader.onload = function(e) {
+			        $("<img>").attr("src", e.target.result)
+			                  .attr("id", "img-" + i)
+			                  .css("display", "inline-block") // 이미지를 inline-block 으로 표시
+			                  .appendTo("#img-viewer"); // 이미지를 보여줄 DOM 엘리먼트에 추가
+			      }
+			    }
+			  }
+			}
 	</script>
 	
 	<script>
@@ -800,6 +803,56 @@
 		    $(".star-on-wrap2").css("width", starScore + "px");
 		  });
 		});
+	</script>
+	
+	<script>
+		function updateComment2(obj, campingReviewNo, campingNo){
+			//숨겨놓은 textarea를 화면에 보여줌
+			$(obj).parents("li").eq(0).find("textarea").show();
+			//화면에 있던 댓글내용(p태그)를 숨김
+			$(obj).parent().next().next().hide();
+			//수정 -> 수정완료
+			$(obj).text("수정완료");
+			$(obj).attr("onclick","modifyComplete(this,"+campingReviewNo+","+campingNo+")");
+			//삭제 -> 수정취소
+			$(".deleteComment2").text("수정취소");
+			$(".deleteComment2").attr("onclick","modifyCancel(this,"+campingReviewNo+","+campingNo+")");
+			//답글달기버튼 삭제
+			$(obj).next().next().hide();
+		}
+		
+		function modifyCancel(obj,campingReviewNo, campingNo){
+			$(".hide-textarea").hide();
+			$("show-content").show();
+			//수정완료 -> 수정
+			$(obj).prev().text("수정");
+			$(obj).prev().attr("onclick","updateComment2(this,"+campingReviewNo+","+campingNo+")");
+			//수정취소 -> 삭제
+			$(obj).text("삭제");
+			$(obj).attr("onclick","deleteComment2(this,"+campingReviewNo+","+campingNo+")");
+			//답글달기 버튼 다시 보여줌
+			$(obj).next().show();
+		}
+		
+		function modifyComplete(obj,campingReviewNo, campingNo){
+			//form태그를 생성해서 전송
+			//댓글내용, 댓글번호, 공지사항번호
+			//1. form태그 생성
+			const form=$("<form style='display:none;' action='/updateReviewComment.do' method='post'></form>");
+			//2. input태그 2개 숨김
+			const campingReviewNoInput = $("<input type='text' name='campingReviewNo'>");
+			campingReviewNoInput.val(campingReviewNo);
+			const campingNoInput = $("<input type='text' name='campingNo'>");
+			campingNoInput.val(campingNo);
+			//3. textarea
+			const campingReviewContent = $(obj).parents("li").eq(0).find("textarea").clone();
+			//4. form태그에 input, textarea를 모두 포함
+			form.append(campingReviewNoInput).append(campingNoInput).append(campingReviewContent);
+			//5. 생성된 form태그를 body태그에 추가
+			$("body").append(form);
+			//form태그를 전송
+			form.submit();
+		}
 	</script>
 </body>
 </html>

@@ -363,3 +363,17 @@ textarea.input-form {
     min-height: 100px;
     width: 1000px;
 }
+
+#img-viewer {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+#img-viewer img {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  margin-right: 20px;
+}
