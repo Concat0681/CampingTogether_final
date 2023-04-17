@@ -368,7 +368,7 @@
             }
 		});
 		
-		function deleteImg(obj, fileNo, filepath){
+		function deleteImg(obj, fileNo, filepath){	
 			const fileNoInput = $("<input>");
 			fileNoInput.attr("name", "fileNo");
 			fileNoInput.val(fileNo);
