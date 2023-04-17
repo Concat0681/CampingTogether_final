@@ -7,8 +7,8 @@
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
 <link href="resources/css/default.css" rel="stylesheet"/>
-<link rel="stylesheet" href="resources/css/updateMypageC.css">
 <link rel="stylesheet" href="resources/css/mypageS.css">
+<link rel="stylesheet" href="resources/css/updateMypageC.css">
 
 </head>
 <body>
@@ -16,9 +16,9 @@
 			<div class="menu-list">
 				<ul style="padding : 0;">
 					<li><a href="/sellList.do?reqPage=1&memberId=${sessionScope.m.memberId }">My 캠핑장</a></li>
-					<li><a href="#">shop 구매 내역</a></li>
-					<li><a href="#">내가 쓴 캠핑장 리뷰</a></li>
-					<li><a href="#">개인정보 수정 및 탈퇴</a></li>
+					<li><a href="#">shop상품 판매 리스트</a></li>
+					<li><a href="#">?</a></li>
+					<li><a href="/mypageS.do">개인정보 수정</a></li>
 				</ul>
 			</div>
 		</div>

@@ -236,9 +236,11 @@ public class MemberController {
 
 	//판매자 my캠핑장
 	@RequestMapping(value = "/sellList.do")
-	public String sellList(int reqPage,String memberId, Model model) {
+	public String sellList(int reqPage, String memberId, Model model) {
 		SellCampingListData scld = cmapingService.getSellCampingList(memberId, reqPage);
 		model.addAttribute("list",scld.getCampingList());
+		System.out.println(scld.getCampingList());
+		System.out.println(memberId);
 		model.addAttribute("navi", scld.getPageNavi());
 		return "member/sellList";
 	}
@@ -268,6 +270,10 @@ public class MemberController {
 	}
 	
 	
-	
+	//판매자 정보 수정
+	@RequestMapping(value = "/mypageS.do")
+	public String mypageS() {
+		return "member/mypageSFrm";
+	}
 	
 }

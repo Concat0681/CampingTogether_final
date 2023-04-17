@@ -6,7 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="resources/css/sellCamping.css">
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
@@ -17,13 +16,32 @@
 				<h2>My 캠핑장</h2>
 			</div>
 		</div>
-	
-	<div>
-	<c:forEach items="${list }" var="l">
-		<div>${l.campingTitle }</div>
-	
-	</c:forEach>
-		${navi }
-	</div>
+		
+		<div class="pay-list">
+			<div class="list-content">
+				<table>
+					<tr>
+						<th>캠핑장 명</th>
+						<th>지역</th>
+						<th>방 이름</th>
+						<th>사진</th>
+					</tr>
+				<c:forEach items="${list }" var="l">  
+					<tr>
+						<td>${l.campingTitle }</td> 
+						<td></td> 
+						<td></td>
+						<td></td>
+					</tr>
+				</c:forEach> 
+					
+				</table>
+			</div>
+			
+			<div class="pagination">
+				${navi }
+		  </div>
+		</div>
+
 </body>
 </html>

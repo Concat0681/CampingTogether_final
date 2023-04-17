@@ -96,7 +96,7 @@ public class MemberDao {
 
 	//프로필이미지 업로드
 	public int updateFilepath(MultipartFile profileName) {
-		
+		int result = sqlsession.update("member.updateFile",profileName);
 		return 0;
 	}
 
