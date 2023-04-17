@@ -16,6 +16,7 @@ import kr.or.iei.camping.model.vo.CampingReviewFileVO;
 import kr.or.iei.camping.model.vo.CampingRoom;
 import kr.or.iei.camping.model.vo.CampingRoomFileVO;
 import kr.or.iei.camping.model.vo.CampingRoomService;
+import kr.or.iei.camping.model.vo.SellCampingList;
 
 @Repository
 public class CampingDao {
@@ -42,7 +43,7 @@ public class CampingDao {
 		Camping camping = sqlSession.selectOne("camping.selectOneCamping", campingNo);
 		return camping;
 	}
-
+	
 	public ArrayList<CampingRoom> selectAllCampingRoomList(int campingNo) {
 		List roomList = sqlSession.selectList("camping.selectAllCampingRoomList", campingNo);
 		return (ArrayList<CampingRoom>)roomList;
@@ -107,7 +108,56 @@ public class CampingDao {
 		return result;
 	}
 
+	public ArrayList<CampingReview> selectReviewCommentList(int campingNo) {
+		List list = sqlSession.selectList("camping.selectReviewCommentList",campingNo);
+		return (ArrayList<CampingReview>)list;
+	}
+
+	public ArrayList<CampingReviewFileVO> selectCampingReviewFile(int campingReviewNo) {
+		List list = sqlSession.selectList("camping.selectCampingReviewFile", campingReviewNo);
+		return (ArrayList<CampingReviewFileVO>)list;
+	}
+
+	public int deleteCampingReview(int campingReviewNo) {
+		int result = sqlSession.delete("camping.deleteCampingReview",campingReviewNo);
+		return result;
+	}
+
+	public int deleteCampingReviewComment(int campingReviewNo) {
+		int result = sqlSession.delete("camping.deleteCampingReviewComment",campingReviewNo);
+		return result;
+	}
+
 	
 
 	
+	public ArrayList<SellCampingList> getSellCampingList(HashMap<String, Object> map) {
+		List list = sqlSession.selectList("camping.getSellCampingList", map);
+		return (ArrayList<SellCampingList>)list;
+	}
+
+	public int updateReviewComment(CampingReview crv) {
+		int result = sqlSession.update("camping.updateReviewComment",crv);
+		return result;
+	}
+
+	public int selectReviewCount() {
+		int selectReviewCount = sqlSession.selectOne("camping.selectReviewCount");
+		return selectReviewCount;
+	}
+
+	public int selectReviewCommentCount() {
+		int selectReviewCommentCount = sqlSession.selectOne("camping.selectReviewCommentCount");
+		return selectReviewCommentCount;
+	}
+
+	public int selectcampingReviewRatingAvg() {
+		int campingReviewRatingAvg = sqlSession.selectOne("camping.selectcampingReviewRatingAvg");
+		return campingReviewRatingAvg;
+	}
+
+	public int selectSellCampingCount(HashMap<String, Object> map) {
+		int totalCount = sqlSession.selectOne("camping.selectSellCampingCount", map);
+		return totalCount;
+	}
 }

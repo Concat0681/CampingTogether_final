@@ -112,7 +112,7 @@
 	          <a class="nav-link" href="/usedBoardList.do?reqPage=1">중고장터</a>
 	        </li>
 	        <li class="nav-item">
-	          <a class="nav-link" href="#">투게더SHOP</a>
+	          <a class="nav-link" href="/shopMainList.do">투게더SHOP</a>
 	        </li>
 	        <li class="nav-item dropdown">
 	          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -123,6 +123,7 @@
 	            <li><a class="dropdown-item" href="#">캠핑 Tip</a></li>
 	            <li><hr class="dropdown-divider"></li>
 	            <li><a class="dropdown-item" href="allMemberChatFrm.do">채팅</a></li>
+	            <li><a class="dropdown-item" href="/inquiryList.do?reqPage=1">문의사항</a></li>
 	          </ul>
 	        </li>
 	      </ul>
@@ -139,6 +140,7 @@ const navLinkt = document.querySelectorAll('.nav-linkT');
 const navLink =  document.querySelectorAll('.nav-link');
 	
 	
+	
 	function init() {
 		document.addEventListener('load', function() {
 			navbarTop.style.backgroundColor = 'rgba(173, 139, 115, 0.2)';
@@ -146,9 +148,12 @@ const navLink =  document.querySelectorAll('.nav-link');
 			for(let i=0; i < navLink.length; i++){
 	        	  navLink[i].style = 'color';
 	        	  navLink[i].style.color = 'rgb(255, 255, 255)';
-	          }
+	        		
+			}
 			
 		});
+		
+		
 		
 		  window.addEventListener('scroll', function() {
 		      // 현재 스크롤 위치를 가져옴

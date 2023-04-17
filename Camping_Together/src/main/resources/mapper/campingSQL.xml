@@ -122,11 +122,15 @@
 				)
 	</select>
 	
-	<select id="selectOneCamping" parameterType="_int" resultMap="getOneCamping">
+	<select id="selectSellCampingCount" parameterType="map" resultType="_int">
+		select count(camping_no) from camping where member_id = #{memberId}
+	</select>
+	
+	<select id="selectOneCamping" parameterType="map" resultMap="getOneCamping">
 		select 
 			*
 		from camping
-		where camping_no = #{_parameter}
+		where camping_no = #{campingNo}
 	</select>
 	
 	<select id="selectCampingProvideServiceList" parameterType="_int" resultType="cps">
@@ -135,6 +139,27 @@
 			camping_no as campingNo,
 			camping_service as campingService
 		from camping_service where camping_no = #{_parameter}
+	</select>
+	
+	<select id="getSellCampingList" parameterType="map" resultType="scl">
+		select * from	
+			(Select
+				rownum as rnum,
+		        c.camping_title as campingTitle,
+		        c.camping_sido as campingSido,
+		        cr.camping_room_title as campingRoomTitle,
+		        (select filepath from camping_room_photo crp
+		        where camping_room_photo_no =
+		            (select min(camping_room_photo_no)
+		            from camping_room_photo crp
+		            where crp.camping_room_no = cr.camping_room_no)
+		        )filepath
+		    from camping c JOIN CAMPING_ROOM CR ON (C.CAMPING_NO = CR.CAMPING_NO)
+		    WHERE MEMBER_ID = #{memberId}
+		    order by 1 desc)
+		<if test="start != null">
+			where rnum between #{start} and #{end}
+		</if>
 	</select>
 	
 	<select id="selectCampingRoomServiceList" parameterType="_int" resultType="crs">
@@ -254,7 +279,7 @@
 			camping_review_content as campingReviewContent,
 			camping_review_rating as campingReviewRating,
 			camping_review_ref as campingReviewRef
-		from camping_review where camping_no = #{_parameter}
+		from camping_review where camping_no = #{_parameter} and camping_review_ref is null
 	</select>
 	
 	<select id="selectCampingReviewNo" parameterType="_int" resultType="_int">
@@ -270,6 +295,46 @@
 	</select>
 	
 	<insert id="insertReviewComment" parameterType="crv">
-		insert into camping_review values(camping_review_seq.nextval,#{campingNo},#{memberId},'reviewcomment',#{campingReviewContent},null,#{campingReviewRef})
+		insert into camping_review values(camping_review_seq.nextval,#{campingNo},#{memberId},'reviewcomment',#{campingReviewContent},null,#{campingReviewRef},to_char(sysdate,'yyyy-mm-dd hh24:mi'))
 	</insert>
+	
+	<select id="selectReviewCommentList" parameterType="_int" resultType="crv">
+		select
+			camping_review_no as campingReviewNo,
+			camping_no as campingNo,
+			member_id as memberId,
+			camping_review_title as campingReviewTitle,
+			camping_review_content as campingReviewContent,
+			camping_review_rating as campingReviewRating,
+			camping_review_ref as campingReviewRef
+		from camping_review where camping_no = #{_parameter} and camping_review_ref is not null
+	</select>
+	
+	<select id="selectCampingReviewFile" parameterType="_int" resultType="crvf">
+		select * from camping_review_photo where camping_review_no = #{_parameter}
+	</select>
+	
+	<delete id="deleteCampingReview" parameterType="_int">
+		delete from camping_review where camping_review_no=#{_parameter}
+	</delete>
+	
+	<delete id="deleteCampingReviewComment" parameterType="_int">
+		delete from camping_review where camping_review_no=#{_parameter}
+	</delete>
+	
+	<update id="updateReviewComment" parameterType="crv">
+		update camping_review set camping_review_content=#{campingReviewContent} where camping_review_no=#{campingReviewNo}
+	</update>
+	
+	<select id="selectReviewCount" resultType="_int">
+		select count(*) from camping_review
+	</select>
+	
+	<select id="selectReviewCommentCount" resultType="_int">
+		select count(*) from camping_review where camping_review_ref is not null
+	</select>
+	
+	<select id="selectcampingReviewRatingAvg" resultType="_int">
+		select avg(camping_review_rating) from camping_review
+	</select>
 </mapper>

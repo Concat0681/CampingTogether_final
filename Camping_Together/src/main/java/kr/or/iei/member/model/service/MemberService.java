@@ -17,6 +17,7 @@ import kr.or.iei.member.model.vo.MyReview;
 import kr.or.iei.member.model.vo.ProductPageData;
 import kr.or.iei.member.model.vo.ProductPayment;
 import kr.or.iei.member.model.vo.ReviewPageData;
+import kr.or.iei.member.model.vo.SellCampingList;
 
 @Service
 public class MemberService {
@@ -219,8 +220,6 @@ public class MemberService {
 		int end = reqPage * numPerpage;
 		int start = end - numPerpage + 1;
 
-		// 계산된 start, end를 가지고 게시물 목록 조회
-		// Mybatis는 매개변수는 한개만 설정이 가능 -> 필요한 값이 여러개면 1개로 묶어야함 (vo또는 map)
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("start", start);
 		map.put("end", end);
@@ -231,7 +230,6 @@ public class MemberService {
 		
 		int totalCount = dao.selectMyReviewListCount(memberId);
 
-		// 전체게시물로 전체 페이지 수 계산
 		int totalPage = (int) Math.ceil(totalCount / (double) numPerpage);
 		
 		// pageNavi사이즈
@@ -269,7 +267,7 @@ public class MemberService {
 						pageNavi += "</a></li>";
 					}
 					pageNo++;
-					// for문을 중간에 탈출해야하는 경우가 있음 - 페이지가 끝나면 그 이후페이지(없는페이지)는 출력X
+					
 					if (pageNo > totalPage) {
 						break;
 					}
@@ -287,6 +285,8 @@ public class MemberService {
 				ReviewPageData rpd = new ReviewPageData(list, pageNavi);
 				return rpd;
 	}
+
+	
 
 }
 

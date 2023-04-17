@@ -153,9 +153,17 @@ public class CampingController {
 	public String viewCamping(String checkIn, String checkOut, int campingNo, Model model) {
 		ViewCampingData vcd = service.selectOneCamping(campingNo);
 		CampingReviewData crd = service.selectCampingReview(campingNo);
+		CampingReviewData reviewCommentList = service.selectReviewCommentList(campingNo);
+		int campingReviewCount = service.selectReviewCount();
+		int campingReviewCommentCount = service.selectReviewCommentCount();
+		int campingReviewRatingAvg = service.selectcampingReviewRatingAvg();
+		model.addAttribute("campingReviewRatingAvg",campingReviewRatingAvg);
+		model.addAttribute("campingReviewCommentCount",campingReviewCommentCount);
+		model.addAttribute("campingReviewCount",campingReviewCount);
 		model.addAttribute("camping" , vcd.getCamping());
 		model.addAttribute("campingRoomList", vcd.getCampingRoomList());
 		model.addAttribute("campingReview", crd.getReviewList());
+		model.addAttribute("campingReviewComment", reviewCommentList.getReviewCommentList());
 		model.addAttribute("checkIn", checkIn);
 		model.addAttribute("checkOut", checkOut);
 		return "camping/viewCamping";
@@ -247,6 +255,40 @@ public class CampingController {
 	@RequestMapping(value="/insertReviewComment.do")
 	public String insertReviewComment(CampingReview crv) {
 		int result = service.insertReviewComment(crv);
+		if(result > 0) {
+			return "redirect:/viewCamping.do?campingNo="+crv.getCampingNo();
+		}else {
+			return "redirect:/";
+		}
+	}
+	
+	@RequestMapping(value="/deleteCampingReview.do")
+	public String deleteCampingReview(int campingNo, int campingReviewNo, HttpServletRequest request) {
+		ArrayList<CampingReviewFileVO> list = service.deleteCampingReview(campingReviewNo);
+		if(list == null) {
+			return "redirect:/viewCamping.do?campingNo="+campingNo;
+		}else {
+			String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/campingReview/");
+			for(CampingReviewFileVO file : list) {
+				manager.deleteFile(savePath, file.getFilepath());
+			}
+			return "redirect:/viewCamping.do?campingNo="+campingNo;
+		}
+	}
+	
+	@RequestMapping(value="/deleteCampingReviewComment.do")
+	public String deleteCampingReviewComment(int campingNo,int campingReviewNo) {
+		int result = service.deleteCampingReviewComment(campingReviewNo);
+		if(result > 0) {
+			return "redirect:/viewCamping.do?campingNo="+campingNo;
+		}else {
+			return "redirect:/viewCamping.do?campingNo="+campingNo;
+		}
+	}
+	
+	@RequestMapping(value="/updateReviewComment.do")
+	public String updateReviewComment(CampingReview crv) {
+		int result = service.updateReviewComment(crv);
 		if(result > 0) {
 			return "redirect:/viewCamping.do?campingNo="+crv.getCampingNo();
 		}else {

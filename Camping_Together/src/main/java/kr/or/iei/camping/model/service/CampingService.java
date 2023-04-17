@@ -19,6 +19,8 @@ import kr.or.iei.camping.model.vo.CampingRoom;
 import kr.or.iei.camping.model.vo.ViewCampingData;
 import kr.or.iei.camping.model.vo.CampingRoomFileVO;
 import kr.or.iei.camping.model.vo.CampingRoomService;
+import kr.or.iei.camping.model.vo.SellCampingList;
+import kr.or.iei.camping.model.vo.SellCampingListData;
 
 @Service
 public class CampingService {
@@ -109,6 +111,8 @@ public class CampingService {
 	public ViewCampingData selectOneCamping(int campingNo) {
 		ViewCampingData vcd = new ViewCampingData();
 		ArrayList<CampingRoomFileVO> fileList = new ArrayList<CampingRoomFileVO>();
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("campingNo", campingNo);
 		Camping camping = dao.selectOneCamping(campingNo);
 		vcd.setCamping(camping);
 		ArrayList<CampingRoom> campingRoomList = dao.selectAllCampingRoomList(campingNo);
@@ -118,6 +122,49 @@ public class CampingService {
 		}
 		vcd.setCampingRoomList(campingRoomList);
 		return vcd;
+	}
+	
+	public SellCampingListData getSellCampingList(String memberId, int reqPage) {
+		int numPerPage = 5;
+		int end = reqPage * numPerPage;
+		int start = end - numPerPage + 1;
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("start", start);
+		map.put("end", end);
+		map.put("memberId", memberId);
+		System.out.println(memberId);
+		ArrayList<SellCampingList> campingList = dao. getSellCampingList(map);
+		System.out.println(campingList);
+		int totalCount = dao.selectSellCampingCount(map);
+		System.out.println(totalCount);
+		int totalPage = (int)Math.ceil(totalCount/(double)numPerPage);
+		int pageNaviSize = 5;
+		int pageNo = 1;
+		if(reqPage > 3) {
+			pageNo = reqPage - 2 ;
+		}
+		String pageNavi = "<ul class='pagination circle-style'>";
+		if(pageNo != 1) {
+			pageNavi += "<li><a class='page-item'onclick='sendNavi("+(pageNo-1)+")'><span class='material-symbols-outlined'>chevron_left</span></a></li>";
+		}
+		for(int i=0;i<pageNaviSize;i++) {
+			if(pageNo == reqPage) {
+				pageNavi += "<li><a class='page-item active-page'>"+pageNo+"</a></li>";
+			} else {
+				pageNavi += "<li><a class='page-item' onclick='sendNavi("+pageNo+")'>"+pageNo+"</a></li>";
+			}
+			pageNo++;
+			if(pageNo > totalPage) {
+				break;
+			}
+		}
+		if(pageNo <= totalPage) {
+			pageNavi += "<li><a class='page-item' onclick='sendNavi("+(pageNo)+")'><span class='material-symbols-outlined'>chevron_right</span></a></li>";
+		}
+		SellCampingListData scld = new SellCampingListData();
+		scld.setCampingList(campingList);
+		scld.setPageNavi(pageNavi);
+		return scld;
 	}
 	
 	public int insertCampingRoom(CampingRoom cr, ArrayList<CampingRoomFileVO> fileList) {
@@ -162,6 +209,52 @@ public class CampingService {
 		}else {
 			return 0;
 		}
+	}
+
+	public CampingReviewData selectReviewCommentList(int campingNo) {
+		CampingReviewData reviewCommentList = new CampingReviewData();
+		ArrayList<CampingReview> crv = dao.selectReviewCommentList(campingNo);
+		reviewCommentList.setReviewCommentList(crv);
+		return reviewCommentList;
+	}
+
+	public ArrayList<CampingReviewFileVO> deleteCampingReview(int campingReviewNo) {
+		ArrayList<CampingReviewFileVO> fileList = dao.selectCampingReviewFile(campingReviewNo);
+		int result = dao.deleteCampingReview(campingReviewNo);
+		if(result>0) {
+			return fileList;
+		}else {
+			return null;
+		}
+	}
+
+	public int deleteCampingReviewComment(int campingReviewNo) {
+		int result = dao.deleteCampingReviewComment(campingReviewNo);
+		return result;
+	}
+
+	public int updateReviewComment(CampingReview crv) {
+		int result = dao.updateReviewComment(crv);
+		if(result > 0) {
+			return result;
+		}else {
+			return 0;
+		}
+	}
+
+	public int selectReviewCount() {
+		int selectReviewCount = dao.selectReviewCount();
+		return selectReviewCount;
+	}
+
+	public int selectReviewCommentCount() {
+		int selectReviewCommentCount = dao.selectReviewCommentCount();
+		return selectReviewCommentCount;
+	}
+
+	public int selectcampingReviewRatingAvg() {
+		int campingReviewRatingAvg = dao.selectcampingReviewRatingAvg();
+		return campingReviewRatingAvg;
 	}
 
 	

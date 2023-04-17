@@ -17,59 +17,163 @@
 				<button id="insertShopBtn">물품등록</button>			
 			</c:if>
 		</div>
-		<div class="camping-shop-wrap">
+		<div class="camping-wrap shop-wrap">
 			<div>캠핑물품</div>
-			<div class="camping-shop-list">
+			<div class="camping-list shop-list">
 				<c:forEach items="${campingList }" var="c" varStatus="i">
-					<div id="carousel-${i.index }" class="carousel slide" data-bs-ride="carousel">
-						<div class="carousel-indicators">
-							<button type="button" data-bs-target="#carousel-${i.index }" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-							<button type="button" data-bs-target="#carousel-${i.index }" data-bs-slide-to="1" aria-label="Slide 2"></button>
-							<button type="button" data-bs-target="#carousel-${i.index }" data-bs-slide-to="2" aria-label="Slide 3"></button>
+					<div class="shop-box">
+						<div id="carousel-camping-${i.index }" class="carousel slide" data-bs-ride="carousel">
+							<div class="carousel-inner">
+								<c:forEach items="${c.shopPhotoList }" var="f" varStatus="j">
+									<c:choose>
+										<c:when test="${j.index == 0 }">
+											<div class="carousel-item active">
+												<img src="resources/upload/shop/${f.filepath }" alt="resources/upload/camping/campingbg.jpg">
+											</div>
+										</c:when>
+										<c:otherwise>
+											<div class="carousel-item">
+												<img src="resources/upload/shop/${f.filepath }" alt="resources/upload/camping/campingbg.jpg">
+											</div>
+										</c:otherwise>
+									</c:choose>
+								</c:forEach>
+							</div>
+							<div class="carousel-indicators">
+								<c:forEach items="${c.shopPhotoList }" var="f" varStatus="j">
+									<c:choose>
+										<c:when test="${j.index == 0 }">
+											<button type="button" data-bs-target="#carousel-camping-${j.index }" data-bs-slide-to="${j.index }" class="active" aria-current="true" aria-label="Slide 1"></button>
+										</c:when>
+										<c:otherwise>
+											<button type="button" data-bs-target="#carousel-camping-${i.index }" data-bs-slide-to="${j.index }" aria-label="Slide ${j.index+1 }"></button>
+										</c:otherwise>
+									</c:choose>
+								</c:forEach>
+							</div>
+							<div class="carousel-caption hidden" onclick="viewShop(${c.shopNo});">
+								<div>${c.shopTitle }</div>
+						      </div>
+							<button class="carousel-control-prev" type="button" data-bs-target="#carousel-camping-${i.index }" data-bs-slide="prev">
+								<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+								<span class="visually-hidden">Previous</span>
+							</button>
+							<button class="carousel-control-next" type="button" data-bs-target="#carousel-camping-${i.index }" data-bs-slide="next">
+								<span class="carousel-control-next-icon" aria-hidden="true"></span>
+								<span class="visually-hidden">Next</span>
+							</button>
 						</div>
-						<div class="carousel-inner">
-							<c:forEach items="${c.shopPhotoList }" var="f" varStatus="j">
-								<c:choose>
-									<c:when test="${j.index == 0 }">
-										<div class="carousel-item active">
-											<img src="resources/upload/campingRoom/${f.filepath }" alt="resources/upload/camping/campingbg.jpg">
-										</div>
-									</c:when>
-									<c:otherwise>
-										<div class="carousel-item">
-											<img src="resources/upload/campingRoom/${f.filepath }" alt="resources/upload/camping/campingbg.jpg">
-										</div>
-									</c:otherwise>
-								</c:choose>
-							</c:forEach>
-						</div>
-						<button class="carousel-control-prev" type="button" data-bs-target="#carousel-${i.index }" data-bs-slide="prev">
-							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-							<span class="visually-hidden">Previous</span>
-						</button>
-						<button class="carousel-control-next" type="button" data-bs-target="#carousel-${i.index }" data-bs-slide="next">
-							<span class="carousel-control-next-icon" aria-hidden="true"></span>
-							<span class="visually-hidden">Next</span>
-						</button>
 					</div>
-					<div>${c.shopTitle }</div>
 				</c:forEach>
 			</div>
+			<div class="shop-footer">
+				${campingPageNavi }
+			</div>
 		</div>
-		<div class="car-shop-wrap">
+		<div class="car-wrap shop-wrap">
 			<div>카박물품</div>
-			<div class="car-shop-list">
-				<c:forEach items="${list1 }" var="c">
-					<div>${c.shopTitle }</div>
+			<div class="car-list shop-list">
+				<c:forEach items="${carList }" var="c" varStatus="i">
+					<div class="shop-box">
+						<div id="carousel-car-${i.index }" class="carousel slide" data-bs-ride="carousel">
+							<div class="carousel-inner">
+								<c:forEach items="${c.shopPhotoList }" var="f" varStatus="j">
+									<c:choose>
+										<c:when test="${j.index == 0 }">
+											<div class="carousel-item active">
+												<img src="resources/upload/shop/${f.filepath}" alt="resources/shop/${f.filepath}">
+											</div>
+										</c:when>
+										<c:otherwise>
+											<div class="carousel-item">
+												<img src="resources/upload/shop/${f.filepath}" alt="resources/upload/shop/${f.filepath}">
+											</div>
+										</c:otherwise>
+									</c:choose>
+								</c:forEach>
+							</div>
+							<div class="carousel-indicators">
+								<c:forEach items="${c.shopPhotoList }" var="f" varStatus="j">
+									<c:choose>
+										<c:when test="${j.index == 0 }">
+											<button type="button" data-bs-target="#carousel-car-${i.index }" data-bs-slide-to="${j.index }" class="active" aria-current="true" aria-label="Slide 1"></button>
+										</c:when>
+										<c:otherwise>
+											<button type="button" data-bs-target="#carousel-car-${i.index }" data-bs-slide-to="${j.index }" aria-label="Slide ${j.index+1 }"></button>
+										</c:otherwise>
+									</c:choose>
+								</c:forEach>
+							</div>
+							 <div class="carousel-caption hidden" onclick="viewShop(${c.shopNo});">
+								<div>${c.shopTitle }</div>
+						      </div>
+							<button class="carousel-control-prev" type="button" data-bs-target="#carousel-car-${i.index }" data-bs-slide="prev">
+								<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+								<span class="visually-hidden">Previous</span>
+							</button>
+							<button class="carousel-control-next" type="button" data-bs-target="#carousel-car-${i.index }" data-bs-slide="next">
+								<span class="carousel-control-next-icon" aria-hidden="true"></span>
+								<span class="visually-hidden">Next</span>
+							</button>
+						</div>
+					</div>
 				</c:forEach>
 			</div>
+			<div class="shop-footer">
+				${cargPageNavi }
+			</div>
 		</div>
-		<div class="etc-shop-wrap">
+		<div class="etc-wrap shop-wrap">
 			<div>기타물품</div>
-			<div class="etc-shop-list">
-				<c:forEach items="${list2 }" var="c">
-					<div>${c.shopTitle }</div>
+			<div class="etc-list shop-list">
+				<c:forEach items="${etcList }" var="c">
+					<div class="shop-box">
+						<div id="carousel-etc-${i.index }" class="carousel slide" data-bs-ride="carousel">
+							<div class="carousel-inner">
+								<c:forEach items="${c.shopPhotoList }" var="f" varStatus="j">
+									<c:choose>
+										<c:when test="${j.index == 0 }">
+											<div class="carousel-item active">
+												<img src="resources/upload/shop/${f.filepath}" alt="resources/shop/${f.filepath}">
+											</div>
+										</c:when>
+										<c:otherwise>
+											<div class="carousel-item">
+												<img src="resources/upload/shop/${f.filepath}" alt="resources/upload/shop/${f.filepath}">
+											</div>
+										</c:otherwise>
+									</c:choose>
+								</c:forEach>
+							</div>
+							<div class="carousel-indicators">
+								<c:forEach items="${c.shopPhotoList }" var="f" varStatus="j">
+									<c:choose>
+										<c:when test="${j.index == 0 }">
+											<button type="button" data-bs-target="#carousel-etc-${j.index }" data-bs-slide-to="${j.index }" class="active" aria-current="true" aria-label="Slide 1"></button>
+										</c:when>
+										<c:otherwise>
+											<button type="button" data-bs-target="#carousel-etc-${i.index }" data-bs-slide-to="${j.index }" aria-label="Slide ${j.index+1 }"></button>
+										</c:otherwise>
+									</c:choose>
+								</c:forEach>
+							</div>
+							<div class="carousel-caption hidden" onclick="viewShop(${c.shopNo});">
+								<div>${c.shopTitle }</div>
+						      </div>
+							<button class="carousel-control-prev" type="button" data-bs-target="#carousel-etc-${i.index }" data-bs-slide="prev">
+								<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+								<span class="visually-hidden">Previous</span>
+							</button>
+							<button class="carousel-control-next" type="button" data-bs-target="#carousel-etc-${i.index }" data-bs-slide="next">
+								<span class="carousel-control-next-icon" aria-hidden="true"></span>
+								<span class="visually-hidden">Next</span>
+							</button>
+						</div>
+					</div>
 				</c:forEach>
+			</div>
+			<div class="shop-footer">
+				${etcPageNavi }
 			</div>
 		</div>
 	</div>
@@ -77,6 +181,35 @@
 		$("#insertShopBtn").on("click", function(){
 			location.href="/insertShopFrm.do";
 		})
+		
+		
+		const carousel = $(".carousel");
+		carousel.each(function(i, c){
+			const id = $(c).attr("id");
+			new bootstrap.Carousel('#'+id, {
+				ride : false
+			})
+		})
+		
+		$(function(){
+			carousel.carousel('pause'); 
+		})
+		
+		$(".carousel").on("mouseenter", function(){
+			$(this).find(".carousel-caption").slideDown();
+		})
+		
+		$(".carousel").on("mouseleave", function(){
+			$(this).find(".carousel-caption").slideUp();
+		})
+		
+		function viewShop(shopNo){
+			location.href="/viewShop.do?shopNo="+shopNo+"&reqPage=1&menu=0";
+		}
+		
+		function viewShopList(shopCategory, reqPage){
+			location.href="/shopList.do?shopCategory="+shopCategory+"&reqPage="+reqPage;
+		}
 	</script>
 </body>
 </html>
