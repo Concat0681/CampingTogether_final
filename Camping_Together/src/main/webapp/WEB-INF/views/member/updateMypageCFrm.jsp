@@ -26,7 +26,7 @@
 					</div>
 					<div class="image-btn">
 						<label for="update" class="update">수정</label>
-						<input id="update" type="file" name="profileFilename" accept=".jpg, .jpeg, .png" onchange="openFile(event);" style="display : none;">
+						<input id="update" type="file" name="profileName" accept=".jpg, .jpeg, .png" onchange="openFile(event);" style="display : none;">
 						<label for="delete" class="delete">삭제</label>
 					</div>
 				</div>
@@ -88,31 +88,27 @@
 					</tr>
 				</table>
 			</div>
+			
 			<div class="btn-div">
-				<input type="submit" value="수정하기" id="update-btn" class="memberBtn">
+				<button type="submit" id="update-btn" class="memberBtn">수정하기</button>
 				<button type="button" class="memberBtn" id="delete-btn">회원탈퇴</button>
 			</div>
+		</form>
 
 
+			<!-- 모달 -->
 			<div class="del-modalWrap">
 				<div class="del-modal">
 					<div class="del-top">
 						<h3>정말,,탈퇴하시겠습니까?</h3>
 					</div>
 					<div class="btnDiv">
-						<a class="okBtn"
-							href="/deleteMember.do?memberId=${sessionScope.m.memberNo }"
-							id="delete-btn">확인</a>
+						<a class="okBtn" href="/deleteMember.do?memberId=${sessionScope.m.memberNo }" id="delete-btn">확인</a>
 						<button type="button" class="reset" id="reset">취소</button>
 					</div>
 				</div>
 			</div>
-
-
-		</form>
 	</div>
-
-
 
 
 
@@ -175,24 +171,9 @@
 		$("#reset").on("click", function() {
 			$(".del-modalWrap").css("display", "none");
 		});
+	
 		
 		
-		/*
-		 function readFile(update){
-			  	var reader = new FileReader();
-			    
-			    reader.onload = function(e){
-			    	$('#profile-img').attr('src', e.target.result);
-			    }
-			    reader.readAsDataURL(update.files[0]);
-			  }
-			  
-			  $("#update").change(function(){
-			    readFile(this);
-			  });
-			*/
-			
-			
 			var openFile = function(event) {
 			    var input = event.target;
 

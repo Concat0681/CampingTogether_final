@@ -8,6 +8,7 @@ import java.util.Random;
 import javax.mail.Address;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
+import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.multipart.MultipartFile;
 
 import common.FileManager;
 import kr.or.iei.camping.model.service.CampingService;
@@ -29,6 +31,7 @@ import kr.or.iei.camping.model.vo.SellCampingListData;
 import kr.or.iei.member.model.service.MailService;
 import kr.or.iei.member.model.service.MemberService;
 import kr.or.iei.member.model.vo.CampingPayment;
+import kr.or.iei.member.model.vo.FileVO;
 import kr.or.iei.member.model.vo.Member;
 import kr.or.iei.member.model.vo.MemberPageData;
 import kr.or.iei.member.model.vo.ProductPageData;
@@ -47,6 +50,10 @@ public class MemberController {
 	@Autowired
 	private CampingService cmapingService;
 
+	@Autowired
+	private FileManager manager;
+	
+	
 
 	//이메일 인증
 
@@ -58,10 +65,7 @@ public class MemberController {
 		return mailService.mailCheck(memberEmail);
 	}
 	
-	@Autowired
-	private FileManager manager;
-	
-	
+
 	//로그인 폼 ---- 로그인은 회원가입 페이지에서 통합
 
 	@RequestMapping(value="/loginFrm.do")
@@ -239,6 +243,29 @@ public class MemberController {
 		return "member/sellList";
 	}
 	
+	
+	//일반회원 정보 수정
+	@RequestMapping(value = "/updateMypageC.do")
+	public String updateMypageC(Member member,@SessionAttribute(required = false) Member m, MultipartFile profileName, HttpServletRequest requset ) {
+		String savaPath = requset.getSession().getServletContext().getRealPath("/resources/image/member/");
+		if(profileName != null) {
+				String filename = profileName.getOriginalFilename();
+				String upFilepath = manager.upload(savaPath, profileName);
+				FileVO fileVO = new FileVO();
+				fileVO.setProfileFilename(filename);
+				fileVO.setProfileFilepath(upFilepath);
+		}
+		//파일을 테이블에 insert
+		int result = service.updateFilepath(profileName);
+		
+		if(result>0) {
+			result += service.updateMypageC(member);
+		}
+		
+		return null;
+		
+		
+	}
 	
 	
 	

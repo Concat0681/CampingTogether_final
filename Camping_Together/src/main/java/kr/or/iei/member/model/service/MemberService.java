@@ -8,6 +8,7 @@ import javax.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import kr.or.iei.member.model.dao.MemberDao;
 import kr.or.iei.member.model.vo.CampingPayment;
@@ -284,6 +285,16 @@ public class MemberService {
 
 				ReviewPageData rpd = new ReviewPageData(list, pageNavi);
 				return rpd;
+	}
+
+	//일반회원 정보 수정
+	public int updateMypageC(Member member) {
+		return dao.updateMember(member);
+		
+	}
+	//프로필이미지 업로드
+	public int updateFilepath(MultipartFile profileName) {
+		return dao.updateFilepath(profileName);
 	}
 
 	
