@@ -55,7 +55,7 @@ public class MemberController {
 	
 	
 	
-	/* 로그인 폼 ---- 로그인은 회원가입 페이지에서 통합
+	
 	@RequestMapping(value="/loginFrm.do")
 	public String loginFrm() {
 		return "member/loginFrm";
@@ -70,7 +70,7 @@ public class MemberController {
 		}
 		return "redirect:/";
 	}
-	*/
+	
 	
 	//로그아웃
 	@RequestMapping(value = "/logout.do")
