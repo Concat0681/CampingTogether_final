@@ -37,7 +37,10 @@
 				<div class="product-info">
 					<div>
 						<div>판매가</div>
-						<div id="shopPrice">${shop.shopPrice }</div>
+						<div>
+							<div id="shopPrice">${shop.shopPrice }</div>
+							<span>원</span>
+						</div>
 					</div>
 					<div>
 						<div>배송방법</div>
@@ -45,15 +48,18 @@
 					</div>
 					<div>
 						<div>배송비</div>
-						<div id="delivaryPrice">${shop.delivaryPrice }</div>
+						<div>
+							<div id="delivaryPrice">${shop.delivaryPrice }</div>
+							<span>원</span>
+						</div>
 					</div>
 				</div>
 				<div class="product-price-wrap">
 					<div>
-						<div>${shop.shopTitle }</div>
+						<div>수량</div>
 						<div class="shop-count-btn-box">
 							<span id="minus" class="material-symbols-outlined">remove</span>
-							<input type="text" name="sellCount" value=1>
+							<input type="text" name="sellCount" value=1 readonly>
 							<span id="plus" class="material-symbols-outlined">add</span>
 						</div>
 					</div>
@@ -64,16 +70,16 @@
 				</div>
 				<div class="product-totalPrice-wrap">
 					<div>
-						<div>Total</div>
+						<div>TOTAL</div>
 						<div>
 							<div class="totalPrice"></div>
 							<span>원</span>
 						</div>
 					</div>
 					<div class="product-btn-wrap">
-						<button class="btn1">buy</button>
-						<button class="btn1">cart</button>
-						<button class="btn1">wish</button>
+						<button class="btn1">Buy</button>
+						<button class="btn1">Cart</button>
+						<button class="btn1">Wish</button>
 					</div>
 				</div>
 			</div>
