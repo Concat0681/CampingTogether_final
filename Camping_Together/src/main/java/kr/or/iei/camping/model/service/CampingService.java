@@ -230,5 +230,29 @@ public class CampingService {
 		return result;
 	}
 
+	public int updateReviewComment(CampingReview crv) {
+		int result = dao.updateReviewComment(crv);
+		if(result > 0) {
+			return result;
+		}else {
+			return 0;
+		}
+	}
+
+	public int selectReviewCount() {
+		int selectReviewCount = dao.selectReviewCount();
+		return selectReviewCount;
+	}
+
+	public int selectReviewCommentCount() {
+		int selectReviewCommentCount = dao.selectReviewCommentCount();
+		return selectReviewCommentCount;
+	}
+
+	public int selectcampingReviewRatingAvg() {
+		int campingReviewRatingAvg = dao.selectcampingReviewRatingAvg();
+		return campingReviewRatingAvg;
+	}
+
 	
 }

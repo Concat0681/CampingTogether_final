@@ -139,6 +139,7 @@ const navLinkt = document.querySelectorAll('.nav-linkT');
 const navLink =  document.querySelectorAll('.nav-link');
 	
 	
+	
 	function init() {
 		document.addEventListener('load', function() {
 			navbarTop.style.backgroundColor = 'rgba(173, 139, 115, 0.2)';
@@ -146,9 +147,12 @@ const navLink =  document.querySelectorAll('.nav-link');
 			for(let i=0; i < navLink.length; i++){
 	        	  navLink[i].style = 'color';
 	        	  navLink[i].style.color = 'rgb(255, 255, 255)';
-	          }
+	        		
+			}
 			
 		});
+		
+		
 		
 		  window.addEventListener('scroll', function() {
 		      // 현재 스크롤 위치를 가져옴

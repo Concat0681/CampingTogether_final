@@ -154,6 +154,12 @@ public class CampingController {
 		ViewCampingData vcd = service.selectOneCamping(campingNo);
 		CampingReviewData crd = service.selectCampingReview(campingNo);
 		CampingReviewData reviewCommentList = service.selectReviewCommentList(campingNo);
+		int campingReviewCount = service.selectReviewCount();
+		int campingReviewCommentCount = service.selectReviewCommentCount();
+		int campingReviewRatingAvg = service.selectcampingReviewRatingAvg();
+		model.addAttribute("campingReviewRatingAvg",campingReviewRatingAvg);
+		model.addAttribute("campingReviewCommentCount",campingReviewCommentCount);
+		model.addAttribute("campingReviewCount",campingReviewCount);
 		model.addAttribute("camping" , vcd.getCamping());
 		model.addAttribute("campingRoomList", vcd.getCampingRoomList());
 		model.addAttribute("campingReview", crd.getReviewList());
@@ -277,6 +283,16 @@ public class CampingController {
 			return "redirect:/viewCamping.do?campingNo="+campingNo;
 		}else {
 			return "redirect:/viewCamping.do?campingNo="+campingNo;
+		}
+	}
+	
+	@RequestMapping(value="/updateReviewComment.do")
+	public String updateReviewComment(CampingReview crv) {
+		int result = service.updateReviewComment(crv);
+		if(result > 0) {
+			return "redirect:/viewCamping.do?campingNo="+crv.getCampingNo();
+		}else {
+			return "redirect:/";
 		}
 	}
 }

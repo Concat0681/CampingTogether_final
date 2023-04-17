@@ -13,6 +13,7 @@ import kr.or.iei.member.model.vo.CampingPayment;
 import kr.or.iei.member.model.vo.Member;
 import kr.or.iei.member.model.vo.MyReview;
 import kr.or.iei.member.model.vo.ProductPayment;
+import kr.or.iei.member.model.vo.SellCampingList;
 
 @Repository
 public class MemberDao {
@@ -85,7 +86,15 @@ public class MemberDao {
 		int totalCount = sqlsession.selectOne("member.selectMyReviewListCount",memberId);
 		return totalCount;
 	}
+
 	
+	/*
+	//판매자 my캠핑장
+	public ArrayList<SellCampingList> selectSellCampingList(HashMap<String, Object> map) {
+		List list = sqlsession.selectList("member.selectSellCampingList",map);
+		return (ArrayList<SellCampingList>) list;
+	}
+	*/
 	
 	
 	
