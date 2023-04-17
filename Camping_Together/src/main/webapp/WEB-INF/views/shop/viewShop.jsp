@@ -78,7 +78,7 @@
 					</div>
 					<div class="product-btn-wrap">
 						<button class="btn1">Buy</button>
-						<button class="btn1">Cart</button>
+						<button type="button" id="shopCartBtn" class="btn1">Cart</button>
 						<button class="btn1">Wish</button>
 					</div>
 				</div>
@@ -148,8 +148,8 @@
 					<div class="collapse" id="commentFrm">
 						<div class="card card-body">
 							<form id="commentForm" action="/insertShopComment.do" method="post" enctype="multipart/form-data">
-								<input type="hidden" name="memeberId" value="${sessionScope.m.memberId }">
-								<input type="hidden" name="shopNo" value="${shop.shopNo }">
+								<input type="hidden" id="memberId" name="memeberId" value="${sessionScope.m.memberId }">
+								<input type="hidden" id="shopNo" name="shopNo" value="${shop.shopNo }">
 								<div class="review-frm-header">
 									<div>${shop.shopTitle }</div>
 									<div class="star-icon-wrap">
@@ -304,6 +304,21 @@
 		function sendNavi(shopNo, reqPage){
 			location.href="/viewShop.do?shopNo="+shopNo+"&reqPage="+reqPage+"&menu=1";
 		}
+		$("#shopCartBtn").on("click", function(){
+			const memberId = $("#memberId").val();
+			const shopNo = $("#shopNo").val();
+			$.ajax({
+				url : "/insertBasket.do",
+				data : {memberId : memberId, shopNo : shopNo},
+				type : "post",
+				success : function(data){
+					
+				},
+				error : function(){
+					
+				}
+			})
+		})
 		
 		$(".content-menu").eq($("#menu").val()).click()
 		calTotalPrice()

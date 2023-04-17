@@ -122,6 +122,10 @@
 				)
 	</select>
 	
+	<select id="selectSellCampingCount" parameterType="map" resultType="_int">
+		select count(camping_no) from camping where member_id = #{member_id}
+	</select>
+	
 	<select id="selectOneCamping" parameterType="map" resultMap="getOneCamping">
 		select 
 			*

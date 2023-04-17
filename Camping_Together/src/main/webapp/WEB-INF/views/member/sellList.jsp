@@ -21,7 +21,6 @@
 	<div>
 	<c:forEach items="${list }" var="l">
 		<div>${l.campingTitle }</div>
-	
 	</c:forEach>
 		${navi }
 	</div>
