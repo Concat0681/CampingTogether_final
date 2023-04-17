@@ -62,7 +62,7 @@ public class MemberController {
 	private FileManager manager;
 	
 	
-	/* 로그인 폼 ---- 로그인은 회원가입 페이지에서 통합
+	//로그인 폼 ---- 로그인은 회원가입 페이지에서 통합
 
 	@RequestMapping(value="/loginFrm.do")
 	public String loginFrm() {
@@ -78,7 +78,7 @@ public class MemberController {
 		}
 		return "redirect:/";
 	}
-	*/
+	
 	
 	//로그아웃
 	@RequestMapping(value = "/logout.do")
