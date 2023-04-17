@@ -16,7 +16,7 @@
 				<h2>My 캠핑장</h2>
 			</div>
 		</div>
-		
+
 		<div class="pay-list">
 			<div class="list-content">
 				<table>
@@ -42,6 +42,7 @@
 				${navi }
 		  </div>
 		</div>
+
 
 </body>
 </html>
