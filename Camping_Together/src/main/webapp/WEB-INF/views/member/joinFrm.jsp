@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,8 +14,6 @@
 .tab-content > div:last-child {
   display:none;
 }
-
-
 
 label.active {
   transform:translateY(50px);
@@ -250,9 +249,108 @@ input:focus {
     	transition-duration: 0.5s;
     	background-color: #CEAB93;
     }
+ /* 모달창 스타일 */
+.modal {
+  display: none; /* 모달창 기본적으로는 안 보이도록 지정 */
+  position: fixed; 
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto; 
+  background-color: rgba(0,0,0,0.4); /* 배경 반투명 */
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+.modal-header h2 {
+  margin-top: 0;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+    
+    
+/* 아이디 찾기 결과 모달 창 */
+.searchIdResultModal {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.searchIdResultModal .modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 50%;
+  text-align: center;
+}
 </style>
 </head>
 <body>
+	<!-- 아이디 찾기 모달 창 -->
+	<div id="modalId" class="modal searchIdModal">
+	  <div class="modal-content">
+	    <span class="close">&times;</span>
+	    <h3>아이디 찾기</h3>
+	    <form action="searchId.do" method="post" id="idSearchForm">
+	      <label for="name">이름:</label>
+	      <input type="text" id="memberName" name="memberName" required title="이름을 입력해주세요">
+	      <label for="email">이메일:</label>
+	      <input type="email" id="memberEmail" name="memberEmail" required title="이메일을 입력해주세요">
+	      <input type="submit" value="아이디 찾기">
+	    </form>
+	  </div>
+	</div>
+	<!-- 아이디 찾기 결과 모달 창 -->
+	<div id="result-modalId" class="modal searchIdResultModal">
+	  <div class="modal-content">
+	    <span class="close">&times;</span>
+	    <h3>아이디 찾기</h3>
+	    <span>회원님의 아이디는 <span id="idResult"></span>입니다.</span>
+	  </div>
+	</div>
+	
+	
+	<!-- 비밀번호 찾기 모달 창 -->
+	<div id="modalPw" class="modal">
+	  <div class="modal-content">
+	    <span class="close">&times;</span>
+	    <h3>비밀번호 찾기</h3>
+	    <form>
+	      <label for="name">아이디</label>
+	      <input type="text" id="memberId" name="memberId" required>
+	      <label for="email">이메일:</label>
+	      <input type="email" id="memberEmail" name="memberEmail" required>
+	      <input type="submit" value="비밀번호 찾기">
+	    </form>
+	  </div>
+	</div>
+	
 	<div class="wrapper" style="display: grid; margin-top: 50px;">
 		<div class="myform">
 	      	<ul class="tab-group">
@@ -311,7 +409,7 @@ input:focus {
 					<div class="input-group">
 						<input type="email" class="form-control signup-input" name="memberEmail" id="memberEmail" placeholder="이메일 입력" required="required">
 						<div class="mail-check-inputBox" style="display:none;">
-							<input class="form-control signup-input mail-check-input" placeholder="인증번호 6자리를 입력해주세요!" maxlength="6" style="width:200px;" required pattern="" >
+							<input class="form-control signup-input mail-check-input" placeholder="인증번호 6자리를 입력해주세요!" maxlength="6" style="width:200px;" required pattern="[0-9]{6,6}" >
 							<span class="point successEmailChk"></span>
 						</div>
 						<button type="button" class="btn btn-primary" id="mail-Confirm-Btn">본인인증</button><span id="mail-check-warn"></span>
@@ -321,7 +419,7 @@ input:focus {
 	          
 	          </div>
 	          <div class="field-wrap"></div>
-				<input type="text" name="memberAddr" id="sample4_extraAddress" class="signup-input" placeholder="주소 입력" readonly><br>
+				<input type="text" name="memberAddr" id="sample4_extraAddress" class="signup-input" placeholder="주소 입력" pattern="^\S+$" required title="해당부분을 작성해주세요!" readonly><br>
 				<input type="text" id="sample4_detailAddress" class="signup-input" placeholder="상세주소"><span><input type="button" onclick="sample4_execDaumPostcode()" class="signup-input addrbtn" value="주소 찾기" style="background-color:#CEAB93 "></span><br>
 				<div class="field-wrap" >
 					<input type="submit" class="confirm" value="회원가입" style="width:40%; cursor: pointer;"  disabled="disabled">
@@ -506,7 +604,7 @@ $('.mail-check-input').blur(function () {
 	if(inputCode === code){
 		resultMsg.html('인증번호가 일치합니다.');
 		resultMsg.css('color','green');
-		$('#mail-Check-Btn').attr('disabled',true);
+		$('.confirm').attr('disabled',false);
 		$('#memberEmail').attr('readonly',true);
 	}else{
 		resultMsg.html('인증번호가 불일치 합니다.');
@@ -515,10 +613,69 @@ $('.mail-check-input').blur(function () {
 });
 
 
+//모달창 작동
+$(document).ready(function() {
+  //아이디 모달창
+  $(".searchId").click(function() {
+    $("#modalId").css("display", "block");
+  });
+  
+  //비밀번호 찾기 모달창
+  $(".searchPw").click(function() {
+	    $("#modalPw").css("display", "block");
+	  });
+
+  // 모달창 닫기
+  $(".close").click(function() {
+    $(".modal").css("display", "none");
+  });
+
+  // 모달창 이외의 영역 클릭 시 모달창 닫기
+  $(window).click(function(event) {
+    if (event.target == $("#modal")[0]) {
+      $(".modal").css("display", "none");
+    }
+  });
+});
+
+//아이디 찾기 모달에서 submit 이벤트 발생 시 실행되는 함수
+$(document).ready(function() {
+  // 아이디 찾기 form submit 이벤트
+  $('#idSearchForm').submit(function(event) {
+    event.preventDefault(); // form 기본 동작 방지
+	const memberName = $('#memberName').val();
+    const memberEmail = $('#memberEmail').val();
+    // AJAX로 아이디 찾기 처리
+    $.ajax({
+      type : 'POST',
+      url : '${pageContext.request.contextPath}/member/searchId',
+      data : { memberName : memberName , memberEmail : memberEmail },
+      success : function(result) {
+        // AJAX 요청이 성공했을 때 결과값을 모달창에 출력
+        console.log("complete");
+        $('#idResult').text(result);
+        $('#modalId').hide();
+        $('#result-modalId').show();
+      },
+      error : function() {
+    	console.log("fail");
+        alert('일치하는 정보가 없습니다.');
+      }
+    });
+  });
+
+// 결과 모달창 닫기 버튼 클릭 이벤트
+$('#result-modalId .close').click(function() {
+	 $('#result-modalId').hide();
+  });
+});
+
+
 
 </script>	
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
+//
    function sample4_execDaumPostcode() {
         new daum.Postcode({
             oncomplete: function(data) {

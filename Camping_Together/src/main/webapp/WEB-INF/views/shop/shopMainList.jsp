@@ -204,7 +204,7 @@
 		})
 		
 		function viewShop(shopNo){
-			location.href="/viewShop.do?shopNo="+shopNo;
+			location.href="/viewShop.do?shopNo="+shopNo+"&reqPage=1&menu=0";
 		}
 		
 		function viewShopList(shopCategory, reqPage){

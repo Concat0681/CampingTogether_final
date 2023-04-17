@@ -143,6 +143,116 @@
 }
 
 
+.review-modal-bg2 {
+  background-color: rgba(0, 0, 0, 0.3);
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.review-modal-wrap2 {
+  width: 600px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  max-height: 100vh;
+  overflow-y: auto;
+}
+
+
+
+.review-modal-wrap2 div:not(:last-child) {
+  border-bottom: 1px solid #ccc;
+}
+
+.review-modal-wrap2 .review-modal-content2 {
+  flex-grow: 1;
+  padding: 1rem;
+}
+
+.review-modal-wrap2 .review-modal-foot2 {
+  text-align: right;
+  margin-top: auto;
+  padding: 1rem;
+}
+
+.review-modal-wrap2 div.review-modal-head2 {
+  position: relative;
+  padding: 1rem;
+}
+
+.close-icon {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  font-size: 30px;
+}
+
+.close-icon:hover {
+  cursor: pointer;
+}
+
+.review-modal-open-btn2{
+	width: 400px;
+	height: 50px;
+	cursor: pointer;
+	margin-left: 400px;
+	margin-top: 50px;
+}
+
+
+.star-wrap2 {
+  overflow: hidden;
+}
+
+.star-wrap2 > span {
+  float: left;
+  color: lightgray;
+  font-size: 30px;
+}
+
+.star-wrap22 {
+  position: relative;
+}
+
+.star-on2 {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.star-on-wrap2 {
+  width: 0;
+  height: 30px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.star-on-wrap2 > span {
+  color: gold;
+}
+.review-modal-open-btn2{
+    width: 50px;
+    border: none;
+    background-color: transparent;
+    color: var(--text-color);
+    font-family: ng-extra-bold
+}
+.review-modal-open-btn2:hover{
+	color: var(--bs-link-color);
+}
+
+
+
+
 .w-100{
 	width: 100%!important;
     height: 500px;
@@ -220,6 +330,8 @@
 .posting-comment > li:last-child > .comment-link > a:hover {
   text-decoration: underline;
 }
+
+
 
 .inputRecommentBox{
 	margin: 30px 0px;

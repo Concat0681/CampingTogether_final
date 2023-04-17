@@ -19,6 +19,9 @@ import kr.or.iei.shop.model.service.ShopService;
 import kr.or.iei.shop.model.vo.Shop;
 import kr.or.iei.shop.model.vo.ShopListMainData;
 import kr.or.iei.shop.model.vo.ShopPhoto;
+import kr.or.iei.shop.model.vo.ShopReview;
+import kr.or.iei.shop.model.vo.ShopReviewListData;
+import kr.or.iei.shop.model.vo.ShopReviewPhoto;
 
 @Controller
 public class ShopController {
@@ -96,9 +99,47 @@ public class ShopController {
 	}
 	
 	@RequestMapping(value="/viewShop.do")
-	public String viewShop(int shopNo, Model model) {
+	public String viewShop(int shopNo, int reqPage, int menu, Model model) {
 		Shop shop = service.selectOneShop(shopNo);
+		ShopReviewListData srld = service.selectShopReviewList(shopNo, reqPage);
 		model.addAttribute("shop", shop);
+		model.addAttribute("menu", menu);
+		model.addAttribute("shopReviewList", srld.getShopReviewList());
+		model.addAttribute("reviewPageNavi", srld.getReviewPageNavi());
 		return "shop/viewShop";
+	}
+	
+	@Transactional
+	@ResponseBody
+	@RequestMapping(value="/insertShopReview.do")
+	public String insertShopReview(ShopReview sr, MultipartFile[] photoList, HttpServletRequest request ) {
+		sr.setMemberId("user01");
+		int result = service.insertShopReview(sr);
+		int finalResult = 1;
+		ArrayList<ShopReviewPhoto> srpList = new ArrayList<ShopReviewPhoto>();
+		if(result > 0 ) {
+			if(!photoList[0].isEmpty()) {
+				String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/shopReview/");
+				for(MultipartFile file : photoList) {
+					String filepath = manager.upload(savePath, file);
+					ShopReviewPhoto srp = new ShopReviewPhoto();
+					srp.setFilepath(filepath);
+					srpList.add(srp);
+				}
+			}
+			int shopReviewNo = service.selectLatestShopReview();
+			for(ShopReviewPhoto srp : srpList) {
+				srp.setShopReviewNo(shopReviewNo);
+				int photoResult = service.insertShopReviewPhoto(srp);
+				if(photoResult == 0) {
+					finalResult = 0;
+				}
+			}
+		}
+		if(finalResult > 0) {
+			return "success";
+		} else {
+			return "fail";
+		}
 	}
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="member">
-	
+	<!-- 회원  -->
 	<select id="selectOneMember" parameterType="m" resultType="m">
 		select 
 			member_no as memberNo,
@@ -21,10 +21,12 @@
 		
 	</select>
 	
+	<!-- 회원 가입시 아이디 중복체크 -->
 	<select id="idCheck" resultType="integer">
 		select count(*) from member where member_id =#{member_id}
 	</select>
 	
+	<!-- 회원 가입 -->
 	<insert id="insertMember" parameterType="m"> <!--  insert delete update ResultType 절대 안씀 -->
 		insert into member values(member_seq.nextval,#{memberId},#{memberPw}, to_char(sysdate, 'yyyy-mm-dd'),#{memberPhone}, default, #{memberAddr}, null ,#{memberEmail},#{memberGrade},#{memberName})
 	</insert>
