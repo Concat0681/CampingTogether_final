@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import common.FileManager;
 import kr.or.iei.camping.model.service.CampingService;
+import kr.or.iei.camping.model.vo.SellCampingListData;
 import kr.or.iei.member.model.service.MailService;
 import kr.or.iei.member.model.service.MemberService;
 import kr.or.iei.member.model.vo.CampingPayment;
@@ -204,17 +205,16 @@ public class MemberController {
 	
 	}
 	
-	
-	/*
+
 	//판매자 my캠핑장
 	@RequestMapping(value = "/sellList.do")
 	public String sellList(int reqPage,String memberId, Model model) {
-		SellCampingPageData apd = service.sellCampingList(memberId, reqPage);
-		model.addAttribute("list",apd.getList());
-		model.addAttribute("navi", apd.getPageNavi());
+		SellCampingListData scld = cmapingService.getSellCampingList(memberId, reqPage);
+		model.addAttribute("list",scld.getCampingList());
+		model.addAttribute("navi", scld.getPageNavi());
 		return "member/sellList";
 	}
-	*/
+	
 	
 	
 	
