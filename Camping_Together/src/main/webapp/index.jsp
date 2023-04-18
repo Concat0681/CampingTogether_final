@@ -43,7 +43,7 @@
 	<jsp:include page="/WEB-INF/views/common/modal.jsp"/>
 	<div class="wrapper wrapperBox">
 		<div class="wrapper wrapperTop">
-			<div class="backGround">
+			<div class="wrapper backGround">
 				<!-- <img src="/resources/image/main/back1.jpg" style="width: 100%; min-width:1400px; height:1000px;">  -->
 			</div>
 			<div class="inputBox" style="display: block;">

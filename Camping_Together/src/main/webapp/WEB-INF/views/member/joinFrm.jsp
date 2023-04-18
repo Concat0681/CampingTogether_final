@@ -327,6 +327,14 @@ input:focus {
   width: 50%;
   text-align: center;
 }
+.logo-Img:hover{
+	display: inline;
+	
+	transition-duration: 0.5s;
+	box-shadow: 0px 30px 60px -6px green;
+	
+	
+}
 </style>
 </head>
 <body>
@@ -386,7 +394,7 @@ input:focus {
 	      <div class="tab-content">
 	        <div id="login">   
 				    <div class="logo">Welcome Back! <br>
-				    	<a href="/"><img src="/resources/image/logo/logo250x80 불투명.png"></a>
+				    	<div class="logo-Img"><a href="/"><img src="/resources/image/logo/logo250x80 불투명.png"></a></div>
 				    </div>
 					    <form action="/login.do" method="post" autocomplete="off">
 					        <input type="text" placeholder=" &#xf007;   UserId" name="memberId"/>
