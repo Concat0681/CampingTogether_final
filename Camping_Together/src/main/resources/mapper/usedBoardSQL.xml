@@ -73,6 +73,7 @@
 	
 	<select id="selectUsedPhoto" parameterType="_int" resultType="ubp">
 		select
+			fileno as fileNo,
 			filepath as filepath
 		from used_photo
 		where used_board_no = #{_parameter}
@@ -97,7 +98,7 @@
 		select count(*) from used_board_comment where used_board_no = #{_parameter}
 	</select>
 	<update id="updateUsedBoardComment" parameterType="ubc">
-		update used_board_comment set used_board_comment_content = '${usedBoardCommentContent}' where used_board_comment_no = #{usedBoardCommentNo}
+		update used_board_comment set used_board_comment_content = #{usedBoardCommentContent} where used_board_comment_no = #{usedBoardCommentNo}
 	</update>
 	<delete id="deleteUsedBoardComment" parameterType="_int">
 		delete from used_board_comment where used_board_comment_no = #{_parameter}
@@ -117,6 +118,23 @@
 	</select>
 	<delete id="deleteUsedBoard" parameterType="_int">
 		delete from used_Board where used_board_no = #{_parameter}
+	</delete>
+	
+	<!-- 중고게시글 업데이트 -->
+	<update id="updateUsedBoard" parameterType="ub">
+		update used_board set 
+			used_board_title = #{usedBoardTitle},
+			used_board_content = #{usedBoardContent},
+			used_board_category = #{usedBoardCategory},
+			used_product_status = #{usedProductStatus},
+			exchange_status = #{exchangeStatus},
+			used_product_price = #{usedProductPrice},
+			used_trade_location = #{usedTradeLocation}
+		where
+			used_board_no = #{usedBoardNo}
+	</update>
+	<delete id="deleteFile" parameterType="_int">
+		delete from used_photo where fileno = #{_parameter}
 	</delete>
 </mapper>
 

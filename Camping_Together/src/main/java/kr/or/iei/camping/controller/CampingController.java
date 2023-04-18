@@ -142,10 +142,7 @@ public class CampingController {
 	}
 	
 	@RequestMapping(value="/campingRoomWriteFrm.do")
-	public String campingRoomWriteFrm(HttpServletRequest request, Model model) {
-		int campingNo = Integer.parseInt(request.getParameter("campingNo"));
-		model.addAttribute("campingNo",campingNo);
-		System.out.println(campingNo);
+	public String campingRoomWriteFrm() {
 		return "camping/campingRoomWriteFrm";
 	}
 	
@@ -154,9 +151,9 @@ public class CampingController {
 		ViewCampingData vcd = service.selectOneCamping(campingNo);
 		CampingReviewData crd = service.selectCampingReview(campingNo);
 		CampingReviewData reviewCommentList = service.selectReviewCommentList(campingNo);
-		int campingReviewCount = service.selectReviewCount();
-		int campingReviewCommentCount = service.selectReviewCommentCount();
-		int campingReviewRatingAvg = service.selectcampingReviewRatingAvg();
+		int campingReviewCount = service.selectReviewCount(campingNo);
+		int campingReviewCommentCount = service.selectReviewCommentCount(campingNo);
+		int campingReviewRatingAvg = service.selectcampingReviewRatingAvg(campingNo);
 		model.addAttribute("campingReviewRatingAvg",campingReviewRatingAvg);
 		model.addAttribute("campingReviewCommentCount",campingReviewCommentCount);
 		model.addAttribute("campingReviewCount",campingReviewCount);
@@ -204,7 +201,7 @@ public class CampingController {
 		return camping;
 	}
 	
-	/*
+	
 	@RequestMapping(value="/campingRoomWrite.do")
 	public String campingRoomWrite(CampingRoom cr, MultipartFile[] campingRoomFilepath, HttpServletRequest request) {
 		ArrayList<CampingRoomFileVO> fileList = new ArrayList<CampingRoomFileVO>();
@@ -224,7 +221,7 @@ public class CampingController {
 			return "redirect:/";
 		}
 	}
-	*/
+	
 	
 	@RequestMapping(value="/campingReview.do")
 	public String campingReview() {
@@ -293,6 +290,40 @@ public class CampingController {
 			return "redirect:/viewCamping.do?campingNo="+crv.getCampingNo();
 		}else {
 			return "redirect:/";
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/getReviewInfo.do", produces = "application/json;charset=utf-8")
+	public String getReviewInfo(int campingReviewNo) {
+		CampingReview cr = service.getReviewInfo(campingReviewNo);
+		System.out.println(cr);
+		return new Gson().toJson(cr);
+	}
+	
+	@RequestMapping(value="/updateCampingReview.do")
+	public String updateCampingReview(CampingReview crv,int[] campingReviewPhotoNo, String[] filepath, MultipartFile[] campingReviewFilepath, HttpServletRequest request) {
+		ArrayList<CampingReviewFileVO> fileList = new ArrayList<CampingReviewFileVO>();
+		String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/campingReview/");
+		if(!campingReviewFilepath[0].isEmpty()) {
+			for(MultipartFile file : campingReviewFilepath) {
+				String upfilepath = manager.upload(savePath, file);
+				
+				CampingReviewFileVO fileVO = new CampingReviewFileVO();
+				fileVO.setFilepath(upfilepath);
+				fileList.add(fileVO);
+			}
+		}
+		int result = service.updateCampingReview(crv, fileList, campingReviewPhotoNo);
+		if(campingReviewPhotoNo != null && (result == (fileList.size()+campingReviewPhotoNo.length + 1))) {
+			for(String delFile : filepath) {
+				manager.deleteFile(savePath, delFile);
+			}
+			return "redirect:/viewCamping.do?campingNo="+crv.getCampingNo();
+		}else if(campingReviewPhotoNo == null && (result == fileList.size()+1)){
+			return "redirect:/viewCamping.do?campingNo="+crv.getCampingNo();
+		}else {
+			return "redirect:/viewCamping.do?campingNo="+crv.getCampingNo();
 		}
 	}
 }
