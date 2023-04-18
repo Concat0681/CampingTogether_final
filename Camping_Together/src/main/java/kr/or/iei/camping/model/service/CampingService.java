@@ -257,5 +257,33 @@ public class CampingService {
 		return campingReviewRatingAvg;
 	}
 
+	public CampingReview getReviewInfo(int campingReviewNo) {
+		CampingReview cr = dao.getReviewInfo(campingReviewNo);
+		ArrayList<CampingReviewFileVO> fileList = dao.getReviewFile(campingReviewNo);
+		cr.setFileList(fileList);
+		return cr;
+	}
+
+	
+
+	public int updateCampingReview(CampingReview crv, ArrayList<CampingReviewFileVO> fileList,
+			int[] campingReviewPhotoNo) {
+		int result = dao.updateCampingReview(crv);
+		if(result > 0) {
+			if(campingReviewPhotoNo != null) {
+				for(int no : campingReviewPhotoNo) {
+					result += dao.deleteCampingReviewFile(no);
+				}
+			}
+			for(CampingReviewFileVO file : fileList) {
+				file.setCampingReviewNo(crv.getCampingReviewNo());
+				result += dao.insertCampingReviewPhoto(file);
+			}
+		}
+		return result;
+	}
+
+	
+
 	
 }
