@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.or.iei.shop.model.vo.Shop;
+import kr.or.iei.shop.model.vo.ShopBasket;
 import kr.or.iei.shop.model.vo.ShopReview;
 import kr.or.iei.shop.model.vo.ShopReviewPhoto;
 
@@ -71,5 +72,25 @@ public class ShopDao {
 	public int selectShopReviewCount(HashMap<String, Object> map) {
 		int totalCount = sqlSession.selectOne("shop.selectShopReviewCount", map);
 		return totalCount;
+	}
+
+	public int insertBasket(ShopBasket basket) {
+		int result = sqlSession.insert("shop.insertBasket", basket);
+		return result;
+	}
+
+	public int deleteShopReviewPhoto(ShopReviewPhoto srp) {
+		int result = sqlSession.delete("shop.deleteShopReviewPhoto", srp);
+		return result;
+	}
+
+	public int updateShopReview(ShopReview sr) {
+		int result = sqlSession.update("shop.updateShopReview", sr);
+		return result;
+	}
+
+	public int deleteShopReview(int shopReviewNo) {
+		int result = sqlSession.delete("shop.deleteShopReview", shopReviewNo);
+		return result;
 	}
 }

@@ -147,6 +147,8 @@
 				rownum as rnum,
 		        c.camping_title as campingTitle,
 		        c.camping_sido as campingSido,
+		        c.camping_no as campingNo,
+		        cr.camping_room_no as campingRoomNO,
 		        cr.camping_room_title as campingRoomTitle,
 		        (select filepath from camping_room_photo crp
 		        where camping_room_photo_no =
@@ -237,7 +239,7 @@
 	
 	
 	<insert id="insertCampingRoom" parameterType="cr">
-		insert into camping_room values(camping_room_seq.nextval,62,#{campingRoomContent},#{campingRoomPrice},#{campingRoomCount},#{campingRoomMaxPplCount},#{campingRoomTitle},#{campingRoomType})
+		insert into camping_room values(camping_room_seq.nextval,#{campingNo},#{campingRoomContent},#{campingRoomPrice},#{campingRoomCount},#{campingRoomMaxPplCount},#{campingRoomTitle},#{campingRoomType})
 		<selectKey resultType="_int" order="AFTER" keyProperty="campingRoomNo">
 			select max(camping_room_no) from camping_room
 		</selectKey>
@@ -362,7 +364,29 @@
 		update camping_review set camping_review_title=#{campingReviewTitle}, camping_review_content=#{campingReviewContent}, camping_review_rating=#{campingReviewRating} where camping_review_no=#{campingReviewNo}
 	</update>
 	
+	
 	<delete id="deleteCampingReviewFile" parameterType="_int">
 		delete from camping_review_photo where camping_review_photo_no=#{no}
 	</delete>
+	
+	<select id="selectCampingRoomFile" parameterType="_int" resultType="crf">
+		select * from camping_room_photo where camping_room_no = #{_parameter}
+	</select>
+	
+	<delete id="deleteCampingRoom" parameterType="_int">
+		delete from camping_room where camping_room_no=#{_parameter}
+	</delete>
+	
+	<select id="selectCampingRoom" parameterType="_int" resultType="cr">
+		select 
+			camping_room_no as campingRoomNo,
+			camping_no as campingNo,
+			camping_room_title as campingRoomTitle,
+ 			camping_room_content campingRoomContent,
+			camping_room_price as campingRoomPrice,
+			camping_room_count as campingRoomCount,
+			camping_room_max_ppl_count as campingRoomMaxPplCount,
+			camping_room_type as campingRoomType
+		from camping_room where camping_room_no = #{_parameter}
+	</select> 
 </mapper>

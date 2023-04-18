@@ -23,6 +23,7 @@
         	<div class="contentDetail">
         		<h2 style="margin-bottom: 60px;">캠핑장 캠핑 등록</h2>
         		<form action="/campingRoomWrite.do" method="post" enctype="multipart/form-data">
+        			<input type="hidden" name="campingNo" value="${campingNo }">
 	        		<table>
 	        			<tr>
 	        				<td style="width: 120px; font-size: 1.17em; font-weight: bold; padding-bottom: 20px;">이름</td>
