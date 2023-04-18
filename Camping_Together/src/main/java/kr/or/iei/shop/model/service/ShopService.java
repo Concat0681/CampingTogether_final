@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import kr.or.iei.shop.model.dao.ShopDao;
 import kr.or.iei.shop.model.vo.Shop;
+import kr.or.iei.shop.model.vo.ShopBasket;
 import kr.or.iei.shop.model.vo.ShopListMainData;
 import kr.or.iei.shop.model.vo.ShopReview;
 import kr.or.iei.shop.model.vo.ShopReviewListData;
@@ -113,5 +114,25 @@ public class ShopService {
 		srld.setShopReviewList(shopReviewList);
 		srld.setReviewPageNavi(pageNavi);
 		return srld;
+	}
+
+	public int insertBasket(ShopBasket basket) {
+		int result = dao.insertBasket(basket);
+		return result;
+	}
+
+	public int deleteShopReviewPhoto(ShopReviewPhoto srp) {
+		int result = dao.deleteShopReviewPhoto(srp);
+		return result;
+	}
+	
+	public int updateShopReview(ShopReview sr) {
+		int result = dao.updateShopReview(sr);
+		return result;
+	}
+
+	public int deleteShopReview(int shopReviewNo) {
+		int result = dao.deleteShopReview(shopReviewNo);
+		return result;
 	}
 }

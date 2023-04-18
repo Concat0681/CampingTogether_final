@@ -93,7 +93,6 @@
        border: 1px solid #ccc;
        border-radius: 5px;
        box-sizing: border-box;
-       cursor: pointer;
    }
    .product:hover{
        box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.2);
@@ -140,6 +139,7 @@
        font-family: ng-extra-bold;
    }
    .product_title:hover{
+   		cursor:pointer;
    		color: #E3CAA5;
    }
    .zero{
@@ -239,7 +239,7 @@
             	<c:forEach items="${list }" var="ub">
             	<input type="hidden" id="usedBoardNo" value="${ub.usedBoardNo }">
             	<div class="product-wrap">
-                    <div class="product" onclick="location.href='/usedBoardView.do?usedBoardNo=${ub.usedBoardNo}'">
+                    <div class="product">
                         <div class="product-img">
                         <c:choose>
                         	<c:when test="${ub.usedBoardStatus eq 0}">
@@ -263,7 +263,7 @@
                         </c:choose>
                          
                         </div>
-                        <div class="product_title">
+                        <div class="product_title" onclick="location.href='/usedBoardView.do?usedBoardNo=${ub.usedBoardNo}'">
                             <span>${ub.usedBoardTitle }</span>
                         </div>
                         <div class="product_location">
