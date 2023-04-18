@@ -141,18 +141,18 @@ public class CampingDao {
 		return result;
 	}
 
-	public int selectReviewCount() {
-		int selectReviewCount = sqlSession.selectOne("camping.selectReviewCount");
+	public int selectReviewCount(int campingNo) {
+		int selectReviewCount = sqlSession.selectOne("camping.selectReviewCount",campingNo);
 		return selectReviewCount;
 	}
 
-	public int selectReviewCommentCount() {
-		int selectReviewCommentCount = sqlSession.selectOne("camping.selectReviewCommentCount");
+	public int selectReviewCommentCount(int campingNo) {
+		int selectReviewCommentCount = sqlSession.selectOne("camping.selectReviewCommentCount",campingNo);
 		return selectReviewCommentCount;
 	}
 
-	public int selectcampingReviewRatingAvg() {
-		int campingReviewRatingAvg = sqlSession.selectOne("camping.selectcampingReviewRatingAvg");
+	public int selectcampingReviewRatingAvg(int campingNo) {
+		int campingReviewRatingAvg = sqlSession.selectOne("camping.selectcampingReviewRatingAvg",campingNo);
 		return campingReviewRatingAvg;
 	}
 

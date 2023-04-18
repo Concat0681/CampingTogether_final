@@ -237,7 +237,7 @@
 	
 	
 	<insert id="insertCampingRoom" parameterType="cr">
-		insert into camping_room values(camping_room_seq.nextval,#{campingNo},#{campingRoomContent},#{campingRoomPrice},#{campingRoomCount},#{campingRoomMaxPplCount},#{campingRoomTitle},#{campingRoomType})
+		insert into camping_room values(camping_room_seq.nextval,62,#{campingRoomContent},#{campingRoomPrice},#{campingRoomCount},#{campingRoomMaxPplCount},#{campingRoomTitle},#{campingRoomType})
 		<selectKey resultType="_int" order="AFTER" keyProperty="campingRoomNo">
 			select max(camping_room_no) from camping_room
 		</selectKey>
@@ -326,16 +326,16 @@
 		update camping_review set camping_review_content=#{campingReviewContent} where camping_review_no=#{campingReviewNo}
 	</update>
 	
-	<select id="selectReviewCount" resultType="_int">
-		select count(*) from camping_review
+	<select id="selectReviewCount" parameterType="_int" resultType="_int">
+		select count(*) from camping_review where camping_no=#{_parameter}
 	</select>
 	
-	<select id="selectReviewCommentCount" resultType="_int">
-		select count(*) from camping_review where camping_review_ref is not null
+	<select id="selectReviewCommentCount" parameterType="_int" resultType="_int">
+		select count(*) from camping_review where camping_review_ref is not null and camping_no=#{_parameter}
 	</select>
 	
-	<select id="selectcampingReviewRatingAvg" resultType="_int">
-		select avg(camping_review_rating) from camping_review
+	<select id="selectcampingReviewRatingAvg" parameterType="_int" resultType="_int">
+		select nvl(avg(camping_review_rating),0) from camping_review where camping_no=#{_parameter}
 	</select>
 	
 	<select id="getReviewInfo" parameterType="_int" resultType="crv">

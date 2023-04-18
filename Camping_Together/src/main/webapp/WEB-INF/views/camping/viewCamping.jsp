@@ -197,9 +197,16 @@
 						<div class="reviewHeader">
 							<h2 style="text-align: center; padding-bottom: 30px; padding-top: 30px;">${camping.campingTitle }</h2>
 							<div class="allStar">
-								<c:forEach begin="1" end="${campingReviewRatingAvg}">
-							        <span class="material-symbols-outlined" style="color: gold;">star</span>
-							    </c:forEach>
+							    <c:choose>
+							        <c:when test="${campingReviewRatingAvg > 0}">
+							            <c:forEach begin="1" end="${campingReviewRatingAvg}">
+							                <span class="material-symbols-outlined" style="color: gold;">star</span>
+							            </c:forEach>
+							        </c:when>
+							        <c:otherwise>
+							            <p>등록된 리뷰가 없습니다</p>
+							        </c:otherwise>
+							    </c:choose>
 							</div>
 							<div>
 								<div class="allReview">전체 리뷰 ${campingReviewCount-campingReviewCommentCount }</div>

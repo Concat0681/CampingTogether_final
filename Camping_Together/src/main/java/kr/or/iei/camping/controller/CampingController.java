@@ -142,10 +142,7 @@ public class CampingController {
 	}
 	
 	@RequestMapping(value="/campingRoomWriteFrm.do")
-	public String campingRoomWriteFrm(HttpServletRequest request, Model model) {
-		int campingNo = Integer.parseInt(request.getParameter("campingNo"));
-		model.addAttribute("campingNo",campingNo);
-		System.out.println(campingNo);
+	public String campingRoomWriteFrm() {
 		return "camping/campingRoomWriteFrm";
 	}
 	
@@ -154,9 +151,9 @@ public class CampingController {
 		ViewCampingData vcd = service.selectOneCamping(campingNo);
 		CampingReviewData crd = service.selectCampingReview(campingNo);
 		CampingReviewData reviewCommentList = service.selectReviewCommentList(campingNo);
-		int campingReviewCount = service.selectReviewCount();
-		int campingReviewCommentCount = service.selectReviewCommentCount();
-		int campingReviewRatingAvg = service.selectcampingReviewRatingAvg();
+		int campingReviewCount = service.selectReviewCount(campingNo);
+		int campingReviewCommentCount = service.selectReviewCommentCount(campingNo);
+		int campingReviewRatingAvg = service.selectcampingReviewRatingAvg(campingNo);
 		model.addAttribute("campingReviewRatingAvg",campingReviewRatingAvg);
 		model.addAttribute("campingReviewCommentCount",campingReviewCommentCount);
 		model.addAttribute("campingReviewCount",campingReviewCount);
@@ -204,7 +201,7 @@ public class CampingController {
 		return camping;
 	}
 	
-	/*
+	
 	@RequestMapping(value="/campingRoomWrite.do")
 	public String campingRoomWrite(CampingRoom cr, MultipartFile[] campingRoomFilepath, HttpServletRequest request) {
 		ArrayList<CampingRoomFileVO> fileList = new ArrayList<CampingRoomFileVO>();
@@ -224,7 +221,7 @@ public class CampingController {
 			return "redirect:/";
 		}
 	}
-	*/
+	
 	
 	@RequestMapping(value="/campingReview.do")
 	public String campingReview() {
