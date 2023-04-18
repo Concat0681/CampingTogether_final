@@ -132,8 +132,11 @@ public class CampingService {
 		map.put("start", start);
 		map.put("end", end);
 		map.put("memberId", memberId);
+		System.out.println(memberId);
 		ArrayList<SellCampingList> campingList = dao. getSellCampingList(map);
-		int totalCount = dao.selectCampingCount(map);
+		System.out.println(campingList);
+		int totalCount = dao.selectSellCampingCount(map);
+		System.out.println(totalCount);
 		int totalPage = (int)Math.ceil(totalCount/(double)numPerPage);
 		int pageNaviSize = 5;
 		int pageNo = 1;

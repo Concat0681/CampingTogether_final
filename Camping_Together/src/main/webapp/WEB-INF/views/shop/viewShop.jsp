@@ -37,7 +37,10 @@
 				<div class="product-info">
 					<div>
 						<div>판매가</div>
-						<div id="shopPrice">${shop.shopPrice }</div>
+						<div>
+							<div id="shopPrice">${shop.shopPrice }</div>
+							<span>원</span>
+						</div>
 					</div>
 					<div>
 						<div>배송방법</div>
@@ -45,15 +48,18 @@
 					</div>
 					<div>
 						<div>배송비</div>
-						<div id="delivaryPrice">${shop.delivaryPrice }</div>
+						<div>
+							<div id="delivaryPrice">${shop.delivaryPrice }</div>
+							<span>원</span>
+						</div>
 					</div>
 				</div>
 				<div class="product-price-wrap">
 					<div>
-						<div>${shop.shopTitle }</div>
+						<div>수량</div>
 						<div class="shop-count-btn-box">
 							<span id="minus" class="material-symbols-outlined">remove</span>
-							<input type="text" name="sellCount" value=1>
+							<input type="text" name="sellCount" value=1 readonly>
 							<span id="plus" class="material-symbols-outlined">add</span>
 						</div>
 					</div>
@@ -64,16 +70,16 @@
 				</div>
 				<div class="product-totalPrice-wrap">
 					<div>
-						<div>Total</div>
+						<div>TOTAL</div>
 						<div>
 							<div class="totalPrice"></div>
 							<span>원</span>
 						</div>
 					</div>
 					<div class="product-btn-wrap">
-						<button class="btn1">buy</button>
-						<button class="btn1">cart</button>
-						<button class="btn1">wish</button>
+						<button class="btn1">Buy</button>
+						<button type="button" id="shopCartBtn" class="btn1">Cart</button>
+						<button class="btn1">Wish</button>
 					</div>
 				</div>
 			</div>
@@ -142,8 +148,8 @@
 					<div class="collapse" id="commentFrm">
 						<div class="card card-body">
 							<form id="commentForm" action="/insertShopComment.do" method="post" enctype="multipart/form-data">
-								<input type="hidden" name="memeberId" value="${sessionScope.m.memberId }">
-								<input type="hidden" name="shopNo" value="${shop.shopNo }">
+								<input type="hidden" id="memberId" name="memeberId" value="${sessionScope.m.memberId }">
+								<input type="hidden" id="shopNo" name="shopNo" value="${shop.shopNo }">
 								<div class="review-frm-header">
 									<div>${shop.shopTitle }</div>
 									<div class="star-icon-wrap">
@@ -298,6 +304,21 @@
 		function sendNavi(shopNo, reqPage){
 			location.href="/viewShop.do?shopNo="+shopNo+"&reqPage="+reqPage+"&menu=1";
 		}
+		$("#shopCartBtn").on("click", function(){
+			const memberId = $("#memberId").val();
+			const shopNo = $("#shopNo").val();
+			$.ajax({
+				url : "/insertBasket.do",
+				data : {memberId : memberId, shopNo : shopNo},
+				type : "post",
+				success : function(data){
+					
+				},
+				error : function(){
+					
+				}
+			})
+		})
 		
 		$(".content-menu").eq($("#menu").val()).click()
 		calTotalPrice()

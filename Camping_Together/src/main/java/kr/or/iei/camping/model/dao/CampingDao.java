@@ -176,4 +176,8 @@ public class CampingDao {
 	}
 
 	
+	public int selectSellCampingCount(HashMap<String, Object> map) {
+		int totalCount = sqlSession.selectOne("camping.selectSellCampingCount", map);
+		return totalCount;
+	}
 }

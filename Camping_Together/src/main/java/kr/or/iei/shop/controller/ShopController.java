@@ -142,4 +142,10 @@ public class ShopController {
 			return "fail";
 		}
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="/insertBasket.do")
+	public String insertBasket() {
+		
+	}
 }
