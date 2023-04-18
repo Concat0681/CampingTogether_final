@@ -155,4 +155,25 @@ public class CampingDao {
 		int campingReviewRatingAvg = sqlSession.selectOne("camping.selectcampingReviewRatingAvg");
 		return campingReviewRatingAvg;
 	}
+
+	public CampingReview getReviewInfo(int campingReviewNo) {
+		return sqlSession.selectOne("camping.getReviewInfo",campingReviewNo);
+	}
+
+	public ArrayList<CampingReviewFileVO> getReviewFile(int campingReviewNo) {
+		List list = sqlSession.selectList("camping.getReviewFile",campingReviewNo);
+		return (ArrayList<CampingReviewFileVO>)list;
+	}
+
+	public int updateCampingReview(CampingReview crv) {
+		int result = sqlSession.update("camping.updateCampingReview",crv);
+		return result;
+	}
+
+	public int deleteCampingReviewFile(int no) {
+		int result = sqlSession.delete("camping.deleteCampingReviewFile",no);
+		return result;
+	}
+
+	
 }

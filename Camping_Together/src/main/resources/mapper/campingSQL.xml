@@ -225,7 +225,7 @@
 	</select>
 	
 	<insert id="insertCamping" parameterType="c">
-		insert into camping values(camping_seq.nextval,'user01',#{campingTitle},#{campingContent},#{campingAddr},#{campingAddrDetail},#{campingPhone},#{filepath},#{campingSido})
+		insert into camping values(camping_seq.nextval,'seller',#{campingTitle},#{campingContent},#{campingAddr},#{campingAddrDetail},#{campingPhone},#{filepath},#{campingSido})
 		<selectKey resultType="_int" order="AFTER" keyProperty="campingNo">
 			select max(camping_no) from camping
 		</selectKey>
@@ -333,4 +333,32 @@
 	<select id="selectcampingReviewRatingAvg" resultType="_int">
 		select avg(camping_review_rating) from camping_review
 	</select>
+	
+	<select id="getReviewInfo" parameterType="_int" resultType="crv">
+		select
+			camping_review_no as campingReviewNo,
+			camping_no as campingNo,
+			member_id as memberId,
+			camping_review_title as campingReviewTitle,
+			camping_review_content as campingReviewContent,
+			camping_review_rating as campingReviewRating,
+			camping_review_ref as campingReviewRef
+ 		from camping_review where camping_review_no=#{_parameter}
+	</select>
+	
+	<select id="getReviewFile" parameterType="_int" resultType="crvf">
+		select 
+			camping_review_photo_no as campingReviewPhotoNo,
+			camping_review_no as campingReviewNo,
+			filepath
+		from camping_review_photo where camping_review_no = #{_parameter}
+	</select>
+	
+	<update id="updateCampingReview" parameterType="crv">
+		update camping_review set camping_review_title=#{campingReviewTitle}, camping_review_content=#{campingReviewContent}, camping_review_rating=#{campingReviewRating} where camping_review_no=#{campingReviewNo}
+	</update>
+	
+	<delete id="deleteCampingReviewFile" parameterType="_int">
+		delete from camping_review_photo where camping_review_photo_no=#{no}
+	</delete>
 </mapper>

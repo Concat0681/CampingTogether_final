@@ -377,3 +377,18 @@ textarea.input-form {
   object-fit: cover;
   margin-right: 20px;
 }
+
+
+#img-viewer2 {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+#img-viewer2 img {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  margin-right: 20px;
+}
