@@ -67,7 +67,7 @@ public class CampingController {
 	
 	@ResponseBody
 	@RequestMapping(value="/detailSearchCamping.do", produces="application/json;charset=utf-8")
-	public String detailSearchCamping(String order, String campingTypeStr, String campingServiceStr, String campingRoomServiceStr, String campingEtcStr, String pplCount, String cityAddr, int reqPage) {
+	public String detailSearchCamping(String order, String campingTypeStr, String campingServiceStr, String campingRoomServiceStr, String campingEtcStr, String pplCount, String cityAddr, String campingSido, int reqPage, String checkIn, String checkOut) {
 		if(reqPage == 0) {
 			reqPage = 1;
 		}
@@ -82,8 +82,11 @@ public class CampingController {
 		}
 		Camping camping = campingProvideSetter(campingServiceStr, campingRoomServiceStr, campingEtcStr);
 		camping.setCampingAddr(cityAddr);
+		camping.setCampingSido(campingSido);
 		campingRoom.setCampingRoomMaxPplCount(Integer.parseInt(pplCount));
 		CampingListPageData cpd = service.selectCampingListData(reqPage, order, camping, campingRoom);
+		cpd.setCheckIn(checkIn);
+		cpd.setCheckOut(checkOut);
 		return new Gson().toJson(cpd);
 	}
 	

@@ -14,4 +14,6 @@ public class CampingListPageData {
 	private ArrayList<Camping> list;
 	private ArrayList<Camping> allList;
 	private String pageNavi;
+	private String checkIn;
+	private String checkOut;
 }

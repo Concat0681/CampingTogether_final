@@ -10,4 +10,6 @@ import lombok.NoArgsConstructor;
 public class ShopBasket {
 
 	private int basketNo;
+	private String memberId;
+	private int shopNo;
 }
