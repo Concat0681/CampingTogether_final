@@ -239,20 +239,11 @@
 										        <span class="material-symbols-outlined">star</span>
 										        <span class="material-symbols-outlined">star</span>
 										        <span class="material-symbols-outlined">star</span>
-										        <div class="star-on">
-										          <div class="star-wrap star-on-wrap">
-										            <span class="material-symbols-outlined">star</span>
-										            <span class="material-symbols-outlined">star</span>
-										            <span class="material-symbols-outlined">star</span>
-										            <span class="material-symbols-outlined">star</span>
-										            <span class="material-symbols-outlined">star</span>
-										          </div>
-										        </div>
-										      </div>
+										    </div>
 										    </td>
 										    <td>
-										      <input type="text" name="campingReviewRating">
-										      <button type="button" id="starBtn">별점입력</button>
+										      <input type="text" name="campingReviewRating2" readonly>
+										      <input type="hidden" name="campingReviewRating">
 										    </td>
 										</tr>
 							      		<tr>
@@ -453,7 +444,7 @@
 										<input type="hidden" name="memberId" value="user01">
 										<input type="hidden" name="campingNo" value="${camping.campingNo }">
 										<input type="hidden" name="campingReviewRef" value="${cr.campingReviewNo }">
-										<textarea name="campingReviewContent" class="input-form" style="min-height: 100px;" placeholder="댓글을 입력해주세요"></textarea>
+										<textarea name="campingReviewContent" class="input-form" style="min-height: 100px;" placeholder="댓글을 입력해주세요" required></textarea>
 									</li>
 									<li>
 										<button type="submit" class="btn bc1 bs2">등록</button>
@@ -693,6 +684,17 @@
 		    const starScore = campingReviewRating * 30;
 		    $(".star-on-wrap").css("width", starScore + "px");
 		  });
+		});
+		
+		const stars = $(".star-wrap2>span");
+		stars.on("mouseover",function(){
+		    stars.css("color","lightgray");
+		    const index = stars.index(this);
+		    for(let i=0;i<=index;i++){
+		        stars.eq(i).css("color","gold");
+		    }
+		    $("[name=campingReviewRating2]").val(index+1 + "점");
+		    $("[name=campingReviewRating]").val(index+1);
 		});
 	</script>
 	

@@ -142,7 +142,8 @@ public class CampingController {
 	}
 	
 	@RequestMapping(value="/campingRoomWriteFrm.do")
-	public String campingRoomWriteFrm() {
+	public String campingRoomWriteFrm(int campingNo, Model model) {
+		model.addAttribute("campingNo",campingNo);
 		return "camping/campingRoomWriteFrm";
 	}
 	

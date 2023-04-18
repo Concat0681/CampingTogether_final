@@ -147,6 +147,7 @@
 				rownum as rnum,
 		        c.camping_title as campingTitle,
 		        c.camping_sido as campingSido,
+		        c.camping_no as campingNo,
 		        cr.camping_room_title as campingRoomTitle,
 		        (select filepath from camping_room_photo crp
 		        where camping_room_photo_no =
@@ -237,7 +238,7 @@
 	
 	
 	<insert id="insertCampingRoom" parameterType="cr">
-		insert into camping_room values(camping_room_seq.nextval,62,#{campingRoomContent},#{campingRoomPrice},#{campingRoomCount},#{campingRoomMaxPplCount},#{campingRoomTitle},#{campingRoomType})
+		insert into camping_room values(camping_room_seq.nextval,#{campingNo},#{campingRoomContent},#{campingRoomPrice},#{campingRoomCount},#{campingRoomMaxPplCount},#{campingRoomTitle},#{campingRoomType})
 		<selectKey resultType="_int" order="AFTER" keyProperty="campingRoomNo">
 			select max(camping_room_no) from camping_room
 		</selectKey>

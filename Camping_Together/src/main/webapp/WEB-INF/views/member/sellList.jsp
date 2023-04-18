@@ -21,6 +21,7 @@
 	<div>
 	<c:forEach items="${list }" var="l">
 		<div>${l.campingTitle }</div>
+		<a href="/campingRoomWriteFrm.do?campingNo=${l.campingNo }">캠핑추가</a>
 	</c:forEach>
 		${navi }
 	</div>
