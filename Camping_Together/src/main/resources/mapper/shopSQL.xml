@@ -137,4 +137,25 @@
 			shop_review_photo_seq.nextval, #{shopReviewNo}, #{filepath}
 		)
 	</insert>
+	
+	<insert id="insertBasket" parameterType="sb">
+		insert into basket
+		values(
+			basket_seq.nextval, #{memberId}, #{shopNo}
+		)		
+	</insert>
+	
+	<delete id="deleteShopReviewPhoto" parameterType="srp">
+		delete from shop_review_photo where shop_review_no = #{shopReviewNo} and filepath = #{filepath}
+	</delete>
+	
+	<delete id="deleteShopReview" parameterType="_int">
+		delete from shop_review where shop_review_no = #{_parameter}
+	</delete>
+	
+	<update id="updateShopReview" parameterType="sr">
+		update shop_review set
+			shop_review_content = #{shopReviewContent}, shop_review_rating = #{shopReviewRating}
+		where shop_review_no = #{shopReviewNo}
+	</update>
 </mapper>

@@ -79,7 +79,6 @@
 					<div class="product-btn-wrap">
 						<button class="btn1">Buy</button>
 						<button type="button" id="shopCartBtn" class="btn1">Cart</button>
-						<button class="btn1">Wish</button>
 					</div>
 				</div>
 			</div>
@@ -87,7 +86,7 @@
 		<div class="page-content">
 			<div class="content-menu-box">
 				<div class="content-menu">상품상세</div>
-				<div class="content-menu">상품후가</div>
+				<div class="content-menu">상품후기</div>
 				<div class="content-menu">배송/교환/환불안내</div>
 				<div><input id="menu" type="hidden" value="${menu }"></div>
 			</div>
@@ -111,7 +110,7 @@
 					</div>
 					</div>
 					<div class="review-list-wrap">
-						<c:forEach items="${shopReviewList }" var="r">
+						<c:forEach items="${shopReviewList }" var="r" varStatus="i">
 							<div class="review-box">
 								<div class="member-info-wrap">
 									<div class="profile-box">
@@ -139,7 +138,58 @@
 										</c:forEach>
 									</div>
 									<div>${r.shopReviewContent }</div>
+									<c:if test="${r.memberId eq sessionScope.m.memberId }">
+										<div class="review-update-btn">
+											<button type="button" onclick="updateReview(this);">수정</button>
+											<button type="button" onclick="deleteReview(this, '${r.shopReviewNo}')">삭제</button>
+										</div>
+									</c:if>
 								</div>
+							</div>
+							<div class="review-box hidden">
+								<form id="updateCommentFrm-${i.index }" action="/updateShopComment.do" method="post" enctype="multipart/form-data">
+									<input type="hidden" id="memberId" name="memeberId" value="${sessionScope.m.memberId }">
+									<input type="hidden" id="shopNo" name="shopNo" value="${shop.shopNo }">
+									<input type="hidden" name="shopReviewNo" value="${r.shopReviewNo }">
+									<input type="hidden" name="reqPage" value="${reqPage }">
+									<div class="review-frm-header">
+										<div>댓글 수정</div>
+										<input type="hidden" name="shopReviewRating" value="${r.shopReviewRating }">
+										<div class="star-icon-wrap">
+											<span class="material-symbols-outlined update-star">star</span>
+											<span class="material-symbols-outlined update-star">star</span>
+											<span class="material-symbols-outlined update-star">star</span>
+											<span class="material-symbols-outlined update-star">star</span>
+											<span class="material-symbols-outlined update-star">star</span>
+										</div>
+									</div>
+									<div class="review-frm-content">
+										<div>
+											<div class="img-viewer">
+												<div class="old-photo-list">
+													<c:forEach items="${r.reviewPhotoList }" var="p">
+														<div class="old-list photo-name-box">
+															<img id="${p.filepath }" src="resources/upload/shopReview/${p.filepath }">
+															<div>${p.filepath }</div>
+															<button type="button" class="btn-close" onclick="delPhoto(this, '${p.filepath}')"></button>
+														</div>
+													</c:forEach>
+												</div>
+												<div class="new-photo-list">
+													
+												</div>
+											</div>
+											<input type="file" name="photoList" onchange="uploadPhoto(this)" multiple>
+										</div>
+										<div>
+											<textarea name="shopReviewContent">${r.shopReviewContent }</textarea>
+											<div>
+												<button type="submit" id="updateCommentBtn" class="btn1">댓글수정</button>
+												<button type="button" onclick="closeUpdateFrm(this);">취소</button>
+											</div>
+										</div>
+									</div>
+								</form>
 							</div>
 						</c:forEach>
 						<div class="pagination">${reviewPageNavi }</div>
@@ -250,6 +300,33 @@
 				$("#shopReviewRating").val($((".star-clicked")).length);
 			}
 		})
+		$("[name=shopReviewRating]").each(function(i, r){
+			const index = $("[name=shopReviewRating]").index($(r));
+			const val = $("[name=shopReviewRating]").eq(index).val();
+			const ratings = $(".star-icon-wrap").eq(index).children();
+			ratings.slice(0, val).addClass("star-checked")
+		})
+		$(".update-star").on("click", function(){
+			const starIndex = $(".update-star").index($(this));
+			const wrap = $(this).parent();
+			const wrapIndex = $(".star-icon-wrap").index(wrap);
+			const index = starIndex - (wrapIndex * 5) + 1;
+			const ratings = $(".star-icon-wrap").eq(wrapIndex).children();
+			if($(this).hasClass("star-checked")){
+				ratings.removeClass("star-checked");
+				$("[name=shopReviewRating]").eq(wrapIndex).val(0)
+			} else {
+				ratings.removeClass("star-checked");
+				ratings.slice(0, index).addClass("star-checked")
+				$("[name=shopReviewRating]").eq(wrapIndex).val(index);
+			}
+		})
+		$(".reviewRating").each(function(i, r){
+			const index = $(".reviewRating").index($(r));
+			const val = $(r).text();
+			const ratings = $(".rating-icon-wrap").eq(index).children();
+			ratings.slice(0, val).addClass("star-checked")
+		})
 		$(".reviewRating").each(function(i, r){
 			const index = $(".reviewRating").index($(r));
 			const val = $(r).text();
@@ -262,15 +339,19 @@
 		}
 		
 		function uploadPhoto(input){
-			
-			$('#img-viewer').empty();
+			const viewer = $(input).prev();
+			const viewerIndex = $('.img-viewer').index(viewer);
 			if (input.files && input.files.length > 0) {
 				for (let i = 0; i < input.files.length; i++) {
 					const reader = new FileReader();
+					reader.fileName = input.files[i].name;
 					reader.readAsDataURL(input.files[i]);
 					reader.onload = function(e) {
+						const div = $("<div>").addClass("new-list").addClass("photo-name-box")
 						const img = $("<img>").attr("src", e.target.result);
-						$('#img-viewer').append(img)
+						div.append(img);
+						$(".new-photo-list").eq(viewerIndex).append(div);
+						const name = e.target.fileName;
 					}
 				}
 			}
@@ -312,13 +393,47 @@
 				data : {memberId : memberId, shopNo : shopNo},
 				type : "post",
 				success : function(data){
-					
+					console.log(data);
+					alert("장바구니에 추가 되었습니다");
 				},
 				error : function(){
 					
 				}
 			})
 		})
+		function updateReview(obj, shopReviewNo){
+			const reviewBox = $(obj).parents(".review-box");
+			reviewBox.addClass("hidden");
+			reviewBox.next().removeClass("hidden");
+		}
+		function deleteReview(obj, shopReviewNo){
+			$.ajax({
+				url : "/deleteShopReview.do",
+				data : {shopReviewNo : shopReviewNo},
+				success : function(data){
+					console.log(data);
+					if(data == "success"){
+						$(obj).parents(".review-box").next().remove();
+						$(obj).parents(".review-box").remove();
+					}
+				},
+				error : function(e){
+					console.log(e)
+				}
+			})
+		}
+		function closeUpdateFrm(obj){
+			const reviewBox = $(obj).parents(".review-box");
+			reviewBox.addClass("hidden");
+			reviewBox.prev().removeClass("hidden");
+		}
+		function delPhoto(obj, filepath){
+			const box = $(obj).parent().parent();
+			const wrapIndex = $(".old-photo-list").index(box);
+			$(obj).parent().remove();
+			const input = $("<input>").attr("type","hidden").attr("name","delPhotoList").val(filepath);
+			$(".img-viewer").eq(wrapIndex).after(input)
+		}
 		
 		$(".content-menu").eq($("#menu").val()).click()
 		calTotalPrice()

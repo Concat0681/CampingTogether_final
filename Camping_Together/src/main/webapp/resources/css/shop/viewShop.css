@@ -168,7 +168,15 @@
 .profile-box>img{
 	width: 50px;
 }
+.photo-name-box>img{
+	width: 100px;
+	height: 100px;
+}
 .review-img-wrap>img{
+	width: 100px;
+	height: 100px;
+}
+.image-viewer>img{
 	width: 100px;
 	height: 100px;
 }

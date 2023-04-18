@@ -327,6 +327,14 @@ input:focus {
   width: 50%;
   text-align: center;
 }
+.logo-Img:hover{
+	display: inline;
+	
+	transition-duration: 0.5s;
+	box-shadow: 0px 30px 60px -6px green;
+	
+	
+}
 </style>
 </head>
 <body>
@@ -377,6 +385,7 @@ input:focus {
 	  </div>
 	</div>
 	
+	<!-- 로그인 페이지 -->
 	<div class="wrapper" style="display: grid; margin-top: 50px;">
 		<div class="myform">
 	      	<ul class="tab-group">
@@ -386,7 +395,7 @@ input:focus {
 	      <div class="tab-content">
 	        <div id="login">   
 				    <div class="logo">Welcome Back! <br>
-				    	<a href="/"><img src="/resources/image/logo/logo250x80 불투명.png"></a>
+				    	<div class="logo-Img"><a href="/"><img src="/resources/image/logo/logo250x80 불투명.png"></a></div>
 				    </div>
 					    <form action="/login.do" method="post" autocomplete="off">
 					        <input type="text" placeholder=" &#xf007;   UserId" name="memberId"/>
@@ -399,7 +408,7 @@ input:focus {
 					    </form>
 					
 	        </div>
-	        
+	        <!-- 회원가입 페이지 -->
 	        <div id="signup">   
 	          <div class="logo">Let`s Join Camping Together
 			  </div>
@@ -445,12 +454,14 @@ input:focus {
 	          
 	          </div>
 	          <div class="field-wrap"></div>
-				<input type="text" name="memberAddr" id="sample4_extraAddress" class="signup-input" placeholder="주소 입력" pattern="^\S+$" required title="해당부분을 작성해주세요!" readonly><br>
-				<input type="text" id="sample4_detailAddress" class="signup-input" placeholder="상세주소"><span><input type="button" onclick="sample4_execDaumPostcode()" class="signup-input addrbtn" value="주소 찾기" style="background-color:#CEAB93 "></span><br>
+				<input type="text" id="sample4_extraAddress" class="signup-input" placeholder="주소 입력" pattern="^\S+$" required title="해당부분을 작성해주세요!" readonly><br>
+				<input type="text" id="sample4_detailAddress" class="signup-input detailAddress" placeholder="상세주소"><span><input type="button" onclick="sample4_execDaumPostcode()" class="signup-input addrbtn" value="주소 찾기" style="background-color:#CEAB93 "></span><br>
+				<input type="hidden" name="memberAddr">
+				
 				<div class="field-wrap" >
 					<input type="submit" class="confirm" value="회원가입" style="width:40%; cursor: pointer;"  disabled="true">
 					<input type="reset" class="cancel" value="취소" style="width:40%; float: right; cursor: pointer;" >
-				
+					
 				</div>
 	          </form>
 	        </div>
@@ -458,15 +469,18 @@ input:focus {
 	      </div><!-- tab-content -->
 	      
 	</div> <!-- /form -->
-	</div>
+</div><!-- /회원가입 페이지 -->
 <input type="hidden" id="sample4_postcode" placeholder="우편번호" readonly>
 <input type="hidden" id="sample4_roadAddress" placeholder="도로명주소" readonly><br>
 <input type="hidden" id="sample4_jibunAddress" placeholder="지번주소" readonly>
 <br>
-<input type="hidden" id="sample4_extraAddress" placeholder="참고항목">
+
 <script>
-
-
+$(".confirm").on("click", function(){
+	const detailAddress = $(".detailAddress").val();
+	const extraAddress= $("#sample4_extraAddress").val();
+	$("[name=memberAddr]").val(extraAddress+detailAddress);
+});
 
 $('.form').find('input, textarea').on('keyup blur focus', function (e) {
 	  
@@ -559,6 +573,8 @@ $("[name=memberId]").blur(function(){
 
 
 //비밀번호  조건 출력 및 조건 일치 확인
+
+
 $("[name=memberPw]").blur(function(){
 	const memberPw = $("#memberPw").val();
 	const number = memberPw.search(/[0-9]/g);
@@ -766,63 +782,72 @@ $('#result-modalPw .close').click(function() {
 </script>	
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
-//
-   function sample4_execDaumPostcode() {
-        new daum.Postcode({
-            oncomplete: function(data) {
-                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+//주소찾기 
 
-                // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
-                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-                var roadAddr = data.roadAddress; // 도로명 주소 변수
-                var extraRoadAddr = roadAddr; // 참고 항목 변수
 
-                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-                    extraRoadAddr += data.bname;
-                }
-                // 건물명이 있고, 공동주택일 경우 추가한다.
-                if(data.buildingName !== '' && data.apartment === 'Y'){
-                   extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                }
-                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-                if(extraRoadAddr !== ''){
-                    extraRoadAddr = '('+ extraRoadAddr + ')';
-                }
+function sample4_execDaumPostcode() {
+    new daum.Postcode({
+        oncomplete: function(data) {
+            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
-                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                document.getElementById('sample4_postcode').value = data.zonecode;
-                document.getElementById("sample4_roadAddress").value = roadAddr;
-                document.getElementById("sample4_jibunAddress").value = data.jibunAddress;
-                
-                // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
-                if(roadAddr !== ''){
-                    document.getElementById("sample4_extraAddress").value = extraRoadAddr;
-                } else {
-                    document.getElementById("sample4_extraAddress").value = '';
-                }
+            // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+            // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+            var roadAddr = data.roadAddress; // 도로명 주소 변수
+            var extraRoadAddr = roadAddr; // 참고 항목 변수
 
-                var guideTextBox = document.getElementById("guide");
-                // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
-                if(data.autoRoadAddress) {
-                    var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
-                    guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
-                    guideTextBox.style.display = 'block';
-
-                } else if(data.autoJibunAddress) {
-                    var expJibunAddr = data.autoJibunAddress;
-                    guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
-                    guideTextBox.style.display = 'block';
-                } 
+            // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+            // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+            if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                extraRoadAddr += data.bname;
             }
-        }).open();
-    }
-   function oninputPhone(target) {
-	    target.value = target.value
-	        .replace(/[^0-9]/g, '')
-	        .replace(/(^02.{0}|^01.{1}|[0-9]{3,4})([0-9]{3,4})([0-9]{4})/g, "$1-$2-$3");
-	}
+
+            // 건물명이 있고, 공동주택일 경우 추가한다.
+            if(data.buildingName !== '' && data.apartment === 'Y'){
+                extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+            }
+            // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+            if(extraRoadAddr !== ''){
+                extraRoadAddr = '('+ extraRoadAddr + ')';
+            }
+
+            // 우편번호와 주소 정보를 해당 필드에 넣는다.
+            $('#sample4_postcode').val(data.zonecode);
+            $('#sample4_roadAddress').val(roadAddr);
+            $('#sample4_jibunAddress').val(data.jibunAddress);
+
+            // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
+            if(roadAddr !== ''){
+                $('#sample4_extraAddress').val(extraRoadAddr);
+            } else {
+                $('#sample4_extraAddress').val('');
+            }
+
+            var guideTextBox = $('#guide');
+            // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
+            if(data.autoRoadAddress) {
+                var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
+                guideTextBox.html('(예상 도로명 주소 : ' + expRoadAddr + ')');
+                guideTextBox.show();
+
+            } else if(data.autoJibunAddress) {
+                var expJibunAddr = data.autoJibunAddress;
+                guideTextBox.html('(예상 지번 주소 : ' + expJibunAddr + ')');
+                guideTextBox.show();
+            }
+        }
+    }).open();
+}
+
+function oninputPhone(target) {
+    $(target).val(function(index, value) {
+        return value
+            .replace(/[^0-9]/g, '')
+            .replace(/(^02.{0}|^01.{1}|[0-9]{3,4})([0-9]{3,4})([0-9]{4})/g, '$1-$2-$3');
+    });
+}
+
+
+
 </script>
 </body>
 </html>
