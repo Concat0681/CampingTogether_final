@@ -21,13 +21,27 @@ public class MemberDao {
 	
 	@Autowired
 	private SqlSessionTemplate sqlsession;
-
+	
+	//회원조회
 	public Member selectOneMember(Member member) {
 		System.out.println(member);
 		Member m = sqlsession.selectOne("member.selectOneMember", member);
 		return m;
 	}
-
+	
+	//회원 아아디 찾기
+	public Member searchOneMemberId(Member member) {
+		Member m = sqlsession.selectOne("member.searchOneMemberId", member);
+		return m;
+	}
+	//회원 비밀번호 찾기
+		public Member searchOneMemberPw(Member member) {
+			Member m = sqlsession.selectOne("member.searchOneMemberPw", member);
+			return m;
+		}
+	
+	
+	//회원 가입
 	public int insertMember(Member member) {
 		int result = sqlsession.insert("member.insertMember", member);
 		return result;
@@ -95,6 +109,8 @@ public class MemberDao {
 		return (ArrayList<SellCampingList>) list;
 	}
 	*/
+
+	
 	
 	
 	

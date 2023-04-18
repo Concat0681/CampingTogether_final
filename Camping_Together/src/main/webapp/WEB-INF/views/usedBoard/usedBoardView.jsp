@@ -51,7 +51,7 @@
    		color: #CEAB93;
    }
    .detail-wrap{
-   		width: 80%;
+   		width: 90%;
    		margin: 30px auto;
    		border-bottom: 1px solid #ccc;
    }
@@ -110,8 +110,8 @@
    }
    .wish-list{
 		position: absolute;
-		margin-left: 890px;
-		top: 50px;
+		right: 25px;
+		top: 40px;
    }
    .wish-list>span{
    		font-size: 30px;
@@ -328,37 +328,11 @@
         		<div class="category-info">
         			<p class="font-bold">${ub.getUsedBoardCategoryText() }</p>
         		</div>
-        		<div class="detail-title">
-        			<h3>${ub.usedBoardTitle }</h3>
-        			<div class="sell-status"><span>판매중</span></div>
-        		</div>
-        		
-        	</div>
-        	<div class="detail-price-wrap">
-        		<div class="detail-info">
-	        			<p class="font-bold" style="color:#AD8B73;">${ub.usedBoardWriter }</p>
-	        			<p style="color:#ccc;">&nbsp; :: &nbsp;</p>
-	        			<p style="color:#ccc;">${ub.regDate }</p>
-	        			<p style="color:#ccc;">&nbsp; :: &nbsp;</p>
-	        			<p class="material-symbols-outlined" style="color:#ccc;">visibility</p>
-	        			<p style="color:#ccc;">${ub.readCount }</p>
-        		</div>
-        		<div class="detail-price">
-        			<p class="font-bold" style="color:#AD8B73;"><fmt:formatNumber value="${ub.usedProductPrice }" pattern="#,###" /></p>
-        			<div class="detail-info">
-        				<p class="font-bold" style="color:#AD8B73;">상품상태 : </p><p>&nbsp;${ub.getUsedProductStatusText() }&nbsp;&nbsp;&nbsp;&nbsp;</p>
-        				<p class="font-bold" style="color:#AD8B73;">교환여부 :</p> <p>&nbsp;${ub.getExchangeStatusText() }&nbsp;&nbsp;&nbsp;&nbsp;</p>
-        				<p class="font-bold" style="color:#AD8B73;">거래지역 :</p><p>&nbsp;${ub.usedTradeLocation }</p>
-        			</div>
-        		</div>
-        		<div class="wish-list">
-        			<span class="material-symbols-outlined">favorite</span>
-        		</div>
         	</div>
         	<div class="detail-content-wrap">
         		<div class="seller-phone">
         			<span id="phone-check" class="font-bold" onclick="sellUserCheck('${ub.usedBoardWriter}')">연락처를 확인하려면 클릭하세요.</span>
-        		</div>
+        		</div>      		      
         		<%-- 연락처 모달 --%>
         		<div class="modal-phone-wrapper">
         			<div class="modal-wrap">
@@ -388,33 +362,6 @@
         				</div>
         			</div>
         		</div>
-        		<script>
-        			function sellUserCheck(usedBoardWriter){
-        			/* 필요한 회원정보 : 아이디, 사진, 연락처, 신고당한 횟수 */
-        				$.ajax({
-        					url: "/sellUserCheck.do",
-        					type: "get",
-        					data: {usedBoardWriter:usedBoardWriter},
-        					success: function(data){
-        						$("#seller-profile").empty();
-								$("#seller-phone").text(data.sellerPhone);
-								$("#seller-blackCount").text("신고건수 "+data.sellerblackCount+"건");
-								let img = "";
-								if(data.profilePath == null){
-									img = "<img src='/resources/image/member/img.jpeg'>";
-								}else{
-									img = "<img src='/resources/image/member/"+data.profilePath+"'>";
-								}
-								$("#seller-profile").append(img);
-        					}
-        				});
-        				$(".modal-phone-wrapper").slideToggle();
-        				
-        			}
-        			$("#modal-cancle").on("click", function(){
-        				$(".modal-phone-wrapper").slideUp();
-        			});
-        		</script>
         		<div class="detail-content">
 					<div class="detail-content-img">
 						<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
@@ -447,8 +394,7 @@
 					<script>
 						$(".carousel-item").eq(0).addClass("active");
 					</script>
-        			<div class="detail-content-text">
-        				<span>${ub.usedBoardContent }</span>
+        			<div class="detail-content-info">
         			</div>
         		</div>      		
         			<c:choose>
@@ -534,6 +480,31 @@
         </div>
 	</div>
 	<script>
+		<%-- 연락처 조회 모달창에 데이터를 가져오는 스크립트 --%>
+		function sellUserCheck(usedBoardWriter){
+			/* 필요한 회원정보 : 아이디, 사진, 연락처, 신고당한 횟수 */
+			$.ajax({
+				url: "/sellUserCheck.do",
+				type: "get",
+				data: {usedBoardWriter:usedBoardWriter},
+				success: function(data){
+					$("#seller-profile").empty();
+					$("#seller-phone").text(data.sellerPhone);
+					$("#seller-blackCount").text("신고건수 "+data.sellerblackCount+"건");
+					let img = "";
+					if(data.profilePath == null){
+						img = "<img src='/resources/image/member/img.jpeg'>";
+					}else{
+						img = "<img src='/resources/image/member/"+data.profilePath+"'>";
+					}
+					$("#seller-profile").append(img);
+				}
+			});
+			$(".modal-phone-wrapper").slideToggle();			
+		}
+		$("#modal-cancle").on("click", function(){
+			$(".modal-phone-wrapper").slideUp();
+		});
 		<%-- 댓글수정 --%>
 		function modifyComment(obj){
 			$(obj).parent().parent().prev().show();

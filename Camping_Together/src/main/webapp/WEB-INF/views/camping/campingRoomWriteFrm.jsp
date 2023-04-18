@@ -9,18 +9,21 @@
 <link href="/resources/css/camping/campingWriteFrm.css" rel="stylesheet"/>
 <link href="/resources/css/default.css" rel="stylesheet"/>
 <style>
-	#img-viewer img {
-  		width: 200px;
-  		height: 200px;
+	#img-viewer2 img {
+  		width: 210px;
+  		height: 210px;
+  		padding: 5px;
 	}
 </style>
 </head>
 <body>
-	<div class="wrap">
+	<jsp:include page="/WEB-INF/views/common/header.jsp" />
+	<div class="wrap" style="margin-top: 300px;">
         <div class="contentWrap">
         	<div class="contentDetail">
         		<h2 style="margin-bottom: 60px;">캠핑장 캠핑 등록</h2>
         		<form action="/campingRoomWrite.do" method="post" enctype="multipart/form-data">
+        			<input type="hidden" name="campingNo" value="${campingNo }">
 	        		<table>
 	        			<tr>
 	        				<td style="width: 120px; font-size: 1.17em; font-weight: bold; padding-bottom: 20px;">이름</td>
@@ -31,7 +34,7 @@
 	        			<tr>
 	        				<td style="width: 120px; font-size: 1.17em; font-weight: bold; padding-bottom: 20px;">객실 수</td>
 	        				<td style="padding-bottom: 20px;">
-	        					<input type="text" class="input-long" name="campingRoomCount">
+	        					<input type="text" class="input-long" name="campingRoomCount" placeholder="최대 100개의 객실까지 등록 가능합니다.">
 	        				</td>
 	        			</tr>
 	        			<tr>
@@ -43,7 +46,7 @@
 						<tr>
 							<td style="width: 120px; font-size: 1.17em; font-weight: bold; padding-bottom: 20px;">최대인원</td>
 							<td style="padding-bottom: 20px;">
-								<input type="text" class="input-long" name="campingRoomMaxPplCount">
+								<input type="number" class="input-long" name="campingRoomMaxPplCount" min="1" max="20" placeholder="최소 1명에서 최대 20명의 인원이 등록 가능합니다.">
 							</td>
 						</tr>
 						<tr>
@@ -62,14 +65,15 @@
 	        			<textarea class="campingRoomContent" name="campingRoomContent"></textarea>
 	       			</div>
 	        		<div class="contentTitle"><h3>사진</h3>
+	        		<h5>최소 3개 이상의 파일을 등록해주세요.</h5>
 	        			<input type="file" name="campingRoomFilepath" onchange="loadImgs(this);" id="campingRoomFilepath" multiple>
-	        			<div id="img-viewer">
+	        			<div id="img-viewer2">
 	        			
 	                    </div>
 	       			</div>
-	       			<button type="submit" name="campingRoomBtn" class="btn2 nextBtn" style="margin-right: 80px;">등록</button>
+	       			<button type="submit" name="campingRoomBtn" class="btn1 nextBtn" style="margin-right: 80px; width: 620px;">캠핑 추가등록</button>
        			</form>
-        	</div>
+        	</div>	
         	
         	
         	
@@ -77,40 +81,79 @@
 	</div>
 	
 	<script>
+		$("[name=campingRoomBtn]").on("click",function(){
+		  const campingRoomTitle = $("[name=campingRoomTitle]").val();
+		  const campingRoomCount = $("[name=campingRoomCount]").val();
+		  const campingRoomPrice = $("[name=campingRoomPrice]").val();
+		  const campingRoomMaxPplCount = $("[name=campingRoomMaxPplCount]").val();
+		  const campingRoomContent = $("[name=campingRoomContent]").val();
+		  const campingRoomType = $("[name=campingRoomType]:checked").val();
+		  const campingRoomFilepath = $("[name=campingRoomFilepath]");
+
+		  if (campingRoomTitle != "" && campingRoomCount != "" && campingRoomPrice != "" && campingRoomMaxPplCount != "" && campingRoomContent != "" && campingRoomType != null && campingRoomFilepath.get(0).files.length >= 3) {
+		    // 모든 값이 공백이 아닐 때 서브밋 동작
+		  } else {
+		    alert("입력란을 모두 확인해주세요.");
+		    return false;
+		  }
+		});
+	</script>
+	
+	<script>
+		$(document).ready(function() {
+		  $('input[name="campingRoomMaxPplCount"]').on('input', function() {
+		    var value = parseInt($(this).val());
+		    if (isNaN(value) || value < 1 || value > 20) {
+		      $(this).val('');
+		    }
+		  });
+		});
+	</script>
+	
+	<script>
+		$(document).ready(function() {
+		    $('input[name="campingRoomPrice"]').on('input', function() {
+		        // 현재 입력된 값에서 숫자 이외의 문자를 제거합니다.
+		        var value = $(this).val().replace(/[^0-9]/g, '');
+		        // 0 이상의 정수인지 확인합니다.
+		        if (value >= 0 && value == parseInt(value)) {
+		            // 입력된 값이 0 이상의 정수이면 값을 그대로 유지합니다.
+		            $(this).val(value);
+		        } else {
+		            // 입력된 값이 0 이하의 정수나 소수점을 포함한 값이면 값을 0으로 변경합니다.
+		            $(this).val("");
+		        }
+		    });
+		});
+	</script>
+	
+	<script>
+		$(function() {
+		  $("input[name='campingRoomCount']").on("input", function() {
+		    var val = parseInt($(this).val());
+		    if (isNaN(val) || val < 1 || val > 100 || !(/^\d+$/.test($(this).val()))) {
+		      $(this).val("");
+		    }
+		  });
+		});
+	</script>
+	
+	<script>
 		function loadImgs(input) {
 		  // 기존에 있는 이미지 삭제
-		  $('#img-viewer img').remove();
+		  $('#img-viewer2 img').remove();
 		  
 		  if (input.files && input.files.length > 0) {
 		    for (let i = 0; i < input.files.length; i++) {
 		      const reader = new FileReader();
 		      reader.readAsDataURL(input.files[i]);
 		      reader.onload = function(e) {
-		        $("<img>").attr("src", e.target.result).attr("id", "img-" + i).appendTo("#img-viewer"); // 이미지를 보여줄 DOM 엘리먼트에 추가
+		        $("<img>").attr("src", e.target.result).attr("id", "img-" + i).appendTo("#img-viewer2"); // 이미지를 보여줄 DOM 엘리먼트에 추가
 		      }
 		    }
 		  }
 		}
 	</script>
-	
-	
-	
-	<script>
-		$("[name=campingRoomBtn]").on("click",function(){
-			const roomTitle = $("[name=campingRoomTitle]").val();
-			const campingRoomCount = $("[name=campingRoomCount]").val();
-			const campingRoomPrice = $("[name=campingRoomPrice]").val();
-			const campingRoomMaxPplCount = $("[name=campingRoomMaxPplCount]").val();
-			const campingRoomContent = $("[name=campingRoomContent]").val();
-			const campingRoomType = $("[name=campingRoomType]:checked").val();
-			const campingRoomFilepath = $("[name=campingRoomFilepath]");
-			if(!(campingRoomTitle != "" && campingRoomCount != "" && campingRoomPrice != "" && campingRoomMaxPplCount != "" && campingRoomContent != "" && campingRoomType != null && campingRoomFilepath.get(0).files.length != 0)){
-				alert("입력란을 모두 확인해주세요.")
-				return false;
-			}
-		});
-	</script>
-	
 	
 </body>
 </html>

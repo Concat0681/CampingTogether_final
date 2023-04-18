@@ -238,20 +238,67 @@ public class CampingService {
 		}
 	}
 
-	public int selectReviewCount() {
-		int selectReviewCount = dao.selectReviewCount();
+	public int selectReviewCount(int campingNo) {
+		int selectReviewCount = dao.selectReviewCount(campingNo);
 		return selectReviewCount;
 	}
 
-	public int selectReviewCommentCount() {
-		int selectReviewCommentCount = dao.selectReviewCommentCount();
+	public int selectReviewCommentCount(int campingNo) {
+		int selectReviewCommentCount = dao.selectReviewCommentCount(campingNo);
 		return selectReviewCommentCount;
 	}
 
-	public int selectcampingReviewRatingAvg() {
-		int campingReviewRatingAvg = dao.selectcampingReviewRatingAvg();
+	public int selectcampingReviewRatingAvg(int campingNo) {
+		int campingReviewRatingAvg = dao.selectcampingReviewRatingAvg(campingNo);
 		return campingReviewRatingAvg;
 	}
+
+	public CampingReview getReviewInfo(int campingReviewNo) {
+		CampingReview cr = dao.getReviewInfo(campingReviewNo);
+		ArrayList<CampingReviewFileVO> fileList = dao.getReviewFile(campingReviewNo);
+		cr.setFileList(fileList);
+		return cr;
+	}
+
+	
+
+	public int updateCampingReview(CampingReview crv, ArrayList<CampingReviewFileVO> fileList,
+			int[] campingReviewPhotoNo) {
+		int result = dao.updateCampingReview(crv);
+		if(result > 0) {
+			if(campingReviewPhotoNo != null) {
+				for(int no : campingReviewPhotoNo) {
+					result += dao.deleteCampingReviewFile(no);
+				}
+			}
+			for(CampingReviewFileVO file : fileList) {
+				file.setCampingReviewNo(crv.getCampingReviewNo());
+				result += dao.insertCampingReviewPhoto(file);
+			}
+		}
+		return result;
+	}
+	
+	
+	public ArrayList<CampingRoomFileVO> deleteCampingRoom(int campingRoomNo) {
+		ArrayList<CampingRoomFileVO> list = dao.selectCampingRoomFile(campingRoomNo);
+		int result = dao.deleteCampingRoom(campingRoomNo);
+		if(result>0) {
+			return list;
+		}else {
+			return null;
+		}
+	}
+
+	public CampingRoom updateCampingRoomFrm(int campingRoomNo) {
+		CampingRoom cr = dao.selectCampingRoom(campingRoomNo);
+		ArrayList<CampingRoomFileVO> fileList = dao.selectCampingRoomFile(campingRoomNo);
+		cr.setFileList(fileList);
+		return cr;
+	}
+	
+
+	
 
 	
 }

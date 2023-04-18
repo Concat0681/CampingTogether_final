@@ -27,7 +27,6 @@
 }
 .page-title {
   font-family: ns-bold;
-  padding: 20px 0px;
   font-size: 1.5rem;
 }
 .tbl {
@@ -157,6 +156,13 @@
 	height: 35px;
 	margin-bottom: 15px;
 }
+.inquiryBtn-wrap{
+	margin-left: 1100px;
+}
+.inquiryBtn{
+	width : 100px; 
+	height : 30px;
+}
 </style>
 <body>	
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
@@ -170,9 +176,9 @@
 				</div>
 				<div class="modal-content">
 					<div class=modal-title>
-						<span>제목</span><input type="text" class="inquiryTitle" name="inquiryTitle" placeholder="제목을 입력해 주세요.">
+						<span>제목</span><input type="text" class="inquiryTitle" name="inquiryTitle" placeholder="제목을 입력해 주세요." style="border: 1px solid #ccc; border-radius: 5px;">
 						<input type="hidden" class="inquiryWriter" name="inquiryWriter" value="${sessionScope.m.memberId }">
-						<span>내용</span><textarea class="inquiryContent" name="inquiryContent" style="width: 100%; height: 250px; resize: none;" placeholder="내용을 입력해 주세요."></textarea>
+						<span>내용</span><textarea class="inquiryContent" name="inquiryContent" style="width: 100%; height: 250px; resize: none; border: 1px solid #ccc; border-radius: 5px;" placeholder="내용을 입력해 주세요."></textarea>
 					</div>
 					<div class="secretCheck">
 						<label for="checkbox">
@@ -222,6 +228,7 @@
 					</div>
 				</div>
 				<div class="modal-foot">
+					<%--답변하기 클릭한 Inquiry number --%>
 					<input type="hidden" class="adminInquiryNo" value="">
 					<button onclick="admingInquiry();" class="modalCheck update-box-btn">확인</button>
 					<button class="modal-close update-box-btn">취소</button>
@@ -229,12 +236,12 @@
 			</div>
 		</div>
 	
-<%-- 		<c:if test="${not empty sessionScope.m"> --%>
-			
-			
-	
-<%-- 		</c:if> --%>
 		<h3 class="page-title">문의사항</h3>
+		<c:if test="${not empty sessionScope.m}">
+		<dlv class="inquiryBtn-wrap">
+			<button type="button" class="modal-open-insert-btn inquiryBtn btn3" target="insert-modal">문의하기</button>
+		</dlv>
+		</c:if>
 		<table class="tbl">
 			<tr class="tr-2">
 				<th style="width:45%; ">제목</th>
@@ -269,10 +276,10 @@
 	         <td>
 	         	<c:choose>
 	         		<c:when test="${i.status eq '0'}">
-	         			<span>답변대기</span>
+	         			<span style="color: rgb(153, 153, 153);">답변대기</span>
 	         		</c:when>
 	         		<c:when test="${i.status eq '1'}">
-	         			<span>답변완료</span>
+	         			<span style="font-weight: bold;">답변완료</span>
 	         		</c:when>
 	         	</c:choose>
 	         </td>
@@ -321,7 +328,6 @@
 	
 	<div id="pageNavi">${pageNavi }</div>
 	
-	<button type="button" class="modal-open-insert-btn" target="insert-modal">문의하기</button>
 	<!--값을 가져오기 위한 input hidden 값들  -->	
 	<input type="hidden" id="memberId" value="${sessionScope.m.memberId }">
 	
