@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class SellCampingList {
 	private int rnum;
+	private int campingNo;
+	private int campingRoomNo;
 	private String campingTitle;
 	private String campingSido;
 	private String campingRoomTitle;

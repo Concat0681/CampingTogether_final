@@ -2,7 +2,6 @@ package kr.or.iei.camping.model.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -132,11 +131,8 @@ public class CampingService {
 		map.put("start", start);
 		map.put("end", end);
 		map.put("memberId", memberId);
-		System.out.println(memberId);
 		ArrayList<SellCampingList> campingList = dao. getSellCampingList(map);
-		System.out.println(campingList);
 		int totalCount = dao.selectSellCampingCount(map);
-		System.out.println(totalCount);
 		int totalPage = (int)Math.ceil(totalCount/(double)numPerPage);
 		int pageNaviSize = 5;
 		int pageNo = 1;
@@ -282,6 +278,25 @@ public class CampingService {
 		}
 		return result;
 	}
+	
+	
+	public ArrayList<CampingRoomFileVO> deleteCampingRoom(int campingRoomNo) {
+		ArrayList<CampingRoomFileVO> list = dao.selectCampingRoomFile(campingRoomNo);
+		int result = dao.deleteCampingRoom(campingRoomNo);
+		if(result>0) {
+			return list;
+		}else {
+			return null;
+		}
+	}
+
+	public CampingRoom updateCampingRoomFrm(int campingRoomNo) {
+		CampingRoom cr = dao.selectCampingRoom(campingRoomNo);
+		ArrayList<CampingRoomFileVO> fileList = dao.selectCampingRoomFile(campingRoomNo);
+		cr.setFileList(fileList);
+		return cr;
+	}
+	
 
 	
 

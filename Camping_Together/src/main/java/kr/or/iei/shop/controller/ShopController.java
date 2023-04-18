@@ -17,6 +17,7 @@ import com.google.gson.Gson;
 import common.FileManager;
 import kr.or.iei.shop.model.service.ShopService;
 import kr.or.iei.shop.model.vo.Shop;
+import kr.or.iei.shop.model.vo.ShopBasket;
 import kr.or.iei.shop.model.vo.ShopListMainData;
 import kr.or.iei.shop.model.vo.ShopPhoto;
 import kr.or.iei.shop.model.vo.ShopReview;
@@ -104,11 +105,54 @@ public class ShopController {
 		ShopReviewListData srld = service.selectShopReviewList(shopNo, reqPage);
 		model.addAttribute("shop", shop);
 		model.addAttribute("menu", menu);
+		model.addAttribute("reqPage", reqPage);
 		model.addAttribute("shopReviewList", srld.getShopReviewList());
 		model.addAttribute("reviewPageNavi", srld.getReviewPageNavi());
 		return "shop/viewShop";
 	}
 	
+	@Transactional
+	@RequestMapping(value="/updateShopComment.do")
+	public String updateShopComment(ShopReview sr, int reqPage, String delPhotoList, MultipartFile[] photoList, HttpServletRequest request) {
+		ArrayList<ShopReviewPhoto> delList = new ArrayList<ShopReviewPhoto>();
+		ArrayList<ShopReviewPhoto> srpList = new ArrayList<ShopReviewPhoto>();
+		String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/shopReview/");
+		Boolean delResult = true;
+		System.out.println(sr);
+		int reviewResult = service.updateShopReview(sr);
+		if(delPhotoList != null) {
+			String[] arr1 = delPhotoList.split(",");
+			for(String delFilepath : arr1 ) {
+				Boolean result = manager.deleteFile(savePath, delFilepath);
+				if(!result) {
+					delResult = false;
+				} else {
+					ShopReviewPhoto srp = new ShopReviewPhoto();
+					srp.setFilepath(delFilepath);
+					srp.setShopReviewNo(sr.getShopReviewNo());
+					delList.add(srp);
+				}
+			}
+			for(ShopReviewPhoto srp : delList) {
+				int delSrp = service.deleteShopReviewPhoto(srp);
+			}
+		}
+		if(!photoList[0].isEmpty()) {
+			for(MultipartFile file : photoList) {
+				String filepath = manager.upload(savePath, file);
+				ShopReviewPhoto srp = new ShopReviewPhoto();
+				srp.setFilepath(filepath);
+				srp.setShopReviewNo(sr.getShopReviewNo());
+				srpList.add(srp);
+			}
+		}
+		for(ShopReviewPhoto srp : srpList) {
+			int photoResult = service.insertShopReviewPhoto(srp);
+		}
+			
+		return "redirect:/viewShop.do?shopNo="+sr.getShopNo()+"&reqPage="+reqPage+"&menu=1";
+	}
+
 	@Transactional
 	@ResponseBody
 	@RequestMapping(value="/insertShopReview.do")
@@ -145,7 +189,23 @@ public class ShopController {
 	
 	@ResponseBody
 	@RequestMapping(value="/insertBasket.do")
-	public String insertBasket() {
-		
+	public String insertBasket(ShopBasket basket) {
+		int result = service.insertBasket(basket);
+		if(result > 0) {
+			return "ok";
+		} else {
+			return "fail";
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/deleteShopReview.do")
+	public String deleteShopReview(int shopReviewNo) {
+		int result = service.deleteShopReview(shopReviewNo);
+		if(result > 0) {
+			return "success";
+		} else {
+			return "error";
+		}
 	}
 }
