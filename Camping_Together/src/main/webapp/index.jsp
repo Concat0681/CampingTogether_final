@@ -27,6 +27,7 @@
 	</script>
   <!-- my JavaScript and CSS file --> 
   <link href="/resources/css/default.css" rel="stylesheet"/> 	
+  <link href="/resources/css/usedList.css" rel="stylesheet"/> 	
   <link href="/resources/css/main.css" rel="stylesheet"/> 
    	
 <style>
@@ -118,7 +119,10 @@
 				</div>
 			</div>	
 		</div>
-		<div class="wrapper wrapperMiddle-tradeBox">
+		
+				
+			<div class="wrapper wrapperMiddle-tradeBox">
+				<h3>중고장터</h3>
 			<div class="wrapperMiddle-tradeContent">
 				<div class="tradeContentBoarder">
 					<div>
