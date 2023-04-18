@@ -282,6 +282,25 @@ public class CampingService {
 		}
 		return result;
 	}
+	
+	
+	public ArrayList<CampingRoomFileVO> deleteCampingRoom(int campingRoomNo) {
+		ArrayList<CampingRoomFileVO> list = dao.selectCampingRoomFile(campingRoomNo);
+		int result = dao.deleteCampingRoom(campingRoomNo);
+		if(result>0) {
+			return list;
+		}else {
+			return null;
+		}
+	}
+
+	public CampingRoom updateCampingRoomFrm(int campingRoomNo) {
+		CampingRoom cr = dao.selectCampingRoom(campingRoomNo);
+		ArrayList<CampingRoomFileVO> fileList = dao.selectCampingRoomFile(campingRoomNo);
+		cr.setFileList(fileList);
+		return cr;
+	}
+	
 
 	
 

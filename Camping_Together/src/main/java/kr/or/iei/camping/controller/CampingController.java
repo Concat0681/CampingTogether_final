@@ -207,7 +207,7 @@ public class CampingController {
 	public String campingRoomWrite(CampingRoom cr, MultipartFile[] campingRoomFilepath, HttpServletRequest request) {
 		ArrayList<CampingRoomFileVO> fileList = new ArrayList<CampingRoomFileVO>();
 		if(!campingRoomFilepath[0].isEmpty()) {
-			String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/campingRoom");
+			String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/campingRoom/");
 			for(MultipartFile file : campingRoomFilepath) {
 				String filepath = manager.upload(savePath, file);
 				CampingRoomFileVO campingRoomFileVO = new CampingRoomFileVO();
@@ -327,6 +327,32 @@ public class CampingController {
 			return "redirect:/viewCamping.do?campingNo="+crv.getCampingNo();
 		}
 	}
+	
+	
+	@RequestMapping(value="/deleteCampingRoom.do")
+	public String deleteCampingRoom(int campingRoomNo, int campingNo, HttpServletRequest request) {
+		ArrayList<CampingRoomFileVO> list = service.deleteCampingRoom(campingRoomNo);
+		if(list == null) {
+			return "redirect:/";
+		}else {
+			String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/campingRoom/");
+			for(CampingRoomFileVO file : list) {
+				manager.deleteFile(savePath, file.getFilepath());
+			}
+			return "redirect:/";
+		}
+	}
+	
+	@RequestMapping(value="/updateCampingRoomFrm.do")
+	public String updateCampingRoomFrm(int campingRoomNo, Model model) {
+		CampingRoom cr = service.updateCampingRoomFrm(campingRoomNo);
+		model.addAttribute("campingRoom",cr);
+		model.addAttribute("filePaths", cr.getFileList());
+		return "camping/updateCampingRoomFrm";
+	}
+
+	
+	
 }
 
 

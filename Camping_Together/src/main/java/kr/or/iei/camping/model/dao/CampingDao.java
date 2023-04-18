@@ -180,4 +180,20 @@ public class CampingDao {
 		int totalCount = sqlSession.selectOne("camping.selectSellCampingCount", map);
 		return totalCount;
 	}
+
+	
+	public ArrayList<CampingRoomFileVO> selectCampingRoomFile(int campingRoomNo) {
+		List list = sqlSession.selectList("camping.selectCampingRoomFile", campingRoomNo);
+		return (ArrayList<CampingRoomFileVO>)list;
+	}
+
+	public int deleteCampingRoom(int campingRoomNo) {
+		int result = sqlSession.delete("camping.deleteCampingRoom",campingRoomNo);
+		return result;
+	}
+
+	public CampingRoom selectCampingRoom(int campingRoomNo) {
+		return sqlSession.selectOne("camping.selectCampingRoom",campingRoomNo);
+	}
+	
 }
