@@ -53,7 +53,7 @@
 					<div class="contentTitle"><h3>캠핑장 사진 등록</h3></div>
 	        			<h5 style="padding-bottom: 20px">캠핑장의 메인 사진을 등록해주세요.</h5>
 	        				<div id="img-viewer1">
-		        				<input type="file" name="campingFilepath" onchange="loadImg(this);" id="campingFilepath">
+		        				<input type="file" name="campingFilepath" onchange="loadImg(this);" id="campingFilepath" style="display: none;">
 		        				<label for="campingFilepath">
 									<img id="img-view" width="620px" height="620px">
 								</label>
@@ -341,7 +341,7 @@
 	        			<tr>
 	        				<td style="width: 120px; font-size: 1.17em; font-weight: bold; padding-bottom: 20px;">객실 수</td>
 	        				<td style="padding-bottom: 20px;">
-	        					<input type="text" class="input-long" name="campingRoomCount">
+	        					<input type="text" class="input-long" name="campingRoomCount" placeholder="최대 100개의 객실까지 등록 가능합니다.">
 	        				</td>
 	        			</tr>
 	        			<tr>
@@ -353,7 +353,7 @@
 						<tr>
 							<td style="width: 120px; font-size: 1.17em; font-weight: bold; padding-bottom: 20px;">최대인원</td>
 							<td style="padding-bottom: 20px;">
-								<input type="text" class="input-long" name="campingRoomMaxPplCount">
+								<input type="number" class="input-long" name="campingRoomMaxPplCount" min="1" max="20" placeholder="최소 1명에서 최대 20명의 인원이 등록 가능합니다.">
 							</td>
 						</tr>
 						<tr>
@@ -598,6 +598,46 @@
 			    }).open();
 		}
 	</script>
+	
+	<script>
+		$(document).ready(function() {
+		  $('input[name="campingRoomMaxPplCount"]').on('input', function() {
+		    var value = parseInt($(this).val());
+		    if (isNaN(value) || value < 1 || value > 20) {
+		      $(this).val('');
+		    }
+		  });
+		});
+	</script>
+	
+	<script>
+		$(document).ready(function() {
+		    $('input[name="campingRoomPrice"]').on('input', function() {
+		        // 현재 입력된 값에서 숫자 이외의 문자를 제거합니다.
+		        var value = $(this).val().replace(/[^0-9]/g, '');
+		        // 0 이상의 정수인지 확인합니다.
+		        if (value >= 0 && value == parseInt(value)) {
+		            // 입력된 값이 0 이상의 정수이면 값을 그대로 유지합니다.
+		            $(this).val(value);
+		        } else {
+		            // 입력된 값이 0 이하의 정수나 소수점을 포함한 값이면 값을 0으로 변경합니다.
+		            $(this).val("");
+		        }
+		    });
+		});
+	</script>
+	
+	<script>
+		$(function() {
+		  $("input[name='campingRoomCount']").on("input", function() {
+		    var val = parseInt($(this).val());
+		    if (isNaN(val) || val < 1 || val > 100 || !(/^\d+$/.test($(this).val()))) {
+		      $(this).val("");
+		    }
+		  });
+		});
+	</script>
+	
 	
 </body>
 </html>

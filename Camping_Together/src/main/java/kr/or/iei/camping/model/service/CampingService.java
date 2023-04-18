@@ -242,18 +242,18 @@ public class CampingService {
 		}
 	}
 
-	public int selectReviewCount() {
-		int selectReviewCount = dao.selectReviewCount();
+	public int selectReviewCount(int campingNo) {
+		int selectReviewCount = dao.selectReviewCount(campingNo);
 		return selectReviewCount;
 	}
 
-	public int selectReviewCommentCount() {
-		int selectReviewCommentCount = dao.selectReviewCommentCount();
+	public int selectReviewCommentCount(int campingNo) {
+		int selectReviewCommentCount = dao.selectReviewCommentCount(campingNo);
 		return selectReviewCommentCount;
 	}
 
-	public int selectcampingReviewRatingAvg() {
-		int campingReviewRatingAvg = dao.selectcampingReviewRatingAvg();
+	public int selectcampingReviewRatingAvg(int campingNo) {
+		int campingReviewRatingAvg = dao.selectcampingReviewRatingAvg(campingNo);
 		return campingReviewRatingAvg;
 	}
 
