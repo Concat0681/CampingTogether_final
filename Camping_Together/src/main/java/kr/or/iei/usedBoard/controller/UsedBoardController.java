@@ -120,6 +120,32 @@ public class UsedBoardController {
 		model.addAttribute("ub", ub);
 		return "usedBoard/usedBoardUpdateFrm";
 	}
+	@RequestMapping(value="/boardUpdate.do")
+	public String usedBoardUpdate(UsedBoard ub, int[] fileNo, String[] filepath,  MultipartFile[] usedBoardPhoto, HttpServletRequest request) {
+		ArrayList<UsedBoardPhoto> filelist = new ArrayList<UsedBoardPhoto>();
+		String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/usedBoard/");
+		if(!usedBoardPhoto[0].isEmpty()) {
+			for(MultipartFile file : usedBoardPhoto ) {
+				String upFilepath = manager.upload(savePath, file);
+				UsedBoardPhoto usedPhoto = new UsedBoardPhoto();
+				usedPhoto.setFilepath(upFilepath);
+				filelist.add(usedPhoto);
+			}
+		}
+		int result = service.updateUsedBoard(ub, filelist, fileNo);
+		//업데이트 성공 : result == 삭제파일 + 추가파일 + 1
+		if(fileNo != null && (result == (filelist.size() + fileNo.length + 1))) {
+			for(String delFile : filepath) {
+				//폴더에 들어있는 이미지 삭제
+				manager.deleteFile(savePath, delFile);
+			}
+			return "redirect:/usedBoardView.do?usedBoardNo="+ub.getUsedBoardNo();
+		}else if(fileNo == null && (result == filelist.size() + 1)) {
+			return "redirect:/usedBoardView.do?usedBoardNo="+ub.getUsedBoardNo();
+		}else {
+			return "redirect:/usedBoardList.do?reqPage=1";
+		}
+	}
 }
 
 
