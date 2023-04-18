@@ -300,6 +300,23 @@ public class CampingService {
 		cr.setFileList(fileList);
 		return cr;
 	}
+
+	public int updateCampingRoom(CampingRoom cr, ArrayList<CampingRoomFileVO> fileList, int[] campingRoomPhotoNo) {
+		int result = dao.updateCampingRoom(cr);
+		System.out.println(campingRoomPhotoNo);
+		if(result > 0) {
+			if(campingRoomPhotoNo != null) {
+				for(int no : campingRoomPhotoNo) {
+					result += dao.deleteCampingRoomFile(no);
+				}
+			}
+			for(CampingRoomFileVO file : fileList) {
+				file.setCampingRoomNo(cr.getCampingRoomNo());
+				result += dao.insertCampingRoomPhoto(file);
+			}
+		}
+		return result;
+	}
 	
 
 	

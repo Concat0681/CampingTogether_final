@@ -351,7 +351,31 @@ public class CampingController {
 		return "camping/updateCampingRoomFrm";
 	}
 
-	
+	@RequestMapping(value="/updateCampingRoom.do")
+	public String updateCampingRoom(CampingRoom cr,int[] campingRoomPhotoNo, String[] filepath, MultipartFile[] campingRoomFile, HttpServletRequest request) {
+		ArrayList<CampingRoomFileVO> fileList = new ArrayList<CampingRoomFileVO>();
+		String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/campingRoom/");
+		if(!campingRoomFile[0].isEmpty()) {
+			for(MultipartFile file : campingRoomFile) {
+				String upfilepath = manager.upload(savePath, file);
+				
+				CampingRoomFileVO fileVO = new CampingRoomFileVO();
+				fileVO.setFilepath(upfilepath);
+				fileList.add(fileVO);
+			}
+		}
+		int result = service.updateCampingRoom(cr, fileList, campingRoomPhotoNo);
+		if(campingRoomPhotoNo != null && (result == (fileList.size()+campingRoomPhotoNo.length + 1))) {
+			for(String delFile : filepath) {
+				manager.deleteFile(savePath, delFile);
+			}
+			return "redirect:/";
+		}else if(campingRoomPhotoNo == null && (result == fileList.size()+1)){
+			return "redirect:/";
+		}else {
+			return "redirect:/";
+		}
+	}
 	
 }
 

@@ -195,5 +195,15 @@ public class CampingDao {
 	public CampingRoom selectCampingRoom(int campingRoomNo) {
 		return sqlSession.selectOne("camping.selectCampingRoom",campingRoomNo);
 	}
+
+	public int updateCampingRoom(CampingRoom cr) {
+		int result = sqlSession.update("camping.updateCampingRoom",cr);
+		return result;
+	}
+
+	public int deleteCampingRoomFile(int no) {
+		int result = sqlSession.delete("camping.deleteCampingRoomFile",no);
+		return result;
+	}
 	
 }

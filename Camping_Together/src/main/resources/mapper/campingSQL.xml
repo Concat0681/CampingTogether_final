@@ -389,4 +389,18 @@
 			camping_room_type as campingRoomType
 		from camping_room where camping_room_no = #{_parameter}
 	</select> 
+	
+	<update id="updateCampingRoom" parameterType="cr">
+		update camping_room set
+			camping_room_content = #{campingRoomContent},
+			camping_room_price = #{campingRoomPrice},
+			camping_room_max_ppl_count = #{campingRoomMaxPplCount},
+			camping_room_title = #{campingRoomTitle},
+			camping_room_type = #{campingRoomType}
+		where camping_room_no = #{campingRoomNo}
+	</update>
+	
+	<delete id="deleteCampingRoomFile" parameterType="_int">
+		delete from camping_room_photo where camping_room_photo_no=#{no}
+	</delete>
 </mapper>
