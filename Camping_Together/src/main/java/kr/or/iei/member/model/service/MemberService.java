@@ -18,7 +18,6 @@ import kr.or.iei.member.model.vo.MyReview;
 import kr.or.iei.member.model.vo.ProductPageData;
 import kr.or.iei.member.model.vo.ProductPayment;
 import kr.or.iei.member.model.vo.ReviewPageData;
-import kr.or.iei.member.model.vo.SellCampingList;
 import kr.or.iei.shop.model.vo.Shop;
 import kr.or.iei.shop.model.vo.ShopBasket;
 import kr.or.iei.shop.model.vo.ShopListMainData;
