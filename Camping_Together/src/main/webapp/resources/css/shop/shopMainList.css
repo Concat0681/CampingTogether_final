@@ -3,13 +3,18 @@
 .page-wrap{
 	margin-top: 150px;
 }
-.page-slick{
-	position: relative;
-}
 .slick-btn{
-	position: absolute;
+	color: #AD8B73;
 	border: none;
 	background: inherit;
+}
+.content-slick{
+	position: relative;
+	min-height: 600px;
+	margin-top: 100px;
+}
+.slick-btn{
+	z-index: 1000;
 }
 .slick-btn>span{
 	font-size: 50px;
@@ -25,12 +30,14 @@
 	font-size: 15px !important;
 }
 #prevPageBtn{
-	top: 50%;
-	left: 40%;
+	position: absolute;
+	top: 25px;
+	left: 35%;
 }
 #nextPageBtn{
-	top: 50%;
-	right: 40%;
+	position: absolute;
+	top: 18px;
+	right: 35%;
 }
 .page-slick>div{
 	height: 400px;
@@ -56,11 +63,11 @@
 	align-items: center;
 }
 .slick-title{
-	font-size: 30px;
+	color: #AD8B73;
+	text-align: center;
+	font-size: 50px;
 	font-family: ng-bold;
-}
-.content-slick{
-	min-height: 600px;
+	margin-bottom: 100px;
 }
 .shop-wrap{
 	width: 90%;
@@ -96,4 +103,38 @@
 }
 .hidden{
 	display: none;
+}
+.s1_arrow{
+	display: inline-block;
+	position:relative;  
+	margin-left:-10px; 
+	text-align:center; 
+}
+.right-s1{
+	transform: rotate(180deg); 
+	-webkit-transform: rotate(180deg); 
+	-moz-transform: rotate(180deg); 
+	-o-transform: rotate(180deg);  
+	-ms-transform: rotate(180deg);
+}
+.scroll-arrow {
+	display: inline-block;
+	width:20px; 
+	height:20px; 
+	border-right: 3px solid #AD8B73; 
+	border-bottom: 3px solid #AD8B73;
+	transform: rotate(135deg); 
+	-webkit-transform: rotate(135deg); 
+	-moz-transform: rotate(135deg); 
+	-o-transform: rotate(135deg);  
+	-ms-transform: rotate(135deg);
+	animation: arrow-wave 1s infinite; 
+	animation-direction: alternate;}
+.scroll-arrow:nth-child(1) {animation-delay: 0.1s;}
+.scroll-arrow:nth-child(2) {margin-left:6px; animation-delay: 0.2s;}
+.scroll-arrow:nth-child(3) {margin-left:6px; animation-delay: 0.3s;}
+@keyframes arrow-wave {
+0% {opacity: 0;}
+50% {opacity: .5;}
+100% {opacity: 1;}
 }
