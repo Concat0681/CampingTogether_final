@@ -380,6 +380,19 @@ public class CampingController {
 		}
 	}
 	
+	@RequestMapping(value="/deleteCamping.do")
+	public String deleteCamping(int campingNo, HttpServletRequest request) {
+		int result = service.deleteCamping(campingNo);
+		ViewCampingData vcd = service.selectOneCamping(campingNo);
+		if(result > 0) {
+			String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/camping/");
+			manager.deleteFile(savePath, vcd.getCamping().getFilepath());
+			return "redirect:/";
+		}else {
+			return "redirect:/";
+		}
+	}
+	
 }
 
 

@@ -313,6 +313,11 @@ public class CampingService {
 		}
 		return result;
 	}
+
+	public int deleteCamping(int campingNo) {
+		int result = dao.deleteCamping(campingNo);
+		return result;
+	}
 	
 
 	

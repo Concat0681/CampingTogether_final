@@ -205,5 +205,10 @@ public class CampingDao {
 		int result = sqlSession.delete("camping.deleteCampingRoomFile",no);
 		return result;
 	}
+
+	public int deleteCamping(int campingNo) {
+		int result = sqlSession.delete("camping.deleteCamping",campingNo);
+		return result;
+	}
 	
 }

@@ -231,7 +231,7 @@
 	</select>
 	
 	<insert id="insertCamping" parameterType="c">
-		insert into camping values(camping_seq.nextval,'seller',#{campingTitle},#{campingContent},#{campingAddr},#{campingAddrDetail},#{campingPhone},#{filepath},#{campingSido})
+		insert into camping values(camping_seq.nextval,#{memberId},#{campingTitle},#{campingContent},#{campingAddr},#{campingAddrDetail},#{campingPhone},#{filepath},#{campingSido})
 		<selectKey resultType="_int" order="AFTER" keyProperty="campingNo">
 			select max(camping_no) from camping
 		</selectKey>
@@ -402,5 +402,9 @@
 	
 	<delete id="deleteCampingRoomFile" parameterType="_int">
 		delete from camping_room_photo where camping_room_photo_no=#{no}
+	</delete>
+	
+	<delete id="deleteCamping" parameterType="_int">
+		delete from camping where camping_no=#{campingNo}
 	</delete>
 </mapper>

@@ -16,6 +16,7 @@
 		<div class="input-div">
 			<div class="input-title">
 				<h2>My 캠핑장</h2>
+				<a href="/campingWriteFrm.do?memberId=${sessionScope.m.memberId }">캠핑장 등록</a>
 			</div>
 		</div>
 	
@@ -25,6 +26,7 @@
 		<a href="/campingRoomWriteFrm.do?campingNo=${l.campingNo }">캠핑추가</a>
 		<a href="javascript:void(0)" class="deleteCampingRoom" onclick="deleteCampingRoom(this,${l.campingRoomNo },${l.campingNo })">캠핑삭제</a>
 		<a href="/updateCampingRoomFrm.do?campingRoomNo=${l.campingRoomNo }">캠핑수정</a>
+		<a href="javascript:void(0)" class="deleteCamping" onclick="deleteCamping(this,${l.campingNo })">캠핑장삭제</a>
 	</c:forEach>
 		${navi }
 	</div>
@@ -35,6 +37,15 @@
 		function deleteCampingRoom(obj,campingRoomNo,campingNo){
 			if(confirm("캠핑을 삭제하시겠습니까?")){
 				location.href="/deleteCampingRoom.do?campingRoomNo="+campingRoomNo+"&campingNo="+campingNo;
+			}
+		}
+		
+	</script>
+	
+	<script>
+		function deleteCamping(obj,campingNo){
+			if(confirm("캠핑장을 삭제하시겠습니까?")){
+				location.href="/deleteCamping.do?campingNo="+campingNo;
 			}
 		}
 		
