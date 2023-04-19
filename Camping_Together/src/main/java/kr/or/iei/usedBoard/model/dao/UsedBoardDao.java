@@ -17,6 +17,7 @@ public class UsedBoardDao {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
+
 	public int insertUsedBoard(UsedBoard ub) {
 		int result = sqlSession.insert("usedBoard.insertUesdBoard", ub);
 		return result;
@@ -102,6 +103,12 @@ public class UsedBoardDao {
 		return result;
 	}
 
+	public ArrayList<UsedBoard> getTop3UsedBoards(UsedBoard ub) {
+		List list = sqlSession.selectList("usedBoard.getTop3UsedBoards", ub);
+		System.out.println(list);
+		return (ArrayList<UsedBoard>) list;
+
+	}
 	public int updateUsedBoardStatus(int usedBoardNo) {
 		int result = sqlSession.update("usedBoard.updateUsedBoardStatus", usedBoardNo);
 		return result;

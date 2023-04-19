@@ -77,8 +77,16 @@
 						</div>
 					</div>
 					<div class="product-btn-wrap">
-						<button class="btn1">Buy</button>
-						<button type="button" id="shopCartBtn" class="btn1">Cart</button>
+						<c:choose>
+							<c:when test="${empty sessionScope.m }">
+								<button class="btn1 loginBtn">Buy</button>
+								<button type="button" class="btn1 loginBtn">Cart</button>
+							</c:when>
+							<c:otherwise>
+								<button class="btn1">Buy</button>
+								<button type="button" id="shopCartBtn" class="btn1">Cart</button>
+							</c:otherwise>
+						</c:choose>
 					</div>
 				</div>
 			</div>

@@ -2,6 +2,7 @@ package kr.or.iei.usedBoard.model.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -152,7 +153,6 @@ public class UsedBoardService {
 		}
 		return result;
 	}
-
 	@Transactional
 	public int updateUsedBoardStatus(int usedBoardNo) {
 		return dao.updateUsedBoardStatus(usedBoardNo);
@@ -160,6 +160,10 @@ public class UsedBoardService {
 
 	public UsedBoard selectBlackUsedBoard(int usedBoardNo) {
 		return dao.selectBlackUsedBoard(usedBoardNo);
+	}
+	public ArrayList<UsedBoard> getTop3UsedBoards(UsedBoard ub) {
+		return dao.getTop3UsedBoards(ub);
+
 	}
 
 }

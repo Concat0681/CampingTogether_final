@@ -1,0 +1,45 @@
+@charset "UTF-8";
+
+
+.menu-div{
+    width: 900px;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 200px;
+}
+.menu-title{
+    margin-bottom: 20px;
+}
+
+.menu-title>h2{
+   color: #AD8B73;
+}
+
+.content-wrap{
+    width: 1000px;
+    margin: 0 auto;
+    margin-top: 80px;
+}
+
+.menu-list>ul>li{
+    list-style: none;
+    padding: 0;
+}
+
+.menu-list>ul{
+    padding-left: 0;
+    float: left;
+}
+
+.menu-list>ul>li{
+    border: 1px solid rgb(205, 205, 205);
+    height: 50px;
+    line-height: 50px;
+    width: 200px;
+}
+
+.admin-content{
+    width: 700px;
+    float: right;
+    border-bottom: 1px solid #AD8B73;
+}

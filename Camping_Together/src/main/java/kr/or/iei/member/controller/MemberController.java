@@ -8,6 +8,7 @@ import java.util.Random;
 import javax.mail.Address;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
+import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.multipart.MultipartFile;
 
 import common.FileManager;
 import kr.or.iei.camping.model.service.CampingService;
@@ -29,11 +31,13 @@ import kr.or.iei.camping.model.vo.SellCampingListData;
 import kr.or.iei.member.model.service.MailService;
 import kr.or.iei.member.model.service.MemberService;
 import kr.or.iei.member.model.vo.CampingPayment;
+import kr.or.iei.member.model.vo.FileVO;
 import kr.or.iei.member.model.vo.Member;
 import kr.or.iei.member.model.vo.MemberPageData;
 import kr.or.iei.member.model.vo.ProductPageData;
 import kr.or.iei.member.model.vo.ReviewPageData;
 //import kr.or.iei.member.model.vo.SellCampingPageData;
+import kr.or.iei.shop.model.vo.ShopListMainData;
 
 @Controller
 public class MemberController {
@@ -47,6 +51,10 @@ public class MemberController {
 	@Autowired
 	private CampingService cmapingService;
 
+	@Autowired
+	private FileManager manager;
+	
+	
 
 	//이메일 인증
 
@@ -58,10 +66,7 @@ public class MemberController {
 		return mailService.mailCheck(memberEmail);
 	}
 	
-	@Autowired
-	private FileManager manager;
-	
-	
+
 	//로그인 폼 ---- 로그인은 회원가입 페이지에서 통합
 
 	@RequestMapping(value="/loginFrm.do")
@@ -195,7 +200,10 @@ public class MemberController {
 	
 	//장바구니
 	@RequestMapping(value = "/shopWishList.do")
-	public String shopWishList() {
+	public String shopWishList(int reqPage, Model model, String memberId) {
+		ShopListMainData slmd = service.selectWishList(reqPage, memberId);
+		model.addAttribute("shopList", slmd.getShopList());
+		model.addAttribute("navi", slmd.getPageNavi());
 		return "member/shopWishList";
 	}
 	
@@ -253,15 +261,47 @@ public class MemberController {
 
 	//판매자 my캠핑장
 	@RequestMapping(value = "/sellList.do")
-	public String sellList(int reqPage,String memberId, Model model) {
+	public String sellList(int reqPage, String memberId, Model model) {
 		SellCampingListData scld = cmapingService.getSellCampingList(memberId, reqPage);
 		model.addAttribute("list",scld.getCampingList());
 		model.addAttribute("navi", scld.getPageNavi());
+		model.addAttribute("index",1);
 		return "member/sellList";
 	}
 	
 	
+	//일반회원 정보 수정
+	@RequestMapping(value = "/updateMypageC.do")
+	public String updateMypageC(Member member,MultipartFile profileName, HttpServletRequest requset ) {
+		String savaPath = requset.getSession().getServletContext().getRealPath("/resources/image/member/");
+		System.out.println(member);
+		if(!profileName.isEmpty()) {
+			
+				String filename = profileName.getOriginalFilename();
+				String upFilepath = manager.upload(savaPath, profileName);
+				FileVO fileVO = new FileVO();
+				fileVO.setProfileFilename(filename);
+				fileVO.setProfileFilepath(upFilepath);	
+		}
+		
+		
+		return null;
+		
+		
+	}
 	
 	
+	@RequestMapping(value = "/shopProductList.do")
+	public String shopList(Member member, int reqPage, Model model) {
+		
+		return "member/shopList";
+	}
+	
+	
+	//판매자 정보 수정
+	@RequestMapping(value = "/mypageS.do")
+	public String mypageS() {
+		return "member/mypageSFrm";
+	}
 	
 }
