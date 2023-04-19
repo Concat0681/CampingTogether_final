@@ -119,7 +119,7 @@ $('.close').click(function() {
 $(document).ready(function() {
 	  //모달창
 	  $(".btn3").click(function() { // a태그, 버튼 아이디,클래스 입력
-	    $("#modalVer1Ver1").css("display", "block"); 
+	    $("#modalVer1").css("display", "block"); 
 	    const circles = $('.circle-container span');
 		  let index = 0;
 
@@ -163,8 +163,8 @@ $(document).ready(function() {
 		    }, 1000);
 		  });
 		// 모달 창이 닫혀있을 때 카운트 리셋
-		  $('#modalVer1Ver1').click(function() {
-		    $('#modalVer1Ver1').css('display', 'none');
+		  $('#modalVer1').click(function() {
+		    $('#modalVer1').css('display', 'none');
 		    clearInterval(interval);
 		    count = 5;
 		    circles.removeClass('active');
