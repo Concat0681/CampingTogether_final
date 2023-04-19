@@ -37,21 +37,22 @@
 														</div>
 													</c:otherwise>
 												</c:choose>
-											  <!-- 이전/다음 버튼 정의 -->
-											  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls-${i.index }" data-bs-slide="prev">
-											    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-											    <span class="visually-hidden">이전</span>
-											  </button>
-											  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls-${i.index }" data-bs-slide="next">
-											    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-											    <span class="visually-hidden">다음</span>
-											  </button>
-											</c:forEach>	
+											</c:forEach>
+											<c:if test="${s.shopPhotoList.size() > 1 }">
+												  <!-- 이전/다음 버튼 정의 -->
+												  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls-${i.index }" data-bs-slide="prev">
+												    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+												    <span class="visually-hidden">이전</span>
+												  </button>
+												  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls-${i.index }" data-bs-slide="next">
+												    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+												    <span class="visually-hidden">다음</span>
+												  </button>
+											  </c:if>
 										</div>
-									  
 									</div>
 							</div>
-							<div class="shop-title">
+							<div class="shop-title" onclick="location.href='/viewShop.do?shopNo=${s.shopNo}&reqPage=1&menu=0'">
 								<span>${s.shopTitle }</span>
 							</div>
 							<div class="zero"></div>
@@ -59,7 +60,9 @@
 								<div class="shop-price">
 									<span>${s.shopPrice }</span><span>원</span>
 								</div>
-								<span class="shop-buy">결제</span>
+								<a href="javascript:void(0)" class="shop-delete" onclick="deleteShop(this,'${sessionScope.m.memberId }','${s.shopNo }')">
+									<span class="material-symbols-outlined">close</span>
+								</a>
 							</div>
 						</div>
 					</div>
@@ -69,5 +72,14 @@
 	        	${navi }
         	</div>
 		</div>
+		
+		
+	<script>
+		function deleteShop(obj,memberId,shopNo){
+			if(confirm("장바구니에서 삭제하시겠습니까?")){
+				location.href="/deleteWishList.do?memberId="+memberId+"&shopNo="+shopNo;
+			}
+		}
+	</script>
 </body>
 </html>

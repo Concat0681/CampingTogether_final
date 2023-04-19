@@ -202,7 +202,6 @@ public class MemberController {
 	@RequestMapping(value = "/shopWishList.do")
 	public String shopWishList(int reqPage, Model model, String memberId) {
 		ShopListMainData slmd = service.selectWishList(reqPage, memberId);
-		System.out.println(slmd.getShopList());
 		model.addAttribute("shopList", slmd.getShopList());
 		model.addAttribute("navi", slmd.getPageNavi());
 		return "member/shopWishList";
