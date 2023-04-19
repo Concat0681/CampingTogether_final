@@ -25,7 +25,7 @@
 			</div>
 			<div class="camping-info">
 				<div class="camping-title">${camping.campingTitle }</div>
-				<div class="camping-addr">${camping.campingAddr }</div>
+				<div id="campingAddr" class="camping-addr">${camping.campingAddr }</div>
 				<div class="camping-detail">
 					<div>
 						<div>캠핑 기본정보</div>
@@ -38,7 +38,7 @@
 				<div>
 					<c:choose>
 							<c:when test="${empty sessionScope.m }">
-								<button id="sendInquiryBtn" class="btn3" data-bs-toggle="modal" data-bs-target="#modalVer1">문의하기</button>
+								<button id="sendInquiryBtn" class="btn3 loginBtn">문의하기</button>
 							</c:when>
 							<c:otherwise>
 								<button id="sendInquiryBtn" class="btn3" data-bs-toggle="modal" data-bs-target="#exampleModal">문의하기</button>
@@ -208,8 +208,13 @@
 						<div>${camping.campingAddrDetail }</div>
 					</div>
 					<div class="campingInfo-campingContent">
-						<textarea>${camping.campingContent }</textarea>
+						<div>캠핑장 내용</div>
+						<textarea readonly>${camping.campingContent }</textarea>
 					</div>
+				</div>
+				<div class="campingInfoMap">
+					<div>캠핑장 위치</div>
+					<div id="map" style="width:100%; height:500px;"></div>
 				</div>
 			</div>
 			<div class="content-hidden content-box">
@@ -482,6 +487,7 @@
 	</div>
 	<script src="resources/js/camping/dateRangePicker.js"></script>
 	<script>
+		let map;
 		var provideServiceIcon = {
 				  '인터넷': 'signal_cellular_alt',
 				  '주차장': 'local_parking',
@@ -564,7 +570,12 @@
 			contentBoxList.hide();
 			const contentBox = $(".content-box").eq(index);	
 			contentBox.show();
+			if(index == 1){
+				map.autoResize();
+			}
 		})
+
+		$(".menu>button").eq(0).click()
 		
 		function openCampingContent(obj){
 			$(".camping-content").toggleClass("opened");
@@ -697,6 +708,48 @@
 			})
 	    });	
 		
+		/* 네이버 지도 api */
+		function startMap(){
+			const campingAddr = $("#campingAddr").text();
+			
+			naver.maps.Service.geocode({
+		        address: campingAddr
+		    }, function(status, response) {
+		        if (status !== naver.maps.Service.Status.OK) {
+		            return alert('Something wrong!');
+		        }
+		
+		        var result = response.result, // 검색 결과의 컨테이너
+		        items = result.items; // 검색 결과의 배열
+		        const lng = items[1].point.x;
+		        const lat = items[1].point.y;
+		        
+		        map = new naver.maps.Map("map",{
+					center : new naver.maps.LatLng(lat, lng),
+					zoom : 10,
+					zoomControl : true,
+					zoomControlOptions : {
+						position : naver.maps.Position.TOP_RIGHT,
+						style : naver.maps.ZoomControlStyle.SMALL
+					}
+		        });
+		        
+		        const marker = new naver.maps.Marker({
+					position : new naver.maps.LatLng(lat, lng), 
+					map : map
+				})
+				
+				naver.maps.Event.addListener(marker,"click",function(e){
+					//생성된 infoWindow를 map의 marker위치에 생성
+					infoWindow.open(map, marker);
+				})
+		        
+		    });	
+		}
+		
+		$(function(){
+			startMap();
+		})
 		$(".menu").eq(0).click()
 		
 	</script>
@@ -959,6 +1012,7 @@
 	$(".review-modal-close2").on("click", function() {
 		$(this).parents(".review-modal-bg2").hide();
 	});
+	
 </script>
 </body>
 </html>

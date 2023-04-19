@@ -127,6 +127,11 @@ public class MemberDao {
 		return 0;
 	}
 
+	public int deleteWishList(int shopNo) {
+		int result = sqlsession.delete("member.deleteWishList",shopNo);
+		return result;
+	}
+
 	
 	/*
 	//판매자 my캠핑장

@@ -303,7 +303,7 @@ public class MemberService {
 	}
 
 	public ShopListMainData selectWishList(int reqPage, String memberId) {
-		int numPerPage = 6;
+		int numPerPage = 8;
 		int end = reqPage * numPerPage;
 		int start = end - numPerPage + 1;
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -321,13 +321,13 @@ public class MemberService {
 		}
 		String pageNavi = "<ul class='pagination circle-style'>";
 		if(pageNo != 1) {
-			pageNavi += "<li><a class='page-item' href='/shopWishList.do?reqPage="+(pageNo-1)+"'><span class='material-symbols-outlined'>chevron_left</span></a></li>";
+			pageNavi += "<li><a class='page-item' href='/shopWishList.do?reqPage="+(pageNo-1)+"&memberId="+memberId+"'><span class='material-symbols-outlined'>chevron_left</span></a></li>";
 		}
 			for(int i=0; i<pageNaviSize; i++) {
 				if(pageNo == reqPage) {
 					pageNavi += "<li><a class='page-item active-page'>"+pageNo+"</a></li>";
 				}else {
-					pageNavi += "<li><a class='page-item' href='/shopWishList.do?reqPage="+pageNo+"'>"+pageNo+"</a></li>";
+					pageNavi += "<li><a class='page-item' href='/shopWishList.do?reqPage="+pageNo+"&memberId="+memberId+"'>"+pageNo+"</a></li>";
 				}
 				pageNo++;
 				if(pageNo > totalPage) {
@@ -335,7 +335,7 @@ public class MemberService {
 				}
 			}
 		if(pageNo <= totalPage) {
-			pageNavi += "<li><a class='page-item' href='/shopWishList.do?reqPage="+(pageNo+1)+"'><span class='material-symbols-outlined'>chevron_right </span></a></li>";
+			pageNavi += "<li><a class='page-item' href='/shopWishList.do?reqPage="+(pageNo+1)+"&memberId="+memberId+"'><span class='material-symbols-outlined'>chevron_right </span></a></li>";
 		}
 		ShopListMainData slmd = new ShopListMainData(list, pageNavi);
 		return slmd;
@@ -354,6 +354,11 @@ public class MemberService {
 		return dao.updateFilepath(upFilepath);
 	}
 	 */
+
+	public int deleteWishList(int shopNo) {
+		int result = dao.deleteWishList(shopNo);
+		return result;
+	}
 	
 
 }
