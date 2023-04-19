@@ -354,6 +354,11 @@ public class MemberService {
 		return dao.updateFilepath(upFilepath);
 	}
 	 */
+
+	public int deleteWishList(int shopNo) {
+		int result = dao.deleteWishList(shopNo);
+		return result;
+	}
 	
 
 }

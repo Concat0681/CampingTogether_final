@@ -17,6 +17,18 @@
 				<h2 style="padding-bottom: 30px;">WISH LIST</h2>
 			</div>
 			<div class="cart-mid">
+				 <c:if test="${empty shopList}">
+				    <h2 style="text-align: center; padding-top: 50px;">장바구니가 비어있습니다.</h2>
+        			<p style="text-align: center;">원하는 상품을 담아보세요!</p>
+        			<div style="text-align: center; padding-bottom: 100px;">
+	        			<span class="material-symbols-outlined">arrow_downward</span>
+        			</div>
+        			<div style="text-align: center; border-bottom: 1px solid #ccc; padding-bottom: 50px;">
+        				<a href="/shopMainList.do" class="moveShop">
+		        			<span class="material-symbols-outlined" style="font-size: 300px; color: rgba(173, 139, 115, 1);">shopping_cart</span>
+	        			</a>
+        			</div>
+				 </c:if>
 				<c:forEach items="${shopList }" var="s" varStatus="i">
 					<div class="shop-wrap">
 						<div class="shop">
@@ -68,9 +80,16 @@
 					</div>
 				</c:forEach>
 			</div>
-			<div class="pagenation">
-	        	${navi }
-        	</div>
+			<c:if test="${empty shopList}">
+			    <div class="pagenation" style="display:none;">
+			        ${navi}
+			    </div>
+			</c:if>
+			<c:if test="${not empty shopList}">
+			    <div class="pagenation">
+			        ${navi}
+			    </div>
+			</c:if>
 		</div>
 		
 		

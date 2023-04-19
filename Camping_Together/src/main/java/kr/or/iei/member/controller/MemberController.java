@@ -304,4 +304,14 @@ public class MemberController {
 		return "member/mypageSFrm";
 	}
 	
+	@RequestMapping(value="/deleteWishList.do")
+	public String deleteWishList(int shopNo, String memberId) {
+		int result = service.deleteWishList(shopNo);
+		if(result > 0) {
+			return "redirect:/shopWishList.do?reqPage=1&memberId="+memberId;
+		}else {
+			return "redirect:/";
+		}
+	}
+	
 }
