@@ -314,11 +314,5 @@
 	        ${pageNavi }
         </div>
     </div>  
-    <script>
-    	$("#favorite").on("click", function(){
-			alert("bb");
-			window.event.stopPropagation();
-    	})
-    </script>
 </body>
 </html>

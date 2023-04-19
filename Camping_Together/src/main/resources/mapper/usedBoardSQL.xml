@@ -136,6 +136,18 @@
 	<delete id="deleteFile" parameterType="_int">
 		delete from used_photo where fileno = #{_parameter}
 	</delete>
+	<!-- 중고거래 판매상태 업데이트 -->
+	<update id="updateUsedBoardStatus" parameterType="_int">
+		update used_board set used_board_status = 1 where used_board_no = #{_parameter}
+	</update>
+	<!-- 신고할 게시글 정보 조회 -->
+	<select id="selectBlackUsedBoard" parameterType="_int" resultType="ub">
+		select 
+			used_board_no as usedBoardNo,
+			used_board_writer as usedBoardWriter
+		from used_board
+		where used_board_no = #{_parameter}
+	</select>
 	
 	<!-- 메인페이지 중고 거래 조회수 상위 3개 리스트 -->
 	<select id="getTop3UsedBoards" resultType="ub">
@@ -157,6 +169,7 @@
 		        order by read_count DESC)
 		where rownum <= 3
 		]]>
+
 	</select>
 </mapper>
 

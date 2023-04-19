@@ -107,5 +107,15 @@ public class UsedBoardDao {
 		List list = sqlSession.selectList("usedBoard.getTop3UsedBoards", ub);
 		System.out.println(list);
 		return (ArrayList<UsedBoard>) list;
+
+	}
+	public int updateUsedBoardStatus(int usedBoardNo) {
+		int result = sqlSession.update("usedBoard.updateUsedBoardStatus", usedBoardNo);
+		return result;
+	}
+
+	public UsedBoard selectBlackUsedBoard(int usedBoardNo) {
+		UsedBoard ub = sqlSession.selectOne("usedBoard.selectBlackUsedBoard", usedBoardNo);
+		return null;
 	}
 }

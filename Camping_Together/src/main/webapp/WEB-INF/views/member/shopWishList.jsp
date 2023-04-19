@@ -17,19 +17,47 @@
 				<h2 style="padding-bottom: 30px;">WISH LIST</h2>
 			</div>
 			<div class="cart-mid">
-				<c:forEach items="${shopList }" var="s">
+				<c:forEach items="${shopList }" var="s" varStatus="i">
 					<div class="shop-wrap">
 						<div class="shop">
 							<div class="shop-img">
-								<img src="/resources/image/usedBoard/noImg.gif">
+								<div id="carouselExampleControls-${i.index }" class="carousel slide" data-bs-ride="carousel">
+									  <!-- 캐러셀 내용 정의 -->
+									  	<div class="carousel-inner">
+									  		<c:forEach items="${s.shopPhotoList }" var="f" varStatus="j">
+												<c:choose>
+													<c:when test="${j.index == 0 }">
+														<div class="carousel-item active">
+															<img src="resources/upload/shop/${f.filepath }" style="width: 100%; height: 230px; border: 1px solid #ccc; border-radius: 5px;">
+														</div>
+													</c:when>
+													<c:otherwise>
+														<div class="carousel-item">
+															<img src="resources/upload/shop/${f.filepath }" style="width: 100%; height: 230px; border: 1px solid #ccc; border-radius: 5px;">
+														</div>
+													</c:otherwise>
+												</c:choose>
+											  <!-- 이전/다음 버튼 정의 -->
+											  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls-${i.index }" data-bs-slide="prev">
+											    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+											    <span class="visually-hidden">이전</span>
+											  </button>
+											  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls-${i.index }" data-bs-slide="next">
+											    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+											    <span class="visually-hidden">다음</span>
+											  </button>
+											</c:forEach>	
+										</div>
+									  
+									</div>
 							</div>
 							<div class="shop-title">
-								<span>ㅎㅇㅎㅇ</span>
+								<span>${s.shopTitle }</span>
 							</div>
 							<div class="zero"></div>
 							<div class="shop-bottom">
 								<div class="shop-price">
-									<span>10000</span><span>원</span>
+									<span>${s.shopPrice }</span><span>원</span>
 								</div>
 								<span class="shop-buy">결제</span>
 							</div>
