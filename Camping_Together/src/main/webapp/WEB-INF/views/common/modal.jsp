@@ -86,7 +86,7 @@
  
  
  
-<!-- 모달 창 -->
+<!-- 로그인이 필요한 모달 창 
 	<div id="modalVer1" class="modal">
 	  <div class="modal-content">
 	    <div class="closeBox">
@@ -105,7 +105,7 @@
 	  </div>
 	</div>
 	
-	
+	-->
 	
 <script>
 // 모달창 닫기 버튼 클릭 이벤트 
