@@ -3,6 +3,65 @@
 .page-wrap{
 	margin-top: 150px;
 }
+.page-slick{
+	position: relative;
+}
+.slick-btn{
+	position: absolute;
+	border: none;
+	background: inherit;
+}
+.slick-btn>span{
+	font-size: 50px;
+	line-height: 50px;
+}
+.slick-dots {
+	bottom: 20px !important;
+}
+.slick-dots li{
+	margin: 0 20px !important;
+}
+.slick-dots li button:before{
+	font-size: 15px !important;
+}
+#prevPageBtn{
+	top: 50%;
+	left: 40%;
+}
+#nextPageBtn{
+	top: 50%;
+	right: 40%;
+}
+.page-slick>div{
+	height: 400px;
+}
+.page-camping-header{
+	background-image: url(../../image/shop/shopCampingBackground.jpg);
+	background-size: 100%;
+	height: 400px;
+}
+.page-car-header{
+	background-size: 100%;
+	background-image: url(../../image/shop/shopCarBackground.jpg);
+}
+.page-etc-header{
+	background-size: 100%;
+	background-image: url(../../image/shop/shopEtcBackground.jpg);
+}
+.slick-content{
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.slick-title{
+	font-size: 30px;
+	font-family: ng-bold;
+}
+.content-slick{
+	min-height: 600px;
+}
 .shop-wrap{
 	width: 90%;
 	margin: 0 auto;

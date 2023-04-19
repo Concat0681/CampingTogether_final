@@ -18,6 +18,12 @@ import kr.or.iei.member.model.vo.MyReview;
 import kr.or.iei.member.model.vo.ProductPageData;
 import kr.or.iei.member.model.vo.ProductPayment;
 import kr.or.iei.member.model.vo.ReviewPageData;
+import kr.or.iei.member.model.vo.SellCampingList;
+import kr.or.iei.shop.model.vo.Shop;
+import kr.or.iei.shop.model.vo.ShopBasket;
+import kr.or.iei.shop.model.vo.ShopListMainData;
+import kr.or.iei.usedBoard.model.vo.UsedBoard;
+import kr.or.iei.usedBoard.model.vo.UsedBoardPageDate;
 
 @Service
 public class MemberService {
@@ -295,6 +301,46 @@ public class MemberService {
 	//회원 비밀번호 찾기
 	public Member searchOneMemberPw(Member member) {
 		return dao.searchOneMemberPw(member);
+	}
+
+	public ShopListMainData selectWishList(int reqPage, String memberId) {
+		int numPerPage = 6;
+		int end = reqPage * numPerPage;
+		int start = end - numPerPage + 1;
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("start", start);
+		map.put("end", end);
+		map.put("memberId", memberId);
+		ArrayList<Shop> list = dao.selectWishList(map);
+		int totalCount = dao.selectShopBasketCount(memberId);
+		int totalPage = (int)Math.ceil(totalCount/(double)numPerPage);
+		int pageNaviSize = 10;
+		
+		int pageNo = 1;
+		if(reqPage > 3) {
+			pageNo = reqPage - 2;
+		}
+		String pageNavi = "<ul class='pagination circle-style'>";
+		if(pageNo != 1) {
+			pageNavi += "<li><a class='page-item' href='/shopWishList.do?reqPage="+(pageNo-1)+"'><span class='material-symbols-outlined'>chevron_left</span></a></li>";
+		}
+			for(int i=0; i<pageNaviSize; i++) {
+				if(pageNo == reqPage) {
+					pageNavi += "<li><a class='page-item active-page'>"+pageNo+"</a></li>";
+				}else {
+					pageNavi += "<li><a class='page-item' href='/shopWishList.do?reqPage="+pageNo+"'>"+pageNo+"</a></li>";
+				}
+				pageNo++;
+				if(pageNo > totalPage) {
+					break;
+				}
+			}
+		if(pageNo <= totalPage) {
+			pageNavi += "<li><a class='page-item' href='/shopWishList.do?reqPage="+(pageNo+1)+"'><span class='material-symbols-outlined'>chevron_right </span></a></li>";
+		}
+		ShopListMainData slmd = new ShopListMainData(list, pageNavi);
+		return slmd;
+		
 	}
 
 	

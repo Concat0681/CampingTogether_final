@@ -137,5 +137,8 @@
 	
 
 	
+	<select id="selectShopBasketCount" parameterType="String" resultType="_int">
+		select count(*) from basket where member_id = #{memberId}
+	</select>
 	
 </mapper>
