@@ -1,5 +1,7 @@
 package kr.or.iei.usedBoard.model.vo;
 
+import java.util.ArrayList;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,4 +15,7 @@ public class Blacklist {
 	private String memberId;
 	private String blacklistMemberId;
 	private int blacklistType;
+	private String blacklistContent;
+	private String regDate;
+	private ArrayList<BlacklistPhoto> photolist;
 }
