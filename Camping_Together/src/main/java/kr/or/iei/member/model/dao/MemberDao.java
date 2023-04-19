@@ -14,6 +14,8 @@ import kr.or.iei.member.model.vo.Member;
 import kr.or.iei.member.model.vo.MyReview;
 import kr.or.iei.member.model.vo.ProductPayment;
 import kr.or.iei.member.model.vo.SellCampingList;
+import kr.or.iei.shop.model.vo.Shop;
+import kr.or.iei.shop.model.vo.ShopBasket;
 
 @Repository
 public class MemberDao {
@@ -98,6 +100,16 @@ public class MemberDao {
 	//내가 쓴 캠핑장 리뷰 리스트 총 게시물 수 
 	public int selectMyReviewListCount(String memberId) {
 		int totalCount = sqlsession.selectOne("member.selectMyReviewListCount",memberId);
+		return totalCount;
+	}
+
+	public ArrayList<Shop> selectWishList(HashMap<String, Object> map) {
+		List list = sqlsession.selectList("shop.selectWishList",map);
+		return (ArrayList<Shop>)list;
+	}
+
+	public int selectShopBasketCount(String memberId) {
+		int totalCount = sqlsession.selectOne("member.selectShopBasketCount",memberId);
 		return totalCount;
 	}
 

@@ -158,4 +158,38 @@
 			shop_review_content = #{shopReviewContent}, shop_review_rating = #{shopReviewRating}
 		where shop_review_no = #{shopReviewNo}
 	</update>
+	
+	<select id="selectWishList" parameterType="map" resultMap="selectShop2">
+	    select * from
+	        (select
+	            rownum as rnum,
+	            s.*
+	        from
+	            (select 
+	                *
+	            from shop
+	                left join basket b on shop.shop_no = b.shop_no
+	                where b.member_id = #{memberId}
+	            ) s
+	        )
+	        where rnum between #{start} and #{end}
+	</select>
+	
+	<resultMap type="s" id="selectShop2">
+		<result column="shop_no" property="shopNo"/>
+		<result column="shop_category" property="shopCategory"/>
+		<result column="shop_title" property="shopTitle"/>
+		<result column="shop_price" property="shopPrice"/>
+		<result column="delivary_price" property="delivaryPrice"/>
+		<result column="shop_content" property="shopContent"/>
+		<result column="max_count" property="maxCount"/>
+		<result column="score" property="score"/>
+		<result column="sell_count" property="sellCount"/>
+		<collection property="shopPhotoList"
+					select="selectShopPhotoList"
+					column="shop_no"
+					ofType="sp"
+					javaType="java.util.ArrayList"
+		/>
+	</resultMap>
 </mapper>

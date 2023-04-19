@@ -34,6 +34,7 @@ import kr.or.iei.member.model.vo.MemberPageData;
 import kr.or.iei.member.model.vo.ProductPageData;
 import kr.or.iei.member.model.vo.ReviewPageData;
 //import kr.or.iei.member.model.vo.SellCampingPageData;
+import kr.or.iei.shop.model.vo.ShopListMainData;
 
 @Controller
 public class MemberController {
@@ -195,7 +196,10 @@ public class MemberController {
 	
 	//장바구니
 	@RequestMapping(value = "/shopWishList.do")
-	public String shopWishList() {
+	public String shopWishList(int reqPage, Model model, String memberId) {
+		ShopListMainData slmd = service.selectWishList(reqPage, memberId);
+		model.addAttribute("shopList", slmd.getShopList());
+		model.addAttribute("navi", slmd.getPageNavi());
 		return "member/shopWishList";
 	}
 	
