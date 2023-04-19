@@ -139,27 +139,23 @@
 	
 	<!-- 메인페이지 중고 거래 조회수 상위 3개 리스트 -->
 	<select id="getTop3UsedBoards" resultType="ub">
+		
 		<![CDATA[
 		SELECT *
-			FROM (
-			  SELECT 
-				used_board_no as usedBoardNo,
-				used_board_writer as usedBoardWriter,
-				used_Board_Title as usedBoardTitle,
-				used_board_content as usedBoardContent,
-				used_board_category as usedBoardCategory,
-				used_board_status as usedBoardStatus,
-				used_product_status as usedProductStatus,
-				exchange_status as exchangeStatus,
-				used_product_price as usedProductPrice,
-				used_delivery_status as usedDeliveryStatus,
-				used_trade_location as usedTradeLocation,
-				read_count as readCount,
-				reg_date as regDate
-			  FROM used_board
-			  ORDER BY read_count DESC
-			)
-		WHERE ROWNUM <= 3
+			FROM (select 
+		            used_board.used_board_no as usedBoardNo,
+		            used_board_title as usedBoardTitle,
+		            used_board_status as usedBoardStatus,
+		            used_product_price as usedProductPrice,
+		            used_trade_location as usedTradeLocation,
+		            read_count as readCount,
+		            reg_date as regDate,
+		            filepath as thumbnail
+		        from used_board 
+		        left join (select used_board.used_board_no, max(filepath) as filepath from used_board left join used_photo on used_board.used_board_no = used_photo.used_board_no group by used_board.used_board_no)B
+		        on used_board.used_board_no = B.used_board_no
+		        order by read_count DESC)
+		where rownum <= 3
 		]]>
 	</select>
 </mapper>

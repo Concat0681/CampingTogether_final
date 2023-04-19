@@ -129,12 +129,14 @@
 		<div class="wrapper wrapperBottom"></div>
  	
 	
-	<button class="btn1" style="width : 100px; height : 30px;">버튼</button>
-	<button class="btn2" style="width : 100px; height : 30px;">버튼</button>
-	<button class="btn3" style="width : 100px; height : 30px;">버튼</button>
-	<a class="mainlist" href="/usedBoardIndex.do">ㄱㄱㄱㄱㄱ</a>
+	
 	</div>
 		
+	<div class="buttonBox">
+		<button class="btn1" style="width : 100px; height : 30px;">버튼</button>
+		<button class="btn2" style="width : 100px; height : 30px;">버튼</button>
+		<button class="btn3" style="width : 100px; height : 30px;">버튼</button>
+	</div>
 	
 </body>
 
