@@ -313,7 +313,7 @@
 						<div>${pageNavi }</div>
 					</div>
 					<div class="hidden list-by-map">
-						<div id="map" style="width:100%; height:500px;"></div>
+						<div id="map" style="width:100%; height:700px;"></div>
 					</div>
 					<div id="allList" class="hidden">
 						<c:forEach items="${allList }" var="c">			
