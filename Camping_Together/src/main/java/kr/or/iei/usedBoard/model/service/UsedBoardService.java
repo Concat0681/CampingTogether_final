@@ -2,6 +2,7 @@ package kr.or.iei.usedBoard.model.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -151,6 +152,10 @@ public class UsedBoardService {
 			}
 		}
 		return result;
+	}
+
+	public ArrayList<UsedBoard> getTop3UsedBoards(UsedBoard ub) {
+		return dao.getTop3UsedBoards(ub);
 	}
 
 }

@@ -163,6 +163,7 @@ public class CampingService {
 		return scld;
 	}
 	
+	
 	public int insertCampingRoom(CampingRoom cr, ArrayList<CampingRoomFileVO> fileList) {
 		int result = dao.insertCampingRoom(cr);
 		if(result > 0) {

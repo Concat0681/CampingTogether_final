@@ -135,13 +135,7 @@
 		select count(*) from camping_review
 	</select>
 	
-	
-	<!-- 판매자 my캠핑장 -->
-	<select id="selectSellCampingList" parameterType="map" resultType="sc">
-	
-		
-	
-	</select>
+
 	
 	<select id="selectShopBasketCount" parameterType="String" resultType="_int">
 		select count(*) from basket where member_id = #{memberId}

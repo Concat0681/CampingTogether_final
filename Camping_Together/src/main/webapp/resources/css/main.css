@@ -120,6 +120,9 @@
 .capmingSilder li:hover .caption {
   opacity: 1;
 }
+.mainlist{
+	display: block;
+}
 
 .capmingSilder li:hover img {
   transform: scale(1.2);

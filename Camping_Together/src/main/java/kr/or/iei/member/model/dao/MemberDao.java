@@ -8,14 +8,18 @@ import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.multipart.MultipartFile;
 
 import kr.or.iei.member.model.vo.CampingPayment;
 import kr.or.iei.member.model.vo.Member;
 import kr.or.iei.member.model.vo.MyReview;
 import kr.or.iei.member.model.vo.ProductPayment;
+
 import kr.or.iei.member.model.vo.SellCampingList;
 import kr.or.iei.shop.model.vo.Shop;
 import kr.or.iei.shop.model.vo.ShopBasket;
+
+
 
 @Repository
 public class MemberDao {
@@ -111,6 +115,16 @@ public class MemberDao {
 	public int selectShopBasketCount(String memberId) {
 		int totalCount = sqlsession.selectOne("member.selectShopBasketCount",memberId);
 		return totalCount;
+	//일반회원 정보 수정
+	public int updateMember(Member member) {
+		int result = sqlsession.update("member.updateMypageC",member );
+		return result;
+	}
+
+	//프로필이미지 업로드
+	public int updateFilepath(MultipartFile profileName) {
+		int result = sqlsession.update("member.updateFile",profileName);
+		return 0;
 	}
 
 	

@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -165,6 +168,25 @@ input:focus {
 		        <button type="button" onClick="location.href='/joinFrm.do'">회원가입</button>
 		        <div class="searchBox"> <a href="#" class="searchId">아이디 찾기</a> <a href="#" class="searchPw">비밀번호 찾기</a> </div>
 		    </div>
+		    <div class="wrapper wrapperMiddle-tradeBox">
+				<h3>Top 3 Used Board</h3>
+				<c:forEach items="${top3UsedBoards}" var="ub">
+					<div>
+						<a href="/usedBoardView.do?usedBoardNo=${ub.usedBoardNo}">
+							<c:if test="${ub.thumbnail ne null }">
+								<img src="/resources/upload/usedBoard/${ub.thumbnail}" >
+							</c:if>
+							<c:otherwise>
+								<img src="/resources/upload/usedBoard/noImg.jpg">
+							</c:otherwise>
+							<p>${ub.usedBoardTitle}</p>
+							<p><fmt:formatNumber value="${ub.usedProductPrice}" pattern="#,###" />원</p>
+							<p>${ub.usedTradeLocation} :: ${ub.regDate}</p>
+							<p>조회수: ${ub.readCount}</p>
+						</a>
+					</div>
+				</c:forEach>
+		</div>
 	    </form>
 	</div>
 	
