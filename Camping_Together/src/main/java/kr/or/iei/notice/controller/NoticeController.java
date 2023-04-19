@@ -1,5 +1,7 @@
 package kr.or.iei.notice.controller;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,12 +10,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import kr.or.iei.notice.model.service.NoticeService;
 import kr.or.iei.notice.model.vo.Notice;
 import kr.or.iei.notice.model.vo.NoticePageData;
+import kr.or.iei.usedBoard.model.vo.UsedBoard;
 
 @Controller
 public class NoticeController {
 
 	@Autowired
 	private NoticeService service;
+	
+	@RequestMapping(value = "/noticeMainList.do")
+	public String noticeMainList(Model model, Notice n) {
+		ArrayList<Notice> list = service.selectNoticeList(n);
+		System.out.println("컨트롤러"+n);
+		System.out.println("컨트롤러"+list);
+		model.addAttribute("mainList", list);
+		return "notice/noticeMainList";
+	}
+	
 	
 	@RequestMapping(value = "/noticeList.do")
 	public String noticeList(int reqPage, Model model) {

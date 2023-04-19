@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.or.iei.notice.model.vo.Notice;
+import kr.or.iei.usedBoard.model.vo.UsedBoard;
 
 @Repository
 public class NoticeDao {
@@ -44,5 +45,12 @@ public class NoticeDao {
 	public int selectNoticeCount() {
 		int totalCount = sqlSession.selectOne("notice.totalCount");
 		return totalCount;
+	}
+
+	public ArrayList<Notice> selectNoticeList(Notice n) {
+		List list = sqlSession.selectList("notice.selectNoticeMainList", n);
+		System.out.println("dao"+n);
+		System.out.println("dao"+list);
+		return (ArrayList<Notice>)list;
 	}
 }

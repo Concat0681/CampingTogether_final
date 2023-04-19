@@ -141,10 +141,9 @@
 .notice-Box{
 	font-size: 18px;
 	width: calc(100%/2);
-	margin-left: 100px;
-	padding-right: 150px;
+	margin-left: 50px;
 	min-height: 170px;
-	min-width: 365px;
+	min-width: 400px;
 }
 .notice-Box>p{
 	font-weight: bolder;

@@ -108,10 +108,7 @@
 		<div class="wrapper wrapperMiddle-notice"> 
 			<div class="notice-area">
 				<div class="notice-Box"> 
-					공지사항 <span><a href="/noticeList.do?reqPage=1">+</a></span> 
-					<div class="notice-list">
-						<jsp:include page="/noticeMainList.do"></jsp:include>	
-					<div>
+					<jsp:include page="/noticeMainList.do"/>
 				</div>
 				<div class="notice-img">
 					<a href="/noticeView.do?noticeNo=101"><img src="resources/image/main/notice-beta.png"></a>

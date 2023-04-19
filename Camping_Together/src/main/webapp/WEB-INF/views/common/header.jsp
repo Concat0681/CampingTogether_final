@@ -75,21 +75,21 @@
         <div class="nav-top" style="color: #fff;">
             <ul class="login">
                 <!-- <li><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">쪽지보내기</button></li> -->
-                <li><a href="/noticeList.do?reqPage=1">공지사항</a></li>
-                <li><a href = "/messageMain.do">쪽지함</a></li>
+                <li><a class="nav-linkT" href="/noticeList.do?reqPage=1">공지사항</a></li>
+                <li><a class="nav-linkT" href = "/messageMain.do">쪽지함</a></li>
                 <c:choose>
                 	<c:when test="${sessionScope.m.memberGrade eq 'c' }">
-		                <li><a href = "/cmapingPayList.do?reqPage=1&memberNo=${sessionScope.m.memberNo }">[${sessionScope.m.memberName }]</a></li>
-               			 <li><a href="/shopWishList.do?reqPage=1&memberId=${sessionScope.m.memberId }">장바구니</a></li>
+		                <li><a class="nav-linkT" href = "/cmapingPayList.do?reqPage=1&memberNo=${sessionScope.m.memberNo }">[${sessionScope.m.memberName }]</a></li>
+               			 <li><a class="nav-linkT" href="/shopWishList.do?reqPage=1&memberId=${sessionScope.m.memberId }">장바구니</a></li>
                 	</c:when>
                 	<c:when test="${sessionScope.m.memberGrade eq 's' }">
-		                <li><a href = "/sellList.do?reqPage=1&memberId=${sessionScope.m.memberId }">[${sessionScope.m.memberName }]</a></li>
+		                <li><a class="nav-linkT" href = "/sellList.do?reqPage=1&memberId=${sessionScope.m.memberId }">[${sessionScope.m.memberName }]</a></li>
                 	</c:when>
                 	<c:when test="${sessionScope.m.memberGrade eq 'a' }">
-		                <li><a href = "/shopProductList.do?reqPage=1&memberId=${sessionScope.m.memberId }">[${sessionScope.m.memberName }]</a></li>
+		                <li><a class="nav-linkT" href = "/shopProductList.do?reqPage=1&memberId=${sessionScope.m.memberId }">[${sessionScope.m.memberName }]</a></li>
                 	</c:when>
                 </c:choose>
-                <li><a href="/logout.do">로그아웃</a></li>
+                <li><a class="nav-linkT" href="/logout.do">로그아웃</a></li>
             </ul>
         </div>
     </div>
@@ -206,6 +206,7 @@ const navLink =  document.querySelectorAll('.nav-link');
 		          for(let i=0; i < navLink.length; i++){
 		        	  navLink[i].style = 'color';
 		        	  navLink[i].style.color = '#AD8B73';
+		        	  
 		          }
 		          
 		        } else {
@@ -217,7 +218,7 @@ const navLink =  document.querySelectorAll('.nav-link');
 		      
 		        }
 		      if (scrollTop >= 300) {
-		          //네비바의 컨텐츠 글자색을 흰색으로
+		          //네비바의 컨텐츠 글자색을 컨셉 컬러로
 		          for(let i=0; i < navLink.length; i++){
 		        	  navLink[i].style = 'color';
 		        	  navLink[i].style.color = '#AD8B73';
