@@ -304,7 +304,7 @@ public class MemberService {
 	}
 
 	public ShopListMainData selectWishList(int reqPage, String memberId) {
-		int numPerPage = 9;
+		int numPerPage = 6;
 		int end = reqPage * numPerPage;
 		int start = end - numPerPage + 1;
 		HashMap<String, Object> map = new HashMap<String, Object>();

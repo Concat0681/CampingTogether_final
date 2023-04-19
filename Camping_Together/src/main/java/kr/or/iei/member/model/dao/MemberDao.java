@@ -115,6 +115,7 @@ public class MemberDao {
 	public int selectShopBasketCount(String memberId) {
 		int totalCount = sqlsession.selectOne("member.selectShopBasketCount",memberId);
 		return totalCount;
+	}
 	//일반회원 정보 수정
 	public int updateMember(Member member) {
 		int result = sqlsession.update("member.updateMypageC",member );

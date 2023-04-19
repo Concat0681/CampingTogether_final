@@ -17,25 +17,29 @@
 				<h2 style="padding-bottom: 30px;">WISH LIST</h2>
 			</div>
 			<div class="cart-mid">
-				<div class="shop-wrap">
-				<c:forEach items="${shopList }" var="ub"></c:forEach>
-					<div class="shop">
-						<div class="shop-img">
-							<img src="/resources/image/usedBoard/noImg.gif">
-						</div>
-						<div class="shop-title">
-							<span>ㅎㅇㅎㅇ</span>
-						</div>
-						<div class="zero"></div>
-						<div class="shop-bottom">
-							<div class="shop-price">
-								<span>10000</span><span>원</span>
+				<c:forEach items="${shopList }" var="s">
+					<div class="shop-wrap">
+						<div class="shop">
+							<div class="shop-img">
+								<img src="/resources/image/usedBoard/noImg.gif">
 							</div>
-							<span class="shop-buy">결제</span>
+							<div class="shop-title">
+								<span>ㅎㅇㅎㅇ</span>
+							</div>
+							<div class="zero"></div>
+							<div class="shop-bottom">
+								<div class="shop-price">
+									<span>10000</span><span>원</span>
+								</div>
+								<span class="shop-buy">결제</span>
+							</div>
 						</div>
 					</div>
-				</div>
+				</c:forEach>
 			</div>
+			<div class="pagenation">
+	        	${navi }
+        	</div>
 		</div>
 </body>
 </html>
