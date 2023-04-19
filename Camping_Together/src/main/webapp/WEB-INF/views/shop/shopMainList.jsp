@@ -24,24 +24,30 @@
 		<div class="page-slick" id="page-slick">
 			<div class="page-camping-header" style="height : 400px;">
 				<div class="slick-content">
-					<div class="slick-title">캠핑용품</div>
 				</div>	
 			</div>
 			<div class="page-car-header" style="height : 400px;">
 				<div class="slick-content">
-					<div class="slick-title">카박용품</div>
 				</div>
 			</div>
 			<div class="page-etc-header" style="height : 400px;">
 				<div class="slick-content">
-					<div class="slick-title">기타용품</div>
 				</div>
 			</div>
-			<button id="prevPageBtn" class="slick-btn"><span class="material-symbols-outlined">arrow_back_ios</span></button>
-			<button id="nextPageBtn" class="slick-btn"><span class="material-symbols-outlined">arrow_forward_ios</span></button>
 		</div>
 		<div class="content-slick" id="content-slick">
+			<button id="prevPageBtn" class="slick-btn s1_arrow left">
+				<div class="scroll-arrow"></div>
+				<div class="scroll-arrow"></div>
+				<div class="scroll-arrow"></div>
+			</button>
+			<button id="nextPageBtn" class="slick-btn s1_arrow right-s1">
+				<div class="scroll-arrow"></div>
+				<div class="scroll-arrow"></div>
+				<div class="scroll-arrow"></div>
+			</button>
 			<div class="camping-wrap shop-wrap">
+				<div class="slick-title">캠핑용품</div>
 				<div class="camping-list shop-list">
 					<c:forEach items="${campingList }" var="c" varStatus="i">
 						<div class="shop-box">
@@ -94,6 +100,7 @@
 				</div>
 			</div>
 			<div class="car-wrap shop-wrap">
+				<div class="slick-title">카박용품</div>
 				<div class="car-list shop-list">
 					<c:forEach items="${carList }" var="c" varStatus="i">
 						<div class="shop-box">
@@ -146,6 +153,7 @@
 				</div>
 			</div>
 			<div class="etc-wrap shop-wrap">
+				<div class="slick-title">기타용품</div>
 				<div class="etc-list shop-list">
 					<c:forEach items="${etcList }" var="c">
 						<div class="shop-box">
@@ -206,24 +214,23 @@
 		
 		$(function(){
 			$("#page-slick").slick({
-				slide: "div",
-				slidesToShow: 1,
-				slidesToScroll: 1,
-				dots: true,
-				autoplay: false,
-				arrows: true,
-				fade: true,
-				prevArrow: $('#prevPageBtn'),
-				nextArrow: $('#nextPageBtn'),
-				asNavFor: '#content-slick'
-			});
-			
-			$("#content-slick").slick({
 				slidesToShow: 1,
 				slidesToScroll: 1,
 				autoplay: false,
 				arrows: false,
 				fade: true,
+				asNavFor: '#content-slick'
+			});
+			
+			$("#content-slick").slick({
+				slide: "div",
+				slidesToShow: 1,
+				slidesToScroll: 1,
+				autoplay: false,
+				arrows: true,
+				fade: true,
+				prevArrow: $('#prevPageBtn'),
+				nextArrow: $('#nextPageBtn'),
 				asNavFor: '#page-slick'
 			});
 		})
