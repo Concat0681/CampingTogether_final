@@ -167,7 +167,7 @@ body{
 
 
 /* 모달창 스타일 */
-.modal {
+.modalVer1 {
   display: none; /* 모달창 기본적으로는 안 보이도록 지정 */
   position: fixed; 
   left: 0;
