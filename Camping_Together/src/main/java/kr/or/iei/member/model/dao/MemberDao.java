@@ -14,7 +14,6 @@ import kr.or.iei.member.model.vo.CampingPayment;
 import kr.or.iei.member.model.vo.Member;
 import kr.or.iei.member.model.vo.MyReview;
 import kr.or.iei.member.model.vo.ProductPayment;
-import kr.or.iei.member.model.vo.SellCampingList;
 
 @Repository
 public class MemberDao {

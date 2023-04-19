@@ -17,7 +17,7 @@
 			<h2>개인정보 수정</h2>
 		</div>
 
-		<form action="/updateMypageC.do">
+		<form action="/updateMypageC.do" method="post" enctype="multipart/form-data">
 			<div class="mypage-content">
 				<div class="image-div">
 					<div class="img">
@@ -32,10 +32,11 @@
 				</div>
 
 				<table>
+				<input type="hidden"  name="memberNo" value="${sessionScope.m.memberNo }" >
 					<tr>
 						<td>아이디</td>
-						<td><input type="text" class="input" name="memberId"
-							value="${sessionScope.m.memberId }" readonly></td>
+						<td><input type="text" class="input" name="memberId" value="${sessionScope.m.memberId }" readonly></td>
+						
 					</tr>
 					<tr>
 						<td>회원구분</td>
@@ -63,13 +64,13 @@
 					</tr>
 					<tr>
 						<td>주소</td>
-						<td><input type="text" class="input" name="memberName"
+						<td><input type="text" class="input" name="memberAddr"
 							value="${sessionScope.m.memberAddr }" readonly></td>
 					</tr>
 					<tr>
 						<td>주소 변경</td>
-						<td><input type="text" class="postNo-input" id="sample4_postcode" placeholder="우편번호" readonly> 
-							<input type="button" onclick="sample4_execDaumPostcode()" id="post-btn" value="우편번호 찾기"><br> 
+						<td><!-- <input type="text" class="postNo-input" id="sample4_postcode" placeholder="우편번호" readonly>  -->
+							<input type="button" onclick="sample4_execDaumPostcode()" id="post-btn" value="주소 찾기"><br> 
 							<input type="text" class="input" name="memberAddr" id="sample4_roadAddress">
 							<input type="text" class="input" placeholder="상세주소" id="detail-input"> <!-- <input type="text" id="sample4_roadAddress" placeholder="도로명주소" readonly><br> -->
 
@@ -145,7 +146,7 @@
 							}
 
 							// 우편번호와 주소 정보를 해당 필드에 넣는다.
-							document.getElementById('sample4_postcode').value = data.zonecode;
+							//document.getElementById('sample4_postcode').value = data.zonecode;
 							document.getElementById("sample4_roadAddress").value = roadAddr;
 							
 							var guideTextBox = document.getElementById("guide");

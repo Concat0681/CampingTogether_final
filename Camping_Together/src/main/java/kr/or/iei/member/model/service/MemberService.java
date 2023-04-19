@@ -18,7 +18,6 @@ import kr.or.iei.member.model.vo.MyReview;
 import kr.or.iei.member.model.vo.ProductPageData;
 import kr.or.iei.member.model.vo.ProductPayment;
 import kr.or.iei.member.model.vo.ReviewPageData;
-import kr.or.iei.member.model.vo.SellCampingList;
 
 @Service
 public class MemberService {
@@ -287,16 +286,18 @@ public class MemberService {
 				return rpd;
 	}
 
+	
 	//일반회원 정보 수정
 	public int updateMypageC(Member member) {
 		return dao.updateMember(member);
 		
 	}
+	/*
 	//프로필이미지 업로드
-	public int updateFilepath(MultipartFile profileName) {
-		return dao.updateFilepath(profileName);
+	public int updateFilepath(String upFilepath) {
+		return dao.updateFilepath(upFilepath);
 	}
-
+	 */
 	
 
 }

@@ -21,6 +21,7 @@
 			<div class="list-content">
 				<table>
 					<tr>
+						<th>No</th>
 						<th>캠핑장 명</th>
 						<th>지역</th>
 						<th>방 이름</th>
@@ -28,10 +29,11 @@
 					</tr>
 				<c:forEach items="${list }" var="l">  
 					<tr>
+						<td>${l.rnum }</td>
 						<td>${l.campingTitle }</td> 
 						<td>${l.campingSido }</td> 
-						<td></td>
-						<td></td>
+						<td>${l.campingRoomTitle }</td>
+						<td><div><a href="#"><img class="camping-img"  src="/resources/upload/campingRoom/${l.filepath } }"></a></div></td> 
 					</tr>
 				</c:forEach> 
 					

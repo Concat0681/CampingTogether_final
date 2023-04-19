@@ -14,12 +14,12 @@
 
 	<div class="input-div">
 		<div class="input-title">
-			<h2>개인정보 수정</h2>
+			<h2>판매자 정보 수정</h2>
 		</div>
 	</div>
 
 	<form action="/updateMypageC.do">
-			<div class="mypage-content spage">
+			<div class="mypage-content">
 
 				<table>
 					<tr>
@@ -47,18 +47,16 @@
 					</tr>
 					<tr>
 						<td>이름</td>
-						<td><input type="text" class="input" name="memberName"
-							value="${sessionScope.m.memberName }" readonly></td>
+						<td><input type="text" class="input" name="memberName" value="${sessionScope.m.memberName }" readonly></td>
 					</tr>
 					<tr>
 						<td>주소</td>
-						<td><input type="text" class="input" name="memberName"
-							value="${sessionScope.m.memberAddr }" readonly></td>
+						<td><input type="text" class="input" name="memberName" value="${sessionScope.m.memberAddr }" readonly></td>
 					</tr>
 					<tr>
 						<td>주소 변경</td>
-						<td><input type="text" class="postNo-input" id="sample4_postcode" placeholder="우편번호" readonly> 
-							<input type="button" onclick="sample4_execDaumPostcode()" id="post-btn" value="우편번호 찾기"><br> 
+						<td>
+							<input type="button" onclick="sample4_execDaumPostcode()" id="post-btn" value="주소 찾기"><br> 
 							<input type="text" class="input" name="memberAddr" id="sample4_roadAddress">
 							<input type="text" class="input" placeholder="상세주소" id="detail-input"> <!-- <input type="text" id="sample4_roadAddress" placeholder="도로명주소" readonly><br> -->
 
@@ -67,13 +65,11 @@
 					</tr>
 					<tr>
 						<td>이메일</td>
-						<td><input type="text" class="input" name="memberEmail"
-							value="${sessionScope.m.memberEmail }" readonly></td>
+						<td><input type="text" class="input" name="memberEmail" value="${sessionScope.m.memberEmail }" readonly></td>
 					</tr>
 					<tr>
 						<td>전화번호</td>
-						<td><input type="text" class="input" name="memberPhone"
-							value="${sessionScope.m.memberPhone}"></td>
+						<td><input type="text" class="input" name="memberPhone" value="${sessionScope.m.memberPhone}"></td>
 					</tr>
 				</table>
 			</div>

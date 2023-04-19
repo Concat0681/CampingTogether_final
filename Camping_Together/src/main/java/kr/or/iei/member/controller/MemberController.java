@@ -239,34 +239,37 @@ public class MemberController {
 	public String sellList(int reqPage, String memberId, Model model) {
 		SellCampingListData scld = cmapingService.getSellCampingList(memberId, reqPage);
 		model.addAttribute("list",scld.getCampingList());
-		System.out.println(scld.getCampingList());
-		System.out.println(memberId);
 		model.addAttribute("navi", scld.getPageNavi());
+		model.addAttribute("index",1);
 		return "member/sellList";
 	}
 	
 	
 	//일반회원 정보 수정
 	@RequestMapping(value = "/updateMypageC.do")
-	public String updateMypageC(Member member,@SessionAttribute(required = false) Member m, MultipartFile profileName, HttpServletRequest requset ) {
+	public String updateMypageC(Member member,MultipartFile profileName, HttpServletRequest requset ) {
 		String savaPath = requset.getSession().getServletContext().getRealPath("/resources/image/member/");
-		if(profileName != null) {
+		System.out.println(member);
+		if(!profileName.isEmpty()) {
+			
 				String filename = profileName.getOriginalFilename();
 				String upFilepath = manager.upload(savaPath, profileName);
 				FileVO fileVO = new FileVO();
 				fileVO.setProfileFilename(filename);
-				fileVO.setProfileFilepath(upFilepath);
+				fileVO.setProfileFilepath(upFilepath);	
 		}
-		//파일을 테이블에 insert
-		int result = service.updateFilepath(profileName);
 		
-		if(result>0) {
-			result += service.updateMypageC(member);
-		}
 		
 		return null;
 		
 		
+	}
+	
+	
+	@RequestMapping(value = "/shopProductList.do")
+	public String shopList(Member member, int reqPage, Model model) {
+		
+		return "member/shopList";
 	}
 	
 	

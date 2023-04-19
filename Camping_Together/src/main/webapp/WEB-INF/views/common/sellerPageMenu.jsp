@@ -16,9 +16,9 @@
 			<div class="menu-list">
 				<ul style="padding : 0;">
 					<li><a href="/sellList.do?reqPage=1&memberId=${sessionScope.m.memberId }">My 캠핑장</a></li>
-					<li><a href="#">shop상품 판매 리스트</a></li>
+					<!-- <li><a href="/sellProduct.do?reqPage=1&memberId=">shop상품 판매 리스트</a></li>  -->
 					<li><a href="#">?</a></li>
-					<li><a href="/mypageS.do">개인정보 수정</a></li>
+					<li><a href="/mypageS.do">판매자 정보 수정</a></li>
 				</ul>
 			</div>
 		</div>
@@ -26,7 +26,8 @@
 		
 		
 		<script>
-
+		const index = $(".menu-list>ul").attr("index");
+		$(".menu-list>ul>li").eq(index).addClass("active-tab");
 		</script>
 		
 		

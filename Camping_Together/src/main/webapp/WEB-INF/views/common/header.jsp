@@ -85,7 +85,7 @@
 		                <li><a href = "/sellList.do?reqPage=1&memberId=${sessionScope.m.memberId }">[${sessionScope.m.memberName }]</a></li>
                 	</c:when>
                 	<c:when test="${sessionScope.m.memberGrade eq 'a' }">
-		                <li><a href = "#">[${sessionScope.m.memberName }]</a></li>
+		                <li><a href = "/shopProductList.do?reqPage=1&memberId=${sessionScope.m.memberId }">[${sessionScope.m.memberName }]</a></li>
                 	</c:when>
                 </c:choose>
                 <li><a href="/logout.do">로그아웃</a></li>

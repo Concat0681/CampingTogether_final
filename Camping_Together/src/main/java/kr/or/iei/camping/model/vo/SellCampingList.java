@@ -12,5 +12,5 @@ public class SellCampingList {
 	private String campingTitle;
 	private String campingSido;
 	private String campingRoomTitle;
-	private String filpath;
+	private String filepath;
 }
