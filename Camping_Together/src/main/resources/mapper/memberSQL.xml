@@ -135,13 +135,7 @@
 		select count(*) from camping_review
 	</select>
 	
-	
-	<!-- 판매자 my캠핑장 -->
-	<select id="selectSellCampingList" parameterType="map" resultType="sc">
-	
-		
-	
-	</select>
+
 	
 	
 </mapper>

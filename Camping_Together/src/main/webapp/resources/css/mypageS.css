@@ -26,7 +26,7 @@
 
 .menu-list>ul>li{
     float: left;
-    width: calc(98% / 4);
+    width: calc(98% / 3);
     height: 50px;
     border-radius: 5px;
     border: 1px solid #CEAB93;
@@ -60,3 +60,72 @@
 .menu-list>ul>li.active-tab>a{
     color:  white;
 }
+
+
+
+/*제목*/
+.input-div{
+    width: 900px;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 100px;
+}
+.input-title{
+    margin-bottom: 20px;
+}
+
+.input-title>h2{
+   color: #AD8B73;
+   margin-top: 0;
+}
+
+.input-content>table{
+    width: 500px;
+    height: 130px;
+}
+
+
+.spage{
+    width: 900px;
+}
+
+.update-btn{
+    width: 600px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+    line-height: 50px;
+
+}
+
+.update-btn>.updateBtn{
+   background-color: #AD8B73;
+   border: 0;
+   width: 300px;
+   border-radius: 5px;
+   height: 50px;
+   margin-bottom: 150px;
+   color: white;
+}
+
+.mypage-content>table>tbody>tr>td>input{
+    padding-left: 10px;
+    font-size: 15px;
+}
+
+.menu-list>ul>li.active-tab{
+    background-color: #AD8B73;
+}
+.menu-list>ul>li.active-tab>a{
+    color:  white;
+}
+
+.menu-wrap>.menu-list>ul>li>a{
+    width: 100%;
+    display: inline-block;
+}
+
+
+
+

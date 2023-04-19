@@ -15,6 +15,8 @@
   		height: 210px;
   		padding: 5px;
 	}
+	
+	
 </style>
 </head>
 <body>
@@ -23,8 +25,8 @@
         <div class="contentWrap">
         	<div class="contentDetail">
         		<h2 style="margin-bottom: 60px;">캠핑장 캠핑 수정</h2>
-        		<form action="/updateCampingRoom.do" method="post" enctype="multipart/form-data">
-        			<input type="hidden" name="campingNo" value="${campingNo }">
+        		<form action="/updateCampingRoom.do" method="post" enctype="multipart/form-data" id="updateCampingRoomFrm">
+        		<input type="hidden" name="campingRoomNo" value="${campingRoom.campingRoomNo }">
 	        		<table>
 	        			<tr>
 	        				<td style="width: 120px; font-size: 1.17em; font-weight: bold; padding-bottom: 20px;">이름</td>
@@ -69,8 +71,8 @@
 	        		<h5>최소 3개 이상의 파일을 등록해주세요.</h5>
 	        			<input type="file" name="campingRoomFilepath" onchange="loadImgs(this);" id="campingRoomFilepath" multiple>
 	        			<div id="img-viewer2">
-	        				<c:forEach items="${filePaths}" var="filePath">
-							    <img src="resources/upload/campingRoom/${filePath.filepath }">
+	        				<c:forEach items="${filePaths}" var="f">
+							    <img src="resources/upload/campingRoom/${f.filepath }">
 							</c:forEach>
 	                    </div>
 	       			</div>
@@ -144,7 +146,6 @@
 	<script>
 		function loadImgs(input) {
 		  // 기존에 있는 이미지 삭제
-		  $('#img-viewer2 img').remove();
 		  
 		  if (input.files && input.files.length > 0) {
 		    for (let i = 0; i < input.files.length; i++) {
@@ -152,6 +153,7 @@
 		      reader.readAsDataURL(input.files[i]);
 		      reader.onload = function(e) {
 		        $("<img>").attr("src", e.target.result).attr("id", "img-" + i).appendTo("#img-viewer2"); // 이미지를 보여줄 DOM 엘리먼트에 추가
+		        $("<button>").text("삭제").attr("onclick", `deleteCampingRoomFile(this,'','${e.target.result}')`).appendTo("#img-viewer2"); 
 		      }
 		    }
 		  }
@@ -169,5 +171,7 @@
 		  }
 		}
 	</script>
+	
+	
 </body>
 </html>
