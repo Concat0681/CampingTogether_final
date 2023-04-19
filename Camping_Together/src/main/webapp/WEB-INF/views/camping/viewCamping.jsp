@@ -36,7 +36,14 @@
 					</div>
 				</div>
 				<div>
-					<button id="sendInquiryBtn" class="btn3" data-bs-toggle="modal" data-bs-target="#exampleModal">문의하기</button>
+					<c:choose>
+							<c:when test="${empty sessionScope.m }">
+								<button id="sendInquiryBtn" class="btn3" data-bs-toggle="modal" data-bs-target="#modalVer1">문의하기</button>
+							</c:when>
+							<c:otherwise>
+								<button id="sendInquiryBtn" class="btn3" data-bs-toggle="modal" data-bs-target="#exampleModal">문의하기</button>
+							</c:otherwise>
+						</c:choose>
 					<input type="hidden" id="campingMemberId" value="${camping.memberId }" >
 				</div>
 			</div>
@@ -601,7 +608,13 @@
 		const carousel = $(".carousel");
 		carousel.each(function(i, c){
 			const id = $(c).attr("id");
-			new bootstrap.Carousel('#'+id)
+			new bootstrap.Carousel('#'+id, {
+				ride : false
+			})
+		})
+		
+		$(function(){
+			carousel.carousel('pause'); 
 		})
 		
 		const roomInfoContent = $(".room-info-content")

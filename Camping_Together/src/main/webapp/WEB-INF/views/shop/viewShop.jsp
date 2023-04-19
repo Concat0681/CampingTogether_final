@@ -14,7 +14,6 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
-	<jsp:include page="/WEB-INF/views/common/modal.jsp" />
 	<script src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script> 
 	<div class="page-wrap">
 		<div class="page-header">
@@ -80,8 +79,8 @@
 					<div class="product-btn-wrap">
 						<c:choose>
 							<c:when test="${empty sessionScope.m }">
-								<button class="btn1" data-bs-toggle="modal" data-bs-target="#exampleModal">Buy</button>
-								<button type="button" id="shopCartBtn" class="btn1">Cart</button>
+								<button class="btn1" data-bs-toggle="modal" data-bs-target="#modalVer1">Buy</button>
+								<button type="button" class="btn1" data-bs-toggle="modal" data-bs-target="#modalVer1">Cart</button>
 							</c:when>
 							<c:otherwise>
 								<button class="btn1">Buy</button>
