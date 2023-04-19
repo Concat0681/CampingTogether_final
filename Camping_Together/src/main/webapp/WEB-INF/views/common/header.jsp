@@ -12,12 +12,12 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 
 -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <link href="/resources/css/bootStrap.css" rel="stylesheet"/>
 <link href="/resources/css/default.css" rel="stylesheet"/>
 <link href="/resources/css/header.css" rel="stylesheet"/> 	
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-
 
 </head>
 <body>	
@@ -151,7 +151,6 @@
 	    <button type="button" class="modal-login">로그인하기</button>
 	  </div>
 	</div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <!--  헤더 스크립트 -->
 <script>
 	
@@ -281,7 +280,7 @@ const navLink =  document.querySelectorAll('.nav-link');
     // 모달창 열기 버튼 클릭 이벤트
     $(document).ready(function() {
     	  //모달창
-    	  $(".btn3").click(function() { // a태그, 버튼 아이디,클래스 입력
+    	  $(".loginBtn").click(function() { // a태그, 버튼 아이디,클래스 입력
     	    $("#modalVer1").css("display", "block"); 
     	    const circles = $('.circle-container span');
     		  let index = 0;

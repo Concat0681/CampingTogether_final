@@ -89,7 +89,7 @@
 			<div class="content-menu">
 				<div class="menu"><button class="btn1">캠핑장예약</button></div>
 				<div class="menu"><button class="btn1">캠핑장정보</button></div>
-				<div class="menu"><button class="btn1">캠핑예약</button></div>
+				<div class="menu"><button class="btn1">캠핑리뷰</button></div>
 			</div>
 			<div class="content-wrap">
 				<div class="content-box">
@@ -197,7 +197,21 @@
 					</div>
 				</div>
 			</div>
-			<div class="content-hidden content-box">2</div>
+			<div class="content-hidden content-box">
+				<div class="campingInfoWrap">
+					<div class="campingInfo-campingAddr">
+						<div>캠핑장 주소</div>
+						<div>${camping.campingAddr }</div>
+					</div>
+					<div class="campingInfo-campingAddrDetail">
+						<div>캠핑장 상세주소</div>					
+						<div>${camping.campingAddrDetail }</div>
+					</div>
+					<div class="campingInfo-campingContent">
+						<textarea>${camping.campingContent }</textarea>
+					</div>
+				</div>
+			</div>
 			<div class="content-hidden content-box">
 				<div class="reviewWrap">
 					<div class="reviewContentWrap">

@@ -79,8 +79,8 @@
 					<div class="product-btn-wrap">
 						<c:choose>
 							<c:when test="${empty sessionScope.m }">
-								<button class="btn1" data-bs-toggle="modal" data-bs-target="#modalVer1">Buy</button>
-								<button type="button" class="btn1" data-bs-toggle="modal" data-bs-target="#modalVer1">Cart</button>
+								<button class="btn1 loginBtn">Buy</button>
+								<button type="button" class="btn1 loginBtn">Cart</button>
 							</c:when>
 							<c:otherwise>
 								<button class="btn1">Buy</button>
