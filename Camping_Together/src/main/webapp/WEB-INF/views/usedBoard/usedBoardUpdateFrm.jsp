@@ -123,17 +123,17 @@
         .image-guide>p{
             color: #AD8B73;
         }
-        .img-sub-wrap{
+        .img-sub-wrap, .current-img-sub-wrap{
             overflow: hidden;
-            margin-left: 250px;           
+            margin-left: 250px; 
         }
-        .img-sub{
+        .img-sub, .current-img-sub{
             float: left;
             width: 80px;
             height: 80px;
             border: 1px solid #ccc;
             margin-left: 10px; 
-            position: relative;         
+            position: relative;          
         }
         .delete-img{
         	position: absolute;
@@ -197,8 +197,9 @@
             <h2>기본정보</h2>
             <hr>
         </div>
-        <form action="/boardWrite.do" method="post" enctype="multipart/form-data">
+        <form action="/boardUpdate.do" method="post" enctype="multipart/form-data" id="updateFrm">
         	<input type="hidden" value="${sessionScope.m.memberId }" name="usedBoardWriter">
+        	<input type="hidden" value="${ub.usedBoardNo }" name="usedBoardNo">
             <div class="usedWrite-wrap">
                 <div class="category">
                     <div class="usedWrite-text"><span>구분</span></div>
@@ -252,10 +253,12 @@
                         </p>
                     </div>
                     <div class="img-sub-wrap">
+                    </div>
+                    <div class="current-img-sub-wrap">
                     <c:forEach items="${ub.usedBoardPhotoList }" var="ubp">
-                    	<div class="img-sub">
+                    	<div class="current-img-sub">
                     		<img style='width:100%;height:100%;'src="/resources/upload/usedBoard/${ubp.filepath }">
-                    		<div class='material-symbols-outlined delete-img' onclick='deleteImg(this, ${ubp.fileNo}, ${ubp.filepath})'>close</div>
+	                    	<div class="material-symbols-outlined delete-img current-delImg" onclick="deleteImg(this, ${ubp.fileNo}, '${ubp.filepath}')">close</div>
                     	</div>
                     </c:forEach>
                     </div>               
@@ -368,7 +371,31 @@
             }
 		});
 		
-		function deleteImg(obj, fileNo, filepath){
+		$("#usedBoardImg").on("change", function(){
+			$(".current-delImg").click();
+		});
+		
+		/* 새로추가한 이미지 부분삭제 스크립트 */
+		function delImg(obj){
+			const index = $(".delete-img").index($(obj));
+			console.log(index);
+			
+			const dataTransfer = new DataTransfer();
+			let files = $("#usedBoardImg")[0].files;
+			let fileArray = Array.from(files);
+			fileArray.splice(index, 1);
+			
+			fileArray.forEach(function(file, items){
+				dataTransfer.items.add(file);
+			});
+			
+			$("#usedBoardImg")[0].files = dataTransfer.files;
+		
+			$(obj).parent().remove();
+		}
+		
+		/* 기존이미지 삭제 스크립트 */
+		function deleteImg(obj, fileNo, filepath){	
 			const fileNoInput = $("<input>");
 			fileNoInput.attr("name", "fileNo");
 			fileNoInput.val(fileNo);
@@ -379,6 +406,7 @@
 			filepathInput.val(filepath);
 			filepathInput.hide();
 			
+			$("#updateFrm").append(filepathInput).append(fileNoInput);
 			$(obj).parent().remove();
 		}
 		
@@ -386,7 +414,7 @@
     		const selectCategory = $("#usedBoardCategory").val();
     		const usedProductStatus = $("#usedProductStatus").val();
     		const exchangeStatus = $("#exchangeStatus").val();
-
+    		
     		$("[name=usedBoardCategory][value="+selectCategory+"]").prop("checked", true);
     		$("[name=usedProductStatus][value="+usedProductStatus+"]").prop("checked", true);
     		$("[name=exchangeStatus][value="+exchangeStatus+"]").prop("checked", true);

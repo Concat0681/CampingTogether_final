@@ -132,6 +132,27 @@ public class UsedBoardService {
 			return null;			
 		}
 	}
+	
+	@Transactional
+	public int updateUsedBoard(UsedBoard ub, ArrayList<UsedBoardPhoto> filelist, int[] fileNo) {
+		//1. 보드테이블 수정
+		int result = dao.updateUsedBoard(ub);
+		if(result > 0) {
+			//2. 기존첨부파일삭제 : fileNo 가 null이 아닐경우 삭제할 파일이 존재
+			if(fileNo != null) {
+				for(int no : fileNo) {
+					result += dao.deleteFile(no);
+				}
+			}
+			//3. 새로운 첨부파일이 존재할 경우 추가
+			for(UsedBoardPhoto ubp : filelist) {
+				ubp.setUsedBoardNo(ub.getUsedBoardNo());
+				result += dao.insertUsedPhoto(ubp);
+			}
+		}
+		return result;
+	}
+
 }
 
 

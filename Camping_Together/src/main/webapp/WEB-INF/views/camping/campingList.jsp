@@ -484,13 +484,17 @@
 			const campingRoomServiceStr = campingRoomService.join(",");
 			const campingEtcStr = campingEtc.join(",");
 			const cityAddr = $("#cityAddr").val();
+			const campingSido = $("#campingSido").val();
+			const checkIn = $("#detail_search_checkin").val();
+			const checkOut = $("#detail_search_checkout").val();
 			$.ajax({
 				url : "/detailSearchCamping.do",
-				data : {order : order, campingTypeStr : campingTypeStr , campingServiceStr : campingServiceStr, campingRoomServiceStr : campingRoomServiceStr, campingEtcStr : campingEtcStr, pplCount : pplCount, cityAddr : cityAddr, reqPage : reqPage},
+				data : {order : order, campingTypeStr : campingTypeStr , campingServiceStr : campingServiceStr, campingRoomServiceStr : campingRoomServiceStr, campingEtcStr : campingEtcStr, pplCount : pplCount, cityAddr : cityAddr, campingSido : campingSido, reqPage : reqPage, checkIn : checkIn, checkOut : checkOut },
 				success : function(data){
+					console.log(data.checkIn)
 					$(".list-by-review").empty();
 					data.list.forEach(function(c,i){
-						const div = $("<div>").addClass("camping-box").attr("onclick", "viewCamping("+c.campingNo+")");
+						const div = $("<div>").addClass("camping-box").attr("onclick", "viewCamping('"+c.campingNo+"','"+data.checkIn+"','"+data.checkOut+"')");
 						const img = $("<img>").attr("src","/resources/upload/campingRoom/"+c.filepath+"")
 						const div2 = $("<div>").addClass("camping-room-info")
 						const div3 = $("<div>").addClass("campingTitle");
@@ -511,7 +515,7 @@
 					data.allList.forEach(function(c,i){
 						const div = $("<div>").addClass("allCampingTitle").attr("id", c.campingNo);
 						const a = $("<a>");
-						a.attr("href", "/viewCamping.do?campingNo="+c.campingNo);
+						a.attr("href", "/viewCamping.do?campingNo="+c.campingNo+"&checkIn="+data.checkIn+"&checkOut="+data.checkOut);
 						a.append(c.campingTitle);
 						div.append(a);
 						const div2 = $("<div>").addClass("allCampingAddr");

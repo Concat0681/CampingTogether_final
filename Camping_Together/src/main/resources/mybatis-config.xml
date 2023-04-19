@@ -35,6 +35,7 @@
 		 <typeAlias type="kr.or.iei.shop.model.vo.ShopPhoto" alias="sp"/>
 		 <typeAlias type="kr.or.iei.shop.model.vo.ShopReview" alias="sr"/>
 		 <typeAlias type="kr.or.iei.shop.model.vo.ShopReviewPhoto" alias="srp"/>
+		  <typeAlias type="kr.or.iei.shop.model.vo.ShopBasket" alias="sb"/>
 		 <typeAlias type="kr.or.iei.inquiry.model.vo.AdminInquiry" alias="ai"/>
 	</typeAliases>
 </configuration>

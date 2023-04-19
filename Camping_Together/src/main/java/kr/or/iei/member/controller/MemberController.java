@@ -114,30 +114,51 @@ public class MemberController {
 	
 	}
 	
-	//아이디 체크 
+	//회원가입시 아이디 중복 체크 
 	@RequestMapping(value = "/idCheck.do", method = RequestMethod.POST)
 	@ResponseBody
-	public int idCheck(@RequestParam("memberId") String memberId) {
+	public int idCheck(String memberId) {
+		System.out.println("아이디 중복 확인");
+		System.out.println(memberId);
 		return service.idCheck(memberId);
 	}
 	
-	//Id 찾기
+	//이름 + 이메일이용 Id찾기
 	@RequestMapping(value="/searchId.do", method=RequestMethod.POST)
 	@ResponseBody
-	public String searchId(@RequestParam String name, @RequestParam String email) {
-		Member member = new Member();
-		member.setMemberName(name);
-		member.setMemberEmail(email);
-		Member searchedMember = service.selectOneMember(member);
+	public String searchId(@RequestParam("memberName") String MemberName, @RequestParam("memberEmail") String MemberEmail, Member member) {
+		System.out.println("이름"+MemberName);
+		System.out.println("이메일"+MemberEmail);
+		member.setMemberName(MemberName);
+		member.setMemberEmail(MemberEmail);
+		Member searchedMember = service.searchOneMemberId(member);
 		if (searchedMember == null) { // 이름과 이메일이 일치하는 회원이 없으면 null 반환
 			System.out.println("fail");
-			return "일치하는 회원 정보가 없습니다.";
+			return null;
 		} else {
 			System.out.println("complete");
 			return searchedMember.getMemberId(); // 일치하는 회원이 있으면 아이디 반환
 			
 		}
 	}
+	//이름 + 이메일이용 Id찾기
+		@RequestMapping(value="/searchPw.do", method=RequestMethod.POST)
+		@ResponseBody
+		public String searchPw(@RequestParam("memberId") String MemberId, @RequestParam("memberEmail") String MemberEmail, Member member) {
+			System.out.println("이름"+MemberId);
+			System.out.println("이메일"+MemberEmail);
+			member.setMemberName(MemberId);
+			member.setMemberEmail(MemberEmail);
+			Member searchedMember = service.searchOneMemberPw(member);
+			if (searchedMember == null) { // 이름과 이메일이 일치하는 회원이 없으면 null 반환
+				System.out.println("fail");
+				return null;
+			} else {
+				System.out.println("complete");
+				return searchedMember.getMemberPw(); // 일치하는 회원이 있으면 아이디 반환
+				
+			}
+		}
 	
 	@RequestMapping(value = "/mypageC.do")
 	public String mypageC(Model model) {

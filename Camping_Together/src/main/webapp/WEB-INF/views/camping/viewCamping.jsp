@@ -197,9 +197,16 @@
 						<div class="reviewHeader">
 							<h2 style="text-align: center; padding-bottom: 30px; padding-top: 30px;">${camping.campingTitle }</h2>
 							<div class="allStar">
-								<c:forEach begin="1" end="${campingReviewRatingAvg}">
-							        <span class="material-symbols-outlined" style="color: gold;">star</span>
-							    </c:forEach>
+							    <c:choose>
+							        <c:when test="${campingReviewRatingAvg > 0}">
+							            <c:forEach begin="1" end="${campingReviewRatingAvg}">
+							                <span class="material-symbols-outlined" style="color: gold;">star</span>
+							            </c:forEach>
+							        </c:when>
+							        <c:otherwise>
+							            <p>등록된 리뷰가 없습니다</p>
+							        </c:otherwise>
+							    </c:choose>
 							</div>
 							<div>
 								<div class="allReview">전체 리뷰 ${campingReviewCount-campingReviewCommentCount }</div>
@@ -232,20 +239,11 @@
 										        <span class="material-symbols-outlined">star</span>
 										        <span class="material-symbols-outlined">star</span>
 										        <span class="material-symbols-outlined">star</span>
-										        <div class="star-on">
-										          <div class="star-wrap star-on-wrap">
-										            <span class="material-symbols-outlined">star</span>
-										            <span class="material-symbols-outlined">star</span>
-										            <span class="material-symbols-outlined">star</span>
-										            <span class="material-symbols-outlined">star</span>
-										            <span class="material-symbols-outlined">star</span>
-										          </div>
-										        </div>
-										      </div>
+										    </div>
 										    </td>
 										    <td>
-										      <input type="text" name="campingReviewRating">
-										      <button type="button" id="starBtn">별점입력</button>
+										      <input type="text" name="campingReviewRating2" readonly>
+										      <input type="hidden" name="campingReviewRating">
 										    </td>
 										</tr>
 							      		<tr>
@@ -268,6 +266,7 @@
 										<tr>
 										  <td>
 										    <div id="img-viewer">
+										    
 										    </div>
 										  </td>
 										</tr>
@@ -331,7 +330,7 @@
 									</div>
 						            <p class="comment-link">
 						            
-						              <button class="review-modal-open-btn2" target="#update-modal">
+						              <button class="review-modal-open-btn2" target="#update-modal"  onclick="openReviewModal(${cr.campingReviewNo})">
 							          	수정
 							          </button>
 						              
@@ -347,6 +346,7 @@
 										    <div class="review-modal-content2">
 										    	<form action="/updateCampingReview.do" method="post" enctype="multipart/form-data">
 										    		<input type="hidden" name="campingNo" value="${camping.campingNo }">
+										    		<input type="hidden" name="campingReviewNo">
 											      	<table>
 											      		<tr>
 											      			<td colspan="2">만족하셨나요?</td>
@@ -389,12 +389,12 @@
 											      		<tr>
 											      			<td>사진 등록</td>
 											      			<td>
-											      				<input type="file" onchange="loadImg(this);" name="campingReviewFilepath" multiple>
+											      				<input type="file" onchange="loadImg2(this);" name="campingReviewFilepath" multiple>
 											      			</td>
 											      		</tr>
 											      		<tr>
 											      			<td>
-											      				<div id="img-viewer">
+											      				<div id="img-viewer2">
 									        			
 									                    		</div>
 											      			</td>
@@ -444,7 +444,7 @@
 										<input type="hidden" name="memberId" value="user01">
 										<input type="hidden" name="campingNo" value="${camping.campingNo }">
 										<input type="hidden" name="campingReviewRef" value="${cr.campingReviewNo }">
-										<textarea name="campingReviewContent" class="input-form" style="min-height: 100px;" placeholder="댓글을 입력해주세요"></textarea>
+										<textarea name="campingReviewContent" class="input-form" style="min-height: 100px;" placeholder="댓글을 입력해주세요" required></textarea>
 									</li>
 									<li>
 										<button type="submit" class="btn bc1 bs2">등록</button>
@@ -685,6 +685,17 @@
 		    $(".star-on-wrap").css("width", starScore + "px");
 		  });
 		});
+		
+		const stars = $(".star-wrap2>span");
+		stars.on("mouseover",function(){
+		    stars.css("color","lightgray");
+		    const index = stars.index(this);
+		    for(let i=0;i<=index;i++){
+		        stars.eq(i).css("color","gold");
+		    }
+		    $("[name=campingReviewRating2]").val(index+1 + "점");
+		    $("[name=campingReviewRating]").val(index+1);
+		});
 	</script>
 	
 	<script>
@@ -701,6 +712,24 @@
 			                  .attr("id", "img-" + i)
 			                  .css("display", "inline-block") // 이미지를 inline-block 으로 표시
 			                  .appendTo("#img-viewer"); // 이미지를 보여줄 DOM 엘리먼트에 추가
+			      }
+			    }
+			  }
+			}
+		
+		function loadImg2(input) {
+			  // 기존에 있는 이미지 삭제
+			  $('#img-viewer2 img').remove();
+			  
+			  if (input.files && input.files.length > 0) {
+			    for (let i = 0; i < input.files.length; i++) {
+			      const reader = new FileReader();
+			      reader.readAsDataURL(input.files[i]);
+			      reader.onload = function(e) {
+			        $("<img>").attr("src", e.target.result)
+			                  .attr("id", "img-" + i)
+			                  .css("display", "inline-block") // 이미지를 inline-block 으로 표시
+			                  .appendTo("#img-viewer2"); // 이미지를 보여줄 DOM 엘리먼트에 추가
 			      }
 			    }
 			  }
@@ -854,5 +883,55 @@
 			form.submit();
 		}
 	</script>
+	
+	<script>
+	function openReviewModal(campingReviewNo) {
+		var modal = $("#update-modal");
+		var form = modal.find("form");
+		console.log(campingReviewNo);
+		
+		// campingReviewNo를 이용하여 리뷰 정보를 가져온다.
+		$.ajax({
+			url: "/getReviewInfo.do",
+			type: "get",
+			data: {
+				campingReviewNo: campingReviewNo
+			},
+			dataType: "json",
+			success: function(result) {
+				console.log(result);
+				form.find(".star-on-wrap2 span").removeClass("star-on");  // 모든 요소에서 star-on 클래스 제거
+				form.find(".star-on-wrap2 span:lt(" + result.campingReviewRating + ")").addClass("star-on");  // 입력된 별점 값에 해당하는 index까지 star-on 클래스 추가
+				form.find("input[name='campingReviewRating']").val(result.campingReviewRating);  // 별점 값을 input 태그에 설정
+				form.find("input[name='campingReviewTitle']").val(result.campingReviewTitle);
+				form.find("input[name='campingReviewNo']").val(result.campingReviewNo);
+				form.find("textarea[name='campingReviewContent']").val(result.campingReviewContent);
+				// 이미지 뷰어 초기화
+				var imgViewer = form.find("#img-viewer2");
+				imgViewer.empty();
+				// 등록된 이미지가 있으면 이미지 뷰어에 추가한다.
+				var fileList = result.fileList;
+				if (fileList != null && fileList.length > 0) {
+					for (var i = 0; i < fileList.length; i++) {
+						
+						var img = $("<img>").attr("src", "resources/upload/campingReview/"+fileList[i].filepath).addClass("review-img");
+						imgViewer.append(img);
+					}
+				}
+				// 모달을 띄운다.
+				modal.show();
+			},
+			error: function(error) {
+				console.log(error);
+				alert("리뷰 정보를 가져오지 못했습니다.");
+			}
+		});
+	}
+
+	// 모달 닫기
+	$(".review-modal-close2").on("click", function() {
+		$(this).parents(".review-modal-bg2").hide();
+	});
+</script>
 </body>
 </html>

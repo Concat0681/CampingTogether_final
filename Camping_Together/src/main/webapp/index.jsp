@@ -27,6 +27,7 @@
 	</script>
   <!-- my JavaScript and CSS file --> 
   <link href="/resources/css/default.css" rel="stylesheet"/> 	
+  <link href="/resources/css/usedList.css" rel="stylesheet"/> 	
   <link href="/resources/css/main.css" rel="stylesheet"/> 
    	
 <style>
@@ -34,15 +35,17 @@
 .search-input-wrap{
 	min-width: 1200px;
 }
+
    	
 </style>
 </head>
 <body onload="init()">
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
+	<jsp:include page="/WEB-INF/views/common/modal.jsp"/>
 	<div class="wrapper wrapperBox">
 		<div class="wrapper wrapperTop">
-			<div class="backGround">
-				<img src="/resources/image/main/back1.jpg" style="width: 100%; min-width:1400px; height:1000px;">
+			<div class="wrapper backGround">
+				<!-- <img src="/resources/image/main/back1.jpg" style="width: 100%; min-width:1400px; height:1000px;">  -->
 			</div>
 			<div class="inputBox" style="display: block;">
 				<jsp:include page="/WEB-INF/views/camping/campingListHeader.jsp" />
@@ -112,11 +115,14 @@
 					</ul>
 				</div>
 				<div class="notice-img">
-					<a href="/noticeView.do?noticeNo=91"><img src="resources/image/main/notice-beta.png"></a>
+					<a href="/noticeView.do?noticeNo=101"><img src="resources/image/main/notice-beta.png"></a>
 				</div>
 			</div>	
 		</div>
-		<div class="wrapper wrapperMiddle-tradeBox">
+		
+				
+			<div class="wrapper wrapperMiddle-tradeBox">
+				<h3>중고장터</h3>
 			<div class="wrapperMiddle-tradeContent">
 				<div class="tradeContentBoarder">
 					<div>

@@ -8,7 +8,7 @@
     position: absolute;
     width: 100%;
    height: 1000px;
-   
+   background: url(/resources/image/main/back1.jpg);
 }
 .wrapper{
 	min-width: 1400px;
@@ -65,8 +65,8 @@
 }
 
 .best-campingSite{
-	top: 500px;
-    z-index: 99;
+	top: 550px;
+    z-index: 45;
     position: absolute;
     background-color: transparent;
     width: 60%;
@@ -178,24 +178,21 @@
 }
 .wrapperMiddle-tradeBox{
 	width: 100%;
-	display: flex;
 	padding: 100px;
-	background-color: green;
 }
 
 .wrapperMiddle-tradeContent{
 	width: calc(100%/3);
 	min-height: 400px;
 	height: 400px;
-	background-color: blue;
 	float: left;
 	padding: 25px;
 }
 .tradeContentBoarder{
 	padding: 25px;
-	border: 1px solid #fff;
+	border: 1px solid black;
 	height: 300px;
-	background-color: red;
+	
 }
 .tradeContentBoarder>img{
 	max-height: 200px;

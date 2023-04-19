@@ -43,95 +43,54 @@
    }
    .content-top>h2{
         margin: 20px;
-        font-family: ng-bold;
+       padding-top: 20px;
+       font-family: ng-bold;
+   }
+   .category-info{
+   		color: #CEAB93;
+   		padding-left: 10px;
+   		border-bottom: 4px double #ccc;
    }
    .category-info>p{
-   		margin: 0;
-   		margin-left: 3px;
-   		color: #CEAB93;
+   		font-family: ng-extra-bold;
+   }
+   .seller-phone{
+   		text-align: right;
    }
    .detail-wrap{
-   		width: 80%;
+   		width: 100%;
+   		padding: 10px 20px;
    		margin: 30px auto;
    		border-bottom: 1px solid #ccc;
    }
-   .detail-title{
-   		display: flex;
-   }
-   .detail-title>h3{
-   		margin-bottom: 0;
-   		font-family: ng-extra-bold;
-   		color: #AD8B73;
-   }
-   .detail-title>.sell-status{
-   		background-color: #CEAB93; 
-   		padding: 6px 8px;;
-   		text-align: center;
-   		border-radius: 20px;
-   		margin-left: 10px;
-   		color: #FFFBE9;
-   		font-size: 13px;
-   }
-   .detail-title>.sell-status>span{
-   		font-family: ng-extra-bold;
-   }
-   .detail-info{
-   		display: flex;
-   }
-   .detail-top-wrap, .detail-price-wrap, .comment-list-wrap{
-   		padding-left: 20px;
-   		padding-bottom: 10px;
-   		padding-top: 15px;
-   		border-bottom: 1px solid #ccc;
-   }
-   .detail-top-wrap{
-   		padding-bottom: 5px;
-   		border-bottom: 3px double #AD8B73;
-   }
-   .detail-price-wrap{
-   		border-bottom: 3px double #AD8B73;
-   		border-radius: 5px;
-   		padding-bottom: 0;
-   }
-   .comment-list-wrap{
-   		border: 0;
-   		margin-top: 10px;
-   }
-   .detail-price-wrap{
-   		position: relative;
-   }
+
    #phone-check{
-   		font-size: 14px;
-   		color: #AD8B73;
+   		font-family:ng-extra-bold; 
+   		font-size: 15px;
+   		color: #CEAB93;
    }
    #phone-check:hover{
    		cursor: pointer;
    		color: #E3CAA5;
-   }
-   .wish-list{
-		position: absolute;
-		margin-left: 890px;
-		top: 50px;
-   }
-   .wish-list>span{
-   		font-size: 30px;
-   		font-weight: 100;
-   		color: #AD8B73;
-   		cursor: pointer;
-   }
+   }  
    .detail-content-wrap{
    		padding: 10px;
    }
    .detail-content-wrap div{
    		margin-bottom: 20px;
    }
-   .detail-content{
+   .detail-content-wrap .detail-content{
+   		width: 90%;
+   		margin: 30px auto;
    		display: flex;
+   		justify-content: space-between;
+   		border-bottom: 1px solid #ccc;
+   		padding-bottom: 20px;
    }
    .detail-content-img{
-   		margin-top: 30px;
    		width: 500px;
    		height: 500px;
+   		box-sizing: border-box;
    }
    .detail-content-img img{
    		width: 500px;
@@ -139,11 +98,85 @@
    		border-radius: 6px;
    		border: 1px solid #ccc;
    }
-   .detail-content-text{
-   		width: 400px;
-   		padding-top: 50px;
-   		padding-left: 50px;
+   .detail-content-info{
+   		width: 500px;
+   		height: 500px;
+   		position: relative;
    }
+   .detail-content-info .usedboard-title{
+   		margin-bottom: 10px;
+   }
+   .usedboard-title>p{
+   		font-size: 20px;
+   		font-family: ng-extra-bold;
+   }
+   .regDate-etc-wrap{
+   		display: flex;
+   		border-bottom: 1px solid #ccc;
+   }
+   .regDate-etc-wrap>p{
+   		margin-right: 15px;	
+   }
+   .detail-content-info .usedboard-price{
+   		display: flex;
+   		margin-bottom: 10px;
+   		border-bottom: 1px solid #ccc;
+   }
+   .usedboard-price>p{
+   		font-family: ng-extra-bold;
+   		font-size: 20px;
+   		margin-right: 10px;
+   }
+   .usedboard-price>.usedBoardstatus-box{
+   		display: inline-block;
+   		padding: 4px;
+   		font-size: 14px;
+   		color: #FFFBE9;
+   }
+    .usedboard-price>.usedBoardstatus-box>span{
+   		font-family: ng-extra-bold;
+    }
+    .usedboard-info{
+    	color: #CEAB93;
+    	font-size: 17px;
+    	border-bottom: 1px solid #ccc;
+    }
+    .usedboard-info>li{
+    	margin-bottom: 20px;
+    }
+    .usedboard-info>li>span{
+    	margin-right: 20px;	
+    }
+    .usedboard-info>li>span:last-child{
+		color: #000;
+		font-size: 15px;
+    }
+    .btn-wrap{
+    	text-align: right;
+    }
+    .btn-wrap>button{
+    	padding: 8px;
+    	margin-left: 5px;
+    }
+    .btn-wrap>button>span{
+    	font-family: ng-extra-bold;
+    	color: #FFFBE9;
+    }
+    .detail-content-info .usedBoard-link{
+    	margin-bottom: 0;
+    	position: absolute;
+    	right: 5px;
+    	bottom: 0px;
+    	color: #ccc;
+    }
+     .detail-content-info .usedBoard-link>a{
+     	font-family: ng-bold;
+     }
+     .detail-content-text{
+     	width: 90%;
+     	margin: 0 auto;
+     }
+   /* 댓글 */
    .comment-wrap{
    		width: 80%;
    		margin: 50px auto;
@@ -176,8 +209,9 @@
    .btn2:hover{
    		background-color: #CEAB93;
    }
-   .font-bold{
-   		font-weight: bold;
+   .comment-list-wrap{
+   		border: 0;
+   		margin-top: 10px;
    }
    .comment-list{
    		display: flex;
@@ -247,9 +281,9 @@
 		background-color: #CEAB93;
 		box-sizing: border-box;
 		height: 200px;
-		top: 40px;
+		top: 35px;
 		padding: 15px;
-		left: 1px;
+		right: 0px;
 		display: none;
 		border: 4px double #FFFBE9;
 		width: 300px;
@@ -326,39 +360,13 @@
         <div class="detail-wrap">
         	<div class="detail-top-wrap">
         		<div class="category-info">
-        			<p class="font-bold">${ub.getUsedBoardCategoryText() }</p>
-        		</div>
-        		<div class="detail-title">
-        			<h3>${ub.usedBoardTitle }</h3>
-        			<div class="sell-status"><span>판매중</span></div>
-        		</div>
-        		
-        	</div>
-        	<div class="detail-price-wrap">
-        		<div class="detail-info">
-	        			<p class="font-bold" style="color:#AD8B73;">${ub.usedBoardWriter }</p>
-	        			<p style="color:#ccc;">&nbsp; :: &nbsp;</p>
-	        			<p style="color:#ccc;">${ub.regDate }</p>
-	        			<p style="color:#ccc;">&nbsp; :: &nbsp;</p>
-	        			<p class="material-symbols-outlined" style="color:#ccc;">visibility</p>
-	        			<p style="color:#ccc;">${ub.readCount }</p>
-        		</div>
-        		<div class="detail-price">
-        			<p class="font-bold" style="color:#AD8B73;"><fmt:formatNumber value="${ub.usedProductPrice }" pattern="#,###" /></p>
-        			<div class="detail-info">
-        				<p class="font-bold" style="color:#AD8B73;">상품상태 : </p><p>&nbsp;${ub.getUsedProductStatusText() }&nbsp;&nbsp;&nbsp;&nbsp;</p>
-        				<p class="font-bold" style="color:#AD8B73;">교환여부 :</p> <p>&nbsp;${ub.getExchangeStatusText() }&nbsp;&nbsp;&nbsp;&nbsp;</p>
-        				<p class="font-bold" style="color:#AD8B73;">거래지역 :</p><p>&nbsp;${ub.usedTradeLocation }</p>
-        			</div>
-        		</div>
-        		<div class="wish-list">
-        			<span class="material-symbols-outlined">favorite</span>
+        			<p class="usedboard-category">${ub.getUsedBoardCategoryText() }</p>
         		</div>
         	</div>
         	<div class="detail-content-wrap">
         		<div class="seller-phone">
-        			<span id="phone-check" class="font-bold" onclick="sellUserCheck('${ub.usedBoardWriter}')">연락처를 확인하려면 클릭하세요.</span>
-        		</div>
+        			<span id="phone-check" onclick="sellUserCheck('${ub.usedBoardWriter}')">판매자 정보를 확인하려면 클릭하세요.</span>
+        		</div>      		      
         		<%-- 연락처 모달 --%>
         		<div class="modal-phone-wrapper">
         			<div class="modal-wrap">
@@ -388,33 +396,6 @@
         				</div>
         			</div>
         		</div>
-        		<script>
-        			function sellUserCheck(usedBoardWriter){
-        			/* 필요한 회원정보 : 아이디, 사진, 연락처, 신고당한 횟수 */
-        				$.ajax({
-        					url: "/sellUserCheck.do",
-        					type: "get",
-        					data: {usedBoardWriter:usedBoardWriter},
-        					success: function(data){
-        						$("#seller-profile").empty();
-								$("#seller-phone").text(data.sellerPhone);
-								$("#seller-blackCount").text("신고건수 "+data.sellerblackCount+"건");
-								let img = "";
-								if(data.profilePath == null){
-									img = "<img src='/resources/image/member/img.jpeg'>";
-								}else{
-									img = "<img src='/resources/image/member/"+data.profilePath+"'>";
-								}
-								$("#seller-profile").append(img);
-        					}
-        				});
-        				$(".modal-phone-wrapper").slideToggle();
-        				
-        			}
-        			$("#modal-cancle").on("click", function(){
-        				$(".modal-phone-wrapper").slideUp();
-        			});
-        		</script>
         		<div class="detail-content">
 					<div class="detail-content-img">
 						<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
@@ -447,23 +428,64 @@
 					<script>
 						$(".carousel-item").eq(0).addClass("active");
 					</script>
-        			<div class="detail-content-text">
-        				<span>${ub.usedBoardContent }</span>
-        			</div>
-        		</div>      		
+        			<div class="detail-content-info">
+        				<div class="usedboard-title">
+        					<p>${ub.usedBoardTitle }</p>
+        				</div>
+        				<div class="usedboard-price">
+        					<p><fmt:formatNumber value="${ub.usedProductPrice }" pattern="#,###" />&nbsp;원</p>
+        					<div class="usedBoardstatus-box btn3">
+        						<span>판매중</span>
+        					</div>
+        				</div>
+        				<div class="regDate-etc-wrap">
+        					<p style="font-family: ng-extra-bold;">${ub.usedBoardWriter }</p>
+		        			<p style="color:#ccc;">:: &nbsp; ${ub.regDate } &nbsp; ::</p>
+		        			<span class="material-symbols-outlined fill" style="color:#ccc;">visibility</span>
+		        			<p style="color:#ccc;">${ub.readCount }</p>
+        				</div>
+        				<div class="usedboard-info-wrap">
+        					<ul class="usedboard-info">
+  								<li><span>상품상태</span><span>${ub.getUsedProductStatusText() }</span></li>
+  								<li><span>교환여부</span><span>${ub.getExchangeStatusText() }</span></li>
+  								<li><span>거래지역</span> 
+	  								<c:choose>
+	                        		<c:when test="${ub.usedTradeLocation eq '지역설정안함'}">
+	                        			<span>전국</span>
+	                        		</c:when>
+	                        		<c:otherwise>
+			                            <span>${ub.usedTradeLocation }</span>
+	                        		</c:otherwise>
+	                        	</c:choose>
+  								</li>
+        					</ul>
+        				</div>
+        				<div class="btn-wrap">
+        					<c:choose>
+        						<c:when test="${sessionScope.m.memberId eq ub.usedBoardWriter }">
+		        					<button type="button" class="btn1" onclick="selldone(${ub.usedBoardNo})"><span>판매완료</span></button>
+        						</c:when>
+        					</c:choose>
+        					<button type="button" class="btn3"><span>찜하기</span></button>
+        				</div>
         			<c:choose>
         				<c:when test="${sessionScope.m.memberId eq ub.usedBoardWriter }">
-        				<div style="text-align: right;" class="usedBoard-link">
+        				<div class="usedBoard-link">
 							<a href="/usedBoardUpdateFrm.do?usedBoardNo=${ub.usedBoardNo }">수정</a>
 							<a href="javascript:void(0)" onclick="deleteUsedBoard(${ub.usedBoardNo});">삭제</a>
 						</div>        				
         				</c:when>
         				<c:otherwise>
-        				<div style="text-align: right" class="blackList-report">
-		        			<a href="#">신고하기</a>
-		        		</div>
+	        				<div class="usedBoard-link">
+			        			<a href="#">신고하기</a>
+			        		</div>
         				</c:otherwise>
         			</c:choose>
+        			</div>
+        		</div>  
+        		<div class="detail-content-text">
+        			<p>${ub.usedBoardContent }</p>
+        		</div>    		       			
         	</div>
         </div>
         <div class="comment-wrap">
@@ -534,6 +556,31 @@
         </div>
 	</div>
 	<script>
+		<%-- 연락처 조회 모달창에 데이터를 가져오는 스크립트 --%>
+		function sellUserCheck(usedBoardWriter){
+			/* 필요한 회원정보 : 아이디, 사진, 연락처, 신고당한 횟수 */
+			$.ajax({
+				url: "/sellUserCheck.do",
+				type: "get",
+				data: {usedBoardWriter:usedBoardWriter},
+				success: function(data){
+					$("#seller-profile").empty();
+					$("#seller-phone").text(data.sellerPhone);
+					$("#seller-blackCount").text("신고건수 "+data.sellerblackCount+"건");
+					let img = "";
+					if(data.profilePath == null){
+						img = "<img src='/resources/image/member/img.jpeg'>";
+					}else{
+						img = "<img src='/resources/image/member/"+data.profilePath+"'>";
+					}
+					$("#seller-profile").append(img);
+				}
+			});
+			$(".modal-phone-wrapper").slideToggle();			
+		}
+		$("#modal-cancle").on("click", function(){
+			$(".modal-phone-wrapper").slideUp();
+		});
 		<%-- 댓글수정 --%>
 		function modifyComment(obj){
 			$(obj).parent().parent().prev().show();
@@ -570,6 +617,11 @@
 				location.href="/usedBoardDelete.do?usedBoardNo="+usedBoardNo;
 			}
 		}
+		<%-- 판매완료 버튼 --%>
+		
 	</script>
 </body>
 </html>
+
+
+

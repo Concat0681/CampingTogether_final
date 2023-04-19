@@ -141,23 +141,74 @@ public class CampingDao {
 		return result;
 	}
 
-	public int selectReviewCount() {
-		int selectReviewCount = sqlSession.selectOne("camping.selectReviewCount");
+	public int selectReviewCount(int campingNo) {
+		int selectReviewCount = sqlSession.selectOne("camping.selectReviewCount",campingNo);
 		return selectReviewCount;
 	}
 
-	public int selectReviewCommentCount() {
-		int selectReviewCommentCount = sqlSession.selectOne("camping.selectReviewCommentCount");
+	public int selectReviewCommentCount(int campingNo) {
+		int selectReviewCommentCount = sqlSession.selectOne("camping.selectReviewCommentCount",campingNo);
 		return selectReviewCommentCount;
 	}
 
-	public int selectcampingReviewRatingAvg() {
-		int campingReviewRatingAvg = sqlSession.selectOne("camping.selectcampingReviewRatingAvg");
+	public int selectcampingReviewRatingAvg(int campingNo) {
+		int campingReviewRatingAvg = sqlSession.selectOne("camping.selectcampingReviewRatingAvg",campingNo);
 		return campingReviewRatingAvg;
 	}
 
+	public CampingReview getReviewInfo(int campingReviewNo) {
+		return sqlSession.selectOne("camping.getReviewInfo",campingReviewNo);
+	}
+
+	public ArrayList<CampingReviewFileVO> getReviewFile(int campingReviewNo) {
+		List list = sqlSession.selectList("camping.getReviewFile",campingReviewNo);
+		return (ArrayList<CampingReviewFileVO>)list;
+	}
+
+	public int updateCampingReview(CampingReview crv) {
+		int result = sqlSession.update("camping.updateCampingReview",crv);
+		return result;
+	}
+
+	public int deleteCampingReviewFile(int no) {
+		int result = sqlSession.delete("camping.deleteCampingReviewFile",no);
+		return result;
+	}
+
+	
 	public int selectSellCampingCount(HashMap<String, Object> map) {
 		int totalCount = sqlSession.selectOne("camping.selectSellCampingCount", map);
 		return totalCount;
 	}
+
+	
+	public ArrayList<CampingRoomFileVO> selectCampingRoomFile(int campingRoomNo) {
+		List list = sqlSession.selectList("camping.selectCampingRoomFile", campingRoomNo);
+		return (ArrayList<CampingRoomFileVO>)list;
+	}
+
+	public int deleteCampingRoom(int campingRoomNo) {
+		int result = sqlSession.delete("camping.deleteCampingRoom",campingRoomNo);
+		return result;
+	}
+
+	public CampingRoom selectCampingRoom(int campingRoomNo) {
+		return sqlSession.selectOne("camping.selectCampingRoom",campingRoomNo);
+	}
+
+	public int updateCampingRoom(CampingRoom cr) {
+		int result = sqlSession.update("camping.updateCampingRoom",cr);
+		return result;
+	}
+
+	public int deleteCampingRoomFile(int no) {
+		int result = sqlSession.delete("camping.deleteCampingRoomFile",no);
+		return result;
+	}
+
+	public int deleteCamping(int campingNo) {
+		int result = sqlSession.delete("camping.deleteCamping",campingNo);
+		return result;
+	}
+	
 }

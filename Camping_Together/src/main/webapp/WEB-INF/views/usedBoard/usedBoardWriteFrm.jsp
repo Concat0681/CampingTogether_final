@@ -231,7 +231,7 @@
                 <div class="image-wrap">
                     <div class="usedWrite-text" id="img-margin"><span>상품이미지</span></div>
                     <div class="usedBoard-img">
-                        <input type="file" name="usedBoardPhoto" accept="image/gif, image/jpeg, image/png" id="usedBoardImg" multiple>
+                        <input type="file" name="usedBoardPhoto" accept="image/gif, image/jpeg, image/png" id="usedBoardImg" style="display:none;" multiple>
                         <label for="usedBoardImg">
                             <div class="uploadImg">
                             	<span class="material-symbols-outlined">photo_camera</span>
@@ -358,6 +358,7 @@
             }
 		});
 		
+		/* 선택한 이미지 제거 스크립트 */
 		function delImg(obj){
 			const index = $(".delete-img").index($(obj));
 			console.log(index);

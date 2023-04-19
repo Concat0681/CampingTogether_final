@@ -36,6 +36,7 @@ public class MemberService {
 	}
 
 	public int idCheck(String memberId) {
+		System.out.println("아이디 중복 서비스 확인");
 		return dao.idCheck(memberId);
 	}
 
@@ -284,6 +285,16 @@ public class MemberService {
 
 				ReviewPageData rpd = new ReviewPageData(list, pageNavi);
 				return rpd;
+	}
+	
+	//회원 아이디 찾기
+	public Member searchOneMemberId(Member member) {
+		return dao.searchOneMemberId(member);
+	}
+	
+	//회원 비밀번호 찾기
+	public Member searchOneMemberPw(Member member) {
+		return dao.searchOneMemberPw(member);
 	}
 
 	

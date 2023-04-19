@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+    <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,7 +18,7 @@
    .material-symbols-outlined {
        font-variation-settings:
        'FILL' 0,
-       'wght' 400,
+       'wght' 300,
        'GRAD' 0,
        'opsz' 48
    }
@@ -37,8 +38,8 @@
    .category-wrap{
        margin: 20px;
        padding: 20px;
-       border-top: 1px solid #AD8B73;
-       border-bottom: 1px solid #AD8B73;
+       border-top: 1px solid #000;
+       border-bottom: 1px solid #000;
        overflow: hidden;
    }
    .category{
@@ -92,7 +93,6 @@
        border: 1px solid #ccc;
        border-radius: 5px;
        box-sizing: border-box;
-       cursor: pointer;
    }
    .product:hover{
        box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.2);
@@ -122,37 +122,44 @@
        border: 1px solid #ccc;
        border-radius: 5px;
    }
+   .product_title, .product_location{
+   		width: 240px;
+   		margin: 0 auto;
+   		overflow: hidden;
+   		text-align: center;
+   		text-overflow: ellipsis;
+   		white-space: nowrap;
+   }
+   .product_location{
+   		font-size: 15px;
+   		color: #ccc;
+   }
    .product_title>span{
-       font-size: 20px;
-       font-weight: bold;
+       font-size: 17px;
+       font-family: ng-extra-bold;
    }
-   .product_mid{
-       overflow: hidden;
-   }
-   .array{
-       margin-left: 20px;
-       margin-top:5px;
-   }
-   .product-price{
-       display: inline-block;
-       margin-left: 20px;
+   .product_title:hover{
+   		cursor:pointer;
+   		color: #E3CAA5;
    }
    .zero{
-       height: 70px;
+       height: 30px;
+       border-bottom: 4px double #ccc;
    }
-   .product-wish{
-       float: right;
-       margin-right: 20px;
-       margin-bottom: 10px;
-   }
-   .product_mid{
-       margin: 0 auto;
-       border-bottom: 1px solid #ccc;
-   }
-
-   .product-bottom{
-       overflow: hidden;
-   }
+	.product_mid{
+		width: 90%;
+		margin: 10px auto;
+		display: flex;
+		position: relative;
+	}
+	.product-price>span{
+		font-size: 15px;
+		font-family: ng-extra-bold;
+	}
+	.product-wish{
+		position: absolute;
+		right: 5px;
+	}
    .product-regDate{
        display: inline-block;
    }
@@ -172,9 +179,11 @@
        margin-left: 8px;
    }
    .icon{
-       font-size: 15px;
-       line-height: 23px;
-       margin-right: 3px;
+       font-size: 17px;
+       line-height: 25px;
+   }
+   .icon:last-child{
+   		font-size: 18px;
    }
 </style>
 </head>
@@ -230,7 +239,7 @@
             	<c:forEach items="${list }" var="ub">
             	<input type="hidden" id="usedBoardNo" value="${ub.usedBoardNo }">
             	<div class="product-wrap">
-                    <div class="product" onclick="location.href='/usedBoardView.do?usedBoardNo=${ub.usedBoardNo}'">
+                    <div class="product">
                         <div class="product-img">
                         <c:choose>
                         	<c:when test="${ub.usedBoardStatus eq 0}">
@@ -254,10 +263,10 @@
                         </c:choose>
                          
                         </div>
-                        <div class="product_title array">
+                        <div class="product_title" onclick="location.href='/usedBoardView.do?usedBoardNo=${ub.usedBoardNo}'">
                             <span>${ub.usedBoardTitle }</span>
                         </div>
-                        <div class="product_location array">
+                        <div class="product_location">
                         	<c:choose>
                         		<c:when test="${ub.usedTradeLocation eq '지역설정안함'}">
                         			<span>전국</span>
@@ -266,16 +275,16 @@
 		                            <span>${ub.usedTradeLocation }</span>
                         		</c:otherwise>
                         	</c:choose>
+                        	:: ${ub.regDate }
                         </div>
                         <div class="zero"></div>
-                        <div class="product_mid array">
+                        <div class="product_mid">
                             <div class="product-price">
-                                <span>${ub.usedProductPrice }</span><span>원</span>
+                                <span><fmt:formatNumber value="${ub.usedProductPrice }" pattern="#,###" /></span><span>원</span>
                             </div>
-                            <div class="product-wish">
-                                <span id="favorite" class="material-symbols-outlined" style="z-index:1000;">favorite</span>
-                            </div>
+                            <span id="favorite" class="material-symbols-outlined product-wish" style="z-index:1000;">favorite</span>
                         </div>
+                        <!-- 
                         <div class="product-bottom array">
                             <div class="product-regDate">
                                 <span>${ub.regDate }</span>
@@ -283,18 +292,19 @@
                             <div class="product-etc">
                             	<div class="product-wishView">
                                     <div class="material-symbols-outlined icon">favorite</div>
-                                    <div>20</div>
+                                    <div><p>20</p></div>
                                 </div>
                                 <div class="product-comment">
                                     <div class="material-symbols-outlined icon">chat_bubble</div>
-                                    <div>10</div>
+                                    <div><p>10</p></div>
                                 </div>
                                 <div class="product-readCount">
                                     <div class="material-symbols-outlined icon">visibility</div>
-                                    <div>${ub.readCount }</div>
+                                    <div><p>${ub.readCount }</p></div>
                                 </div>
                             </div>
-                        </div>   
+                        </div>  
+                         --> 
                     </div>
                 </div>
             	</c:forEach>   
