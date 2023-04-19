@@ -101,4 +101,14 @@ public class UsedBoardDao {
 		int result = sqlSession.delete("usedBoard.deleteFile", no);
 		return result;
 	}
+
+	public int updateUsedBoardStatus(int usedBoardNo) {
+		int result = sqlSession.update("usedBoard.updateUsedBoardStatus", usedBoardNo);
+		return result;
+	}
+
+	public UsedBoard selectBlackUsedBoard(int usedBoardNo) {
+		UsedBoard ub = sqlSession.selectOne("usedBoard.selectBlackUsedBoard", usedBoardNo);
+		return null;
+	}
 }

@@ -153,6 +153,15 @@ public class UsedBoardService {
 		return result;
 	}
 
+	@Transactional
+	public int updateUsedBoardStatus(int usedBoardNo) {
+		return dao.updateUsedBoardStatus(usedBoardNo);
+	}
+
+	public UsedBoard selectBlackUsedBoard(int usedBoardNo) {
+		return dao.selectBlackUsedBoard(usedBoardNo);
+	}
+
 }
 
 

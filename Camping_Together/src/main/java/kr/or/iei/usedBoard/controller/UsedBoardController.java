@@ -146,6 +146,18 @@ public class UsedBoardController {
 			return "redirect:/usedBoardList.do?reqPage=1";
 		}
 	}
+	@RequestMapping(value="/usedBoardStatusUpdate.do")
+	public String usedBoardStatusUpdate(int usedBoardNo) {
+		int result = service.updateUsedBoardStatus(usedBoardNo);
+		return "redirect:/usedBoardView.do?usedBoardNo="+usedBoardNo;
+	}
+	
+	@RequestMapping(value="/blacklistWriteFrm.do")
+	public String blacklistWriteFrm(int usedBoardNo, Model model) {
+		UsedBoard ub = service.selectBlackUsedBoard(usedBoardNo);
+		model.addAttribute("ub", ub);
+		return "usedBoard/blacklistWriteFrm";
+	}
 }
 
 
