@@ -17,7 +17,7 @@
 			<h2>개인정보 수정</h2>
 		</div>
 
-		<form action="/updateMypageC.do">
+		<form action="/updateMypageC.do" method="post" enctype="multipart/form-data">
 			<div class="mypage-content">
 				<div class="image-div">
 					<div class="img">
@@ -26,16 +26,17 @@
 					</div>
 					<div class="image-btn">
 						<label for="update" class="update">수정</label>
-						<input id="update" type="file" name="profileFilename" accept=".jpg, .jpeg, .png" onchange="openFile(event);" style="display : none;">
+						<input id="update" type="file" name="profileName" accept=".jpg, .jpeg, .png" onchange="openFile(event);" style="display : none;">
 						<label for="delete" class="delete">삭제</label>
 					</div>
 				</div>
 
 				<table>
+				<input type="hidden"  name="memberNo" value="${sessionScope.m.memberNo }" >
 					<tr>
 						<td>아이디</td>
-						<td><input type="text" class="input" name="memberId"
-							value="${sessionScope.m.memberId }" readonly></td>
+						<td><input type="text" class="input" name="memberId" value="${sessionScope.m.memberId }" readonly></td>
+						
 					</tr>
 					<tr>
 						<td>회원구분</td>
@@ -63,13 +64,13 @@
 					</tr>
 					<tr>
 						<td>주소</td>
-						<td><input type="text" class="input" name="memberName"
+						<td><input type="text" class="input" name="memberAddr"
 							value="${sessionScope.m.memberAddr }" readonly></td>
 					</tr>
 					<tr>
 						<td>주소 변경</td>
-						<td><input type="text" class="postNo-input" id="sample4_postcode" placeholder="우편번호" readonly> 
-							<input type="button" onclick="sample4_execDaumPostcode()" id="post-btn" value="우편번호 찾기"><br> 
+						<td><!-- <input type="text" class="postNo-input" id="sample4_postcode" placeholder="우편번호" readonly>  -->
+							<input type="button" onclick="sample4_execDaumPostcode()" id="post-btn" value="주소 찾기"><br> 
 							<input type="text" class="input" name="memberAddr" id="sample4_roadAddress">
 							<input type="text" class="input" placeholder="상세주소" id="detail-input"> <!-- <input type="text" id="sample4_roadAddress" placeholder="도로명주소" readonly><br> -->
 
@@ -88,31 +89,27 @@
 					</tr>
 				</table>
 			</div>
+			
 			<div class="btn-div">
-				<input type="submit" value="수정하기" id="update-btn" class="memberBtn">
+				<button type="submit" id="update-btn" class="memberBtn">수정하기</button>
 				<button type="button" class="memberBtn" id="delete-btn">회원탈퇴</button>
 			</div>
+		</form>
 
 
+			<!-- 모달 -->
 			<div class="del-modalWrap">
 				<div class="del-modal">
 					<div class="del-top">
 						<h3>정말,,탈퇴하시겠습니까?</h3>
 					</div>
 					<div class="btnDiv">
-						<a class="okBtn"
-							href="/deleteMember.do?memberId=${sessionScope.m.memberNo }"
-							id="delete-btn">확인</a>
+						<a class="okBtn" href="/deleteMember.do?memberId=${sessionScope.m.memberNo }" id="delete-btn">확인</a>
 						<button type="button" class="reset" id="reset">취소</button>
 					</div>
 				</div>
 			</div>
-
-
-		</form>
 	</div>
-
-
 
 
 
@@ -149,7 +146,7 @@
 							}
 
 							// 우편번호와 주소 정보를 해당 필드에 넣는다.
-							document.getElementById('sample4_postcode').value = data.zonecode;
+							//document.getElementById('sample4_postcode').value = data.zonecode;
 							document.getElementById("sample4_roadAddress").value = roadAddr;
 							
 							var guideTextBox = document.getElementById("guide");
@@ -175,24 +172,9 @@
 		$("#reset").on("click", function() {
 			$(".del-modalWrap").css("display", "none");
 		});
+	
 		
 		
-		/*
-		 function readFile(update){
-			  	var reader = new FileReader();
-			    
-			    reader.onload = function(e){
-			    	$('#profile-img').attr('src', e.target.result);
-			    }
-			    reader.readAsDataURL(update.files[0]);
-			  }
-			  
-			  $("#update").change(function(){
-			    readFile(this);
-			  });
-			*/
-			
-			
 			var openFile = function(event) {
 			    var input = event.target;
 

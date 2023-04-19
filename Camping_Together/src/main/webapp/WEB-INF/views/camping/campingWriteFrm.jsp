@@ -26,6 +26,7 @@
         	<div class="contentDetail activeContent">
         		<h2 style="margin-bottom: 60px;">캠핑장을 찾고 있는 여행객들을 정확히 사로잡아보세요!</h2>
         		<form action="/campingWrite.do" method="post" enctype="multipart/form-data">
+        			<input type="hidden" name="memberId" value="${sessionScope.m.memberId }">
 	        		<table>
 	        			<tr>
 	        				<td style="width: 120px; font-size: 1.17em; font-weight: bold; padding-bottom: 30px;">캠핑장 이름</td>

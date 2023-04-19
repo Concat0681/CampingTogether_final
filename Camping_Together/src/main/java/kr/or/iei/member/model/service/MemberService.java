@@ -8,6 +8,7 @@ import javax.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import kr.or.iei.member.model.dao.MemberDao;
 import kr.or.iei.member.model.vo.CampingPayment;
@@ -18,6 +19,11 @@ import kr.or.iei.member.model.vo.ProductPageData;
 import kr.or.iei.member.model.vo.ProductPayment;
 import kr.or.iei.member.model.vo.ReviewPageData;
 import kr.or.iei.member.model.vo.SellCampingList;
+import kr.or.iei.shop.model.vo.Shop;
+import kr.or.iei.shop.model.vo.ShopBasket;
+import kr.or.iei.shop.model.vo.ShopListMainData;
+import kr.or.iei.usedBoard.model.vo.UsedBoard;
+import kr.or.iei.usedBoard.model.vo.UsedBoardPageDate;
 
 @Service
 public class MemberService {
@@ -297,6 +303,58 @@ public class MemberService {
 		return dao.searchOneMemberPw(member);
 	}
 
+	public ShopListMainData selectWishList(int reqPage, String memberId) {
+		int numPerPage = 9;
+		int end = reqPage * numPerPage;
+		int start = end - numPerPage + 1;
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("start", start);
+		map.put("end", end);
+		map.put("memberId", memberId);
+		ArrayList<Shop> list = dao.selectWishList(map);
+		int totalCount = dao.selectShopBasketCount(memberId);
+		int totalPage = (int)Math.ceil(totalCount/(double)numPerPage);
+		int pageNaviSize = 10;
+		
+		int pageNo = 1;
+		if(reqPage > 3) {
+			pageNo = reqPage - 2;
+		}
+		String pageNavi = "<ul class='pagination circle-style'>";
+		if(pageNo != 1) {
+			pageNavi += "<li><a class='page-item' href='/shopWishList.do?reqPage="+(pageNo-1)+"'><span class='material-symbols-outlined'>chevron_left</span></a></li>";
+		}
+			for(int i=0; i<pageNaviSize; i++) {
+				if(pageNo == reqPage) {
+					pageNavi += "<li><a class='page-item active-page'>"+pageNo+"</a></li>";
+				}else {
+					pageNavi += "<li><a class='page-item' href='/shopWishList.do?reqPage="+pageNo+"'>"+pageNo+"</a></li>";
+				}
+				pageNo++;
+				if(pageNo > totalPage) {
+					break;
+				}
+			}
+		if(pageNo <= totalPage) {
+			pageNavi += "<li><a class='page-item' href='/shopWishList.do?reqPage="+(pageNo+1)+"'><span class='material-symbols-outlined'>chevron_right </span></a></li>";
+		}
+		ShopListMainData slmd = new ShopListMainData(list, pageNavi);
+		return slmd;
+		
+	}
+
+	
+	//일반회원 정보 수정
+	public int updateMypageC(Member member) {
+		return dao.updateMember(member);
+		
+	}
+	/*
+	//프로필이미지 업로드
+	public int updateFilepath(String upFilepath) {
+		return dao.updateFilepath(upFilepath);
+	}
+	 */
 	
 
 }

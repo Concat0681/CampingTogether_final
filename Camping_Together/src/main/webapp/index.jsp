@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,6 +28,7 @@
 	</script>
   <!-- my JavaScript and CSS file --> 
   <link href="/resources/css/default.css" rel="stylesheet"/> 	
+  <link href="/resources/css/usedList.css" rel="stylesheet"/> 	
   <link href="/resources/css/main.css" rel="stylesheet"/> 
    	
 <style>
@@ -43,7 +45,7 @@
 	<jsp:include page="/WEB-INF/views/common/modal.jsp"/>
 	<div class="wrapper wrapperBox">
 		<div class="wrapper wrapperTop">
-			<div class="backGround">
+			<div class="wrapper backGround">
 				<!-- <img src="/resources/image/main/back1.jpg" style="width: 100%; min-width:1400px; height:1000px;">  -->
 			</div>
 			<div class="inputBox" style="display: block;">
@@ -118,25 +120,10 @@
 				</div>
 			</div>	
 		</div>
+		
+				
 		<div class="wrapper wrapperMiddle-tradeBox">
-			<div class="wrapperMiddle-tradeContent">
-				<div class="tradeContentBoarder">
-					<div>
-					<img src="/resources/image/camping/seoul.jpeg" style="width:200px;"></div>
-				</div>
-			</div>
-			<div class="wrapperMiddle-tradeContent">
-				<div class="tradeContentBoarder">
-					중고거래 컨텐츠2
-					<div class="tradeImg"></div>
-				</div>
-			</div>
-			<div class="wrapperMiddle-tradeContent">
-				<div class="tradeContentBoarder">
-					중고거래 컨텐츠3
-					<div class="tradeImg"></div>
-				</div>
-			</div>
+				<jsp:include page="/usedBoardIndex.do"/>
 		</div>
 		<div class="wrapper wrapperMiddle-shop"></div>
 		<div class="wrapper wrapperBottom"></div>
@@ -145,6 +132,7 @@
 	<button class="btn1" style="width : 100px; height : 30px;">버튼</button>
 	<button class="btn2" style="width : 100px; height : 30px;">버튼</button>
 	<button class="btn3" style="width : 100px; height : 30px;">버튼</button>
+	<a class="mainlist" href="/usedBoardIndex.do">ㄱㄱㄱㄱㄱ</a>
 	</div>
 		
 	
@@ -160,7 +148,9 @@ $(document).ready(function() {
     const navbarBottom = $('.navbar');
     const navItem = $('.nav-item');
     const navLink = $('.nav-link');
-
+    
+	
+    
     navbarTop.css('backgroundColor', 'rgba(173, 139, 115, 0.2)');
     navbarBottom.css('backgroundColor', 'rgba(173, 139, 115, 0.2)');
     navLink.css('color', '#fff');
@@ -171,8 +161,6 @@ $(".caption").prev().on("click", function(){
 	const cityNameKR = $(this).next().text();
 	location.href="/campingList.do?cityNameEN="+cityNameEN+"&cityNameKR="+cityNameKR+"&reqPage=1&order=avgReviewRating&pplCount=0";
 })
-
-
 
 
 const inputBox = $('.inputBox');
