@@ -17,6 +17,7 @@ public class UsedBoardDao {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
+
 	public int insertUsedBoard(UsedBoard ub) {
 		int result = sqlSession.insert("usedBoard.insertUesdBoard", ub);
 		return result;
@@ -100,5 +101,11 @@ public class UsedBoardDao {
 	public int deleteFile(int no) {
 		int result = sqlSession.delete("usedBoard.deleteFile", no);
 		return result;
+	}
+
+	public ArrayList<UsedBoard> getTop3UsedBoards(UsedBoard ub) {
+		List list = sqlSession.selectList("usedBoard.getTop3UsedBoards", ub);
+		System.out.println(list);
+		return (ArrayList<UsedBoard>) list;
 	}
 }
