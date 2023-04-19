@@ -141,4 +141,8 @@
 		select count(*) from basket where member_id = #{memberId}
 	</select>
 	
+	<delete id="deleteWishList" parameterType="_int">
+		delete from basket where shop_no=#{_parameter}
+	</delete>
+	
 </mapper>

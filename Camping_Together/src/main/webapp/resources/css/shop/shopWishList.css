@@ -58,6 +58,10 @@
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+.shop-title:hover{
+	cursor:pointer;
+	color: #E3CAA5;
+}
 
 .shop-title>span{
 	font-size: 17px;
@@ -76,10 +80,17 @@
     position: relative;
 }
 
-.shop-buy {
+.shop-delete {
     position: absolute;
     right: 5px;
 }
+
+.shop-delete:hover{
+	cursor: pointer;
+	color: #E3CAA5;
+}
+
+
 
 
 
