@@ -283,7 +283,7 @@
 			camping_review_content as campingReviewContent,
 			camping_review_rating as campingReviewRating,
 			camping_review_ref as campingReviewRef
-		from camping_review where camping_no = #{_parameter} and camping_review_ref is null
+		from camping_review where camping_no = #{_parameter} and camping_review_ref is null order by camping_review_no 
 	</select>
 	
 	<select id="selectCampingReviewNo" parameterType="_int" resultType="_int">
@@ -409,4 +409,5 @@
 	<delete id="deleteCamping" parameterType="_int">
 		delete from camping where camping_no=#{campingNo}
 	</delete>
+	
 </mapper>
