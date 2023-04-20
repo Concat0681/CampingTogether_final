@@ -15,6 +15,7 @@ public class MessageDao {
     private SqlSessionTemplate sqlSession;
 
     public int insertMessage(Message message) {
+    	System.out.println(message);
         return sqlSession.insert("message.insertMessage", message);
     }
 

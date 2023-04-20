@@ -15,6 +15,5 @@ public class Message {
     private String messageTitle;
     private int readCheck;
     private String messageDate;
-
 }
 

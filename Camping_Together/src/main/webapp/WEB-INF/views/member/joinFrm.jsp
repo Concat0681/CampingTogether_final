@@ -464,8 +464,9 @@ input:focus {
 					
 				</div>
 	          </form>
+	           <jsp:include page="/WEB-INF/views/member/joinCheckMenu.jsp"></jsp:include>
 	        </div>
-	        
+	       
 	      </div><!-- tab-content -->
 	      
 	</div> <!-- /form -->
@@ -474,7 +475,8 @@ input:focus {
 <input type="hidden" id="sample4_roadAddress" placeholder="도로명주소" readonly><br>
 <input type="hidden" id="sample4_jibunAddress" placeholder="지번주소" readonly>
 <br>
-
+<div style="width: 800px;">
+</div>
 <script>
 $(".confirm").on("click", function(){
 	const detailAddress = $(".detailAddress").val();

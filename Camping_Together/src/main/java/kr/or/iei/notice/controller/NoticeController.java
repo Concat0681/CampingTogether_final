@@ -21,8 +21,6 @@ public class NoticeController {
 	@RequestMapping(value = "/noticeMainList.do")
 	public String noticeMainList(Model model, Notice n) {
 		ArrayList<Notice> list = service.selectNoticeList(n);
-		System.out.println("컨트롤러"+n);
-		System.out.println("컨트롤러"+list);
 		model.addAttribute("mainList", list);
 		return "notice/noticeMainList";
 	}
