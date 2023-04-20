@@ -11,6 +11,7 @@
 	}
 
 </style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
 <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
 <link href="resources/css/default.css" rel="stylesheet"/>
 <link rel="stylesheet" href="resources/css/mypageC.css">

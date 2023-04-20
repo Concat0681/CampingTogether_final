@@ -13,10 +13,11 @@
 
 .menu-title>h2{
    color: #AD8B73;
+   font-weight: 500;
 }
 
 .content-wrap{
-    width: 1000px;
+    width: 1200px;
     margin: 0 auto;
     margin-top: 80px;
 }
@@ -32,14 +33,132 @@
 }
 
 .menu-list>ul>li{
-    border: 1px solid rgb(205, 205, 205);
+    border-bottom: 1px solid #AD8B73;
     height: 50px;
     line-height: 50px;
     width: 200px;
+    color: #AD8B73;
+}
+
+.menu-list>ul>li>a{
+   padding-left: 5px;
+}
+
+.menu-list>ul>li:first-child{
+    border-top : 1px solid #AD8B73;
 }
 
 .admin-content{
-    width: 700px;
+    width: 930px;
     float: right;
     border-bottom: 1px solid #AD8B73;
+
+}
+
+.admin-title>h3{
+    color: #AD8B73;
+    font-size: 30px;
+}
+
+.list{
+    width: 930px;
+    float: right;
+    margin-top: 40px;
+}
+
+.list>table{
+    width: 930px;
+    text-align: center;
+}
+
+.all-navi{
+    margin-top: 40px;
+}
+
+.list>table>tbody>tr:first-child{
+    background-color: #AD8B73;
+    height: 50px;
+    color: white;
+}
+
+.list>table>tbody>tr>td{
+    height: 50px;
+    border-bottom: 1px solid #AD8B73;
+}
+
+.list>table>tbody>tr:not(:first-of-type):hover{
+    background-color: #ad8b7318;
+}
+
+.td1{
+    width: 50px;
+}
+.td2{
+    width: 70px;
+}
+.td3{
+    width: 120px;
+}
+.td4{
+    width: 130px;
+}
+.td5{
+    width: 340px;
+}
+
+.nameTd{
+    cursor: pointer;
+}
+.nameTd:hover{
+    text-decoration :underline;
+    color: #AD8B73;
+}
+
+/*모달*/
+.modalWrap{
+    /*display: none;*/
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.member-modal{
+    background-color: #fff;
+    width: 500px;
+    min-width: 550px;
+    max-width: 250px;
+    height: 550px;
+    min-height: 180px;
+    max-height: 500px;
+    border-radius: 10px;
+}
+
+.ok-top>h3{
+    text-align: center;
+    padding-top : 45px;
+    padding-bottom: 20px;
+    color: #AD8B73;
+}
+
+.btn-div{
+	width: 200px;
+	margin : 0 auto;
+    text-align: center;
+    margin-top: 310px;
+}
+
+.btn-div>.reset{
+    background-color: #AD8B73;
+    width: 200px;
+    height: 50px;
+    border: none;
+    border-radius: 5px;
+    font-size: 20px;
+    color: white;
 }
