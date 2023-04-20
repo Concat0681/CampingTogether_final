@@ -30,6 +30,7 @@ import kr.or.iei.camping.model.service.CampingService;
 import kr.or.iei.camping.model.vo.SellCampingListData;
 import kr.or.iei.member.model.service.MailService;
 import kr.or.iei.member.model.service.MemberService;
+import kr.or.iei.member.model.vo.AllMemberPageData;
 import kr.or.iei.member.model.vo.CampingPayment;
 import kr.or.iei.member.model.vo.FileVO;
 import kr.or.iei.member.model.vo.Member;
@@ -293,6 +294,22 @@ public class MemberController {
 		return "member/shopList";
 	}
 	
+	//전체 회원
+	@RequestMapping(value = "/allMember.do")
+	public String allMember(int reqPage, Model model) {
+		AllMemberPageData apd = service.selectAllMember(reqPage);
+		
+		model.addAttribute("list",apd.getList());
+		model.addAttribute("navi", apd.getPageNavi());
+		return "member/allMemberList";
+	}
+	
+	//신고당한회원
+	@RequestMapping(value = "/blackMemberList.do")
+	public String blackMemberList(int reqPage, Model model) {
+		
+		return "member/blackMemberList";
+	}
 	
 	//판매자 정보 수정
 	@RequestMapping(value = "/mypageS.do")

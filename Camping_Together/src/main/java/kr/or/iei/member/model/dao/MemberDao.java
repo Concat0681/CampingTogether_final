@@ -114,13 +114,19 @@ public class MemberDao {
 	}
 
 	
-	/*
-	//판매자 my캠핑장
-	public ArrayList<SellCampingList> selectSellCampingList(HashMap<String, Object> map) {
-		List list = sqlsession.selectList("member.selectSellCampingList",map);
-		return (ArrayList<SellCampingList>) list;
+	//전체회원
+	public ArrayList<Member> selectAllMember(HashMap<String, Object> map) {
+		List<Member> list = sqlsession.selectList("member.selectAllMember",map);
+		return (ArrayList<Member>)list;
 	}
-	*/
+
+	//전체회원 수
+	public int selectAllMemberCount() {
+		int totalCount = sqlsession.selectOne("member.selectAllMemberCount");
+		return totalCount;
+	}
+
+	
 
 	
 	
