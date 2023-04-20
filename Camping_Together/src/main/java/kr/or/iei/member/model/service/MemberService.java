@@ -23,7 +23,7 @@ import kr.or.iei.shop.model.vo.Shop;
 import kr.or.iei.shop.model.vo.ShopBasket;
 import kr.or.iei.shop.model.vo.ShopListMainData;
 import kr.or.iei.usedBoard.model.vo.UsedBoard;
-import kr.or.iei.usedBoard.model.vo.UsedBoardPageDate;
+import kr.or.iei.usedBoard.model.vo.UsedBoardPageData;
 
 @Service
 public class MemberService {

@@ -107,7 +107,6 @@ public class UsedBoardDao {
 
 	public ArrayList<UsedBoard> getTop3UsedBoards(UsedBoard ub) {
 		List list = sqlSession.selectList("usedBoard.getTop3UsedBoards", ub);
-		System.out.println(list);
 		return (ArrayList<UsedBoard>) list;
 
 	}
@@ -129,5 +128,10 @@ public class UsedBoardDao {
 	public int insertBlacklistPhoto(BlacklistPhoto photo) {
 		int result = sqlSession.insert("usedBoard.insertBlacklistPhoto", photo);
 		return result;
+	}
+
+	public ArrayList<Blacklist> selectBlacklistMyHistory(String memberId) {
+		List list = sqlSession.selectList("usedBoard.selectBlacklistMyHistory", memberId);
+		return (ArrayList<Blacklist>)list;
 	}
 }

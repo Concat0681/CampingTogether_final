@@ -174,7 +174,7 @@
 	<!-- 블랙리스트 insert -->
 	<insert id="insertBlacklist" parameterType="bl">
 		insert into blacklist 
-		value(
+		values(
 			blacklist_seq.nextval,
 			#{usedBoardNo},
 			#{memberId},
@@ -190,13 +190,28 @@
 	</insert>
 	<insert id="insertBlacklistPhoto" parameterType="blp">
 		insert into blacklist_photo 
-		value(
+		values(
 			blacklist_photo_seq.nextval,
 			#{blacklistNo},
 			#{filepath},
 			#{filename}
 		)
 	</insert>
+	<!-- 내가작성한 신고글리스트 select -->
+	<select id="selectBlacklistMyHistory" parameterType="string" resultType="bl">
+		select 
+		    blacklist_no as blacklistNo,
+		    member_id as memberId,
+		    blacklist_member_id as blacklistMemberId,
+		    blacklist_status as blacklistStatus,
+		    blacklist.reg_date as regDate,
+		    blacklist_content as blacklistContent,
+		    used_board_title as blackUsedBoardTitle,
+		    used_board_no as blackUsedBoardNo 
+		from blacklist join used_board using(used_board_no) 
+		where member_id like #{_parameter}
+		order by regDate desc
+	</select>
 </mapper>
 
 

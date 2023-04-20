@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 
 import kr.or.iei.message.model.service.MessageService;
 import kr.or.iei.message.model.vo.Message;
+import lombok.Value;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,30 +34,28 @@ public class MessageController {
 	@RequestMapping(value = "/insertMessage.do")
 	public String insertMessage(Message message) {
 		int result = service.insertMessage(message);
-		return String.valueOf(result);
+		System.out.println(message);
+		return new Gson().toJson(result);
 	}
 
-	@ResponseBody
 	@RequestMapping(value = "/myMessageList.do")
 	public String myMessageList(Message message) {
 		ArrayList<Message> list = service.selectMessagelist(message);
-		return new Gson().toJson(list);
-
+		return "message/messageMain";
 	}
 
 	@ResponseBody
 	@RequestMapping(value = "/messageDetail.do", produces = "application/json;charset=utf-8")
 	public Message MessageDetail(Message message) {
 		Message mg = service.selectOneMessage(message);
-
+		
 		return message;
-
 	}
 	
 	@ResponseBody
 	@RequestMapping(value = "/updateMessageReadStatus.do", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
-	public String updateMessageReadStatus(@RequestBody Message message) {
-		String result = service.updateMessageReadStatus(message);
+	public int updateMessageReadStatus(@RequestBody Message message) {
+		int result = service.updateMessageReadStatus(message);
 		return result;
 	}
 
