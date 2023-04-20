@@ -1,19 +1,32 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <style>
 	p{
 		margin-bottom: 0px !important;
+	}
+	.material-symbols-outlined {
+	  font-variation-settings:
+	  'FILL' 0,
+	  'wght' 300,
+	  'GRAD' 0,
+	  'opsz' 48
+	}
+	.fill{
+		font-variation-settings: 'FILL' 1
 	}
 	.page-content{
 		width: 1200px;
 		margin: 0 auto;
 		padding-top: 130px;
+		position: relative;
 	}
 	.content-top>h2{
 		margin: 20px;
@@ -151,6 +164,77 @@
     	font-size: 16px;
     	color: #FFFBE9;
     }
+    .blacklsit-history-modal{
+    	width: 1200px;
+    	height: 800px;
+    	border: 4px double #ccc;
+    	border-radius: 5px;
+    	display: none;
+    	position: absolute;
+    	top: 230px;
+    	background-color: #fff;
+    	box-shadow: 0px 0px 60px -10px #ccc;
+    }
+    .history-modal-top{
+    	text-align: center;
+    	padding-bottom: 20px;
+    	height: 10%
+    }
+    .title{
+    	line-height: 80px;
+    }
+    .title>span{
+    	font-family: ng-extra-bold;
+    	color: #AD8B73;
+    }
+    .history-modal-content{
+    	height: 80%;
+    	border: 1px solid #ccc;
+    	overflow-x: hidden;
+    	overflow-y: scroll;
+    	padding: 30px;
+    	box-sizing: border-box;
+    }
+    .history-modal-content>table{
+    	width: 90%;
+    	margin: 0 auto;
+    	
+    }
+    .history-modal-content>table>tr:first-child{
+    	background-color: #E3CAA5;
+    	border-top-left-radius: 10px;
+    }
+    .history-modal-content>table>tr{
+    	border-bottom: 1px solid #E3CAA5;
+    }
+    .history-modal-content>table>tr:not(tr:first-child):hover{
+    	background-color: #FFFBE9;
+    }
+    .history-modal-content>table>tr>td{
+    	padding: 12px;
+    	text-align: center;
+    	font-size: 14px;
+    	font-family: ng-bold;
+    	color: #AD8B73;
+    }
+    .history-modal-content>table>tr:first-child>td{
+    	font-family: ng-extra-bold;
+    	color: #FFFBE9;
+    	font-size: 15px;
+    }
+    /* 스크롤바 */
+    .history-modal-content::-webkit-scrollbar {
+    	width: 12px;  /* 스크롤바의 너비 */
+	}	
+	.history-modal-content::-webkit-scrollbar-thumb {
+	    height: 30%; /* 스크롤바의 길이 */
+	    background: #CEAB93; /* 스크롤바의 색상 */ 
+	    border-radius: 5px;   
+	}
+	
+	.history-modal-content::-webkit-scrollbar-track {
+	    background: rgba(173, 139, 115, .1);  /*스크롤바 뒷 배경 색상*/
+	}
 </style>
 </head>
 <body>
@@ -161,12 +245,12 @@
 			<span onclick="blacklistView('${sessionScope.m.memberId}');">작성내역 조회</span>
 			<hr>
 		</div>
-		<form action="/blacklistWriter.do" method="post" enctype="multipart/form-data">
+		<form action="/blacklistWrite.do" method="post" enctype="multipart/form-data">
 			<div class="detail-wrap">
 				<div class="blacklist-guide">
 					<p>
 						선택한 게시물의 작성자를 신고합니다.<br>
-						작성자 신고는 거래수칙에 맞지 않는 사용자를 신고하는 기능이며, 반대의견을 표시하는 것이 아닙니다.<br>
+						작성자 신고는 거래수칙을 위반한 사용자를 신고하는 기능이며, 반대의견을 표시하는 것이 아닙니다.<br>
 						[${sessionScope.m.memberName }]님의 관심과 신고가 건전하고 올바른 Camping Together문화를 만듭니다.<br>
 						허위 신고의 경우 신고자가 제재받을 수 있음을 유념해주세요.<br>
 					</p>
@@ -197,10 +281,10 @@
 					</div>
 					<div class="write-wrap">
 						<div class="write-title">
-							<span>첨부파일</span>
+							<span>첨부이미지</span>
 						</div>
 						<div class="write-content">
-							<input type="file" id="blacklist-Img" name="blacklistPhoto" multiple>
+							<input type="file" id="blacklist-Img" name="blacklistPhoto" accept="image/gif, image/jpeg, image/png" multiple>
 							<label for="blacklist-Img">파일 선택</label>
 							<div class="img-wrap"></div>
 						</div>
@@ -210,18 +294,26 @@
 							<span>상세내용</span>
 						</div>
 						<div class="write-content">
-							<textarea name="blacklistContent" placeholder="신고내용을 자세히 입력해 주세요."></textarea>
+							<textarea name="blacklistContent" placeholder="신고내용을 자세히 입력해 주세요." required></textarea>
 						</div>
 					</div>
 				</div>
 				<div class="btn-wrap">
-					<button type="button" class="btn1" onclick="location.href='/'"><span>취소</span></button>
+					<button type="button" class="btn1" onclick="location.href='/usedBoardView.do?usedBoardNo=${ub.usedBoardNo}'"><span>취소</span></button>
 					<button type="submit" class="btn1"><span>작성완료</span></button>
 				</div>
 			</div>
 		</form>
 		<%-- 작성내역 모달창 --%>
-		
+		<div class="blacklsit-history-modal">
+			<div class="history-modal-top">
+				<div class="title"><span>[ ${sessionScope.m.memberName } ]님 신고글 작성내역 조회</span></div>
+			</div>
+			<div class="history-modal-content"></div>
+			<div class="history-modal-bottom">
+				<button type="button" class="btn1"><span>CLOSE</span></button>
+			</div>
+		</div>
 	</div>
 	<script>
 		/* 이미지 관련 스크립트 */
@@ -231,7 +323,7 @@
 				let files = e.target.files;
 				let filesArr = Array.prototype.slice.call(files);
 				if($("#blacklist-Img")[0].files.length > 8){
-					alert("상품이미지는 8개 이하만 첨부 가능합니다.");
+					alert("이미지는 8개 이하만 첨부 가능합니다.");
 					$($("#blacklist-Img")).val("");
 					return false;
 				}
@@ -268,8 +360,41 @@
 		}
 		/* 내가 작성한 신고글 조회 */
 		function blacklistView(memberId){
-			alert("나너무많은일이있었어");
+			$(".blacklsit-history-modal").toggle();
+			$.ajax({
+				url : "/blacklistMyHistory.do",
+				type : "get",
+				data : {memberId : memberId},
+				success : function(data){
+					$(".history-modal-content").empty();
+					console.log(data);
+					const table = $("<table>");
+					const titleTr = $("<tr>");
+					titleTr.html("<td style='width:20%'>신고게시글</td><td style='width:20%'>피신고인</td><td style='width:30%'>신고내용</td><td style='width:20%'>작성일</td><td style='width:10%'>처리상태</td>");
+					table.append(titleTr);
+					for(let i=0; i<data.length; i++){
+						const tr = $("<tr>");
+						tr.append("<td>["+data[i].blackUsedBoardNo+"]"+data[i].blackUsedBoardTitle+"</td>");
+						tr.append("<td>"+data[i].blacklistMemberId+"</td>");
+						tr.append("<td>"+data[i].blacklistContent+"</td>");
+						tr.append("<td>"+data[i].regDate+"</td>");
+						if(data[i].blacklistStatus == 0){
+							tr.append("<td>처리대기</td>");
+						}else if(data[i].blacklistStatus == 1){
+							tr.append("<td>처리완료</td>");
+						}else if(data[i].blacklistStatus == 2){
+							tr.append("<td>처리취소</td>");
+						}
+						table.append(tr);
+					}
+					$(".history-modal-content").append(table);
+				}
+			});
 		}
 	</script>
 </body>
 </html>
+
+
+
+
