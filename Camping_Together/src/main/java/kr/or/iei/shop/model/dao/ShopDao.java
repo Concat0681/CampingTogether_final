@@ -10,6 +10,8 @@ import org.springframework.stereotype.Repository;
 
 import kr.or.iei.shop.model.vo.Shop;
 import kr.or.iei.shop.model.vo.ShopBasket;
+import kr.or.iei.shop.model.vo.ShopOrder;
+import kr.or.iei.shop.model.vo.ShopPayment;
 import kr.or.iei.shop.model.vo.ShopReview;
 import kr.or.iei.shop.model.vo.ShopReviewPhoto;
 
@@ -91,6 +93,21 @@ public class ShopDao {
 
 	public int deleteShopReview(int shopReviewNo) {
 		int result = sqlSession.delete("shop.deleteShopReview", shopReviewNo);
+		return result;
+	}
+
+	public int insertShopOrder(ShopOrder so) {
+		int result = sqlSession.insert("shop.insertShopOrder", so);
+		return result;
+	}
+
+	public int insertShopPayment(ShopPayment spm) {
+		int result = sqlSession.insert("shop.insertShopPayment",spm);
+		return result;
+	}
+
+	public int deleteOrderWishList(int shopNo) {
+		int result = sqlSession.delete("shop.deleteOrderWishList", shopNo);
 		return result;
 	}
 }

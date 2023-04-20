@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 <link rel="stylesheet" href="resources/css/shop/viewShop.css">
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
@@ -83,7 +84,7 @@
 								<button type="button" class="btn1 loginBtn">Cart</button>
 							</c:when>
 							<c:otherwise>
-								<button class="btn1">Buy</button>
+								<button class="btn1" id="payBtn">Buy</button>
 								<button type="button" id="shopCartBtn" class="btn1">Cart</button>
 							</c:otherwise>
 						</c:choose>
@@ -447,6 +448,56 @@
 		calTotalPrice()
 		calPrice()
 		calAvgRating()
+	</script>
+	
+	<script>
+	$("#payBtn").on("click",function(){
+		const price = $(".totalPrice").text();
+		const sellCount = $("[name=sellCount]").val();
+		const d = new Date();
+		const date = d.getFullYear()+""+(d.getMonth()+1)+""+d.getDate()+""+d.getHours()+""+d.getMinutes()+""+d.getSeconds();
+		
+		IMP.init("imp76553310");
+		
+		IMP.request_pay({
+			pg : "html5_inicis",
+			pay_method : "card",
+			merchant_uid : "상품번호_"+date,//상점에서 관리하는 주문번호
+			name : "${shop.shopTitle}", //결제 이름
+			amount : price,  // 결제 금액
+			buyer_email : "${sessionScope.m.memberEmail}",
+			buyer_name : "${sessionScope.m.memberName}",
+			buyer_tel : "${sessionScope.m.memberPhone}",
+			buyer_addr : "${sessionScope.m.memberAddr}",
+			buyer_postcode : "12345"
+		},function(rsp){
+			if(rsp.success){
+				alert("결제성공");
+				//결제관련 정보를 DB에 insert하는 작업이 필요
+				$.ajax({
+					url : "/insertShopOrder.do",
+					type : "post",
+					data : {
+						orderName:"${sessionScope.m.memberName}",
+						orderPhone:"${sessionScope.m.memberPhone}",
+						orderAddr:"${sessionScope.m.memberAddr}",
+						totalPrice:price,
+						shopNo:${shop.shopNo},
+						memberId:"${sessionScope.m.memberId}",
+						sellCount:sellCount,
+						},
+					success : function(data){
+						console.log("결재 정보 DB UPDATE 성공");
+					},
+					error : function(){
+						console.log("결재 정보 DB UPDATE 실패");
+					}
+				});
+			}else{
+				alert("결제실패");
+			}
+		});
+	});
 	</script>
 </body>
 </html>

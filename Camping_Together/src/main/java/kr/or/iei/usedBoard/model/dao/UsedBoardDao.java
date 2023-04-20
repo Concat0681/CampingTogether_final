@@ -129,4 +129,9 @@ public class UsedBoardDao {
 		int result = sqlSession.insert("usedBoard.insertBlacklistPhoto", photo);
 		return result;
 	}
+
+	public ArrayList<Blacklist> selectBlacklistMyHistory(String memberId) {
+		List list = sqlSession.selectList("usedBoard.selectBlacklistMyHistory", memberId);
+		return (ArrayList<Blacklist>)list;
+	}
 }
