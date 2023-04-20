@@ -10,7 +10,9 @@ import org.springframework.stereotype.Repository;
 
 import kr.or.iei.camping.model.vo.Camping;
 import kr.or.iei.camping.model.vo.CampingEtc;
+import kr.or.iei.camping.model.vo.CampingPayment;
 import kr.or.iei.camping.model.vo.CampingProvideService;
+import kr.or.iei.camping.model.vo.CampingReservation;
 import kr.or.iei.camping.model.vo.CampingReview;
 import kr.or.iei.camping.model.vo.CampingReviewFileVO;
 import kr.or.iei.camping.model.vo.CampingRoom;
@@ -212,4 +214,30 @@ public class CampingDao {
 	}
 
 	
+	public int insertCampingReservation(HashMap<String, Object> map) {
+		int result = sqlSession.insert("camping.insertCampingReservation",map);
+		return result;
+	}
+
+	public int insertCamingPayment(int campingReservationNo) {
+		int result = sqlSession.insert("camping.insertCamingPayment",campingReservationNo);
+		return result;
+		
+	}
+
+	public int selectcampingReservationNo(int memberNo) {
+		int campingReservationNo = sqlSession.selectOne("camping.selectcampingReservationNo",memberNo);
+		return campingReservationNo;
+	}
+
+	public CampingPayment campingPaymentDate(int campingReservationNo) {
+		CampingPayment cp = sqlSession.selectOne("camping.campingPaymentDate", campingReservationNo);
+		return cp;
+	}
+
+	public CampingReservation selectRoomMemberNo(int memberNo) {
+		CampingReservation cr = sqlSession.selectOne("camping.selectRoomMemberNo",memberNo);
+		return cr;
+	}
+
 }
