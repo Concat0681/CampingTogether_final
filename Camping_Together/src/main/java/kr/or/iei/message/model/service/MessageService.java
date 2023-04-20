@@ -27,21 +27,12 @@ public class MessageService {
 	public Message selectOneMessage(Message message) {
 		return dao.selectOneMessage(message);
 	}
-
 	public int selectMessageCount(String memberId) {
 		int messageCount = dao.selectMessageCount(memberId);
 		return messageCount;
 	}
-
-	
 	@Transactional
-	public String updateMessageReadStatus(Message message) {
-		int result = dao.updateMessageReadStatus(message);
-		if (result > 0) {
-			return "success";
-		}else {
-			return "fail";
-		}
+	public int updateMessageReadStatus(Message message) {
+		 return dao.updateMessageReadStatus(message);
 	}
-
 }

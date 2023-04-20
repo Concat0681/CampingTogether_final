@@ -95,7 +95,7 @@ public class NoticeService {
 	}
 
 	public ArrayList<Notice> selectNoticeList(Notice n) {
-		System.out.println("서비스"+n);
+		
 		return dao.selectNoticeList(n);
 		
 	}

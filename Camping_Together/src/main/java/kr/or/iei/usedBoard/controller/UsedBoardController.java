@@ -34,8 +34,6 @@ public class UsedBoardController {
 	public String getTop3UsedBoards(Model model, UsedBoard ub) {
 		ArrayList<UsedBoard> top3UsedBoards = service.getTop3UsedBoards(ub);
         model.addAttribute("top3UsedBoards", top3UsedBoards);
-        System.out.println(model);
-        System.out.println(top3UsedBoards.size());
         return "main/mainIndexList";
     }
 	

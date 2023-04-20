@@ -136,7 +136,28 @@
 	</select>
 	
 
+	<!-- 전체회원 -->
+	<select id="selectAllMember" parameterType="map" resultType="m">
+		select * from
+		(select rownum as rnum, m.* from
+		(select
+					member_no as memberNo,
+					member_id as memberId,
+					member_addr as memberAddr,
+					member_name as memberName,
+					member_phone as memberPhone,
+					member_email as memberEmail,
+					member_grade as memberGrade
+				from member)m)
+		where rnum between #{start} and #{end}
+	</select>
 	
+
+	<select id="selectAllMemberCount" resultType="_int">
+		select count(*) from member
+	</select>
+
+
 	<select id="selectShopBasketCount" parameterType="String" resultType="_int">
 		select count(*) from basket where member_id = #{memberId}
 	</select>
@@ -144,5 +165,10 @@
 	<delete id="deleteWishList" parameterType="_int">
 		delete from basket where shop_no=#{_parameter}
 	</delete>
+
 	
 </mapper>
+
+
+
+

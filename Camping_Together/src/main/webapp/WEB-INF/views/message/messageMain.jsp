@@ -9,6 +9,7 @@
     <title>쪽지함</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
     <style>
         table {
             width: 100%;
@@ -33,24 +34,24 @@
 	        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
 	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 	      </div>
-	      <form action="/insertMessage.do" method="post">
+	      <form action="/insertMessage.do" id="send-form" method="post">
 		      <div class="modal-body">
 		         <div class="mb-3">
 		            <label for="recipient-name" class="col-form-label">보내는 사람:</label>
-		            <input type="text" class="form-control" id="recipient-name" value="${sessionScope.m.memberId }" name="sender" readonly>
+		            <input type="text" class="form-control" id="send-sender" value="${sessionScope.m.memberId }" name="sender" readonly>
 		          </div>	
 		        	
 		          <div class="mb-3">
 		            <label for="recipient-name" class="col-form-label">받는 사람:</label>
-		            <input type="text" class="form-control" id="recipient-name" placeholder="아이디를 적어주세요" name="receiver">
+		            <input type="text" class="form-control" id="send-recipient" placeholder="아이디를 적어주세요" name="receiver">
 		          </div>
 		          <div class="mb-3">
 		            <label for="recipient-name" class="col-form-label">제목:</label>
-		            <input type="text" class="form-control" id="recipient-name" name="messageTitle">
+		            <input type="text" class="form-control" id="send-title" name="messageTitle">
 		          </div>
 		          <div class="mb-3">
 		            <label for="message-text" class="col-form-label">내용:</label>
-		            <textarea class="form-control" id="message-text" name="messageContent"></textarea>
+		            <textarea class="form-control" id="send-text" name="messageContent"></textarea>
 		          </div>
 		      </div>
 		      <div class="modal-footer">
@@ -64,7 +65,7 @@
 	</div>
 <div class="container mt-3">
     <h1>쪽지함</h1><!--  쪽지 쓰기 버튼  -->
-	<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">쪽지보내기</button>
+	<button type="button" id="new-message-btn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">쪽지보내기</button>
 	<a href="/">메인화면으로</a>    
     <div class="row mt-3">
         <div class="col-md-12">
@@ -86,174 +87,117 @@
     </div>
 </div>
 
-
-
-<!-- 쪽지 상세 모달창 -->
-<div class="modal fade" id="messageDetailModal" tabindex="-1" role="dialog" aria-labelledby="messageDetailModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="messageDetailModalLabel">쪽지 상세보기</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p id="sender"></p>
-                <p id="title"></p>
-                <p id="content"></p>
-                <p id="date"></p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    // 쪽지 리스트 생성
-    
-    function getMyMessageList() {
-    	  var xhr = new XMLHttpRequest();
-    	  xhr.open('POST', '/myMessageList.do');
-    	  xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-    	  xhr.onload = function () {
-    	    if (xhr.status === 200) {
-    	      var messageList = JSON.parse(xhr.responseText);
-    	      var messageListContainer = document.querySelector('#messageListContainer');
-    	      messageListContainer.innerHTML = '';
-    	      if (messageList.length > 0) {
-    	        messageList.forEach(function (message) {
-    	          var messageRow = createMessageRow(message);
-    	          messageListContainer.appendChild(messageRow);
-    	        });
-    	      } else {
-    	        var noMessageRow = createNoMessageRow();
-    	        messageListContainer.appendChild(noMessageRow);
-    	      }
-    	    } else {
-    	      console.error('Failed to get my message list.');
-    	    }
-    	  };
-    	  var data = {
-    	    receiver: '<%= session.getAttribute("loginMemberId") %>'
-    	  };
-    	  xhr.send(JSON.stringify(data));
-    	}
+ $(document).ready(function() {
+	  // 새 쪽지 작성 버튼 클릭 시 모달창 호출
+	  $('#new-message-btn').click(function() {
+	    $('#exampleModal').modal('show');
+	  });
 
-    	function createMessageRow(message) {
-    	  var row = document.createElement('div');
-    	  row.classList.add('row');
-    	  row.classList.add('messageRow');
-    	  row.dataset.messageNo = message.messageNo;
+	  // 쪽지 전송 버튼 클릭 시 Ajax 통신을 통해 쪽지 전송
+	  $('#send-message-btn').click(function() {
+	    $.ajax({
+	      type: 'POST',
+	      url: '/insertMessage.do',
+	      data: {
+	        sender: $('#send-sender').val(),
+	        receiver: $('#send-recipient').val(),
+	        messageTitle: $('#send-title').val(),
+	        messageContent: $('#send-text').val()
+	      },
+	      success: function() {
+	        // 쪽지 전송 성공 시 모달창 닫기 및 쪽지 리스트 업데이트
+	        $('#exampleModal').modal('hide');
+	        updateMessageList();
+	      },
+	      error: function() {
+	        alert('쪽지 전송에 실패했습니다.');
+	      }
+	    });
+	  });
 
-    	  var countCell = document.createElement('div');
-    	  countCell.classList.add('cell');
-    	  countCell.classList.add('messageCount');
-    	  countCell.innerText = message.messageCount;
+	  // 쪽지 리스트 업데이트 함수
+	  function updateMessageList() {
+	    $.ajax({
+	      type: 'GET',
+	      url: '/myMessageList.do',
+	      dataType: 'json',
+	      success: function(data) {
+	        $('#messageList').empty(); // 쪽지 리스트 초기화
+	        var count = 0; // 읽지 않은 쪽지 수 초기화
+	        $.each(data, function(index, item) {
+	          var row = '<tr>';
+	          row += '<td>' + (index + 1) + '</td>';
+	          row += '<td>' + item.sender + '</td>';
+	          row += '<td><a href="/readMessage.do?messageId=' + item.messageId + '">' + item.messageTitle + '</a></td>';
+	          row += '<td>' + item.sendDate + '</td>';
+	          row += '<td>';
+	          if (item.readFlag == 'N') {
+	            row += '<span class="badge bg-danger">Unread</span>';
+	            count++;
+	          } else {
+	            row += '<span class="badge bg-success">Read</span>';
+	          }
+	          row += '</td></tr>';
+	          $('#messageList').append(row);
+	        });
+	        // 읽지 않은 쪽지 수 표시
+	        $('#unread-count').text(count);
+	      },
+	      error: function() {
+	        alert('쪽지 리스트 로딩에 실패했습니다.');
+	      }
+	    });
+	  }
 
-    	  var senderCell = document.createElement('div');
-    	  senderCell.classList.add('cell');
-    	  senderCell.classList.add('messageSender');
-    	  senderCell.innerText = message.sender;
+	  // 페이지 로딩 시 쪽지 리스트 업데이트
+	  updateMessageList();
+	  
+    $('#send-form').submit(function(event) {
+      event.preventDefault();
 
-    	  var titleCell = document.createElement('div');
-    	  titleCell.classList.add('cell');
-    	  titleCell.classList.add('messageTitle');
-    	  titleCell.innerText = message.messageTitle;
-    	  titleCell.addEventListener('click', function () {
-    	    showMessageDetail(message.messageNo);
-    	  });
+      var sender = $('#send-sender').val();
+      var recipient = $('#send-recipient').val();
+      var title = $('#send-title').val();
+      var content = $('#send-text').val();
 
-    	  var dateCell = document.createElement('div');
-    	  dateCell.classList.add('cell');
-    	  dateCell.classList.add('messageDate');
-    	  dateCell.innerText = message.messageDate;
+      if (recipient === '') {
+        alert('받는 사람을 입력해주세요.');
+        return false;
+      }
 
-    	  var checkCell = document.createElement('div');
-    	  checkCell.classList.add('cell');
-    	  checkCell.classList.add('messageCheck');
-    	  checkCell.innerText = message.readCheck === 1 ? '읽음' : '안읽음';
+      if (title === '') {
+        alert('제목을 입력해주세요.');
+        return false;
+      }
 
-    	  row.appendChild(countCell);
-    	  row.appendChild(senderCell);
-    	  row.appendChild(titleCell);
-    	  row.appendChild(dateCell);
-    	  row.appendChild(checkCell);
+      if (content === '') {
+        alert('내용을 입력해주세요.');
+        return false;
+      }
 
-    	  return row;
-    	}
+      $.ajax({
+        type: 'POST',
+        url: '/insertMessage.do',
+        data: {
+          sender: sender,
+          receiver: recipient,
+          messageTitle: title,
+          messageContent: content
+        },
+        success: function(data) {
+          $('#exampleModal').modal('hide');
+          $('#send-form').trigger('reset');
+          alert('쪽지를 보냈습니다.');
+        },
+        error: function(xhr, status, error) {
+          alert('쪽지 전송에 실패하였습니다. 다시 시도해주세요.');
+        }
+      });
+    });
+  });
+</script>
 
-    	function createNoMessageRow() {
-    	  var row = document.createElement('div');
-    	  row.classList.add('row');
-    	  row.classList.add('noMessageRow');
-
-    	  var cell = document.createElement('div');
-    	  cell.classList.add('cell');
-    	  cell.colSpan = 5;
-    	  cell.innerText = '받은 쪽지가 없습니다.';
-
-    	  row.appendChild(cell);
-
-    	  return row;
-    	}
-
-    	function showMessageDetail(messageNo) {
-    	    // Get the message detail using AJAX
-    	    var xhr = new XMLHttpRequest();
-    	    xhr.open("POST", "/messageDetail.do", true);
-    	    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    	    xhr.onreadystatechange = function() {
-    	        if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-    	            var message = JSON.parse(this.responseText);
-    	            if (message) {
-    	                // Fill in the message detail modal
-    	                document.getElementById("detailMessageTitle").innerHTML = message.messageTitle;
-    	                document.getElementById("detailMessageSender").innerHTML = "보낸 사람: " + message.sender;
-    	                document.getElementById("detailMessageContent").innerHTML = message.messageContent;
-    	                document.getElementById("detailMessageDate").innerHTML = "받은 날짜: " + message.messageDate;
-
-    	                // If the message is unread, mark it as read
-    	                if (message.readCheck === 0) {
-    	                    message.readCheck = 1;
-    	                    updateMessageReadStatus(message);
-    	                }
-
-    	                // Show the message detail modal
-    	                var modal = document.getElementById("messageDetailModal");
-    	                modal.style.display = "block";
-    	            } else {
-    	                alert("쪽지를 불러오는 데 실패하였습니다.");
-    	            }
-    	        }
-    	    };
-    	    xhr.send("messageNo=" + messageNo);
-    	}
-
-    	function updateMessageReadStatus(message) {
-    	    // Update the read status using AJAX
-    	    var xhr = new XMLHttpRequest();
-    	    xhr.open("POST", "/updateMessageReadStatus.do", true);
-    	    xhr.setRequestHeader("Content-Type", "application/json");
-    	    xhr.onreadystatechange = function() {
-    	        if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-    	            var result = JSON.parse(this.responseText);
-    	            if (result === "success") {
-    	                // Do something if the update is successful
-    	            } else {
-    	                alert("읽음 처리를 실패하였습니다.");
-    	            }
-    	        }
-    	    };
-    	    xhr.send(JSON.stringify(message));
-    	}
-
-    
- </script>
 </body>
 </html>

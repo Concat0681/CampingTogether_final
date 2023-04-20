@@ -12,6 +12,7 @@ import lombok.Data;
 @NoArgsConstructor
 @Data
 public class Member {
+	private String rnum;
 	private int memberNo;
 	private String memberId;
 	private String memberPw;
