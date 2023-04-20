@@ -21,6 +21,7 @@ public class MessageService {
 	}
 
 	public ArrayList<Message> selectMessagelist(Message message) {
+		System.out.println("service"+message);
 		return dao.selectMessagelist(message);
 	}
 
