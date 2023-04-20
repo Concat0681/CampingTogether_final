@@ -12,6 +12,7 @@ footer {
   width: 100%; 
   background-color: #f2f2f2; 
   padding: 20px; 
+  margin-top: 30px;
 }
 body {
   margin: 0; 

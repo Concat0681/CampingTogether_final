@@ -120,7 +120,8 @@
 		<div class="wrapper wrapperMiddle-tradeBox">
 				<jsp:include page="/usedBoardIndex.do"/>
 		</div>
-		<div class="wrapper wrapperMiddle-shop"></div>
+		<div class="wrapper wrapperMiddle-shop">>
+		</div>
 		<div class="wrapper wrapperBottom"></div>
  	
 	

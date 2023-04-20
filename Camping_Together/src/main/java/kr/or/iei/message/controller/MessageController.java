@@ -35,20 +35,21 @@ public class MessageController {
 	public String insertMessage(Message message) {
 		int result = service.insertMessage(message);
 		System.out.println(message);
-		return new Gson().toJson(result);
+		System.out.println(result);
+		return String.valueOf(result);
 	}
 
 	@RequestMapping(value = "/myMessageList.do")
 	public String myMessageList(Message message) {
 		ArrayList<Message> list = service.selectMessagelist(message);
-		return "message/messageMain";
+		System.out.println("con"+list);
+		return new Gson().toJson(list);
 	}
 
 	@ResponseBody
 	@RequestMapping(value = "/messageDetail.do", produces = "application/json;charset=utf-8")
 	public Message MessageDetail(Message message) {
 		Message mg = service.selectOneMessage(message);
-		
 		return message;
 	}
 	
