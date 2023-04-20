@@ -15,6 +15,11 @@ import kr.or.iei.member.model.vo.Member;
 import kr.or.iei.member.model.vo.MyReview;
 import kr.or.iei.member.model.vo.ProductPayment;
 
+import kr.or.iei.shop.model.vo.Shop;
+import kr.or.iei.shop.model.vo.ShopBasket;
+
+
+
 @Repository
 public class MemberDao {
 
@@ -101,6 +106,15 @@ public class MemberDao {
 		return totalCount;
 	}
 
+	public ArrayList<Shop> selectWishList(HashMap<String, Object> map) {
+		List list = sqlsession.selectList("shop.selectWishList",map);
+		return (ArrayList<Shop>)list;
+	}
+
+	public int selectShopBasketCount(String memberId) {
+		int totalCount = sqlsession.selectOne("member.selectShopBasketCount",memberId);
+		return totalCount;
+	}
 	//일반회원 정보 수정
 	public int updateMember(Member member) {
 		int result = sqlsession.update("member.updateMypageC",member );
@@ -111,6 +125,11 @@ public class MemberDao {
 	public int updateFilepath(MultipartFile profileName) {
 		int result = sqlsession.update("member.updateFile",profileName);
 		return 0;
+	}
+
+	public int deleteWishList(int shopNo) {
+		int result = sqlsession.delete("member.deleteWishList",shopNo);
+		return result;
 	}
 
 	

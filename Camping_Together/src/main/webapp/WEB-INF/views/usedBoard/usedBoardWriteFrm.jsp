@@ -48,6 +48,9 @@
             padding-top: 20px;
             font-family: ng-bold;
         }
+        .category{
+        	overflow: hidden;
+        }
         .category-bottom{
         	margin-left: 40px;
         }
@@ -196,7 +199,7 @@
             <h2>기본정보</h2>
             <hr>
         </div>
-        <form action="/boardWrite.do" method="post" enctype="multipart/form-data">
+        <form action="/usedBoardWrite.do" method="post" enctype="multipart/form-data">
         	<input type="hidden" value="${sessionScope.m.memberId }" name="usedBoardWriter">
             <div class="usedWrite-wrap">
                 <div class="category">

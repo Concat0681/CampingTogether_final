@@ -8,6 +8,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <style>
 
@@ -152,13 +153,16 @@
 		font-size: 15px;
     }
     .btn-wrap{
-    	text-align: right;
+    	display: flex;
+    	flex-direction: row-reverse;
     }
     .btn-wrap>button{
     	padding: 8px;
     	margin-left: 5px;
+    	width: 100px;
+    	height: 50px;
     }
-    .btn-wrap>button>span{
+    .btn-wrap>button span{
     	font-family: ng-extra-bold;
     	color: #FFFBE9;
     }
@@ -175,6 +179,14 @@
      .detail-content-text{
      	width: 90%;
      	margin: 0 auto;
+     }
+     .wish-btn>.wish-icon-wrap{
+     	display: flex;
+     	justify-content: center;
+     	margin-bottom: 0;
+     }
+     .wish-icon-wrap>.wish-icon{
+     	margin-bottom: 0;
      }
    /* 댓글 */
    .comment-wrap{
@@ -358,6 +370,7 @@
             <hr>
         </div>
         <div class="detail-wrap">
+        <input type="hidden" id="loginUser" value="${sessionScope.m.memberId }">
         	<div class="detail-top-wrap">
         		<div class="category-info">
         			<p class="usedboard-category">${ub.getUsedBoardCategoryText() }</p>
@@ -425,18 +438,25 @@
 						  </button>
 						</div>
 					</div>  
-					<script>
-						$(".carousel-item").eq(0).addClass("active");
-					</script>
         			<div class="detail-content-info">
         				<div class="usedboard-title">
         					<p>${ub.usedBoardTitle }</p>
         				</div>
         				<div class="usedboard-price">
-        					<p><fmt:formatNumber value="${ub.usedProductPrice }" pattern="#,###" />&nbsp;원</p>
-        					<div class="usedBoardstatus-box btn3">
-        						<span>판매중</span>
-        					</div>
+        				<input type="hidden" id="usedBoardStatus" value="${ub.usedBoardStatus }">
+        				<p><fmt:formatNumber value="${ub.usedProductPrice }" pattern="#,###" />&nbsp;원</p>
+        				<c:choose>
+                        	<c:when test="${ub.usedBoardStatus eq 0}">
+                        	<div class="usedBoardstatus-box btn3">
+	                        	<span>판매중</span>                    		
+                        	</div>                      
+                       		</c:when>
+                       		<c:otherwise>
+                       		<div class="usedBoardstatus-box btn3" style="background-color: #ccc; color:#fff;">
+	                        	<span>판매완료</span>                    		
+                        	</div>
+                       		</c:otherwise>
+                       	</c:choose>
         				</div>
         				<div class="regDate-etc-wrap">
         					<p style="font-family: ng-extra-bold;">${ub.usedBoardWriter }</p>
@@ -463,10 +483,10 @@
         				<div class="btn-wrap">
         					<c:choose>
         						<c:when test="${sessionScope.m.memberId eq ub.usedBoardWriter }">
-		        					<button type="button" class="btn1" onclick="selldone(${ub.usedBoardNo})"><span>판매완료</span></button>
+		        					<button type="button" class="btn1" onclick="soldout(${ub.usedBoardNo})"><span>판매완료</span></button>
         						</c:when>
         					</c:choose>
-        					<button type="button" class="btn3"><span>찜하기</span></button>
+        					<button type="button" class="btn3 wish-btn"><div class="wish-icon-wrap"><div class="material-symbols-outlined wish-icon">favorite</div><span>찜하기</span></div></button>
         				</div>
         			<c:choose>
         				<c:when test="${sessionScope.m.memberId eq ub.usedBoardWriter }">
@@ -477,7 +497,7 @@
         				</c:when>
         				<c:otherwise>
 	        				<div class="usedBoard-link">
-			        			<a href="#">신고하기</a>
+			        			<a href="javascript:void(0)" onclick="blacklistWriteFrm(${ub.usedBoardNo})">신고하기</a>
 			        		</div>
         				</c:otherwise>
         			</c:choose>
@@ -488,6 +508,7 @@
         		</div>    		       			
         	</div>
         </div>
+        <%-- 댓글  --%>
         <div class="comment-wrap">
         	<div class="comment-box-wrap">
     			<form action="/usedBoardCommentWrite.do" method="post">
@@ -503,18 +524,6 @@
     				</div>
    				</form>
         	</div>
-        	<script>
-        		if($("[name='usedBoardCommentWriter']").val() == ""){
-        			$("#comment-box").text("");
-        			$("#comment-box").attr("disabled", true);
-        			$("#comment-box").text("로그인 후 이용할 수 있습니다.");
-        			$("#comment-box").css("color", "#ccc");
-        			$("[type='submit']").on("click", function(){
-        				alert("로그인 후 이용할 수 있습니다.");
-        				return false;
-        			});
-        		}
-        	</script>
         	<div class="comment-list-wrap">
         		<div class="comment-count">
         			<span>댓글(${commentCount })</span>
@@ -556,6 +565,34 @@
         </div>
 	</div>
 	<script>
+		<%-- 페이지로드 시 실행 --%>
+		$(function(){
+			<%-- 판매완료/찜버튼 비활성화 --%>
+			if($("#usedBoardStatus").val() == 1){
+				$(".btn-wrap").children().css("background-color", "#ccc");
+				$(".btn-wrap").children().children().css("color", "#fff");
+				$(".wish-icon-wrap>span").css("color", "#fff");
+				$(".btn-wrap").children().prop("disabled", true);
+			}
+			<%-- 슬라이드 이미지(제품) 클래스추가 --%>
+			$(".carousel-item").eq(0).addClass("active");
+			
+			<%-- 댓글작성 --%>
+			if($("[name='usedBoardCommentWriter']").val() == ""){
+				$("#comment-box").text("");
+				$("#comment-box").attr("disabled", true);
+				$("#comment-box").text("로그인 후 이용할 수 있습니다.");
+				$("#comment-box").css("color", "#ccc");
+				$("[type='submit']").on("click", function(){
+					alert("로그인 후 이용할 수 있습니다.");
+					return false;
+				});
+			}
+			if($("#loginUser").val() == ""){
+				$(".wish-btn").prop("disabled", true);
+				$(".wish-btn").on()
+			}
+		});
 		<%-- 연락처 조회 모달창에 데이터를 가져오는 스크립트 --%>
 		function sellUserCheck(usedBoardWriter){
 			/* 필요한 회원정보 : 아이디, 사진, 연락처, 신고당한 횟수 */
@@ -618,7 +655,30 @@
 			}
 		}
 		<%-- 판매완료 버튼 --%>
-		
+		function soldout(usedBoardNo){
+			Swal.fire({
+	            title: '판매완료',
+	            text: '해당상품의 상태를 판매완료로 변경합니다.',
+	            icon: 'question',
+	            showCancelButton: true,
+	            confirmButtonColor: '#AD8B73',
+	            cancelButtonColor: '#ccc',
+	            confirmButtonText: '확인',
+	            cancelButtonText: '취소'
+	        }).then(function(result){
+	            if (result.isConfirmed) {
+	            	location.href="/usedBoardStatusUpdate.do?usedBoardNo="+usedBoardNo;
+	            }
+	        });			
+		}
+		<%-- 신고하기 --%>
+		function blacklistWriteFrm(usedBoardNo){
+			if($("#loginUser").val() == ""){
+				alert("로그인 후 이용할 수 있습니다.");
+			}else{
+				location.href="/blacklistWriteFrm.do?usedBoardNo="+usedBoardNo;
+			}
+		}
 	</script>
 </body>
 </html>

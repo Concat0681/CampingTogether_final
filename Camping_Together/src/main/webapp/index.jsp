@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -107,12 +108,7 @@
 		<div class="wrapper wrapperMiddle-notice"> 
 			<div class="notice-area">
 				<div class="notice-Box"> 
-					공지사항 <span><a href="/noticeList.do?reqPage=1">+</a></span> 
-					<ul class="notice-list">
-						<li> 공지사항1</li>
-						<li> 공지사항2</li>
-						<li> 공지사항3</li>
-					</ul>
+					<jsp:include page="/noticeMainList.do"/>
 				</div>
 				<div class="notice-img">
 					<a href="/noticeView.do?noticeNo=101"><img src="resources/image/main/notice-beta.png"></a>
@@ -121,36 +117,21 @@
 		</div>
 		
 				
-			<div class="wrapper wrapperMiddle-tradeBox">
-				<h3>중고장터</h3>
-			<div class="wrapperMiddle-tradeContent">
-				<div class="tradeContentBoarder">
-					<div>
-					<img src="/resources/image/camping/seoul.jpeg" style="width:200px;"></div>
-				</div>
-			</div>
-			<div class="wrapperMiddle-tradeContent">
-				<div class="tradeContentBoarder">
-					중고거래 컨텐츠2
-					<div class="tradeImg"></div>
-				</div>
-			</div>
-			<div class="wrapperMiddle-tradeContent">
-				<div class="tradeContentBoarder">
-					중고거래 컨텐츠3
-					<div class="tradeImg"></div>
-				</div>
-			</div>
+		<div class="wrapper wrapperMiddle-tradeBox">
+				<jsp:include page="/usedBoardIndex.do"/>
 		</div>
 		<div class="wrapper wrapperMiddle-shop"></div>
 		<div class="wrapper wrapperBottom"></div>
  	
 	
-	<button class="btn1" style="width : 100px; height : 30px;">버튼</button>
-	<button class="btn2" style="width : 100px; height : 30px;">버튼</button>
-	<button class="btn3" style="width : 100px; height : 30px;">버튼</button>
+	
 	</div>
 		
+	<div class="buttonBox">
+		<button class="btn1" style="width : 100px; height : 30px;">버튼</button>
+		<button class="btn2" style="width : 100px; height : 30px;">버튼</button>
+		<button class="btn3" style="width : 100px; height : 30px;">버튼</button>
+	</div>
 	
 </body>
 
@@ -164,7 +145,9 @@ $(document).ready(function() {
     const navbarBottom = $('.navbar');
     const navItem = $('.nav-item');
     const navLink = $('.nav-link');
-
+    
+	
+    
     navbarTop.css('backgroundColor', 'rgba(173, 139, 115, 0.2)');
     navbarBottom.css('backgroundColor', 'rgba(173, 139, 115, 0.2)');
     navLink.css('color', '#fff');
@@ -175,8 +158,6 @@ $(".caption").prev().on("click", function(){
 	const cityNameKR = $(this).next().text();
 	location.href="/campingList.do?cityNameEN="+cityNameEN+"&cityNameKR="+cityNameKR+"&reqPage=1&order=avgReviewRating&pplCount=0";
 })
-
-
 
 
 const inputBox = $('.inputBox');

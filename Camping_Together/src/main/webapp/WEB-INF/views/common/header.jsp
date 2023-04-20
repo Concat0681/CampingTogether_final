@@ -13,12 +13,16 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 
 -->
+
 <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <link href="/resources/css/bootStrap.css" rel="stylesheet"/>
-<link href="/resources/css/default.css" rel="stylesheet"/>
-<link href="/resources/css/header.css" rel="stylesheet"/> 	
-
+<link href="/resources/css/default.css" rel="stylesheet"/>	
+<link href="/resources/css/header.css" rel="stylesheet"/> 
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
 </head>
 <body>	
@@ -76,21 +80,21 @@
         <div class="nav-top" style="color: #fff;">
             <ul class="login">
                 <!-- <li><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">쪽지보내기</button></li> -->
-                <li><a href="/noticeList.do?reqPage=1">공지사항</a></li>
-                <li><a href = "/messageMain.do">쪽지함</a></li>
+                <li><a class="nav-linkT" href="/noticeList.do?reqPage=1">공지사항</a></li>
+                <li><a class="nav-linkT" href = "/messageMain.do">쪽지함</a></li>
                 <c:choose>
                 	<c:when test="${sessionScope.m.memberGrade eq 'c' }">
-		                <li><a href = "/cmapingPayList.do?reqPage=1&memberNo=${sessionScope.m.memberNo }">[${sessionScope.m.memberName }]</a></li>
-               			 <li><a href="/shopWishList.do?reqPage=1&memberId=${sessionScope.m.memberId }">장바구니</a></li>
+		                <li><a class="nav-linkT" href = "/cmapingPayList.do?reqPage=1&memberNo=${sessionScope.m.memberNo }">[${sessionScope.m.memberName }]</a></li>
+               			 <li><a class="nav-linkT" href="/shopWishList.do?reqPage=1&memberId=${sessionScope.m.memberId }">장바구니</a></li>
                 	</c:when>
                 	<c:when test="${sessionScope.m.memberGrade eq 's' }">
-		                <li><a href = "/sellList.do?reqPage=1&memberId=${sessionScope.m.memberId }">[${sessionScope.m.memberName }]</a></li>
+		                <li><a class="nav-linkT" href = "/sellList.do?reqPage=1&memberId=${sessionScope.m.memberId }">[${sessionScope.m.memberName }]</a></li>
                 	</c:when>
                 	<c:when test="${sessionScope.m.memberGrade eq 'a' }">
-		                <li><a href = "/shopProductList.do?reqPage=1&memberId=${sessionScope.m.memberId }">[${sessionScope.m.memberName }]</a></li>
+		                <li><a class="nav-linkT" href = "/shopProductList.do?reqPage=1&memberId=${sessionScope.m.memberId }">[${sessionScope.m.memberName }]</a></li>
                 	</c:when>
                 </c:choose>
-                <li><a href="/logout.do">로그아웃</a></li>
+                <li><a class="nav-linkT" href="/logout.do">로그아웃</a></li>
             </ul>
         </div>
     </div>
@@ -133,7 +137,26 @@
 	  </div>
 	</nav>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- 로그인이 필요한 모달 창 -->
+	<div id="modalVer1" class="modalVer1">
+	  <div class="modal-content">
+	    <div class="closeBox">
+	    <span class="close">&times;</span>
+	    </div>
+	    <h3>로그인이 필요한 서비스입니다.</h3>
+	    <span class="five-second"></span>
+		    <div class="circle-container">
+			    <span class="material-symbols-outlined">circle</span>
+			    <span class="material-symbols-outlined">circle</span>
+			    <span class="material-symbols-outlined">circle</span>
+			    <span class="material-symbols-outlined">circle</span>
+			    <span class="material-symbols-outlined">circle</span>
+		    </div>
+	    <button type="button" class="modal-login">로그인하기</button>
+	  </div>
+	</div>
+<!--  헤더 스크립트 -->
 <script>
 	
 const navbarTop = document.querySelector('.wrapper-top');
@@ -188,6 +211,7 @@ const navLink =  document.querySelectorAll('.nav-link');
 		          for(let i=0; i < navLink.length; i++){
 		        	  navLink[i].style = 'color';
 		        	  navLink[i].style.color = '#AD8B73';
+		        	  
 		          }
 		          
 		        } else {
@@ -199,7 +223,7 @@ const navLink =  document.querySelectorAll('.nav-link');
 		      
 		        }
 		      if (scrollTop >= 300) {
-		          //네비바의 컨텐츠 글자색을 흰색으로
+		          //네비바의 컨텐츠 글자색을 컨셉 컬러로
 		          for(let i=0; i < navLink.length; i++){
 		        	  navLink[i].style = 'color';
 		        	  navLink[i].style.color = '#AD8B73';
@@ -250,7 +274,88 @@ const navLink =  document.querySelectorAll('.nav-link');
     
     
     </script>
-    
-   
+<!-- 모달 스크립트 -->
+<script>
+ // 모달창 닫기 버튼 클릭 이벤트 
+    $('.close').click(function() { 
+    	 $('.modalVer1').hide();
+      });
+
+    // 모달창 열기 버튼 클릭 이벤트
+    $(document).ready(function() {
+    	  //모달창
+    	  $(".loginBtn").click(function() { // a태그, 버튼 아이디,클래스 입력
+    	    $("#modalVer1").css("display", "block"); 
+    	    const circles = $('.circle-container span');
+    		  let index = 0;
+
+    		  setInterval(function() {
+    		    circles.eq(index).addClass('active');
+    		    index++;
+    		    if (index >= circles.length) {
+    		      clearInterval();
+    		    }
+    		  }, 1000);
+
+    		  const countdown = $('.five-second');
+    		  let count = 5; // 5초로 설정
+    			
+    		  const interval = setInterval(function() {
+    		    countdown.text(count);
+    		    countdown.css('opacity', count / 5);
+    		    count--;
+
+    		    if (count < 0) {
+    		      clearInterval(interval);
+    		      location.href = '/joinFrm.do';
+    		      circles.removeClass('active');
+    		    }
+    		  }, 1000); //end interval , 1초로 설정
+    		  
+    		// 로그인 버튼 클릭 시 카운트다운 리셋
+    		  $(".modal-login").click(function() {
+    		    circles.removeClass('active');
+    		    clearInterval(interval);
+    		    count = 5;
+    		    interval = setInterval(function() {
+    		      countdown.text(count);
+    		      countdown.css('opacity', count / 5);
+    		      count--;
+
+    		      if (count < 0) {
+    		        clearInterval(interval);
+    		        location.href = '/joinFrm.do';
+    		      }
+    		    }, 1000);
+    		  });
+    		// 모달 창이 닫혀있을 때 카운트 리셋
+    		  $('#modalVer1').click(function() {
+    		    $('#modalVer1').css('display', 'none');
+    		    clearInterval(interval);
+    		    count = 5;
+    		    circles.removeClass('active');
+    		  });
+    	  
+    	  });
+
+    	  // 모달창 닫기
+    	  $(".close").click(function() {
+    	    $(".modalVer1").css("display", "none");
+    	  });
+
+    	  // 모달창 이외의 영역 클릭 시 모달창 닫기
+    	  $(window).click(function(event) {
+    	    if (event.target == $("#modalVer1")[0]) {
+    	      $(".modalVer1").css("display", "none");
+    	    }
+    	  });
+    });
+
+    	
+    $(".modal-login").click(function () {
+    	location.href = '/joinFrm.do';		
+    });
+
+</script>
 </body>
 </html>

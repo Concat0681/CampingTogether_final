@@ -15,6 +15,8 @@ import com.google.gson.Gson;
 
 import common.FileManager;
 import kr.or.iei.usedBoard.model.service.UsedBoardService;
+import kr.or.iei.usedBoard.model.vo.Blacklist;
+import kr.or.iei.usedBoard.model.vo.BlacklistPhoto;
 import kr.or.iei.usedBoard.model.vo.UsedBoard;
 import kr.or.iei.usedBoard.model.vo.UsedBoardComment;
 import kr.or.iei.usedBoard.model.vo.UsedBoardPageDate;
@@ -28,6 +30,15 @@ public class UsedBoardController {
 	@Autowired
 	private FileManager manager;
 	
+	@RequestMapping(value="/usedBoardIndex.do")
+	public String getTop3UsedBoards(Model model, UsedBoard ub) {
+		ArrayList<UsedBoard> top3UsedBoards = service.getTop3UsedBoards(ub);
+        model.addAttribute("top3UsedBoards", top3UsedBoards);
+        System.out.println(model);
+        System.out.println(top3UsedBoards.size());
+        return "main/mainIndexList";
+    }
+	
 	@RequestMapping(value="/usedBoardList.do")
 	public String usedBoardList(int reqPage, Model model) {
 		UsedBoardPageDate ubpd = service.selectUsedBoardList(reqPage);
@@ -40,7 +51,7 @@ public class UsedBoardController {
 		return "usedBoard/usedBoardWriteFrm";
 	}
 	
-	@RequestMapping(value="/boardWrite.do")
+	@RequestMapping(value="/usedBoardWrite.do")
 	public String boardWrite(UsedBoard ub, MultipartFile[] usedBoardPhoto, HttpServletRequest request) {
 		ArrayList<UsedBoardPhoto> photoList = new ArrayList<UsedBoardPhoto>();
 		if(!usedBoardPhoto[0].isEmpty()) {
@@ -144,6 +155,41 @@ public class UsedBoardController {
 			return "redirect:/usedBoardView.do?usedBoardNo="+ub.getUsedBoardNo();
 		}else {
 			return "redirect:/usedBoardList.do?reqPage=1";
+		}
+	}
+	@RequestMapping(value="/usedBoardStatusUpdate.do")
+	public String usedBoardStatusUpdate(int usedBoardNo) {
+		int result = service.updateUsedBoardStatus(usedBoardNo);
+		return "redirect:/usedBoardView.do?usedBoardNo="+usedBoardNo;
+	}
+	
+	@RequestMapping(value="/blacklistWriteFrm.do")
+	public String blacklistWriteFrm(int usedBoardNo, Model model) {
+		UsedBoard ub = service.selectBlackUsedBoard(usedBoardNo);
+		model.addAttribute("ub", ub);
+		return "usedBoard/blacklistWriteFrm";
+	}
+	
+	@RequestMapping(value="/blacklistWrite.do")
+	public String blacklistWrite(Blacklist bl, MultipartFile[] blacklistPhoto, HttpServletRequest request) {
+		ArrayList<BlacklistPhoto> photoList = new ArrayList<BlacklistPhoto>();
+		if(!blacklistPhoto[0].isEmpty()) {
+			String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/usedBoard/");
+			for(MultipartFile file : blacklistPhoto) {
+				String filename = file.getOriginalFilename();
+				String filepath = manager.upload(savePath, file);
+				
+				BlacklistPhoto blp = new BlacklistPhoto();
+				blp.setFilepath(filepath);
+				blp.setFilename(filename);
+				photoList.add(blp);
+			}
+		}
+		int result = service.insertBlacklist(bl, photoList);
+		if(result == photoList.size()+1) {
+			return "redirect:/";
+		}else {
+			return "redirect:/blacklistWriteFrm.do";
 		}
 	}
 }

@@ -244,3 +244,26 @@
 .carousel-item > img{
 	height: 200px;
 }
+.campingInfoWrap{
+	margin-top: 30px;
+}
+.campingInfoWrap>div{
+	margin: 20px 0;
+}
+.campingInfoWrap>div>div:first-of-type{
+	font-family: ng-bold;
+	font-size: 18px;
+	margin-bottom: 10px;
+}
+.campingInfoWrap>div>textarea{
+	resize: none;
+	width: 100%;
+	min-height: 100px;
+	height: 200px;
+	border: none;
+}
+.campingInfoMap>div{
+	font-family: ng-bold;
+	font-size: 18px;
+	margin-bottom: 10px;
+}

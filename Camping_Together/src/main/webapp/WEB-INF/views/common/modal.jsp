@@ -86,8 +86,8 @@
  
  
  
-<!-- 모달 창 -->
-	<div id="modal" class="modal">
+<!-- 로그인이 필요한 모달 창 
+	<div id="modalVer1" class="modal">
 	  <div class="modal-content">
 	    <div class="closeBox">
 	    <span class="close">&times;</span>
@@ -105,7 +105,7 @@
 	  </div>
 	</div>
 	
-	
+	-->
 	
 <script>
 // 모달창 닫기 버튼 클릭 이벤트 
@@ -119,7 +119,7 @@ $('.close').click(function() {
 $(document).ready(function() {
 	  //모달창
 	  $(".btn3").click(function() { // a태그, 버튼 아이디,클래스 입력
-	    $("#modal").css("display", "block"); 
+	    $("#modalVer1").css("display", "block"); 
 	    const circles = $('.circle-container span');
 		  let index = 0;
 
@@ -163,8 +163,8 @@ $(document).ready(function() {
 		    }, 1000);
 		  });
 		// 모달 창이 닫혀있을 때 카운트 리셋
-		  $('#modal').click(function() {
-		    $('#modal').css('display', 'none');
+		  $('#modalVer1').click(function() {
+		    $('#modalVer1').css('display', 'none');
 		    clearInterval(interval);
 		    count = 5;
 		    circles.removeClass('active');
@@ -179,7 +179,7 @@ $(document).ready(function() {
 
 	  // 모달창 이외의 영역 클릭 시 모달창 닫기
 	  $(window).click(function(event) {
-	    if (event.target == $("#modal")[0]) {
+	    if (event.target == $("#modalVer1")[0]) {
 	      $(".modal").css("display", "none");
 	    }
 	  });

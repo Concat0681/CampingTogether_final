@@ -2,6 +2,7 @@ package kr.or.iei.usedBoard.model.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.iei.member.model.vo.Member;
 import kr.or.iei.usedBoard.model.dao.UsedBoardDao;
+import kr.or.iei.usedBoard.model.vo.Blacklist;
+import kr.or.iei.usedBoard.model.vo.BlacklistPhoto;
 import kr.or.iei.usedBoard.model.vo.UsedBoard;
 import kr.or.iei.usedBoard.model.vo.UsedBoardComment;
 import kr.or.iei.usedBoard.model.vo.UsedBoardPageDate;
@@ -148,6 +151,29 @@ public class UsedBoardService {
 			for(UsedBoardPhoto ubp : filelist) {
 				ubp.setUsedBoardNo(ub.getUsedBoardNo());
 				result += dao.insertUsedPhoto(ubp);
+			}
+		}
+		return result;
+	}
+	@Transactional
+	public int updateUsedBoardStatus(int usedBoardNo) {
+		return dao.updateUsedBoardStatus(usedBoardNo);
+	}
+
+	public UsedBoard selectBlackUsedBoard(int usedBoardNo) {
+		return dao.selectBlackUsedBoard(usedBoardNo);
+	}
+	public ArrayList<UsedBoard> getTop3UsedBoards(UsedBoard ub) {
+		return dao.getTop3UsedBoards(ub);
+
+	}
+
+	public int insertBlacklist(Blacklist bl, ArrayList<BlacklistPhoto> photoList) {
+		int result = dao.insertBlacklist(bl);
+		if(result > 0) {
+			for(BlacklistPhoto photo : photoList) {
+				photo.setBlacklistNo(bl.getBlacklistNo());
+				result += dao.insertBlacklistPhoto(photo);
 			}
 		}
 		return result;

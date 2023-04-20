@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import kr.or.iei.notice.model.dao.NoticeDao;
 import kr.or.iei.notice.model.vo.Notice;
 import kr.or.iei.notice.model.vo.NoticePageData;
+import kr.or.iei.usedBoard.model.vo.UsedBoard;
 
 @Service
 public class NoticeService {
@@ -28,26 +29,26 @@ public class NoticeService {
 
 		int totalCount = dao.selectNoticeCount();
 		int totalPage = (int) Math.ceil(totalCount / (double) numPerPage);
-		// ³×ºñ°ÔÀÌ¼Ç »çÀÌÁî
-				int pageNaviSize = 5; // ±âº»°ª 5
+		// ï¿½×ºï¿½ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+				int pageNaviSize = 5; // ï¿½âº»ï¿½ï¿½ 5
 
-				// ÆäÀÌÁö ³×ºñ°ÔÀÌ¼Ç ½ÃÀÛ¹øÈ£
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×ºï¿½ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½ï¿½Û¹ï¿½È£
 				// reqPage 1 ~ 5 : 1 2 3 4 5
 				// reqPAge 6 ~ 10 : 6 7 8 9 10
 
-				// ½ÃÀÛ°ª ±¸ÇÏ±â 1, 6, 11 ....
+				// ï¿½ï¿½ï¿½Û°ï¿½ ï¿½ï¿½ï¿½Ï±ï¿½ 1, 6, 11 ....
 				int pageNo = ((reqPage - 1) / pageNaviSize) * pageNaviSize + 1;
 
-				// ÆäÀÌÁö ³×ÀÌ°ÔÀÌ¼Ç Á¦ÀÛ ½ÃÀÛ
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì°ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 				String pageNavi = "<ul class='pagination circle-style'>";
-				// ÀÌÀü¹öÆ°
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ°
 				if (pageNo != 1) {
 					pageNavi += "<li>";
 					pageNavi += "<a class='page-item' href='/noticeList.do?reqPage=" + (pageNo - 1) + "'>";
 					pageNavi += "<span class='material-icons'>chevron_left</span>";
 					pageNavi += "</a></li>";
 				}
-				// ÆäÀÌÁö ¼ýÀÚ
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 				for (int i = 0; i < pageNaviSize; i++) {
 					if (pageNo == reqPage) {
 						pageNavi += "<li>";
@@ -65,7 +66,7 @@ public class NoticeService {
 						break;
 					}
 				}
-				// ´ÙÀ½¹öÆ°
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ°
 				if(pageNo <= totalPage) {
 					pageNavi += "<li>";
 					pageNavi += "<a class='page-item' href='/noticeList.do?reqPage=" + (pageNo) + "'>";
@@ -91,5 +92,11 @@ public class NoticeService {
 
 	public int deleteNotice(int noticeNo) {
 		return dao.deleteNotice(noticeNo);
+	}
+
+	public ArrayList<Notice> selectNoticeList(Notice n) {
+		System.out.println("ì„œë¹„ìŠ¤"+n);
+		return dao.selectNoticeList(n);
+		
 	}
 }

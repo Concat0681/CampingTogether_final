@@ -3,6 +3,72 @@
 .page-wrap{
 	margin-top: 150px;
 }
+.slick-btn{
+	color: #AD8B73;
+	border: none;
+	background: inherit;
+}
+.content-slick{
+	position: relative;
+	min-height: 600px;
+	margin-top: 100px;
+}
+.slick-btn{
+	z-index: 1000;
+}
+.slick-btn>span{
+	font-size: 50px;
+	line-height: 50px;
+}
+.slick-dots {
+	bottom: 20px !important;
+}
+.slick-dots li{
+	margin: 0 20px !important;
+}
+.slick-dots li button:before{
+	font-size: 15px !important;
+}
+#prevPageBtn{
+	position: absolute;
+	top: 25px;
+	left: 35%;
+}
+#nextPageBtn{
+	position: absolute;
+	top: 18px;
+	right: 35%;
+}
+.page-slick>div{
+	height: 400px;
+}
+.page-camping-header{
+	background-image: url(../../image/shop/shopCampingBackground.jpg);
+	background-size: 100%;
+	height: 400px;
+}
+.page-car-header{
+	background-size: 100%;
+	background-image: url(../../image/shop/shopCarBackground.jpg);
+}
+.page-etc-header{
+	background-size: 100%;
+	background-image: url(../../image/shop/shopEtcBackground.jpg);
+}
+.slick-content{
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.slick-title{
+	color: #AD8B73;
+	text-align: center;
+	font-size: 50px;
+	font-family: ng-bold;
+	margin-bottom: 100px;
+}
 .shop-wrap{
 	width: 90%;
 	margin: 0 auto;
@@ -37,4 +103,38 @@
 }
 .hidden{
 	display: none;
+}
+.s1_arrow{
+	display: inline-block;
+	position:relative;  
+	margin-left:-10px; 
+	text-align:center; 
+}
+.right-s1{
+	transform: rotate(180deg); 
+	-webkit-transform: rotate(180deg); 
+	-moz-transform: rotate(180deg); 
+	-o-transform: rotate(180deg);  
+	-ms-transform: rotate(180deg);
+}
+.scroll-arrow {
+	display: inline-block;
+	width:20px; 
+	height:20px; 
+	border-right: 3px solid #AD8B73; 
+	border-bottom: 3px solid #AD8B73;
+	transform: rotate(135deg); 
+	-webkit-transform: rotate(135deg); 
+	-moz-transform: rotate(135deg); 
+	-o-transform: rotate(135deg);  
+	-ms-transform: rotate(135deg);
+	animation: arrow-wave 1s infinite; 
+	animation-direction: alternate;}
+.scroll-arrow:nth-child(1) {animation-delay: 0.1s;}
+.scroll-arrow:nth-child(2) {margin-left:6px; animation-delay: 0.2s;}
+.scroll-arrow:nth-child(3) {margin-left:6px; animation-delay: 0.3s;}
+@keyframes arrow-wave {
+0% {opacity: 0;}
+50% {opacity: .5;}
+100% {opacity: 1;}
 }

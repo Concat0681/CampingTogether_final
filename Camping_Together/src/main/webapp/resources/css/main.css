@@ -120,6 +120,9 @@
 .capmingSilder li:hover .caption {
   opacity: 1;
 }
+.mainlist{
+	display: block;
+}
 
 .capmingSilder li:hover img {
   transform: scale(1.2);
@@ -138,10 +141,9 @@
 .notice-Box{
 	font-size: 18px;
 	width: calc(100%/2);
-	margin-left: 100px;
-	padding-right: 150px;
+	margin-left: 50px;
 	min-height: 170px;
-	min-width: 365px;
+	min-width: 400px;
 }
 .notice-Box>p{
 	font-weight: bolder;
@@ -177,7 +179,8 @@
 	height: 168px;
 }
 .wrapperMiddle-tradeBox{
-	width: 100%;
+	width: 1200px;
+	margin: 0 auto;
 	padding: 100px;
 }
 
