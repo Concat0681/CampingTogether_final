@@ -429,6 +429,7 @@ public class MemberService {
 
 				AllMemberPageData apd = new AllMemberPageData(list, pageNavi);
 				return apd;
+	}
 		
 	public int deleteWishList(int shopNo) {
 		int result = dao.deleteWishList(shopNo);
