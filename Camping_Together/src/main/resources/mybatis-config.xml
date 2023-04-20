@@ -39,5 +39,7 @@
 		 <typeAlias type="kr.or.iei.inquiry.model.vo.AdminInquiry" alias="ai"/>
 		 <typeAlias type="kr.or.iei.usedBoard.model.vo.Blacklist" alias="bl"/>
 		 <typeAlias type="kr.or.iei.usedBoard.model.vo.BlacklistPhoto" alias="blp"/>
+		 <typeAlias type="kr.or.iei.shop.model.vo.ShopOrder" alias="sod"/>
+		 <typeAlias type="kr.or.iei.shop.model.vo.ShopPayment" alias="spm"/>
 	</typeAliases>
 </configuration>
