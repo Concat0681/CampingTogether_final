@@ -37,5 +37,7 @@
 		 <typeAlias type="kr.or.iei.shop.model.vo.ShopReview" alias="sr"/>
 		 <typeAlias type="kr.or.iei.shop.model.vo.ShopReviewPhoto" alias="srp"/>
 		 <typeAlias type="kr.or.iei.inquiry.model.vo.AdminInquiry" alias="ai"/>
+		 <typeAlias type="kr.or.iei.camping.model.vo.CampingReservation" alias="cre"/>
+		 <typeAlias type="kr.or.iei.camping.model.vo.CampingPayment" alias="cpay"/>
 	</typeAliases>
 </configuration>
