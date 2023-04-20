@@ -50,47 +50,19 @@
 				<div class="slick-title">캠핑용품</div>
 				<div class="camping-list shop-list">
 					<c:forEach items="${campingList }" var="c" varStatus="i">
-						<div class="shop-box">
-							<div id="carousel-camping-${i.index }" class="carousel slide" data-bs-ride="carousel">
-								<div class="carousel-inner">
-									<c:forEach items="${c.shopPhotoList }" var="f" varStatus="j">
-										<c:choose>
-											<c:when test="${j.index == 0 }">
-												<div class="carousel-item active">
-													<img src="resources/upload/shop/${f.filepath }" alt="resources/upload/camping/campingbg.jpg">
-												</div>
-											</c:when>
-											<c:otherwise>
-												<div class="carousel-item">
-													<img src="resources/upload/shop/${f.filepath }" alt="resources/upload/camping/campingbg.jpg">
-												</div>
-											</c:otherwise>
-										</c:choose>
-									</c:forEach>
+						<div class="shop-box" onclick="viewShop(${c.shopNo});">
+							<div class="shop-photo">
+								<img src="resources/upload/shop/${c.shopPhotoList[0].filepath}">
+								<c:if test="${not empty c.shopPhotoList[1].filepath}">
+									<div class="hidden secondPhoto">${c.shopPhotoList[1].filepath}</div>
+								</c:if>
+								<div class="hidden firstPhoto">${c.shopPhotoList[0].filepath}</div>
+								<div class="hidden-div hidden">
+									Quick View
 								</div>
-								<div class="carousel-indicators">
-									<c:forEach items="${c.shopPhotoList }" var="f" varStatus="j">
-										<c:choose>
-											<c:when test="${j.index == 0 }">
-												<button type="button" data-bs-target="#carousel-camping-${j.index }" data-bs-slide-to="${j.index }" class="active" aria-current="true" aria-label="Slide 1"></button>
-											</c:when>
-											<c:otherwise>
-												<button type="button" data-bs-target="#carousel-camping-${i.index }" data-bs-slide-to="${j.index }" aria-label="Slide ${j.index+1 }"></button>
-											</c:otherwise>
-										</c:choose>
-									</c:forEach>
-								</div>
-								<div class="carousel-caption hidden" onclick="viewShop(${c.shopNo});">
-									<div>${c.shopTitle }</div>
-							      </div>
-								<button class="carousel-control-prev" type="button" data-bs-target="#carousel-camping-${i.index }" data-bs-slide="prev">
-									<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-									<span class="visually-hidden">Previous</span>
-								</button>
-								<button class="carousel-control-next" type="button" data-bs-target="#carousel-camping-${i.index }" data-bs-slide="next">
-									<span class="carousel-control-next-icon" aria-hidden="true"></span>
-									<span class="visually-hidden">Next</span>
-								</button>
+							</div>
+							<div class="shop-info">
+								<div>${c.shopTitle }</div>
 							</div>
 						</div>
 					</c:forEach>
@@ -103,47 +75,19 @@
 				<div class="slick-title">카박용품</div>
 				<div class="car-list shop-list">
 					<c:forEach items="${carList }" var="c" varStatus="i">
-						<div class="shop-box">
-							<div id="carousel-car-${i.index }" class="carousel slide" data-bs-ride="carousel">
-								<div class="carousel-inner">
-									<c:forEach items="${c.shopPhotoList }" var="f" varStatus="j">
-										<c:choose>
-											<c:when test="${j.index == 0 }">
-												<div class="carousel-item active">
-													<img src="resources/upload/shop/${f.filepath}" alt="resources/shop/${f.filepath}">
-												</div>
-											</c:when>
-											<c:otherwise>
-												<div class="carousel-item">
-													<img src="resources/upload/shop/${f.filepath}" alt="resources/upload/shop/${f.filepath}">
-												</div>
-											</c:otherwise>
-										</c:choose>
-									</c:forEach>
+						<div class="shop-box" onclick="viewShop(${c.shopNo});">
+							<div class="shop-photo">
+								<img src="resources/upload/shop/${c.shopPhotoList[0].filepath}">
+								<c:if test="${not empty c.shopPhotoList[1].filepath}">
+									<div class="hidden secondPhoto">${c.shopPhotoList[1].filepath}</div>
+								</c:if>
+								<div class="hidden firstPhoto">${c.shopPhotoList[0].filepath}</div>
+								<div class="hidden-div hidden">
+									Quick View
 								</div>
-								<div class="carousel-indicators">
-									<c:forEach items="${c.shopPhotoList }" var="f" varStatus="j">
-										<c:choose>
-											<c:when test="${j.index == 0 }">
-												<button type="button" data-bs-target="#carousel-car-${i.index }" data-bs-slide-to="${j.index }" class="active" aria-current="true" aria-label="Slide 1"></button>
-											</c:when>
-											<c:otherwise>
-												<button type="button" data-bs-target="#carousel-car-${i.index }" data-bs-slide-to="${j.index }" aria-label="Slide ${j.index+1 }"></button>
-											</c:otherwise>
-										</c:choose>
-									</c:forEach>
-								</div>
-								 <div class="carousel-caption hidden" onclick="viewShop(${c.shopNo});">
-									<div>${c.shopTitle }</div>
-							      </div>
-								<button class="carousel-control-prev" type="button" data-bs-target="#carousel-car-${i.index }" data-bs-slide="prev">
-									<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-									<span class="visually-hidden">Previous</span>
-								</button>
-								<button class="carousel-control-next" type="button" data-bs-target="#carousel-car-${i.index }" data-bs-slide="next">
-									<span class="carousel-control-next-icon" aria-hidden="true"></span>
-									<span class="visually-hidden">Next</span>
-								</button>
+							</div>
+							<div class="shop-info">
+								<div>${c.shopTitle }</div>
 							</div>
 						</div>
 					</c:forEach>
@@ -156,47 +100,19 @@
 				<div class="slick-title">기타용품</div>
 				<div class="etc-list shop-list">
 					<c:forEach items="${etcList }" var="c">
-						<div class="shop-box">
-							<div id="carousel-etc-${i.index }" class="carousel slide" data-bs-ride="carousel">
-								<div class="carousel-inner">
-									<c:forEach items="${c.shopPhotoList }" var="f" varStatus="j">
-										<c:choose>
-											<c:when test="${j.index == 0 }">
-												<div class="carousel-item active">
-													<img src="resources/upload/shop/${f.filepath}" alt="resources/shop/${f.filepath}">
-												</div>
-											</c:when>
-											<c:otherwise>
-												<div class="carousel-item">
-													<img src="resources/upload/shop/${f.filepath}" alt="resources/upload/shop/${f.filepath}">
-												</div>
-											</c:otherwise>
-										</c:choose>
-									</c:forEach>
+						<div class="shop-box" onclick="viewShop(${c.shopNo});">
+							<div class="shop-photo">
+								<img src="resources/upload/shop/${c.shopPhotoList[0].filepath}">
+								<c:if test="${not empty c.shopPhotoList[1].filepath}">
+									<div class="hidden secondPhoto">${c.shopPhotoList[1].filepath}</div>
+								</c:if>
+								<div class="hidden firstPhoto">${c.shopPhotoList[0].filepath}</div>
+								<div class="hidden-div hidden">
+									Quick View
 								</div>
-								<div class="carousel-indicators">
-									<c:forEach items="${c.shopPhotoList }" var="f" varStatus="j">
-										<c:choose>
-											<c:when test="${j.index == 0 }">
-												<button type="button" data-bs-target="#carousel-etc-${j.index }" data-bs-slide-to="${j.index }" class="active" aria-current="true" aria-label="Slide 1"></button>
-											</c:when>
-											<c:otherwise>
-												<button type="button" data-bs-target="#carousel-etc-${i.index }" data-bs-slide-to="${j.index }" aria-label="Slide ${j.index+1 }"></button>
-											</c:otherwise>
-										</c:choose>
-									</c:forEach>
-								</div>
-								<div class="carousel-caption hidden" onclick="viewShop(${c.shopNo});">
-									<div>${c.shopTitle }</div>
-							      </div>
-								<button class="carousel-control-prev" type="button" data-bs-target="#carousel-etc-${i.index }" data-bs-slide="prev">
-									<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-									<span class="visually-hidden">Previous</span>
-								</button>
-								<button class="carousel-control-next" type="button" data-bs-target="#carousel-etc-${i.index }" data-bs-slide="next">
-									<span class="carousel-control-next-icon" aria-hidden="true"></span>
-									<span class="visually-hidden">Next</span>
-								</button>
+							</div>
+							<div class="shop-info">
+								<div>${c.shopTitle }</div>
 							</div>
 						</div>
 					</c:forEach>
@@ -235,24 +151,18 @@
 			});
 		})
 		
-		const carousel = $(".carousel");
-		carousel.each(function(i, c){
-			const id = $(c).attr("id");
-			new bootstrap.Carousel('#'+id, {
-				ride : false
-			})
+		$(".shop-box").on("mouseenter", function(){
+			$(this).find(".hidden-div").slideDown();
+			const url = $(this).find(".secondPhoto").text();
+			if(url != ""){
+				$(this).find("img").attr("src", "resources/upload/shop/"+url);
+			}
 		})
 		
-		$(function(){
-			carousel.carousel('pause'); 
-		})
-		
-		$(".carousel").on("mouseenter", function(){
-			$(this).find(".carousel-caption").slideDown();
-		})
-		
-		$(".carousel").on("mouseleave", function(){
-			$(this).find(".carousel-caption").slideUp();
+		$(".shop-box").on("mouseleave", function(){
+			$(this).find(".hidden-div").slideUp()
+			const url = $(this).find(".firstPhoto").text();
+			$(this).find("img").attr("src", "resources/upload/shop/"+url);
 		})
 		
 		function viewShop(shopNo){
