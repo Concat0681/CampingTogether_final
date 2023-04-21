@@ -55,9 +55,9 @@
 	<div>
 	<c:forEach items="${list }" var="l">
 		<div>${l.campingTitle }</div>
-		<a href="/campingRoomWriteFrm.do?campingNo=${l.campingNo }&campingTitle=${l.campingTitle }">캠핑추가</a>
+		<a href="/campingRoomWriteFrm.do?campingNo=${l.campingNo }&campingTitle=${l.campingTitle }">캠핑방추가</a>
 		<a href="javascript:void(0)" class="deleteCampingRoom" onclick="deleteCampingRoom(this,${l.campingRoomNo },${l.campingNo })">캠핑삭제</a>
-		<a href="/updateCampingRoomFrm.do?campingRoomNo=${l.campingRoomNo }">캠핑수정</a>
+		<a href="/updateCampingRoomFrm.do?campingRoomNo=${l.campingRoomNo }">캠핑방수정</a>
 		<a href="javascript:void(0)" class="deleteCamping" onclick="deleteCamping(this,${l.campingNo })">캠핑장삭제</a>
 	</c:forEach>
 		${navi }
