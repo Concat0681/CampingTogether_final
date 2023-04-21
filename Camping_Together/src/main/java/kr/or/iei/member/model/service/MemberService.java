@@ -427,13 +427,18 @@ public class MemberService {
 				}
 				pageNavi += "</ul>";
 
-				AllMemberPageData apd = new AllMemberPageData(list, pageNavi);
+				AllMemberPageData apd = new AllMemberPageData(list, pageNavi, totalCount);
 				return apd;
 	}
 		
 	public int deleteWishList(int shopNo) {
 		int result = dao.deleteWishList(shopNo);
 		return result;
+	}
+	
+	//회원 정보(관리자)
+	public Member adminOneMember(int memberNo) {
+		return dao.adminOneMember(memberNo);
 	}
 	
 

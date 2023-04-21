@@ -143,13 +143,11 @@
 		(select
 					member_no as memberNo,
 					member_id as memberId,
-					member_addr as memberAddr,
 					member_name as memberName,
-					member_phone as memberPhone,
-					member_email as memberEmail,
+					member_date as memberDate,
 					member_grade as memberGrade
-				from member)m)
-		where rnum between #{start} and #{end}
+				from member order by member_date desc)m)
+		where not memberGrade in('a') and rnum between #{start} and #{end}
 	</select>
 	
 
@@ -167,6 +165,16 @@
 	</delete>
 
 	
+	<select id="adminOneMember" parameterType="_int" resultType="m">
+		select 
+				member_no as memberNo,
+				member_name as memberName,
+				member_phone as memberPhone,
+				member_phone as memberPhone,
+				member_email as memberEmail,
+				member_addr as memberAddr
+		 from member where member_no = #{_parameter}
+	</select>
 </mapper>
 
 

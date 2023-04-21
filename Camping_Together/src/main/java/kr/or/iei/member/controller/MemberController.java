@@ -25,6 +25,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.gson.Gson;
+
 import common.FileManager;
 import kr.or.iei.camping.model.service.CampingService;
 import kr.or.iei.camping.model.vo.SellCampingListData;
@@ -305,6 +307,7 @@ public class MemberController {
 		
 		model.addAttribute("list",apd.getList());
 		model.addAttribute("navi", apd.getPageNavi());
+		model.addAttribute("count", apd.getTotalCount());
 		return "member/allMemberList";
 	}
 	
@@ -321,6 +324,7 @@ public class MemberController {
 		return "member/mypageSFrm";
 	}
 	
+	
 	@RequestMapping(value="/deleteWishList.do")
 	public String deleteWishList(int shopNo, String memberId) {
 		int result = service.deleteWishList(shopNo);
@@ -331,4 +335,15 @@ public class MemberController {
 		}
 	}
 	
+	
+	//회원 정보(관리자)
+	@ResponseBody
+	@RequestMapping(value = "/adminOneMember.do", produces="application/json;charset=utf-8")
+	public String adminOneMember(int memberNo) {
+		Member member = service.adminOneMember(memberNo);
+		return new Gson().toJson(member);
+	}
+	
 }
+
+
