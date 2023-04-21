@@ -314,7 +314,9 @@ public class CampingService {
 				file.setCampingRoomNo(cr.getCampingRoomNo());
 				result += dao.insertCampingRoomPhoto(file);
 			}
-
+		}
+		return result;
+	}
 	
 	@Transactional
 	public int campingReservation(int memberNo, int campingRoomNo, String checkIn, String checkOut) {
@@ -356,9 +358,27 @@ public class CampingService {
 		
 	}
 
-	public CampingReservation selectRoomMemberNo(int memberNo) {
-		return dao.selectRoomMemberNo(memberNo);
+	public CampingReservation selectRoomMemberNo(int campingRoomNo) {
+		return dao.selectRoomMemberNo(campingRoomNo);
 	}
+
+	public ArrayList<CampingReservation> selectReservationList(CampingReservation cr) {
+		ArrayList<CampingReservation> reservationList = dao.selectReservationList(cr);
+		return reservationList;
+	}
+
+	public CampingReservation selectReservation(CampingReservation cr) {
+		return dao.selectReservation(cr);
+	}
+
+	public CampingRoom selectCampingRoom(Camping c) {
+		return dao.selectCampingRoom(c);
+	}
+
+	
+
+
+
 
 
 	
