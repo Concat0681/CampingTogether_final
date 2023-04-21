@@ -318,12 +318,7 @@ public class MemberController {
 		return "member/allMemberList";
 	}
 	
-	//신고당한회원
-	@RequestMapping(value = "/blackMemberList.do")
-	public String blackMemberList(int reqPage, Model model) {
-		
-		return "member/blackMemberList";
-	}
+
 	
 	//판매자 정보 수정
 	@RequestMapping(value = "/mypageS.do")
