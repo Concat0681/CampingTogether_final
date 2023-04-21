@@ -395,7 +395,7 @@ input:focus {
 	      <div class="tab-content">
 	        <div id="login">   
 				    <div class="logo">Welcome Back! <br>
-				    	<div class="logo-Img"><a href="/"><img src="/resources/image/logo/logo250x80 불투명.png"></a></div>
+				    	<div class="logo-Img"><a href="/"><img src="/resources/image/logo/login_280x100.png"></a></div>
 				    </div>
 					    <form action="/login.do" method="post" autocomplete="off">
 					        <input type="text" placeholder=" &#xf007;   UserId" name="memberId"/>
@@ -464,17 +464,26 @@ input:focus {
 					
 				</div>
 	          </form>
-	        </div>
+	           <jsp:include page="/WEB-INF/views/member/joinCheckMenu.jsp"></jsp:include>
 	        
+				<c:if test="${not empty errorMsg}" var="er">
+						    <div class="alert alert-danger" role="alert">
+						        <c:out value="${errorMsg}" />
+						    </div>
+				</c:if>
+	        </div>
+	       
 	      </div><!-- tab-content -->
 	      
 	</div> <!-- /form -->
 </div><!-- /회원가입 페이지 -->
+
 <input type="hidden" id="sample4_postcode" placeholder="우편번호" readonly>
 <input type="hidden" id="sample4_roadAddress" placeholder="도로명주소" readonly><br>
 <input type="hidden" id="sample4_jibunAddress" placeholder="지번주소" readonly>
 <br>
-
+<div style="width: 800px;">
+</div>
 <script>
 $(".confirm").on("click", function(){
 	const detailAddress = $(".detailAddress").val();

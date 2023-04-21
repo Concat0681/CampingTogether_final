@@ -8,13 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import kr.or.iei.blacklist.model.vo.Blacklist;
+import kr.or.iei.blacklist.model.vo.BlacklistPageData;
+import kr.or.iei.blacklist.model.vo.BlacklistPhoto;
 import kr.or.iei.member.model.vo.Member;
 import kr.or.iei.usedBoard.model.dao.UsedBoardDao;
-import kr.or.iei.usedBoard.model.vo.Blacklist;
-import kr.or.iei.usedBoard.model.vo.BlacklistPhoto;
 import kr.or.iei.usedBoard.model.vo.UsedBoard;
 import kr.or.iei.usedBoard.model.vo.UsedBoardComment;
-import kr.or.iei.usedBoard.model.vo.UsedBoardPageDate;
+import kr.or.iei.usedBoard.model.vo.UsedBoardPageData;
 import kr.or.iei.usedBoard.model.vo.UsedBoardPhoto;
 
 @Service
@@ -23,7 +24,7 @@ public class UsedBoardService {
 	@Autowired
 	private UsedBoardDao dao;
 	
-	public UsedBoardPageDate selectUsedBoardList(int reqPage) {
+	public UsedBoardPageData selectUsedBoardList(int reqPage) {
 		int numPerPage = 9;
 		int end = reqPage * numPerPage;
 		int start = end - numPerPage + 1;
@@ -57,7 +58,7 @@ public class UsedBoardService {
 		if(pageNo <= totalPage) {
 			pageNavi += "<li><a class='page-item' href='/usedBoardList.do?reqPage="+(pageNo+1)+"'><span class='material-symbols-outlined'>chevron_right </span></a></li>";
 		}
-		UsedBoardPageDate ubpd = new UsedBoardPageDate(list, pageNavi);
+		UsedBoardPageData ubpd = new UsedBoardPageData(list, pageNavi);
 		return ubpd;
 	}
 	
@@ -160,25 +161,10 @@ public class UsedBoardService {
 		return dao.updateUsedBoardStatus(usedBoardNo);
 	}
 
-	public UsedBoard selectBlackUsedBoard(int usedBoardNo) {
-		return dao.selectBlackUsedBoard(usedBoardNo);
-	}
 	public ArrayList<UsedBoard> getTop3UsedBoards(UsedBoard ub) {
 		return dao.getTop3UsedBoards(ub);
 
 	}
-
-	public int insertBlacklist(Blacklist bl, ArrayList<BlacklistPhoto> photoList) {
-		int result = dao.insertBlacklist(bl);
-		if(result > 0) {
-			for(BlacklistPhoto photo : photoList) {
-				photo.setBlacklistNo(bl.getBlacklistNo());
-				result += dao.insertBlacklistPhoto(photo);
-			}
-		}
-		return result;
-	}
-
 }
 
 

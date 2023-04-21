@@ -1,4 +1,4 @@
-package kr.or.iei.usedBoard.model.vo;
+package kr.or.iei.blacklist.model.vo;
 
 import java.util.ArrayList;
 
@@ -16,6 +16,10 @@ public class Blacklist {
 	private String blacklistMemberId;
 	private int blacklistType;
 	private String blacklistContent;
+	private int blacklistStatus;
 	private String regDate;
 	private ArrayList<BlacklistPhoto> photolist;
+	
+	private int blackUsedBoardNo;
+	private String blackUsedBoardTitle;
 }

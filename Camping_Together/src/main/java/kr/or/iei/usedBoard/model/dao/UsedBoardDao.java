@@ -8,8 +8,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import kr.or.iei.usedBoard.model.vo.Blacklist;
-import kr.or.iei.usedBoard.model.vo.BlacklistPhoto;
+import kr.or.iei.blacklist.model.vo.Blacklist;
+import kr.or.iei.blacklist.model.vo.BlacklistPhoto;
 import kr.or.iei.usedBoard.model.vo.UsedBoard;
 import kr.or.iei.usedBoard.model.vo.UsedBoardComment;
 import kr.or.iei.usedBoard.model.vo.UsedBoardPhoto;
@@ -107,27 +107,11 @@ public class UsedBoardDao {
 
 	public ArrayList<UsedBoard> getTop3UsedBoards(UsedBoard ub) {
 		List list = sqlSession.selectList("usedBoard.getTop3UsedBoards", ub);
-		System.out.println(list);
 		return (ArrayList<UsedBoard>) list;
 
 	}
 	public int updateUsedBoardStatus(int usedBoardNo) {
 		int result = sqlSession.update("usedBoard.updateUsedBoardStatus", usedBoardNo);
-		return result;
-	}
-
-	public UsedBoard selectBlackUsedBoard(int usedBoardNo) {
-		UsedBoard ub = sqlSession.selectOne("usedBoard.selectBlackUsedBoard", usedBoardNo);
-		return ub;
-	}
-
-	public int insertBlacklist(Blacklist bl) {
-		int result = sqlSession.insert("usedBoard.insertBlacklist", bl);
-		return result;
-	}
-
-	public int insertBlacklistPhoto(BlacklistPhoto photo) {
-		int result = sqlSession.insert("usedBoard.insertBlacklistPhoto", photo);
 		return result;
 	}
 }

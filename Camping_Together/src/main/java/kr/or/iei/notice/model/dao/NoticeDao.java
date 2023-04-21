@@ -49,8 +49,7 @@ public class NoticeDao {
 
 	public ArrayList<Notice> selectNoticeList(Notice n) {
 		List list = sqlSession.selectList("notice.selectNoticeMainList", n);
-		System.out.println("dao"+n);
-		System.out.println("dao"+list);
+
 		return (ArrayList<Notice>)list;
 	}
 }

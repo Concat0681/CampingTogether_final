@@ -148,10 +148,10 @@
 									</div>
 								</div>
 								<div class="room-box">
-									<div>${r.campingRoomTitle }</div>
+									<div class="camping-Type">${r.campingRoomTitle }</div>
 									<div class="room-price-box">
 										<div>가격</div>
-										<div>${r.campingRoomPrice }</div>
+										<div class="price">${r.campingRoomPrice }</div>
 									</div>
 									<div class="room-basic-info">
 										<a>
@@ -160,7 +160,18 @@
 										</a>
 									</div>
 									<div class="room-btn-box">
-										<button type="button" class="btn2">예약하기</button>
+										<%--결제하기 캠핑 정보 --%>
+										<form action="reservationFrm.do?checkIn=${checkIn }&checkOut=${checkOut}" method="post">
+											<input type="hidden" name="memberNo" value="${sessionScope.m.memberNo }">
+											<input type="hidden" name="campingRoomNo" value="${r.campingRoomNo }">
+											<input type="hidden" name="checkIn1"  value="${checkIn }">
+											<input type="hidden" name="checkOut1" value="${checkOut }">
+											<input type="hidden" name="campingTitle" value="${camping.campingTitle } ">
+											<input type="hidden" name="campingType" value="${r.campingRoomTitle }">
+											<input type="hidden" name="price" value="${r.campingRoomPrice }">
+											<input type="hidden" name="addr" value="${camping.campingAddr }">
+											<button type="submit" class="btn2 reservationBtn">예약하기</button>
+										</form>
 									</div>
 								</div>
 							</div>
@@ -255,49 +266,49 @@
 						    		<input type="hidden" name="campingNo" value="${camping.campingNo }">
 							      	<table>
 							      		<tr>
-							      			<td colspan="2">만족하셨나요?</td>
+							      			<td colspan="2" style="text-align: center;">만족하셨나요?</td>
 							      		</tr>
 							      		<tr>
-										    <td>
+										    <td colspan="2" style="padding-bottom: 25px;">
 										      <div class="star-wrap star-wrap2">
-										        <span class="material-symbols-outlined">star</span>
+										        <span class="material-symbols-outlined" style="padding-left: 175px;">star</span>
 										        <span class="material-symbols-outlined">star</span>
 										        <span class="material-symbols-outlined">star</span>
 										        <span class="material-symbols-outlined">star</span>
 										        <span class="material-symbols-outlined">star</span>
 										    </div>
 										    </td>
-										    <td>
-										      <input type="text" name="campingReviewRating2" readonly>
-										      <input type="hidden" name="campingReviewRating">
-										    </td>
 										</tr>
+										<tr>
+										    <td>
+										      <input type="hidden" name="campingReviewRating" id="campingReviewRating">
+										    </td>
+									    </tr>
 							      		<tr>
-							      			<td>제목</td>
-							      			<td>
-							      				<input type="text" name="campingReviewTitle">
+							      			<td style="padding-bottom: 20px; padding-left: 20px; width: 114px;"">리뷰제목</td>
+							      			<td style="padding-bottom: 20px;">
+							      				<input type="text" name="campingReviewTitle" style="width: 100%">
 							      			</td>
 							      		</tr>
 							      		<tr>
-							      			<td colspan="2">
+							      			<td colspan="2" style="padding-bottom: 10px;">
 							      				<textarea name="campingReviewContent"></textarea>
 							      			</td>
 							      		</tr>
 							      		<tr>
-										  <td>사진 등록</td>
+										  <td style="padding-left: 20px;">사진 등록</td>
 										  <td>
-										    <input type="file" onchange="loadImg(this);" name="campingReviewFilepath" multiple>
-										  </td>
-										</tr>
-										<tr>
-										  <td>
-										    <div id="img-viewer">
-										    
-										    </div>
+										    <input type="file" onchange="loadImg(this);" id="campingReviewFilepath" name="campingReviewFilepath" style="display: none;" multiple>
+										    <label for="campingReviewFilepath">
+										    	<span class="material-symbols-outlined photoCamera">photo_camera</span>
+										    </label>
 										  </td>
 										</tr>
 							      	</table>
-							    </div>
+							      		<div id="img-viewer" style="padding-top: 20px;">
+										    
+									    </div>
+							   		</div>
 							    <div class="review-modal-foot">
 							      <button type="submit" class="reviewBtn bc1">등록</button>
 							      <button type="button" class="btn bc1 review-modal-close">취소</button>
@@ -313,7 +324,7 @@
 						            <span class="material-icons">account_box</span>
 						          </li>
 						          <li>
-						            <p class="comment-info">
+						            <p class="comment-info" style="margin-bottom: 0;">
 						              <span style="font-size: 20px;font-weight: 900;">${cr.campingReviewTitle }</span>
 						            </p>
 						            <p style="padding-left: 10px;">
@@ -341,6 +352,7 @@
 														</div>
 													</c:otherwise>
 												</c:choose>
+											<c:if test="${cr.fileList.size() > 1 }">
 											  <!-- 이전/다음 버튼 정의 -->
 											  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls-${i.index }" data-bs-slide="prev">
 											    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -350,6 +362,7 @@
 											    <span class="carousel-control-next-icon" aria-hidden="true"></span>
 											    <span class="visually-hidden">다음</span>
 											  </button>
+											 </c:if>
 											</c:forEach>	
 										</div>
 									  
@@ -375,57 +388,48 @@
 										    		<input type="hidden" name="campingReviewNo">
 											      	<table>
 											      		<tr>
-											      			<td colspan="2">만족하셨나요?</td>
+											      			<td colspan="2" style="text-align: center;">만족하셨나요?</td>
 											      		</tr>
 											      		<tr>
-														    <td>
-														      <div class="star-wrap2 star-wrap22">
+														    <td colspan="2" style="padding-bottom: 25px;">
+														      <div class="star-wrap1 star-wrap22">
+														        <span class="material-symbols-outlined" style="padding-left: 175px;">star</span>
 														        <span class="material-symbols-outlined">star</span>
 														        <span class="material-symbols-outlined">star</span>
 														        <span class="material-symbols-outlined">star</span>
 														        <span class="material-symbols-outlined">star</span>
-														        <span class="material-symbols-outlined">star</span>
-														        <div class="star-on">
-														          <div class="star-wrap2 star-on-wrap2">
-														            <span class="material-symbols-outlined">star</span>
-														            <span class="material-symbols-outlined">star</span>
-														            <span class="material-symbols-outlined">star</span>
-														            <span class="material-symbols-outlined">star</span>
-														            <span class="material-symbols-outlined">star</span>
-														          </div>
-														        </div>
 														      </div>
 														    </td>
-														    <td>
-														      <input type="text" class="updateStar" name="campingReviewRating">
-														      <button type="button" id="starBtn2">별점입력</button>
-														    </td>
 														</tr>
+														<tr>
+														    <td>
+										      				  <input type="hidden" name="campingReviewRating" id="campingReviewRating2">
+														    </td>
+													    </tr>
 											      		<tr>
-											      			<td>제목</td>
-											      			<td>
-											      				<input type="text" name="campingReviewTitle">
+											      			<td style="padding-bottom: 20px; padding-left: 20px; width: 114px;">리뷰제목</td>
+											      			<td style="padding-bottom: 20px;">
+											      				<input type="text" name="campingReviewTitle" style="width: 100%">
 											      			</td>
 											      		</tr>
 											      		<tr>
-											      			<td colspan="2">
+											      			<td colspan="2" style="padding-bottom: 10px;">
 											      				<textarea name="campingReviewContent"></textarea>
 											      			</td>
 											      		</tr>
 											      		<tr>
-											      			<td>사진 등록</td>
+											      			<td style="padding-left: 20px;">사진 추가</td>
 											      			<td>
-											      				<input type="file" onchange="loadImg2(this);" name="campingReviewFilepath" multiple>
-											      			</td>
-											      		</tr>
-											      		<tr>
-											      			<td>
-											      				<div id="img-viewer2">
-									        			
-									                    		</div>
+											      				<input type="file" onchange="loadImg2(this);" id="campingReviewFilepath2" name="campingReviewFilepath" multiple style="display: none;">
+											      				<label for="campingReviewFilepath2">
+															    	<span class="material-symbols-outlined photoCamera2">photo_camera</span>
+															    </label>
 											      			</td>
 											      		</tr>
 											      	</table>
+											      	<div id="img-viewer2" style="padding-top: 20px;">
+									        			
+						                    		</div>
 											    </div>
 											    <div class="review-modal-foot2">
 											      <button type="submit" class="reviewBtn2 bc1">수정</button>
@@ -485,6 +489,10 @@
 			</div>
 		</div>
 	</div>
+	<%--결제에 필요한 멤버정보 --%>
+	<input type="hidden" class="memberId" value="${sessionScope.m.memberId }">
+	<input type="hidden" class="memberPhone" value="${sessionScope.m.memberPhone }">
+	<input type="hidden" class="memberEmail" value="${sessionScope.m.memberEmail }">
 	<script src="resources/js/camping/dateRangePicker.js"></script>
 	<script>
 		let map;
@@ -774,7 +782,17 @@
 		        stars.eq(i).css("color","gold");
 		    }
 		    $("[name=campingReviewRating2]").val(index+1 + "점");
-		    $("[name=campingReviewRating]").val(index+1);
+		    $("#campingReviewRating").val(index+1);
+		});
+		
+		const stars2 = $(".star-wrap1>span");
+		stars2.on("mouseover",function(){
+		    stars2.css("color","lightgray");
+		    const index = stars2.index(this);
+		    for(let i=0;i<=index;i++){
+		        stars2.eq(i).css("color","gold");
+		    }
+		    $("#campingReviewRating2").val(index+1);
 		});
 	</script>
 	
@@ -788,32 +806,25 @@
 			      const reader = new FileReader();
 			      reader.readAsDataURL(input.files[i]);
 			      reader.onload = function(e) {
-			        $("<img>").attr("src", e.target.result)
-			                  .attr("id", "img-" + i)
-			                  .css("display", "inline-block") // 이미지를 inline-block 으로 표시
-			                  .appendTo("#img-viewer"); // 이미지를 보여줄 DOM 엘리먼트에 추가
+			    	  const imgWrapper2 = $("<div>").addClass("img-wrapper2");
+				        const img2 = $("<img>").attr("src", e.target.result)
+				                              .addClass("review-img2");
+				        const deleteBtn2 = $("<button>").text("삭제")
+				                                        .addClass("delete-btn2")
+				                                        .attr("type", "button");
+				        imgWrapper2.append(img2).append(deleteBtn2).appendTo("#img-viewer");
+				        
+				        deleteBtn2.on("click", function() {
+				        	
+				        	  $(this).parent().remove();
+				        	});
+			        
 			      }
 			    }
 			  }
 			}
 		
-		function loadImg2(input) {
-			  // 기존에 있는 이미지 삭제
-			  $('#img-viewer2 img').remove();
-			  
-			  if (input.files && input.files.length > 0) {
-			    for (let i = 0; i < input.files.length; i++) {
-			      const reader = new FileReader();
-			      reader.readAsDataURL(input.files[i]);
-			      reader.onload = function(e) {
-			        $("<img>").attr("src", e.target.result)
-			                  .attr("id", "img-" + i)
-			                  .css("display", "inline-block") // 이미지를 inline-block 으로 표시
-			                  .appendTo("#img-viewer2"); // 이미지를 보여줄 DOM 엘리먼트에 추가
-			      }
-			    }
-			  }
-			}
+		
 	</script>
 	
 	<script>
@@ -839,16 +850,6 @@
 		});
 	</script>
 	
-	<script>
-		$("input[name='campingReviewRating']").on("input", function() {
-		  var value = $(this).val();
-		  var newValue = value.replace(/[^\d]/g, "");
-		  if (newValue > 5) {
-		    newValue = "";
-		  }
-		  $(this).val(newValue);
-		});
-	</script>
 	
 	<script>
 		$(".recShow>span").on("click",function(){
@@ -965,6 +966,31 @@
 	</script>
 	
 	<script>
+	function loadImg2(input) {
+		  
+		  if (input.files && input.files.length > 0) {
+		    for (let i = 0; i < input.files.length; i++) {
+		      const reader = new FileReader();
+		      reader.readAsDataURL(input.files[i]);
+		      reader.onload = function(e) {
+		        const imgWrapper = $("<div>").addClass("img-wrapper");
+		        const img = $("<img>").attr("src", e.target.result)
+		                              .addClass("review-img");
+		        const deleteBtn = $("<button>").text("삭제")
+		                                        .addClass("delete-btn")
+		                                        .attr("type", "button");
+		        imgWrapper.append(img).append(deleteBtn).appendTo("#img-viewer2");
+		        
+		        deleteBtn.on("click", function() {
+		        	
+		        	  $(this).parent().remove();
+		        	});
+		      }
+		    }
+		  }
+		}
+	
+	
 	function openReviewModal(campingReviewNo) {
 		var modal = $("#update-modal");
 		var form = modal.find("form");
@@ -992,12 +1018,37 @@
 				// 등록된 이미지가 있으면 이미지 뷰어에 추가한다.
 				var fileList = result.fileList;
 				if (fileList != null && fileList.length > 0) {
-					for (var i = 0; i < fileList.length; i++) {
-						
-						var img = $("<img>").attr("src", "resources/upload/campingReview/"+fileList[i].filepath).addClass("review-img");
-						imgViewer.append(img);
-					}
+					 for (let i = 0; i < fileList.length; i++) {
+					        var imgWrapper = $("<div>").addClass("img-wrapper");
+					        var img = $("<img>").attr("src", "resources/upload/campingReview/" + fileList[i].filepath).addClass("review-img");
+					        var deleteBtn = $("<button>").text("삭제").addClass("delete-btn").attr("type", "button").attr("campingReviewPhotoNo", fileList[i].campingReviewPhotoNo)
+			                  																					   .attr("filepath", fileList[i].filepath);
+					        imgWrapper.append(img).append(deleteBtn);
+					        imgViewer.append(imgWrapper);
+					        
+					    }
+					 $(".delete-btn").on("click", function() {
+						  var fileNo = $(this).attr("campingReviewPhotoNo");
+						  var filepath = $(this).attr("filepath");
+				          $(this).parent().remove();
+				          var fileNoInput = $("<input>").attr("type", "hidden")
+                          .attr("name", "campingReviewPhotoNo")
+                          .val(fileNo);
+							var filepathInput = $("<input>").attr("type", "hidden")
+							                            .attr("name", "filepath")
+							                            .val(filepath);
+							
+							// form 태그에 input 태그 추가
+							$("form").append(fileNoInput).append(filepathInput);
+					    });
 				}
+				const rating = parseInt($("#campingReviewRating2").val());
+
+				  // 가져온 값만큼 별점을 금색으로 채움
+				  const stars = $(".star-wrap22>span");
+				  for (let i = 0; i < rating; i++) {
+				    stars.eq(i).css("color", "gold");
+				  }
 				// 모달을 띄운다.
 				modal.show();
 			},
@@ -1007,12 +1058,38 @@
 			}
 		});
 	}
-
+	
+	
 	// 모달 닫기
 	$(".review-modal-close2").on("click", function() {
 		$(this).parents(".review-modal-bg2").hide();
 	});
 	
 </script>
+	//결제
+// 		var memberId = $(".memberId").val();
+// 		var memberPhone = $(".memberPhone").val();
+// 		var memberEmail = $(".memberEmail").val();
+// 		var campingTitle = $(".camping-title").text();
+// 		var campingType = $(".camping-Type").text();
+// 		var price = $(".price").text();
+// 		$(".reservationBtn").on("click",function(){
+// 		var checkIn = $("[name=checkIn]").val();
+// 		$("[name=checkIn1]").val(checkIn);
+// 		var checkOut = $("[name=checkOut]").val();
+// 		$("[name=checkOut1]").val(checkOut);
+					
+// 		});
+	
+// 		$("[name=checkOut]").on("change",function(){
+// 		var checkIn = $("[name=checkIn]").val();
+// 		var checkOut = $("[name=checkOut]").val();
+// 		$("[name=checkIn1]").val(checkIn);
+// 		$("[name=checkOut1]").val(checkOut);
+					
+// 		});
+		
+		
+	</script>
 </body>
 </html>

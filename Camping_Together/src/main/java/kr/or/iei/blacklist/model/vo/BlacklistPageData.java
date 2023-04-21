@@ -1,4 +1,4 @@
-package kr.or.iei.usedBoard.model.vo;
+package kr.or.iei.blacklist.model.vo;
 
 import java.util.ArrayList;
 
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UsedBoardPageDate {
-	private ArrayList<UsedBoard> list;
+public class BlacklistPageData {
+	private ArrayList<Blacklist> blList;
 	private String pageNavi;
 }

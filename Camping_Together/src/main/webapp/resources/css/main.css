@@ -15,7 +15,11 @@
 }
 .wrapperBox{
 	width: 100%;
+	height: auto;
+  	min-height: 100%;
+  	padding-bottom: 300px; /* footer 높이 만큼 줘야댐*/
 }
+
 .wrapperTop{
 	height: 1000px;
 }

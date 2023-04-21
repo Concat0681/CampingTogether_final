@@ -10,6 +10,8 @@ import kr.or.iei.shop.model.dao.ShopDao;
 import kr.or.iei.shop.model.vo.Shop;
 import kr.or.iei.shop.model.vo.ShopBasket;
 import kr.or.iei.shop.model.vo.ShopListMainData;
+import kr.or.iei.shop.model.vo.ShopOrder;
+import kr.or.iei.shop.model.vo.ShopPayment;
 import kr.or.iei.shop.model.vo.ShopReview;
 import kr.or.iei.shop.model.vo.ShopReviewListData;
 import kr.or.iei.shop.model.vo.ShopReviewPhoto;
@@ -150,6 +152,18 @@ public class ShopService {
 
 	public int deleteShopReview(int shopReviewNo) {
 		int result = dao.deleteShopReview(shopReviewNo);
+		return result;
+	}
+
+	public int insertShopOrder(ShopOrder so, ShopPayment spm, int shopNo) {
+		int result = dao.insertShopOrder(so);
+		if(result > 0) {
+			spm.setOrderNo(so.getOrderNo());
+			result = dao.insertShopPayment(spm);
+			if(result > 0) {
+				result = dao.deleteOrderWishList(shopNo);
+			}
+		}
 		return result;
 	}
 }

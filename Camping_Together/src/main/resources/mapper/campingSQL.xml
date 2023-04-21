@@ -283,7 +283,7 @@
 			camping_review_content as campingReviewContent,
 			camping_review_rating as campingReviewRating,
 			camping_review_ref as campingReviewRef
-		from camping_review where camping_no = #{_parameter} and camping_review_ref is null
+		from camping_review where camping_no = #{_parameter} and camping_review_ref is null order by camping_review_no 
 	</select>
 	
 	<select id="selectCampingReviewNo" parameterType="_int" resultType="_int">
@@ -409,4 +409,26 @@
 	<delete id="deleteCamping" parameterType="_int">
 		delete from camping where camping_no=#{campingNo}
 	</delete>
+	
+	<insert id="insertCampingReservation" parameterType="map">
+		insert into camping_reservation values(camping_reservation_seq.nextval, #{memberNo}, #{campingRoomNo}, #{checkIn}, #{checkOut})
+	</insert>
+	<insert id="insertCamingPayment" parameterType="_int">
+		insert into camping_payment values(camping_payment_seq.nextval,#{_parameter},to_char(sysdate,'yyyy-mm-dd hh24:mi:ss'),1)
+		<!-- 정규화가 이루어져있어 외래키로 연결되어있을 경우 selectKey를 사용하면 별도의 select를 진행하지 않아도된다. -->
+		<!-- key값을 다시 조회할건데 해당태그(현재insert)가 동작하고나면 조회할 때 -->
+<!-- 		<selectKey resultType="_int" order="AFTER" keyProperty="reservationNo"> -->
+			<!-- order:insert문 이후에 실행, keyProperty: boardNo변수에 넣어줄것 --> 
+<!-- 			select max(camping_reservation_no) from camping_reservation -->
+<!-- 		</selectKey> -->
+	</insert>
+	<select id="selectcampingReservationNo" parameterType="_int" resultType="_int">
+		select max(camping_reservation_no) from camping_reservation where member_no = #{_parameter}
+	</select>
+	<select id="campingPaymentDate" parameterType="_int" resultType="cpay">
+		select camping_payment_date as campingPaymentDate from camping_payment where camping_reservation_no = #{_parameter}
+	</select>
+	<select id="selectRoomMemberNo" parameterType="_int" resultType="cre">
+		select member_no as memberNo from camping_reservation where member_no = #{_parameter}
+	</select>
 </mapper>

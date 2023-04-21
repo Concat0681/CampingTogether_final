@@ -23,7 +23,7 @@ import kr.or.iei.shop.model.vo.Shop;
 import kr.or.iei.shop.model.vo.ShopBasket;
 import kr.or.iei.shop.model.vo.ShopListMainData;
 import kr.or.iei.usedBoard.model.vo.UsedBoard;
-import kr.or.iei.usedBoard.model.vo.UsedBoardPageDate;
+import kr.or.iei.usedBoard.model.vo.UsedBoardPageData;
 
 @Service
 public class MemberService {
@@ -427,13 +427,18 @@ public class MemberService {
 				}
 				pageNavi += "</ul>";
 
-				AllMemberPageData apd = new AllMemberPageData(list, pageNavi);
+				AllMemberPageData apd = new AllMemberPageData(list, pageNavi, totalCount);
 				return apd;
 	}
 		
 	public int deleteWishList(int shopNo) {
 		int result = dao.deleteWishList(shopNo);
 		return result;
+	}
+	
+	//회원 정보(관리자)
+	public Member adminOneMember(int memberNo) {
+		return dao.adminOneMember(memberNo);
 	}
 	
 

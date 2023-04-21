@@ -120,7 +120,8 @@
 		<div class="wrapper wrapperMiddle-tradeBox">
 				<jsp:include page="/usedBoardIndex.do"/>
 		</div>
-		<div class="wrapper wrapperMiddle-shop"></div>
+		<div class="wrapper wrapperMiddle-shop">>
+		</div>
 		<div class="wrapper wrapperBottom"></div>
  	
 	
@@ -134,7 +135,7 @@
 	</div>
 	
 </body>
-
+<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 <script src="resources/js/camping/dateRangePicker.js"></script>
 
 <script>

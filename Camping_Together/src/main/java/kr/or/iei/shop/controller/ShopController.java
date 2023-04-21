@@ -19,6 +19,8 @@ import kr.or.iei.shop.model.service.ShopService;
 import kr.or.iei.shop.model.vo.Shop;
 import kr.or.iei.shop.model.vo.ShopBasket;
 import kr.or.iei.shop.model.vo.ShopListMainData;
+import kr.or.iei.shop.model.vo.ShopOrder;
+import kr.or.iei.shop.model.vo.ShopPayment;
 import kr.or.iei.shop.model.vo.ShopPhoto;
 import kr.or.iei.shop.model.vo.ShopReview;
 import kr.or.iei.shop.model.vo.ShopReviewListData;
@@ -203,6 +205,17 @@ public class ShopController {
 	@RequestMapping(value="/deleteShopReview.do")
 	public String deleteShopReview(int shopReviewNo) {
 		int result = service.deleteShopReview(shopReviewNo);
+		if(result > 0) {
+			return "success";
+		} else {
+			return "error";
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/insertShopOrder.do")
+	public String insertShopOrder(ShopOrder so, ShopPayment spm, int shopNo) {
+		int result = service.insertShopOrder(so, spm, shopNo);
 		if(result > 0) {
 			return "success";
 		} else {

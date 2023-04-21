@@ -145,6 +145,12 @@ public class MemberDao {
 		return totalCount;
 	}
 
+	//회원정보(관리자)
+	public Member adminOneMember(int memberNo) {
+		Member member = sqlsession.selectOne("member.adminOneMember", memberNo);
+		return member;
+	}
+
 	
 
 	

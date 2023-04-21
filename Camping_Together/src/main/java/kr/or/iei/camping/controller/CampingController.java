@@ -18,14 +18,16 @@ import kr.or.iei.camping.model.service.CampingService;
 import kr.or.iei.camping.model.vo.Camping;
 import kr.or.iei.camping.model.vo.CampingEtc;
 import kr.or.iei.camping.model.vo.CampingListPageData;
+import kr.or.iei.camping.model.vo.CampingPayment;
 import kr.or.iei.camping.model.vo.CampingProvideService;
+import kr.or.iei.camping.model.vo.CampingReservation;
 import kr.or.iei.camping.model.vo.CampingReview;
 import kr.or.iei.camping.model.vo.CampingReviewData;
 import kr.or.iei.camping.model.vo.CampingReviewFileVO;
 import kr.or.iei.camping.model.vo.CampingRoom;
-import kr.or.iei.camping.model.vo.ViewCampingData;
 import kr.or.iei.camping.model.vo.CampingRoomFileVO;
 import kr.or.iei.camping.model.vo.CampingRoomService;
+import kr.or.iei.camping.model.vo.ViewCampingData;
 
 @Controller
 public class CampingController {
@@ -399,6 +401,44 @@ public class CampingController {
 		}
 	}
 	
+	@RequestMapping(value = "/reservationFrm.do")
+	public String reservationFrm (Model model,String checkIn1, String checkOut1, String campingTitle, String campingType,int price, String addr, int campingRoomNo, int memberNo) {
+		model.addAttribute("checkIn1", checkIn1);
+		model.addAttribute("checkOut1", checkOut1);
+		model.addAttribute("campingTitle", campingTitle);
+		model.addAttribute("campingType", campingType);
+		model.addAttribute("price", price);
+		model.addAttribute("addr", addr);
+		model.addAttribute("campingRoomNo", campingRoomNo);
+		return "reservation/reservationFrm";
+	}
+	@RequestMapping(value = "/reservationInfo.do")
+	public String reservationInfo(Model model, String campingTitle, String campingType,int campingRoomPrice, String campingAddr, String checkIn, String checkOut, int campingRoomNo, int memberNo ) {
+		
+		CampingReservation cr = service.selectRoomMemberNo(memberNo);
+//		System.out.println("camping controller에서 cr값"+cr);
+//		System.out.println(roomMemberNo);
+		if(cr == null || cr.getMemberNo() != memberNo) {
+			//예약 insert
+			int result = service.campingReservation(memberNo,campingRoomNo, checkIn, checkOut);			
+		} else {
+			System.out.println("Camping 에서 if값 확인용 else로 빠짐");
+		}
+		
+		
+		//결제 select
+		CampingPayment cp = service.campingPaymentDate(memberNo);
+	
+//		System.out.println(cp);
+		model.addAttribute("campingTitle",campingTitle);
+		model.addAttribute("campingAddr",campingAddr);
+		model.addAttribute("checkIn",checkIn);
+		model.addAttribute("checkOut",checkOut);
+		model.addAttribute("campingPaymentDate", cp.getCampingPaymentDate());
+		return "reservation/reservationInfo";			
+//		return "rediect:/reservationInfo.do";			
+		
+	}
 }
 
 

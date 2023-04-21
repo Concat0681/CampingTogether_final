@@ -37,7 +37,12 @@
 		 <typeAlias type="kr.or.iei.shop.model.vo.ShopReviewPhoto" alias="srp"/>
 		  <typeAlias type="kr.or.iei.shop.model.vo.ShopBasket" alias="sb"/>
 		 <typeAlias type="kr.or.iei.inquiry.model.vo.AdminInquiry" alias="ai"/>
-		 <typeAlias type="kr.or.iei.usedBoard.model.vo.Blacklist" alias="bl"/>
-		 <typeAlias type="kr.or.iei.usedBoard.model.vo.BlacklistPhoto" alias="blp"/>
+
+		 <typeAlias type="kr.or.iei.blacklist.model.vo.Blacklist" alias="bl"/>
+		 <typeAlias type="kr.or.iei.blacklist.model.vo.BlacklistPhoto" alias="blp"/>
+		 <typeAlias type="kr.or.iei.shop.model.vo.ShopOrder" alias="sod"/>
+		 <typeAlias type="kr.or.iei.shop.model.vo.ShopPayment" alias="spm"/>
+		 <typeAlias type="kr.or.iei.camping.model.vo.CampingReservation" alias="cre"/>
+		 <typeAlias type="kr.or.iei.camping.model.vo.CampingPayment" alias="cpay"/>
 	</typeAliases>
 </configuration>
