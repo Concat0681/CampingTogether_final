@@ -198,7 +198,8 @@
     .history-modal-content>table{
     	width: 90%;
     	margin: 0 auto;
-    	
+    	border-top-left-radius: 5px;
+    	border-top-right-radius: 5px;
     }
     .history-modal-content>table>tr:first-child{
     	background-color: #E3CAA5;
@@ -222,6 +223,9 @@
     	color: #FFFBE9;
     	font-size: 15px;
     }
+    .history-modal-content>table>tr>td>a:hover{
+    	color: #CEAB93;
+    }
     /* 스크롤바 */
     .history-modal-content::-webkit-scrollbar {
     	width: 12px;  /* 스크롤바의 너비 */
@@ -234,6 +238,19 @@
 	
 	.history-modal-content::-webkit-scrollbar-track {
 	    background: rgba(173, 139, 115, .1);  /*스크롤바 뒷 배경 색상*/
+	}
+	.history-modal-bottom{
+		text-align: right;
+		padding: 15px;
+	}
+	.history-modal-bottom>button{
+		width: 100px;
+    	height: 50px;
+	}
+	.history-modal-bottom>button>span{
+		font-family: ng-extra-bold;
+		font-size: 16px;
+		color: #FFFBE9;
 	}
 </style>
 </head>
@@ -311,7 +328,7 @@
 			</div>
 			<div class="history-modal-content"></div>
 			<div class="history-modal-bottom">
-				<button type="button" class="btn1"><span>CLOSE</span></button>
+				<button type="button" class="btn1" onclick="historyclose();"><span>CLOSE</span></button>
 			</div>
 		</div>
 	</div>
@@ -374,7 +391,7 @@
 					table.append(titleTr);
 					for(let i=0; i<data.length; i++){
 						const tr = $("<tr>");
-						tr.append("<td>["+data[i].blackUsedBoardNo+"]"+data[i].blackUsedBoardTitle+"</td>");
+						tr.append("<td><a href='/usedBoardView.do?usedBoardNo="+data[i].blackUsedBoardNo+"'>["+data[i].blackUsedBoardNo+"]"+data[i].blackUsedBoardTitle+"</a></td>");
 						tr.append("<td>"+data[i].blacklistMemberId+"</td>");
 						tr.append("<td>"+data[i].blacklistContent+"</td>");
 						tr.append("<td>"+data[i].regDate+"</td>");
@@ -391,7 +408,11 @@
 				}
 			});
 		}
+		function historyclose(){
+			$(".blacklsit-history-modal").hide();
+		}
 	</script>
+	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 </body>
 </html>
 
