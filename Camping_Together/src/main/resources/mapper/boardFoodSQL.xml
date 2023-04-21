@@ -109,4 +109,16 @@
 			filepath
 		from file_tbl where file_no = #{_parameter}
 	</select>
+	
+	<select id="selectMainFoodList" parameterType="bf" resultType="bf">
+		select 
+			board_food_no as boardFoodNo,
+			board_food_writer as boardFoodWriter,
+			board_food_title as boardFoodTitle,
+			board_food_content as boardFoodContent,
+			read_count as readCount,
+			enroll_date as enrollDate,
+		from board_food
+		where <![CDATA[ rownum <= 3 ]]>
+	</select>
 </mapper>

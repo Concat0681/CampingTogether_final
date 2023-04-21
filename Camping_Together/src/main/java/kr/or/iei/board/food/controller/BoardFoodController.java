@@ -33,6 +33,15 @@ public class BoardFoodController {
 	@Autowired
 	private FileManager fileManager;
 	
+	@RequestMapping(value="/boardMainFoodList.do")
+	public String boardFoodList(Model model, BoardFood b ) {
+		ArrayList<BoardFood> list = service.selectMainFoodList(b);
+		model.addAttribute("Foodlist", list);
+		System.out.println(list);
+		System.out.println(list.size());
+		return "main/mainIndexBoardList";
+	}
+	
 	@RequestMapping(value="/boardFoodList.do")
 	public String boardFoodList(int reqPage, Model model) {
 		BoardFoodPageData bfpd = service.selectFoodList(reqPage);
@@ -58,7 +67,7 @@ public class BoardFoodController {
 			}
 		}
 		int result = service.insertBoardFood(b, fileList);
-		// insertÇÑ °Ô½Ã±Û 1°³ + insertÇÑ ÆÄÀÏ °³¼ö
+		// insertï¿½ï¿½ ï¿½Ô½Ã±ï¿½ 1ï¿½ï¿½ + insertï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		if(result == (fileList.size()+1)) {
 			return "redirect:/boardFoodList.do?reqPage=1";
 			
@@ -103,9 +112,9 @@ public class BoardFoodController {
 				boolean delResult = fileManager.deleteFile(savePath, delFile);
 				System.out.println(result);
 				if(delResult) {
-					System.out.println("»èÁ¦¿Ï·á");
+					System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½");
 				}else {
-					System.out.println("»èÁ¦½ÇÆÐ");
+					System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 				}
 			}
 			return "redirect:/boardFoodView.do?boardFoodNo="+bf.getBoardFoodNo();
@@ -125,9 +134,9 @@ public class BoardFoodController {
 			for(FileVO file :list) {
 				boolean deleteResult = fileManager.deleteFile(savePath, file.getFilepath());
 				if(deleteResult) {
-					System.out.println("ÆÄÀÏ »èÁ¦ ¼º°ø");
+					System.out.println("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 				}else {
-					System.out.println("ÆÄÀÏ »èÁ¦ ½ÇÆÐ");
+					System.out.println("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 				}
 			}
 			return "redirect:/boardFoodList.do?reqPage=1";
@@ -150,34 +159,34 @@ public class BoardFoodController {
 	}
 	@RequestMapping(value="/boardFoodFileDown.do")
 	public void boardFileDown(int fileNo, HttpServletRequest request, HttpServletResponse response) {
-		//fileNo : DB¿¡¼­ filename, filepath¸¦ Á¶È¸ÇØ¿À±âÀ§ÇÑ ¿ëµµ
-		//request : ÆÄÀÏÀ§Ä¡ Ã£À» ¶§ »ç¿ë
-		//response : ÆÄÀÏ´Ù¿î·Îµå ·ÎÁ÷ ±¸Çö ½Ã »ç¿ë
-		//¸®ÅÏÀ» ÇÏÁö¾ÊÀ½ - ÆäÀÌÁöÀÌµ¿ÀÌ ÇÊ¿ä¾øÀ¸¹Ç·Î
+		//fileNo : DBï¿½ï¿½ï¿½ï¿½ filename, filepathï¿½ï¿½ ï¿½ï¿½È¸ï¿½Ø¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ëµµ
+		//request : ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¡ Ã£ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½
+		//response : ï¿½ï¿½ï¿½Ï´Ù¿ï¿½Îµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìµï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½
 		
-		//filename°ú filepath¸¦ Ã£¾Æ¿À±âÀ§ÇØ¼­
+		//filenameï¿½ï¿½ filepathï¿½ï¿½ Ã£ï¿½Æ¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½
 		FileVO file = service.getFile(fileNo);
 		System.out.println(file);
-		//ÆÄÀÏ°æ·Î
+		//ï¿½ï¿½ï¿½Ï°ï¿½ï¿½
 		String root = request.getSession().getServletContext().getRealPath("/resources/upload/boardFood/");
 		String downFile = root+file.getFilepath();
 		
-		//ÆÄÀÏÀ» ÀÐ¾î¿À±âÀ§ÇÑ ÁÖ½ºÆ®¸²»ý¼º(¼Óµµ°³¼±À»À§ÇÑ º¸Á¶½ºÆ®¸²»ý¼º)
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½Óµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
 		try {
 			FileInputStream fis = new FileInputStream(downFile);
 			BufferedInputStream bis = new BufferedInputStream(fis);
-			//ÀÐ¾î¿Â ÆÄÀÏÀ» »ç¿ëÀÚ¿¡°Ô ³»º¸³¾ ½ºÆ®¸²»ý¼º
+			//ï¿½Ð¾ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			ServletOutputStream sos = response.getOutputStream();
 			BufferedOutputStream bos = new BufferedOutputStream(sos);
 			
-			//ÆÄÀÏ¸í Ã³¸®
+			//ï¿½ï¿½ï¿½Ï¸ï¿½ Ã³ï¿½ï¿½
 			String resFilename = new String(file.getFilepath().getBytes("UTF-8"), "ISO-8859-1");
-			response.setContentType("application/octet-stream");//ÆÄÀÏÇü½ÄÀÌ¶õ°ÍÀ» ¾Ë·ÁÁÜ
-			response.setHeader("Content-Disposition", "attachment;filename="+resFilename);//ÆÄÀÏÀÌ¸§À» ¾Ë·ÁÁÜ
-			//ÆÄÀÏÀü¼Û
+			response.setContentType("application/octet-stream");//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¶ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë·ï¿½ï¿½ï¿½
+			response.setHeader("Content-Disposition", "attachment;filename="+resFilename);//ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½Ë·ï¿½ï¿½ï¿½
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			while(true) {
 				int read = bis.read();
-				//ÆÄÀÏÀ» °è¼Ó ÀÐ´Ù°¡ ´ÙÀÐÀ¸¸é Á¾·á
+				//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ð´Ù°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 				if(read != -1) {
 					bos.write(read);
 				}else {
