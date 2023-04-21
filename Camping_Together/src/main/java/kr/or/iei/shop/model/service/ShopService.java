@@ -22,7 +22,7 @@ public class ShopService {
 	@Autowired
 	private ShopDao dao;
 
-	public ShopListMainData selectShopList(int shopCategory, int reqPage) {
+	public ShopListMainData selectShopList(int shopCategory, int reqPage, String order) {
 		int numPerPage = 8;
 		int end = reqPage * numPerPage;
 		int start = end - numPerPage + 1;
@@ -30,12 +30,29 @@ public class ShopService {
 		map.put("shopCategory", shopCategory);
 		map.put("start", start);
 		map.put("end", end);
+		map.put("order", order);
 		ArrayList<Shop> shopList = dao.selectShopList(map);
 		int totalCount = dao.selectShopCount(map);
 		int totalPage = (int)Math.ceil(totalCount/(double)numPerPage);
-		String pageNavi = "";
-		if(reqPage <= totalPage) {
-			pageNavi += "<button class='btn1' onclick='viewShopList("+shopCategory+","+(reqPage)+")'>더보기</button>";
+		int pageNaviSize = 5;
+		int pageNo = 1;
+		String pageNavi = "<ul class='pagination circle-style'>";
+		if(pageNo != 1) {
+			pageNavi += "<li><a class='page-item'onclick='shopListOrder(this,"+shopCategory+","+(pageNo-1)+",\""+order+"\")'><span class='material-symbols-outlined'>chevron_left</span></a></li>";
+		}
+		for(int i=0;i<pageNaviSize;i++) {
+			if(pageNo == reqPage) {
+				pageNavi += "<li><a class='page-item active-page'>"+pageNo+"</a></li>";
+			} else {
+				pageNavi += "<li><a class='page-item' onclick='shopListOrder(this,"+shopCategory+","+pageNo+",\""+order+"\")'>"+pageNo+"</a></li>";
+			}
+			pageNo++;
+			if(pageNo > totalPage) {
+				break;
+			}
+		}
+		if(pageNo <= totalPage) {
+			pageNavi += "<li><a class='page-item' onclick='shopListOrder(this,"+shopCategory+","+pageNo+",\""+order+"\")'><span class='material-symbols-outlined'>chevron_right</span></a></li>";
 		}
 		ShopListMainData slmd = new ShopListMainData();
 		slmd.setShopList(shopList);

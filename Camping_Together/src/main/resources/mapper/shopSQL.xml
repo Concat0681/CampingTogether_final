@@ -8,10 +8,21 @@
 				s.*
 			from
 				(select 
-					*
-				from shop
+					s.*,
+					(select round(avg(shop_review_rating),1) from shop_review where shop_no = s.shop_no ) as avgRating
+				from shop s
 				<if test="shopCategory != null">
-					where shop_category = ${shopCategory}
+					where s.shop_category = ${shopCategory}
+				</if>
+				<if test="order != null">
+					<choose>
+						<when test="order == 'new'">
+							order by s.shop_no desc
+						</when>
+						<when test="order == 'rating'">
+							order by avgRating desc
+						</when>
+					</choose>
 				</if>				
 				)s
 			)

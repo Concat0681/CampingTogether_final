@@ -5,21 +5,24 @@ import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.iei.camping.model.dao.CampingDao;
 import kr.or.iei.camping.model.vo.Camping;
 import kr.or.iei.camping.model.vo.CampingEtc;
 import kr.or.iei.camping.model.vo.CampingListPageData;
+import kr.or.iei.camping.model.vo.CampingPayment;
 import kr.or.iei.camping.model.vo.CampingProvideService;
+import kr.or.iei.camping.model.vo.CampingReservation;
 import kr.or.iei.camping.model.vo.CampingReview;
 import kr.or.iei.camping.model.vo.CampingReviewData;
 import kr.or.iei.camping.model.vo.CampingReviewFileVO;
 import kr.or.iei.camping.model.vo.CampingRoom;
-import kr.or.iei.camping.model.vo.ViewCampingData;
 import kr.or.iei.camping.model.vo.CampingRoomFileVO;
 import kr.or.iei.camping.model.vo.CampingRoomService;
 import kr.or.iei.camping.model.vo.SellCampingList;
 import kr.or.iei.camping.model.vo.SellCampingListData;
+import kr.or.iei.camping.model.vo.ViewCampingData;
 
 @Service
 public class CampingService {
@@ -315,13 +318,51 @@ public class CampingService {
 		return result;
 	}
 
+	
+	@Transactional
+	public int campingReservation(int memberNo, int campingRoomNo, String checkIn, String checkOut) {
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("memberNo", memberNo);
+		map.put("campingRoomNo", campingRoomNo);
+		map.put("checkIn", checkIn);
+		map.put("checkOut", checkOut);
+//		 #{memberNo}
+		
+		// CampingReservation insert
+		int result = dao.insertCampingReservation(map);
+		if(result>0) {
+			//campingReservationNo 조회
+			int campingReservationNo = dao.selectcampingReservationNo(memberNo);
+			// campingPayment insert
+			result = dao.insertCamingPayment(campingReservationNo);
+			
+		}
+		return result;
+	}
+
 	public int deleteCamping(int campingNo) {
 		int result = dao.deleteCamping(campingNo);
 		return result;
 	}
-	
+
 
 	
+	public CampingPayment campingPaymentDate(int memberNo) {
+		int campingReservationNo = dao.selectcampingReservationNo(memberNo);
+		
+		if(campingReservationNo>0) {
+			CampingPayment cp = dao.campingPaymentDate(campingReservationNo);
+			return cp;
+		}
+		return null;
+		
+	}
+
+	public CampingReservation selectRoomMemberNo(int memberNo) {
+		return dao.selectRoomMemberNo(memberNo);
+	}
+
 
 	
 }

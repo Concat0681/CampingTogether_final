@@ -15,5 +15,6 @@ public class AllMemberPageData {
 	
 	private ArrayList<Member> list;
 	private String pageNavi;
+	private int totalCount;
 
 }
