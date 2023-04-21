@@ -14,9 +14,9 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.Gson;
 
 import common.FileManager;
+import kr.or.iei.blacklist.model.vo.Blacklist;
+import kr.or.iei.blacklist.model.vo.BlacklistPhoto;
 import kr.or.iei.usedBoard.model.service.UsedBoardService;
-import kr.or.iei.usedBoard.model.vo.Blacklist;
-import kr.or.iei.usedBoard.model.vo.BlacklistPhoto;
 import kr.or.iei.usedBoard.model.vo.UsedBoard;
 import kr.or.iei.usedBoard.model.vo.UsedBoardComment;
 import kr.or.iei.usedBoard.model.vo.UsedBoardPageData;
@@ -159,46 +159,6 @@ public class UsedBoardController {
 	public String usedBoardStatusUpdate(int usedBoardNo) {
 		int result = service.updateUsedBoardStatus(usedBoardNo);
 		return "redirect:/usedBoardView.do?usedBoardNo="+usedBoardNo;
-	}
-	
-	@RequestMapping(value="/blacklistWriteFrm.do")
-	public String blacklistWriteFrm(int usedBoardNo, Model model) {
-		UsedBoard ub = service.selectBlackUsedBoard(usedBoardNo);
-		model.addAttribute("ub", ub);
-
-		return "usedBoard/blacklistWriteFrm";
-	}
-	
-	@RequestMapping(value="/blacklistWrite.do")
-	public String blacklistWrite(Blacklist bl, MultipartFile[] blacklistPhoto, HttpServletRequest request) {
-		ArrayList<BlacklistPhoto> photoList = new ArrayList<BlacklistPhoto>();
-		if(!blacklistPhoto[0].isEmpty()) {
-			String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/usedBoard/");
-			for(MultipartFile file : blacklistPhoto) {
-				String filename = file.getOriginalFilename();
-				String filepath = manager.upload(savePath, file);
-				
-				BlacklistPhoto blp = new BlacklistPhoto();
-				blp.setFilepath(filepath);
-				blp.setFilename(filename);
-				photoList.add(blp);
-			}
-		}
-		int result = service.insertBlacklist(bl, photoList);
-		if(result == photoList.size()+1) {
-			return "redirect:/";
-		}else {
-			return "redirect:/blacklistWriteFrm.do";
-		}
-	}
-	
-	@ResponseBody
-	@RequestMapping(value="/blacklistMyHistory.do", produces = "application/json;charset=utf-8")
-	public String blacklistMyHistory(String memberId){
-		ArrayList<Blacklist> blList = service.selectBlacklistMyHistory(memberId);
-		Gson gson = new Gson();
-		String result = gson.toJson(blList);
-		return result;
 	}
 }
 

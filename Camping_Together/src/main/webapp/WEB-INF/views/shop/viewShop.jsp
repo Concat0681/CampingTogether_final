@@ -21,7 +21,7 @@
 			<div class="slider-box">
 				<div class="slider slider-for">
 					<c:forEach items="${shop.shopPhotoList }" var="p">
-							<img src="resources/upload/shop/${p.filepath }">
+							<img src="resources/upload/shop/${p.filepath }" style="width : 100%;">
 					</c:forEach>
 				</div>
 				<div class="slider slider-nav">
@@ -250,7 +250,7 @@
 			});
 			$('.slider-nav').slick({
 				slider : 'img',
-				slidesToShow : 2,		// 한 화면에 보여질 컨텐츠 개수
+				slidesToShow : 3,		// 한 화면에 보여질 컨텐츠 개수
 				slidesToScroll : 1,		//스크롤 한번에 움직일 컨텐츠 개수
 				speed : 100,	 // 다음 버튼 누르고 다음 화면 뜨는데까지 걸리는 시간(ms)
 				arrows : true, 		// 옆으로 이동하는 화살표 표시 여부

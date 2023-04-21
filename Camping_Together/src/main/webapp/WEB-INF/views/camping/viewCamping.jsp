@@ -680,7 +680,7 @@
 			      const date = new Date()
 			      const hours = date.getHours()
 			      const compareHours = Math.floor(hours / 3) * 3
-			      resp.list.forEach(r => {
+			      resp.list.forEach(r =>  {
 			        if (r.dt_txt.substr(11, 2) == compareHours) {
 			          const div1 = $('<div>').addClass('weather-info')
 			          const icon = r.weather[0].icon.substr(0, 2)

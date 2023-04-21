@@ -66,6 +66,9 @@
 			<when test="order.equals('maxRoomPrice')">
 				order by maxRoomPrice desc nulls last)
 			</when>
+			<when test="order.equals('new')">
+				order by 1 desc)
+			</when>
 		</choose>
 	<if test="start != null">
 		where rnum between #{start} and #{end}

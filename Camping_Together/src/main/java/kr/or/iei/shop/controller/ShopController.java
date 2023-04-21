@@ -37,8 +37,9 @@ public class ShopController {
 	@RequestMapping(value="/shopMainList.do")
 	public String shopMainList(Model model) {
 	    int reqPage = 1;
+	    String order = "new";
 		for(int shopCategory=0;shopCategory<3;shopCategory++) {
-			ShopListMainData slmd = service.selectShopList(shopCategory, reqPage);
+			ShopListMainData slmd = service.selectShopList(shopCategory, reqPage, order);
 			if(shopCategory == 0) {
 				model.addAttribute("campingList", slmd.getShopList());
 				model.addAttribute("campingPageNavi", slmd.getPageNavi());
@@ -53,16 +54,16 @@ public class ShopController {
 		return "shop/shopMainList";
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="/shopListByOrder.do", produces="application/json;charset=utf-8")
+	public String shopListByOrder(int shopCategory, int reqPage, String order) {
+		ShopListMainData slmd = service.selectShopList(shopCategory, reqPage , order);
+		return new Gson().toJson(slmd);
+	}
+	
 	@RequestMapping(value="/shopList.do")
 	public String shopList(int shopCategory, int reqPage) {
 		return "shop/shopList";
-	}
-	
-	@ResponseBody
-	@RequestMapping(value="/getMoreList.do", produces = "application/json;charset=utf-8")
-	public String getMoreList(int shopCategory, int reqPage) {
-		ShopListMainData slmd = service.selectShopList(shopCategory, reqPage);
-		return new Gson().toJson(slmd);
 	}
 	
 	@RequestMapping(value="/insertShopFrm.do")

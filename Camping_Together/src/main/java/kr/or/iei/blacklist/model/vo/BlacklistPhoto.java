@@ -1,4 +1,4 @@
-package kr.or.iei.usedBoard.model.vo;
+package kr.or.iei.blacklist.model.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
