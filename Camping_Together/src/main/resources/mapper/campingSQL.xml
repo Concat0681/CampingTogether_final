@@ -66,6 +66,9 @@
 			<when test="order.equals('maxRoomPrice')">
 				order by maxRoomPrice desc nulls last)
 			</when>
+			<when test="order.equals('new')">
+				order by 1 desc)
+			</when>
 		</choose>
 	<if test="start != null">
 		where rnum between #{start} and #{end}
@@ -372,7 +375,11 @@
 	</delete>
 	
 	<select id="selectCampingRoomFile" parameterType="_int" resultType="crf">
-		select * from camping_room_photo where camping_room_no = #{_parameter}
+		select
+			camping_room_photo_no as campingRoomPhotoNo,
+			camping_room_no as campingRoomNo,
+			filepath
+		from camping_room_photo where camping_room_no = #{_parameter}
 	</select>
 	
 	<delete id="deleteCampingRoom" parameterType="_int">

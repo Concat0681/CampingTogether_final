@@ -8,16 +8,36 @@
 				s.*
 			from
 				(select 
-					*
-				from shop
+					s.*,
+					(select round(avg(shop_review_rating),1) from shop_review where shop_no = s.shop_no ) as avgRating
+				from shop s
 				<if test="shopCategory != null">
-					where shop_category = ${shopCategory}
+					where s.shop_category = ${shopCategory}
+				</if>
+				<if test="order != null">
+					<choose>
+						<when test="order == 'new'">
+							order by s.shop_no desc
+						</when>
+						<when test="order == 'rating'">
+							order by avgRating desc
+						</when>
+					</choose>
 				</if>				
 				)s
 			)
 		<if test="start != null">
 			where rnum between #{start} and #{end}
 		</if>
+	</select>
+	
+	<select id="selectMyBasket" parameterType="sb" resultType="sb">
+		select
+			basket_no as basketNo,
+			member_id as memberId,
+			shop_no as shopNo
+		from basket
+		where member_id = #{memberId} and shop_no = #{shopNo}
 	</select>
 	
 	<select id="selectShopPhotoList" parameterType="_int" resultType="sp">

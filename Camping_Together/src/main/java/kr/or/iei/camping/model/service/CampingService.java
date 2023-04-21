@@ -303,7 +303,6 @@ public class CampingService {
 
 	public int updateCampingRoom(CampingRoom cr, ArrayList<CampingRoomFileVO> fileList, int[] campingRoomPhotoNo) {
 		int result = dao.updateCampingRoom(cr);
-		System.out.println(campingRoomPhotoNo);
 		if(result > 0) {
 			if(campingRoomPhotoNo != null) {
 				for(int no : campingRoomPhotoNo) {
@@ -314,6 +313,9 @@ public class CampingService {
 				file.setCampingRoomNo(cr.getCampingRoomNo());
 				result += dao.insertCampingRoomPhoto(file);
 			}
+		}
+		return result;
+	}
 
 	
 	@Transactional

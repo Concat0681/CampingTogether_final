@@ -33,6 +33,7 @@ $('.sido').on('click', function () {
   $('#searchInput').attr('placeholder', '도시')
   $('[name=cityNameEN]').val('')
   $('.cityName').hide()
+  $('#placeholder').hide()
   $('.' + $(this).attr('id')).show()
 })
 
