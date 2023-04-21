@@ -357,13 +357,16 @@
 									  
 									</div>
 						            <p class="comment-link">
-						            
+						            <c:if test="${not empty sessionScope.m && cr.memberId eq sessionScope.m.memberId }">
 						              <button class="review-modal-open-btn2" target="#update-modal"  onclick="openReviewModal(${cr.campingReviewNo})">
 							          	수정
 							          </button>
-						              
 						              <a href="javascript:void(0)" onclick="deleteComment(this,${cr.campingReviewNo },${camping.campingNo })">삭제</a>
+						            </c:if>
+						              
+					                <c:if test="${not empty sessionScope.m && camping.memberId eq sessionScope.m.memberId }">
 						              <a href="javascript:void(0)" class="recShow"><span class="material-symbols-outlined">sms</span></a>
+						            </c:if>
 						            </p>
 									    <div id="update-modal" class="review-modal-bg2" style="z-index: 1000;">
 										  <div class="review-modal-wrap2">
@@ -444,8 +447,10 @@
 								            <p class="comment-content">${crc.campingReviewContent }</p>
 								            <textarea name="campingReviewContent" class="input-form hide-textarea" style="min-height:96px;display:none;width: 930px;">${crc.campingReviewContent }</textarea>
 								            <p class="comment-link">
+								            <c:if test="${not empty sessionScope.m && crc.memberId eq sessionScope.m.memberId }">
 								              <a href="javascript:void(0)" onclick="updateComment2(this,${crc.campingReviewNo },${camping.campingNo })">수정</a>
 								              <a href="javascript:void(0)" class="deleteComment2" onclick="deleteComment2(this,${crc.campingReviewNo },${camping.campingNo })">삭제</a>
+								              </c:if>
 								            </p>
 								          </li>
 								        </ul>

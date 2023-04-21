@@ -110,11 +110,11 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
-
+	<div class="backgroundPhoto" style="width: 100%; height: 1000px; background-color: green;"></div>
 	<div class="wrap">
         <div class="contentWrap" style="margin-top: 200px;">
         	<div class="contentDetail activeContent">
-        		<h2 style="margin-bottom: 60px;">캠핑장을 찾고 있는 여행객들을 정확히 사로잡아보세요!</h2>
+        		<h2 style="margin-bottom: 60px;">캠핑장을 찾고 있는 여행객들을 사로잡아보세요!</h2>
         		<form action="/campingWrite.do" method="post" enctype="multipart/form-data">
         			<input type="hidden" name="memberId" value="${sessionScope.m.memberId }">
 	        		<table>
@@ -561,7 +561,6 @@
 			}else{
 				contentDetail.eq(2).hide();
 				contentDetail.eq(3).show();
-				$(".photoCamera2").css("display:block");
 			}
 		});
 		
@@ -576,7 +575,7 @@
 			  const campingRoomType = $("[name=campingRoomType]:checked").val();
 			  const campingRoomFilepath = $("[name=campingRoomFilepath]");
 
-			  if (campingRoomTitle != "" && campingRoomCount != "" && campingRoomPrice != "" && campingRoomMaxPplCount != "" && campingRoomContent != "" && campingRoomType != null && campingRoomFilepath.get(0).files.length >= 3) {
+			  if (campingRoomTitle != "" && campingRoomCount != "" && campingRoomPrice != "" && campingRoomMaxPplCount != "" && campingRoomContent != "" && campingRoomType != null && $('#img-viewer2').children('.img-wrapper').length >= 3) {
 			    // 모든 값이 공백이 아닐 때 서브밋 동작
 			  } else {
 			    alert("입력란을 모두 확인해주세요.");
