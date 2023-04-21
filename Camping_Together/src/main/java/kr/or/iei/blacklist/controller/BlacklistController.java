@@ -55,8 +55,7 @@ public class BlacklistController {
 		}else {
 			return "redirect:/blacklistWriteFrm.do";
 		}
-	}
-	
+	}	
 	@ResponseBody
 	@RequestMapping(value="/blacklistMyHistory.do", produces = "application/json;charset=utf-8")
 	public String blacklistMyHistory(String memberId){
