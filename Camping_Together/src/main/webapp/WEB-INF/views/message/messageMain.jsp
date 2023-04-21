@@ -127,6 +127,7 @@
 	        $('#messageList').empty(); // 쪽지 리스트 초기화
 	        var count = 0; // 읽지 않은 쪽지 수 초기화
 	        $.each(data, function(index, item) {
+	        console.log(index);
 	          var row = '<tr>';
 	          row += '<td>' + (index + 1) + '</td>';
 	          row += '<td>' + item.sender + '</td>';

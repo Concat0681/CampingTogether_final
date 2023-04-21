@@ -59,7 +59,7 @@
 
 
 .review-modal-wrap div:not(:last-child) {
-  border-bottom: 1px solid #ccc;
+	
 }
 
 .review-modal-wrap .review-modal-content {
@@ -105,7 +105,7 @@
 .star-wrap > span {
   float: left;
   color: lightgray;
-  font-size: 30px;
+  font-size: 40px;
 }
 
 .star-wrap2 {
@@ -167,7 +167,7 @@
 
 
 .review-modal-wrap2 div:not(:last-child) {
-  border-bottom: 1px solid #ccc;
+	
 }
 
 .review-modal-wrap2 .review-modal-content2 {
@@ -206,14 +206,14 @@
 }
 
 
-.star-wrap2 {
+.star-wrap1 {
   overflow: hidden;
 }
 
-.star-wrap2 > span {
+.star-wrap1 > span {
   float: left;
   color: lightgray;
-  font-size: 30px;
+  font-size: 40px;
 }
 
 .star-wrap22 {
@@ -391,4 +391,52 @@ textarea.input-form {
   height: 200px;
   object-fit: cover;
   margin-right: 20px;
+}
+
+
+
+.img-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.img-wrapper2 {
+    position: relative;
+    display: inline-block;
+}
+
+.delete-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    padding: 5px;
+    border-radius: 50%;
+    background-color: #ccc;
+    border: none;
+    color: #fff;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.delete-btn2 {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    padding: 5px;
+    border-radius: 50%;
+    background-color: #ccc;
+    border: none;
+    color: #fff;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.photoCamera:hover{
+	cursor: pointer;
+}
+
+.photoCamera2:hover{
+	cursor: pointer;
 }
