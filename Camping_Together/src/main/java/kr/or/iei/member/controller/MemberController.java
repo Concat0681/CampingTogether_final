@@ -24,10 +24,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.Gson;
 
 import common.FileManager;
+import javafx.scene.control.Alert;
 import kr.or.iei.camping.model.service.CampingService;
 import kr.or.iei.camping.model.vo.SellCampingListData;
 import kr.or.iei.member.model.service.MailService;
@@ -77,16 +79,18 @@ public class MemberController {
 		return "member/loginFrm";
 	}
 	
+	//로그인
 	@RequestMapping(value = "/login.do")
-	public String login(Member member, HttpSession session){
-	//public String login(Member member) {
-		Member loginMember = service.selectOneMember(member);
-		if(loginMember != null) {
-			session.setAttribute("m", loginMember);
-		}
-		return "redirect:/";
+	public String login(Member member, HttpSession session, RedirectAttributes redirectAttributes) {
+	    Member loginMember = service.selectOneMember(member);
+	    if(loginMember != null) {
+	        session.setAttribute("m", loginMember);
+	        return "redirect:/"; // 로그인 성공 시 이동할 페이지
+	    } else {
+	        redirectAttributes.addFlashAttribute("errorMsg", "로그인 실패했습니다. 다시 시도해주세요."); // 오류 메시지 전달
+	        return "redirect:/joinFrm.do"; // 로그인 실패 시 이동할 페이지
+	    }
 	}
-	
 	
 	//로그아웃
 	@RequestMapping(value = "/logout.do")
@@ -102,7 +106,7 @@ public class MemberController {
 	}
 	//회원가입
 	@RequestMapping(value="/join.do")
-	public String join(Member member) {
+	public String join(Model model, Member member) {
 		int result = service.insertMember(member);
 		if(result >0){
 			System.out.println(result);
@@ -112,10 +116,13 @@ public class MemberController {
 		}else {
 			System.out.println(result);
 			System.out.println(member);
-			return "redirect:/";
+			String errorMsg = "회원가입 실패했습니다. 다시 시도해주세요.";
+	        model.addAttribute("errorMsg", errorMsg);
+	        return "redirect:/joinFrm.do";
 		
 		}
-	
+		
+
 	}
 	
 	//회원가입시 아이디 중복 체크 

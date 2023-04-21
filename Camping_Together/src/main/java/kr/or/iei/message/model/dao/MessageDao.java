@@ -15,11 +15,13 @@ public class MessageDao {
     private SqlSessionTemplate sqlSession;
 
     public int insertMessage(Message message) {
+    	System.out.println(message);
         return sqlSession.insert("message.insertMessage", message);
     }
 
     public ArrayList<Message> selectMessagelist(Message message) {
-        return (ArrayList) sqlSession.selectList("message.selectMessagelist", message);
+        System.out.println("dao"+message);
+    	return (ArrayList) sqlSession.selectList("message.selectMessagelist", message);
     }
 
     public Message selectOneMessage(Message message) {

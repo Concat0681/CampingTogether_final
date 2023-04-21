@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UsedBoardPageDate {
-	private ArrayList<UsedBoard> list;
+public class BlacklistPageData {
+	private ArrayList<Blacklist> blList;
 	private String pageNavi;
 }

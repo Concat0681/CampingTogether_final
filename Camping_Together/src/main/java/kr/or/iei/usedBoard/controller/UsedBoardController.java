@@ -19,7 +19,7 @@ import kr.or.iei.usedBoard.model.vo.Blacklist;
 import kr.or.iei.usedBoard.model.vo.BlacklistPhoto;
 import kr.or.iei.usedBoard.model.vo.UsedBoard;
 import kr.or.iei.usedBoard.model.vo.UsedBoardComment;
-import kr.or.iei.usedBoard.model.vo.UsedBoardPageDate;
+import kr.or.iei.usedBoard.model.vo.UsedBoardPageData;
 import kr.or.iei.usedBoard.model.vo.UsedBoardPhoto;
 
 @Controller
@@ -34,14 +34,12 @@ public class UsedBoardController {
 	public String getTop3UsedBoards(Model model, UsedBoard ub) {
 		ArrayList<UsedBoard> top3UsedBoards = service.getTop3UsedBoards(ub);
         model.addAttribute("top3UsedBoards", top3UsedBoards);
-        System.out.println(model);
-        System.out.println(top3UsedBoards.size());
         return "main/mainIndexList";
     }
 	
 	@RequestMapping(value="/usedBoardList.do")
 	public String usedBoardList(int reqPage, Model model) {
-		UsedBoardPageDate ubpd = service.selectUsedBoardList(reqPage);
+		UsedBoardPageData ubpd = service.selectUsedBoardList(reqPage);
 		model.addAttribute("list", ubpd.getList());
 		model.addAttribute("pageNavi", ubpd.getPageNavi());
 		return "usedBoard/usedBoardList";
@@ -167,6 +165,7 @@ public class UsedBoardController {
 	public String blacklistWriteFrm(int usedBoardNo, Model model) {
 		UsedBoard ub = service.selectBlackUsedBoard(usedBoardNo);
 		model.addAttribute("ub", ub);
+
 		return "usedBoard/blacklistWriteFrm";
 	}
 	
@@ -191,6 +190,15 @@ public class UsedBoardController {
 		}else {
 			return "redirect:/blacklistWriteFrm.do";
 		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/blacklistMyHistory.do", produces = "application/json;charset=utf-8")
+	public String blacklistMyHistory(String memberId){
+		ArrayList<Blacklist> blList = service.selectBlacklistMyHistory(memberId);
+		Gson gson = new Gson();
+		String result = gson.toJson(blList);
+		return result;
 	}
 }
 
