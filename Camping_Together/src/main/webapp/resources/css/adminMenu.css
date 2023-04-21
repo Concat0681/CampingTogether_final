@@ -42,11 +42,28 @@
 
 .menu-list>ul>li>a{
    padding-left: 5px;
+   display: inline-block;
+   width: 100%;
 }
+
+.menu-list>ul>li:hover{
+    background-color: #ad8b7321;
+ }
+
+ .menu-list>ul>li>a:hover{
+    color: #AD8B73;
+ }
 
 .menu-list>ul>li:first-child{
     border-top : 1px solid #AD8B73;
 }
+
+.menu-list>ul>li.active-tab{
+    background-color: #ad8b7321;
+}
+
+
+/*타이틀*/
 
 .admin-content{
     width: 930px;
@@ -219,4 +236,57 @@
     margin-top: 10px;
     color: #AD8B73;
     margin: 0;
+}
+
+/*shop list*/
+.admin-shop{
+    width: 930px;
+    float: right;
+    margin-top: 80px;
+
+}
+.p-list{
+    display: flex;
+    justify-content:space-between;
+    flex-wrap: wrap;
+}
+
+.product-img>img{
+    border-radius: 7px;
+}
+
+.p-info{
+    margin-bottom: 70px;
+}
+
+.product-name{
+    color: #AD8B73;
+    font-size: 23px;
+    padding : 10px 0;
+    border-bottom: 1px solid #AD8B73;
+    font-weight: 500;
+}
+.price{
+    margin-top: 10px;
+    color: #AD8B73;
+}
+
+.count{
+    margin-top: 7px;
+   
+}
+
+.product-img{
+    overflow: hidden;
+    border-radius: 7px;
+}
+.product-img>img {
+    transition: all 0.1s linear;
+  }
+.product-img:hover>img {
+    transform: scale(1.1);
+  }
+
+.p-info>a{
+    color: #737373;
 }

@@ -314,7 +314,7 @@ public class CampingService {
 				file.setCampingRoomNo(cr.getCampingRoomNo());
 				result += dao.insertCampingRoomPhoto(file);
 			}
-
+		
 	
 	@Transactional
 	public int campingReservation(int memberNo, int campingRoomNo, String checkIn, String checkOut) {

@@ -177,6 +177,7 @@
 .title-list>ul>li.active-tab{
     background-color: #AD8B73;
 }
+
 .title-list>ul>li.active-tab>a{
     color:  white;
 }
