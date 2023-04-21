@@ -12,13 +12,15 @@
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
 	<div class="page-wrap">
-		<div class="page-header">
-			<div class="page-header-title">캠핑가자</div>
-			<jsp:include page="/WEB-INF/views/camping/campingListHeader.jsp" />
+		<div class="page-header" style="height: 600px; position : fixed; margin-top : 0px">
 		</div>
 		<div class="page-content">
+			<div class="page-wrap page-content-header" style="background-image:none; z-index : 1; margin-top : 0px; height: 600px;">
+				<div class="page-header-title">캠핑가자</div>
+				<jsp:include page="/WEB-INF/views/camping/campingListHeader.jsp" />
+			</div>
 			<div class="city-menu">
-				<div class="city-title">대한민국 내 인기있는 지역</div>
+				<div class="city-title list-title">대한민국 내 인기있는 지역</div>
 				<div class="city-wrap">
 					<div class="city" id="seoul">
 						<img class="city-img" src="/resources/image/camping/seoul.jpeg">
@@ -46,6 +48,24 @@
 					</div>
 				</div>
 			</div>
+			<div class="most-rating-camping">
+				<div class="rating-camping-title list-title">인기 캠핑장</div>
+				<div class="rating-camping-list">
+				<c:forEach items="${ratingCampingList }" var="c">
+					<div class="camping-box" onclick="viewCamping(${c.campingNo});">
+						<div class="camping-photo">
+							<img src="resources/upload/camping/${c.filepath}">
+							<div class="hidden-div hidden">
+								Quick View
+							</div>
+						</div>
+						<div class="camping-info">
+							<div>${c.campingTitle }</div>
+						</div>
+					</div>
+				</c:forEach>
+				</div>
+			</div>
 		</div>
 	</div>
 	<script>
@@ -53,6 +73,16 @@
 			const cityNameEN = $(this).attr("id");
 			const cityNameKR = $(this).find("div").text();
 			location.href="/campingList.do?cityNameEN="+cityNameEN+"&cityNameKR="+cityNameKR+"&reqPage=1&order=avgReviewRating&pplCount=0";
+		})
+		function viewCamping(campingNo){
+			location.href = "/viewCamping.do?campingNo="+campingNo;
+		}
+		$(".camping-box").on("mouseenter", function(){
+			$(this).find(".hidden-div").slideDown();
+		})
+		
+		$(".camping-box").on("mouseleave", function(){
+			$(this).find(".hidden-div").slideUp()
 		})
 	</script>
 	<script src="resources/js/camping/dateRangePicker.js"></script>

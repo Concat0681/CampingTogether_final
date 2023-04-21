@@ -41,7 +41,13 @@ public class CampingController {
 	}
 	
 	@RequestMapping(value="/campingListMain.do")
-	public String campingListMain() {
+	public String campingListMain(Model model) {
+		int reqPage = 1;
+		String order = "avgReviewRating";
+		CampingRoom campingRoom = new CampingRoom();
+		Camping camping = new Camping();
+		CampingListPageData cpd = service.selectCampingListData(reqPage, order, camping, campingRoom);
+		model.addAttribute("ratingCampingList", cpd.getList());
 		return "camping/campingListMain";
 	}
 	

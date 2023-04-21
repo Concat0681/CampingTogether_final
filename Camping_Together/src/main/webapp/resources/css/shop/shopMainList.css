@@ -37,6 +37,24 @@
 	bottom: 190px;
 	right: 35%;
 }
+.camping-list-menu{
+	width: 80%;
+	padding: 0 100px;
+    margin: 0 auto;
+	margin-bottom: 50px;
+    min-width: 600px;
+	display: flex;
+	justify-content: flex-end;
+}
+.camping-list-menu>div{
+	font-size: 20px;
+	display: flex;
+	margin: 0 10px;
+	height: 50px;
+}
+.camping-list-menu>div>span{
+	font-size: 30px;
+}
 .page-camping-header{
 	background-image: url(../../image/shop/shopCampingBackground.jpg);
 	background-size: 100%;
@@ -115,6 +133,13 @@
 	width: 100%;
 	text-align: center;
 	margin-top: 30px;
+}
+.pagination > li {
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    line-height: 60px;
+    overflow: hidden;
 }
 .shop-footer>button{
 	width: 30%;

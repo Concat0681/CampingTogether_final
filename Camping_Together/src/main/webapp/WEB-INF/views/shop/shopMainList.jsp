@@ -50,6 +50,16 @@
 		</div>
 		<div class="content-slick" id="content-slick">
 			<div class="camping-wrap shop-wrap">
+				<div class="camping-list-menu">
+					<div>	
+						<span class="material-symbols-outlined">filter_alt</span>
+						<div onclick="shopListOrder(this, 0, 1, 'new')">최근순</div>
+					</div>
+					<div>
+						<span class="material-symbols-outlined">filter_alt</span>
+						<div onclick="shopListOrder(this, 0, 1, 'rating')">평점순</div>
+					</div>
+				</div>
 				<div class="camping-list shop-list">
 					<c:forEach items="${campingList }" var="c" varStatus="i">
 						<div class="shop-box" onclick="viewShop(${c.shopNo});">
@@ -69,11 +79,23 @@
 						</div>
 					</c:forEach>
 				</div>
-				<div class="shop-footer">
-					${campingPageNavi }
-				</div>
+				<c:if test="${not empty campingList }">
+					<div class="shop-footer">
+						${campingPageNavi }
+					</div>
+				</c:if>
 			</div>
 			<div class="car-wrap shop-wrap">
+				<div class="camping-list-menu">
+					<div>	
+						<span class="material-symbols-outlined">filter_alt</span>
+						<div onclick="shopListOrder(this, 0, 1, 'new')">최근순</div>
+					</div>
+					<div>
+						<span class="material-symbols-outlined">filter_alt</span>
+						<div onclick="shopListOrder(this, 0, 1, 'rating')">평점순</div>
+					</div>
+				</div>
 				<div class="car-list shop-list">
 					<c:forEach items="${carList }" var="c" varStatus="i">
 						<div class="shop-box" onclick="viewShop(${c.shopNo});">
@@ -93,11 +115,23 @@
 						</div>
 					</c:forEach>
 				</div>
-				<div class="shop-footer">
-					${cargPageNavi }
-				</div>
+				<c:if test="${not empty carList }">
+					<div class="shop-footer">
+						${carPageNavi }
+					</div>
+				</c:if>
 			</div>
 			<div class="etc-wrap shop-wrap">
+				<div class="camping-list-menu">
+					<div>
+						<span class="material-symbols-outlined">filter_alt</span>
+						<div onclick="shopListOrder(this, 0, 1, 'new')">최근순</div>
+					</div>
+					<div>
+						<span class="material-symbols-outlined">filter_alt</span>
+						<div onclick="shopListOrder(this, 0, 1, 'rating')">평점순</div>
+					</div>
+				</div>
 				<div class="etc-list shop-list">
 					<c:forEach items="${etcList }" var="c">
 						<div class="shop-box" onclick="viewShop(${c.shopNo});">
@@ -117,9 +151,11 @@
 						</div>
 					</c:forEach>
 				</div>
-				<div class="shop-footer">
-					${etcPageNavi }
-				</div>
+				<c:if test="${not empty ectList }">
+					<div class="shop-footer">
+						${etcPageNavi }
+					</div>
+				</c:if>
 			</div>
 		</div>
 	</div>
@@ -150,6 +186,53 @@
 				asNavFor: '#page-slick'
 			});
 		})
+		
+		function shopListOrder(obj, shopCategory, reqPage, order){
+			$.ajax({
+				url : "/shopListByOrder.do",
+				type : "get",
+				data : {shopCategory : shopCategory, reqPage : reqPage, order : order},
+				success : function(data){
+					const shopList = $(obj).parents(".shop-wrap").find(".shop-list");
+					const shopFooter =$(obj).parents(".shop-wrap").find(".shop-footer");
+					shopList.empty();
+					shopFooter.empty();
+					data.shopList.forEach(function(c, i){
+						const shopBoxDiv = $("<div>").addClass("shop").attr("onclick", "viewShop('"+c.shopNo+"');");
+						shopBoxDiv.on("mouseenter", function(){
+							$(this).find(".hidden-div").slideDown();
+							const url = $(this).find(".secondPhoto").text();
+							if(url != ""){
+								$(this).find("img").attr("src", "resources/upload/shop/"+url);
+							}
+						})
+						shopBoxDiv.on("mouseleave", function(){
+							$(this).find(".hidden-div").slideUp()
+							const url = $(this).find(".firstPhoto").text();
+							$(this).find("img").attr("src", "resources/upload/shop/"+url);
+						})
+						const shopPhotoDiv = $("<div>").addClass("shop-photo");
+						const img = $("<img>").attr("src", "resources/upload/shop/"+c.shopPhotoList[0].filepath)
+						const secondHiddenDiv = $("<div>");
+						if(c.shopPhotoList.length > 1){
+							secondHiddenDiv.addClass("hidden").addClass("secondPhoto").text(c.shopPhotoList[1].filepath);
+						}
+						const firstHiddenDiv = $("<div>").addClass("hidden").addClass("firstPhoto").text(c.shopPhotoList[0].filepath);
+						const hiddenDiv = $("<div>").addClass("hidden").addClass("hidden-div").text("Quick View");
+						const shopInfoDiv = $("<div>").addClass("shop-info");
+						const shopTitleDiv = $("<div>").text(c.shopTitle);
+						shopPhotoDiv.append(img).append(secondHiddenDiv).append(firstHiddenDiv).append(hiddenDiv);
+						shopInfoDiv.append(shopTitleDiv);
+						shopBoxDiv.append(shopPhotoDiv).append(shopInfoDiv);
+						shopList.append(shopBoxDiv)
+					})
+					shopFooter.append(data.pageNavi);
+				},
+				error : function(e){
+					console.log(e);
+				}
+			})
+		}
 		
 		$(".shop-box").on("mouseenter", function(){
 			$(this).find(".hidden-div").slideDown();
