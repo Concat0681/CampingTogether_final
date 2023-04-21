@@ -290,3 +290,8 @@
 .p-info>a{
     color: #737373;
 }
+
+.infomation>p{
+    color: #737373;
+    float: right;
+}
