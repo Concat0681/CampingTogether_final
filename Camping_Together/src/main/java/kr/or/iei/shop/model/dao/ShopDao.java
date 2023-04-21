@@ -110,4 +110,14 @@ public class ShopDao {
 		int result = sqlSession.delete("shop.deleteOrderWishList", shopNo);
 		return result;
 	}
+
+	public ShopBasket selectMyBasket(ShopBasket basket) {
+		ShopBasket b = sqlSession.selectOne("shop.selectMyBasket", basket);
+		return b;
+	}
+
+	public ShopOrder selectMyOrder(HashMap<String, Object> map) {
+		ShopOrder so = sqlSession.selectOne("shop.selectMyOrder", map);
+		return so;
+	}
 }

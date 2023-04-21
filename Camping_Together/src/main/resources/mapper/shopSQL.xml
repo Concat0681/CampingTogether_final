@@ -31,6 +31,24 @@
 		</if>
 	</select>
 	
+	<select id="selectMyBasket" parameterType="sb" resultType="sb">
+		select
+			basket_no as basketNo,
+			member_id as memberId,
+			shop_no as shopNo
+		from basket
+		where member_id = #{memberId} and shop_no = #{shopNo}
+	</select>
+	
+	<select id="selectMyOrder" parameterType="map" resultType="sod">
+		select
+			payment_no as paymentNo,
+			order_no as orderNo,
+			member_id as memberId
+		from shop_order
+		where member_id = #{memberId} and shop_no = #{shopNo}
+	</select>
+	
 	<select id="selectShopPhotoList" parameterType="_int" resultType="sp">
 		select
 			file_no as fileNo,

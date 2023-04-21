@@ -166,4 +166,17 @@ public class ShopService {
 		}
 		return result;
 	}
+
+	public ShopBasket selectMyBasket(ShopBasket basket) {
+		ShopBasket b = dao.selectMyBasket(basket);
+		return b;
+	}
+
+	public ShopOrder selectMyOrder(String memberId, int shopNo) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("memberId", memberId);
+		map.put("shopNo", shopNo);
+		ShopOrder so = dao.selectMyOrder(map);
+		return so;
+	}
 }

@@ -16,6 +16,7 @@ import com.google.gson.Gson;
 import common.FileManager;
 import kr.or.iei.blacklist.model.service.BlacklistService;
 import kr.or.iei.blacklist.model.vo.Blacklist;
+import kr.or.iei.blacklist.model.vo.BlacklistPageData;
 import kr.or.iei.blacklist.model.vo.BlacklistPhoto;
 import kr.or.iei.usedBoard.model.vo.UsedBoard;
 
@@ -65,4 +66,34 @@ public class BlacklistController {
 		return result;
 	}
 	
+	//신고리스트
+	@RequestMapping(value = "/blackMemberList.do")
+	public String blackMemberList(int reqPage, Model model) {
+		BlacklistPageData blpd = service.selectBlacklistList(reqPage);
+		model.addAttribute("list", blpd.getBlList());
+		model.addAttribute("pageNavi", blpd.getPageNavi());
+		model.addAttribute("index",2);
+		return "member/blackMemberList";
+	}	
+	
+	@RequestMapping(value = "/blacklistView.do")
+	public String blacklistView(int blacklistNo, Model model) {
+		Blacklist bl = service.selectOneBlacklist(blacklistNo);
+		model.addAttribute("bl", bl);
+		return "blacklist/blacklistView";
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

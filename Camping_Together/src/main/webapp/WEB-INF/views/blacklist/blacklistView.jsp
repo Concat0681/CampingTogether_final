@@ -29,7 +29,11 @@
 			<hr>
 		</div>
 		<div class="content-wrap">
-			
+			<table>
+				<tr>
+					<td>
+				</tr>
+			</table>
 		</div>
 	</div>
 </body>

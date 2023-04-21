@@ -134,7 +134,15 @@ public class CampingService {
 		map.put("start", start);
 		map.put("end", end);
 		map.put("memberId", memberId);
+		ArrayList<CampingRoomFileVO> fileList = new ArrayList<CampingRoomFileVO>();
 		ArrayList<SellCampingList> campingList = dao. getSellCampingList(map);
+		for(SellCampingList scl : campingList) {
+			for(CampingRoom cr : scl.getCampingRoomList()) {
+				fileList = dao.selectCampingRoomFileList(cr.getCampingRoomNo());
+				cr.setFileList(fileList);
+			}
+		}
+		System.out.println(campingList);
 		int totalCount = dao.selectSellCampingCount(map);
 		int totalPage = (int)Math.ceil(totalCount/(double)numPerPage);
 		int pageNaviSize = 5;
@@ -313,6 +321,7 @@ public class CampingService {
 				file.setCampingRoomNo(cr.getCampingRoomNo());
 				result += dao.insertCampingRoomPhoto(file);
 			}
+
 		}
 		return result;
 	}

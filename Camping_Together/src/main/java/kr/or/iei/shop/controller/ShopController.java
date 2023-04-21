@@ -103,7 +103,10 @@ public class ShopController {
 	}
 	
 	@RequestMapping(value="/viewShop.do")
-	public String viewShop(int shopNo, int reqPage, int menu, Model model) {
+	public String viewShop(int shopNo, int reqPage, int menu, String memberId, Model model) {
+		if(memberId != null) {
+			ShopOrder so = service.selectMyOrder(memberId, shopNo);
+		}
 		Shop shop = service.selectOneShop(shopNo);
 		ShopReviewListData srld = service.selectShopReviewList(shopNo, reqPage);
 		model.addAttribute("shop", shop);
@@ -193,11 +196,16 @@ public class ShopController {
 	@ResponseBody
 	@RequestMapping(value="/insertBasket.do")
 	public String insertBasket(ShopBasket basket) {
-		int result = service.insertBasket(basket);
-		if(result > 0) {
-			return "ok";
+		ShopBasket b = service.selectMyBasket(basket);
+		if(b == null) {
+			int result = service.insertBasket(basket);
+			if(result > 0) {
+				return "ok";
+			} else {
+				return "fail";
+			}
 		} else {
-			return "fail";
+			return "exist";
 		}
 	}
 	

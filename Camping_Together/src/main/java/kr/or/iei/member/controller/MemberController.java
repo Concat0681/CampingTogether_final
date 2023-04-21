@@ -34,6 +34,7 @@ import kr.or.iei.camping.model.service.CampingService;
 import kr.or.iei.camping.model.vo.SellCampingListData;
 import kr.or.iei.member.model.service.MailService;
 import kr.or.iei.member.model.service.MemberService;
+import kr.or.iei.member.model.vo.AdminShopPageData;
 import kr.or.iei.member.model.vo.AllMemberPageData;
 import kr.or.iei.member.model.vo.CampingPayment;
 import kr.or.iei.member.model.vo.FileVO;
@@ -301,29 +302,32 @@ public class MemberController {
 	}
 	
 	
+	//shop 판매상품(관리자)
 	@RequestMapping(value = "/shopProductList.do")
-	public String shopList(Member member, int reqPage, Model model) {
-		
+	public String shopList(String memberId, int reqPage, Model model) {
+		AdminShopPageData aspd = service.selectAdminShopList(memberId, reqPage);
+		System.out.println(aspd.getList());
+		model.addAttribute("list",aspd.getList());
+		model.addAttribute("navi",aspd.getPageNavi());
+		model.addAttribute("count",aspd.getTotalCount());
+		model.addAttribute("index",0);
 		return "member/shopList";
 	}
+	
+	
 	
 	//전체 회원
 	@RequestMapping(value = "/allMember.do")
 	public String allMember(int reqPage, Model model) {
 		AllMemberPageData apd = service.selectAllMember(reqPage);
-		
 		model.addAttribute("list",apd.getList());
 		model.addAttribute("navi", apd.getPageNavi());
 		model.addAttribute("count", apd.getTotalCount());
+		model.addAttribute("index",1);
 		return "member/allMemberList";
 	}
 	
-	//신고당한회원
-	@RequestMapping(value = "/blackMemberList.do")
-	public String blackMemberList(int reqPage, Model model) {
-		
-		return "member/blackMemberList";
-	}
+
 	
 	//판매자 정보 수정
 	@RequestMapping(value = "/mypageS.do")
