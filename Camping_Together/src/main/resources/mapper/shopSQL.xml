@@ -40,6 +40,15 @@
 		where member_id = #{memberId} and shop_no = #{shopNo}
 	</select>
 	
+	<select id="selectMyOrder" parameterType="map" resultType="sod">
+		select
+			payment_no as paymentNo,
+			order_no as orderNo,
+			member_id as memberId
+		from shop_order
+		where member_id = #{memberId} and shop_no = #{shopNo}
+	</select>
+	
 	<select id="selectShopPhotoList" parameterType="_int" resultType="sp">
 		select
 			file_no as fileNo,
