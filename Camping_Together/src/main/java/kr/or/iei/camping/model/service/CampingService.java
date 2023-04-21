@@ -314,6 +314,9 @@ public class CampingService {
 				file.setCampingRoomNo(cr.getCampingRoomNo());
 				result += dao.insertCampingRoomPhoto(file);
 			}
+		}
+		return result;
+	}
 
 	
 	@Transactional

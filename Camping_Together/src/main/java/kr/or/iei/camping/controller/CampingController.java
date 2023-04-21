@@ -49,6 +49,9 @@ public class CampingController {
 		CampingRoom campingRoom = new CampingRoom();
 		Camping camping = new Camping();
 		CampingListPageData cpd = service.selectCampingListData(reqPage, order, camping, campingRoom);
+		order = "new";
+		CampingListPageData newCpd = service.selectCampingListData(reqPage, order, camping, campingRoom);
+		model.addAttribute("newCampingList",newCpd.getList());
 		model.addAttribute("ratingCampingList", cpd.getList());
 		return "camping/campingListMain";
 	}

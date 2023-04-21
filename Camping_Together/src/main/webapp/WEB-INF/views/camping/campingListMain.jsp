@@ -15,8 +15,8 @@
 		<div class="page-header" style="height: 600px; position : fixed; margin-top : 0px">
 		</div>
 		<div class="page-content">
-			<div class="page-wrap page-content-header" style="background-image:none; z-index : 1; margin-top : 0px; height: 600px;">
-				<div class="page-header-title">캠핑가자</div>
+			<div class="page-wrap page-content-header" style="background-image:none; z-index : 2; margin-top : 0px; width : 100%; height: 600px;">
+				<div class="page-header-title" style="font-size: 70px; font-family: aggro-bold;">캠핑가자</div>
 				<jsp:include page="/WEB-INF/views/camping/campingListHeader.jsp" />
 			</div>
 			<div class="city-menu">
@@ -48,10 +48,28 @@
 					</div>
 				</div>
 			</div>
-			<div class="most-rating-camping">
+			<div class="camping-list-wrap">
 				<div class="rating-camping-title list-title">인기 캠핑장</div>
-				<div class="rating-camping-list">
+				<div class="camping-list">
 				<c:forEach items="${ratingCampingList }" var="c">
+					<div class="camping-box" onclick="viewCamping(${c.campingNo});">
+						<div class="camping-photo">
+							<img src="resources/upload/camping/${c.filepath}">
+							<div class="hidden-div hidden">
+								Quick View
+							</div>
+						</div>
+						<div class="camping-info">
+							<div>${c.campingTitle }</div>
+						</div>
+					</div>
+				</c:forEach>
+				</div>
+			</div>
+			<div class="camping-list-wrap">
+				<div class="new-camping-title list-title">신규 캠핑장</div>
+				<div class="camping-list">
+				<c:forEach items="${newCampingList }" var="c">
 					<div class="camping-box" onclick="viewCamping(${c.campingNo});">
 						<div class="camping-photo">
 							<img src="resources/upload/camping/${c.filepath}">
