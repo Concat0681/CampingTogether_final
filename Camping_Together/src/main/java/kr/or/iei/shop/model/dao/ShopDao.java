@@ -115,4 +115,9 @@ public class ShopDao {
 		ShopBasket b = sqlSession.selectOne("shop.selectMyBasket", basket);
 		return b;
 	}
+
+	public ShopOrder selectMyOrder(HashMap<String, Object> map) {
+		ShopOrder so = sqlSession.selectOne("shop.selectMyOrder", map);
+		return so;
+	}
 }

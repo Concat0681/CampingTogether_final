@@ -144,22 +144,12 @@
 		from camping_service where camping_no = #{_parameter}
 	</select>
 	
-	<select id="getSellCampingList" parameterType="map" resultType="scl">
+	<select id="getSellCampingList" parameterType="map" resultType="scl" resultMap="getSellCampingList">
 		select * from	
 			(Select
-				rownum as rnum,
-		        c.camping_title as campingTitle,
-		        c.camping_sido as campingSido,
-		        c.camping_no as campingNo,
-		        cr.camping_room_no as campingRoomNO,
-		        cr.camping_room_title as campingRoomTitle,
-		        (select filepath from camping_room_photo crp
-		        where camping_room_photo_no =
-		            (select min(camping_room_photo_no)
-		            from camping_room_photo crp
-		            where crp.camping_room_no = cr.camping_room_no)
-		        )filepath
-		    from camping c JOIN CAMPING_ROOM CR ON (C.CAMPING_NO = CR.CAMPING_NO)
+				c.*,
+				rownum as rnum
+		    from camping c
 		    WHERE MEMBER_ID = #{memberId}
 		    order by 1 desc)
 		<if test="start != null">
@@ -176,6 +166,20 @@
 		from camping_room_service where camping_no = #{_parameter}
 	</select>
 	
+	
+	<resultMap type="scl" id="getSellCampingList">
+		<result column="camping_no" property="campingNo"/>
+		<result column="member_id" property="memberId"/>
+		<result column="camping_title" property="campingTitle"/>
+		<result column="camping_sido" property="campingSido"/>
+		<result column="filepath" property="filepath"/>
+		<collection property="campingRoomList"
+					select="selectAllCampingRoomList"
+					column="camping_no"
+					ofType="cr"
+					javaType="java.util.ArrayList"
+		/>
+	</resultMap>
 	
 	<select id="selectCampingEtcList" parameterType="_int" resultType="ce">
 		select
