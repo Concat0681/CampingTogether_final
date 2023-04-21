@@ -148,10 +148,10 @@
 									</div>
 								</div>
 								<div class="room-box">
-									<div class="camping-Type">${r.campingRoomTitle }</div>
+									<div>${r.campingRoomTitle }</div>
 									<div class="room-price-box">
 										<div>가격</div>
-										<div class="price">${r.campingRoomPrice }</div>
+										<div>${r.campingRoomPrice }</div>
 									</div>
 									<div class="room-basic-info">
 										<a>
@@ -160,18 +160,7 @@
 										</a>
 									</div>
 									<div class="room-btn-box">
-										<%--결제하기 캠핑 정보 --%>
-										<form action="reservationFrm.do?checkIn=${checkIn }&checkOut=${checkOut}" method="post">
-											<input type="hidden" name="memberNo" value="${sessionScope.m.memberNo }">
-											<input type="hidden" name="campingRoomNo" value="${r.campingRoomNo }">
-											<input type="hidden" name="checkIn1"  value="${checkIn }">
-											<input type="hidden" name="checkOut1" value="${checkOut }">
-											<input type="hidden" name="campingTitle" value="${camping.campingTitle } ">
-											<input type="hidden" name="campingType" value="${r.campingRoomTitle }">
-											<input type="hidden" name="price" value="${r.campingRoomPrice }">
-											<input type="hidden" name="addr" value="${camping.campingAddr }">
-											<button type="submit" class="btn2 reservationBtn">예약하기</button>
-										</form>
+										<button type="button" class="btn2">예약하기</button>
 									</div>
 								</div>
 							</div>
@@ -422,7 +411,7 @@
 											      			<td>
 											      				<input type="file" onchange="loadImg2(this);" id="campingReviewFilepath2" name="campingReviewFilepath" multiple style="display: none;">
 											      				<label for="campingReviewFilepath2">
-															    	<span class="material-symbols-outlined photoCamera2">photo_camera</span>
+															    	<span class="material-symbols-outlined photoCamera">photo_camera</span>
 															    </label>
 											      			</td>
 											      		</tr>
@@ -489,10 +478,6 @@
 			</div>
 		</div>
 	</div>
-	<%--결제에 필요한 멤버정보 --%>
-	<input type="hidden" class="memberId" value="${sessionScope.m.memberId }">
-	<input type="hidden" class="memberPhone" value="${sessionScope.m.memberPhone }">
-	<input type="hidden" class="memberEmail" value="${sessionScope.m.memberEmail }">
 	<script src="resources/js/camping/dateRangePicker.js"></script>
 	<script>
 		let map;
@@ -798,8 +783,6 @@
 	
 	<script>
 		function loadImg(input) {
-			  // 기존에 있는 이미지 삭제
-			  $('#img-viewer img').remove();
 			  
 			  if (input.files && input.files.length > 0) {
 			    for (let i = 0; i < input.files.length; i++) {
@@ -1066,30 +1049,5 @@
 	});
 	
 </script>
-	//결제
-// 		var memberId = $(".memberId").val();
-// 		var memberPhone = $(".memberPhone").val();
-// 		var memberEmail = $(".memberEmail").val();
-// 		var campingTitle = $(".camping-title").text();
-// 		var campingType = $(".camping-Type").text();
-// 		var price = $(".price").text();
-// 		$(".reservationBtn").on("click",function(){
-// 		var checkIn = $("[name=checkIn]").val();
-// 		$("[name=checkIn1]").val(checkIn);
-// 		var checkOut = $("[name=checkOut]").val();
-// 		$("[name=checkOut1]").val(checkOut);
-					
-// 		});
-	
-// 		$("[name=checkOut]").on("change",function(){
-// 		var checkIn = $("[name=checkIn]").val();
-// 		var checkOut = $("[name=checkOut]").val();
-// 		$("[name=checkIn1]").val(checkIn);
-// 		$("[name=checkOut1]").val(checkOut);
-					
-// 		});
-		
-		
-	</script>
 </body>
 </html>

@@ -14,6 +14,45 @@
   		height: 210px;
   		padding: 5px;
 	}
+	
+	#img-viewer2 {
+    display: flex;
+    flex-wrap: nowrap;
+    max-width: 100%;
+    overflow-x: auto;
+    margin-top: 70px;
+    margin-bottom: 20px;
+  }
+  
+  .img-wrapper2 {
+    position: relative;
+    margin-right: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .review-img2 {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+  
+  .delete-btn2 {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .closeColor{
+    color: black;
+    background-color: #fff;
+  }
 </style>
 </head>
 <body>
@@ -21,7 +60,7 @@
 	<div class="wrap" style="margin-top: 300px;">
         <div class="contentWrap">
         	<div class="contentDetail">
-        		<h2 style="margin-bottom: 60px;">캠핑장 캠핑 등록</h2>
+        		<h2 style="margin-bottom: 60px;">${campingTitle } 캠핑 추가 등록</h2>
         		<form action="/campingRoomWrite.do" method="post" enctype="multipart/form-data">
         			<input type="hidden" name="campingNo" value="${campingNo }">
 	        		<table>
@@ -66,7 +105,10 @@
 	       			</div>
 	        		<div class="contentTitle"><h3>사진</h3>
 	        		<h5>최소 3개 이상의 파일을 등록해주세요.</h5>
-	        			<input type="file" name="campingRoomFilepath" onchange="loadImgs(this);" id="campingRoomFilepath" multiple>
+	        			<input type="file" name="campingRoomFilepath" onchange="loadImgs(this);" id="campingRoomFilepath" style="display: none;" multiple>
+	        			<label for="campingRoomFilepath">
+	        				<span class="material-symbols-outlined photoCamera2" style="font-size: 250px;">photo_camera</span>
+	        			</label>
 	        			<div id="img-viewer2">
 	        			
 	                    </div>
@@ -139,16 +181,24 @@
 	</script>
 	
 	<script>
-		function loadImgs(input) {
-		  // 기존에 있는 이미지 삭제
-		  $('#img-viewer2 img').remove();
+	function loadImgs(input) {
 		  
 		  if (input.files && input.files.length > 0) {
 		    for (let i = 0; i < input.files.length; i++) {
 		      const reader = new FileReader();
 		      reader.readAsDataURL(input.files[i]);
 		      reader.onload = function(e) {
-		        $("<img>").attr("src", e.target.result).attr("id", "img-" + i).appendTo("#img-viewer2"); // 이미지를 보여줄 DOM 엘리먼트에 추가
+		        const imgWrapper2 = $("<div>").addClass("img-wrapper2");
+		        const img2 = $("<img>").attr("src", e.target.result)
+		                              .addClass("review-img2");
+		        const deleteBtn2 = $("<button>").html("<span class='material-symbols-outlined closeColor'>close</span>")
+		                                        .addClass("delete-btn2")
+		                                        .attr("type", "button");
+		        imgWrapper2.append(img2).append(deleteBtn2).appendTo("#img-viewer2");
+		        
+		        deleteBtn2.on("click", function() {
+		          $(this).parent().remove();
+		        });
 		      }
 		    }
 		  }
