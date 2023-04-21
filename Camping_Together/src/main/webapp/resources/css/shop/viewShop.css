@@ -12,20 +12,21 @@
 	justify-content: space-evenly;
 }
 .slider-box{
-	width: 40%;
+	width: 30%;
 	min-width: 350px;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
 }
 .slider-for img{
-	height: 300px;
+	width: 300px;
+	height: 350px;
 }
 .slider-nav{
 	display: flex;
 }
 .slider-nav img{
-	height: 150px;
+	height: 120px;
 }
 .product-info-wrap{
 	min-width: 350px;

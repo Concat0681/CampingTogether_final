@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="blacklist">
+
+	<!-- 신고할 게시글 정보 조회 -->
+	<select id="selectBlackUsedBoard" parameterType="_int" resultType="ub">
+		select 
+			used_board_no as usedBoardNo,
+			used_board_writer as usedBoardWriter,
+			used_board_title as usedBoardTitle
+		from used_board
+		where used_board_no = #{_parameter}
+	</select>
+		<!-- 블랙리스트 insert -->
+	<insert id="insertBlacklist" parameterType="bl">
+		insert into blacklist 
+		values(
+			blacklist_seq.nextval,
+			#{usedBoardNo},
+			#{memberId},
+			#{blacklistMemberId},
+			#{blacklistType},
+			0,
+			to_char(sysdate, 'yyyy-mm-dd hh24:mi:ss'),
+			#{blacklistContent}		
+		)
+		<selectKey resultType="_int" order="AFTER" keyProperty="blacklistNo">
+				select max(blacklist_no) from blacklist
+		</selectKey>
+	</insert>
+	<insert id="insertBlacklistPhoto" parameterType="blp">
+		insert into blacklist_photo 
+		values(
+			blacklist_photo_seq.nextval,
+			#{blacklistNo},
+			#{filepath},
+			#{filename}
+		)
+	</insert>
+	<!-- 내가작성한 신고글리스트 select -->
+	<select id="selectBlacklistMyHistory" parameterType="string" resultType="bl">
+		select 
+		    blacklist_no as blacklistNo,
+		    member_id as memberId,
+		    blacklist_member_id as blacklistMemberId,
+		    blacklist_status as blacklistStatus,
+		    blacklist.reg_date as regDate,
+		    blacklist_content as blacklistContent,
+		    used_board_title as blackUsedBoardTitle,
+		    used_board_no as blackUsedBoardNo 
+		from blacklist join used_board using(used_board_no) 
+		where member_id like #{_parameter}
+		order by regDate desc
+	</select>
+	<!-- 신고글 리스트(관리자확인) -->
+	<select id="selectAllBlacklist" parameterType="map" resultType="bl">
+		select *
+		from
+		    (select rownum as rnum, ub.* from 
+		        (select 
+		            blacklist_no as BlacklistNo,
+                    used_board_no as usedBoardNo,
+                    blacklist_member_id as blacklistMemberId,
+                    blacklist_type as BlacklistType,
+                    blacklist_status as blacklistStatus,
+                    reg_date as regDate
+		        from blacklist 
+		        order by 1 desc)ub)
+		where rnum between #{start} and #{end}
+	</select>
+	<select id="selectBlacklistCount" resultType="_int">
+		select count(*) from blacklist
+	</select>
+	<!-- 신고글 상세 -->
+	<select id="selectOneBlacklist" parameterType="_int" resultType="bl">
+		select
+			blacklist_no as blacklistNo,
+			used_board_no as usedBoardNo,
+			member_id as MemberId,
+			blacklist_member_id as blacklistMemberId,
+			blacklist_type as blacklistType,
+			blacklist_status as blaclistStatus,
+			reg_date as RegDate,
+			blacklist_content as blacklistContent
+		from blacklist
+		where blacklist_no = #{_parameter}
+	</select>
+	<select id="selectOneBlacklistPhoto" parameterType="_int" resultType="blp">
+		select
+			blacklist_photo_no as blacklistPhotoNo,
+			blacklist_no as blacklistNo,
+			filepath,
+			filename
+		from blacklist_photo
+		where blacklist_no = #{_parameter}
+	</select>
+</mapper>

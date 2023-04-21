@@ -11,6 +11,18 @@
   font-family: ng-regular;
   src: url(../font/Nanum_Gothic/NanumGothic-Regular.ttf);
 }
+@font-face {
+  font-family: aggro-bold;
+  src: url(../font/aggro/SB_AGGRO_OTF_B.otf);
+}
+@font-face {
+  font-family: aggro-large;
+  src: url(../font/aggro/SB_AGGRO_OTF_L.otf);
+}
+@font-face {
+  font-family: aggro-medium;
+  src: url(../font/aggro/SB_AGGRO_OTF_M.otf);
+}
 
 /* 
     占쎈쐻占쎈윞占쎈�э옙�쐻占쎈윪�얠±�쐻占쎈윥獄�占� 占쎈쐻占쎈윞占쎈�э옙�쐻占쎈윪占쎈츛 占쎈쐻占쎈윞占쎈룿占쎈쐻占쎈윞筌랃옙 

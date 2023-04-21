@@ -8,11 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import kr.or.iei.blacklist.model.vo.Blacklist;
+import kr.or.iei.blacklist.model.vo.BlacklistPageData;
+import kr.or.iei.blacklist.model.vo.BlacklistPhoto;
 import kr.or.iei.member.model.vo.Member;
 import kr.or.iei.usedBoard.model.dao.UsedBoardDao;
-import kr.or.iei.usedBoard.model.vo.Blacklist;
-import kr.or.iei.usedBoard.model.vo.BlacklistPageData;
-import kr.or.iei.usedBoard.model.vo.BlacklistPhoto;
 import kr.or.iei.usedBoard.model.vo.UsedBoard;
 import kr.or.iei.usedBoard.model.vo.UsedBoardComment;
 import kr.or.iei.usedBoard.model.vo.UsedBoardPageData;
@@ -34,7 +34,7 @@ public class UsedBoardService {
 		ArrayList<UsedBoard> list = dao.selectUsedBoardList(map);
 		int totalCount = dao.selectBoardCount();
 		int totalPage = (int)Math.ceil(totalCount/(double)numPerPage);
-		int pageNaviSize = 10;
+		int pageNaviSize = 5;
 		
 		int pageNo = 1;
 		if(reqPage > 3) {
@@ -161,30 +161,10 @@ public class UsedBoardService {
 		return dao.updateUsedBoardStatus(usedBoardNo);
 	}
 
-	public UsedBoard selectBlackUsedBoard(int usedBoardNo) {
-		return dao.selectBlackUsedBoard(usedBoardNo);
-	}
 	public ArrayList<UsedBoard> getTop3UsedBoards(UsedBoard ub) {
 		return dao.getTop3UsedBoards(ub);
 
 	}
-
-	public int insertBlacklist(Blacklist bl, ArrayList<BlacklistPhoto> photoList) {
-		int result = dao.insertBlacklist(bl);
-		if(result > 0) {
-			for(BlacklistPhoto photo : photoList) {
-				photo.setBlacklistNo(bl.getBlacklistNo());
-				result += dao.insertBlacklistPhoto(photo);
-			}
-		}
-		return result;
-	}
-
-	public ArrayList<Blacklist> selectBlacklistMyHistory(String memberId) {
-		return dao.selectBlacklistMyHistory(memberId);
-	}
-
-
 }
 
 

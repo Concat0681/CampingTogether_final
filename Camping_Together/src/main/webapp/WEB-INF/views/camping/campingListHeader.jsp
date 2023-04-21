@@ -32,7 +32,6 @@
 							<li id="jeonla-do" class="sido">전라</li>
 							<li id="gyeongsang-do" class="sido">경상</li>
 							<li id="jeju-do" class="sido">제주</li>
-							<li id="all" class="sido">모두보기</li>
 						</ul>
 					</div>
 					<c:choose>
@@ -47,6 +46,7 @@
 					</c:choose>
 					<div class="hidden-search">
 						<ul>
+							<li id="placeholder">도를 선택해주세요</li>
 							<li id="incheon" class="cityName gyeonggi-do all">인천</li>
 							<li id="seoul" class="cityName gyeonggi-do all">서울</li>
 							<li id="busan" class="cityName gyeongsang-do all">부산</li>
