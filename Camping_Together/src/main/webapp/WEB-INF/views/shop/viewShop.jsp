@@ -402,8 +402,11 @@
 				data : {memberId : memberId, shopNo : shopNo},
 				type : "post",
 				success : function(data){
-					console.log(data);
-					alert("장바구니에 추가 되었습니다");
+					if(data =="exist"){
+						alert("장바구니에 이미 추가 되어 있습니다");						
+					} else {
+						alert("장바구니에 추가 되었습니다");
+					}
 				},
 				error : function(){
 					

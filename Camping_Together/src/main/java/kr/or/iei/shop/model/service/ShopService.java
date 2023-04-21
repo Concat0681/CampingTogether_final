@@ -166,4 +166,9 @@ public class ShopService {
 		}
 		return result;
 	}
+
+	public ShopBasket selectMyBasket(ShopBasket basket) {
+		ShopBasket b = dao.selectMyBasket(basket);
+		return b;
+	}
 }

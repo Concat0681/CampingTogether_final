@@ -193,11 +193,16 @@ public class ShopController {
 	@ResponseBody
 	@RequestMapping(value="/insertBasket.do")
 	public String insertBasket(ShopBasket basket) {
-		int result = service.insertBasket(basket);
-		if(result > 0) {
-			return "ok";
+		ShopBasket b = service.selectMyBasket(basket);
+		if(b == null) {
+			int result = service.insertBasket(basket);
+			if(result > 0) {
+				return "ok";
+			} else {
+				return "fail";
+			}
 		} else {
-			return "fail";
+			return "exist";
 		}
 	}
 	
