@@ -38,7 +38,12 @@
 						<td>${l.rnum }</td>
 						<td>${l.campingTitle }</td> 
 						<td>${l.campingSido }</td> 
-						<td>${l.campingRoomTitle }</td>
+						
+						<td>
+							<c:forEach items="${l.campingRoomList }" var="r">
+								${r.campingRoomTitle}
+							</c:forEach>
+						</td>
 						<td><div><a href="#"><img class="camping-img"  src="/resources/upload/campingRoom/${l.filepath } }"></a></div></td> 
 					</tr>
 				</c:forEach> 
@@ -56,8 +61,8 @@
 	<c:forEach items="${list }" var="l">
 		<div>${l.campingTitle }</div>
 		<a href="/campingRoomWriteFrm.do?campingNo=${l.campingNo }&campingTitle=${l.campingTitle }">캠핑추가</a>
-		<a href="javascript:void(0)" class="deleteCampingRoom" onclick="deleteCampingRoom(this,${l.campingRoomNo },${l.campingNo })">캠핑삭제</a>
-		<a href="/updateCampingRoomFrm.do?campingRoomNo=${l.campingRoomNo }">캠핑수정</a>
+		<a href="javascript:void(0)" class="deleteCampingRoom" onclick="deleteCampingRoom(this,null,${l.campingNo })">캠핑삭제</a>
+		<a href="/updateCampingRoomFrm.do?campingRoomNo=">캠핑수정</a>
 		<a href="javascript:void(0)" class="deleteCamping" onclick="deleteCamping(this,${l.campingNo })">캠핑장삭제</a>
 	</c:forEach>
 		${navi }
