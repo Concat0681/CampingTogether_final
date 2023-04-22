@@ -83,6 +83,10 @@
 								<button class="btn1 loginBtn">Buy</button>
 								<button type="button" class="btn1 loginBtn">Cart</button>
 							</c:when>
+							<c:when test="${sessionScope.m.memberGrade == 'a' }">
+								<button class="btn1" id="updateShopBtn">수정</button>
+								<button class="btn1" id="deleteShopBtn">삭제</button>
+							</c:when>
 							<c:otherwise>
 								<button class="btn1" id="payBtn">Buy</button>
 								<button type="button" id="shopCartBtn" class="btn1">Cart</button>
@@ -118,6 +122,12 @@
 						<div id="avgRating">${shop.avgRating }</div>
 					</div>
 					</div>
+					<c:if test="${empty shopReviewList }">
+						<div class="no-result-wrap">
+							<img src="/resources/image/logo/logo250x80.png">
+							<h3>리뷰가 없습니다</h3>
+						</div>
+					</c:if>
 					<div class="review-list-wrap">
 						<c:forEach items="${shopReviewList }" var="r" varStatus="i">
 							<div class="review-box">
@@ -201,9 +211,13 @@
 								</form>
 							</div>
 						</c:forEach>
-						<div class="pagination">${reviewPageNavi }</div>
+						<c:if test="${not empty  shopReviewList}">
+							<div class="pagination">${reviewPageNavi }</div>
+						</c:if>
 					</div>
-					<button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#commentFrm" aria-expanded="false" aria-controls="collapseCommentFrm">댓글쓰기</button>
+					<c:if test="${not empty shopOrder }">
+						<button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#commentFrm" aria-expanded="false" aria-controls="collapseCommentFrm">댓글쓰기</button>
+					</c:if>
 					<div class="collapse" id="commentFrm">
 						<div class="card card-body">
 							<form id="commentForm" action="/insertShopComment.do" method="post" enctype="multipart/form-data">

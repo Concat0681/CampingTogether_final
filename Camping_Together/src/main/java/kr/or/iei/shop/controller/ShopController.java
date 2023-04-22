@@ -104,14 +104,16 @@ public class ShopController {
 	
 	@RequestMapping(value="/viewShop.do")
 	public String viewShop(int shopNo, int reqPage, int menu, String memberId, Model model) {
+		ShopOrder shopOrder = null;
 		if(memberId != null) {
-			ShopOrder so = service.selectMyOrder(memberId, shopNo);
+			shopOrder = service.selectMyOrder(memberId, shopNo);
 		}
 		Shop shop = service.selectOneShop(shopNo);
 		ShopReviewListData srld = service.selectShopReviewList(shopNo, reqPage);
 		model.addAttribute("shop", shop);
 		model.addAttribute("menu", menu);
 		model.addAttribute("reqPage", reqPage);
+		model.addAttribute("shopOrder", shopOrder);
 		model.addAttribute("shopReviewList", srld.getShopReviewList());
 		model.addAttribute("reviewPageNavi", srld.getReviewPageNavi());
 		return "shop/viewShop";
