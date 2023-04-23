@@ -134,7 +134,15 @@ public class CampingService {
 		map.put("start", start);
 		map.put("end", end);
 		map.put("memberId", memberId);
+		ArrayList<CampingRoomFileVO> fileList = new ArrayList<CampingRoomFileVO>();
 		ArrayList<SellCampingList> campingList = dao. getSellCampingList(map);
+		for(SellCampingList scl : campingList) {
+			for(CampingRoom cr : scl.getCampingRoomList()) {
+				fileList = dao.selectCampingRoomFileList(cr.getCampingRoomNo());
+				cr.setFileList(fileList);
+			}
+		}
+		System.out.println(campingList);
 		int totalCount = dao.selectSellCampingCount(map);
 		int totalPage = (int)Math.ceil(totalCount/(double)numPerPage);
 		int pageNaviSize = 5;
@@ -313,10 +321,14 @@ public class CampingService {
 				file.setCampingRoomNo(cr.getCampingRoomNo());
 				result += dao.insertCampingRoomPhoto(file);
 			}
+
 		}
 		return result;
 	}
 
+		}
+		return result;
+	}
 	
 	@Transactional
 	public int campingReservation(int memberNo, int campingRoomNo, String checkIn, String checkOut) {
@@ -358,9 +370,27 @@ public class CampingService {
 		
 	}
 
-	public CampingReservation selectRoomMemberNo(int memberNo) {
-		return dao.selectRoomMemberNo(memberNo);
+	public CampingReservation selectRoomMemberNo(int campingRoomNo) {
+		return dao.selectRoomMemberNo(campingRoomNo);
 	}
+
+	public ArrayList<CampingReservation> selectReservationList(CampingReservation cr) {
+		ArrayList<CampingReservation> reservationList = dao.selectReservationList(cr);
+		return reservationList;
+	}
+
+	public CampingReservation selectReservation(CampingReservation cr) {
+		return dao.selectReservation(cr);
+	}
+
+	public CampingRoom selectCampingRoom(Camping c) {
+		return dao.selectCampingRoom(c);
+	}
+
+	
+
+
+
 
 
 	

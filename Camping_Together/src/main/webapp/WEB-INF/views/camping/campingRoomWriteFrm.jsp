@@ -53,10 +53,26 @@
     color: black;
     background-color: #fff;
   }
+  
+  .backgroundPhoto {
+			width: 100%;
+			height: 100%;
+			background-color: green;
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index: -1;
+		}
+
+		.wrap {
+			position: relative;
+			z-index: 1;
+		}
 </style>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
+	<div class="backgroundPhoto"></div>
 	<div class="wrap" style="margin-top: 300px;">
         <div class="contentWrap">
         	<div class="contentDetail">
@@ -79,7 +95,7 @@
 	        			<tr>
 	        				<td style="width: 120px; font-size: 1.17em; font-weight: bold; padding-bottom: 20px;">1박당 가격</td>
 	        				<td style="padding-bottom: 20px;">
-	        					<input type="text" class="input-long" name="campingRoomPrice">
+	        					<input type="text" class="input-long" name="campingRoomPrice" placeholder="최소 100원부터 최대 1억까지 등록 가능합니다.">
 	        				</td>
 	        			</tr>
 						<tr>
@@ -132,7 +148,7 @@
 		  const campingRoomType = $("[name=campingRoomType]:checked").val();
 		  const campingRoomFilepath = $("[name=campingRoomFilepath]");
 
-		  if (campingRoomTitle != "" && campingRoomCount != "" && campingRoomPrice != "" && campingRoomMaxPplCount != "" && campingRoomContent != "" && campingRoomType != null && campingRoomFilepath.get(0).files.length >= 3) {
+		  if (campingRoomTitle != "" && campingRoomCount != "" && campingRoomPrice != "" && campingRoomMaxPplCount != "" && campingRoomContent != "" && campingRoomType != null && $('#img-viewer2').children('.img-wrapper2').length >= 3) {
 		    // 모든 값이 공백이 아닐 때 서브밋 동작
 		  } else {
 		    alert("입력란을 모두 확인해주세요.");
@@ -203,6 +219,27 @@
 		    }
 		  }
 		}
+	</script>
+	
+	<script>
+	$(document).ready(function() {
+	    $('input[name="campingRoomPrice"]').on('input', function() {
+	        // 현재 입력된 값에서 숫자 이외의 문자를 제거합니다.
+	        var value = $(this).val().replace(/[^0-9]/g, '');
+	        // 100 이상 10000000 이하의 정수인지 확인합니다.
+	        if (value >= 100 && value <= 100000000 && value == parseInt(value)) {
+	            // 입력된 값이 100 이상 10000000 이하의 정수이면 값을 그대로 유지합니다.
+	            $(this).val(value);
+	        } else {
+	            // 입력된 값이 100 미만 또는 10000000 초과의 정수나 소수점을 포함한 값이면 값을 100 또는 10000000으로 변경합니다.
+	            if (value < 100) {
+	                $(this).val("100");
+	            } else {
+	                $(this).val("100000000");
+	            }
+	        }
+	    });
+	});
 	</script>
 	
 </body>

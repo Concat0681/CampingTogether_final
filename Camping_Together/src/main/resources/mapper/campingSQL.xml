@@ -144,22 +144,12 @@
 		from camping_service where camping_no = #{_parameter}
 	</select>
 	
-	<select id="getSellCampingList" parameterType="map" resultType="scl">
+	<select id="getSellCampingList" parameterType="map" resultType="scl" resultMap="getSellCampingList">
 		select * from	
 			(Select
-				rownum as rnum,
-		        c.camping_title as campingTitle,
-		        c.camping_sido as campingSido,
-		        c.camping_no as campingNo,
-		        cr.camping_room_no as campingRoomNO,
-		        cr.camping_room_title as campingRoomTitle,
-		        (select filepath from camping_room_photo crp
-		        where camping_room_photo_no =
-		            (select min(camping_room_photo_no)
-		            from camping_room_photo crp
-		            where crp.camping_room_no = cr.camping_room_no)
-		        )filepath
-		    from camping c JOIN CAMPING_ROOM CR ON (C.CAMPING_NO = CR.CAMPING_NO)
+				c.*,
+				rownum as rnum
+		    from camping c
 		    WHERE MEMBER_ID = #{memberId}
 		    order by 1 desc)
 		<if test="start != null">
@@ -176,6 +166,20 @@
 		from camping_room_service where camping_no = #{_parameter}
 	</select>
 	
+	
+	<resultMap type="scl" id="getSellCampingList">
+		<result column="camping_no" property="campingNo"/>
+		<result column="member_id" property="memberId"/>
+		<result column="camping_title" property="campingTitle"/>
+		<result column="camping_sido" property="campingSido"/>
+		<result column="filepath" property="filepath"/>
+		<collection property="campingRoomList"
+					select="selectAllCampingRoomList"
+					column="camping_no"
+					ofType="cr"
+					javaType="java.util.ArrayList"
+		/>
+	</resultMap>
 	
 	<select id="selectCampingEtcList" parameterType="_int" resultType="ce">
 		select
@@ -418,7 +422,7 @@
 	</delete>
 	
 	<insert id="insertCampingReservation" parameterType="map">
-		insert into camping_reservation values(camping_reservation_seq.nextval, #{memberNo}, #{campingRoomNo}, #{checkIn}, #{checkOut})
+		insert into camping_reservation values(camping_reservation_seq.nextval, #{memberNo}, #{campingRoomNo}, #{checkIn}, #{checkOut},2)
 	</insert>
 	<insert id="insertCamingPayment" parameterType="_int">
 		insert into camping_payment values(camping_payment_seq.nextval,#{_parameter},to_char(sysdate,'yyyy-mm-dd hh24:mi:ss'),1)
@@ -436,6 +440,35 @@
 		select camping_payment_date as campingPaymentDate from camping_payment where camping_reservation_no = #{_parameter}
 	</select>
 	<select id="selectRoomMemberNo" parameterType="_int" resultType="cre">
-		select member_no as memberNo from camping_reservation where member_no = #{_parameter}
+		select 
+		camping_room_no as campingRoomNo,
+		check_in as checkIn,
+		check_out as checkOut
+		from camping_reservation where camping_room_no = #{_parameter}
 	</select>
+	<select id="selectReservationList" parameterType="cre" resultType="cre">
+		select
+			camping_reservation_no as campingReservationNo,
+			member_no as memberNo,
+			camping_room_no as campingRoomNo,
+			check_in as checkIn,
+			check_out as checkOut 
+		from camping_reservation
+		where check_in between #{checkIn} and #{checkOut} and camping_room_no = #{campingRoomNo}
+	</select>
+	<select id="selectReservation" parameterType="cre" resultType="cre">
+		select
+			camping_reservation_no as campingReservationNo,
+			member_no as memberNo,
+			camping_room_no as campingRoomNo,
+			check_in as checkIn,
+			check_out as checkOut 
+			from camping_reservation
+		where camping_room_no = #{campingRoomNo}
+	</select>
+<!-- 	<select id="selectCampingRoom" parameterType="c" resultType="cr"> -->
+<!-- 		select -->
+<!-- 			camping_room_no as campingRoomNo -->
+<!-- 		where camping_no = #{campingNo} -->
+<!-- 	</select> -->
 </mapper>

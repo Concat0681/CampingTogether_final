@@ -17,7 +17,7 @@
 	
 	<div class="content-wrap">
 		<div class="menu-list">
-			<ul>
+			<ul index="${index }">
 				<li><a href="/shopProductList.do?reqPage=1&memberId=${sessionScope.m.memberId }">SHOP 판매 상품</a></li>
 				<li><a href="/allMember.do?reqPage=1">전체 회원</a></li>
 				<li><a href="/blackMemberList.do?reqPage=1">신고 회원</a></li>
@@ -25,5 +25,11 @@
 		</div>
 		
 	</div>
+	
+		<script>
+			const index = $(".menu-list>ul").attr("index");
+			$(".menu-list>ul>li").eq(index).addClass("active-tab");
+		</script>
+	
 </body>
 </html>

@@ -201,11 +201,11 @@ input[type="checkbox"]:checked + label:before{
                 </div>
                 <div class="caming-checkIn">
                     <p class="camping-p">체크인</p>
-                    <p class="camping-pp checkIn">${checkIn1 } 15:00</p>
+                    <p class="camping-pp checkIn">${checkIn1 }</p>
                 </div>
                 <div class="caming-checkOut">
                     <p class="camping-p">체크아웃</p>
-                    <p class="camping-pp checkOut">${checkOut1 } 11:00</p>
+                    <p class="camping-pp checkOut">${checkOut1 }</p>
                 </div>
             </div>
             <div class="payment">

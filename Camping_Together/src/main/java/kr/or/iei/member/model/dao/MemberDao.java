@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 
+import kr.or.iei.member.model.vo.AdminShopList;
+import kr.or.iei.member.model.vo.AdminShopPageData;
 import kr.or.iei.member.model.vo.CampingPayment;
 import kr.or.iei.member.model.vo.Member;
 import kr.or.iei.member.model.vo.MyReview;
@@ -149,6 +151,17 @@ public class MemberDao {
 	public Member adminOneMember(int memberNo) {
 		Member member = sqlsession.selectOne("member.adminOneMember", memberNo);
 		return member;
+	}
+
+	//shop 상품 관리(관리자)
+	public ArrayList<AdminShopList> selectAdminShopList(HashMap<String, Object> map) {
+		List list = sqlsession.selectList("member.selectAdminShop", map);
+		return (ArrayList<AdminShopList>)list;
+	}
+
+	public int selectAdminShopCount() {
+		int totalCount = sqlsession.selectOne("member.selectAdminShopCount");
+		return totalCount;
 	}
 
 	

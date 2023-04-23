@@ -34,13 +34,16 @@ import kr.or.iei.camping.model.service.CampingService;
 import kr.or.iei.camping.model.vo.SellCampingListData;
 import kr.or.iei.member.model.service.MailService;
 import kr.or.iei.member.model.service.MemberService;
+import kr.or.iei.member.model.vo.AdminShopPageData;
 import kr.or.iei.member.model.vo.AllMemberPageData;
 import kr.or.iei.member.model.vo.CampingPayment;
 import kr.or.iei.member.model.vo.FileVO;
 import kr.or.iei.member.model.vo.Member;
 import kr.or.iei.member.model.vo.MemberPageData;
 import kr.or.iei.member.model.vo.ProductPageData;
+import kr.or.iei.member.model.vo.ProductPayment;
 import kr.or.iei.member.model.vo.ReviewPageData;
+import kr.or.iei.shop.model.service.ShopService;
 //import kr.or.iei.member.model.vo.SellCampingPageData;
 import kr.or.iei.shop.model.vo.ShopListMainData;
 
@@ -52,7 +55,6 @@ public class MemberController {
 	private MemberService service;
 	@Autowired
 	private MailService mailService;
-	
 	@Autowired
 	private CampingService cmapingService;
 
@@ -301,20 +303,28 @@ public class MemberController {
 	}
 	
 	
+	//shop 판매상품(관리자)
 	@RequestMapping(value = "/shopProductList.do")
-	public String shopList(Member member, int reqPage, Model model) {
-		
+	public String shopList(String memberId, int reqPage, Model model) {
+		AdminShopPageData aspd = service.selectAdminShopList(memberId, reqPage);
+		System.out.println(aspd.getList());
+		model.addAttribute("list",aspd.getList());
+		model.addAttribute("navi",aspd.getPageNavi());
+		model.addAttribute("count",aspd.getTotalCount());
+		model.addAttribute("index",0);
 		return "member/shopList";
 	}
+	
+	
 	
 	//전체 회원
 	@RequestMapping(value = "/allMember.do")
 	public String allMember(int reqPage, Model model) {
 		AllMemberPageData apd = service.selectAllMember(reqPage);
-		
 		model.addAttribute("list",apd.getList());
 		model.addAttribute("navi", apd.getPageNavi());
 		model.addAttribute("count", apd.getTotalCount());
+		model.addAttribute("index",1);
 		return "member/allMemberList";
 	}
 	
