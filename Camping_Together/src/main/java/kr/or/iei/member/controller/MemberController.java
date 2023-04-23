@@ -41,7 +41,9 @@ import kr.or.iei.member.model.vo.FileVO;
 import kr.or.iei.member.model.vo.Member;
 import kr.or.iei.member.model.vo.MemberPageData;
 import kr.or.iei.member.model.vo.ProductPageData;
+import kr.or.iei.member.model.vo.ProductPayment;
 import kr.or.iei.member.model.vo.ReviewPageData;
+import kr.or.iei.shop.model.service.ShopService;
 //import kr.or.iei.member.model.vo.SellCampingPageData;
 import kr.or.iei.shop.model.vo.ShopListMainData;
 
@@ -53,7 +55,6 @@ public class MemberController {
 	private MemberService service;
 	@Autowired
 	private MailService mailService;
-	
 	@Autowired
 	private CampingService cmapingService;
 

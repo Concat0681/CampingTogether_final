@@ -12,6 +12,7 @@ import kr.or.iei.shop.model.vo.Shop;
 import kr.or.iei.shop.model.vo.ShopBasket;
 import kr.or.iei.shop.model.vo.ShopOrder;
 import kr.or.iei.shop.model.vo.ShopPayment;
+import kr.or.iei.shop.model.vo.ShopPhoto;
 import kr.or.iei.shop.model.vo.ShopReview;
 import kr.or.iei.shop.model.vo.ShopReviewPhoto;
 
@@ -119,5 +120,20 @@ public class ShopDao {
 	public ShopOrder selectMyOrder(HashMap<String, Object> map) {
 		ShopOrder so = sqlSession.selectOne("shop.selectMyOrder", map);
 		return so;
+	}
+
+	public int updateShop(Shop shop) {
+		int result = sqlSession.update("shop.updateShop", shop);
+		return result;
+	}
+
+	public int deleteShopPhoto(ShopPhoto sp) {
+		int result = sqlSession.delete("shop.deleteShopPhoto", sp);
+		return result;
+	}
+
+	public int deleteShop(int shopNo) {
+		int result = sqlSession.delete("shop.deleteShop", shopNo);
+		return result;
 	}
 }
