@@ -323,6 +323,14 @@
 				$("#shopReviewRating").val($((".star-clicked")).length);
 			}
 		})
+		$("#updateShopBtn").on("click", function(){
+			const shopNo = $("#shopNo").val();
+			location.href="/updateShopFrm.do?shopNo="+shopNo;
+		})
+		$("#deleteShopBtn").on("click", function(){
+			const shopNo = $("#shopNo").val();
+			location.href="/deleteShop.do?shopNo="+shopNo;
+		})
 		$("[name=shopReviewRating]").each(function(i, r){
 			const index = $("[name=shopReviewRating]").index($(r));
 			const val = $("[name=shopReviewRating]").eq(index).val();

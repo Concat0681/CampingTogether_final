@@ -40,9 +40,7 @@
 				<label for="shopPhotoList" class="input-group-text">상품이미지</label>
 				<input id="shopPhotoList" class="form-control" type="file" name="shopFileList" onchange="uploadPhoto(this);" multiple required>
 			</div>
-			<div id="img-viewer">
-				<img src="resources/image/camping/busan.jpeg">
-			</div>
+			<div id="img-viewer"></div>
 			<div class="shop-price-wrap">
 				<div class="input-group mb-3">
 					<label for="shopPrice" class="input-group-text">상품가격</label>
@@ -116,7 +114,7 @@
 		
 		function applySlick(){
 			$('#img-viewer').slick({
-				slidesToShow : 3,		// 한 화면에 보여질 컨텐츠 개수
+				slidesToShow : 4,		// 한 화면에 보여질 컨텐츠 개수
 				slidesToScroll : 1,		//스크롤 한번에 움직일 컨텐츠 개수
 				speed : 100,	 // 다음 버튼 누르고 다음 화면 뜨는데까지 걸리는 시간(ms)
 				arrows : true, 		// 옆으로 이동하는 화살표 표시 여부
@@ -138,14 +136,39 @@
 					const reader = new FileReader();
 					reader.readAsDataURL(input.files[i]);
 					reader.onload = function(e) {
+						const div = $("<div>").addClass("img-box");
+						const button = $("<button>").addClass("btn1").attr("type", "button").attr("onclick", "delNewPhoto(this)").text("삭제");
 						const img = $("<img>").attr("src", e.target.result); // 이미지를 보여줄 DOM 엘리먼트에 추가
-						$("#img-viewer").append(img);
+						div.append(img).append(button);
+						$("#img-viewer").append(div);
 					}
 				}
 				setTimeout(function () {
 					applySlick()
 		        }, 10);
 			}
+		}
+		
+		function delNewPhoto(obj){
+			destroySlick();
+			const fileNum = $(".img-box").index($(obj).parent());
+			const dataTransfer = new DataTransfer();
+		    
+		    let files = $('#shopPhotoList')[0].files;	//사용자가 입력한 파일을 변수에 할당
+		    
+		    let fileArray = Array.from(files);	//변수에 할당된 파일을 배열로 변환(FileList -> Array)
+		    
+		    fileArray.splice(fileNum, 1);	//해당하는 index의 파일을 배열에서 제거
+		    
+		    fileArray.forEach(file => { dataTransfer.items.add(file); });
+		    //남은 배열을 dataTransfer로 처리(Array -> FileList)
+		    
+		    $('#shopPhotoList')[0].files = dataTransfer.files;	//제거 처리된 FileList를 돌려줌
+		   console.log($(obj).parent())
+		    $(obj).parent().remove();
+		    setTimeout(function () {
+				applySlick()
+	        }, 10);
 		}
 		
 		$('#shop-content').summernote({
