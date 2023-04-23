@@ -33,14 +33,22 @@ public class BoardFoodController {
 	@Autowired
 	private FileManager fileManager;
 	
+	//메인용 메소드 - food 리스트 최신순 5개
 	@RequestMapping(value="/boardMainFoodList.do")
 	public String boardFoodList(Model model, BoardFood b ) {
 		ArrayList<BoardFood> list = service.selectMainFoodList(b);
-		model.addAttribute("Foodlist", list);
-		System.out.println(list);
-		System.out.println(list.size());
+		model.addAttribute("foodlist", list);
 		return "main/mainIndexBoardList";
 	}
+	/*
+	//메인용 메소드 - food 댓글 카운트
+	@RequestMapping(value="/foodCommnetCount.do")
+	public String foodCommnetCount(Model model, FoodComment fc ) {
+		FoodComment count = service.foodCommnetCount(fc);
+		model.addAttribute("count", count);
+		return "main/mainIndexBoardList";
+	}
+	*/
 	
 	@RequestMapping(value="/boardFoodList.do")
 	public String boardFoodList(int reqPage, Model model) {

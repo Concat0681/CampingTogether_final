@@ -20,4 +20,5 @@ public class BoardFood {
 	private String filepath;
 	private int fileNo;
 	private ArrayList<FileVO> fileList;
+	private int foodCommentRef;
 }

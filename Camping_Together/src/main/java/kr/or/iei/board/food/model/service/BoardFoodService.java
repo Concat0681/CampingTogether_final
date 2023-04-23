@@ -189,8 +189,4 @@ public class BoardFoodService {
 		 
 	}
 
-	
-
-
-
 }

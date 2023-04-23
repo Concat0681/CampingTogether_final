@@ -123,7 +123,7 @@
 		<div class="wrapper wrapperMiddle-shop">
 		</div>
 		<div class="wrapper wrapperBottom">
-			<jsp:include page="/WEB-INF/views/main/mainIndexBoardList.jsp"/>
+			<jsp:include page="/boardMainFoodList.do"/>
 		</div>
  	
 	
