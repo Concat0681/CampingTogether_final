@@ -52,4 +52,46 @@
 		where member_id like #{_parameter}
 		order by regDate desc
 	</select>
+	<!-- 신고글 리스트(관리자확인) -->
+	<select id="selectAllBlacklist" parameterType="map" resultType="bl">
+		select *
+		from
+		    (select rownum as rnum, ub.* from 
+		        (select 
+		            blacklist_no as BlacklistNo,
+                    used_board_no as usedBoardNo,
+                    blacklist_member_id as blacklistMemberId,
+                    blacklist_type as BlacklistType,
+                    blacklist_status as blacklistStatus,
+                    reg_date as regDate
+		        from blacklist 
+		        order by 1 desc)ub)
+		where rnum between #{start} and #{end}
+	</select>
+	<select id="selectBlacklistCount" resultType="_int">
+		select count(*) from blacklist
+	</select>
+	<!-- 신고글 상세 -->
+	<select id="selectOneBlacklist" parameterType="_int" resultType="bl">
+		select
+			blacklist_no as blacklistNo,
+			used_board_no as usedBoardNo,
+			member_id as MemberId,
+			blacklist_member_id as blacklistMemberId,
+			blacklist_type as blacklistType,
+			blacklist_status as blaclistStatus,
+			reg_date as RegDate,
+			blacklist_content as blacklistContent
+		from blacklist
+		where blacklist_no = #{_parameter}
+	</select>
+	<select id="selectOneBlacklistPhoto" parameterType="_int" resultType="blp">
+		select
+			blacklist_photo_no as blacklistPhotoNo,
+			blacklist_no as blacklistNo,
+			filepath,
+			filename
+		from blacklist_photo
+		where blacklist_no = #{_parameter}
+	</select>
 </mapper>

@@ -9,6 +9,7 @@
 <link href="resources/css/default.css" rel="stylesheet"/>
 <link rel="stylesheet" href="resources/css/mypageS.css">
 <link rel="stylesheet" href="resources/css/updateMypageC.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
 
 </head>
 <body>

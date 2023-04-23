@@ -235,9 +235,28 @@ public class CampingDao {
 		return cp;
 	}
 
-	public CampingReservation selectRoomMemberNo(int memberNo) {
-		CampingReservation cr = sqlSession.selectOne("camping.selectRoomMemberNo",memberNo);
+	public CampingReservation selectRoomMemberNo(int campingRoomNo) {
+		CampingReservation cr = sqlSession.selectOne("camping.selectRoomMemberNo",campingRoomNo);
 		return cr;
 	}
+
+	public ArrayList<CampingReservation> selectReservationList(CampingReservation cr) {
+		List reservationList = sqlSession.selectList("camping.selectReservationList", cr);
+		return (ArrayList<CampingReservation>)reservationList;
+	}
+
+	public CampingReservation selectReservation(CampingReservation cr) {
+		CampingReservation CampingReservation = sqlSession.selectOne("camping.selectReservation",cr);
+		return CampingReservation;
+	}
+
+	public CampingRoom selectCampingRoom(Camping c) {
+		CampingRoom CampingRoom2 = sqlSession.selectOne("camping.selectCampingRoom",c);
+		return CampingRoom2;
+	}
+
+
+	
+
 
 }

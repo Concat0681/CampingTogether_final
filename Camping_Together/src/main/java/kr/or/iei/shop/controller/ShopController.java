@@ -102,13 +102,80 @@ public class ShopController {
 		}
 	}
 	
+	@RequestMapping(value="/updateShopFrm.do")
+	public String updateShopFrm(int shopNo, Model model) {
+		Shop shop = service.selectOneShop(shopNo);
+		model.addAttribute("shop", shop);
+		return "shop/updateShopFrm";
+	}
+	
+	@Transactional
+	@RequestMapping(value="/updateShop.do")
+	public String updateShop(Shop shop, String delPhotoList, MultipartFile[] shopFileList, HttpServletRequest requset) {
+		int shopResult = service.updateShop(shop);
+		String savePath = requset.getSession().getServletContext().getRealPath("/resources/upload/shop/");
+		int finalResult = 1;
+		Boolean delResult = true;
+		if(shopResult > 0) {
+			ArrayList<ShopPhoto> delList = new ArrayList<ShopPhoto>();
+			if(delPhotoList != null) {
+				String[] arr1 = delPhotoList.split(",");
+				for(String delFilepath : arr1 ) {
+					Boolean result = manager.deleteFile(savePath, delFilepath);
+					if(!result) {
+						delResult = false;
+					} else {
+						ShopPhoto sp = new ShopPhoto();
+						sp.setFilepath(delFilepath);
+						sp.setShopNo(shop.getShopNo());
+						delList.add(sp);
+					}
+				}
+				for(ShopPhoto sp : delList) {
+					int delSrp = service.deleteShopPhoto(sp);
+				}
+			}
+			ArrayList<ShopPhoto> photoList = new ArrayList<ShopPhoto>();
+			if(!shopFileList[0].isEmpty()) {
+				for(MultipartFile file : shopFileList) {
+					String filepath = manager.upload(savePath, file);
+					ShopPhoto shopPhoto = new ShopPhoto();
+					shopPhoto.setFilepath(filepath);
+					photoList.add(shopPhoto);
+				}
+			}
+			for( ShopPhoto sp : photoList) {
+				int photoResult = service.insertShopPhoto(sp.getFilepath(), shop.getShopNo());
+				if(photoResult == 0) {
+					finalResult = 0;
+				}
+			}
+		}
+		if(finalResult > 0) {
+			return "redirect:/viewShop.do?shopNo="+shop.getShopNo()+"&reqPage=1&menu=0&memberId="+shop.getMemberId();
+		} else {
+			return "redirect:/";
+		}
+	}
+	
+	@RequestMapping(value="/deleteShop.do")
+	public String deleteShop(int shopNo) {
+		int result = service.deleteShop(shopNo);
+		return "redirect:/shopMainList.do";
+	}
+	
 	@RequestMapping(value="/viewShop.do")
-	public String viewShop(int shopNo, int reqPage, int menu, Model model) {
+	public String viewShop(int shopNo, int reqPage, int menu, String memberId, Model model) {
+		ShopOrder shopOrder = null;
+		if(memberId != null) {
+			shopOrder = service.selectMyOrder(memberId, shopNo);
+		}
 		Shop shop = service.selectOneShop(shopNo);
 		ShopReviewListData srld = service.selectShopReviewList(shopNo, reqPage);
 		model.addAttribute("shop", shop);
 		model.addAttribute("menu", menu);
 		model.addAttribute("reqPage", reqPage);
+		model.addAttribute("shopOrder", shopOrder);
 		model.addAttribute("shopReviewList", srld.getShopReviewList());
 		model.addAttribute("reviewPageNavi", srld.getReviewPageNavi());
 		return "shop/viewShop";
@@ -121,7 +188,6 @@ public class ShopController {
 		ArrayList<ShopReviewPhoto> srpList = new ArrayList<ShopReviewPhoto>();
 		String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/shopReview/");
 		Boolean delResult = true;
-		System.out.println(sr);
 		int reviewResult = service.updateShopReview(sr);
 		if(delPhotoList != null) {
 			String[] arr1 = delPhotoList.split(",");
@@ -193,11 +259,16 @@ public class ShopController {
 	@ResponseBody
 	@RequestMapping(value="/insertBasket.do")
 	public String insertBasket(ShopBasket basket) {
-		int result = service.insertBasket(basket);
-		if(result > 0) {
-			return "ok";
+		ShopBasket b = service.selectMyBasket(basket);
+		if(b == null) {
+			int result = service.insertBasket(basket);
+			if(result > 0) {
+				return "ok";
+			} else {
+				return "fail";
+			}
 		} else {
-			return "fail";
+			return "exist";
 		}
 	}
 	

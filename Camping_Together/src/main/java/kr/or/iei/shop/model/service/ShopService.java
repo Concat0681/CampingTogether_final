@@ -12,6 +12,7 @@ import kr.or.iei.shop.model.vo.ShopBasket;
 import kr.or.iei.shop.model.vo.ShopListMainData;
 import kr.or.iei.shop.model.vo.ShopOrder;
 import kr.or.iei.shop.model.vo.ShopPayment;
+import kr.or.iei.shop.model.vo.ShopPhoto;
 import kr.or.iei.shop.model.vo.ShopReview;
 import kr.or.iei.shop.model.vo.ShopReviewListData;
 import kr.or.iei.shop.model.vo.ShopReviewPhoto;
@@ -164,6 +165,34 @@ public class ShopService {
 				result = dao.deleteOrderWishList(shopNo);
 			}
 		}
+		return result;
+	}
+
+	public ShopBasket selectMyBasket(ShopBasket basket) {
+		ShopBasket b = dao.selectMyBasket(basket);
+		return b;
+	}
+
+	public ShopOrder selectMyOrder(String memberId, int shopNo) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("memberId", memberId);
+		map.put("shopNo", shopNo);
+		ShopOrder so = dao.selectMyOrder(map);
+		return so;
+	}
+
+	public int updateShop(Shop shop) {
+		int result = dao.updateShop(shop);
+		return result;
+	}
+
+	public int deleteShopPhoto(ShopPhoto sp) {
+		int result = dao.deleteShopPhoto(sp);
+		return result;
+	}
+
+	public int deleteShop(int shopNo) {
+		int result = dao.deleteShop(shopNo);
 		return result;
 	}
 }

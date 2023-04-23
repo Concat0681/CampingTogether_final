@@ -57,13 +57,17 @@ public class CampingController {
 	}
 	
 	@RequestMapping(value="/campingList.do")
-	public String campingList(String campingSido, String cityNameKR, String cityNameEN,int reqPage, String order, String pplCount, String checkIn, String checkOut, Model model) {
+	public String campingList(Camping c, String campingSido, String cityNameKR, String cityNameEN,int reqPage, String order, String pplCount, String checkIn, String checkOut, Model model) {
 		CampingRoom campingRoom = new CampingRoom();
 		Camping camping = new Camping();
 		camping.setCampingSido(campingSido);
 		camping.setCampingAddr(cityNameKR);
 		campingRoom.setCampingRoomMaxPplCount(Integer.parseInt(pplCount));
 		CampingListPageData cpd = service.selectCampingListData(reqPage, order, camping, campingRoom);
+		
+//		CampingRoom CampingRoom2 = service.selectCampingRoom(c); 
+//		System.out.println(CampingRoom2);
+//		System.out.println(c);
 		model.addAttribute("cityNameKR", cityNameKR);
 		model.addAttribute("cityNameEN", cityNameEN);
 		model.addAttribute("list", cpd.getList()); 
@@ -156,16 +160,21 @@ public class CampingController {
 	}
 	
 	@RequestMapping(value="/campingRoomWriteFrm.do")
-	public String campingRoomWriteFrm(int campingNo, Model model) {
+	public String campingRoomWriteFrm(int campingNo, Model model, String campingTitle) {
 		model.addAttribute("campingNo",campingNo);
+		model.addAttribute("campingTitle", campingTitle);
 		return "camping/campingRoomWriteFrm";
 	}
 	
 	@RequestMapping(value="/viewCamping.do")
-	public String viewCamping(String checkIn, String checkOut, int campingNo, Model model) {
+	public String viewCamping(CampingReservation cr, String checkIn, String checkOut, int campingNo, Model model) {
 		ViewCampingData vcd = service.selectOneCamping(campingNo);
 		CampingReviewData crd = service.selectCampingReview(campingNo);
 		CampingReviewData reviewCommentList = service.selectReviewCommentList(campingNo);
+		ArrayList<CampingReservation> reservationList = service.selectReservationList(cr);
+//		System.out.println(cr);
+		CampingReservation campingReservation = service.selectReservation(cr);
+		System.out.println(campingReservation);
 		int campingReviewCount = service.selectReviewCount(campingNo);
 		int campingReviewCommentCount = service.selectReviewCommentCount(campingNo);
 		int campingReviewRatingAvg = service.selectcampingReviewRatingAvg(campingNo);
@@ -178,6 +187,8 @@ public class CampingController {
 		model.addAttribute("campingReviewComment", reviewCommentList.getReviewCommentList());
 		model.addAttribute("checkIn", checkIn);
 		model.addAttribute("checkOut", checkOut);
+		model.addAttribute("campingReservation", campingReservation);
+		model.addAttribute("reservationList",reservationList);
 		return "camping/viewCamping";
 	}
 	
@@ -418,10 +429,10 @@ public class CampingController {
 	@RequestMapping(value = "/reservationInfo.do")
 	public String reservationInfo(Model model, String campingTitle, String campingType,int campingRoomPrice, String campingAddr, String checkIn, String checkOut, int campingRoomNo, int memberNo ) {
 		
-		CampingReservation cr = service.selectRoomMemberNo(memberNo);
-//		System.out.println("camping controller에서 cr값"+cr);
+		CampingReservation cr = service.selectRoomMemberNo(campingRoomNo);
+		System.out.println("camping controller에서 cr값"+cr);
 //		System.out.println(roomMemberNo);
-		if(cr == null || cr.getMemberNo() != memberNo) {
+		if(cr == null || cr.getCampingRoomNo() != campingRoomNo || cr.getCheckIn() != checkIn || cr.getCheckOut() != checkOut) {
 			//예약 insert
 			int result = service.campingReservation(memberNo,campingRoomNo, checkIn, checkOut);			
 		} else {
@@ -442,6 +453,7 @@ public class CampingController {
 //		return "rediect:/reservationInfo.do";			
 		
 	}
+	
 }
 
 
