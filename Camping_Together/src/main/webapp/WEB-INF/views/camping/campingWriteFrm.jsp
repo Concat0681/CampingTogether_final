@@ -16,15 +16,105 @@
   		width: 200px;
   		height: 200px;
 	}
+	
+	
+	
+	.image-container {
+  position: relative;
+  width: 620px;
+  height: 620px;
+}
+
+.image-container input[type="file"],
+.image-container label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.image-container label {
+  z-index: 1;
+}
+
+.image-container img {
+  display: block;
+  margin: 0 auto;
+}
+
+.image-container {
+  position: relative;
+}
+
+.img-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.delete-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: white;
+  border: none;
+  padding: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  display: none;
+}
+
+.photoCamera2:hover{
+	cursor: pointer;
+}
+
+#img-viewer2 {
+    display: flex;
+    flex-wrap: nowrap;
+    max-width: 100%;
+    overflow-x: auto;
+    margin-top: 70px;
+    margin-bottom: 20px;
+  }
+  
+  .img-wrapper2 {
+    position: relative;
+    margin-right: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .review-img2 {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+  
+  .delete-btn2 {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .closeColor{
+    color: black;
+    background-color: #fff;
+  }
+	
 </style>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
-
+	<div class="backgroundPhoto" style="width: 100%; height: 1000px; background-color: green;"></div>
 	<div class="wrap">
         <div class="contentWrap" style="margin-top: 200px;">
         	<div class="contentDetail activeContent">
-        		<h2 style="margin-bottom: 60px;">캠핑장을 찾고 있는 여행객들을 정확히 사로잡아보세요!</h2>
+        		<h2 style="margin-bottom: 60px;">캠핑장을 찾고 있는 여행객들을 사로잡아보세요!</h2>
         		<form action="/campingWrite.do" method="post" enctype="multipart/form-data">
         			<input type="hidden" name="memberId" value="${sessionScope.m.memberId }">
 	        		<table>
@@ -53,13 +143,18 @@
 	        		
 					<div class="contentTitle"><h3>캠핑장 사진 등록</h3></div>
 	        			<h5 style="padding-bottom: 20px">캠핑장의 메인 사진을 등록해주세요.</h5>
-	        				<div id="img-viewer1">
-		        				<input type="file" name="campingFilepath" onchange="loadImg(this);" id="campingFilepath" style="display: none;">
-		        				<label for="campingFilepath">
-									<img id="img-view" width="620px" height="620px">
-								</label>
-	                    	</div>
-	                    	
+	        				<div class="image-container">
+							  <input type="file" name="campingFilepath" onchange="loadImg(this);" id="campingFilepath" style="display: none;">
+							  <label for="campingFilepath">
+							    <span class="material-symbols-outlined photoCamera2" style="font-size: 250px;">photo_camera</span>
+							  </label>
+							  <div class="img-wrapper">
+							    <img id="img-view" width="620px" height="620px">
+							    <button type="button" class="delete-btn">
+							    	<span class="material-symbols-outlined" style="padding-top: 5px; color: #000">close</span>
+							    </button>
+							  </div>
+							</div>
 					
 	        		
 		        		<div>
@@ -73,7 +168,7 @@
 								<tr>
 									<td>도/시</td>
 									<td>
-										<input type="text" name="campingSido" id="campingSido" readonly>
+										<input type="text" name="campingSido" id="campingSido" style="width: 350px; height: 40px;" readonly>
 									</td>
 								</tr>
 								<tr>
@@ -348,7 +443,7 @@
 	        			<tr>
 	        				<td style="width: 120px; font-size: 1.17em; font-weight: bold; padding-bottom: 20px;">1박당 가격</td>
 	        				<td style="padding-bottom: 20px;">
-	        					<input type="text" class="input-long" name="campingRoomPrice">
+	        					<input type="text" class="input-long" name="campingRoomPrice" placeholder="최소 100원부터 최대 1억까지 등록 가능합니다.">
 	        				</td>
 	        			</tr>
 						<tr>
@@ -374,7 +469,10 @@
 	       			</div>
 	        		<div class="contentTitle"><h3>사진</h3>
 	        		<h5>최소 3개 이상의 파일을 등록해주세요.</h5>
-	        			<input type="file" name="campingRoomFilepath" onchange="loadImgs(this);" id="campingRoomFilepath" multiple>
+	        			<input type="file" name="campingRoomFilepath" onchange="loadImgs(this);" id="campingRoomFilepath" style="display: none;" multiple>
+	        			<label for="campingRoomFilepath">
+	        				<span class="material-symbols-outlined photoCamera2" style="font-size: 250px;">photo_camera</span>
+	        			</label>
 	        			<div id="img-viewer2">
 	        			
 	                    </div>
@@ -477,7 +575,7 @@
 			  const campingRoomType = $("[name=campingRoomType]:checked").val();
 			  const campingRoomFilepath = $("[name=campingRoomFilepath]");
 
-			  if (campingRoomTitle != "" && campingRoomCount != "" && campingRoomPrice != "" && campingRoomMaxPplCount != "" && campingRoomContent != "" && campingRoomType != null && campingRoomFilepath.get(0).files.length >= 3) {
+			  if (campingRoomTitle != "" && campingRoomCount != "" && campingRoomPrice != "" && campingRoomMaxPplCount != "" && campingRoomContent != "" && campingRoomType != null && $('#img-viewer2').children('.img-wrapper').length >= 3) {
 			    // 모든 값이 공백이 아닐 때 서브밋 동작
 			  } else {
 			    alert("입력란을 모두 확인해주세요.");
@@ -488,30 +586,54 @@
 	
 	
 	<script>
-		function loadImg(f) {
-			if(f.files.length != 0 && f.files[0] != 0){
-				const reader = new FileReader();
-				reader.readAsDataURL(f.files[0]);
-				reader.onload = function(e){
-					$("#img-view").attr("src",e.target.result);
-				}
-			}else{
-				$("#img-view").attr("src","");
+		function loadImg(input) {
+			  const icon = $('.photoCamera2');
+			  const wrapper = $('#img-wrapper');
+			  const deleteBtn = $('.delete-btn');
+			  if (input.files && input.files.length > 0) {
+			    const reader = new FileReader();
+			    reader.readAsDataURL(input.files[0]);
+			    reader.onload = function(e) {
+			      $("#img-view").attr("src", e.target.result);
+			      icon.hide();
+			      deleteBtn.show();
+			    }
+			  } else {
+			    $("#img-view").attr("src", "");
+			    icon.show();
+			    deleteBtn.hide();
+			  }
 			}
-		}
+	
+			$(document).ready(function() {
+			  $('.delete-btn').on('click', function() {
+			    $('#img-view').attr('src', '');
+			    $('#campingFilepath').val('');
+			    $('.photoCamera2').show();
+			    $('.delete-btn').hide();
+			  });
+			});
 	</script>
 	
 	<script>
-		function loadImgs(input) {
-		  // 기존에 있는 이미지 삭제
-		  $('#img-viewer2 img').remove();
+	function loadImgs(input) {
 		  
 		  if (input.files && input.files.length > 0) {
 		    for (let i = 0; i < input.files.length; i++) {
 		      const reader = new FileReader();
 		      reader.readAsDataURL(input.files[i]);
 		      reader.onload = function(e) {
-		        $("<img>").attr("src", e.target.result).attr("id", "img-" + i).appendTo("#img-viewer2"); // 이미지를 보여줄 DOM 엘리먼트에 추가
+		        const imgWrapper2 = $("<div>").addClass("img-wrapper2");
+		        const img2 = $("<img>").attr("src", e.target.result)
+		                              .addClass("review-img2");
+		        const deleteBtn2 = $("<button>").html("<span class='material-symbols-outlined closeColor'>close</span>")
+		                                        .addClass("delete-btn2")
+		                                        .attr("type", "button");
+		        imgWrapper2.append(img2).append(deleteBtn2).appendTo("#img-viewer2");
+		        
+		        deleteBtn2.on("click", function() {
+		          $(this).parent().remove();
+		        });
 		      }
 		    }
 		  }
@@ -612,20 +734,24 @@
 	</script>
 	
 	<script>
-		$(document).ready(function() {
-		    $('input[name="campingRoomPrice"]').on('input', function() {
-		        // 현재 입력된 값에서 숫자 이외의 문자를 제거합니다.
-		        var value = $(this).val().replace(/[^0-9]/g, '');
-		        // 0 이상의 정수인지 확인합니다.
-		        if (value >= 0 && value == parseInt(value)) {
-		            // 입력된 값이 0 이상의 정수이면 값을 그대로 유지합니다.
-		            $(this).val(value);
-		        } else {
-		            // 입력된 값이 0 이하의 정수나 소수점을 포함한 값이면 값을 0으로 변경합니다.
-		            $(this).val("");
-		        }
-		    });
-		});
+	$(document).ready(function() {
+	    $('input[name="campingRoomPrice"]').on('input', function() {
+	        // 현재 입력된 값에서 숫자 이외의 문자를 제거합니다.
+	        var value = $(this).val().replace(/[^0-9]/g, '');
+	        // 100 이상 10000000 이하의 정수인지 확인합니다.
+	        if (value >= 100 && value <= 100000000 && value == parseInt(value)) {
+	            // 입력된 값이 100 이상 10000000 이하의 정수이면 값을 그대로 유지합니다.
+	            $(this).val(value);
+	        } else {
+	            // 입력된 값이 100 미만 또는 10000000 초과의 정수나 소수점을 포함한 값이면 값을 100 또는 10000000으로 변경합니다.
+	            if (value < 100) {
+	                $(this).val("100");
+	            } else {
+	                $(this).val("100000000");
+	            }
+	        }
+	    });
+	});
 	</script>
 	
 	<script>

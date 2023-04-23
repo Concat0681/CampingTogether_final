@@ -11,6 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.or.iei.member.model.dao.MemberDao;
+import kr.or.iei.member.model.vo.AdminShopList;
+import kr.or.iei.member.model.vo.AdminShopPageData;
 import kr.or.iei.member.model.vo.AllMemberPageData;
 import kr.or.iei.member.model.vo.CampingPayment;
 import kr.or.iei.member.model.vo.Member;
@@ -179,8 +181,8 @@ public class MemberService {
 		if (pageNo != 1) {
 
 			pageNavi += "<li>";
-			pageNavi += "<a class='page-item' href='/cmapingPayList.do?reqPage=" + (pageNo - 1) + "&memberNo="+ memberId + "'>";
-			pageNavi += "<span class='material-symbols-outlined'>chevron_left</span>";
+			pageNavi += "<a class='page-item' href='/cmapingPayList.do?reqPage=" + (pageNo - 1) + "&memberId="+ memberId + "'>";
+			pageNavi += "<span class='material-icons'>chevron_left</span>";
 			pageNavi += "</a></li>";
 
 		}
@@ -189,12 +191,12 @@ public class MemberService {
 		for (int i = 0; i < pageNaviSize; i++) {
 			if (pageNo == reqPage) {
 				pageNavi += "<li>";
-				pageNavi += "<a class='page-item active-page' href='/cmapingPayList.do?reqPage=" + pageNo + "&memberNo="+ memberId + "'>";
+				pageNavi += "<a class='page-item active-page' href='/cmapingPayList.do?reqPage=" + pageNo + "&memberId="+ memberId + "'>";
 				pageNavi += pageNo;
 				pageNavi += "</a></li>";
 			} else {
 				pageNavi += "<li>";
-				pageNavi += "<a class='page-item' href='/cmapingPayList.do?reqPage=" + pageNo + "&memberNo=" + memberId+ "'>";
+				pageNavi += "<a class='page-item' href='/cmapingPayList.do?reqPage=" + pageNo + "&memberId=" + memberId+ "'>";
 				pageNavi += pageNo;
 				pageNavi += "</a></li>";
 			}
@@ -208,7 +210,7 @@ public class MemberService {
 		// 다음버튼
 		if (pageNo <= totalPage) {
 			pageNavi += "<li>";
-			pageNavi += "<a class='page-item' href='/cmapingPayList.do?reqPage=" + pageNo + "&memberNo=" + memberId+ "'>";
+			pageNavi += "<a class='page-item' href='/cmapingPayList.do?reqPage=" + pageNo + "&memberId=" + memberId+ "'>";
 			pageNavi += "<span class='material-icons'>chevron_right</span>";
 			pageNavi += "</a></li>";
 		}
@@ -255,7 +257,7 @@ public class MemberService {
 
 					pageNavi += "<li>";
 					pageNavi += "<a class='page-item' href='/myRiview.do?reqPage=" + (pageNo - 1) + "&memberId="+ memberId + "'>";
-					pageNavi += "<span class='material-symbols-outlined'>chevron_left</span>";
+					pageNavi += "<span class='material-iconsd'>chevron_left</span>";
 					pageNavi += "</a></li>";
 
 				}
@@ -368,8 +370,6 @@ public class MemberService {
 				map.put("start", start);
 				map.put("end", end);
 				
-				System.out.println(map);
-				
 				ArrayList<Member> list = dao.selectAllMember(map);
 				System.out.println(list);
 				
@@ -436,9 +436,87 @@ public class MemberService {
 		return result;
 	}
 	
+	
 	//회원 정보(관리자)
 	public Member adminOneMember(int memberNo) {
 		return dao.adminOneMember(memberNo);
+	}
+
+	
+	//shop 판매상품(관리자)
+	public AdminShopPageData selectAdminShopList(String memberId, int reqPage) {
+			int numPerpage = 6;
+		
+		// reqPage = 1 -> 1~2, reqPage = 2 -> 2~3
+				int end = reqPage * numPerpage;
+				int start = end - numPerpage + 1;
+
+				HashMap<String, Object> map = new HashMap<String, Object>();
+				map.put("start", start);
+				map.put("end", end);
+				map.put("memberId", memberId);
+				System.out.println(map);
+				
+				
+				ArrayList<AdminShopList> list = dao.selectAdminShopList(map);
+		
+				int totalCount = dao.selectAdminShopCount();
+
+				int totalPage = (int) Math.ceil(totalCount / (double) numPerpage);
+		
+				// pageNavi사이즈
+				int pageNaviSize = 5;
+
+				int pageNo = 1;
+				if (reqPage > 3) {
+					pageNo = reqPage - 2;
+				}
+
+				// 페이지네비 생성 시작
+				String pageNavi = "<ul class='pagination circle-style'>";
+
+				// 이전 버
+				if (pageNo != 1) {
+
+					pageNavi += "<li>";
+					pageNavi += "<a class='page-item' href='/shopProductList.do?reqPage=" + (pageNo - 1) + "&memberId="+memberId+"'>";
+					pageNavi += "<span class='material-icons'>chevron_left</span>";
+					pageNavi += "</a></li>";
+
+				}
+
+				// 페이지 숫자 생성
+				for (int i = 0; i < pageNaviSize; i++) {
+					if (pageNo == reqPage) {
+						pageNavi += "<li>";
+						pageNavi += "<a class='page-item active-page' href='/shopProductList.do?reqPage=" + pageNo + "&memberId="+memberId+"'>";
+						pageNavi += pageNo;
+						pageNavi += "</a></li>";
+					} else {
+						pageNavi += "<li>";
+						pageNavi += "<a class='page-item' href='/shopProductList.do?reqPage=" + pageNo +"&memberId="+memberId+"'>";
+						pageNavi += pageNo;
+						pageNavi += "</a></li>";
+					}
+					pageNo++;
+					
+					if (pageNo > totalPage) {
+						break;
+					}
+				}
+
+				// 다음버튼
+				if (pageNo <= totalPage) {
+					pageNavi += "<li>";
+					pageNavi += "<a class='page-item' href='/shopProductList.do?reqPage=" + pageNo +"&memberId="+memberId+"'>";
+					pageNavi += "<span class='material-icons'>chevron_right</span>";
+					pageNavi += "</a></li>";
+				}
+				pageNavi += "</ul>";
+
+				AdminShopPageData aspd = new AdminShopPageData(list, pageNavi, totalCount);
+				return aspd;
+		
 	}
 	
 

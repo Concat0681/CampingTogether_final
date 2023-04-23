@@ -50,19 +50,21 @@
 		</div>
 		<div class="content-slick" id="content-slick">
 			<div class="camping-wrap shop-wrap">
-				<div class="camping-list-menu">
-					<div>	
-						<span class="material-symbols-outlined">filter_alt</span>
-						<div onclick="shopListOrder(this, 0, 1, 'new')">최근순</div>
+				<c:if test="${not empty campingList  }">
+					<div class="camping-list-menu">
+						<div>	
+							<span class="material-symbols-outlined clicked-span">filter_alt</span>
+							<div onclick="shopListOrder(this, 0, 1, 'new')">최근순</div>
+						</div>
+						<div>
+							<span class="material-symbols-outlined">filter_alt</span>
+							<div onclick="shopListOrder(this, 0, 1, 'rating')">평점순</div>
+						</div>
 					</div>
-					<div>
-						<span class="material-symbols-outlined">filter_alt</span>
-						<div onclick="shopListOrder(this, 0, 1, 'rating')">평점순</div>
-					</div>
-				</div>
+				</c:if>
 				<div class="camping-list shop-list">
 					<c:forEach items="${campingList }" var="c" varStatus="i">
-						<div class="shop-box" onclick="viewShop(${c.shopNo});">
+						<div class="shop-box" onclick="viewShop(${c.shopNo},'${sessionScope.m.memberId}');">
 							<div class="shop-photo">
 								<img src="resources/upload/shop/${c.shopPhotoList[0].filepath}">
 								<c:if test="${not empty c.shopPhotoList[1].filepath}">
@@ -79,23 +81,25 @@
 						</div>
 					</c:forEach>
 				</div>
-				<c:if test="${not empty campingList }">
+				<c:if test="${not empty carList }">
 					<div class="shop-footer">
 						${campingPageNavi }
 					</div>
 				</c:if>
 			</div>
 			<div class="car-wrap shop-wrap">
-				<div class="camping-list-menu">
-					<div>	
-						<span class="material-symbols-outlined">filter_alt</span>
-						<div onclick="shopListOrder(this, 0, 1, 'new')">최근순</div>
+				<c:if test="${not empty carList  }">
+					<div class="camping-list-menu">
+						<div>	
+							<span class="material-symbols-outlined clicked-span">filter_alt</span>
+							<div onclick="shopListOrder(this, 1, 1, 'new')">최근순</div>
+						</div>
+						<div>
+							<span class="material-symbols-outlined">filter_alt</span>
+							<div onclick="shopListOrder(this, 1, 1, 'rating')">평점순</div>
+						</div>
 					</div>
-					<div>
-						<span class="material-symbols-outlined">filter_alt</span>
-						<div onclick="shopListOrder(this, 0, 1, 'rating')">평점순</div>
-					</div>
-				</div>
+				</c:if>
 				<div class="car-list shop-list">
 					<c:forEach items="${carList }" var="c" varStatus="i">
 						<div class="shop-box" onclick="viewShop(${c.shopNo});">
@@ -122,16 +126,18 @@
 				</c:if>
 			</div>
 			<div class="etc-wrap shop-wrap">
-				<div class="camping-list-menu">
-					<div>
-						<span class="material-symbols-outlined">filter_alt</span>
-						<div onclick="shopListOrder(this, 0, 1, 'new')">최근순</div>
+				<c:if test="${not empty etcList  }">
+					<div class="camping-list-menu">
+						<div>
+							<span class="material-symbols-outlined clicked-span">filter_alt</span>
+							<div onclick="shopListOrder(this, 2, 1, 'new')">최근순</div>
+						</div>
+						<div>
+							<span class="material-symbols-outlined">filter_alt</span>
+							<div onclick="shopListOrder(this, 2, 1, 'rating')">평점순</div>
+						</div>
 					</div>
-					<div>
-						<span class="material-symbols-outlined">filter_alt</span>
-						<div onclick="shopListOrder(this, 0, 1, 'rating')">평점순</div>
-					</div>
-				</div>
+				</c:if>
 				<div class="etc-list shop-list">
 					<c:forEach items="${etcList }" var="c">
 						<div class="shop-box" onclick="viewShop(${c.shopNo});">
@@ -162,6 +168,11 @@
 	<script>
 		$("#insertShopBtn").on("click", function(){
 			location.href="/insertShopFrm.do";
+		})
+		
+		$(".camping-list-menu>div").on("click", function(){
+			$(this).parent().find("span").removeClass("clicked-span");
+			$(this).find("span").addClass("clicked-span");
 		})
 		
 		$(function(){
@@ -248,8 +259,8 @@
 			$(this).find("img").attr("src", "resources/upload/shop/"+url);
 		})
 		
-		function viewShop(shopNo){
-			location.href="/viewShop.do?shopNo="+shopNo+"&reqPage=1&menu=0";
+		function viewShop(shopNo, memberId){
+			location.href="/viewShop.do?shopNo="+shopNo+"&reqPage=1&menu=0&memberId="+memberId;
 		}
 		
 		function viewShopList(shopCategory, reqPage){

@@ -34,7 +34,7 @@ public class UsedBoardService {
 		ArrayList<UsedBoard> list = dao.selectUsedBoardList(map);
 		int totalCount = dao.selectBoardCount();
 		int totalPage = (int)Math.ceil(totalCount/(double)numPerPage);
-		int pageNaviSize = 10;
+		int pageNaviSize = 5;
 		
 		int pageNo = 1;
 		if(reqPage > 3) {

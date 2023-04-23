@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+        <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,30 +21,37 @@
 			</div>
 		</div>
 		
-		<div class="list">
-			<table>
-				<tr>
-					<td style="border-top-left-radius: 10px;">No</td>
-					<td>상품 명</td>
-					<td>가격</td>
-					<td>이미지</td>
-					<td style="border-top-right-radius: 10px;">평점</td>
-				</tr>
-				<tr>
-					<td>1</td>
-					<td>1</td>
-					<td>3</td>
-					<td>3</td>
-					<td>4</td>
-				</tr>
-			</table>
-		  <div class="pagination all-navi">
-				${navi }
-		  </div>
+			
+			<div class="infomation">
+				<p>총 ${count }개</p>
+			</div>
+	<div class="admin-shop">
+		<div class="p-list">
+
+			<c:forEach items="${list }" var="a">
+			<div class="p-info">
+                <a href="#">
+                    <div class="product-img"><img src="/resources/image/shop/${a.filepath }" width="280px;" height="280px;"></div>
+                    <div class="info">
+                        <div class="product-name">${a.shopTitle }</div>
+                        <div class="price">${a.shopPrice }원</div>
+                        <div class="count">재고 : ${a.count }</div>
+                        <div class="score">평점 : ${a.score }</div>
+                    </div>
+                </a>
+            </div>
+            </c:forEach>
 		</div>
 		
 		
+		<div class="pagination">
+				${navi }
+		  </div>
+	</div>
 	</div>
 	
 </body>
 </html>
+
+
+

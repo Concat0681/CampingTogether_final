@@ -31,6 +31,24 @@
 		</if>
 	</select>
 	
+	<select id="selectMyBasket" parameterType="sb" resultType="sb">
+		select
+			basket_no as basketNo,
+			member_id as memberId,
+			shop_no as shopNo
+		from basket
+		where member_id = #{memberId} and shop_no = #{shopNo}
+	</select>
+	
+	<select id="selectMyOrder" parameterType="map" resultType="sod">
+		select
+			order_no as orderNo,
+			member_id as memberId,
+			shop_no as shopNo
+		from shop_order
+		where member_id = #{memberId} and shop_no = #{shopNo}
+	</select>
+	
 	<select id="selectShopPhotoList" parameterType="_int" resultType="sp">
 		select
 			file_no as fileNo,
@@ -156,6 +174,14 @@
 		)		
 	</insert>
 	
+	<delete id="deleteShop">
+		delete from shop where shop_no = #{shopNo}
+	</delete>
+	
+	<delete id="deleteShopPhoto" parameterType="sp">
+		delete from shop_photo where shop_no = #{shopNo} and file_path = #{filepath}
+	</delete>
+	
 	<delete id="deleteShopReviewPhoto" parameterType="srp">
 		delete from shop_review_photo where shop_review_no = #{shopReviewNo} and filepath = #{filepath}
 	</delete>
@@ -163,11 +189,19 @@
 	<delete id="deleteShopReview" parameterType="_int">
 		delete from shop_review where shop_review_no = #{_parameter}
 	</delete>
+
 	
 	<update id="updateShopReview" parameterType="sr">
 		update shop_review set
 			shop_review_content = #{shopReviewContent}, shop_review_rating = #{shopReviewRating}
 		where shop_review_no = #{shopReviewNo}
+	</update>
+	
+	<update id="updateShop" parameterType="s">
+		update shop set
+			shop_category = #{shopCategory}, shop_title = #{shopTitle}, shop_content = #{shopContent}, 
+			shop_price =  #{shopPrice}, delivary_price = #{delivaryPrice}, max_count = #{maxCount}
+		where shop_no = #{shopNo}
 	</update>
 	
 	<select id="selectWishList" parameterType="map" resultMap="selectShop2">

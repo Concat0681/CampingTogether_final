@@ -56,7 +56,7 @@
 					<tr>
 						<td>주소 변경</td>
 						<td>
-							<input type="button" onclick="sample4_execDaumPostcode()" id="post-btn" value="주소 찾기"><br> 
+							<input type="button" onclick="sample4_execDaumPostcode()" class="postBtn" id="post-btn" value="주소 찾기" style= "margin-left : 0; padding-left : 0;"><br> 
 							<input type="text" class="input" name="memberAddr" id="sample4_roadAddress">
 							<input type="text" class="input" placeholder="상세주소" id="detail-input"> <!-- <input type="text" id="sample4_roadAddress" placeholder="도로명주소" readonly><br> -->
 
