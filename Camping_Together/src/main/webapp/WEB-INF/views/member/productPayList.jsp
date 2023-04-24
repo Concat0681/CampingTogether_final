@@ -35,7 +35,7 @@
 						<td>${p.productName }</td>
 						<td>${p.buyCount }</td>
 						<td>${p.productPaymentDate }</td>
-						<td>${p.totalPrice }</td>
+						<td>${p.totalPrice} 원</td>
 					</tr>
 					
 				</c:forEach> 

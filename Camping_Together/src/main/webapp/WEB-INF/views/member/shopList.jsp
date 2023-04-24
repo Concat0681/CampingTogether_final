@@ -22,12 +22,12 @@
 		</div>
 		
 			
-			<div class="infomation">
-				<p>총 ${count }개</p>
-			</div>
 	<div class="admin-shop">
-		<div class="p-list">
+			<div class="infomation">
+				<p>총 [${count }개] 상품</p>
+	</div>
 
+		<div class="p-list">
 			<c:forEach items="${list }" var="a">
 			<div class="p-info">
                 <a href="#">

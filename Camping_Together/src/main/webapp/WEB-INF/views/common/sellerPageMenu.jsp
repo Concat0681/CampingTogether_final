@@ -14,8 +14,8 @@
 </head>
 <body>
 		<div class= "menu-wrap">
-			<div class="menu-list">
-				<ul style="padding : 0;">
+			<div class="menu-list" ">
+				<ul style="padding : 0;" index="${index }">
 					<li><a href="/sellList.do?reqPage=1&memberId=${sessionScope.m.memberId }">My 캠핑장</a></li>
 					<!-- <li><a href="/sellProduct.do?reqPage=1&memberId=">shop상품 판매 리스트</a></li>  -->
 					<li><a href="#">?</a></li>
