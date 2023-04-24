@@ -42,9 +42,9 @@
 						<td>회원구분</td>
 						<td><input type="text" class="input" name="memberGrade"
 							value=<c:choose>
-									<c:when test="${sessionScope.m.memberGrade eq 'c'}"> 일반회원 </c:when>
-									<c:when test="${sessionScope.m.memberGrade eq 'a'}"> 관리자 </c:when>
-									<c:when test="${sessionScope.m.memberGrade eq 'b'}"> 사업자 </c:when>
+									<c:when test="${sessionScope.m.memberGrade eq 'c'}"> 일반회원 readonly</c:when>
+									<c:when test="${sessionScope.m.memberGrade eq 'a'}"> 관리자 readonly</c:when>
+									<c:when test="${sessionScope.m.memberGrade eq 'b'}"> 사업자 readonly</c:when>
 								</c:choose>>
 						</td>
 					</tr>

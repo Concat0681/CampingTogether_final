@@ -205,6 +205,30 @@
 	</select>
 	
 	
+		<select id="selectCampingRoom" parameterType="_int" resultType="cr">
+			select
+				camping_room_no as campingRoomNo,
+			    camping_room_title as campingRoomTitle,
+			    camping_room_type as campingRoomType,
+			    camping_room_price as campingRoomPrice
+			from camping_room where camping_no = #{_parameter}
+		</select>
+	
+	
+		<select id="selectAdminMember" parameterType="String" resultType="m">
+			select 
+				member_no as memberNo,
+				member_id as memberId,
+				member_pw as memberPw,
+				member_name as memberName,
+				member_phone as memberPhone,
+				member_addr as memberAddr,
+				member_photo as memberPhoto,
+				member_grade as memberGrade,
+				member_email as memberEmail,
+				member_name as memberName
+		 from member where member_id=#{_parameter} 
+		</select>
 </mapper>
 
 

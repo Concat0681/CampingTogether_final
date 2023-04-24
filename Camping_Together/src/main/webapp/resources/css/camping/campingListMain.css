@@ -112,13 +112,34 @@
 	background-color: white;
 }
 .camping-info{
+	padding: 10px 0;
 	font-size: 20px;
-	height: 50px;
 	color: #AD8B73;
 	display: flex;
+	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 }
+.camping-detail{
+	width: 80%;
+	margin: 0 auto;
+	margin-top: 10px;
+	padding-top: 10px;
+	display: flex;
+	justify-content: space-between;
+	border-top: 1px solid #dedede;
+}
+.camping-detail>div{
+	font-size: small;
+	color: grey;
+}
 .hidden{
 	display: none;
+}
+.filled-heart{
+  font-variation-settings:
+  'FILL' 1,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48
 }

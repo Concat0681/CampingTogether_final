@@ -21,6 +21,7 @@
 				<li><a href="/shopProductList.do?reqPage=1&memberId=${sessionScope.m.memberId }">SHOP 판매 상품</a></li>
 				<li><a href="/allMember.do?reqPage=1">전체 회원</a></li>
 				<li><a href="/blackMemberList.do?reqPage=1">신고 회원</a></li>
+				<li><a href="/adminMember.do?memberId=${sessionScope.m.memberId }">관리자 정보</a></li>
 			</ul>
 		</div>
 		

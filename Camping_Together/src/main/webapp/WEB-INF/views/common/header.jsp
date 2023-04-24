@@ -6,6 +6,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+<!-- <script src="https://code.jquery.com/jquery-3.6.1.js"></script>  -->
+
+
 <!--  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" rel="stylesheet"/>
@@ -107,7 +111,7 @@
 	    <div class="collapse navbar-collapse" id="navbarSupportedContent">
 	      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 	        <li class="nav-item">
-	          <a class="nav-link" href="/campingListMain.do">캠핑</a>
+	          <a class="nav-link" href="/campingListMain.do?memberId=${sessionScope.m.memberId }">캠핑</a>
 	        </li>
 	        <li class="nav-item">
 	          <a class="nav-link" href="#">캠핑예약</a>
@@ -282,7 +286,9 @@ const navLink =  document.querySelectorAll('.nav-link');
     // 모달창 열기 버튼 클릭 이벤트
     $(document).ready(function() {
     	  //모달창
-    	  $(".loginBtn").click(function() { // a태그, 버튼 아이디,클래스 입력
+    	  $(".loginBtn").click(function(event) { // a태그, 버튼 아이디,클래스 입력
+    		if (event.stopPropagation) event.stopPropagation();
+    		else event.cancelBubble = true; // IE 대응
     	    $("#modalVer1").css("display", "block"); 
     	    const circles = $('.circle-container span');
     		  let index = 0;

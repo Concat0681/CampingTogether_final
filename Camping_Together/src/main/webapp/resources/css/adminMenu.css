@@ -290,8 +290,72 @@
 .p-info>a{
     color: #737373;
 }
+.infomation{
+    width: 400px;
+}
 
 .infomation>p{
     color: #737373;
-    float: right;
+    font-size: 23px;
+}
+
+
+/*정보 수정*/
+
+.admin-title{
+    border-bottom: 1px solid #AD8B73;
+}
+.admin-info{
+    width: 930px;
+    /*
+    display: flex;
+    justify-content: center;
+    */
+    margin-top: 50px;
+    margin-bottom: 50px;
+    padding-bottom: 50px;
+    border-bottom: 1px solid #AD8B73;
+    
+}
+
+.admin-info>table{
+    width: 700px;
+    margin: 0 auto;
+}
+
+.admin-pwUp{
+    width: 930px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+}
+
+.admin-info>table>tbody>tr>td:first-child{
+    width: 200px;
+    height: 80px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 500;
+    color: #AD8B73;
+}
+
+.admin-info>table>tbody>tr>td>input{
+    width: 350px;
+    height: 45px;
+    border-radius: 5px;
+    border: 1px solid #AD8B73;
+    padding-left: 10px;
+}
+.comment{
+    position: absolute;
+}
+
+.admin-pwupdate{
+    background-color: #AD8B73;
+    width: 250px;
+    height: 60px;
+    border: none;
+    border-radius: 5px;
+    font-size: 20px;
+    color: white;
 }

@@ -9,7 +9,6 @@
 <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=n8k40j998a&submodules=geocoder"></script>
 <link rel="stylesheet" href="resources/css/camping/viewCamping.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <link href="/resources/css/campingReview.css" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -245,7 +244,7 @@
 							    <c:choose>
 							        <c:when test="${campingReviewRatingAvg > 0}">
 							            <c:forEach begin="1" end="${campingReviewRatingAvg}">
-							                <span class="material-symbols-outlined" style="color: gold;">star</span>
+							                <span class="material-symbols-outlined filled-star" style="color: gold;">star</span>
 							            </c:forEach>
 							        </c:when>
 							        <c:otherwise>
@@ -272,6 +271,7 @@
 						    <div class="review-modal-content">
 						    	<form action="/campingReviewWrite.do" method="post" enctype="multipart/form-data">
 						    		<input type="hidden" name="campingNo" value="${camping.campingNo }">
+						    		<input type="hidden" name="memberId" value="${sessionScope.m.memberId }">
 							      	<table>
 							      		<tr>
 							      			<td colspan="2" style="text-align: center;">만족하셨나요?</td>
@@ -279,11 +279,11 @@
 							      		<tr>
 										    <td colspan="2" style="padding-bottom: 25px;">
 										      <div class="star-wrap star-wrap2">
-										        <span class="material-symbols-outlined" style="padding-left: 175px;">star</span>
-										        <span class="material-symbols-outlined">star</span>
-										        <span class="material-symbols-outlined">star</span>
-										        <span class="material-symbols-outlined">star</span>
-										        <span class="material-symbols-outlined">star</span>
+										        <span class="material-symbols-outlined filled-star" style="padding-left: 175px;">star</span>
+										        <span class="material-symbols-outlined filled-star">star</span>
+										        <span class="material-symbols-outlined filled-star">star</span>
+										        <span class="material-symbols-outlined filled-star">star</span>
+										        <span class="material-symbols-outlined filled-star">star</span>
 										    </div>
 										    </td>
 										</tr>
@@ -300,7 +300,7 @@
 							      		</tr>
 							      		<tr>
 							      			<td colspan="2" style="padding-bottom: 10px;">
-							      				<textarea name="campingReviewContent"></textarea>
+							      				<textarea name="campingReviewContent" placeholder="솔직한 리뷰를 남겨주세요!"></textarea>
 							      			</td>
 							      		</tr>
 							      		<tr>
@@ -308,7 +308,7 @@
 										  <td>
 										    <input type="file" onchange="loadImg(this);" id="campingReviewFilepath" name="campingReviewFilepath" style="display: none;" multiple>
 										    <label for="campingReviewFilepath">
-										    	<span class="material-symbols-outlined photoCamera">photo_camera</span>
+										    	<span class="material-symbols-outlined photoCamera" style="font-size: 50px;">photo_camera</span>
 										    </label>
 										  </td>
 										</tr>
@@ -318,7 +318,7 @@
 									    </div>
 							   		</div>
 							    <div class="review-modal-foot">
-							      <button type="submit" class="reviewBtn bc1">등록</button>
+							      <button type="submit" class="reviewBtn bc1" style="border: none; background-color: transparent;">등록</button>
 							      <button type="button" class="btn bc1 review-modal-close">취소</button>
 							    </div>
 						    </form>
@@ -337,7 +337,7 @@
 						            </p>
 						            <p style="padding-left: 10px;">
 						            	<c:forEach begin="1" end="${cr.campingReviewRating }" var="star">
-										    <span class="material-symbols-outlined" style="color: gold;">star</span>
+										    <span class="material-symbols-outlined filled-star" style="color: gold;">star</span>
 										</c:forEach>
 						            </p>
 						            <p class="comment-content">${cr.campingReviewContent }</p>
@@ -404,11 +404,11 @@
 											      		<tr>
 														    <td colspan="2" style="padding-bottom: 25px;">
 														      <div class="star-wrap1 star-wrap22">
-														        <span class="material-symbols-outlined" style="padding-left: 175px;">star</span>
-														        <span class="material-symbols-outlined">star</span>
-														        <span class="material-symbols-outlined">star</span>
-														        <span class="material-symbols-outlined">star</span>
-														        <span class="material-symbols-outlined">star</span>
+														        <span class="material-symbols-outlined filled-star" style="padding-left: 175px;">star</span>
+														        <span class="material-symbols-outlined filled-star">star</span>
+														        <span class="material-symbols-outlined filled-star">star</span>
+														        <span class="material-symbols-outlined filled-star">star</span>
+														        <span class="material-symbols-outlined filled-star">star</span>
 														      </div>
 														    </td>
 														</tr>
@@ -433,7 +433,7 @@
 											      			<td>
 											      				<input type="file" onchange="loadImg2(this);" id="campingReviewFilepath2" name="campingReviewFilepath" multiple style="display: none;">
 											      				<label for="campingReviewFilepath2">
-															    	<span class="material-symbols-outlined photoCamera">photo_camera</span>
+															    	<span class="material-symbols-outlined photoCamera" style="font-size: 50px;">photo_camera</span>
 															    </label>
 											      			</td>
 											      		</tr>
@@ -443,7 +443,7 @@
 						                    		</div>
 											    </div>
 											    <div class="review-modal-foot2">
-											      <button type="submit" class="reviewBtn2 bc1">수정</button>
+											      <button type="submit" class="reviewBtn2 bc1" style="border: none; background-color: transparent;">수정</button>
 											      <button type="button" class="btn bc1 review-modal-close2">취소</button>
 											    </div>
 										    </form>
@@ -835,7 +835,7 @@
 				                              .addClass("review-img2");
 				        const deleteBtn2 = $("<button>").text("삭제")
 				                                        .addClass("delete-btn2")
-				                                        .attr("type", "button");
+				                                        .attr("type", "button").attr("onclick", "delNewPhoto(this)");
 				        imgWrapper2.append(img2).append(deleteBtn2).appendTo("#img-viewer");
 				        
 				        deleteBtn2.on("click", function() {
@@ -846,9 +846,29 @@
 			      }
 			    }
 			  }
-			}
+			}campingReviewFilepath
 		
 		
+	</script>
+	
+	<script>
+		function delNewPhoto(obj){
+			const fileNum = $(".img-wrapper2").index($(obj).parent());
+			const dataTransfer = new DataTransfer();
+		    
+		    let files = $('#campingReviewFilepath')[0].files;	//사용자가 입력한 파일을 변수에 할당
+		    
+		    let fileArray = Array.from(files);	//변수에 할당된 파일을 배열로 변환(FileList -> Array)
+		    
+		    fileArray.splice(fileNum, 1);	//해당하는 index의 파일을 배열에서 제거
+		    
+		    fileArray.forEach(file => { dataTransfer.items.add(file); });
+		    //남은 배열을 dataTransfer로 처리(Array -> FileList)
+		    
+		    $('#campingReviewFilepath')[0].files = dataTransfer.files;	//제거 처리된 FileList를 돌려줌
+		   console.log($(obj).parent())
+		    $(obj).parent().remove();
+		}
 	</script>
 	
 	<script>
@@ -1002,7 +1022,7 @@
 		                              .addClass("review-img");
 		        const deleteBtn = $("<button>").text("삭제")
 		                                        .addClass("delete-btn")
-		                                        .attr("type", "button");
+		                                        .attr("type", "button").attr("onclick", "delNewPhoto2(this)");
 		        imgWrapper.append(img).append(deleteBtn).appendTo("#img-viewer2");
 		        
 		        deleteBtn.on("click", function() {
@@ -1013,6 +1033,24 @@
 		    }
 		  }
 		}
+	
+	function delNewPhoto2(obj){
+		const fileNum = $(".img-wrapper").index($(obj).parent());
+		const dataTransfer = new DataTransfer();
+	    
+	    let files = $('#campingReviewFilepath2')[0].files;	//사용자가 입력한 파일을 변수에 할당
+	    
+	    let fileArray = Array.from(files);	//변수에 할당된 파일을 배열로 변환(FileList -> Array)
+	    
+	    fileArray.splice(fileNum, 1);	//해당하는 index의 파일을 배열에서 제거
+	    
+	    fileArray.forEach(file => { dataTransfer.items.add(file); });
+	    //남은 배열을 dataTransfer로 처리(Array -> FileList)
+	    
+	    $('#campingReviewFilepath2')[0].files = dataTransfer.files;	//제거 처리된 FileList를 돌려줌
+	   console.log($(obj).parent())
+	    $(obj).parent().remove();
+	}
 	
 	
 	function openReviewModal(campingReviewNo) {
