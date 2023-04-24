@@ -94,10 +94,12 @@
 	 
 	 
 	 <beans:bean id="allMemberChat" class="common.AllMemberChat" />
-<!-- 	 <beans:bean id="dmCount" class="kr.or.dm.model.service.DirectMessageHandler" /> -->
+	 <!-- 웹소켓 쪽지 처리할 객체 생성 -->
+	<beans:bean id="messageCount" class="kr.or.iei.message.model.service.MessageHandler" />
+	
 	 <websocket:handlers>
 	 	<websocket:mapping handler="allMemberChat" path="/chat.do"/>
-<!-- 	 	<websocket:mapping handler="dmCount" path="/dm.do"/> -->
+		<websocket:mapping handler="messageCount" path="/messageMain.do"/>
 	 </websocket:handlers>
 	  
 	

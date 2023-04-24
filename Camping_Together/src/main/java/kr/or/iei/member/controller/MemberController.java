@@ -358,6 +358,15 @@ public class MemberController {
 		return new Gson().toJson(member);
 	}
 	
+	@RequestMapping(value = "/selectAllMemberId.do", produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public String selectId() {
+		ArrayList<String> list = service.selectId();
+		System.out.println(list);
+		return new Gson().toJson(list);
+		
+	}
+	
 	
 	//my캠핑장 룸 조회
 	@ResponseBody

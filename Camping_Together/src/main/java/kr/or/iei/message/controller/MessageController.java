@@ -2,6 +2,7 @@ package kr.or.iei.message.controller;
 
 import com.google.gson.Gson;
 
+
 import kr.or.iei.message.model.service.MessageService;
 import kr.or.iei.message.model.vo.Message;
 import lombok.Value;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.Mapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
@@ -27,7 +29,7 @@ public class MessageController {
 
 	@RequestMapping(value = "/messageMain.do")
 	public String messageMain() {
-		return "message/messageMain";
+		return "message/messageMainTest";
 	}
 
 	@ResponseBody
@@ -38,19 +40,35 @@ public class MessageController {
 		System.out.println(result);
 		return String.valueOf(result);
 	}
-
-	@RequestMapping(value = "/myMessageList.do")
+	@ResponseBody
+	@RequestMapping(value = "/myMessageList.do",  produces = "application/json;charset=utf-8")
 	public String myMessageList(Message message) {
 		ArrayList<Message> list = service.selectMessagelist(message);
-		System.out.println("con"+list);
+		System.out.println("cont"+list);
 		return new Gson().toJson(list);
 	}
-
+	/*
+	@ResponseBody
+	@RequestMapping(value = "/myMessageList.do", produces = "application/json;charset=utf-8")
+	public String myMessageList(@RequestParam("type") String type) {
+	    Message message = new Message();
+	    if (type.equals("sent")) {
+	        message.setSender("나");
+	    } else if (type.equals("received")) {
+	        message.setReceiver("나");
+	    } else {
+	        return "";
+	    }
+	    List<Message> list = service.selectMessagelist(message);
+	    return new Gson().toJson(list);
+	}
+	 */
+	
 	@ResponseBody
 	@RequestMapping(value = "/messageDetail.do", produces = "application/json;charset=utf-8")
-	public Message MessageDetail(Message message) {
-		Message mg = service.selectOneMessage(message);
-		return message;
+	public Message MessageDetail(int messageNo) {
+		Message mg = service.selectOneMessage(messageNo);
+		return mg;
 	}
 	
 	@ResponseBody

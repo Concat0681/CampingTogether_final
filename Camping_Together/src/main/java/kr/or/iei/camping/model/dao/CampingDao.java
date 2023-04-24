@@ -240,9 +240,9 @@ public class CampingDao {
 		return cr;
 	}
 
-	public ArrayList<CampingReservation> selectReservationList(CampingReservation cr) {
-		List reservationList = sqlSession.selectList("camping.selectReservationList", cr);
-		return (ArrayList<CampingReservation>)reservationList;
+	public CampingReservation selectReservationList(CampingReservation cr) {
+		CampingReservation cre = sqlSession.selectOne("camping.selectReservationList", cr);
+		return cre;
 	}
 
 	public CampingReservation selectReservation(CampingReservation cr) {
