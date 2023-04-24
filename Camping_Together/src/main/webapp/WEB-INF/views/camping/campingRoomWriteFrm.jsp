@@ -56,7 +56,7 @@
   
   .backgroundPhoto {
 			width: 100%;
-			 background-image: url(/resources/image/main/back1.jpg);
+			 background-image: url(/resources/image/main/campingImg.jpg);
 		    background-repeat: no-repeat;
 		    background-size: cover;
 			position: absolute;

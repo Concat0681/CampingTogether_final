@@ -105,13 +105,30 @@
     color: black;
     background-color: #fff;
   }
+  
+  .backgroundPhoto {
+			width: 100%;
+			 background-image: url(/resources/image/main/campingImg.jpg);
+		    background-repeat: no-repeat;
+		    background-size: cover;
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index: -1;
+		}
+
+		.wrap {
+			position: relative;
+			z-index: 1;
+		}
 	
 </style>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
-	<div class="wrap">
-        <div class="contentWrap" style="margin-top: 200px;">
+	<div class="backgroundPhoto">
+	<div class="wrap" style="margin-top: 300px;">
+        <div class="contentWrap" style="background-color: #fff; padding-left: 30px; padding-top: 50px; border-radius: 10px;">
         	<div class="contentDetail activeContent">
         		<h2 style="margin-bottom: 60px; font-weight: 900;">캠핑장을 찾고 있는 여행객들을 사로잡아보세요!</h2>
         		<form action="/campingWrite.do" method="post" enctype="multipart/form-data">
@@ -157,7 +174,7 @@
 					
 	        		
 		        		<div>
-			        		<button type="button" class="btn1 nextBtn" style="margin-right: 80px;">다음</button>
+			        		<button type="button" class="btn1 nextBtn" style="margin-right: 50px; margin-bottom: 30px;">다음</button>
 		        		</div>
 		        	</div>
 	        		<div class="contentDetail" style="display: none;">
@@ -199,9 +216,9 @@
 							</table>
 						</div>
 	        		<div id="map" style="width:620px; height:500px;"></div>
-	        				<div>
+	        				<div style="padding-bottom: 30px;">
 	        					<button type="button" class="btn1 prevBtn">이전</button>
-		        				<button type="button" class="btn1 nextBtn" style="margin-right: 80px;">다음</button>
+		        				<button type="button" class="btn1 nextBtn" style="margin-right: 50px;">다음</button>
 	        				</div>
 		        	</div>
 		        		
@@ -421,7 +438,7 @@
 	        		</table>
 	        		<div>
 	        			<button type="button" class="btn1 prevBtn">이전</button>
-		        		<button type="button" class="btn1 nextBtn" style="margin-right: 80px;">다음</button>
+		        		<button type="button" class="btn1 nextBtn" style="margin-right: 50px; margin-bottom: 30px;">다음</button>
 	        		</div>
         	</div>
 			<div class="contentDetail" style="display: none;">
@@ -477,11 +494,11 @@
 	                    </div>
 	       			</div>
 	       			<button type="button" class="btn1 prevBtn">이전</button>
-	       			<button type="submit" name="campingRoomBtn" class="btn1 nextBtn" style="margin-right: 80px;">등록</button>
+	       			<button type="submit" name="campingRoomBtn" class="btn1 nextBtn" style="margin-right: 50px; margin-bottom: 30px;">등록</button>
        			</form>
         	</div>	
        	</div>
-        	
+       	</div>
 	</div>
 	
 	<script>

@@ -40,12 +40,28 @@
 		cursor: pointer;
 	}
 	
+	 .backgroundPhoto {
+			width: 100%;
+			 background-image: url(/resources/image/main/campingImg.jpg);
+		    background-repeat: no-repeat;
+		    background-size: cover;
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index: -1;
+		}
+
+		.wrap {
+			position: relative;
+			z-index: 1;
+		}
 </style>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
+	<div class="backgroundPhoto">
 	<div class="wrap" style="margin-top: 300px;">
-        <div class="contentWrap">
+        <div class="contentWrap" style="background-color: #fff; padding-left: 30px; padding-top: 50px; border-radius: 10px;">
         	<div class="contentDetail">
         		<h2 style="margin-bottom: 60px;">${campingRoom.campingRoomTitle } 캠핑 수정</h2>
         		<form action="/updateCampingRoom.do" method="post" enctype="multipart/form-data" id="updateCampingRoomFrm">
@@ -107,12 +123,12 @@
 							</c:forEach>
 	                    </div>
 	       			</div>
-	       			<button type="submit" name="updateCampingRoomBtn" class="btn1 nextBtn" style="margin-right: 80px; width: 620px;">캠핑 수정</button>
+	       			<button type="submit" name="updateCampingRoomBtn" class="btn1 nextBtn" style="margin-right: 50px; width: 600px; margin-bottom: 30px;">캠핑 수정</button>
        			</form>
         	</div>	
         	
         	
-        	
+        	</div>
         </div>
 	</div>
 	

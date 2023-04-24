@@ -9,7 +9,6 @@
 <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=n8k40j998a&submodules=geocoder"></script>
 <link rel="stylesheet" href="resources/css/camping/viewCamping.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <link href="/resources/css/campingReview.css" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -245,7 +244,7 @@
 							    <c:choose>
 							        <c:when test="${campingReviewRatingAvg > 0}">
 							            <c:forEach begin="1" end="${campingReviewRatingAvg}">
-							                <span class="material-symbols-outlined" style="color: gold;">star</span>
+							                <span class="material-symbols-outlined filled-star" style="color: gold;">star</span>
 							            </c:forEach>
 							        </c:when>
 							        <c:otherwise>
@@ -279,11 +278,11 @@
 							      		<tr>
 										    <td colspan="2" style="padding-bottom: 25px;">
 										      <div class="star-wrap star-wrap2">
-										        <span class="material-symbols-outlined" style="padding-left: 175px;">star</span>
-										        <span class="material-symbols-outlined">star</span>
-										        <span class="material-symbols-outlined">star</span>
-										        <span class="material-symbols-outlined">star</span>
-										        <span class="material-symbols-outlined">star</span>
+										        <span class="material-symbols-outlined filled-star" style="padding-left: 175px;">star</span>
+										        <span class="material-symbols-outlined filled-star">star</span>
+										        <span class="material-symbols-outlined filled-star">star</span>
+										        <span class="material-symbols-outlined filled-star">star</span>
+										        <span class="material-symbols-outlined filled-star">star</span>
 										    </div>
 										    </td>
 										</tr>
@@ -337,7 +336,7 @@
 						            </p>
 						            <p style="padding-left: 10px;">
 						            	<c:forEach begin="1" end="${cr.campingReviewRating }" var="star">
-										    <span class="material-symbols-outlined" style="color: gold;">star</span>
+										    <span class="material-symbols-outlined filled-star" style="color: gold;">star</span>
 										</c:forEach>
 						            </p>
 						            <p class="comment-content">${cr.campingReviewContent }</p>
@@ -404,11 +403,11 @@
 											      		<tr>
 														    <td colspan="2" style="padding-bottom: 25px;">
 														      <div class="star-wrap1 star-wrap22">
-														        <span class="material-symbols-outlined" style="padding-left: 175px;">star</span>
-														        <span class="material-symbols-outlined">star</span>
-														        <span class="material-symbols-outlined">star</span>
-														        <span class="material-symbols-outlined">star</span>
-														        <span class="material-symbols-outlined">star</span>
+														        <span class="material-symbols-outlined filled-star" style="padding-left: 175px;">star</span>
+														        <span class="material-symbols-outlined filled-star">star</span>
+														        <span class="material-symbols-outlined filled-star">star</span>
+														        <span class="material-symbols-outlined filled-star">star</span>
+														        <span class="material-symbols-outlined filled-star">star</span>
 														      </div>
 														    </td>
 														</tr>
