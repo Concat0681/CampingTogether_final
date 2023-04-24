@@ -271,6 +271,7 @@
 						    <div class="review-modal-content">
 						    	<form action="/campingReviewWrite.do" method="post" enctype="multipart/form-data">
 						    		<input type="hidden" name="campingNo" value="${camping.campingNo }">
+						    		<input type="hidden" name="memberId" value="${sessionScope.m.memberId }">
 							      	<table>
 							      		<tr>
 							      			<td colspan="2" style="text-align: center;">만족하셨나요?</td>
@@ -299,7 +300,7 @@
 							      		</tr>
 							      		<tr>
 							      			<td colspan="2" style="padding-bottom: 10px;">
-							      				<textarea name="campingReviewContent"></textarea>
+							      				<textarea name="campingReviewContent" placeholder="솔직한 리뷰를 남겨주세요!"></textarea>
 							      			</td>
 							      		</tr>
 							      		<tr>
@@ -307,7 +308,7 @@
 										  <td>
 										    <input type="file" onchange="loadImg(this);" id="campingReviewFilepath" name="campingReviewFilepath" style="display: none;" multiple>
 										    <label for="campingReviewFilepath">
-										    	<span class="material-symbols-outlined photoCamera">photo_camera</span>
+										    	<span class="material-symbols-outlined photoCamera" style="font-size: 50px;">photo_camera</span>
 										    </label>
 										  </td>
 										</tr>
@@ -317,7 +318,7 @@
 									    </div>
 							   		</div>
 							    <div class="review-modal-foot">
-							      <button type="submit" class="reviewBtn bc1">등록</button>
+							      <button type="submit" class="reviewBtn bc1" style="border: none; background-color: transparent;">등록</button>
 							      <button type="button" class="btn bc1 review-modal-close">취소</button>
 							    </div>
 						    </form>
@@ -432,7 +433,7 @@
 											      			<td>
 											      				<input type="file" onchange="loadImg2(this);" id="campingReviewFilepath2" name="campingReviewFilepath" multiple style="display: none;">
 											      				<label for="campingReviewFilepath2">
-															    	<span class="material-symbols-outlined photoCamera">photo_camera</span>
+															    	<span class="material-symbols-outlined photoCamera" style="font-size: 50px;">photo_camera</span>
 															    </label>
 											      			</td>
 											      		</tr>
@@ -442,7 +443,7 @@
 						                    		</div>
 											    </div>
 											    <div class="review-modal-foot2">
-											      <button type="submit" class="reviewBtn2 bc1">수정</button>
+											      <button type="submit" class="reviewBtn2 bc1" style="border: none; background-color: transparent;">수정</button>
 											      <button type="button" class="btn bc1 review-modal-close2">취소</button>
 											    </div>
 										    </form>
