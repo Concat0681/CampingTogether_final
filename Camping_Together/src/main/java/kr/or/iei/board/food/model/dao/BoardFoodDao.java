@@ -98,6 +98,16 @@ public class BoardFoodDao {
 		System.out.println(list.size());
 		return (FileVO)list.get(0);
 	}
+	public ArrayList<BoardFood> selectMainFoodList(BoardFood b) {
+		List list = sqlSession.selectList("boardFood.selectMainFoodList", b);
+		return (ArrayList<BoardFood>)list;
+	}
 
+/*
+	public FoodComment foodCommnetCount(FoodComment fc) {
+		FoodComment result = sqlSession.selectOne("boardFood.selectMainFoodCommentList", fc);
+		return result;
+	}
+*/
 
 }

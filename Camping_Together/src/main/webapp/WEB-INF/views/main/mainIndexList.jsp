@@ -10,7 +10,7 @@
 </head>
 <body>
 <h3>Top 3 Used Board</h3>
-            <div class="content-mid">
+            <div class="content-mid" style="height: 500px;">
             	<c:forEach items="${top3UsedBoards }" var="ub">
             	<input type="hidden" id="usedBoardNo" value="${ub.usedBoardNo }">
             	<div class="product-wrap">
@@ -57,7 +57,7 @@
                             <div class="product-price">
                                 <span><fmt:formatNumber value="${ub.usedProductPrice }" pattern="#,###" /></span><span>원</span>
                             </div>
-                            <span id="favorite" class="material-symbols-outlined product-wish" style="z-index:1000;">favorite</span>
+                            <span id="favorite" class="material-symbols-outlined product-wish">favorite</span>
                         </div>
                     </div>
                 </div>

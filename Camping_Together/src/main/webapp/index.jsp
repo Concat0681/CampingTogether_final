@@ -120,9 +120,11 @@
 		<div class="wrapper wrapperMiddle-tradeBox">
 				<jsp:include page="/usedBoardIndex.do"/>
 		</div>
-		<div class="wrapper wrapperMiddle-shop">>
+		<div class="wrapper wrapperMiddle-shop">
 		</div>
-		<div class="wrapper wrapperBottom"></div>
+		<div class="wrapper wrapperBottom">
+			<jsp:include page="/boardMainFoodList.do"/>
+		</div>
  	
 	
 	
@@ -133,19 +135,19 @@
 		<button class="btn2" style="width : 100px; height : 30px;">버튼</button>
 		<button class="btn3" style="width : 100px; height : 30px;">버튼</button>
 	</div>
-	
+	<a class="mainlist" href="/boardMainFoodList.do" style="display: none;"></a>
 </body>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 <script src="resources/js/camping/dateRangePicker.js"></script>
 
 <script>
 
-
 $(document).ready(function() {
     const navbarTop = $('.wrapper-top');
     const navbarBottom = $('.navbar');
     const navItem = $('.nav-item');
     const navLink = $('.nav-link');
+    $(".mainlist").click();
     
 	
     

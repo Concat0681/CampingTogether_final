@@ -161,6 +161,25 @@
 									</div>
 									<div class="room-btn-box">
 										<button type="button" class="btn2">예약하기</button>
+										<%--결제하기 캠핑 정보 --%>
+										<form action="reservationFrm.do?checkIn=${checkIn }&checkOut=${checkOut}" method="post">
+											<input type="hidden" name="memberNo" value="${sessionScope.m.memberNo }">
+											<input type="hidden" name="campingRoomNo" value="${r.campingRoomNo }">
+											<input type="hidden" name="checkIn1"  value="${checkIn }">
+											<input type="hidden" name="checkOut1" value="${checkOut }">
+											<input type="hidden" name="campingTitle" value="${camping.campingTitle } ">
+											<input type="hidden" name="campingType" value="${r.campingRoomTitle }">
+											<input type="hidden" name="price" value="${r.campingRoomPrice }">
+											<input type="hidden" name="addr" value="${camping.campingAddr }">
+											<c:if test="${ empty reservationList}">
+												<button type="submit" class="btn2 reservationBtn">예약하기</button>
+											</c:if>
+										</form>
+										<c:forEach items="${reservationList}" var="rl">
+											<c:if test="${r.campingRoomNo eq rl.campingRoomNo}">
+												<button class="btn2"  style="background-color: #e3e4e5;">예약완료</button>
+											</c:if>										
+										</c:forEach>
 									</div>
 								</div>
 							</div>
@@ -610,8 +629,12 @@
 		      '10월',
 		      '11월',
 		      '12월'
-			]
+			],
+			beforeShowDay : function(input, inst){
+				
 			}
+			}
+
 		})
 		inputDate.on('apply.daterangepicker', function (ev, picker) {
 		  $(this).val(
@@ -627,6 +650,19 @@
 		  $('[name=checkIn]').val('')
 		  $('[name=checkOut]').val('')
 		})
+		
+		bookedDays = ["2023-04-21", "2023-04-27" , "2023-04-28"]
+		function disableDates(){
+			 var m = date.getMonth() + 1;
+	         var d = date.getDate();
+	         var y = date.getFullYear();
+	             for (i = 0; i < bookedDays.length; i++) {
+	             if ($.inArray(y + '-' + m + '-' + d, bookedDays) != -1) {
+	             return [false];
+	             }
+	             }
+	             return [true];
+	}
 		
 		const carousel = $(".carousel");
 		carousel.each(function(i, c){
@@ -1054,5 +1090,31 @@
 	});
 	
 </script>
+<script>
+	//결제
+ 		var memberId = $(".memberId").val();
+		var memberPhone = $(".memberPhone").val();
+		var memberEmail = $(".memberEmail").val();
+		var campingTitle = $(".camping-title").text();
+		var campingType = $(".camping-Type").text();
+		var price = $(".price").text();
+		$(".reservationBtn").on("click",function(){
+		var checkIn = $("[name=checkIn]").val();
+		$("[name=checkIn1]").val(checkIn);
+		var checkOut = $("[name=checkOut]").val();
+		$("[name=checkOut1]").val(checkOut);
+					
+		});
+	
+		$("[name=checkOut]").on("change",function(){
+		var checkIn = $("[name=checkIn]").val();
+		var checkOut = $("[name=checkOut]").val();
+		$("[name=checkIn1]").val(checkIn);
+		$("[name=checkOut1]").val(checkOut);
+					
+		});
+		
+		
+	</script>
 </body>
 </html>
