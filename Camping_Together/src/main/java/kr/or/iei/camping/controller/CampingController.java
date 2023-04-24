@@ -53,7 +53,7 @@ public class CampingController {
 		}
 		CampingListPageData cpd = service.selectCampingListData(reqPage, order, camping, campingRoom);
 		for(Camping c : cpd.getList()) {
-			System.out.println(c.getCampingBookmarkNo());
+//			System.out.println(c.getCampingBookmarkNo());
 		}
 		System.out.println();
 		order = "new";
