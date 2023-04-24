@@ -326,6 +326,7 @@ public class CampingService {
 		}
 		return result;
 	}
+
 	
 	@Transactional
 	public int campingReservation(int memberNo, int campingRoomNo, String checkIn, String checkOut) {
@@ -371,9 +372,9 @@ public class CampingService {
 		return dao.selectRoomMemberNo(campingRoomNo);
 	}
 
-	public ArrayList<CampingReservation> selectReservationList(CampingReservation cr) {
-		ArrayList<CampingReservation> reservationList = dao.selectReservationList(cr);
-		return reservationList;
+	public CampingReservation selectReservationList(CampingReservation cr) {
+		CampingReservation cre = dao.selectReservationList(cr);
+		return cre;
 	}
 
 	public CampingReservation selectReservation(CampingReservation cr) {

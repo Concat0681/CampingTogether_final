@@ -159,26 +159,25 @@
 										</a>
 									</div>
 									<div class="room-btn-box">
-										<button type="button" class="btn2">예약하기</button>
 										<%--결제하기 캠핑 정보 --%>
 										<form action="reservationFrm.do?checkIn=${checkIn }&checkOut=${checkOut}" method="post">
 											<input type="hidden" name="memberNo" value="${sessionScope.m.memberNo }">
 											<input type="hidden" name="campingRoomNo" value="${r.campingRoomNo }">
-											<input type="hidden" name="checkIn1"  value="${checkIn }">
-											<input type="hidden" name="checkOut1" value="${checkOut }">
+											<input type="text" name="checkIn1"  value="${checkIn }">
+											<input type="text" name="checkOut1" value="${checkOut }">
 											<input type="hidden" name="campingTitle" value="${camping.campingTitle } ">
 											<input type="hidden" name="campingType" value="${r.campingRoomTitle }">
 											<input type="hidden" name="price" value="${r.campingRoomPrice }">
 											<input type="hidden" name="addr" value="${camping.campingAddr }">
-											<c:if test="${ empty reservationList}">
-												<button type="submit" class="btn2 reservationBtn">예약하기</button>
+											<c:forEach items="${reservationList}" var="rl" varStatus="j">
+											<c:if test="${rl.campingReservationNo eq null and  i.index eq j.index}">
+    											<button type="submit" class="btn2 reservationBtn" style="width: 100%;">예약하기</button>
 											</c:if>
+    										<c:if test="${r.campingRoomNo eq rl.campingRoomNo}">
+        										<div class="reservation" style="background-color: #e3e4e5; width: 100%; border-radius: 5px; color: white; text-align: center;">예약완료</div>
+    										</c:if>
+											</c:forEach>
 										</form>
-										<c:forEach items="${reservationList}" var="rl">
-											<c:if test="${r.campingRoomNo eq rl.campingRoomNo}">
-												<button class="btn2"  style="background-color: #e3e4e5;">예약완료</button>
-											</c:if>										
-										</c:forEach>
 									</div>
 								</div>
 							</div>
@@ -1152,7 +1151,9 @@
 					
 		});
 		
-		
+		$(".reservation").on("click",function(){
+			alert("예약완료");
+		});
 	</script>
 </body>
 </html>
