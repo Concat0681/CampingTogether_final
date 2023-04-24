@@ -519,6 +519,11 @@ public class MemberService {
 		
 	}
 	
+	public ArrayList<String> selectId() {
+		ArrayList<String> list = dao.selectId();
+		return list;
+	}
+	
 
 }
 

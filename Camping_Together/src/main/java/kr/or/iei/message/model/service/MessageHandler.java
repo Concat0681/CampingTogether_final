@@ -1,4 +1,4 @@
-package kr.or.directMessage.model.service;
+package kr.or.iei.message.model.service;
 
 import java.util.HashMap;
 
@@ -46,7 +46,7 @@ public class MessageHandler extends TextWebSocketHandler {
 			//최초접속이므로 접속한 회원의 아이디를 map에 추가
 			connectionMemberList.put(memberId, session);
 			//현재 읽지 않은 쪽지를 조회해서 되돌려줌
-			int messageCount = service.selectMessgeCount(memberId);
+			int messageCount = service.selectMessageCount(memberId);
 			JsonObject obj = new JsonObject();
 			obj.addProperty("type", "myMessageCount");
 			obj.addProperty("messageCount", messageCount);
