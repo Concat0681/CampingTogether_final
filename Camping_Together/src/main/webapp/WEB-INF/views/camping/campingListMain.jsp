@@ -49,6 +49,7 @@
 				</div>
 			</div>
 			<div class="camping-list-wrap">
+				<input type="hidden" id="memberId" value="${sessionScope.m.memberId }">
 				<div class="rating-camping-title list-title">인기 캠핑장</div>
 				<div class="camping-list">
 				<c:forEach items="${ratingCampingList }" var="c">
@@ -61,6 +62,28 @@
 						</div>
 						<div class="camping-info">
 							<div>${c.campingTitle }</div>
+							<div class="camping-detail">
+								<div>${c.campingAddr }</div>
+								<c:choose>
+									<c:when test="${empty sessionScope.m }">
+										<span class="material-symbols-outlined loginBtn">favorite</span>
+									</c:when>
+									<c:otherwise>
+										<c:choose>
+											<c:when test="${c.campingBookmarkNo eq 0 }">
+												<span class="material-symbols-outlined addBookmark">favorite</span>
+												<input type="hidden" name="campingNo" value="${c.campingNo }">
+												<input type="hidden" name="campingBookmarkNo" value="${c.campingBookmarkNo }">
+											</c:when>
+											<c:otherwise>
+												<span class="material-symbols-outlined addBookmark filled-heart">favorite</span>
+												<input type="hidden" name="campingNo" value="${c.campingNo }">
+												<input type="hidden" name="campingBookmarkNo" value="${c.campingBookmarkNo }">
+											</c:otherwise>
+										</c:choose>
+									</c:otherwise>
+								</c:choose>
+							</div>
 						</div>
 					</div>
 				</c:forEach>
@@ -79,6 +102,28 @@
 						</div>
 						<div class="camping-info">
 							<div>${c.campingTitle }</div>
+							<div class="camping-detail">
+								<div>${c.campingAddr }</div>
+								<c:choose>
+									<c:when test="${empty sessionScope.m }">
+										<span class="material-symbols-outlined loginBtn">favorite</span>
+									</c:when>
+									<c:otherwise>
+										<c:choose>
+											<c:when test="${c.campingBookmarkNo eq 0 }">
+												<span class="material-symbols-outlined addBookmark">favorite</span>
+												<input type="hidden" name="campingNo" value="${c.campingNo }">
+												<input type="hidden" name="campingBookmarkNo" value="${c.campingBookmarkNo }">
+											</c:when>
+											<c:otherwise>
+												<span class="material-symbols-outlined addBookmark filled-heart">favorite</span>
+												<input type="hidden" name="campingNo" value="${c.campingNo }">
+												<input type="hidden" name="campingBookmarkNo" value="${c.campingBookmarkNo }">
+											</c:otherwise>
+										</c:choose>
+									</c:otherwise>
+								</c:choose>
+							</div>
 						</div>
 					</div>
 				</c:forEach>
@@ -101,6 +146,35 @@
 		
 		$(".camping-box").on("mouseleave", function(){
 			$(this).find(".hidden-div").slideUp()
+		})
+		
+		$(".addBookmark").on("click", function(event){
+			 if (event.stopPropagation) event.stopPropagation();
+			 else event.cancelBubble = true; // IE 대응
+			 if($(this).hasClass("filled-heart")){
+				 const campingBookmarkNo = $(this).next().next().val()
+				 console.log(campingBookmarkNo);
+				 $.ajax({
+					 url : "/deleteCampingBookmark.do",
+					 data : {campingBookmarkNo : campingBookmarkNo},
+					 success : function(data){
+						 
+					 }
+				 })
+			 } else {
+				 const memberId = $("#memberId").val();
+				 const campingNo = $(this).next().val();
+				 $.ajax({
+					 url : "/insertCampingBookmark.do",
+					 data : {memberId : memberId, campingNo : campingNo},
+					 success : function(data){
+					 },
+					 error : function(e){
+						 console.log(e);
+					 }
+				 });
+			 }
+			 $(this).toggleClass("filled-heart");
 		})
 	</script>
 	<script src="resources/js/camping/dateRangePicker.js"></script>

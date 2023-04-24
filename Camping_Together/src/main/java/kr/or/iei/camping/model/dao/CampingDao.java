@@ -255,6 +255,16 @@ public class CampingDao {
 		return CampingRoom2;
 	}
 
+	public int insertCampingBookmark(HashMap<String, Object> map) {
+		int result = sqlSession.insert("camping.insertCampingBookmark", map);
+		return result;
+	}
+
+	public int deleteCampingBookmark(int campingBookmarkNo) {
+		int result = sqlSession.delete("camping.deleteCampingBookmark", campingBookmarkNo);
+		return result;
+	}
+
 
 	
 

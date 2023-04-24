@@ -111,7 +111,7 @@
 	    <div class="collapse navbar-collapse" id="navbarSupportedContent">
 	      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 	        <li class="nav-item">
-	          <a class="nav-link" href="/campingListMain.do">캠핑</a>
+	          <a class="nav-link" href="/campingListMain.do?memberId=${sessionScope.m.memberId }">캠핑</a>
 	        </li>
 	        <li class="nav-item">
 	          <a class="nav-link" href="#">캠핑예약</a>
@@ -286,7 +286,9 @@ const navLink =  document.querySelectorAll('.nav-link');
     // 모달창 열기 버튼 클릭 이벤트
     $(document).ready(function() {
     	  //모달창
-    	  $(".loginBtn").click(function() { // a태그, 버튼 아이디,클래스 입력
+    	  $(".loginBtn").click(function(event) { // a태그, 버튼 아이디,클래스 입력
+    		if (event.stopPropagation) event.stopPropagation();
+    		else event.cancelBubble = true; // IE 대응
     	    $("#modalVer1").css("display", "block"); 
     	    const circles = $('.circle-container span');
     		  let index = 0;

@@ -43,12 +43,19 @@ public class CampingController {
 	}
 	
 	@RequestMapping(value="/campingListMain.do")
-	public String campingListMain(Model model) {
+	public String campingListMain(String memberId, Model model) {
 		int reqPage = 1;
 		String order = "avgReviewRating";
 		CampingRoom campingRoom = new CampingRoom();
 		Camping camping = new Camping();
+		if(memberId != null) {
+			camping.setMemberId(memberId);
+		}
 		CampingListPageData cpd = service.selectCampingListData(reqPage, order, camping, campingRoom);
+		for(Camping c : cpd.getList()) {
+			System.out.println(c.getCampingBookmarkNo());
+		}
+		System.out.println();
 		order = "new";
 		CampingListPageData newCpd = service.selectCampingListData(reqPage, order, camping, campingRoom);
 		model.addAttribute("newCampingList",newCpd.getList());
@@ -452,6 +459,21 @@ public class CampingController {
 		return "reservation/reservationInfo";			
 //		return "rediect:/reservationInfo.do";			
 		
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/insertCampingBookmark.do")
+	public int insertCampingBookmark(int campingNo, String memberId) {
+		int result = service.insertCampingBookmark(campingNo, memberId);
+		return result;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/deleteCampingBookmark.do")
+	public int deleteCampingBookmark(int campingBookmarkNo) {
+		int result = service.deleteCampingBookmark(campingBookmarkNo);
+		System.out.println(result);
+		return result;
 	}
 	
 }
