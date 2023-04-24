@@ -148,7 +148,8 @@
 		select * from	
 			(Select
 				c.*,
-				rownum as rnum
+				rownum as rnum,
+				(select count(camping_room_no) from camping left join camping_room using(camping_no) where camping_no = c.camping_no ) as rct 
 		    from camping c
 		    WHERE MEMBER_ID = #{memberId}
 		    order by 1 desc)

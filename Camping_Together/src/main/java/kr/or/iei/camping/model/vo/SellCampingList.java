@@ -16,5 +16,6 @@ public class SellCampingList {
 	private String campingTitle;
 	private String campingSido;
 	private String filepath;
+	private int rct;
 	private ArrayList<CampingRoom> campingRoomList;
 }

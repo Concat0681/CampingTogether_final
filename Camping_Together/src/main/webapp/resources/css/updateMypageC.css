@@ -227,6 +227,7 @@
 .list-content>table>tbody>tr{
     height: 60px;
     border-bottom: 1px solid #AD8B73;
+    height: 70px;
 }
 
 .list-content>table>tbody>tr:first-child>th:first-child{
@@ -239,6 +240,8 @@
 
 .list-content>table>tbody>tr:first-child{
     height: 55px;
+    font-size: 18px;
+    font-family: nb-regular;
     background-color: #AD8B73;
     color: white;
 }
@@ -305,3 +308,7 @@
 .camping-title{
     color: #AD8B73;
 }
+.th4{
+    width: 300px;
+}
+

@@ -98,9 +98,7 @@
 	<script>
 
 	function memberModal(memberNo){
-		$(".modalWrap").css("display", "flex");
 	
-			console.log(memberNo);
 		$.ajax({
 			url : "/adminOneMember.do",
 			type : "post",
@@ -112,6 +110,8 @@
 				$(".m-phone").find("p").text(data.memberPhone);
 				$(".m-mail").find("p").text(data.memberEmail);
 				$(".m-addr").find("p").text(data.memberAddr);
+				
+			$(".modalWrap").css("display", "flex");
 			}
 		});
 	}

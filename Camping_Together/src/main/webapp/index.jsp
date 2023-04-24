@@ -37,6 +37,18 @@
 	min-width: 1200px;
 }
 
+.top-btn{	
+	display:block;
+	position: fixed;
+	bottom: 25px;
+	right: 5px;
+	z-index:9999;
+	margin-right: 35px;
+}
+
+.top-btn:hover{	
+	cursor: pointer;
+}
    	
 </style>
 </head>
@@ -134,6 +146,10 @@
 		<button class="btn3" style="width : 100px; height : 30px;">버튼</button>
 	</div>
 	
+	<div class="top-btn">
+		<a class="top"ref="#"><img alt="top" src="/resources/image/top.png"></a>
+	</div>
+	
 </body>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 <script src="resources/js/camping/dateRangePicker.js"></script>
@@ -170,5 +186,11 @@ function checkWindowSize() {
   }
 }
 $(window).on('resize', checkWindowSize);
+
+
+$(".top-btn").on("click", function() {
+	window.scrollTo({ top: 0, behavior: "smooth" });  
+});
+
 </script>
 </html>
