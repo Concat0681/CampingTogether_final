@@ -213,8 +213,9 @@
 		        imgWrapper2.append(img2).append(deleteBtn2).appendTo("#img-viewer2");
 		        
 		        deleteBtn2.on("click", function() {
-		          $(this).parent().remove();
-		        });
+		            $(this).parent().remove();
+		            
+		          });
 		      }
 		    }
 		  }
