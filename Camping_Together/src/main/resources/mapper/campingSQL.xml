@@ -7,7 +7,10 @@
 				rownum as rnum,
 				c.*,
 				(select avg(camping_review_rating) from camping_review join camping using(camping_no) where camping_no = c.campingNo ) as avgReviewRating,
-				(select max(camping_room_price) from camping_room join camping using(camping_no) where camping_no = c.campingNo) as maxRoomPrice
+				(select max(camping_room_price) from camping_room join camping using(camping_no) where camping_no = c.campingNo) as maxRoomPrice,
+				<if test="memberId != null">
+					(select b.camping_bookmark_no as campingBookmarkNo from camping_bookmark b join camping a on(b.camping_no = a.camping_no) where b.camping_no = c.campingNo and b.member_id = #{memberId}) as campingBookmarkNo
+				</if>
 			from
 				(select 
 					camping_no as campingNo,
@@ -471,4 +474,15 @@
 <!-- 			camping_room_no as campingRoomNo -->
 <!-- 		where camping_no = #{campingNo} -->
 <!-- 	</select> -->
+
+	<insert id="insertCampingBookmark" parameterType="map">
+		insert into camping_bookmark values(
+			camping_bookmark_seq.nextval, #{campingNo}, #{memberId}
+		)
+	</insert>
+	
+	<delete id="deleteCampingBookmark" parameterType="_int">
+		delete from camping_bookmark where camping_bookmark_no = #{_parameter}
+	</delete>
+	
 </mapper>
