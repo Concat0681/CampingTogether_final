@@ -156,10 +156,12 @@
 		        from used_board 
 		        left join (select used_board.used_board_no, max(filepath) as filepath from used_board left join used_photo on used_board.used_board_no = used_photo.used_board_no group by used_board.used_board_no)B
 		        on used_board.used_board_no = B.used_board_no
+		        where used_board_status = 0
 		        order by read_count DESC)
-		where rownum <= 3
+		where rownum <= 3 
 		]]>
 	</select>
+	
 </mapper>
 
 

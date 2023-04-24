@@ -20,9 +20,17 @@
 		padding: 18px;	
 		background-color: #ad8b7318;	
 	}
+	.blacklist-file{
+		border-bottom: 1px solid #ccc;
+		padding: 12px;
+		padding-left: 18px;
+	}
 	.blacklist-detail-modal-mid{
 		padding: 16px;
 		border-bottom: 1px solid #ccc;
+	}
+	.blacklist-detail-modal-mid>div{
+		margin-bottom: 15px;
 	}
 	.blacklist-detail-modal-bottom{
 		padding: 10px;
@@ -36,6 +44,7 @@
 	.blacklist-detail-modal-bottom>button:hover{
 		background-color: #CEAB93;	
 	}
+
 </style>
 <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
 </head>
@@ -87,17 +96,17 @@
 					<button type="button" class="btn1" onclick="blacklistStatusUpdate()">확인</button>
 				</div>				
 			</div>
+			<div class="blacklist-file">
+				<span> 첨부파일 : </span>
+			</div>
 			<div class="blacklist-detail-modal-mid">
 				<div class="blacklist-usedBoard-info">
-					<span>게시글 : [52] 이름이름</span>
+					<span>게시글 : [52] 이름이름</span><br>
 					<span>신고대상ID : user01</span>
 				</div>
 				<div class="blacklist-writer-info">
 					<span>작성자ID : user11</span>
 					<span>작성일 : YYYY-MM-DD hh:mi:ss</span>
-				</div>
-				<div class="blacklist-file">
-					<span> 첨부파일 : </span>
 				</div>
 				<div class="blacklist-content">
 					<span> 내용내용 </span>

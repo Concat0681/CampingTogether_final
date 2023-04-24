@@ -105,16 +105,32 @@
     color: black;
     background-color: #fff;
   }
+  
+  .backgroundPhoto {
+			width: 100%;
+			 background-image: url(/resources/image/main/campingImg.jpg);
+		    background-repeat: no-repeat;
+		    background-size: cover;
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index: -1;
+		}
+
+		.wrap {
+			position: relative;
+			z-index: 1;
+		}
 	
 </style>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
-	<div class="backgroundPhoto" style="width: 100%; height: 1000px; background-color: green;"></div>
-	<div class="wrap">
-        <div class="contentWrap" style="margin-top: 200px;">
+	<div class="backgroundPhoto">
+	<div class="wrap" style="margin-top: 300px;">
+        <div class="contentWrap" style="background-color: #fff; padding-left: 30px; padding-top: 50px; border-radius: 10px;">
         	<div class="contentDetail activeContent">
-        		<h2 style="margin-bottom: 60px;">캠핑장을 찾고 있는 여행객들을 사로잡아보세요!</h2>
+        		<h2 style="margin-bottom: 60px; font-weight: 900;">캠핑장을 찾고 있는 여행객들을 사로잡아보세요!</h2>
         		<form action="/campingWrite.do" method="post" enctype="multipart/form-data">
         			<input type="hidden" name="memberId" value="${sessionScope.m.memberId }">
 	        		<table>
@@ -138,10 +154,10 @@
 	        			</tr>
 	        		</table>
 	        		
-	        		<div class="contentTitle"><h3>캠핑장 설명</h3></div>
+	        		<div class="contentTitle"><h3 style="font-weight: bold;">캠핑장 설명</h3></div>
 	        		<textarea class="campingContent" name="campingContent"></textarea>
 	        		
-					<div class="contentTitle"><h3>캠핑장 사진 등록</h3></div>
+					<div class="contentTitle"><h3 style="font-weight: bold;">캠핑장 사진 등록</h3></div>
 	        			<h5 style="padding-bottom: 20px">캠핑장의 메인 사진을 등록해주세요.</h5>
 	        				<div class="image-container">
 							  <input type="file" name="campingFilepath" onchange="loadImg(this);" id="campingFilepath" style="display: none;">
@@ -158,7 +174,7 @@
 					
 	        		
 		        		<div>
-			        		<button type="button" class="btn1 nextBtn" style="margin-right: 80px;">다음</button>
+			        		<button type="button" class="btn1 nextBtn" style="margin-right: 50px; margin-bottom: 30px;">다음</button>
 		        		</div>
 		        	</div>
 	        		<div class="contentDetail" style="display: none;">
@@ -200,9 +216,9 @@
 							</table>
 						</div>
 	        		<div id="map" style="width:620px; height:500px;"></div>
-	        				<div>
+	        				<div style="padding-bottom: 30px;">
 	        					<button type="button" class="btn1 prevBtn">이전</button>
-		        				<button type="button" class="btn1 nextBtn" style="margin-right: 80px;">다음</button>
+		        				<button type="button" class="btn1 nextBtn" style="margin-right: 50px;">다음</button>
 	        				</div>
 		        	</div>
 		        		
@@ -422,7 +438,7 @@
 	        		</table>
 	        		<div>
 	        			<button type="button" class="btn1 prevBtn">이전</button>
-		        		<button type="button" class="btn1 nextBtn" style="margin-right: 80px;">다음</button>
+		        		<button type="button" class="btn1 nextBtn" style="margin-right: 50px; margin-bottom: 30px;">다음</button>
 	        		</div>
         	</div>
 			<div class="contentDetail" style="display: none;">
@@ -471,18 +487,18 @@
 	        		<h5>최소 3개 이상의 파일을 등록해주세요.</h5>
 	        			<input type="file" name="campingRoomFilepath" onchange="loadImgs(this);" id="campingRoomFilepath" style="display: none;" multiple>
 	        			<label for="campingRoomFilepath">
-	        				<span class="material-symbols-outlined photoCamera2" style="font-size: 250px;">photo_camera</span>
+	        				<span class="material-symbols-outlined photoCamera2" id="showPhoto" style="font-size: 250px;">photo_camera</span>
 	        			</label>
 	        			<div id="img-viewer2">
 	        			
 	                    </div>
 	       			</div>
 	       			<button type="button" class="btn1 prevBtn">이전</button>
-	       			<button type="submit" name="campingRoomBtn" class="btn1 nextBtn" style="margin-right: 80px;">등록</button>
+	       			<button type="submit" name="campingRoomBtn" class="btn1 nextBtn" style="margin-right: 50px; margin-bottom: 30px;">등록</button>
        			</form>
         	</div>	
        	</div>
-        	
+       	</div>
 	</div>
 	
 	<script>
@@ -530,6 +546,7 @@
 			}else{
 				contentDetail.eq(1).hide();
 				contentDetail.eq(2).show();
+				$("#showPhoto").show();
 			}
 		});
 		
@@ -566,7 +583,7 @@
 		
 		
 		
-		$("[name=campingRoomBtn]").on("click",function(){
+		$("[name=campingRoomBtn]").on("click", function() {
 			  const campingRoomTitle = $("[name=campingRoomTitle]").val();
 			  const campingRoomCount = $("[name=campingRoomCount]").val();
 			  const campingRoomPrice = $("[name=campingRoomPrice]").val();
@@ -575,7 +592,7 @@
 			  const campingRoomType = $("[name=campingRoomType]:checked").val();
 			  const campingRoomFilepath = $("[name=campingRoomFilepath]");
 
-			  if (campingRoomTitle != "" && campingRoomCount != "" && campingRoomPrice != "" && campingRoomMaxPplCount != "" && campingRoomContent != "" && campingRoomType != null && $('#img-viewer2').children('.img-wrapper').length >= 3) {
+			  if (campingRoomTitle != "" && campingRoomCount != "" && campingRoomPrice != "" && campingRoomMaxPplCount != "" && campingRoomContent != "" && campingRoomType != null && campingRoomFilepath[0].files.length >= 3) {
 			    // 모든 값이 공백이 아닐 때 서브밋 동작
 			  } else {
 			    alert("입력란을 모두 확인해주세요.");
@@ -628,7 +645,7 @@
 		                              .addClass("review-img2");
 		        const deleteBtn2 = $("<button>").html("<span class='material-symbols-outlined closeColor'>close</span>")
 		                                        .addClass("delete-btn2")
-		                                        .attr("type", "button");
+		                                        .attr("type", "button").attr("onclick", "delNewPhoto(this)");
 		        imgWrapper2.append(img2).append(deleteBtn2).appendTo("#img-viewer2");
 		        
 		        deleteBtn2.on("click", function() {
@@ -637,6 +654,26 @@
 		      }
 		    }
 		  }
+		}
+	</script>
+	
+	<script>
+		function delNewPhoto(obj){
+			const fileNum = $(".img-wrapper2").index($(obj).parent());
+			const dataTransfer = new DataTransfer();
+		    
+		    let files = $('#campingRoomFilepath')[0].files;	//사용자가 입력한 파일을 변수에 할당
+		    
+		    let fileArray = Array.from(files);	//변수에 할당된 파일을 배열로 변환(FileList -> Array)
+		    
+		    fileArray.splice(fileNum, 1);	//해당하는 index의 파일을 배열에서 제거
+		    
+		    fileArray.forEach(file => { dataTransfer.items.add(file); });
+		    //남은 배열을 dataTransfer로 처리(Array -> FileList)
+		    
+		    $('#campingRoomFilepath')[0].files = dataTransfer.files;	//제거 처리된 FileList를 돌려줌
+		   console.log($(obj).parent())
+		    $(obj).parent().remove();
 		}
 	</script>
 	

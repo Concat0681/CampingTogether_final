@@ -64,7 +64,7 @@
 				</c:if>
 				<div class="camping-list shop-list">
 					<c:forEach items="${campingList }" var="c" varStatus="i">
-						<div class="shop-box" onclick="viewShop(${c.shopNo});">
+						<div class="shop-box" onclick="viewShop(${c.shopNo},'${sessionScope.m.memberId}');">
 							<div class="shop-photo">
 								<img src="resources/upload/shop/${c.shopPhotoList[0].filepath}">
 								<c:if test="${not empty c.shopPhotoList[1].filepath}">
@@ -259,8 +259,8 @@
 			$(this).find("img").attr("src", "resources/upload/shop/"+url);
 		})
 		
-		function viewShop(shopNo){
-			location.href="/viewShop.do?shopNo="+shopNo+"&reqPage=1&menu=0";
+		function viewShop(shopNo, memberId){
+			location.href="/viewShop.do?shopNo="+shopNo+"&reqPage=1&menu=0&memberId="+memberId;
 		}
 		
 		function viewShopList(shopCategory, reqPage){

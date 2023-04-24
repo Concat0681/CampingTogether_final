@@ -56,8 +56,9 @@
   
   .backgroundPhoto {
 			width: 100%;
-			height: 100%;
-			background-color: green;
+			 background-image: url(/resources/image/main/campingImg.jpg);
+		    background-repeat: no-repeat;
+		    background-size: cover;
 			position: absolute;
 			top: 0;
 			left: 0;
@@ -72,69 +73,70 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
-	<div class="backgroundPhoto"></div>
+	<div class="backgroundPhoto">
 	<div class="wrap" style="margin-top: 300px;">
-        <div class="contentWrap">
+        <div class="contentWrap" style="background-color: #fff; padding-left: 30px; padding-top: 50px; border-radius: 10px;">
         	<div class="contentDetail">
-        		<h2 style="margin-bottom: 60px;">${campingTitle } 캠핑 추가 등록</h2>
-        		<form action="/campingRoomWrite.do" method="post" enctype="multipart/form-data">
-        			<input type="hidden" name="campingNo" value="${campingNo }">
-	        		<table>
-	        			<tr>
-	        				<td style="width: 120px; font-size: 1.17em; font-weight: bold; padding-bottom: 20px;">이름</td>
-	        				<td style="padding-bottom: 20px;">
-	        					<input type="text" class="input-long" name="campingRoomTitle" >
-	        				</td>
-	        			</tr>
-	        			<tr>
-	        				<td style="width: 120px; font-size: 1.17em; font-weight: bold; padding-bottom: 20px;">객실 수</td>
-	        				<td style="padding-bottom: 20px;">
-	        					<input type="text" class="input-long" name="campingRoomCount" placeholder="최대 100개의 객실까지 등록 가능합니다.">
-	        				</td>
-	        			</tr>
-	        			<tr>
-	        				<td style="width: 120px; font-size: 1.17em; font-weight: bold; padding-bottom: 20px;">1박당 가격</td>
-	        				<td style="padding-bottom: 20px;">
-	        					<input type="text" class="input-long" name="campingRoomPrice" placeholder="최소 100원부터 최대 1억까지 등록 가능합니다.">
-	        				</td>
-	        			</tr>
-						<tr>
-							<td style="width: 120px; font-size: 1.17em; font-weight: bold; padding-bottom: 20px;">최대인원</td>
-							<td style="padding-bottom: 20px;">
-								<input type="number" class="input-long" name="campingRoomMaxPplCount" min="1" max="20" placeholder="최소 1명에서 최대 20명의 인원이 등록 가능합니다.">
-							</td>
-						</tr>
-						<tr>
-							<td style="width: 120px; font-size: 1.17em; font-weight: bold; padding-bottom: 20px;">캠핑 유형</td>
-							<td style="padding-bottom: 20px;">
-								<input type="radio" id="campingCheck1" name="campingRoomType" value="오토캠핑">
-			        			<label for="campingCheck1" style="padding-right: 50px;">오토캠핑</label>
-			        			<input type="radio" id="campingCheck2" name="campingRoomType" value="글램핑">
-			        			<label for="campingCheck2" style="padding-right: 50px;">글램핑</label>
-			        			<input type="radio" id="campingCheck3" name="campingRoomType" value="카라반">
-			        			<label for="campingCheck3">카라반</label>
-							</td>
-						</tr>
-	        		</table>
-	        		<div class="contentTitle"><h3>설명</h3>
-	        			<textarea class="campingRoomContent" name="campingRoomContent"></textarea>
-	       			</div>
-	        		<div class="contentTitle"><h3>사진</h3>
-	        		<h5>최소 3개 이상의 파일을 등록해주세요.</h5>
-	        			<input type="file" name="campingRoomFilepath" onchange="loadImgs(this);" id="campingRoomFilepath" style="display: none;" multiple>
-	        			<label for="campingRoomFilepath">
-	        				<span class="material-symbols-outlined photoCamera2" style="font-size: 250px;">photo_camera</span>
-	        			</label>
-	        			<div id="img-viewer2">
-	        			
-	                    </div>
-	       			</div>
-	       			<button type="submit" name="campingRoomBtn" class="btn1 nextBtn" style="margin-right: 80px; width: 620px;">캠핑 추가등록</button>
-       			</form>
+	        		<h2 style="margin-bottom: 60px;">${campingTitle } 캠핑 추가 등록</h2>
+	        		<form action="/campingRoomWrite.do" method="post" enctype="multipart/form-data">
+	        			<input type="hidden" name="campingNo" value="${campingNo }">
+		        		<table>
+		        			<tr>
+		        				<td style="width: 120px; font-size: 1.17em; font-weight: bold; padding-bottom: 20px;">이름</td>
+		        				<td style="padding-bottom: 20px;">
+		        					<input type="text" class="input-long" name="campingRoomTitle" >
+		        				</td>
+		        			</tr>
+		        			<tr>
+		        				<td style="width: 120px; font-size: 1.17em; font-weight: bold; padding-bottom: 20px;">객실 수</td>
+		        				<td style="padding-bottom: 20px;">
+		        					<input type="text" class="input-long" name="campingRoomCount" placeholder="최대 100개의 객실까지 등록 가능합니다.">
+		        				</td>
+		        			</tr>
+		        			<tr>
+		        				<td style="width: 120px; font-size: 1.17em; font-weight: bold; padding-bottom: 20px;">1박당 가격</td>
+		        				<td style="padding-bottom: 20px;">
+		        					<input type="text" class="input-long" name="campingRoomPrice" placeholder="최소 100원부터 최대 1억까지 등록 가능합니다.">
+		        				</td>
+		        			</tr>
+							<tr>
+								<td style="width: 120px; font-size: 1.17em; font-weight: bold; padding-bottom: 20px;">최대인원</td>
+								<td style="padding-bottom: 20px;">
+									<input type="number" class="input-long" name="campingRoomMaxPplCount" min="1" max="20" placeholder="최소 1명에서 최대 20명의 인원이 등록 가능합니다.">
+								</td>
+							</tr>
+							<tr>
+								<td style="width: 120px; font-size: 1.17em; font-weight: bold; padding-bottom: 20px;">캠핑 유형</td>
+								<td style="padding-bottom: 20px;">
+									<input type="radio" id="campingCheck1" name="campingRoomType" value="오토캠핑">
+				        			<label for="campingCheck1" style="padding-right: 50px;">오토캠핑</label>
+				        			<input type="radio" id="campingCheck2" name="campingRoomType" value="글램핑">
+				        			<label for="campingCheck2" style="padding-right: 50px;">글램핑</label>
+				        			<input type="radio" id="campingCheck3" name="campingRoomType" value="카라반">
+				        			<label for="campingCheck3">카라반</label>
+								</td>
+							</tr>
+		        		</table>
+		        		<div class="contentTitle"><h3>설명</h3>
+		        			<textarea class="campingRoomContent" name="campingRoomContent"></textarea>
+		       			</div>
+		        		<div class="contentTitle"><h3>사진</h3>
+		        		<h5>최소 3개 이상의 파일을 등록해주세요.</h5>
+		        			<input type="file" name="campingRoomFilepath" onchange="loadImgs(this);" id="campingRoomFilepath" style="display: none;" multiple>
+		        			<label for="campingRoomFilepath">
+		        				<span class="material-symbols-outlined photoCamera2" style="font-size: 250px;">photo_camera</span>
+		        			</label>
+		        			<div id="img-viewer2">
+		        			
+		                    </div>
+		       			</div>
+		       			<button type="submit" name="campingRoomBtn" class="btn1 nextBtn" style="margin-right: 50px; width: 600px; margin-bottom: 30px;">캠핑 추가등록</button>
+	       			</form>
         	</div>	
         	
         	
         	
+        </div>
         </div>
 	</div>
 	
@@ -209,17 +211,38 @@
 		                              .addClass("review-img2");
 		        const deleteBtn2 = $("<button>").html("<span class='material-symbols-outlined closeColor'>close</span>")
 		                                        .addClass("delete-btn2")
-		                                        .attr("type", "button");
+		                                        .attr("type", "button").attr("onclick", "delNewPhoto(this)");
 		        imgWrapper2.append(img2).append(deleteBtn2).appendTo("#img-viewer2");
 		        
 		        deleteBtn2.on("click", function() {
-		          $(this).parent().remove();
-		        });
+		            $(this).parent().remove();
+		            
+		          });
 		      }
 		    }
 		  }
 		}
 	</script>
+	
+	<script>
+		function delNewPhoto(obj){
+			const fileNum = $(".img-wrapper2").index($(obj).parent());
+			const dataTransfer = new DataTransfer();
+		    
+		    let files = $('#campingRoomFilepath')[0].files;	//사용자가 입력한 파일을 변수에 할당
+		    
+		    let fileArray = Array.from(files);	//변수에 할당된 파일을 배열로 변환(FileList -> Array)
+		    
+		    fileArray.splice(fileNum, 1);	//해당하는 index의 파일을 배열에서 제거
+		    
+		    fileArray.forEach(file => { dataTransfer.items.add(file); });
+		    //남은 배열을 dataTransfer로 처리(Array -> FileList)
+		    
+		    $('#campingRoomFilepath')[0].files = dataTransfer.files;	//제거 처리된 FileList를 돌려줌
+		   console.log($(obj).parent())
+		    $(obj).parent().remove();
+		}
+	</script> 
 	
 	<script>
 	$(document).ready(function() {

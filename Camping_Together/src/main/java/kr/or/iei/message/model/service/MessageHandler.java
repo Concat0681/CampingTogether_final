@@ -1,4 +1,4 @@
-package kr.or.iei.message.model.service;
+package kr.or.directMessage.model.service;
 
 import java.util.HashMap;
 
@@ -16,7 +16,7 @@ import com.google.gson.JsonParser;
 
 
 public class MessageHandler extends TextWebSocketHandler {
-	//ÂÊÁö ½Ç½Ã°£¾Ë¸²¿¡ Á¢¼ÓÇÑ È¸¿øÀ» °ü¸®ÇÒ Map(key:id, value : Á¢¼Ó ¼¼¼Ç)
+	//ìª½ì§€ ì‹¤ì‹œê°„ì•Œë¦¼ì— ì ‘ì†í•œ íšŒì›ì„ ê´€ë¦¬í•  Map(key:id, value : ì ‘ì† ì„¸ì…˜)
 	private HashMap<String, WebSocketSession> connectionMemberList;
 	
 	@Autowired
@@ -34,7 +34,7 @@ public class MessageHandler extends TextWebSocketHandler {
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception{
 		String receiveMsg = message.getPayload();
-		System.out.println("Å¬¶óÀÌ¾ğÆ® Àü¼Û ¸Ş¼¼Áö: "+receiveMsg);
+		System.out.println("í´ë¼ì´ì–¸íŠ¸ ì „ì†¡ ë©”ì„¸ì§€: "+receiveMsg);
 		/*
 		JsonParser parser = new JsonParser();
 		JsonElement element = parser.parse(receiveMsg);
@@ -43,17 +43,17 @@ public class MessageHandler extends TextWebSocketHandler {
 		String type= element.getAsJsonObject().get("type").getAsString();
 		if(type.equals("enter")) {
 			String memberId = element.getAsJsonObject().get("memberId").getAsString();
-			//ÃÖÃÊÁ¢¼ÓÀÌ¹Ç·Î Á¢¼ÓÇÑ È¸¿øÀÇ ¾ÆÀÌµğ¸¦ map¿¡ Ãß°¡
+			//ìµœì´ˆì ‘ì†ì´ë¯€ë¡œ ì ‘ì†í•œ íšŒì›ì˜ ì•„ì´ë””ë¥¼ mapì— ì¶”ê°€
 			connectionMemberList.put(memberId, session);
-			//ÇöÀç ÀĞÁö ¾ÊÀº ÂÊÁö¸¦ Á¶È¸ÇØ¼­ µÇµ¹·ÁÁÜ
-			int messageCount = service.selectMessageCount(memberId);
+			//í˜„ì¬ ì½ì§€ ì•Šì€ ìª½ì§€ë¥¼ ì¡°íšŒí•´ì„œ ë˜ëŒë ¤ì¤Œ
+			int messageCount = service.selectMessgeCount(memberId);
 			JsonObject obj = new JsonObject();
 			obj.addProperty("type", "myMessageCount");
 			obj.addProperty("messageCount", messageCount);
 			String resultStr = new Gson().toJson(obj);
 			TextMessage tm = new TextMessage(resultStr);
 			session.sendMessage(tm);
-		}else if(type.equals("sendDm")) {
+		}else if(type.equals("sendMessage")) {
 			String memberId = element.getAsJsonObject().get("receiver").getAsString();
 			WebSocketSession receiver = connectionMemberList.get(memberId);
 			if(receiver != null) {
@@ -69,7 +69,7 @@ public class MessageHandler extends TextWebSocketHandler {
 		}else if(type.equals("readCheck")) {
 			String sender = element.getAsJsonObject().get("sender").getAsString();
 			String receiver = element.getAsJsonObject().get("receiver").getAsString();
-			//ÂÊÁö¸¦ ÀĞÀº È¸¿ø ÀĞÁö ¾ÊÀº ÂÊÁö ¼ö °»½Å
+			//ìª½ì§€ë¥¼ ì½ì€ íšŒì› ì½ì§€ ì•Šì€ ìª½ì§€ ìˆ˜ ê°±ì‹ 
 			int messageCount = service.selectMessageCount(receiver);
 			JsonObject obj1 = new JsonObject();
 			obj1.addProperty("type", "myMessageCount");
@@ -77,11 +77,11 @@ public class MessageHandler extends TextWebSocketHandler {
 			String resultStr = new Gson().toJson(obj1);
 			TextMessage tm = new TextMessage(resultStr);
 			session.sendMessage(tm); 
-			//¹æ±İ ÀĞÀº ÂÊÁöÀÇ º¸³½ »ç¶÷ÀÌ Á¢¼ÓÇØ ÀÖÀ¸¸é
+			//ë°©ê¸ˆ ì½ì€ ìª½ì§€ì˜ ë³´ë‚¸ ì‚¬ëŒì´ ì ‘ì†í•´ ìˆìœ¼ë©´
 			WebSocketSession senderSession = connectionMemberList.get(sender);
 			if(senderSession != null) {
 				JsonObject obj2 = new JsonObject();
-				obj2.addProperty("type", "readDm");
+				obj2.addProperty("type", "readMessage");
 				String resultMsg = new Gson().toJson(obj2);
 				TextMessage tm2 = new TextMessage(receiveMsg);
 				senderSession.sendMessage(tm2);
@@ -90,7 +90,7 @@ public class MessageHandler extends TextWebSocketHandler {
 	}
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception{
-		//Á¢¼Ó ²÷¾îÁø È¸¿øÀ» È¸¿ø¸ñ·Ï¿¡¼­ Á¦°Å
+		//ì ‘ì† ëŠì–´ì§„ íšŒì›ì„ íšŒì›ëª©ë¡ì—ì„œ ì œê±°
 		connectionMemberList.values().remove(session);
 	}
 	

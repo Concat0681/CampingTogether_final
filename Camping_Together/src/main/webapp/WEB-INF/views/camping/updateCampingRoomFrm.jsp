@@ -40,12 +40,28 @@
 		cursor: pointer;
 	}
 	
+	 .backgroundPhoto {
+			width: 100%;
+			 background-image: url(/resources/image/main/campingImg.jpg);
+		    background-repeat: no-repeat;
+		    background-size: cover;
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index: -1;
+		}
+
+		.wrap {
+			position: relative;
+			z-index: 1;
+		}
 </style>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
+	<div class="backgroundPhoto">
 	<div class="wrap" style="margin-top: 300px;">
-        <div class="contentWrap">
+        <div class="contentWrap" style="background-color: #fff; padding-left: 30px; padding-top: 50px; border-radius: 10px;">
         	<div class="contentDetail">
         		<h2 style="margin-bottom: 60px;">${campingRoom.campingRoomTitle } 캠핑 수정</h2>
         		<form action="/updateCampingRoom.do" method="post" enctype="multipart/form-data" id="updateCampingRoomFrm">
@@ -107,12 +123,12 @@
 							</c:forEach>
 	                    </div>
 	       			</div>
-	       			<button type="submit" name="updateCampingRoomBtn" class="btn1 nextBtn" style="margin-right: 80px; width: 620px;">캠핑 수정</button>
+	       			<button type="submit" name="updateCampingRoomBtn" class="btn1 nextBtn" style="margin-right: 50px; width: 600px; margin-bottom: 30px;">캠핑 수정</button>
        			</form>
         	</div>	
         	
         	
-        	
+        	</div>
         </div>
 	</div>
 	
@@ -191,7 +207,7 @@
 			                              .addClass("review-img");
 			        const deleteBtn = $("<button>").html("<span class='material-symbols-outlined closeColor'>close</span>")
 			                                        .addClass("delete-btn")
-			                                        .attr("type", "button");
+			                                        .attr("type", "button").attr("onclick", "delNewPhoto(this)");
 			        imgWrapper.append(img).append(deleteBtn).appendTo("#img-viewer2");
 			        
 			        deleteBtn.on("click", function() {
@@ -236,6 +252,28 @@
 			
 			$("#updateCampingRoomFrm").append(fileNoInput).append(filepathInput);
 			$(obj).parent().remove();
+			
+			
+		}
+	</script>
+	
+	<script>
+		function delNewPhoto(obj){
+			const fileNum = $(".img-wrapper").index($(obj).parent());
+			const dataTransfer = new DataTransfer();
+		    
+		    let files = $('#campingRoomFilepath')[0].files;	//사용자가 입력한 파일을 변수에 할당
+		    
+		    let fileArray = Array.from(files);	//변수에 할당된 파일을 배열로 변환(FileList -> Array)
+		    
+		    fileArray.splice(fileNum, 1);	//해당하는 index의 파일을 배열에서 제거
+		    
+		    fileArray.forEach(file => { dataTransfer.items.add(file); });
+		    //남은 배열을 dataTransfer로 처리(Array -> FileList)
+		    
+		    $('#campingRoomFilepath')[0].files = dataTransfer.files;	//제거 처리된 FileList를 돌려줌
+		   console.log($(obj).parent())
+		    $(obj).parent().remove();
 		}
 	</script>
 	

@@ -2,6 +2,7 @@ package kr.or.iei.board.food.model.vo;
 
 import java.util.ArrayList;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,4 +20,5 @@ public class BoardFood {
 	private String filepath;
 	private int fileNo;
 	private ArrayList<FileVO> fileList;
+	private int foodCommentRef;
 }

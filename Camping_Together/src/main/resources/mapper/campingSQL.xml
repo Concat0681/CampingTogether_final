@@ -423,7 +423,7 @@
 	</delete>
 	
 	<insert id="insertCampingReservation" parameterType="map">
-		insert into camping_reservation values(camping_reservation_seq.nextval, #{memberNo}, #{campingRoomNo}, #{checkIn}, #{checkOut})
+		insert into camping_reservation values(camping_reservation_seq.nextval, #{memberNo}, #{campingRoomNo}, #{checkIn}, #{checkOut},2)
 	</insert>
 	<insert id="insertCamingPayment" parameterType="_int">
 		insert into camping_payment values(camping_payment_seq.nextval,#{_parameter},to_char(sysdate,'yyyy-mm-dd hh24:mi:ss'),1)
@@ -441,6 +441,35 @@
 		select camping_payment_date as campingPaymentDate from camping_payment where camping_reservation_no = #{_parameter}
 	</select>
 	<select id="selectRoomMemberNo" parameterType="_int" resultType="cre">
-		select member_no as memberNo from camping_reservation where member_no = #{_parameter}
+		select 
+		camping_room_no as campingRoomNo,
+		check_in as checkIn,
+		check_out as checkOut
+		from camping_reservation where camping_room_no = #{_parameter}
 	</select>
+	<select id="selectReservationList" parameterType="cre" resultType="cre">
+		select
+			camping_reservation_no as campingReservationNo,
+			member_no as memberNo,
+			camping_room_no as campingRoomNo,
+			check_in as checkIn,
+			check_out as checkOut 
+		from camping_reservation
+		where check_in between #{checkIn} and #{checkOut} and camping_room_no = #{campingRoomNo}
+	</select>
+	<select id="selectReservation" parameterType="cre" resultType="cre">
+		select
+			camping_reservation_no as campingReservationNo,
+			member_no as memberNo,
+			camping_room_no as campingRoomNo,
+			check_in as checkIn,
+			check_out as checkOut 
+			from camping_reservation
+		where camping_room_no = #{campingRoomNo}
+	</select>
+<!-- 	<select id="selectCampingRoom" parameterType="c" resultType="cr"> -->
+<!-- 		select -->
+<!-- 			camping_room_no as campingRoomNo -->
+<!-- 		where camping_no = #{campingNo} -->
+<!-- 	</select> -->
 </mapper>
