@@ -454,7 +454,8 @@
 			check_in as checkIn,
 			check_out as checkOut 
 		from camping_reservation
-		where check_in between #{checkIn} and #{checkOut} and camping_room_no = #{campingRoomNo}
+		
+		where (check_in between #{checkIn} and #{checkOut}) and (camping_room_no = #{campingRoomNo})
 	</select>
 	<select id="selectReservation" parameterType="cre" resultType="cre">
 		select
