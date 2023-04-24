@@ -7,9 +7,9 @@
 				rownum as rnum,
 				c.*,
 				(select avg(camping_review_rating) from camping_review join camping using(camping_no) where camping_no = c.campingNo ) as avgReviewRating,
-				(select max(camping_room_price) from camping_room join camping using(camping_no) where camping_no = c.campingNo) as maxRoomPrice,
+				(select max(camping_room_price) from camping_room join camping using(camping_no) where camping_no = c.campingNo) as maxRoomPrice
 				<if test="memberId != null">
-					(select b.camping_bookmark_no as campingBookmarkNo from camping_bookmark b join camping a on(b.camping_no = a.camping_no) where b.camping_no = c.campingNo and b.member_id = #{memberId}) as campingBookmarkNo
+					, (select b.camping_bookmark_no as campingBookmarkNo from camping_bookmark b join camping a on(b.camping_no = a.camping_no) where b.camping_no = c.campingNo and b.member_id = #{memberId}) as campingBookmarkNo
 				</if>
 			from
 				(select 
@@ -25,7 +25,32 @@
 				from camping)c
 			<trim prefix="where" prefixOverrides="and|or">
 				<if test="campingSido != null">
-					 and campingSido like '%'||#{campingSido }||'%'
+					<choose>
+					<when test="campingSido == '경기'">
+					    and campingSido like '%'||#{campingSido }||'%'
+						or campingSido like '%'||'인천'||'%'
+						or campingSido like '%'||'서울'||'%'
+					</when>
+					<when test="campingSido == '충청'">
+					    and campingSido like '%'||'충'||'%'
+						or campingSido like '%'||'세종'||'%'
+						or campingSido like '%'||'대전'||'%'
+					</when>
+					<when test="campingSido == '경상'">
+					    and campingSido like '%'||'경북'||'%'
+					    or campingSido like '%'||'경남'||'%'
+						or campingSido like '%'||'대구'||'%'
+						or campingSido like '%'||'울산'||'%'
+						or campingSido like '%'||'부산'||'%'
+					</when>
+					<when test="campingSido == '전라'">
+					    and campingSido like '%'||'전'||'%'
+						or campingSido like '%'||'광주'||'%'
+					</when>
+					<otherwise>
+						 and campingSido like '%'||#{campingSido }||'%'
+					</otherwise>
+					</choose>
 				</if>
 				<if test="campingAddr != null">
 					 and campingAddr like '%'||#{campingAddr}||'%'

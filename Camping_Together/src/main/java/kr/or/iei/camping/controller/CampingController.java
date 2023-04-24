@@ -53,9 +53,7 @@ public class CampingController {
 		}
 		CampingListPageData cpd = service.selectCampingListData(reqPage, order, camping, campingRoom);
 		for(Camping c : cpd.getList()) {
-			System.out.println(c.getCampingBookmarkNo());
 		}
-		System.out.println();
 		order = "new";
 		CampingListPageData newCpd = service.selectCampingListData(reqPage, order, camping, campingRoom);
 		model.addAttribute("newCampingList",newCpd.getList());
@@ -67,7 +65,11 @@ public class CampingController {
 	public String campingList(Camping c, String campingSido, String cityNameKR, String cityNameEN,int reqPage, String order, String pplCount, String checkIn, String checkOut, Model model) {
 		CampingRoom campingRoom = new CampingRoom();
 		Camping camping = new Camping();
-		camping.setCampingSido(campingSido);
+		if(cityNameKR != "") {
+			camping.setCampingSido(campingSido);
+		} else {
+			
+		}
 		camping.setCampingAddr(cityNameKR);
 		campingRoom.setCampingRoomMaxPplCount(Integer.parseInt(pplCount));
 		CampingListPageData cpd = service.selectCampingListData(reqPage, order, camping, campingRoom);

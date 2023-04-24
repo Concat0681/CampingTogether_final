@@ -100,10 +100,12 @@
 									<c:when test="${not empty checkIn }">
 										<input class="form-control" type="text" id="search_checkin" name="checkIn" value="${checkIn }" readonly>
 										<input class="form-control" type="text" id="search_checkout" name="checkOut" value="${checkOut }" readonly>	
+										<button onclick="changeDate();">찾기</button>
 									</c:when>
 									<c:otherwise>
 										<input class="form-control" type="text" id="search_checkin" name="checkIn" readonly>
 										<input class="form-control" type="text" id="search_checkout" name="checkOut" readonly>	
+										<button onclick="changeDate();">찾기</button>
 									</c:otherwise>
 								</c:choose>
 							</div>
@@ -558,6 +560,13 @@
 				  '금연' : 'smoke_free'
 		}
 		
+		function changeDate(){
+			const checkIn = $("#search_checkin").val()
+			const checkOut = $("#search_checkout").val()
+			const campingNo = $("input[name=campingNo]").val();
+			location.href="/viewCamping.do?campingNo="+campingNo+"&checkIn="+checkIn+"&checkOut="+checkOut;
+		}
+		
 		const serviceList = $(".provide-service-list")
 		serviceList.each(function(i, s){
 			const value = $(s).find("div").text();
@@ -607,62 +616,6 @@
 			const receiver = $("#campingMemberId").val()
 			$("#receiver-name").val(receiver)
 		})
-		
-		const inputDate = $("input[name=date]")
-		inputDate.daterangepicker({
-		locale: {
-		    separator: ' ~ ', // 시작일시와 종료일시 구분자
-		    format: 'YYYY-MM-DD', // 일시 노출 포맷
-		    applyLabel: '확인', // 확인 버튼 텍스트
-		    cancelLabel: '취소', // 취소 버튼 텍스트
-		    daysOfWeek: ['일', '월', '화', '수', '목', '금', '토'],
-		    monthNames: [
-		      '1월',
-		      '2월',
-		      '3월',
-		      '4월',
-		      '5월',
-		      '6월',
-		      '7월',
-		      '8월',
-		      '9월',
-		      '10월',
-		      '11월',
-		      '12월'
-			],
-			beforeShowDay : function(input, inst){
-				
-			}
-			}
-
-		})
-		inputDate.on('apply.daterangepicker', function (ev, picker) {
-		  $(this).val(
-		    picker.startDate.format('YYYY-MM-DD') +
-		      '~' +
-		      picker.endDate.format('YYYY-MM-DD')
-		  )
-		  $('[name=checkIn]').eq(0).val(picker.startDate.format('YYYY-MM-DD'))
-		  $('[name=checkOut]').eq(0).val(picker.endDate.format('YYYY-MM-DD'))
-		})
-		
-		inputDate.on('cancel.daterangepicker', function (ev, picker) {
-		  $('[name=checkIn]').val('')
-		  $('[name=checkOut]').val('')
-		})
-		
-		bookedDays = ["2023-04-21", "2023-04-27" , "2023-04-28"]
-		function disableDates(){
-			 var m = date.getMonth() + 1;
-	         var d = date.getDate();
-	         var y = date.getFullYear();
-	             for (i = 0; i < bookedDays.length; i++) {
-	             if ($.inArray(y + '-' + m + '-' + d, bookedDays) != -1) {
-	             return [false];
-	             }
-	             }
-	             return [true];
-	}
 		
 		const carousel = $(".carousel");
 		carousel.each(function(i, c){
