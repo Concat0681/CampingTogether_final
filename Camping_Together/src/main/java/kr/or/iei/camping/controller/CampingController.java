@@ -65,12 +65,11 @@ public class CampingController {
 	public String campingList(Camping c, String campingSido, String cityNameKR, String cityNameEN,int reqPage, String order, String pplCount, String checkIn, String checkOut, Model model) {
 		CampingRoom campingRoom = new CampingRoom();
 		Camping camping = new Camping();
-		if(cityNameKR != "") {
+		if(cityNameKR == "") {
 			camping.setCampingSido(campingSido);
 		} else {
-			
+			camping.setCampingAddr(cityNameKR);
 		}
-		camping.setCampingAddr(cityNameKR);
 		campingRoom.setCampingRoomMaxPplCount(Integer.parseInt(pplCount));
 		CampingListPageData cpd = service.selectCampingListData(reqPage, order, camping, campingRoom);
 		
@@ -105,8 +104,11 @@ public class CampingController {
 			campingRoom.setCampingRoomTypeList(arr1);
 		}
 		Camping camping = campingProvideSetter(campingServiceStr, campingRoomServiceStr, campingEtcStr);
-		camping.setCampingAddr(cityAddr);
-		camping.setCampingSido(campingSido);
+		if(cityAddr == "") {
+			camping.setCampingSido(campingSido);
+		} else {
+			camping.setCampingAddr(cityAddr);
+		}
 		campingRoom.setCampingRoomMaxPplCount(Integer.parseInt(pplCount));
 		CampingListPageData cpd = service.selectCampingListData(reqPage, order, camping, campingRoom);
 		cpd.setCheckIn(checkIn);
