@@ -533,6 +533,11 @@ public class MemberService {
 		return dao.selectAdminember(memberId);
 	}
 	
+	public ArrayList<String> selectId() {
+		ArrayList<String> list = dao.selectId();
+		return list;
+	}
+	
 
 }
 

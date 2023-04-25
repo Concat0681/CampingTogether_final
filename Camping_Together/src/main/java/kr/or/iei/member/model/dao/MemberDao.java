@@ -164,6 +164,11 @@ public class MemberDao {
 		int totalCount = sqlsession.selectOne("member.selectAdminShopCount");
 		return totalCount;
 	}
+	
+	public ArrayList<String> selectId() {
+		List list = sqlsession.selectList("member.selectId");
+		return (ArrayList<String>)list;
+	}
 
 	public ArrayList<CampingRoom> selectCampingRoom(int campingNo) {
 		List list = sqlsession.selectList("member.selectCampingRoom",campingNo);

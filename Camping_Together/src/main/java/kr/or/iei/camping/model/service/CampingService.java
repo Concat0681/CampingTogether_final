@@ -74,6 +74,7 @@ public class CampingService {
 		map.put("campingRoomTypeList", campingRoom.getCampingRoomTypeList());
 		map.put("pplCount", campingRoom.getCampingRoomMaxPplCount());
 		map.put("campingAddr", camping.getCampingAddr());
+		map.put("memberId", camping.getMemberId());
 		ArrayList<Camping> list = dao.selectCampingListData(map);
 		int totalCount = dao.selectCampingCount(map);
 		int totalPage = (int)Math.ceil(totalCount/(double)numPerPage);
@@ -325,6 +326,7 @@ public class CampingService {
 		}
 		return result;
 	}
+
 	
 	@Transactional
 	public int campingReservation(int memberNo, int campingRoomNo, String checkIn, String checkOut) {
@@ -370,9 +372,9 @@ public class CampingService {
 		return dao.selectRoomMemberNo(campingRoomNo);
 	}
 
-	public ArrayList<CampingReservation> selectReservationList(CampingReservation cr) {
-		ArrayList<CampingReservation> reservationList = dao.selectReservationList(cr);
-		return reservationList;
+	public CampingReservation selectReservationList(CampingReservation cr) {
+		CampingReservation cre = dao.selectReservationList(cr);
+		return cre;
 	}
 
 	public CampingReservation selectReservation(CampingReservation cr) {
@@ -381,6 +383,19 @@ public class CampingService {
 
 	public CampingRoom selectCampingRoom(Camping c) {
 		return dao.selectCampingRoom(c);
+	}
+
+	public int insertCampingBookmark(int campingNo, String memberId) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("campingNo", campingNo);
+		map.put("memberId", memberId);
+		int result = dao.insertCampingBookmark(map);
+		return result;
+	}
+
+	public int deleteCampingBookmark(int campingBookmarkNo) {
+		int result = dao.deleteCampingBookmark(campingBookmarkNo);
+		return result;
 	}
 
 	
