@@ -26,30 +26,30 @@
 			<trim prefix="where" prefixOverrides="and|or">
 				<if test="campingSido != null">
 					<choose>
-					<when test="campingSido == '경기'">
-					    and campingSido like '%'||#{campingSido }||'%'
-						or campingSido like '%'||'인천'||'%'
-						or campingSido like '%'||'서울'||'%'
-					</when>
-					<when test="campingSido == '충청'">
-					    and campingSido like '%'||'충'||'%'
-						or campingSido like '%'||'세종'||'%'
-						or campingSido like '%'||'대전'||'%'
-					</when>
-					<when test="campingSido == '경상'">
-					    and campingSido like '%'||'경북'||'%'
-					    or campingSido like '%'||'경남'||'%'
-						or campingSido like '%'||'대구'||'%'
-						or campingSido like '%'||'울산'||'%'
-						or campingSido like '%'||'부산'||'%'
-					</when>
-					<when test="campingSido == '전라'">
-					    and campingSido like '%'||'전'||'%'
-						or campingSido like '%'||'광주'||'%'
-					</when>
-					<otherwise>
-						 and campingSido like '%'||#{campingSido }||'%'
-					</otherwise>
+						<when test="campingSido == '경기'">
+						    and campingSido like '%'||#{campingSido }||'%'
+							or campingSido like '%'||'인천'||'%'
+							or campingSido like '%'||'서울'||'%'
+						</when>
+						<when test="campingSido == '충청'">
+						    and campingSido like '%'||'충'||'%'
+							or campingSido like '%'||'세종'||'%'
+							or campingSido like '%'||'대전'||'%'
+						</when>
+						<when test="campingSido == '경상'">
+						    and campingSido like '%'||'경북'||'%'
+						    or campingSido like '%'||'경남'||'%'
+							or campingSido like '%'||'대구'||'%'
+							or campingSido like '%'||'울산'||'%'
+							or campingSido like '%'||'부산'||'%'
+						</when>
+						<when test="campingSido == '전라'">
+						    and campingSido like '%'||'전'||'%'
+							or campingSido like '%'||'광주'||'%'
+						</when>
+						<otherwise>
+							 and campingSido like '%'||#{campingSido }||'%'
+						</otherwise>
 					</choose>
 				</if>
 				<if test="campingAddr != null">
@@ -158,10 +158,16 @@
 	</select>
 	
 	<select id="selectOneCamping" parameterType="map" resultMap="getOneCamping">
-		select 
-			*
+	select 
+	c.*
+	<if test="memberId != null">
+		, (select b.camping_bookmark_no as campingBookmarkNo from camping_bookmark b join camping a on(b.camping_no = a.camping_no) where b.camping_no = #{campingNo} and b.member_id = #{memberId}) as campingBookmarkNo
+	</if>
+	from
+		(select 
+				*
 		from camping
-		where camping_no = #{campingNo}
+		where camping_no = #{campingNo}) c
 	</select>
 	
 	<select id="selectCampingProvideServiceList" parameterType="_int" resultType="cps">
@@ -501,6 +507,10 @@
 <!-- 			camping_room_no as campingRoomNo -->
 <!-- 		where camping_no = #{campingNo} -->
 <!-- 	</select> -->
+
+	<select id="selectLatestBookmarkNo" resultType="_int">
+		select max(camping_bookmark_no) from camping_bookmark
+	</select>
 
 	<insert id="insertCampingBookmark" parameterType="map">
 		insert into camping_bookmark values(

@@ -111,12 +111,13 @@ public class CampingService {
 		return cpd;
 	}
 
-	public ViewCampingData selectOneCamping(int campingNo) {
+	public ViewCampingData selectOneCamping(int campingNo, String memberId) {
 		ViewCampingData vcd = new ViewCampingData();
 		ArrayList<CampingRoomFileVO> fileList = new ArrayList<CampingRoomFileVO>();
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("campingNo", campingNo);
-		Camping camping = dao.selectOneCamping(campingNo);
+		map.put("memberId", memberId);
+		Camping camping = dao.selectOneCamping(map);
 		vcd.setCamping(camping);
 		ArrayList<CampingRoom> campingRoomList = dao.selectAllCampingRoomList(campingNo);
 		for(CampingRoom r : campingRoomList) {
@@ -433,6 +434,9 @@ public class CampingService {
 		}else {
 			return 0;
 		}
+	public int selectLatestBookmarkNo() {
+		int bookmarkNo = dao.selectLatestBookmarkNo();
+		return bookmarkNo;
 	}
 
 	

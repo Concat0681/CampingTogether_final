@@ -4,8 +4,10 @@
     margin-top: 150px;
 }
 .page-content{
-    width: 100%;
+    width: 90%;
     display : flex;
+    margin: 0 auto;
+    justify-content: space-around;
     padding: 50px;
 }
 .search-input-box{
