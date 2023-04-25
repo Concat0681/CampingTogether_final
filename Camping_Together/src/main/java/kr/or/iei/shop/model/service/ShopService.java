@@ -194,4 +194,9 @@ public class ShopService {
 		int result = dao.deleteShop(shopNo);
 		return result;
 	}
+
+	public ArrayList<ShopReviewPhoto> selectOneShopReviewPhoto(int shopReviewNo) {
+		ArrayList<ShopReviewPhoto> photoList = dao.selectOneShopReviewPhoto(shopReviewNo);
+		return photoList;
+	}
 }

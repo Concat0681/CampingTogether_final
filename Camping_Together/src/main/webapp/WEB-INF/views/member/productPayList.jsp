@@ -8,11 +8,11 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="resources/css/updateMypageC.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/common/header.jsp" />
 	<jsp:include page="/WEB-INF/views/common/mypageMenu.jsp" />
+	<jsp:include page="/WEB-INF/views/common/header.jsp" />
+	
 		<div class="input-div">
 			<div class="input-title">
 				<h2>투게더shop 상품 구매내역</h2>

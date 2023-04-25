@@ -9,8 +9,8 @@
 </head>
 <body>
 
-	<jsp:include page="/WEB-INF/views/common/header.jsp" />
 	<jsp:include page="/WEB-INF/views/common/mypageMenu.jsp" />
+	<jsp:include page="/WEB-INF/views/common/header.jsp" />
 
 	<div class="input-div wishCam">
 		<div class="input-title">
