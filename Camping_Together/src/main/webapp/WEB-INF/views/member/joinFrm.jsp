@@ -388,9 +388,9 @@ input:focus {
 	<!-- 로그인 페이지 -->
 	<div class="wrapper" style="display: grid; margin-top: 50px;">
 		<div class="myform">
-	      	<ul class="tab-group">
-	        <li class="tab"><a href="#signup">Sign Up</a></li>
-	        <li class="tab active"><a href="#login">Log In</a></li>
+	       <ul class="tab-group">
+		       <li class="tab"><a href="#signup">Sign Up</a></li>
+		       <li class="tab active"><a href="#login">Log In</a></li>
 	      </ul>
 	      <div class="tab-content">
 	        <div id="login">   

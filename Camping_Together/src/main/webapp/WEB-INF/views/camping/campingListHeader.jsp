@@ -18,10 +18,10 @@
 					<label class="input-group-text" for="sido"><span class="material-symbols-outlined">search</span></label>
 					<c:choose>
 						<c:when test="${not empty campingSido }">
-							<input class="form-control" id="sido" name="campingSido" type="text" value="${campingSido }" onkeydown="return false;" style="caret-color: transparent !important;"   required>
+							<input class="form-control" id="sido" name="campingSido" type="text" value="${campingSido }" style="caret-color: transparent !important;"   required data-readonly>
 						</c:when>
 						<c:otherwise>
-							<input class="form-control" id="sido" name="campingSido" type="text" placeholder="도"  onkeydown="return false;" style="caret-color: transparent !important;"   required>						
+							<input class="form-control" id="sido" name="campingSido" type="text" placeholder="도/시" style="caret-color: transparent !important;"   required data-readonly>						
 						</c:otherwise>
 					</c:choose>
 					<div class="hidden-sido-search">

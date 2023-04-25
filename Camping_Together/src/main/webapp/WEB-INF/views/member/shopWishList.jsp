@@ -92,7 +92,7 @@
 			</c:if>
 		</div>
 		
-		
+	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 	<script>
 		function deleteShop(obj,memberId,shopNo){
 			if(confirm("장바구니에서 삭제하시겠습니까?")){

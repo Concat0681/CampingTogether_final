@@ -240,9 +240,9 @@ public class CampingDao {
 		return cr;
 	}
 
-	public ArrayList<CampingReservation> selectReservationList(CampingReservation cr) {
-		List reservationList = sqlSession.selectList("camping.selectReservationList", cr);
-		return (ArrayList<CampingReservation>)reservationList;
+	public CampingReservation selectReservationList(CampingReservation cr) {
+		CampingReservation cre = sqlSession.selectOne("camping.selectReservationList", cr);
+		return cre;
 	}
 
 	public CampingReservation selectReservation(CampingReservation cr) {
@@ -253,6 +253,16 @@ public class CampingDao {
 	public CampingRoom selectCampingRoom(Camping c) {
 		CampingRoom CampingRoom2 = sqlSession.selectOne("camping.selectCampingRoom",c);
 		return CampingRoom2;
+	}
+
+	public int insertCampingBookmark(HashMap<String, Object> map) {
+		int result = sqlSession.insert("camping.insertCampingBookmark", map);
+		return result;
+	}
+
+	public int deleteCampingBookmark(int campingBookmarkNo) {
+		int result = sqlSession.delete("camping.deleteCampingBookmark", campingBookmarkNo);
+		return result;
 	}
 
 

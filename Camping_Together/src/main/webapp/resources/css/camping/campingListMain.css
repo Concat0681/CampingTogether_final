@@ -10,15 +10,16 @@
 	align-items: center;
 	justify-content: center;
 	width: 100%;
-	background-image: url(../../image/camping/background/automobile-2583303_1920.jpg);
+	background-image: url(../../image/camping/background/people-2591928_1920.jpg);
 	background-size: 100%;
-	background-position: center;
+	background-position: bottom;
 }
 .page-content-header{
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	justify-content: center;
+	justify-content: flex-end;
+	padding-bottom: 80px;
 }
 .page-content{
 	display: flex;
@@ -36,9 +37,11 @@
 	font-size: 30px;
 	font-family: ng-bold;
 	color: #AD8B73;
+	margin-top: 100px;
 }
 .city-menu{
 	width: 100%;
+	height: 700px;
 	z-index: 1;
 	padding : 50px;
 	display: flex;
@@ -65,6 +68,9 @@
 .city:hover{
 	box-shadow: rgb(0 0 0 / 12%) 10px 6px 16px;
 }
+.city-title{
+	margin-top: 0;
+}
 .city-img{
 	width: 150px;
 	height: 150px;
@@ -77,11 +83,16 @@
 	text-align: center;
 }
 .camping-list-wrap{
+	margin-top: 500px;
+	background-color: white;
+	width: 100%;
+	z-index: 1;
+}
+.camping-list-box{
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	width: 100%;
-	z-index: 1;
+	height: 700px;
 	background-color: white;
 }
 .camping-list{
@@ -112,13 +123,118 @@
 	background-color: white;
 }
 .camping-info{
+	padding: 10px 0;
 	font-size: 20px;
-	height: 50px;
 	color: #AD8B73;
 	display: flex;
+	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+}
+.camping-detail{
+	width: 80%;
+	margin: 0 auto;
+	margin-top: 10px;
+	padding-top: 10px;
+	display: flex;
+	justify-content: space-between;
+	border-top: 1px solid #dedede;
+}
+.camping-detail>div{
+	font-size: small;
+	color: grey;
 }
 .hidden{
 	display: none;
 }
+.filled-heart{
+  font-variation-settings:
+  'FILL' 1,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48
+}
+.down-arrow-wrap{
+	margin-top: 50px;
+}
+.arrow-title{
+	color: #AD8B73;
+	font-size: 25px;
+}
+.arrowCta {
+	display: block;
+	height: 40px;
+	width: 40px;
+	border: 11px solid transparent;
+	transform: rotate(45deg);
+	position: relative;
+	margin: 50px 0;
+	margin-left: 47px;
+  }
+  
+  .arrowCta:after,
+  .arrowCta:before {
+	content: "";
+	display: block;
+	height: inherit;
+	width: inherit;
+	position: absolute;
+	top: 0;
+	left: 0;
+  }
+  
+  .arrowCta:after {
+	border-bottom: 3px solid #AD8B73;
+	border-right: 3px solid #AD8B73;
+	top: 0;
+	left: 0;
+	opacity: 1;
+	animation: bottom-arrow 1.65s infinite;
+  }
+  
+  @keyframes bottom-arrow {
+	0% {
+	  opacity: 1;
+	  transform: translate(0, 0);
+	}
+	45% {
+	  opacity: 0;
+	  transform: translate(12px, 12px);
+	}
+	46% {
+	  opacity: 0;
+	  transform: translate(-16px, -16px);
+	}
+	90% {
+	  opacity: 1;
+	  transform: translate(-6px, -6px);
+	}
+	100% {
+	  opacity: 1;
+	  transform: translate(-6px, -6px);
+	}
+  }
+  .arrowCta:before {
+	top: 0;
+	left: 0;
+	border-bottom: 3px solid #AD8B73;
+	border-right: 3px solid #AD8B73;
+	animation: top-arrow 1.65s infinite;
+  }
+  
+  @keyframes top-arrow {
+	0% {
+	  transform: translate(-6px, -6px);
+	}
+	35% {
+	  transform: translate(0, 0);
+	}
+	90% {
+	  opacity: 1;
+	  transform: translate(0, 0);
+	}
+	100% {
+	  opacity: 1;
+	  transform: translate(0, 0);
+	}
+  }

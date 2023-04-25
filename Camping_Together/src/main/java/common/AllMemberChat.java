@@ -1,6 +1,7 @@
 package common;
 
 import java.util.ArrayList;
+
 import java.util.HashMap;
 
 import org.springframework.web.socket.CloseStatus;
@@ -11,69 +12,68 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 
-public class AllMemberChat extends TextWebSocketHandler {
-	//Á¢¼ÓÇÑ È¸¿øÀÇ ¼¼¼ÇÀ» ÀúÀåÇÏ´Â ¸®½ºÆ®
+public class AllMemberChat extends TextWebSocketHandler{
+	//ì ‘ì†í•œ íšŒì›ì˜ ì„¸ì…˜ì„ ì €ì¥í•˜ëŠ” ë¦¬ìŠ¤íŠ¸
 	private ArrayList<WebSocketSession> sessionList;
-	//¼¼¼Ç¿¡´ëÇÑ ¾ÆÀÌµğ mapping
+	//ì„¸ì…˜ì— ëŒ€í•œ ì•„ì´ë”” mapping
 	private HashMap<WebSocketSession, String> memberList;
 	
 	public AllMemberChat() {
 		super();
 		sessionList = new ArrayList<WebSocketSession>();
-		memberList = new HashMap<WebSocketSession, String>();
+		memberList= new HashMap<WebSocketSession, String>();
+		
 	}
-	
-	//Å¬¶óÀÌ¾ğÆ®°¡ À¥¼ÒÄÏÀ¸·Î ÃÖÃÊ¿¡ Á¢¼ÓÇßÀ» ¶§ ÀÚµ¿À¸·Î ¼öÇàµÇ´Â ¸Ş¼­µå
+	//í´ë¼ì´ì–¸íŠ¸ê°€ ì›¹ì†Œì¼“ìœ¼ë¡œ ìµœì´ˆì— ì ‘ì†í–ˆì„ë•Œ ìë™ìœ¼ë¡œ ìˆ˜í–‰ë˜ëŠ” ë©”ì†Œë“œ
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception{
-		System.out.println("Å¬¶óÀÌ¾ğÆ®°¡ Á¢¼ÓÇÔ");
-		//ÃÖÃÊ Á¢¼ÓÇÑ sessionÁ¤º¸¸¦ ¼¼¼Ç¸ñ·Ï¿¡ Ãß°¡
+		System.out.println("í´ë¼ì´ì–¸íŠ¸ê°€ ì ‘ì†í•¨");
+		//ìµœì´ˆ ì ‘ì†í•œ session ì •ë³´ë¥¼ ì„¸ì…˜ ëª©ë¡ì— ì¶”ê°€
 		sessionList.add(session);
-
 	}
-	
-	//Å¬¶óÀÌ¾ğÆ®°¡ ¸Ş¼¼Áö¸¦ º¸³»¸é Ã³¸®ÇÒ ¸Ş¼­µå
+	//í´ë¼ì´ì–¸íŠ¸ê°€ ë©”ì„¸ì§€ë¥¼ ë³´ë‚´ë©´ ì²˜ë¦¬í•  ë©”ì†Œë“œ
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception{
-		//¹®ÀÚ¿­À» JSONÀ¸·Î º¯È¯ÇÒ °´Ã¼
+		
+		System.out.println("ì‚¬ìš©ìê°€ ì „ì†¡í•œ ë©”ì„¸ì§€ : "+message.getPayload());
+		//message.getPayload() : ë¬¸ìì—´ í˜•íƒœë¡œ ê°ì²´ ë°ì´í„°ë¥¼ ì“°ê¸° ìœ„í•´ì„œëŠ” JSONí˜•ì‹ìœ¼ë¡œ ë³€í™˜í•´ì„œ ì‚¬ìš©í•´ì•¼í•¨.
+		//ë¬¸ìì—´ì„ JSONìœ¼ë¡œ ë³€í™˜í•  ê°ì²´
 		JsonParser parser = new JsonParser();
 		JsonElement element = parser.parseString(message.getPayload());
-		//key°¡ typeÀÎ °ªÀ» ÃßÃâ ÈÄ ¹®ÀÚ¿­
-		String type = element.getAsJsonObject().get("type").getAsString();
-		//key°¡ msgÀÎ °ªÀ» ÃßÃâ ÈÄ ¹®ÀÚ¿­
+		//keyê°€ typeì¸ ê°’ì„ ì¶”ì¶œ
+		String type= element.getAsJsonObject().get("type").getAsString();
+		//keyê°€ msgì¸ ê°’ì„ ì¶”ì¶œ
 		String msg = element.getAsJsonObject().get("msg").getAsString();
+		System.out.println("type: "+type);
+		System.out.println("msg:"+msg);
 		if(type.equals("enter")) {
-			//ÃÖÃÊ Á¢¼ÓÀÌ¹Ç·Î memberList¿¡ Á¤º¸ ÀúÀå
+			//ìµœì´ˆì ‘ì†ì´ë¯€ë¡œ memberListì— ì •ë³´ ì €ì¥
 			memberList.put(session, msg);
-			String sendMsg = "<p>"+msg+"´ÔÀÌ ÀÔÀåÇÏ¼Ì½À´Ï´Ù.</p>";
-			//Å¬¶óÀÌ¾ğÆ® Àü¼Û¿ë °´Ã¼
+			String sendMsg = "<p>"+msg+"ë‹˜ì´ ì…ì¥í•˜ì…¨ìŠµë‹ˆë‹¤.</p>";
 			TextMessage tm = new TextMessage(sendMsg);
 			for(WebSocketSession s : sessionList) {
-				//¹æ±İ Á¢¼ÓÇÑ ¼¼¼ÇÀÌ¶û ´Ù¸¥ °æ¿ì¿¡¸¸ Àü¼Û½ÃÅ´
 				if(!s.equals(session)) {
 					s.sendMessage(tm);
 				}
 			}
 		}else if(type.equals("chat")) {
-			//¿ŞÂÊ ¸Ş¼¼Áö(º¸³½ »ç¶÷  ¾ÆÀÌµğ, ¸Ş¼¼Áö)
-			String sendMsg = "<span class='chatId'>"+memberList.get(session)+"</span><div class='chat left'>"+msg+"</div>";
+			String sendMsg = "<div class='chat left'><span class='chatId'>"+memberList.get(session)+"</span>"+msg+"</div>";
 			TextMessage tm = new TextMessage(sendMsg);
 			for(WebSocketSession s : sessionList) {
-				//¹æ±İ Á¢¼ÓÇÑ ¼¼¼ÇÀÌ¶û ´Ù¸¥ °æ¿ì¿¡¸¸ Àü¼Û½ÃÅ´
 				if(!s.equals(session)) {
 					s.sendMessage(tm);
-				} 
+				}
 			}
 		}
-
 	}
-	//Å¬¶óÀÌ¾ğÆ®¿Í ¿¬°áÀÌ ²÷¾îÁ³À» ¶§ ÀÚµ¿À¸·Î ¼öÇàµÇ´Â ¸Ş¼­µå
+	//í´ë¼ì´ì–¸íŠ¸ì™€ ì—°ê²°ì´ ëŠì–´ì¡Œì„ë•Œ ìë™ìœ¼ë¡œ ìˆ˜í–‰ë˜ëŠ” ë©”ì†Œë“œ
 	@Override
-	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception{
-		System.out.println("Å¬¶óÀÌ¾ğÆ®¶û ¿¬°á ²÷±è");
-		//¿¬°ÉÀÌ ²÷±â¸é ¼¼¼Ç ¸ñ·Ï¿¡¼­ Á¦°Å
+	public void afterConnectionClosed(WebSocketSession session, CloseStatus status)throws Exception{
+		System.out.println("í´ë¼ì´ì–¸íŠ¸ë‘ ì—°ê²° ëŠê¹€");
+		//ì—°ê²°ì´ ëŠê¸°ë©´ ì„¸ì…˜ëª©ë¡ì—ì„œ ì œê±°
 		sessionList.remove(session);
-		String sendMsg = "<p>"+memberList.get(session)+"´ÔÀÌ ³ª°¡¼Ì½À´Ï´Ù.</p>";
+		
+		String sendMsg = "<p>"+memberList.get(session)+"ë‹˜ì´ ë‚˜ê°€ì…¨ìŠµë‹ˆë‹¤.</p>";
 		TextMessage tm = new TextMessage(sendMsg);
 		for(WebSocketSession s : sessionList) {
 			s.sendMessage(tm);

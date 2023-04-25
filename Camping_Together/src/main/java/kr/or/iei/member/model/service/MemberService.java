@@ -538,6 +538,11 @@ public class MemberService {
 		return dao.updateAdminPw(member);
 	}
 	
+	public ArrayList<String> selectId() {
+		ArrayList<String> list = dao.selectId();
+		return list;
+	}
+	
 
 }
 

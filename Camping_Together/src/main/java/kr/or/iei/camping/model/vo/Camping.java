@@ -22,6 +22,7 @@ public class Camping {
 	private int avgReviewRating;
 	private int maxRoomPrice;
 	private String filepath;
+	private int campingBookmarkNo;
 	private ArrayList<CampingProvideService> campingProvideServiceList;
 	private ArrayList<CampingRoomService> campingRoomServiceList;
 	private ArrayList<CampingEtc> campingEtcList;

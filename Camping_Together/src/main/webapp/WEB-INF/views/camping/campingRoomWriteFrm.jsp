@@ -75,7 +75,7 @@
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
 	<div class="backgroundPhoto">
 	<div class="wrap" style="margin-top: 300px;">
-        <div class="contentWrap" style="background-color: #fff; padding-left: 30px; padding-top: 50px; border-radius: 10px;">
+        <div class="contentWrap" style="background-color: #fff; padding-left: 30px; padding-top: 50px; border-radius: 10px; margin-bottom: 50px;">
         	<div class="contentDetail">
 	        		<h2 style="margin-bottom: 60px;">${campingTitle } 캠핑 추가 등록</h2>
 	        		<form action="/campingRoomWrite.do" method="post" enctype="multipart/form-data">
@@ -93,6 +93,12 @@
 		        					<input type="text" class="input-long" name="campingRoomCount" placeholder="최대 100개의 객실까지 등록 가능합니다.">
 		        				</td>
 		        			</tr>
+		        			<tr>
+		        				<td></td>
+		        				<td>
+		        					<span class="priceComment"></span>
+		       					</td>
+	        				</tr>
 		        			<tr>
 		        				<td style="width: 120px; font-size: 1.17em; font-weight: bold; padding-bottom: 20px;">1박당 가격</td>
 		        				<td style="padding-bottom: 20px;">
@@ -138,8 +144,8 @@
         	
         </div>
         </div>
+	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 	</div>
-	
 	<script>
 		$("[name=campingRoomBtn]").on("click",function(){
 		  const campingRoomTitle = $("[name=campingRoomTitle]").val();
@@ -150,7 +156,7 @@
 		  const campingRoomType = $("[name=campingRoomType]:checked").val();
 		  const campingRoomFilepath = $("[name=campingRoomFilepath]");
 
-		  if (campingRoomTitle != "" && campingRoomCount != "" && campingRoomPrice != "" && campingRoomMaxPplCount != "" && campingRoomContent != "" && campingRoomType != null && $('#img-viewer2').children('.img-wrapper2').length >= 3) {
+		  if (campingRoomTitle != "" && campingRoomCount != "" && campingRoomPrice != "" && priceResult[0] == true && campingRoomMaxPplCount != "" && campingRoomContent != "" && campingRoomType != null && $('#img-viewer2').children('.img-wrapper2').length >= 3) {
 		    // 모든 값이 공백이 아닐 때 서브밋 동작
 		  } else {
 		    alert("입력란을 모두 확인해주세요.");
@@ -245,23 +251,18 @@
 	</script> 
 	
 	<script>
-	$(document).ready(function() {
-	    $('input[name="campingRoomPrice"]').on('input', function() {
-	        // 현재 입력된 값에서 숫자 이외의 문자를 제거합니다.
-	        var value = $(this).val().replace(/[^0-9]/g, '');
-	        // 100 이상 10000000 이하의 정수인지 확인합니다.
-	        if (value >= 100 && value <= 100000000 && value == parseInt(value)) {
-	            // 입력된 값이 100 이상 10000000 이하의 정수이면 값을 그대로 유지합니다.
-	            $(this).val(value);
-	        } else {
-	            // 입력된 값이 100 미만 또는 10000000 초과의 정수나 소수점을 포함한 값이면 값을 100 또는 10000000으로 변경합니다.
-	            if (value < 100) {
-	                $(this).val("100");
-	            } else {
-	                $(this).val("100000000");
-	            }
-	        }
-	    });
+	const priceResult = [false];
+	
+	$("[name=campingRoomPrice]").on("change",function(){
+		const campingRoomPrice = $("[name=campingRoomPrice]").val();
+		if(campingRoomPrice >= 100 && campingRoomPrice <= 100000000){
+			$(".priceComment").text("");
+			priceResult[0] = true;
+		}else{
+			$(".priceComment").text("금액을 확인해주세요.");
+			$(".priceComment").css("color","red");
+			priceResult[0] = false;
+		}
 	});
 	</script>
 	
