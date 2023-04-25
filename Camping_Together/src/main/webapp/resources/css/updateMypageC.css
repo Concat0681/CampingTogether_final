@@ -219,16 +219,30 @@
     width: 100%; 
     text-align: center;
     border-collapse : collapse;
-    margin-top: 60px;
+    /*margin-top: 60px;*/
     font-size: 15px;
     margin-bottom: 50px;
 }
 
+
 .list-content>table>tbody>tr{
     height: 60px;
     border-bottom: 1px solid #AD8B73;
-    height: 70px;
 }
+
+
+.list-content>table>tbody>tr>td>a{
+   color: #AD8B73;
+   display: inline-block;
+   width: 100%;
+   height: 50px;
+    line-height: 50px
+}
+
+.list-content>table>tbody>tr:hover{
+    background-color:#ad8b7319;
+}
+
 
 .list-content>table>tbody>tr:first-child>th:first-child{
     border-top-left-radius: 13px;
@@ -240,8 +254,6 @@
 
 .list-content>table>tbody>tr:first-child{
     height: 55px;
-    font-size: 18px;
-    font-family: nb-regular;
     background-color: #AD8B73;
     color: white;
 }
@@ -289,6 +301,20 @@
 .rnum{
     color: #AD8B73;
     font-weight: 600;
+    
+}
+
+.list-content>.total{
+    width: 880px;
+    margin: 0 auto;
+    text-align: right;
+    margin-top: 60px;
+}
+
+
+.list-content>.total>p{
+    color: #6a6a6a;
+    font-size: 22px;
 }
 
 .list-content>table tr .camping-name{
@@ -308,7 +334,84 @@
 .camping-title{
     color: #AD8B73;
 }
-.th4{
-    width: 300px;
+
+
+/*찜한 캠핑장*/
+
+.wishCam{
+    border-bottom: 1px solid #AD8B73;
 }
+.bookmark-wrap{
+    width: 900px;
+    background-color: #6a6a6a;
+    margin: 0 auto;
+    margin-top: 30px;
+}
+
+.c-list{
+    display: flex;
+    justify-content:space-between;
+    flex-wrap: wrap;
+}
+
+.camping-img>img{
+    border-radius: 7px;
+}
+
+.c-info{
+    margin-bottom: 70px;
+}
+
+.camping-name{
+    color: #AD8B73;
+    font-size: 23px;
+    padding : 10px 0;
+    border-bottom: 1px solid #AD8B73;
+    font-weight: 500;
+}
+.price{
+    margin-top: 10px;
+    color: #AD8B73;
+}
+
+.count{
+    margin-top: 7px;
+   
+}
+
+.product-img{
+    overflow: hidden;
+    border-radius: 7px;
+}
+.product-img>img {
+    transition: all 0.1s linear;
+  }
+.product-img:hover>img {
+    transform: scale(1.1);
+  }
+
+.p-info>a{
+    color: #737373;
+}
+.infomation{
+    width: 400px;
+}
+
+.infomation>p{
+    color: #737373;
+    font-size: 23px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 

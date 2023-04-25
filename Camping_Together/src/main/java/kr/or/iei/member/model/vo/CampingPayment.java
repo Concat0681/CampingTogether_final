@@ -14,9 +14,11 @@ public class CampingPayment {
 //	private int status;
 //	private int totalPrice;
 
+	private int totalCount;
+	private int campingNo;
 	private String checkIn;
 	private String checkOut;
-	
+	private int campingRoomNo;
 	private int campingRoomPrice;
 	private String campingRoomTitle;
 }

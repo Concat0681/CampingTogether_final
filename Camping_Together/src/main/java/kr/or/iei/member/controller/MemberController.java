@@ -239,6 +239,7 @@ public class MemberController {
 		MemberPageData mpd = service.selectPayList(memberNo, reqPage);
 		model.addAttribute("list", mpd.getList() );
 		model.addAttribute("navi", mpd.getPageNavi() );
+		model.addAttribute("count", mpd.getTotalCount() );
 		model.addAttribute("index",0);
 		return "member/shopPayList";
 	}
@@ -249,6 +250,7 @@ public class MemberController {
 		ProductPageData ppd = service.productPayList(memberId, reqPage);	
 		model.addAttribute("list", ppd.getList() );
 		model.addAttribute("navi", ppd.getPageNavi() );
+		model.addAttribute("count", ppd.getTotalCount());
 		model.addAttribute("index",1);
 		return "member/productPayList";
 	}
@@ -259,6 +261,7 @@ public class MemberController {
 		ReviewPageData rpd = service.myReviewList(memberId, reqPage);
 		model.addAttribute("list",rpd.getList());
 		model.addAttribute("navi", rpd.getPageNavi());
+		model.addAttribute("count", rpd.getTotalCount());
 		model.addAttribute("index",2);
 		return "member/myReviewList";
 	}
@@ -378,7 +381,7 @@ public class MemberController {
 	}
 	
 	//관리자 정보
-	@RequestMapping(value = "adminMember")
+	@RequestMapping(value = "/adminMember.do")
 	public String selectAdminMember(String memberId, Model model) {
 		Member member = service.selectAdminMember(memberId);
 		model.addAttribute("list",member);
@@ -387,10 +390,23 @@ public class MemberController {
 	}
 	
 	//관리자 비밀번호 변경
-	/*
 	@RequestMapping(value = "/adminPwUpdate.do")
-	publu
-	*/
+	public String adminPwUpdate(Member member,@SessionAttribute(required = false) Member m) {
+		int result = service.updateAdminPw(member);
+		if(result >0) {
+			m.setMemberPw(member.getMemberPw());
+		}
+		return "redirect:/adminMember.do";
+	}
+	
+	//찜한 캠핑장 
+	@RequestMapping(value = "/campingBookmark.do")
+	public String campingBookmark(String memberId, Model model) {
+		model.addAttribute("index",3);
+		return "member/campingBookmark";
+	}
 }
+
+
 
 
