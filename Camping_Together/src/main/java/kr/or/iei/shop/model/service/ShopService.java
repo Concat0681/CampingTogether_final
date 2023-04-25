@@ -23,8 +23,7 @@ public class ShopService {
 	@Autowired
 	private ShopDao dao;
 
-	public ShopListMainData selectShopList(int shopCategory, int reqPage, String order) {
-		int numPerPage = 8;
+	public ShopListMainData selectShopList(int shopCategory, int reqPage, String order, int numPerPage) {
 		int end = reqPage * numPerPage;
 		int start = end - numPerPage + 1;
 		HashMap<String, Object> map = new HashMap<String, Object>();
