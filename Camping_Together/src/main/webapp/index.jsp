@@ -133,13 +133,12 @@
 				<jsp:include page="/usedBoardIndex.do"/>
 		</div>
 		<div class="wrapper wrapperMiddle-shop">
+			<jsp:include page="/mainShopList.do"/>
 		</div>
 		<div class="wrapper wrapperBottom">
 			<jsp:include page="/boardMainFoodList.do"/>
 		</div>
- 	
-	
-	
+		
 	</div>
 		
 	<div class="buttonBox">

@@ -34,12 +34,34 @@ public class ShopController {
 	@Autowired
 	private FileManager manager;
 	
+	@RequestMapping(value="/mainShopList.do")
+	public String mainShopList(Model model) {
+		 int reqPage = 1;
+		    String order = "avgReviewRating";
+		    int numPerPage = 5;
+			for(int shopCategory=0;shopCategory<3;shopCategory++) {
+				ShopListMainData slmd = service.selectShopList(shopCategory, reqPage, order, numPerPage);
+				if(shopCategory == 0) {
+					model.addAttribute("campingList", slmd.getShopList());
+					model.addAttribute("campingPageNavi", slmd.getPageNavi());
+				} else if(shopCategory == 1) {
+					model.addAttribute("carList", slmd.getShopList());
+					model.addAttribute("carPageNavi", slmd.getPageNavi());
+				} else {
+					model.addAttribute("etcList", slmd.getShopList());
+					model.addAttribute("etcPageNavi", slmd.getPageNavi());
+				}
+			}
+			return "shop/mainShopList";
+	}
+	
 	@RequestMapping(value="/shopMainList.do")
 	public String shopMainList(Model model) {
 	    int reqPage = 1;
 	    String order = "new";
+	    int numPerPage = 8;
 		for(int shopCategory=0;shopCategory<3;shopCategory++) {
-			ShopListMainData slmd = service.selectShopList(shopCategory, reqPage, order);
+			ShopListMainData slmd = service.selectShopList(shopCategory, reqPage, order, numPerPage);
 			if(shopCategory == 0) {
 				model.addAttribute("campingList", slmd.getShopList());
 				model.addAttribute("campingPageNavi", slmd.getPageNavi());
@@ -57,7 +79,8 @@ public class ShopController {
 	@ResponseBody
 	@RequestMapping(value="/shopListByOrder.do", produces="application/json;charset=utf-8")
 	public String shopListByOrder(int shopCategory, int reqPage, String order) {
-		ShopListMainData slmd = service.selectShopList(shopCategory, reqPage , order);
+		int numPerPage = 8;
+		ShopListMainData slmd = service.selectShopList(shopCategory, reqPage , order, numPerPage);
 		return new Gson().toJson(slmd);
 	}
 	
