@@ -303,6 +303,8 @@ public class CampingDao {
 	public int deleteCampingEtc(int campingNo) {
 		int result = sqlSession.delete("camping.deleteCampingEtc",campingNo);
 		return result;
+	
+	}
 	public int selectLatestBookmarkNo() {
 		int bookmarkNo = sqlSession.selectOne("camping.selectLatestBookmarkNo");
 		return bookmarkNo;

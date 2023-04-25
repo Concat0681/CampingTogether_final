@@ -434,6 +434,8 @@ public class CampingService {
 		}else {
 			return 0;
 		}
+	}
+	
 	public int selectLatestBookmarkNo() {
 		int bookmarkNo = dao.selectLatestBookmarkNo();
 		return bookmarkNo;
