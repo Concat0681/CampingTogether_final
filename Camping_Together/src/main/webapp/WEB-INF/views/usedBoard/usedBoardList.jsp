@@ -8,7 +8,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <style>
 	a{
    	   color: var(--text-color);
@@ -22,7 +21,7 @@
        'GRAD' 0,
        'opsz' 48
    }
-   .fill{
+   .fill-icon{
    		color: red;
     	font-variation-settings: 'FILL' 1
 	}
@@ -291,7 +290,7 @@
   									<span id="favorite" class="material-symbols-outlined product-wish" >favorite</span>
   								</c:when>
   								<c:otherwise>
-  									<span id="favorite" class="material-symbols-outlined product-wish fill" >favorite</span>
+  									<span id="favorite" class="material-symbols-outlined product-wish fill-icon" >favorite</span>
   								</c:otherwise>
   							</c:choose>
                             <input type="hidden" value="${sessionScope.m.memberId }" id="loginMemberId">
@@ -315,14 +314,14 @@
     			alert("로그인 후 이용가능합니다.");
     			return false;
     		}else{
-    			if(obj.hasClass("fill")){
+    			if(obj.hasClass("fill-icon")){
     				//찜취소
     				$.ajax({
     					url: "/wishDelete.do",
     					type: "get",
     					data: {memberId : memberId, usedBoardNo : usedBoardNo},
     					success: function(data){
-    						obj.removeClass("fill");		
+    						obj.removeClass("fill-icon");		
     					}
     				});				
     			}else{
@@ -331,7 +330,7 @@
     					type: "get",
     					data: {memberId : memberId, usedBoardNo : usedBoardNo},
     					success: function(data){
-	    					obj.addClass("fill");		
+	    					obj.addClass("fill-icon");		
     					}
     				});
     			}

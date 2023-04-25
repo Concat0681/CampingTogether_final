@@ -22,7 +22,7 @@
 	  'GRAD' 0,
 	  'opsz' 48
 	}
-	.fill{
+	.fill-icon{
 		font-variation-settings: 'FILL' 1
 	}
 	.wght{
@@ -689,14 +689,14 @@
     			alert("로그인 후 이용가능합니다.");
     			return false;
     		}else{
-    			if(obj.hasClass("fill")){
+    			if(obj.hasClass("fill-icon")){
     				//찜취소
     				$.ajax({
     					url: "/wishDelete.do",
     					type: "get",
     					data: {memberId : memberId, usedBoardNo : usedBoardNo},
     					success: function(data){
-    						obj.removeClass("fill");		
+    						obj.removeClass("fill-icon");		
     					}
     				});				
     			}else{
@@ -705,7 +705,7 @@
     					type: "get",
     					data: {memberId : memberId, usedBoardNo : usedBoardNo},
     					success: function(data){
-	    					obj.addClass("fill");		
+	    					obj.addClass("fill-icon");		
     					}
     				});
     			}
