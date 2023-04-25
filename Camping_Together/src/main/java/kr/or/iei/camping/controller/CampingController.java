@@ -178,8 +178,8 @@ public class CampingController {
 	}
 	
 	@RequestMapping(value="/viewCamping.do")
-	public String viewCamping(CampingReservation cr, String checkIn, String checkOut, int campingNo, Model model) {
-		ViewCampingData vcd = service.selectOneCamping(campingNo);
+	public String viewCamping(CampingReservation cr, String checkIn, String checkOut, int campingNo, String memberId, Model model) {
+		ViewCampingData vcd = service.selectOneCamping(campingNo, memberId);
 		ArrayList<CampingReservation> reservationList = new ArrayList<CampingReservation>();
 		for(CampingRoom room : vcd.getCampingRoomList()) {
 			cr.setCampingRoomNo(room.getCampingRoomNo());
@@ -421,7 +421,8 @@ public class CampingController {
 	@RequestMapping(value="/deleteCamping.do")
 	public String deleteCamping(int campingNo, HttpServletRequest request) {
 		int result = service.deleteCamping(campingNo);
-		ViewCampingData vcd = service.selectOneCamping(campingNo);
+		String memberId = "";
+		ViewCampingData vcd = service.selectOneCamping(campingNo, memberId);
 		if(result > 0) {
 			String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/camping/");
 			manager.deleteFile(savePath, vcd.getCamping().getFilepath());
@@ -474,7 +475,11 @@ public class CampingController {
 	@RequestMapping(value="/insertCampingBookmark.do")
 	public int insertCampingBookmark(int campingNo, String memberId) {
 		int result = service.insertCampingBookmark(campingNo, memberId);
-		return result;
+		int bookmarkNo = 0;
+		if(result > 0) {
+			bookmarkNo = service.selectLatestBookmarkNo();
+		}
+		return bookmarkNo;
 	}
 	
 	@ResponseBody

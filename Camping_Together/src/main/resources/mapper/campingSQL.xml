@@ -158,10 +158,16 @@
 	</select>
 	
 	<select id="selectOneCamping" parameterType="map" resultMap="getOneCamping">
-		select 
-			*
+	select 
+	c.*
+	<if test="memberId != null">
+		, (select b.camping_bookmark_no as campingBookmarkNo from camping_bookmark b join camping a on(b.camping_no = a.camping_no) where b.camping_no = #{campingNo} and b.member_id = #{memberId}) as campingBookmarkNo
+	</if>
+	from
+		(select 
+				*
 		from camping
-		where camping_no = #{campingNo}
+		where camping_no = #{campingNo}) c
 	</select>
 	
 	<select id="selectCampingProvideServiceList" parameterType="_int" resultType="cps">
@@ -501,6 +507,10 @@
 <!-- 			camping_room_no as campingRoomNo -->
 <!-- 		where camping_no = #{campingNo} -->
 <!-- 	</select> -->
+
+	<select id="selectLatestBookmarkNo" resultType="_int">
+		select max(camping_bookmark_no) from camping_bookmark
+	</select>
 
 	<insert id="insertCampingBookmark" parameterType="map">
 		insert into camping_bookmark values(

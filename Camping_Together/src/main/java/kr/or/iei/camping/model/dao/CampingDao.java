@@ -41,8 +41,8 @@ public class CampingDao {
 		return result;
 	}
 
-	public Camping selectOneCamping(int campingNo) {
-		Camping camping = sqlSession.selectOne("camping.selectOneCamping", campingNo);
+	public Camping selectOneCamping(HashMap<String, Object> map) {
+		Camping camping = sqlSession.selectOne("camping.selectOneCamping", map);
 		return camping;
 	}
 	
@@ -263,6 +263,11 @@ public class CampingDao {
 	public int deleteCampingBookmark(int campingBookmarkNo) {
 		int result = sqlSession.delete("camping.deleteCampingBookmark", campingBookmarkNo);
 		return result;
+	}
+
+	public int selectLatestBookmarkNo() {
+		int bookmarkNo = sqlSession.selectOne("camping.selectLatestBookmarkNo");
+		return bookmarkNo;
 	}
 
 
