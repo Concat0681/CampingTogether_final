@@ -161,7 +161,24 @@
 		where rownum <= 3 
 		]]>
 	</select>
-	
+	<insert id="insertUsedWishList" parameterType="uwl">
+		insert into used_wish_list 
+		values(
+			used_wish_list_seq.nextval,
+			#{usedBoardNo},
+			#{memberId}
+		)
+	</insert>
+	<delete id="deleteUsedWishList" parameterType="uwl">
+		delete from used_wish_list where member_id = #{memberId} and used_board_no = #{usedBoardNo}
+	</delete>
+	<select id="selectUsedBoardWishList" resultType="uwl">
+		select 
+			used_wish_no as usedWishNo,
+			used_board_no as usedBoardNo,
+			member_id as memberId
+		from used_wish_list
+	</select>
 </mapper>
 
 

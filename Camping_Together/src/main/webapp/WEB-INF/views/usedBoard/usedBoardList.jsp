@@ -22,7 +22,8 @@
        'GRAD' 0,
        'opsz' 48
    }
-   .fill-icon{
+   .fill{
+   		color: red;
     	font-variation-settings: 'FILL' 1
 	}
    .page-content{
@@ -185,6 +186,9 @@
    .icon:last-child{
    		font-size: 18px;
    }
+   #favorite{
+   		cursor: pointer;
+   }
 </style>
 </head>
 <body>
@@ -282,7 +286,18 @@
                             <div class="product-price">
                                 <span><fmt:formatNumber value="${ub.usedProductPrice }" pattern="#,###" /></span><span>원</span>
                             </div>
-                            <span id="favorite" class="material-symbols-outlined product-wish" style="z-index:1000;">favorite</span>
+                            <c:forEach items="${wishlist }" var="uwl">
+                            	<c:choose>
+                            		<c:when test="${uwl.memberId eq sessionScope.m.memberId} ">
+                            			<span id="favorite" class="material-symbols-outlined product-wish fill" >favorite</span>
+                            		</c:when>
+                            		<c:otherwise>
+                            			<span id="favorite" class="material-symbols-outlined product-wish" >favorite</span>
+                            		</c:otherwise>
+                            	</c:choose>
+                            </c:forEach>
+                            <input type="hidden" value="${sessionScope.m.memberId }" id="loginMemberId">
+                            <input type="hidden" value="${ub.usedBoardNo }">
                         </div>
                         <!-- 
                         <div class="product-bottom array">
@@ -314,5 +329,37 @@
 	        ${pageNavi }
         </div>
     </div>  
+    <script>
+    	$(".product-wish").on("click", function(){
+    		const memberId = $("#loginMemberId").val();
+    		const usedBoardNo = $(this).next().next().val();
+    		const obj = $(this);
+    		if(memberId == ""){
+    			alert("로그인 후 이용가능합니다.");
+    			return false;
+    		}else{
+    			if(obj.hasClass("fill")){
+    				//찜취소
+    				$.ajax({
+    					url: "/wishDelete.do",
+    					type: "get",
+    					data: {memberId : memberId, usedBoardNo : usedBoardNo},
+    					success: function(data){
+    						obj.removeClass("fill");		
+    					}
+    				});				
+    			}else{
+    				$.ajax({
+    					url: "/wishInsert.do",
+    					type: "get",
+    					data: {memberId : memberId, usedBoardNo : usedBoardNo},
+    					success: function(data){
+	    					obj.addClass("fill");		
+    					}
+    				});
+    			}
+    		}
+    	});
+    </script>
 </body>
 </html>

@@ -17,6 +17,7 @@ import kr.or.iei.usedBoard.model.vo.UsedBoard;
 import kr.or.iei.usedBoard.model.vo.UsedBoardComment;
 import kr.or.iei.usedBoard.model.vo.UsedBoardPageData;
 import kr.or.iei.usedBoard.model.vo.UsedBoardPhoto;
+import kr.or.iei.usedBoard.model.vo.UsedWishList;
 
 @Service
 public class UsedBoardService {
@@ -164,6 +165,18 @@ public class UsedBoardService {
 	public ArrayList<UsedBoard> getTop3UsedBoards(UsedBoard ub) {
 		return dao.getTop3UsedBoards(ub);
 
+	}
+
+	public int insertUsedWishList(UsedWishList uwl) {
+		return dao.insertUsedWishList(uwl);
+	}
+
+	public int deleteUsedWishList(UsedWishList uwl) {
+		return dao.deleteUsedWishList(uwl);
+	}
+
+	public ArrayList<UsedWishList> selectUsedBoardWishList() {
+		return dao.selectUsedBoardWishList();
 	}
 }
 
