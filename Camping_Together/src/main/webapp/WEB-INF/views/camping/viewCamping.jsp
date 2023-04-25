@@ -20,11 +20,36 @@
 	<div class="page-wrap">
 		<div class="header-wrap">
 			<div class="img-wrap">
-				<img src="resources/upload/camping/campingbg.jpg">
+				<img src="resources/upload/camping/${camping.filepath }">
 			</div>
 			<div class="camping-info">
-				<div class="camping-title">${camping.campingTitle }</div>
-				<div id="campingAddr" class="camping-addr">${camping.campingAddr }</div>
+				<div class="camping-info-header">
+					<div>
+						<div class="camping-title">${camping.campingTitle }</div>
+						<div id="campingAddr" class="camping-addr">${camping.campingAddr }</div>
+					</div>
+					<div>
+					<c:choose>
+						<c:when test="${empty sessionScope.m }">
+							<span class="material-symbols-outlined loginBtn">favorite</span>
+						</c:when>
+						<c:otherwise>
+							<c:choose>
+								<c:when test="${camping.campingBookmarkNo eq 0 }">
+									<span class="material-symbols-outlined addBookmark">favorite</span>
+									<input type="hidden" name="campingNo" value="${camping.campingNo }">
+									<input type="hidden" name="campingBookmarkNo" value="${camping.campingBookmarkNo }">
+								</c:when>
+								<c:otherwise>
+									<span class="material-symbols-outlined addBookmark filled-heart">favorite</span>
+									<input type="hidden" name="campingNo" value="${camping.campingNo }">
+									<input type="hidden" name="campingBookmarkNo" value="${camping.campingBookmarkNo }">
+								</c:otherwise>
+							</c:choose>
+						</c:otherwise>
+					</c:choose>
+					</div>
+				</div>
 				<div class="camping-detail">
 					<div>
 						<div>캠핑 기본정보</div>
@@ -100,10 +125,12 @@
 									<c:when test="${not empty checkIn }">
 										<input class="form-control" type="text" id="search_checkin" name="checkIn" value="${checkIn }" readonly>
 										<input class="form-control" type="text" id="search_checkout" name="checkOut" value="${checkOut }" readonly>	
+										<button onclick="changeDate();">찾기</button>
 									</c:when>
 									<c:otherwise>
 										<input class="form-control" type="text" id="search_checkin" name="checkIn" readonly>
 										<input class="form-control" type="text" id="search_checkout" name="checkOut" readonly>	
+										<button onclick="changeDate();">찾기</button>
 									</c:otherwise>
 								</c:choose>
 							</div>
@@ -159,26 +186,25 @@
 										</a>
 									</div>
 									<div class="room-btn-box">
-										<button type="button" class="btn2">예약하기</button>
 										<%--결제하기 캠핑 정보 --%>
 										<form action="reservationFrm.do?checkIn=${checkIn }&checkOut=${checkOut}" method="post">
 											<input type="hidden" name="memberNo" value="${sessionScope.m.memberNo }">
 											<input type="hidden" name="campingRoomNo" value="${r.campingRoomNo }">
-											<input type="hidden" name="checkIn1"  value="${checkIn }">
-											<input type="hidden" name="checkOut1" value="${checkOut }">
+											<input type="text" name="checkIn1"  value="${checkIn }">
+											<input type="text" name="checkOut1" value="${checkOut }">
 											<input type="hidden" name="campingTitle" value="${camping.campingTitle } ">
 											<input type="hidden" name="campingType" value="${r.campingRoomTitle }">
 											<input type="hidden" name="price" value="${r.campingRoomPrice }">
 											<input type="hidden" name="addr" value="${camping.campingAddr }">
-											<c:if test="${ empty reservationList}">
-												<button type="submit" class="btn2 reservationBtn">예약하기</button>
+											<c:forEach items="${reservationList}" var="rl" varStatus="j">
+											<c:if test="${rl.campingReservationNo eq null and  i.index eq j.index}">
+    											<button type="submit" class="btn2 reservationBtn" style="width: 100%;">예약하기</button>
 											</c:if>
+    										<c:if test="${r.campingRoomNo eq rl.campingRoomNo}">
+        										<div class="reservation" style="background-color: #e3e4e5; width: 100%; border-radius: 5px; color: white; text-align: center;">예약완료</div>
+    										</c:if>
+											</c:forEach>
 										</form>
-										<c:forEach items="${reservationList}" var="rl">
-											<c:if test="${r.campingRoomNo eq rl.campingRoomNo}">
-												<button class="btn2"  style="background-color: #e3e4e5;">예약완료</button>
-											</c:if>										
-										</c:forEach>
 									</div>
 								</div>
 							</div>
@@ -558,6 +584,43 @@
 				  '금연' : 'smoke_free'
 		}
 		
+		function changeDate(){
+			const checkIn = $("#search_checkin").val()
+			const checkOut = $("#search_checkout").val()
+			const campingNo = $("input[name=campingNo]").val();
+			location.href="/viewCamping.do?campingNo="+campingNo+"&checkIn="+checkIn+"&checkOut="+checkOut;
+		}
+		
+		$(".addBookmark").on("click", function(event){
+			 if (event.stopPropagation) event.stopPropagation();
+			 else event.cancelBubble = true; // IE 대응
+			 if($(this).hasClass("filled-heart")){
+				 const campingBookmarkNo = $(this).next().next().val()
+				 console.log(campingBookmarkNo);
+				 $.ajax({
+					 url : "/deleteCampingBookmark.do",
+					 data : {campingBookmarkNo : campingBookmarkNo},
+					 success : function(data){
+						 
+					 }
+				 })
+			 } else {
+				 const memberId = $("input[name=memberId]").val();
+				 const campingNo = $(this).next().val();
+				 $.ajax({
+					 url : "/insertCampingBookmark.do",
+					 data : {memberId : memberId, campingNo : campingNo},
+					 success : function(data){
+						 $("input[name=campingBookmarkNo]").val(data)
+					 },
+					 error : function(e){
+						 console.log(e);
+					 }
+				 });
+			 }
+			 $(this).toggleClass("filled-heart");
+		})
+		
 		const serviceList = $(".provide-service-list")
 		serviceList.each(function(i, s){
 			const value = $(s).find("div").text();
@@ -607,62 +670,6 @@
 			const receiver = $("#campingMemberId").val()
 			$("#receiver-name").val(receiver)
 		})
-		
-		const inputDate = $("input[name=date]")
-		inputDate.daterangepicker({
-		locale: {
-		    separator: ' ~ ', // 시작일시와 종료일시 구분자
-		    format: 'YYYY-MM-DD', // 일시 노출 포맷
-		    applyLabel: '확인', // 확인 버튼 텍스트
-		    cancelLabel: '취소', // 취소 버튼 텍스트
-		    daysOfWeek: ['일', '월', '화', '수', '목', '금', '토'],
-		    monthNames: [
-		      '1월',
-		      '2월',
-		      '3월',
-		      '4월',
-		      '5월',
-		      '6월',
-		      '7월',
-		      '8월',
-		      '9월',
-		      '10월',
-		      '11월',
-		      '12월'
-			],
-			beforeShowDay : function(input, inst){
-				
-			}
-			}
-
-		})
-		inputDate.on('apply.daterangepicker', function (ev, picker) {
-		  $(this).val(
-		    picker.startDate.format('YYYY-MM-DD') +
-		      '~' +
-		      picker.endDate.format('YYYY-MM-DD')
-		  )
-		  $('[name=checkIn]').eq(0).val(picker.startDate.format('YYYY-MM-DD'))
-		  $('[name=checkOut]').eq(0).val(picker.endDate.format('YYYY-MM-DD'))
-		})
-		
-		inputDate.on('cancel.daterangepicker', function (ev, picker) {
-		  $('[name=checkIn]').val('')
-		  $('[name=checkOut]').val('')
-		})
-		
-		bookedDays = ["2023-04-21", "2023-04-27" , "2023-04-28"]
-		function disableDates(){
-			 var m = date.getMonth() + 1;
-	         var d = date.getDate();
-	         var y = date.getFullYear();
-	             for (i = 0; i < bookedDays.length; i++) {
-	             if ($.inArray(y + '-' + m + '-' + d, bookedDays) != -1) {
-	             return [false];
-	             }
-	             }
-	             return [true];
-	}
 		
 		const carousel = $(".carousel");
 		carousel.each(function(i, c){
@@ -1152,7 +1159,9 @@
 					
 		});
 		
-		
+		$(".reservation").on("click",function(){
+			alert("예약완료");
+		});
 	</script>
 </body>
 </html>

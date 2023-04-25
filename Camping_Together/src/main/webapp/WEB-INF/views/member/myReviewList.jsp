@@ -21,9 +21,12 @@
 		
 		<div class="pay-list">
 			<div class="list-content">
+				<div class="total">
+					<p>총 [${count }]건</p>
+				</div>
 				<table>
 					<tr>
-						<th class="number">번호</th>
+						<th class="number">No</th>
 						<th class="name">캠핑장 명</th>
 						<th>리뷰 사진</th>
 						<th class="content">내용</th>

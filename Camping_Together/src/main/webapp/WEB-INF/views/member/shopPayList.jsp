@@ -24,6 +24,9 @@
 		</div>
 		<div class="pay-list">
 			<div class="list-content">
+				<div class="total">
+					<p>총 [${count }]건</p>
+				</div>
 				<table>
 					<tr>
 						<th class="camping-name">캠핑방 명</th>
@@ -34,12 +37,13 @@
 					</tr>
 				<c:forEach items="${list }" var="p">
 					<tr>
-						<td>${p.campingRoomTitle }</td>
+						<td style="cursor: pointer;"><a href="/viewCamping.do?campingNo=${p.campingNo }">${p.campingRoomTitle }</a></td>
+						<input type="hidden" name="campingRoomNo" value="${p.campingNo }">
 						<td>${p.campingPaymentDate }</td>
 						<td class="checkIn">${p.checkIn }</td>
 						<td class="checkOut">${p.checkOut }</td>
 						<td class="total-price"></td>
-					<td class="oneDayPay" style="display:none;">${p.campingRoomPrice }</td>
+					<td class="oneDayPay" style="display:none;">${p.campingRoomPrice } 원</td>
 					</tr>
 					
 				</c:forEach>

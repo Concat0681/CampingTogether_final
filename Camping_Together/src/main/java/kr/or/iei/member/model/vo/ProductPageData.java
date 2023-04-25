@@ -14,4 +14,5 @@ public class ProductPageData {
 
 	private ArrayList<ProductPayment> list;
 	private String pageNavi;
+	private int totalCount;
 }

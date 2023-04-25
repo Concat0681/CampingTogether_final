@@ -21,10 +21,7 @@
 
 .search-input-wrap{
 	display: flex;
-	width: 70%;
-	background-color: #E3CAA5;
-	border-radius: 10px;
-	padding: 10px;
+	width: 60%;
 }
 .search-input-box{
 	position : relative;
@@ -98,5 +95,17 @@
 	padding: 5px 0;
 }
 .hidden-search>ul>li:hover{
+	background-color: #E3CAA5;
+}
+.search-submit-box{
+	background-color: #AD8B73;
+	border-radius: 5px;
+}
+.search-submit-box>button{
+	color: white;
+	border: none;
+}
+.search-submit-box>button:hover{
+	color: white;
 	background-color: #E3CAA5;
 }

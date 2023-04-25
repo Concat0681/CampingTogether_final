@@ -181,6 +181,12 @@ public class MemberDao {
 		return member;
 	}
 
+	
+	public int updateAdminPw(Member member) {
+		int result = sqlsession.insert("member.updateAdminPw", member);
+		return result;
+	}
+
 
 	
 	
