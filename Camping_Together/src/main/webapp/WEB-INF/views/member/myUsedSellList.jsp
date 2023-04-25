@@ -8,12 +8,13 @@
 
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/common/header.jsp" />
 	<jsp:include page="/WEB-INF/views/common/mypageMenu.jsp" />
+	<jsp:include page="/WEB-INF/views/common/header.jsp" />
 
 	<div class="input-div">
 		<div class="input-title">
-			<h2>찜한 목록</h2>
+			<h2>판매 중 중고상품</h2>
+		</div>
 	</div>
 </body>
 </html>

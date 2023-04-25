@@ -178,8 +178,8 @@ public class CampingController {
 	}
 	
 	@RequestMapping(value="/viewCamping.do")
-	public String viewCamping(CampingReservation cr, String checkIn, String checkOut, int campingNo, Model model) {
-		ViewCampingData vcd = service.selectOneCamping(campingNo);
+	public String viewCamping(CampingReservation cr, String checkIn, String checkOut, int campingNo, String memberId, Model model) {
+		ViewCampingData vcd = service.selectOneCamping(campingNo, memberId);
 		ArrayList<CampingReservation> reservationList = new ArrayList<CampingReservation>();
 		for(CampingRoom room : vcd.getCampingRoomList()) {
 			cr.setCampingRoomNo(room.getCampingRoomNo());
@@ -421,7 +421,8 @@ public class CampingController {
 	@RequestMapping(value="/deleteCamping.do")
 	public String deleteCamping(int campingNo, HttpServletRequest request) {
 		int result = service.deleteCamping(campingNo);
-		ViewCampingData vcd = service.selectOneCamping(campingNo);
+		String memberId = "";
+		ViewCampingData vcd = service.selectOneCamping(campingNo, memberId);
 		if(result > 0) {
 			String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/camping/");
 			manager.deleteFile(savePath, vcd.getCamping().getFilepath());
@@ -474,7 +475,11 @@ public class CampingController {
 	@RequestMapping(value="/insertCampingBookmark.do")
 	public int insertCampingBookmark(int campingNo, String memberId) {
 		int result = service.insertCampingBookmark(campingNo, memberId);
-		return result;
+		int bookmarkNo = 0;
+		if(result > 0) {
+			bookmarkNo = service.selectLatestBookmarkNo();
+		}
+		return bookmarkNo;
 	}
 	
 	@ResponseBody
@@ -483,6 +488,66 @@ public class CampingController {
 		int result = service.deleteCampingBookmark(campingBookmarkNo);
 		System.out.println(result);
 		return result;
+	}
+	
+	@RequestMapping(value="/updateCampingFrm.do")
+	public String updateCampingFrm(int campingNo, Model model) {
+		Camping c = service.updateCampingFrm(campingNo);
+		model.addAttribute("camping",c);
+		model.addAttribute("campingEtc",c.getCampingEtcList());
+		model.addAttribute("campingService",c.getCampingProvideServiceList());
+		model.addAttribute("campingRoomService",c.getCampingRoomServiceList());
+		return "camping/updateCampingFrm";
+	}
+	
+	@RequestMapping(value="/updateCamping")
+	public String updateCamping(Camping c, String[] filepath, MultipartFile[] campingFilepath, HttpServletRequest requset, String[] campingService, String[] campingRoomService, String[] campingEtc,int campingNo) {
+		if(campingService != null) {
+			ArrayList<CampingProvideService> campingServicelist = new ArrayList<CampingProvideService>();
+			for(String str : campingService) {
+				CampingProvideService cps = new CampingProvideService();
+				cps.setCampingService(str);
+				campingServicelist.add(cps);
+			}
+			c.setCampingProvideServiceList(campingServicelist);
+		}
+		if(campingRoomService != null) {
+			ArrayList<CampingRoomService> campingRoomServicelist = new ArrayList<CampingRoomService>();
+			for(String str : campingRoomService) {
+				CampingRoomService crs = new CampingRoomService();
+				crs.setCampingRoomService(str);
+				campingRoomServicelist.add(crs);
+			}
+			c.setCampingRoomServiceList(campingRoomServicelist);
+		}
+		if(campingEtc != null) {
+			ArrayList<CampingEtc> campingEtclist = new ArrayList<CampingEtc>();
+			for(String str : campingEtc) {
+				CampingEtc ce = new CampingEtc();
+				ce.setCampingEtc(str);
+				campingEtclist.add(ce);
+			}
+			c.setCampingEtcList(campingEtclist);
+		}
+		if(!campingFilepath[0].isEmpty()) {
+			String savePath = requset.getSession().getServletContext().getRealPath("/resources/upload/camping/");
+			for(MultipartFile file : campingFilepath) {
+				String filepath2 = manager.upload(savePath, file);
+				c.setFilepath(filepath2);
+			}
+		}
+		int result = service.updateCamping(c, campingNo);
+		if(filepath != null && result > 0) {
+			String savePath = requset.getSession().getServletContext().getRealPath("/resources/upload/camping/");
+			for(String delFile : filepath) {
+				manager.deleteFile(savePath, delFile);
+			}
+			return "redirect:/";
+		}else if(filepath == null && result > 0){
+			return "redirect:/";
+		}else {
+			return "redirect:/";
+		}
 	}
 	
 }

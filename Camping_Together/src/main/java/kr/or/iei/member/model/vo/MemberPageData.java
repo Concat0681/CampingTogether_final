@@ -17,6 +17,7 @@ public class MemberPageData {
 	
 	private ArrayList<CampingPayment> list;
 	private String pageNavi;
+	private int totalCount;
 }
 
 

@@ -14,6 +14,7 @@
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
 	<div class="page-wrap">
+		<input type="hidden" id="memberId" value=${sessionScope.m.memberId }>
 		<c:choose>
 			<c:when test="${not empty cityNameEN }">
 				<div class="page-header" style="background-image: url(/resources/image/camping/${cityNameEN }.jpg)">
@@ -596,7 +597,8 @@
 		} // End Daterange Picker
 	
 		function viewCamping(campingNo, checkIn, checkOut){
-			location.href="/viewCamping.do?campingNo="+campingNo+"&checkIn="+checkIn+"&checkOut="+checkOut;
+			const memberId = $("#memberId").val();
+			location.href="/viewCamping.do?campingNo="+campingNo+"&checkIn="+checkIn+"&checkOut="+checkOut+"&memberId="+memberId;
 		}
 		
 		$(function(){

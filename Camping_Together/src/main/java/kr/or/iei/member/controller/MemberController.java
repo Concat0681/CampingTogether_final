@@ -31,6 +31,8 @@ import com.google.gson.Gson;
 import common.FileManager;
 import javafx.scene.control.Alert;
 import kr.or.iei.camping.model.service.CampingService;
+import kr.or.iei.camping.model.vo.Camping;
+import kr.or.iei.camping.model.vo.CampingListPageData;
 import kr.or.iei.camping.model.vo.CampingRoom;
 import kr.or.iei.camping.model.vo.SellCampingListData;
 import kr.or.iei.member.model.service.MailService;
@@ -57,7 +59,7 @@ public class MemberController {
 	@Autowired
 	private MailService mailService;
 	@Autowired
-	private CampingService cmapingService;
+	private CampingService campingService;
 
 	@Autowired
 	private FileManager manager;
@@ -239,6 +241,7 @@ public class MemberController {
 		MemberPageData mpd = service.selectPayList(memberNo, reqPage);
 		model.addAttribute("list", mpd.getList() );
 		model.addAttribute("navi", mpd.getPageNavi() );
+		model.addAttribute("count", mpd.getTotalCount() );
 		model.addAttribute("index",0);
 		return "member/shopPayList";
 	}
@@ -249,6 +252,7 @@ public class MemberController {
 		ProductPageData ppd = service.productPayList(memberId, reqPage);	
 		model.addAttribute("list", ppd.getList() );
 		model.addAttribute("navi", ppd.getPageNavi() );
+		model.addAttribute("count", ppd.getTotalCount());
 		model.addAttribute("index",1);
 		return "member/productPayList";
 	}
@@ -259,15 +263,16 @@ public class MemberController {
 		ReviewPageData rpd = service.myReviewList(memberId, reqPage);
 		model.addAttribute("list",rpd.getList());
 		model.addAttribute("navi", rpd.getPageNavi());
+		model.addAttribute("count", rpd.getTotalCount());
 		model.addAttribute("index",2);
 		return "member/myReviewList";
 	}
 	
 	//찜한목록
-	@RequestMapping(value = "/usedWishList.do")
+	@RequestMapping(value = "/myUsedSellList.do")
 	public String usedWishList(int reqPage,String memberId, Model model) {
 		model.addAttribute("index",4);
-		return "member/usedWishList";
+		return "member/myUsedSellList";
 	
 	}
 	
@@ -275,7 +280,7 @@ public class MemberController {
 	//판매자 my캠핑장
 	@RequestMapping(value = "/sellList.do")
 	public String sellList(int reqPage, String memberId, Model model) {
-		SellCampingListData scld = cmapingService.getSellCampingList(memberId, reqPage);
+		SellCampingListData scld = campingService.getSellCampingList(memberId, reqPage);
 		model.addAttribute("list",scld.getCampingList());
 		model.addAttribute("navi", scld.getPageNavi());
 		model.addAttribute("index",0);
@@ -296,13 +301,8 @@ public class MemberController {
 				fileVO.setProfileFilename(filename);
 				fileVO.setProfileFilepath(upFilepath);	
 		}
-		
-		
 		return null;
-		
-		
 	}
-	
 	
 	//shop 판매상품(관리자)
 	@RequestMapping(value = "/shopProductList.do")
@@ -364,10 +364,7 @@ public class MemberController {
 		ArrayList<String> list = service.selectId();
 		System.out.println(list);
 		return new Gson().toJson(list);
-		
 	}
-	
-	
 	//my캠핑장 룸 조회
 	@ResponseBody
 	@RequestMapping(value = "/selectRoomInfo.do", produces="application/json;charset=utf-8")
@@ -378,7 +375,7 @@ public class MemberController {
 	}
 	
 	//관리자 정보
-	@RequestMapping(value = "adminMember")
+	@RequestMapping(value = "/adminMember.do")
 	public String selectAdminMember(String memberId, Model model) {
 		Member member = service.selectAdminMember(memberId);
 		model.addAttribute("list",member);
@@ -387,10 +384,38 @@ public class MemberController {
 	}
 	
 	//관리자 비밀번호 변경
-	/*
 	@RequestMapping(value = "/adminPwUpdate.do")
-	publu
-	*/
+	public String adminPwUpdate(Member member,@SessionAttribute(required = false) Member m) {
+		int result = service.updateAdminPw(member);
+		if(result >0) {
+			m.setMemberPw(member.getMemberPw());
+		}
+		return "redirect:/adminMember.do";
+	}
+	
+	//찜한 캠핑장 
+	@RequestMapping(value = "/campingBookmark.do")
+	public String campingBookmark(String memberId, Model model) {
+		int reqPage = 1;
+		String order = "avgReviewRating";
+		CampingRoom campingRoom = new CampingRoom();
+		Camping camping = new Camping();
+		if(memberId != null) {
+			camping.setMemberId(memberId);
+		}
+		ArrayList<Camping> list = new ArrayList<Camping>();
+		CampingListPageData cpd = campingService.selectCampingListData(reqPage, order, camping, campingRoom);
+		for(Camping c : cpd.getList()) {
+			if(c.getCampingBookmarkNo() != 0) {
+				list.add(c);
+			}
+		}
+		model.addAttribute("list", list);
+		model.addAttribute("index",3);
+		return "member/campingBookmark";
+	}
 }
+
+
 
 

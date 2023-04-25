@@ -22,7 +22,6 @@ public class MessageService {
 	}
 
 	public ArrayList<Message> selectMessagelist(Message message) {
-		System.out.println("service"+message);
 		return dao.selectMessagelist(message);
 	}
 	@Transactional
@@ -42,7 +41,7 @@ public class MessageService {
 	public List<Message> getSendMessageList(String sender) {
     return dao.selectSendMessageList(sender);
 	}
-
-
+	
+	
 
 }
