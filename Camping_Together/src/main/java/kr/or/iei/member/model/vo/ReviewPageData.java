@@ -13,4 +13,5 @@ import lombok.NoArgsConstructor;
 public class ReviewPageData {
 	private ArrayList<MyReview> list;
 	private String pageNavi;
+	private int totalCount;
 }

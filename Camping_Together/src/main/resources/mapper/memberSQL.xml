@@ -111,8 +111,8 @@
 		where member_id = #{memberId}
 	</select>
 	
-	
-	<!-- 캠핑장 리뷰 리스트  -->
+
+		<!-- 캠핑장 리뷰 리스트  -->
 	<select id="selectMyReviewList" parameterType="map" resultType="mr">
 		select * from
 			(select rownum as rnum, c.* from
@@ -126,13 +126,15 @@
 			             cr.Camping_review_content as campingReviewContent,
 			             cr.Camping_review_date as campingReviewDate,
 			             cr.member_id
-	    from camping_review cr left join camping c using(camping_no) order by Camping_review_date desc)c)
-  	    where rnum between #{start} and #{end} and member_id=#{memberId}	
+	    from camping_review cr left join camping c using(camping_no) 
+        where cr.member_id=#{memberId}
+        order by Camping_review_date desc)c) 
+        where rnum between #{start} and #{end}	
 	</select>
 		
 	<!-- 캠핑장 리뷰 리스트 총 게시물 수   -->
 	<select id="selectMyReviewListCount" parameterType="String" resultType="_int">
-		select count(*) from camping_review
+		select count(*) from camping_review where member_id=#{_parameter}
 	</select>
 	
 
@@ -222,6 +224,16 @@
 				member_name as memberName
 		 from member where member_id=#{_parameter} 
 		</select>
+		
+		
+		<select id="updateAdminPw" parameterType="m">
+			update member 
+				set 
+					member_pw = #{memberPw} 
+				where member_id= #{memberId}
+		
+		</select>
+
 </mapper>
 
 

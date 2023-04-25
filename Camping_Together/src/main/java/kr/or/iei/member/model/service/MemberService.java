@@ -110,7 +110,7 @@ public class MemberService {
 			}
 			pageNavi += "</ul>";
 			
-			MemberPageData mpd = new MemberPageData(list,pageNavi);
+			MemberPageData mpd = new MemberPageData(list,pageNavi,totalCount );
 			 return mpd;
 			}
 
@@ -140,7 +140,7 @@ public class MemberService {
 		}
 		pageNavi += "</ul>";
 
-		MemberPageData mpd = new MemberPageData(list, pageNavi);
+		MemberPageData mpd = new MemberPageData(list, pageNavi, totalCount);
 		return mpd;
 		}
 		return null;
@@ -219,7 +219,7 @@ public class MemberService {
 		}
 		pageNavi += "</ul>";
 
-		ProductPageData ppd = new ProductPageData(list, pageNavi);
+		ProductPageData ppd = new ProductPageData(list, pageNavi,totalCount);
 		return ppd;
 	}
 
@@ -294,7 +294,7 @@ public class MemberService {
 				}
 				pageNavi += "</ul>";
 
-				ReviewPageData rpd = new ReviewPageData(list, pageNavi);
+				ReviewPageData rpd = new ReviewPageData(list, pageNavi,totalCount);
 				return rpd;
 	}
 	
@@ -531,6 +531,11 @@ public class MemberService {
 	//관리자정보
 	public Member selectAdminMember(String memberId) {
 		return dao.selectAdminember(memberId);
+	}
+
+	//관리자 비밀번호 변경
+	public int updateAdminPw(Member member) {
+		return dao.updateAdminPw(member);
 	}
 	
 
