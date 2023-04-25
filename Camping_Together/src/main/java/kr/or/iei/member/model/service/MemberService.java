@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import kr.or.iei.camping.model.dao.CampingDao;
+import kr.or.iei.camping.model.vo.CampingRoom;
 import kr.or.iei.member.model.dao.MemberDao;
 import kr.or.iei.member.model.vo.AdminShopList;
 import kr.or.iei.member.model.vo.AdminShopPageData;
@@ -32,6 +34,7 @@ public class MemberService {
 
 	@Autowired
 	private MemberDao dao;
+
 	
 	public Member selectOneMember(Member member) {
 		return dao.selectOneMember(member);
@@ -517,6 +520,22 @@ public class MemberService {
 				AdminShopPageData aspd = new AdminShopPageData(list, pageNavi, totalCount);
 				return aspd;
 		
+	}
+
+	//sellList - 캠핑방 리스트
+	public ArrayList<CampingRoom> selectCampingRoom(int campingNo) {
+		ArrayList<CampingRoom> list = dao.selectCampingRoom(campingNo);
+		return list;
+	}
+
+	//관리자정보
+	public Member selectAdminMember(String memberId) {
+		return dao.selectAdminember(memberId);
+	}
+	
+	public ArrayList<String> selectId() {
+		ArrayList<String> list = dao.selectId();
+		return list;
 	}
 	
 

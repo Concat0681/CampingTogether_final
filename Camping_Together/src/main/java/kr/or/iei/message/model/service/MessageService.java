@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class MessageService {
@@ -24,9 +25,10 @@ public class MessageService {
 		System.out.println("service"+message);
 		return dao.selectMessagelist(message);
 	}
-
-	public Message selectOneMessage(Message message) {
-		return dao.selectOneMessage(message);
+	@Transactional
+	public Message selectOneMessage(int messageNo) {
+		Message mg = dao.selectOneMessage(messageNo);
+		return mg;
 	}
 	public int selectMessageCount(String memberId) {
 		int messageCount = dao.selectMessageCount(memberId);
@@ -36,4 +38,11 @@ public class MessageService {
 	public int updateMessageReadStatus(Message message) {
 		 return dao.updateMessageReadStatus(message);
 	}
+
+	public List<Message> getSendMessageList(String sender) {
+    return dao.selectSendMessageList(sender);
+	}
+
+
+
 }

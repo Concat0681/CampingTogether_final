@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="member">
+
+	<!-- 회원Id -->
+	<select id="selectId" resultType="string">
+		select member_id as memberId from member 
+	</select>
+	
+	
 	<!-- 회원  -->
 	<select id="selectOneMember" parameterType="m" resultType="m">
 		select 
@@ -58,7 +65,7 @@
 	
 	<!-- 회원 가입 -->
 	<insert id="insertMember" parameterType="m"> <!--  insert delete update ResultType 절대 안씀 -->
-		insert into member values(member_seq.nextval,#{memberId},#{memberPw}, to_char(sysdate, 'yyyy-mm-dd'),#{memberPhone}, default, #{memberAddr}, null ,#{memberEmail},#{memberGrade},#{memberName})
+		insert into member values(member_seq.nextval,#{memberId},#{memberPw}, to_char(sysdate, 'yyyy-mm-dd'),#{memberPhone}, #{memberAddr}, default ,#{memberEmail},#{memberGrade},#{memberName})
 	</insert>
 	
     <!-- 회원탈퇴 -->
@@ -198,6 +205,30 @@
 	</select>
 	
 	
+		<select id="selectCampingRoom" parameterType="_int" resultType="cr">
+			select
+				camping_room_no as campingRoomNo,
+			    camping_room_title as campingRoomTitle,
+			    camping_room_type as campingRoomType,
+			    camping_room_price as campingRoomPrice
+			from camping_room where camping_no = #{_parameter}
+		</select>
+	
+	
+		<select id="selectAdminMember" parameterType="String" resultType="m">
+			select 
+				member_no as memberNo,
+				member_id as memberId,
+				member_pw as memberPw,
+				member_name as memberName,
+				member_phone as memberPhone,
+				member_addr as memberAddr,
+				member_photo as memberPhoto,
+				member_grade as memberGrade,
+				member_email as memberEmail,
+				member_name as memberName
+		 from member where member_id=#{_parameter} 
+		</select>
 </mapper>
 
 

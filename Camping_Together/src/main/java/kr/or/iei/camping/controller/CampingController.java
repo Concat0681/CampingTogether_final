@@ -43,12 +43,17 @@ public class CampingController {
 	}
 	
 	@RequestMapping(value="/campingListMain.do")
-	public String campingListMain(Model model) {
+	public String campingListMain(String memberId, Model model) {
 		int reqPage = 1;
 		String order = "avgReviewRating";
 		CampingRoom campingRoom = new CampingRoom();
 		Camping camping = new Camping();
+		if(memberId != null) {
+			camping.setMemberId(memberId);
+		}
 		CampingListPageData cpd = service.selectCampingListData(reqPage, order, camping, campingRoom);
+		for(Camping c : cpd.getList()) {
+		}
 		order = "new";
 		CampingListPageData newCpd = service.selectCampingListData(reqPage, order, camping, campingRoom);
 		model.addAttribute("newCampingList",newCpd.getList());
@@ -60,8 +65,11 @@ public class CampingController {
 	public String campingList(Camping c, String campingSido, String cityNameKR, String cityNameEN,int reqPage, String order, String pplCount, String checkIn, String checkOut, Model model) {
 		CampingRoom campingRoom = new CampingRoom();
 		Camping camping = new Camping();
-		camping.setCampingSido(campingSido);
-		camping.setCampingAddr(cityNameKR);
+		if(cityNameKR == "") {
+			camping.setCampingSido(campingSido);
+		} else {
+			camping.setCampingAddr(cityNameKR);
+		}
 		campingRoom.setCampingRoomMaxPplCount(Integer.parseInt(pplCount));
 		CampingListPageData cpd = service.selectCampingListData(reqPage, order, camping, campingRoom);
 		
@@ -96,8 +104,11 @@ public class CampingController {
 			campingRoom.setCampingRoomTypeList(arr1);
 		}
 		Camping camping = campingProvideSetter(campingServiceStr, campingRoomServiceStr, campingEtcStr);
-		camping.setCampingAddr(cityAddr);
-		camping.setCampingSido(campingSido);
+		if(cityAddr == "") {
+			camping.setCampingSido(campingSido);
+		} else {
+			camping.setCampingAddr(cityAddr);
+		}
 		campingRoom.setCampingRoomMaxPplCount(Integer.parseInt(pplCount));
 		CampingListPageData cpd = service.selectCampingListData(reqPage, order, camping, campingRoom);
 		cpd.setCheckIn(checkIn);
@@ -169,12 +180,17 @@ public class CampingController {
 	@RequestMapping(value="/viewCamping.do")
 	public String viewCamping(CampingReservation cr, String checkIn, String checkOut, int campingNo, Model model) {
 		ViewCampingData vcd = service.selectOneCamping(campingNo);
+		ArrayList<CampingReservation> reservationList = new ArrayList<CampingReservation>();
+		for(CampingRoom room : vcd.getCampingRoomList()) {
+			cr.setCampingRoomNo(room.getCampingRoomNo());
+			CampingReservation cre = service.selectReservationList(cr);
+			reservationList.add(cre);
+		}
+			
 		CampingReviewData crd = service.selectCampingReview(campingNo);
 		CampingReviewData reviewCommentList = service.selectReviewCommentList(campingNo);
-		ArrayList<CampingReservation> reservationList = service.selectReservationList(cr);
-//		System.out.println(cr);
-		CampingReservation campingReservation = service.selectReservation(cr);
-		System.out.println(campingReservation);
+//		CampingReservation campingReservation = service.selectReservation(cr);
+//		System.out.println(campingReservation);
 		int campingReviewCount = service.selectReviewCount(campingNo);
 		int campingReviewCommentCount = service.selectReviewCommentCount(campingNo);
 		int campingReviewRatingAvg = service.selectcampingReviewRatingAvg(campingNo);
@@ -187,12 +203,12 @@ public class CampingController {
 		model.addAttribute("campingReviewComment", reviewCommentList.getReviewCommentList());
 		model.addAttribute("checkIn", checkIn);
 		model.addAttribute("checkOut", checkOut);
-		model.addAttribute("campingReservation", campingReservation);
+//		model.addAttribute("campingReservation", campingReservation);
 		model.addAttribute("reservationList",reservationList);
+		System.out.println(reservationList);
 		return "camping/viewCamping";
 	}
-	
-	private Camping campingProvideSetter(String campingServiceStr, String campingRoomServiceStr, String campingEtcStr) {
+ Camping campingProvideSetter(String campingServiceStr, String campingRoomServiceStr, String campingEtcStr) {
 		Camping camping = new Camping();
 		if(campingServiceStr != "") {
 			String[] campingService = campingServiceStr.split(",");
@@ -452,6 +468,21 @@ public class CampingController {
 		return "reservation/reservationInfo";			
 //		return "rediect:/reservationInfo.do";			
 		
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/insertCampingBookmark.do")
+	public int insertCampingBookmark(int campingNo, String memberId) {
+		int result = service.insertCampingBookmark(campingNo, memberId);
+		return result;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/deleteCampingBookmark.do")
+	public int deleteCampingBookmark(int campingBookmarkNo) {
+		int result = service.deleteCampingBookmark(campingBookmarkNo);
+		System.out.println(result);
+		return result;
 	}
 	
 }

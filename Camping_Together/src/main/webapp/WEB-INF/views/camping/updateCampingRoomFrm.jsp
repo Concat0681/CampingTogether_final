@@ -40,12 +40,28 @@
 		cursor: pointer;
 	}
 	
+	 .backgroundPhoto {
+			width: 100%;
+			 background-image: url(/resources/image/main/campingImg.jpg);
+		    background-repeat: no-repeat;
+		    background-size: cover;
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index: -1;
+		}
+
+		.wrap {
+			position: relative;
+			z-index: 1;
+		}
 </style>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
+	<div class="backgroundPhoto">
 	<div class="wrap" style="margin-top: 300px;">
-        <div class="contentWrap">
+        <div class="contentWrap" style="background-color: #fff; padding-left: 30px; padding-top: 50px; border-radius: 10px;">
         	<div class="contentDetail">
         		<h2 style="margin-bottom: 60px;">${campingRoom.campingRoomTitle } 캠핑 수정</h2>
         		<form action="/updateCampingRoom.do" method="post" enctype="multipart/form-data" id="updateCampingRoomFrm">
@@ -63,6 +79,12 @@
 	        					<input type="text" class="input-long" name="campingRoomCount" placeholder="최대 100개의 객실까지 등록 가능합니다." value="${campingRoom.campingRoomCount }">
 	        				</td>
 	        			</tr>
+	        			<tr>
+	        				<td></td>
+	        				<td>
+	        					<span class="priceComment"></span>
+	       					</td>
+        				</tr>
 	        			<tr>
 	        				<td style="width: 120px; font-size: 1.17em; font-weight: bold; padding-bottom: 20px;">1박당 가격</td>
 	        				<td style="padding-bottom: 20px;">
@@ -107,12 +129,12 @@
 							</c:forEach>
 	                    </div>
 	       			</div>
-	       			<button type="submit" name="updateCampingRoomBtn" class="btn1 nextBtn" style="margin-right: 80px; width: 620px;">캠핑 수정</button>
+	       			<button type="submit" name="updateCampingRoomBtn" class="btn1 nextBtn" style="margin-right: 50px; width: 600px; margin-bottom: 30px;">캠핑 수정</button>
        			</form>
         	</div>	
         	
         	
-        	
+        	</div>
         </div>
 	</div>
 	
@@ -126,7 +148,7 @@
 		  const campingRoomType = $("[name=campingRoomType]:checked").val();
 		  const campingRoomFile = $("[name=campingRoomFile]");
 
-		  if (campingRoomTitle != "" && campingRoomCount != "" && campingRoomPrice != "" && campingRoomMaxPplCount != "" && campingRoomContent != "" && campingRoomType != null && $('#img-viewer2').children('.img-wrapper').length >= 3) {
+		  if (campingRoomTitle != "" && campingRoomCount != "" && campingRoomPrice != "" && priceResult[0] == true && campingRoomMaxPplCount != "" && campingRoomContent != "" && campingRoomType != null && $('#img-viewer2').children('.img-wrapper').length >= 3) {
 		    // 모든 값이 공백이 아닐 때 서브밋 동작
 		  } else {
 		    alert("입력란을 모두 확인해주세요.");
@@ -147,24 +169,19 @@
 	</script>
 	
 	<script>
-	$(document).ready(function() {
-	    $('input[name="campingRoomPrice"]').on('input', function() {
-	        // 현재 입력된 값에서 숫자 이외의 문자를 제거합니다.
-	        var value = $(this).val().replace(/[^0-9]/g, '');
-	        // 100 이상 10000000 이하의 정수인지 확인합니다.
-	        if (value >= 100 && value <= 100000000 && value == parseInt(value)) {
-	            // 입력된 값이 100 이상 10000000 이하의 정수이면 값을 그대로 유지합니다.
-	            $(this).val(value);
-	        } else {
-	            // 입력된 값이 100 미만 또는 10000000 초과의 정수나 소수점을 포함한 값이면 값을 100 또는 10000000으로 변경합니다.
-	            if (value < 100) {
-	                $(this).val("100");
-	            } else {
-	                $(this).val("100000000");
-	            }
-	        }
-	    });
-	});
+		const priceResult = [false];
+		
+		$("[name=campingRoomPrice]").on("change",function(){
+			const campingRoomPrice = $("[name=campingRoomPrice]").val();
+			if(campingRoomPrice >= 100 && campingRoomPrice <= 100000000){
+				$(".priceComment").text("");
+				priceResult[0] = true;
+			}else{
+				$(".priceComment").text("금액을 확인해주세요.");
+				$(".priceComment").css("color","red");
+				priceResult[0] = false;
+			}
+		});
 	</script>
 	
 	<script>
@@ -191,7 +208,7 @@
 			                              .addClass("review-img");
 			        const deleteBtn = $("<button>").html("<span class='material-symbols-outlined closeColor'>close</span>")
 			                                        .addClass("delete-btn")
-			                                        .attr("type", "button");
+			                                        .attr("type", "button").attr("onclick", "delNewPhoto(this)");
 			        imgWrapper.append(img).append(deleteBtn).appendTo("#img-viewer2");
 			        
 			        deleteBtn.on("click", function() {
@@ -236,6 +253,28 @@
 			
 			$("#updateCampingRoomFrm").append(fileNoInput).append(filepathInput);
 			$(obj).parent().remove();
+			
+			
+		}
+	</script>
+	
+	<script>
+		function delNewPhoto(obj){
+			const fileNum = $(".img-wrapper").index($(obj).parent());
+			const dataTransfer = new DataTransfer();
+		    
+		    let files = $('#campingRoomFilepath')[0].files;	//사용자가 입력한 파일을 변수에 할당
+		    
+		    let fileArray = Array.from(files);	//변수에 할당된 파일을 배열로 변환(FileList -> Array)
+		    
+		    fileArray.splice(fileNum, 1);	//해당하는 index의 파일을 배열에서 제거
+		    
+		    fileArray.forEach(file => { dataTransfer.items.add(file); });
+		    //남은 배열을 dataTransfer로 처리(Array -> FileList)
+		    
+		    $('#campingRoomFilepath')[0].files = dataTransfer.files;	//제거 처리된 FileList를 돌려줌
+		   console.log($(obj).parent())
+		    $(obj).parent().remove();
 		}
 	</script>
 	

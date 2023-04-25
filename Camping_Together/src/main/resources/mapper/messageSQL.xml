@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="message">
+
     <insert id="insertMessage" parameterType="ms">
         INSERT INTO MESSAGE VALUES (MESSAGE_SEQ.NEXTVAL, #{receiver}, #{sender}, #{messageContent}, #{messageTitle},0 ,SYSDATE)
     </insert>
     
-    <select id="selectMessagelist" parameterType="ms" resultType="ms">
+    <select id="selectMessageList" parameterType="ms" resultType="ms">
         SELECT 
         	MESSAGE_NO as messageNo, 
         	RECEIVER, 
@@ -15,11 +16,18 @@
         	READ_CHECK as readCheck, 
         	MESSAGE_DATE as messageDate
         FROM MESSAGE
-        WHERE RECEIVER = #{receiver}
-        ORDER BY MESSAGE_NO DESC
+		<choose>
+			<when test="sender !=null">
+				where sender = #{sender}
+			</when>
+			<when test="receiver !=null">
+				where receiver = #{receiver}
+			</when>
+		</choose>
+        ORDER BY read_check,MESSAGE_NO DESC
     </select>
     
-    <select id="selectOneMessage" parameterType="ms" resultType="ms">
+    <select id="selectOneMessage" parameterType="ms" resultType="_int">
         SELECT 
         	MESSAGE_NO as messageNo, 
         	RECEIVER, 

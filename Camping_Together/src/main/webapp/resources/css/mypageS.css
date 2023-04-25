@@ -4,7 +4,7 @@
 *{
     text-decoration:  none;
     list-style: none;
-    font-family: nb-regular;
+   /* font-family: nb-regular;*/
 }
 
 .menu-wrap{
@@ -61,6 +61,15 @@
     color:  white;
 }
 
+
+.menu-list>ul>li.active-tab{
+    background-color: #AD8B73;
+    border-radius: 5px;
+}
+
+.menu-list>ul>li.active-tab>a{
+    color:  white;
+}
 
 
 /*제목*/
@@ -124,6 +133,7 @@
 .menu-wrap>.menu-list>ul>li>a{
     width: 100%;
     display: inline-block;
+    border-radius: 5px;
 }
 
 

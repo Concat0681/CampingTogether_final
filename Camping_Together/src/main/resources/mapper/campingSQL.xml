@@ -8,6 +8,9 @@
 				c.*,
 				(select avg(camping_review_rating) from camping_review join camping using(camping_no) where camping_no = c.campingNo ) as avgReviewRating,
 				(select max(camping_room_price) from camping_room join camping using(camping_no) where camping_no = c.campingNo) as maxRoomPrice
+				<if test="memberId != null">
+					, (select b.camping_bookmark_no as campingBookmarkNo from camping_bookmark b join camping a on(b.camping_no = a.camping_no) where b.camping_no = c.campingNo and b.member_id = #{memberId}) as campingBookmarkNo
+				</if>
 			from
 				(select 
 					camping_no as campingNo,
@@ -22,7 +25,32 @@
 				from camping)c
 			<trim prefix="where" prefixOverrides="and|or">
 				<if test="campingSido != null">
-					 and campingSido like '%'||#{campingSido }||'%'
+					<choose>
+						<when test="campingSido == '경기'">
+						    and campingSido like '%'||#{campingSido }||'%'
+							or campingSido like '%'||'인천'||'%'
+							or campingSido like '%'||'서울'||'%'
+						</when>
+						<when test="campingSido == '충청'">
+						    and campingSido like '%'||'충'||'%'
+							or campingSido like '%'||'세종'||'%'
+							or campingSido like '%'||'대전'||'%'
+						</when>
+						<when test="campingSido == '경상'">
+						    and campingSido like '%'||'경북'||'%'
+						    or campingSido like '%'||'경남'||'%'
+							or campingSido like '%'||'대구'||'%'
+							or campingSido like '%'||'울산'||'%'
+							or campingSido like '%'||'부산'||'%'
+						</when>
+						<when test="campingSido == '전라'">
+						    and campingSido like '%'||'전'||'%'
+							or campingSido like '%'||'광주'||'%'
+						</when>
+						<otherwise>
+							 and campingSido like '%'||#{campingSido }||'%'
+						</otherwise>
+					</choose>
 				</if>
 				<if test="campingAddr != null">
 					 and campingAddr like '%'||#{campingAddr}||'%'
@@ -148,7 +176,8 @@
 		select * from	
 			(Select
 				c.*,
-				rownum as rnum
+				rownum as rnum,
+				(select count(camping_room_no) from camping left join camping_room using(camping_no) where camping_no = c.camping_no ) as rct 
 		    from camping c
 		    WHERE MEMBER_ID = #{memberId}
 		    order by 1 desc)
@@ -271,7 +300,7 @@
 	</insert>
 	
 	<insert id="insertCampingReview" parameterType="crv">
-		insert into camping_review values(camping_review_seq.nextval,#{campingNo},'user01',#{campingReviewTitle},#{campingReviewContent},#{campingReviewRating},null,to_char(sysdate,'yyyy-mm-dd hh24:mi'))
+		insert into camping_review values(camping_review_seq.nextval,#{campingNo},#{memberId},#{campingReviewTitle},#{campingReviewContent},#{campingReviewRating},null,to_char(sysdate,'yyyy-mm-dd hh24:mi'))
 		<selectKey resultType="_int" order="AFTER" keyProperty="campingReviewNo">
 			select max(camping_review_no) from camping_review
 		</selectKey>
@@ -454,7 +483,8 @@
 			check_in as checkIn,
 			check_out as checkOut 
 		from camping_reservation
-		where check_in between #{checkIn} and #{checkOut} and camping_room_no = #{campingRoomNo}
+		
+		where (check_in between #{checkIn} and #{checkOut}) and (camping_room_no = #{campingRoomNo})
 	</select>
 	<select id="selectReservation" parameterType="cre" resultType="cre">
 		select
@@ -471,4 +501,15 @@
 <!-- 			camping_room_no as campingRoomNo -->
 <!-- 		where camping_no = #{campingNo} -->
 <!-- 	</select> -->
+
+	<insert id="insertCampingBookmark" parameterType="map">
+		insert into camping_bookmark values(
+			camping_bookmark_seq.nextval, #{campingNo}, #{memberId}
+		)
+	</insert>
+	
+	<delete id="deleteCampingBookmark" parameterType="_int">
+		delete from camping_bookmark where camping_bookmark_no = #{_parameter}
+	</delete>
+	
 </mapper>

@@ -31,6 +31,7 @@ import com.google.gson.Gson;
 import common.FileManager;
 import javafx.scene.control.Alert;
 import kr.or.iei.camping.model.service.CampingService;
+import kr.or.iei.camping.model.vo.CampingRoom;
 import kr.or.iei.camping.model.vo.SellCampingListData;
 import kr.or.iei.member.model.service.MailService;
 import kr.or.iei.member.model.service.MemberService;
@@ -277,7 +278,7 @@ public class MemberController {
 		SellCampingListData scld = cmapingService.getSellCampingList(memberId, reqPage);
 		model.addAttribute("list",scld.getCampingList());
 		model.addAttribute("navi", scld.getPageNavi());
-		model.addAttribute("index",1);
+		model.addAttribute("index",0);
 		return "member/sellList";
 	}
 	
@@ -332,7 +333,8 @@ public class MemberController {
 	
 	//판매자 정보 수정
 	@RequestMapping(value = "/mypageS.do")
-	public String mypageS() {
+	public String mypageS(Model model) {
+		model.addAttribute("index",2);
 		return "member/mypageSFrm";
 	}
 	
@@ -348,7 +350,7 @@ public class MemberController {
 	}
 	
 	
-	//회원 정보(관리자)
+	//회원 정보
 	@ResponseBody
 	@RequestMapping(value = "/adminOneMember.do", produces="application/json;charset=utf-8")
 	public String adminOneMember(int memberNo) {
@@ -356,6 +358,39 @@ public class MemberController {
 		return new Gson().toJson(member);
 	}
 	
+	@RequestMapping(value = "/selectAllMemberId.do", produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public String selectId() {
+		ArrayList<String> list = service.selectId();
+		System.out.println(list);
+		return new Gson().toJson(list);
+		
+	}
+	
+	
+	//my캠핑장 룸 조회
+	@ResponseBody
+	@RequestMapping(value = "/selectRoomInfo.do", produces="application/json;charset=utf-8")
+	public String sellectRoomInfo(int campingNo,  Model model) {
+		ArrayList<CampingRoom> cr = service.selectCampingRoom(campingNo);
+		System.out.println(cr);
+		return new Gson().toJson(cr);
+	}
+	
+	//관리자 정보
+	@RequestMapping(value = "adminMember")
+	public String selectAdminMember(String memberId, Model model) {
+		Member member = service.selectAdminMember(memberId);
+		model.addAttribute("list",member);
+		model.addAttribute("index",3);
+		return "member/mypageAFrm";
+	}
+	
+	//관리자 비밀번호 변경
+	/*
+	@RequestMapping(value = "/adminPwUpdate.do")
+	publu
+	*/
 }
 
 
