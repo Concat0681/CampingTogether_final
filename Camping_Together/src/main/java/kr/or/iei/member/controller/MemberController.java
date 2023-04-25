@@ -301,13 +301,8 @@ public class MemberController {
 				fileVO.setProfileFilename(filename);
 				fileVO.setProfileFilepath(upFilepath);	
 		}
-		
-		
 		return null;
-		
-		
 	}
-	
 	
 	//shop 판매상품(관리자)
 	@RequestMapping(value = "/shopProductList.do")
@@ -369,10 +364,7 @@ public class MemberController {
 		ArrayList<String> list = service.selectId();
 		System.out.println(list);
 		return new Gson().toJson(list);
-		
 	}
-	
-	
 	//my캠핑장 룸 조회
 	@ResponseBody
 	@RequestMapping(value = "/selectRoomInfo.do", produces="application/json;charset=utf-8")

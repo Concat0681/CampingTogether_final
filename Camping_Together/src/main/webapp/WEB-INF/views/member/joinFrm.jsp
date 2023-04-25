@@ -534,9 +534,9 @@ $('.form').find('input, textarea').on('keyup blur focus', function (e) {
 		$('.mail-check-inputBox').css("display","block");
 		$('.confirm').attr("disabled", false);
 	});
+		
 	
 	
-
 //아이디 조건 출력 및 조건 일치 확인
 $("[name=memberId]").blur(function(){
 	const memberId = $("#memberId").val();

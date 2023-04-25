@@ -51,7 +51,7 @@
 						<td>
 						<div class="updael">
 							<div class="c-update">
-								<a href="">수정</a>
+								<a href="/updateCampingFrm.do?campingNo=${l.campingNo }">수정</a>
 							</div>
 							<div class="c-delete">
 								<a href="">삭제</a>
