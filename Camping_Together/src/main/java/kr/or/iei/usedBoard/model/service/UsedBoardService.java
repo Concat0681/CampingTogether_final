@@ -25,13 +25,14 @@ public class UsedBoardService {
 	@Autowired
 	private UsedBoardDao dao;
 	
-	public UsedBoardPageData selectUsedBoardList(int reqPage) {
+	public UsedBoardPageData selectUsedBoardList(int reqPage, String memberId) {
 		int numPerPage = 9;
 		int end = reqPage * numPerPage;
 		int start = end - numPerPage + 1;
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("start", start);
 		map.put("end", end);
+		map.put("memberId", memberId);
 		ArrayList<UsedBoard> list = dao.selectUsedBoardList(map);
 		int totalCount = dao.selectBoardCount();
 		int totalPage = (int)Math.ceil(totalCount/(double)numPerPage);
@@ -175,9 +176,6 @@ public class UsedBoardService {
 		return dao.deleteUsedWishList(uwl);
 	}
 
-	public ArrayList<UsedWishList> selectUsedBoardWishList() {
-		return dao.selectUsedBoardWishList();
-	}
 }
 
 

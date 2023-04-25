@@ -126,8 +126,4 @@ public class UsedBoardDao {
 		return result;
 	}
 
-	public ArrayList<UsedWishList> selectUsedBoardWishList() {
-		List list = sqlSession.selectList("usedBoard.selectUsedBoardWishList");
-		return (ArrayList<UsedWishList>)list;
-	}
 }

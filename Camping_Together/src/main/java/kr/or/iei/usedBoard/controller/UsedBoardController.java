@@ -37,12 +37,10 @@ public class UsedBoardController {
     }
 	
 	@RequestMapping(value="/usedBoardList.do")
-	public String usedBoardList(int reqPage, Model model) {
-		UsedBoardPageData ubpd = service.selectUsedBoardList(reqPage);
-		ArrayList<UsedWishList> wishlist = service.selectUsedBoardWishList();
+	public String usedBoardList(int reqPage, String memberId, Model model) {
+		UsedBoardPageData ubpd = service.selectUsedBoardList(reqPage, memberId);
 		model.addAttribute("list", ubpd.getList());
 		model.addAttribute("pageNavi", ubpd.getPageNavi());
-		model.addAttribute("wishlist", wishlist);
 		return "usedBoard/usedBoardList";
 	}
 	

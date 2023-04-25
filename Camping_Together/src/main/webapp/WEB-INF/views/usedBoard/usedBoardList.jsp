@@ -240,7 +240,7 @@
         </div>
         <div class="content-mid-wrap">
             <div class="content-mid">
-            	<c:forEach items="${list }" var="ub">
+            	<c:forEach items="${list }" var="ub" varStatus="i">
             	<input type="hidden" id="usedBoardNo" value="${ub.usedBoardNo }">
             	<div class="product-wrap">
                     <div class="product">
@@ -286,40 +286,17 @@
                             <div class="product-price">
                                 <span><fmt:formatNumber value="${ub.usedProductPrice }" pattern="#,###" /></span><span>원</span>
                             </div>
-                            <c:forEach items="${wishlist }" var="uwl">
-                            	<c:choose>
-                            		<c:when test="${uwl.memberId eq sessionScope.m.memberId} ">
-                            			<span id="favorite" class="material-symbols-outlined product-wish fill" >favorite</span>
-                            		</c:when>
-                            		<c:otherwise>
-                            			<span id="favorite" class="material-symbols-outlined product-wish" >favorite</span>
-                            		</c:otherwise>
-                            	</c:choose>
-                            </c:forEach>
+  							<c:choose>
+  								<c:when test="${ub.wishChk eq 0 }">
+  									<span id="favorite" class="material-symbols-outlined product-wish" >favorite</span>
+  								</c:when>
+  								<c:otherwise>
+  									<span id="favorite" class="material-symbols-outlined product-wish fill" >favorite</span>
+  								</c:otherwise>
+  							</c:choose>
                             <input type="hidden" value="${sessionScope.m.memberId }" id="loginMemberId">
                             <input type="hidden" value="${ub.usedBoardNo }">
                         </div>
-                        <!-- 
-                        <div class="product-bottom array">
-                            <div class="product-regDate">
-                                <span>${ub.regDate }</span>
-                            </div>
-                            <div class="product-etc">
-                            	<div class="product-wishView">
-                                    <div class="material-symbols-outlined icon">favorite</div>
-                                    <div><p>20</p></div>
-                                </div>
-                                <div class="product-comment">
-                                    <div class="material-symbols-outlined icon">chat_bubble</div>
-                                    <div><p>10</p></div>
-                                </div>
-                                <div class="product-readCount">
-                                    <div class="material-symbols-outlined icon">visibility</div>
-                                    <div><p>${ub.readCount }</p></div>
-                                </div>
-                            </div>
-                        </div>  
-                         --> 
                     </div>
                 </div>
             	</c:forEach>   
