@@ -9,38 +9,42 @@
 </head>
 <body>
 
-	<jsp:include page="/WEB-INF/views/common/header.jsp" />
 	<jsp:include page="/WEB-INF/views/common/mypageMenu.jsp" />
+	<jsp:include page="/WEB-INF/views/common/header.jsp" />
 
-		<div class="input-div wishCam">
-			<div class="input-title">
-				<h2>찜한 캠핑장</h2>
-			</div>
+	<div class="input-div wishCam">
+		<div class="input-title">
+			<h2>찜한 캠핑장</h2>
 		</div>
-		
-		<div class="bookmark-wrap">
-			<div class="infomation">
-				<p>총 [${count }] 개</p>
+	</div>
+	<div class="bookmark-wrap">
+		<div class="infomation">
+			<p>총 [${list.size() }] 개</p>
 		</div>
-		<div class="c-list">
-			<c:forEach items="${list }" var="c">
-			<div class="c-info">
-                <a href="#">
-                    <div class="camping-img"><img src="/resources/image/shop/${a.filepath }" width="280px;" height="280px;"></div>
-                    <div class="info">
-                        <div class="camping-name"></div>
-                        <div class="sido"></div>
-                    </div>
-                </a>
-            </div>
-            </c:forEach>
-		</div>
-		
-		
-		<div class="pagination">
-				${navi }
-		  </div>
+	</div>
+	<div class="c-list">
+		<input type="hidden" id="memberId" value="${sessionScope.m.memberId }"> 
+		<c:forEach items="${list }" var="c">
+		<div class="c-info">
+			<input type="hidden" name="campingNo" value="${c.campingNo }">
+	        <div class="camping-img"><img src="/resources/image/shop/${c.filepath }" width="280px;" height="280px;"></div>
+	        <div class="info">
+	             <div class="camping-name">${c.campingTitle }</div>
+	             <div class="sido">${c.campingSido }</div>
+	        </div>
+        </div>
+        </c:forEach>
+	</div>
+	<div class="pagination">
+		${navi }
 	</div>
 		
+	<script>
+		$(".c-info").on("click", function(){
+			const campingNo = $(this).find("input[name=campingNo]").val();
+			const memberId = $("#memberId").val();
+			location.href = "/viewCamping.do?campingNo="+campingNo+"&memberId="+memberId;
+		})
+	</script>
 </body>
 </html>

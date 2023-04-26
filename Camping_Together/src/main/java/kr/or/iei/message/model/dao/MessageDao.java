@@ -23,11 +23,9 @@ public class MessageDao {
     }
     
     public int insertMessage(Message message) {
-    	System.out.println("insertdao"+message);
         return sqlSession.insert("message.insertMessage", message);
     }
     public ArrayList<Message> selectMessagelist(Message message) {
-        System.out.println("dao"+message);
     	List list = sqlSession.selectList("message.selectMessageList", message);
     	return (ArrayList<Message>) list;
     }

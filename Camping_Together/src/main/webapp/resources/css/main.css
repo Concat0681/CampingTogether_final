@@ -1,12 +1,7 @@
-@charset "UTF-8";
-
-@import url('style.css');
-
-
 .backGround{
-    z-index: 0;
-    position: absolute;
-    width: 100%;
+   z-index: 0;
+   position: absolute;
+   width: 100%;
    height: 1000px;
    background: url(/resources/image/main/back1.jpg);
 }
@@ -47,6 +42,7 @@
     text-align: center;
     transition: 1s;
 }
+
 .mainSelect:hover{
 	transition: 1s;
     border-radius: 0px;

@@ -22,7 +22,7 @@
 	  'GRAD' 0,
 	  'opsz' 48
 	}
-	.fill{
+	.fill-icon{
 		font-variation-settings: 'FILL' 1
 	}
 	.wght{
@@ -516,7 +516,7 @@
      				<div class="comment-content">
  	    				<textarea placeholder="내용을 입력해 주세요." name="usedBoardCommentContent" id="comment-box"></textarea>
      				</div>
-	    				<input type="hidden" name="usedBoardCommentWriter" value="${sessionScope.m.memberId }">
+	    				<input type="hidden" name="usedBoardCommentWriter" id="loginMemberId" value="${sessionScope.m.memberId }">
 	    				<input type="hidden" name="usedBoardNo" value="${ub.usedBoardNo }">
 	    				<div class="comment-submit">
  	    				<input type="submit" value="작성" class="btn2">
@@ -679,6 +679,38 @@
 				location.href="/blacklistWriteFrm.do?usedBoardNo="+usedBoardNo;
 			}
 		}
+		
+		<%-- 찜하기 --%>
+		$(".wish-btn").on("click", function(){
+    		const memberId = $("#loginMemberId").val();
+    		const usedBoardNo = $(this).next().next().val();
+    		const obj = $(this);
+    		if(memberId == ""){
+    			alert("로그인 후 이용가능합니다.");
+    			return false;
+    		}else{
+    			if(obj.hasClass("fill-icon")){
+    				//찜취소
+    				$.ajax({
+    					url: "/wishDelete.do",
+    					type: "get",
+    					data: {memberId : memberId, usedBoardNo : usedBoardNo},
+    					success: function(data){
+    						obj.removeClass("fill-icon");		
+    					}
+    				});				
+    			}else{
+    				$.ajax({
+    					url: "/wishInsert.do",
+    					type: "get",
+    					data: {memberId : memberId, usedBoardNo : usedBoardNo},
+    					success: function(data){
+	    					obj.addClass("fill-icon");		
+    					}
+    				});
+    			}
+    		}
+    	});
 	</script>
 </body>
 </html>

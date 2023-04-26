@@ -25,7 +25,7 @@
 					<li><a href="/productPayList.do?reqPage=1&memberId=${sessionScope.m.memberId }">투게더shop 구매 내역</a></li>
 					<li><a href="/myRiview.do?reqPage=1&memberId=${sessionScope.m.memberId }">내가 쓴 캠핑장 리뷰</a></li>
 					<li><a href="/campingBookmark.do?reqPage=1&memberId=${sessionScope.m.memberId  }">찜한 캠핑장</a></li>
-					<li><a href="/usedWishList.do?reqPage=1&memberId=${sessionScope.m.memberId }">찜한 중고상품</a></li>
+					<li><a href="/myUsedSellList.do?reqPage=1&memberId=${sessionScope.m.memberId }">판매중인 중고상품</a></li>
 					<li><a href="/mypageC.do">개인정보 수정 및 탈퇴</a></li>
 				</ul>
 			</div>

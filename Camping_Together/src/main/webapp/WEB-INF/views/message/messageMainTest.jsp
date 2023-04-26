@@ -19,7 +19,6 @@
     display: none;
     justify-content: center;
     align-items: center;
-
 }
 .modal{
     width: 350px;
@@ -159,13 +158,12 @@ textarea[name=messageContent]{
 	                alert("쪽지보내기 실패");
 	            }
 	            const sendData = {type:"sendMessage", receiver:receiver};
-	            ws.send(JSON.stringify(sendData));
+	            
 	            getSendMessage();
 	            closeModal();
 	        }
 	    });
 	}
-
 	function getSendMessage(){
 	    const sender = $("#sender").val();
 	    $.ajax({
@@ -183,24 +181,15 @@ textarea[name=messageContent]{
 	                const td2 = $("<td>");
 	                td2.text(message.messageTitle);
 	                const td3 = $("<td>");
-	                td3.text(message.messageDate);
+	                td3.text(message.messageContent);
 	                const td4 = $("<td>");
-	                if(message.readCheck == 0){
-	                    tr.addClass("bold");
-	                    td4.text("읽지않음");
-	                }else{
-	                    td4.text("읽음");
-	                }
-	                
+	                td4.text(message.messageDate);
 	                tr.append(td1).append(td2).append(td3).append(td4);
 	                tbody.append(tr);
-	                
 	            }
 	        }
 	    });
 	}
-	
-
 	function getReceiveMessage(){
 	    const receiver = $("#sender").val();
 	    $.ajax({
@@ -216,19 +205,21 @@ textarea[name=messageContent]{
 	                const td1 = $("<td>");
 	                td1.text(message.sender);
 	                const td2 = $("<td>");
-	                td2.text(message.messageContent);
-	                td2.attr("onclick","messageDetail("+message.messageNo+");");
+	                td2.text(message.messageTitle);
 	                const td3 = $("<td>");
-	                td2.text(message.messageDate);
+	                td3.text(message.messageContent);
+	                td3.attr("onclick","messageDetail("+message.messageNo+");");
 	                const td4 = $("<td>");
+	                td4.text(message.messageDate);
+	                const td5 = $("<td>");
 	                if(message.readCheck == 0 ){
 	                    tr.addClass("bold");
-	                	td4.text("읽지않음");
+	                	td5.text("읽지않음");
 
 	                }else{
-	                    td4.text("읽음");
+	                    td5.text("읽음");
 	                }
-	                tr.append(td1).append(td2).append(td3).append(td4);
+	                tr.append(td1).append(td2).append(td3).append(td4).append(td5);
 	                tbody.append(tr);
 	                
 	            }

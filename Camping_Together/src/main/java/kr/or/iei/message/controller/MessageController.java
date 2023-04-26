@@ -36,15 +36,12 @@ public class MessageController {
 	@RequestMapping(value = "/insertMessage.do")
 	public String insertMessage(Message message) {
 		int result = service.insertMessage(message);
-		System.out.println(message);
-		System.out.println(result);
 		return String.valueOf(result);
 	}
 	@ResponseBody
 	@RequestMapping(value = "/myMessageList.do",  produces = "application/json;charset=utf-8")
 	public String myMessageList(Message message) {
 		ArrayList<Message> list = service.selectMessagelist(message);
-		System.out.println("cont"+list);
 		return new Gson().toJson(list);
 	}
 	/*

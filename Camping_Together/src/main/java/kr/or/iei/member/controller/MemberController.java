@@ -31,6 +31,8 @@ import com.google.gson.Gson;
 import common.FileManager;
 import javafx.scene.control.Alert;
 import kr.or.iei.camping.model.service.CampingService;
+import kr.or.iei.camping.model.vo.Camping;
+import kr.or.iei.camping.model.vo.CampingListPageData;
 import kr.or.iei.camping.model.vo.CampingRoom;
 import kr.or.iei.camping.model.vo.SellCampingListData;
 import kr.or.iei.member.model.service.MailService;
@@ -57,7 +59,7 @@ public class MemberController {
 	@Autowired
 	private MailService mailService;
 	@Autowired
-	private CampingService cmapingService;
+	private CampingService campingService;
 
 	@Autowired
 	private FileManager manager;
@@ -267,10 +269,10 @@ public class MemberController {
 	}
 	
 	//찜한목록
-	@RequestMapping(value = "/usedWishList.do")
+	@RequestMapping(value = "/myUsedSellList.do")
 	public String usedWishList(int reqPage,String memberId, Model model) {
 		model.addAttribute("index",4);
-		return "member/usedWishList";
+		return "member/myUsedSellList";
 	
 	}
 	
@@ -278,7 +280,7 @@ public class MemberController {
 	//판매자 my캠핑장
 	@RequestMapping(value = "/sellList.do")
 	public String sellList(int reqPage, String memberId, Model model) {
-		SellCampingListData scld = cmapingService.getSellCampingList(memberId, reqPage);
+		SellCampingListData scld = campingService.getSellCampingList(memberId, reqPage);
 		model.addAttribute("list",scld.getCampingList());
 		model.addAttribute("navi", scld.getPageNavi());
 		model.addAttribute("index",0);
@@ -299,13 +301,8 @@ public class MemberController {
 				fileVO.setProfileFilename(filename);
 				fileVO.setProfileFilepath(upFilepath);	
 		}
-		
-		
 		return null;
-		
-		
 	}
-	
 	
 	//shop 판매상품(관리자)
 	@RequestMapping(value = "/shopProductList.do")
@@ -367,10 +364,7 @@ public class MemberController {
 		ArrayList<String> list = service.selectId();
 		System.out.println(list);
 		return new Gson().toJson(list);
-		
 	}
-	
-	
 	//my캠핑장 룸 조회
 	@ResponseBody
 	@RequestMapping(value = "/selectRoomInfo.do", produces="application/json;charset=utf-8")
@@ -402,6 +396,21 @@ public class MemberController {
 	//찜한 캠핑장 
 	@RequestMapping(value = "/campingBookmark.do")
 	public String campingBookmark(String memberId, Model model) {
+		int reqPage = 1;
+		String order = "avgReviewRating";
+		CampingRoom campingRoom = new CampingRoom();
+		Camping camping = new Camping();
+		if(memberId != null) {
+			camping.setMemberId(memberId);
+		}
+		ArrayList<Camping> list = new ArrayList<Camping>();
+		CampingListPageData cpd = campingService.selectCampingListData(reqPage, order, camping, campingRoom);
+		for(Camping c : cpd.getList()) {
+			if(c.getCampingBookmarkNo() != 0) {
+				list.add(c);
+			}
+		}
+		model.addAttribute("list", list);
 		model.addAttribute("index",3);
 		return "member/campingBookmark";
 	}

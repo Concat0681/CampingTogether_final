@@ -9,13 +9,12 @@
 <link rel="stylesheet" href="resources/css/updateMypageC.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
-
 <script src="resources/js/moment.js"></script>
 
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/common/header.jsp" />
 	<jsp:include page="/WEB-INF/views/common/mypageMenu.jsp" />
+	<jsp:include page="/WEB-INF/views/common/header.jsp" />
 		
 		<div class="input-div">
 			<div class="input-title">

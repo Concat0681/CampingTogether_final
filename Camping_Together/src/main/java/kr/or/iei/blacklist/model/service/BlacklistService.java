@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.iei.blacklist.model.dao.BlacklistDao;
 import kr.or.iei.blacklist.model.vo.Blacklist;
@@ -87,6 +88,29 @@ public class BlacklistService {
 		ArrayList<BlacklistPhoto> list = dao.selectOneBlacklistPhoto(blacklistNo);
 		bl.setPhotolist(list);
 		return bl;
+	}
+
+	@Transactional
+	public int updateBlacklistStatus(Blacklist bl) {
+		//1. 블랙리스트 업데이트
+		int result = dao.updateBlacklistStatus(bl);
+		//2. 블랙리스트 COUNT SELECT
+		int blackCount = dao.selectMemberBlackCount(bl.getBlacklistMemberId());
+		//3. 멤버업데이트
+		if(blackCount >= 3) {
+			result = dao.updateBlackMember(bl.getBlacklistMemberId());
+		}
+		return result;
+	}
+
+
+	public BlacklistPhoto getPhoto(int blacklistPhotoNo) {
+		return dao.getPhoto(blacklistPhotoNo);
+	}
+
+
+	public ArrayList<Blacklist> selectSearchBlackMember(String blacklistMemberId) {
+		return dao.selectSearchBlackMember(blacklistMemberId);
 	}
 }
 
