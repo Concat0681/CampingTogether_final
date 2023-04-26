@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ProductPayment {
 	private String rnum;
+	private int shopNo;
 	private String productName;
 	private int buyCount;
 	private String productPaymentDate;

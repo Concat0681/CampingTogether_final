@@ -34,15 +34,22 @@
 		        (select 
 		            used_board.used_board_no as usedBoardNo,
 		            used_board_title as usedBoardTitle,
+		            used_board_writer as usedBoardWriter,
 		            used_board_status as usedBoardStatus,
 		            used_product_price as usedProductPrice,
 		            used_trade_location as usedTradeLocation,
 		            read_count as readCount,
 		            reg_date as regDate,
 		            filepath as thumbnail
-		        from used_board 
+		            <if test="memberId != null">
+		            ,(select count(*) from used_wish_list where used_board.used_board_no = used_wish_list.used_board_no and member_id = #{memberId}) as wishChk
+		        	</if>
+		        from used_board
 		        left join (select used_board.used_board_no, max(filepath) as filepath from used_board left join used_photo on used_board.used_board_no = used_photo.used_board_no group by used_board.used_board_no)B
 		        on used_board.used_board_no = B.used_board_no
+		        <if test="usedBoardWriter != null or usedBoardWriter != '' ">
+		        	where used_board_writer = #{usedBoardWriter}
+		        </if>
 		        order by 1 desc)ub)
 		where rnum between #{start} and #{end}
 	</select>
@@ -66,7 +73,8 @@
 			used_delivery_status as usedDeliveryStatus,
 			used_trade_location as usedTradeLocation,
 			read_count as readCount,
-			reg_date as regDate
+			reg_date as regDate,
+			(select count(*) from used_wish_list where used_board_no = #{_parameter}) as wishChk
 		from used_board
 		where used_board_no = #{_parameter}
 	</select>
@@ -161,7 +169,17 @@
 		where rownum <= 3 
 		]]>
 	</select>
-	
+	<insert id="insertUsedWishList" parameterType="uwl">
+		insert into used_wish_list 
+		values(
+			used_wish_list_seq.nextval,
+			#{usedBoardNo},
+			#{memberId}
+		)
+	</insert>
+	<delete id="deleteUsedWishList" parameterType="uwl">
+		delete from used_wish_list where member_id = #{memberId} and used_board_no = #{usedBoardNo}
+	</delete>
 </mapper>
 
 

@@ -23,47 +23,95 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <link href="/resources/css/bootStrap.css" rel="stylesheet"/>
 <link href="/resources/css/default.css" rel="stylesheet"/>	
+<link href="/resources/css/message.css" rel="stylesheet"/> 
 <link href="/resources/css/header.css" rel="stylesheet"/> 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
+
 </head>
 <body>	
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <form action="/insertMessage.do" method="post">
-      <div class="modal-body">
-         <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">보내는 사람:</label>
-            <input type="text" class="form-control" id="recipient-name" value="${sessionScope.m.memberId }" name="sender" readonly>
-          </div>	
-        	
-          <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">받는 사람:</label>
-            <input type="text" class="form-control" id="receiver-name" placeholder="아이디를 적어주세요" name="receiver">
-          </div>
-          <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">제목:</label>
-            <input type="text" class="form-control" id="message-title" name="messageTitle">
-          </div>
-          <div class="mb-3">
-            <label for="message-text" class="col-form-label">내용:</label>
-            <textarea class="form-control" id="message-text" name="messageContent"></textarea>
-          </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary">Send message</button>
-      </div>
-        </form>
-      
-    </div>
-  </div>
+<!--  쪽지함 modal -->
+<div class="message-comset" style="display: none;">
+	<div class="message-modal-wrapper">
+	  <div class="wrapper-header">
+	    <div class="material-symbols-outlined filler" id="modal-cancle">cancel</div>
+	  </div>
+	  <hr style="margin: 0px;">
+		<div class="wrapper-body">
+			      <ul class="tab-group">
+				       <li class="tab active"><a href="#receiveBox">받은 쪽지</a></li>
+				       <li class="tab"><a href="#sendBox">보낸 쪽지</a></li>
+				       <li class="tab"><a href="#sendMessage-modal">쪽지 보내기</a></li>
+			      </ul>
+			<!-- 쪽지 보내기 -->
+			<div class="tab-content">
+			  <div id="sendMessage-modal" class="modal-wrapper" style="border: 2px solid #fff;">
+						<div class="modal-content">
+							<div class="sendMessageFrm">
+								<label>수신자 : </label> <input type="text" name="receiver" id="receiver">
+								<input type="text" id="messageTitle" name="messageTitle">
+								<textarea name="messageContent"></textarea>
+								<input type="hidden" id="sender" name="sender" value="${sessionScope.m.memberId }">
+								<button onclick="messageSend();">보내기</button>
+								<button onclick="closeModal();">닫기</button>
+							</div>
+						</div>
+				</div>
+				<!-- 받은 쪽지 -->
+				<div id="receiveBox">
+				<table class="receiveTbl">
+					<thead></thead>
+					<tr>
+						<th>보낸사람</th>
+						<td>내용</td>
+						<th>시간</th>
+						<th>읽음여부</th>
+					</tr>
+					<tbody></tbody>
+				</table>
+			  </div>
+				<!-- 보낸 쪽지 -->
+				<div id="sendBox">
+					<table border="1" class="sendTbl">
+						<thead></thead>
+						<tr>
+							<th>보낸사람</th>
+							<td>내용</td>
+							<th>시간</th>
+							<th>읽음여부</th>
+						</tr>
+						<tbody></tbody>
+					</table>
+				</div>
+				<!-- 상세 보기  -->
+				<div id="messageDetail" class="modal-wrapper">
+					<div class="modal">
+						<div class="modal-header">
+							<h2>쪽지내용</h2>
+						</div>
+						<hr style="margin: 0px;">
+						<div class="modal-content">
+							<div class="messageFrm">
+								<div>
+									<span>발신자: </span>
+									<span id="detailSender"></span>
+								</div>
+								<div>
+									<span>날짜: </span>
+									<span id="detailDate"></span>
+								</div>
+								<div id="detailContent"></div>
+								<button onclick="closeDetail();">닫기</button>
+								<button onclick="replyMessage();">답장</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
+<!--  헤더 nav -->
 <div class="headerBox">
 	<c:choose>
 		<c:when test="${empty sessionScope.m }"> 
@@ -83,7 +131,7 @@
             <ul class="login">
                 <!-- <li><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">쪽지보내기</button></li> -->
                 <li><a class="nav-linkT" href="/noticeList.do?reqPage=1">공지사항</a></li>
-                <li><a class="nav-linkT" href = "/messageMain.do">쪽지함</a></li>
+                <li><a class="nav-linkT" id="messageBtn" href ="#">쪽지함</a></li>
                 <c:choose>
                 	<c:when test="${sessionScope.m.memberGrade eq 'c' }">
 		                <li><a class="nav-linkT" href = "/cmapingPayList.do?reqPage=1&memberNo=${sessionScope.m.memberNo }">[${sessionScope.m.memberName }]</a></li>
@@ -117,7 +165,7 @@
 	          <a class="nav-link" href="#">캠핑예약</a>
 	        </li>
 	        <li class="nav-item">
-	          <a class="nav-link" href="/usedBoardList.do?reqPage=1">중고장터</a>
+	          <a class="nav-link" href="/usedBoardList.do?reqPage=1&memberId=${sessionScope.m.memberId }">중고장터</a>
 	        </li>
 	        <li class="nav-item">
 	          <a class="nav-link" href="/shopMainList.do">투게더SHOP</a>
@@ -158,6 +206,8 @@
 	    <button type="button" class="modal-login">로그인하기</button>
 	  </div>
 	</div>
+	
+
 <!--  헤더 스크립트 -->
 <script>
 	
@@ -166,8 +216,6 @@ const navbarBottom = document.querySelector('.navbar');
 const navLinkt = document.querySelectorAll('.nav-linkT');
 const navLink =  document.querySelectorAll('.nav-link');
 	
-	
-	
 	function init() {
 		document.addEventListener('load', function() {
 			navbarTop.style.backgroundColor = 'rgba(173, 139, 115, 0.2)';
@@ -175,13 +223,9 @@ const navLink =  document.querySelectorAll('.nav-link');
 			for(let i=0; i < navLink.length; i++){
 	        	  navLink[i].style = 'color';
 	        	  navLink[i].style.color = 'rgb(255, 255, 255)';
-	        		
 			}
 			
 		});
-		
-		
-		
 		  window.addEventListener('scroll', function() {
 		      // 현재 스크롤 위치를 가져옴
 		      var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
@@ -252,15 +296,9 @@ const navLink =  document.querySelectorAll('.nav-link');
 			        	  navLinkt[i].style = 'color';
 			        	  navLinkt[i].style.color = 'rgb(255, 255, 255)';
 			          }
-			      
 			        }
-		        
-		      
-		      
 		    });
 	}
-	
- 	
     document.addEventListener('DOMContentLoaded', function() {
         document.querySelectorAll('li:has(ul)').forEach(function(element) {
             element.addEventListener('mouseenter', function() {
@@ -276,12 +314,162 @@ const navLink =  document.querySelectorAll('.nav-link');
     
     
     </script>
-<!-- 모달 스크립트 -->
+<!-- 쪽지 모달 스크립트 -->
 <script>
- // 모달창 닫기 버튼 클릭 이벤트 
-    $('.close').click(function() { 
-    	 $('.modalVer1').hide();
-      });
+
+$("#messageBtn").on("click", function() {
+	  $(".message-comset").css("display", "block");
+	});
+	
+$("#modal-cancle").click(function() {
+    $(".message-comset").css("display", "none");
+  });
+
+//탭 변경창
+$('.tab a').on('click', function (e) {
+  e.preventDefault();
+  $(this).parent().addClass('active');
+  $(this).parent().siblings().removeClass('active');
+  target = $(this).attr('href');
+  $('.tab-content > div').not(target).hide();
+  $(target).fadeIn(1000);
+});
+
+
+$("#sendMessage-modal").on("click", function(){
+$.ajax({
+        url : "/selectAllMemberId.do", //멤버 컨드롤러에서 만들겁니다
+        success : function(list){
+            $("[name=receiver]").empty(); //empty() 안넣어주면 중복으로 아이디가 들어감
+            $("#sendMessage-modal").css("display","block");
+        }
+    });
+
+})
+	
+function closeModal(){
+    $("#sendMessage-modal").hide();
+    $("textarea[name=messageContent]").val("");
+}
+
+function messageSend(){
+    const receiver = $("[name=receiver]").val();
+    const sender = $("#sender").val();
+    const messageContent = $("[name=messageContent]").val();
+    const messageTitle = $("[name=messageTitle]").val();
+    
+    $.ajax({
+        url : "/insertMessage.do",
+        type : "post",
+        data : {receiver:receiver, sender:sender, messageContent:messageContent, messageTitle:messageTitle },
+        success : function(data){
+            if(data == "0"){
+                alert("쪽지보내기 실패");
+            }
+            const sendData = {type:"sendMessage", receiver:receiver};
+            getSendMessage();
+            closeModal();
+        }
+    });
+}
+
+function getSendMessage(){
+    const sender = $("#sender").val();
+    $.ajax({
+        url: "/myMessageList.do",
+        data: {sender:sender},
+        success : function(list){
+            const tbody = $(".sendTbl>tbody");
+            tbody.empty();
+            for(let i=0;i<list.length;i++){
+                const message = list[i];
+                const tr = $("<tr>");
+                //보낸사람, ,제목,내용 , 시간, 읽음여부
+                const td1 = $("<td>");
+                td1.text(message.sender);          
+                const td2 = $("<td>");
+                td2.text(message.messageTitle);
+                const td3 = $("<td>");
+                td3.text(message.messageContent);
+                const td4 = $("<td>");
+                td4.text(message.messageDate);
+                td1.addClass("messageTd");
+                td2.addClass("messageTd");
+                td3.addClass("messageTd");
+                td4.addClass("messageTd");
+                
+                tr.append(td1).append(td2).append(td3).append(td4);
+                tbody.append(tr);
+            }
+        }
+    });
+}
+function getReceiveMessage(){
+    const receiver = $("#sender").val();
+    $.ajax({
+        url: "/myMessageList.do",
+        data: {receiver:receiver},
+        success : function(list){
+            const tbody = $(".receiveTbl>tbody");
+            tbody.empty();
+            for(let i=0;i<list.length;i++){
+                const message = list[i];
+                const tr = $("<tr>");
+                //보낸사람, 내용 , 시간, 읽음여부
+                const td1 = $("<td>");
+                td1.text(message.sender);
+                const td2 = $("<td>");
+                td2.text(message.messageTitle);
+                const td3 = $("<td>");
+                td3.text(message.messageContent);
+                td3.attr("onclick","messageDetail("+message.messageNo+");");
+                const td4 = $("<td>");
+                td4.text(message.messageDate);
+                const td5 = $("<td>");
+                if(message.readCheck == 0 ){
+                    tr.addClass("bold");
+                	td5.text("읽지않음");
+
+                }else{
+                    td5.text("읽음");
+                }
+                tr.append(td1).append(td2).append(td3).append(td4).append(td5);
+                tbody.append(tr);
+                
+            }
+        }
+    });
+    
+}
+function messageDetail(messageNo){
+    console.log(messageNo);
+    $.ajax({
+        url : "/messageDetail.do",
+        data: {messageNo : messageNo},
+        success : function(data){
+            $("#detailSender").text(data.sender);
+            $("#detailDate").text(data.messageDate);
+            $("#detailContent").text(data.messageContent);
+            $("#messageDetail").css("display","flex");
+            getReceiveMessage();
+            const sendData = {type:"readCheck", sender:data.sender, receiver:data.receiver};
+            ws.send(JSON.stringify(sendData));
+        }
+    });
+}
+function closeDetail(){
+    $("#messageDetail").hide();
+}
+
+$(function(){
+	getSendMessage();
+	getReceiveMessage();
+});
+
+</script>
+<!--기본 모달 스크립트 -->
+<script>
+
 
     // 모달창 열기 버튼 클릭 이벤트
     $(document).ready(function() {

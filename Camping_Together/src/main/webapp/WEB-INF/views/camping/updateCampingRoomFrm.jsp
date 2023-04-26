@@ -55,6 +55,10 @@
 			position: relative;
 			z-index: 1;
 		}
+		
+		h2, h3{
+			color: #AD8B73;
+		}
 </style>
 </head>
 <body>
@@ -66,6 +70,7 @@
         		<h2 style="margin-bottom: 60px;">${campingRoom.campingRoomTitle } 캠핑 수정</h2>
         		<form action="/updateCampingRoom.do" method="post" enctype="multipart/form-data" id="updateCampingRoomFrm">
         		<input type="hidden" name="campingRoomNo" value="${campingRoom.campingRoomNo }">
+        		<input type="hidden" name="memberId" value="${sessionScope.m.memberId }">
 	        		<table>
 	        			<tr>
 	        				<td style="width: 120px; font-size: 1.17em; font-weight: bold; padding-bottom: 20px;">이름</td>
@@ -171,7 +176,7 @@
 	<script>
 		const priceResult = [false];
 		
-		$("[name=campingRoomPrice]").on("change",function(){
+		$(document).ready(function() {
 			const campingRoomPrice = $("[name=campingRoomPrice]").val();
 			if(campingRoomPrice >= 100 && campingRoomPrice <= 100000000){
 				$(".priceComment").text("");
@@ -181,6 +186,19 @@
 				$(".priceComment").css("color","red");
 				priceResult[0] = false;
 			}
+			
+			
+			$("[name=campingRoomPrice]").on("change",function(){
+				const campingRoomPrice = $("[name=campingRoomPrice]").val();
+				if(campingRoomPrice >= 100 && campingRoomPrice <= 100000000){
+					$(".priceComment").text("");
+					priceResult[0] = true;
+				}else{
+					$(".priceComment").text("금액을 확인해주세요.");
+					$(".priceComment").css("color","red");
+					priceResult[0] = false;
+				}
+			});
 		});
 	</script>
 	

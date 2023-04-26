@@ -58,8 +58,8 @@
 				</div>
 				<div class="input-group search-date-box">
 					<label class="input-group-text" for="search_checkin"><span class="material-symbols-outlined">calendar_month</span></label>
-					<input class="form-control" type="text" id="search_checkin" name="checkIn" readonly>
-					<input class="form-control" type="text" id="search_checkout" name="checkOut" readonly>			
+					<input class="form-control" type="text" id="search_checkin" name="checkIn" placeholder="입실" readonly>
+					<input class="form-control" type="text" id="search_checkout" name="checkOut" placeholder="퇴실" readonly>			
 				</div>
 				<div class="input-group">
 					<input class="form-control" name="pplCount" id="pplCount" type="text" value=1>

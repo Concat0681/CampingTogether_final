@@ -23,8 +23,7 @@ public class ShopService {
 	@Autowired
 	private ShopDao dao;
 
-	public ShopListMainData selectShopList(int shopCategory, int reqPage, String order) {
-		int numPerPage = 8;
+	public ShopListMainData selectShopList(int shopCategory, int reqPage, String order, int numPerPage) {
 		int end = reqPage * numPerPage;
 		int start = end - numPerPage + 1;
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -32,6 +31,7 @@ public class ShopService {
 		map.put("start", start);
 		map.put("end", end);
 		map.put("order", order);
+		System.out.println(map);
 		ArrayList<Shop> shopList = dao.selectShopList(map);
 		int totalCount = dao.selectShopCount(map);
 		int totalPage = (int)Math.ceil(totalCount/(double)numPerPage);
@@ -58,6 +58,7 @@ public class ShopService {
 		ShopListMainData slmd = new ShopListMainData();
 		slmd.setShopList(shopList);
 		slmd.setPageNavi(pageNavi);
+		slmd.setTotalCount(totalCount);
 		return slmd;
 	}
 	
@@ -194,5 +195,10 @@ public class ShopService {
 	public int deleteShop(int shopNo) {
 		int result = dao.deleteShop(shopNo);
 		return result;
+	}
+
+	public ArrayList<ShopReviewPhoto> selectOneShopReviewPhoto(int shopReviewNo) {
+		ArrayList<ShopReviewPhoto> photoList = dao.selectOneShopReviewPhoto(shopReviewNo);
+		return photoList;
 	}
 }

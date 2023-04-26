@@ -17,6 +17,7 @@ import kr.or.iei.usedBoard.model.vo.UsedBoard;
 import kr.or.iei.usedBoard.model.vo.UsedBoardComment;
 import kr.or.iei.usedBoard.model.vo.UsedBoardPageData;
 import kr.or.iei.usedBoard.model.vo.UsedBoardPhoto;
+import kr.or.iei.usedBoard.model.vo.UsedWishList;
 
 @Service
 public class UsedBoardService {
@@ -24,13 +25,15 @@ public class UsedBoardService {
 	@Autowired
 	private UsedBoardDao dao;
 	
-	public UsedBoardPageData selectUsedBoardList(int reqPage) {
+	public UsedBoardPageData selectUsedBoardList(int reqPage, String memberId, String usedBoardWriter) {
 		int numPerPage = 9;
 		int end = reqPage * numPerPage;
 		int start = end - numPerPage + 1;
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("start", start);
 		map.put("end", end);
+		map.put("memberId", memberId);
+		map.put("usedBoardWriter", usedBoardWriter);
 		ArrayList<UsedBoard> list = dao.selectUsedBoardList(map);
 		int totalCount = dao.selectBoardCount();
 		int totalPage = (int)Math.ceil(totalCount/(double)numPerPage);
@@ -40,15 +43,21 @@ public class UsedBoardService {
 		if(reqPage > 3) {
 			pageNo = reqPage - 2;
 		}
+		String url = "/usedBoardList.do?reqPage=";
+		String endUrl = "";
+		if(usedBoardWriter != null || usedBoardWriter != "") {
+			url = "myUsedSellList.do?reqPage=";
+			endUrl = "&memberId="+usedBoardWriter;
+		}
 		String pageNavi = "<ul class='pagination circle-style'>";
 		if(pageNo != 1) {
-			pageNavi += "<li><a class='page-item' href='/usedBoardList.do?reqPage="+(pageNo-1)+"'><span class='material-symbols-outlined'>chevron_left</span></a></li>";
+			pageNavi += "<li><a class='page-item' href='"+url+(pageNo-1)+endUrl+"'><span class='material-symbols-outlined'>chevron_left</span></a></li>";
 		}
 			for(int i=0; i<pageNaviSize; i++) {
 				if(pageNo == reqPage) {
 					pageNavi += "<li><a class='page-item active-page'>"+pageNo+"</a></li>";
 				}else {
-					pageNavi += "<li><a class='page-item' href='/usedBoardList.do?reqPage="+pageNo+"'>"+pageNo+"</a></li>";
+					pageNavi += "<li><a class='page-item' href='"+url+pageNo+endUrl+"'>"+pageNo+"</a></li>";
 				}
 				pageNo++;
 				if(pageNo > totalPage) {
@@ -56,7 +65,7 @@ public class UsedBoardService {
 				}
 			}
 		if(pageNo <= totalPage) {
-			pageNavi += "<li><a class='page-item' href='/usedBoardList.do?reqPage="+(pageNo+1)+"'><span class='material-symbols-outlined'>chevron_right </span></a></li>";
+			pageNavi += "<li><a class='page-item' href='"+url+(pageNo+1)+endUrl+"'><span class='material-symbols-outlined'>chevron_right </span></a></li>";
 		}
 		UsedBoardPageData ubpd = new UsedBoardPageData(list, pageNavi);
 		return ubpd;
@@ -165,6 +174,15 @@ public class UsedBoardService {
 		return dao.getTop3UsedBoards(ub);
 
 	}
+
+	public int insertUsedWishList(UsedWishList uwl) {
+		return dao.insertUsedWishList(uwl);
+	}
+
+	public int deleteUsedWishList(UsedWishList uwl) {
+		return dao.deleteUsedWishList(uwl);
+	}
+
 }
 
 

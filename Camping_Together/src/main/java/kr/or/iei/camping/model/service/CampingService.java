@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.iei.camping.model.dao.CampingDao;
 import kr.or.iei.camping.model.vo.Camping;
+import kr.or.iei.camping.model.vo.CampingDeleteData;
 import kr.or.iei.camping.model.vo.CampingEtc;
 import kr.or.iei.camping.model.vo.CampingListPageData;
 import kr.or.iei.camping.model.vo.CampingPayment;
@@ -111,12 +112,13 @@ public class CampingService {
 		return cpd;
 	}
 
-	public ViewCampingData selectOneCamping(int campingNo) {
+	public ViewCampingData selectOneCamping(int campingNo, String memberId) {
 		ViewCampingData vcd = new ViewCampingData();
 		ArrayList<CampingRoomFileVO> fileList = new ArrayList<CampingRoomFileVO>();
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("campingNo", campingNo);
-		Camping camping = dao.selectOneCamping(campingNo);
+		map.put("memberId", memberId);
+		Camping camping = dao.selectOneCamping(map);
 		vcd.setCamping(camping);
 		ArrayList<CampingRoom> campingRoomList = dao.selectAllCampingRoomList(campingNo);
 		for(CampingRoom r : campingRoomList) {
@@ -350,9 +352,19 @@ public class CampingService {
 		return result;
 	}
 
-	public int deleteCamping(int campingNo) {
+	public CampingDeleteData deleteCamping(int campingNo) {
+		CampingDeleteData cdd = new CampingDeleteData();
+		Camping c = dao.selectDeleteCamping(campingNo);
+		ArrayList<CampingRoomFileVO> fileList = dao.selectDeleteCampingRoomFileList(campingNo);
+		cdd.setCampingRoomFileList(fileList);
+		cdd.setCamping(c);
 		int result = dao.deleteCamping(campingNo);
-		return result;
+		if(result > 0) {
+			return cdd;
+		}else {
+			return null;
+		}
+		
 	}
 
 
@@ -396,6 +408,48 @@ public class CampingService {
 	public int deleteCampingBookmark(int campingBookmarkNo) {
 		int result = dao.deleteCampingBookmark(campingBookmarkNo);
 		return result;
+	}
+
+	public Camping updateCampingFrm(int campingNo) {
+		Camping c = dao.selectUpdateCamping(campingNo);
+		ArrayList<CampingEtc> ce = dao.selectCampingEtc(campingNo);
+		ArrayList<CampingProvideService> cs = dao.selectCampingService(campingNo);
+		ArrayList<CampingRoomService> crs = dao.selectCampingRoomService(campingNo);
+		c.setCampingEtcList(ce);
+		c.setCampingProvideServiceList(cs);
+		c.setCampingRoomServiceList(crs);
+		return c;
+	}
+
+	public int updateCamping(Camping c, int campingNo) {
+		int result = dao.updateCamping(c);
+		if(result > 0) {
+			result = dao.deleteCampingProvideService(campingNo);
+			result = dao.deleteCampingRoomService(campingNo);
+			result = dao.deleteCampingEtc(campingNo);
+		}
+		if(result > 0) {
+			for(CampingProvideService cps : c.getCampingProvideServiceList()) {
+				cps.setCampingNo(c.getCampingNo());
+				result += dao.insertCampingProvideService(cps);
+			}
+			for(CampingRoomService crs : c.getCampingRoomServiceList()) {
+				crs.setCampingNo(c.getCampingNo());
+				result += dao.insertCampingRoomService(crs);
+			}
+			for(CampingEtc ce : c.getCampingEtcList()) {
+				ce.setCampingNo(c.getCampingNo());
+				result += dao.insertCampingEtc(ce);
+			}
+			return result;
+		}else {
+			return 0;
+		}
+	}
+	
+	public int selectLatestBookmarkNo() {
+		int bookmarkNo = dao.selectLatestBookmarkNo();
+		return bookmarkNo;
 	}
 
 	

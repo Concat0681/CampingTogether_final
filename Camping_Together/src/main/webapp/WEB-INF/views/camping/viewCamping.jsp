@@ -20,11 +20,36 @@
 	<div class="page-wrap">
 		<div class="header-wrap">
 			<div class="img-wrap">
-				<img src="resources/upload/camping/campingbg.jpg">
+				<img src="resources/upload/camping/${camping.filepath }">
 			</div>
 			<div class="camping-info">
-				<div class="camping-title">${camping.campingTitle }</div>
-				<div id="campingAddr" class="camping-addr">${camping.campingAddr }</div>
+				<div class="camping-info-header">
+					<div>
+						<div class="camping-title">${camping.campingTitle }</div>
+						<div id="campingAddr" class="camping-addr">${camping.campingAddr }</div>
+					</div>
+					<div>
+					<c:choose>
+						<c:when test="${empty sessionScope.m }">
+							<span class="material-symbols-outlined loginBtn">favorite</span>
+						</c:when>
+						<c:otherwise>
+							<c:choose>
+								<c:when test="${camping.campingBookmarkNo eq 0 }">
+									<span class="material-symbols-outlined addBookmark">favorite</span>
+									<input type="hidden" name="campingNo" value="${camping.campingNo }">
+									<input type="hidden" name="campingBookmarkNo" value="${camping.campingBookmarkNo }">
+								</c:when>
+								<c:otherwise>
+									<span class="material-symbols-outlined addBookmark filled-heart">favorite</span>
+									<input type="hidden" name="campingNo" value="${camping.campingNo }">
+									<input type="hidden" name="campingBookmarkNo" value="${camping.campingBookmarkNo }">
+								</c:otherwise>
+							</c:choose>
+						</c:otherwise>
+					</c:choose>
+					</div>
+				</div>
 				<div class="camping-detail">
 					<div>
 						<div>캠핑 기본정보</div>
@@ -565,6 +590,36 @@
 			const campingNo = $("input[name=campingNo]").val();
 			location.href="/viewCamping.do?campingNo="+campingNo+"&checkIn="+checkIn+"&checkOut="+checkOut;
 		}
+		
+		$(".addBookmark").on("click", function(event){
+			 if (event.stopPropagation) event.stopPropagation();
+			 else event.cancelBubble = true; // IE 대응
+			 if($(this).hasClass("filled-heart")){
+				 const campingBookmarkNo = $(this).next().next().val()
+				 console.log(campingBookmarkNo);
+				 $.ajax({
+					 url : "/deleteCampingBookmark.do",
+					 data : {campingBookmarkNo : campingBookmarkNo},
+					 success : function(data){
+						 
+					 }
+				 })
+			 } else {
+				 const memberId = $("input[name=memberId]").val();
+				 const campingNo = $(this).next().val();
+				 $.ajax({
+					 url : "/insertCampingBookmark.do",
+					 data : {memberId : memberId, campingNo : campingNo},
+					 success : function(data){
+						 $("input[name=campingBookmarkNo]").val(data)
+					 },
+					 error : function(e){
+						 console.log(e);
+					 }
+				 });
+			 }
+			 $(this).toggleClass("filled-heart");
+		})
 		
 		const serviceList = $(".provide-service-list")
 		serviceList.each(function(i, s){

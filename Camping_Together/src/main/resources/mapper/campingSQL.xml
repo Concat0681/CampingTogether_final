@@ -26,30 +26,30 @@
 			<trim prefix="where" prefixOverrides="and|or">
 				<if test="campingSido != null">
 					<choose>
-					<when test="campingSido == '경기'">
-					    and campingSido like '%'||#{campingSido }||'%'
-						or campingSido like '%'||'인천'||'%'
-						or campingSido like '%'||'서울'||'%'
-					</when>
-					<when test="campingSido == '충청'">
-					    and campingSido like '%'||'충'||'%'
-						or campingSido like '%'||'세종'||'%'
-						or campingSido like '%'||'대전'||'%'
-					</when>
-					<when test="campingSido == '경상'">
-					    and campingSido like '%'||'경북'||'%'
-					    or campingSido like '%'||'경남'||'%'
-						or campingSido like '%'||'대구'||'%'
-						or campingSido like '%'||'울산'||'%'
-						or campingSido like '%'||'부산'||'%'
-					</when>
-					<when test="campingSido == '전라'">
-					    and campingSido like '%'||'전'||'%'
-						or campingSido like '%'||'광주'||'%'
-					</when>
-					<otherwise>
-						 and campingSido like '%'||#{campingSido }||'%'
-					</otherwise>
+						<when test="campingSido == '경기'">
+						    and campingSido like '%'||#{campingSido }||'%'
+							or campingSido like '%'||'인천'||'%'
+							or campingSido like '%'||'서울'||'%'
+						</when>
+						<when test="campingSido == '충청'">
+						    and campingSido like '%'||'충'||'%'
+							or campingSido like '%'||'세종'||'%'
+							or campingSido like '%'||'대전'||'%'
+						</when>
+						<when test="campingSido == '경상'">
+						    and campingSido like '%'||'경북'||'%'
+						    or campingSido like '%'||'경남'||'%'
+							or campingSido like '%'||'대구'||'%'
+							or campingSido like '%'||'울산'||'%'
+							or campingSido like '%'||'부산'||'%'
+						</when>
+						<when test="campingSido == '전라'">
+						    and campingSido like '%'||'전'||'%'
+							or campingSido like '%'||'광주'||'%'
+						</when>
+						<otherwise>
+							 and campingSido like '%'||#{campingSido }||'%'
+						</otherwise>
 					</choose>
 				</if>
 				<if test="campingAddr != null">
@@ -158,10 +158,16 @@
 	</select>
 	
 	<select id="selectOneCamping" parameterType="map" resultMap="getOneCamping">
-		select 
-			*
+	select 
+	c.*
+	<if test="memberId != null">
+		, (select b.camping_bookmark_no as campingBookmarkNo from camping_bookmark b join camping a on(b.camping_no = a.camping_no) where b.camping_no = #{campingNo} and b.member_id = #{memberId}) as campingBookmarkNo
+	</if>
+	from
+		(select 
+				*
 		from camping
-		where camping_no = #{campingNo}
+		where camping_no = #{campingNo}) c
 	</select>
 	
 	<select id="selectCampingProvideServiceList" parameterType="_int" resultType="cps">
@@ -502,6 +508,10 @@
 <!-- 		where camping_no = #{campingNo} -->
 <!-- 	</select> -->
 
+	<select id="selectLatestBookmarkNo" resultType="_int">
+		select max(camping_bookmark_no) from camping_bookmark
+	</select>
+
 	<insert id="insertCampingBookmark" parameterType="map">
 		insert into camping_bookmark values(
 			camping_bookmark_seq.nextval, #{campingNo}, #{memberId}
@@ -512,4 +522,108 @@
 		delete from camping_bookmark where camping_bookmark_no = #{_parameter}
 	</delete>
 	
+	<select id="selectUpdateCamping" parameterType="_int" resultType="c">
+		select 
+			camping_no as campingNo,
+			member_id as memberId,
+			camping_title as campingTitle,
+			camping_content as campingContent,
+			camping_addr as campingAddr,
+			camping_addr_detail as campingAddrDetail,
+			camping_phone as campingPhone,
+			camping_sido as campingSido,
+			filepath
+		from camping where camping_no = #{_parameter}
+	</select>
+	
+	<select id="selectCampingEtc" parameterType="_int" resultType="ce">
+		select
+			camping_etc_no as campingEtcNo,
+			camping_no as campingNo,
+			camping_etc as campingEtc
+		from camping_etc where camping_no = #{_parameter}
+	</select>
+	
+	<select id="selectCampingService" parameterType="_int" resultType="cps">
+		select
+			camping_service_no as campingServiceNo,
+			camping_no as campingNo,
+			camping_service as campingService
+		from camping_service where camping_no = ${_parameter}
+	</select>
+	
+	<select id="selectCampingRoomService" parameterType="_int" resultType="crs">
+		select
+			camping_room_service_no as campingRoomServiceNo,
+			camping_no as campingNo,
+			camping_room_service as campingRoomService
+		from camping_room_service where camping_no = #{_parameter}
+	</select>
+	
+	<update id="updateCamping" parameterType="c">
+		update camping set 
+				camping_title=#{campingTitle},
+				camping_content=#{campingContent}, 
+				camping_addr=#{campingAddr}, 
+				camping_addr_detail=#{campingAddrDetail}, 
+				camping_phone=#{campingPhone}, 
+				filepath = case
+                        when #{filepath} is null then filepath
+                        else #{filepath}
+                    		end, 
+				camping_sido=#{campingSido}
+			where camping_no = ${campingNo}
+	</update>
+	
+	<update id="updateCampingProvideService" parameterType="cps">
+		update camping_service set
+			camping_service = #{campingService}
+		where camping_no = #{campingNo}
+	</update>
+	
+	<update id="updateCampingRoomService" parameterType="crs">
+		update camping_room_service set
+			camping_room_service = #{campingRoomService}
+		where camping_no = #{campingNo}
+	</update>
+	
+	<update id="updateCampingEtc" parameterType="ce">
+		update camping_etc set
+			camping_etc = #{campingEtc}
+		where camping_no = #{campingNo}
+	</update>
+	
+	<delete id="deleteCampingProvideService" parameterType="_int">
+		delete from camping_service where camping_no=#{_parameter}
+	</delete>
+	
+	<delete id="deleteCampingRoomService" parameterType="_int">
+		delete from camping_room_service where camping_no=#{_parameter}
+	</delete>
+	
+	<delete id="deleteCampingEtc" parameterType="_int">
+		delete from camping_etc where camping_no=#{_parameter}
+	</delete>
+	
+	<select id="selectDeleteCampingRoomFileList" parameterType="_int" resultType="crf">
+		select
+			 camping_room_photo_no as campingRoomPhotoNo,
+			 camping_room_no as campingRoomNo,
+			 filepath 
+		 from camping_room_photo where camping_room_no in (select camping_room_no from camping_room where camping_no=#{_parameter})
+	</select>
+	
+	<select id="selectDeleteCamping" parameterType="_int" resultType="c">
+		select
+			camping_no as campingNo,
+			member_id as memberId,
+			camping_title as campingTitle,
+			camping_content as campingContent,
+			camping_sido as campingSido,
+			camping_addr as campingAddr,
+			camping_addr_detail as campingAddrDetail,
+			camping_phone as campingPhone,
+			filepath
+		from camping where camping_no=#{_parameter}
+	</select>
 </mapper>

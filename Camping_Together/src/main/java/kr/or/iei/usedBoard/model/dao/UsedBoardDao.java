@@ -13,6 +13,7 @@ import kr.or.iei.blacklist.model.vo.BlacklistPhoto;
 import kr.or.iei.usedBoard.model.vo.UsedBoard;
 import kr.or.iei.usedBoard.model.vo.UsedBoardComment;
 import kr.or.iei.usedBoard.model.vo.UsedBoardPhoto;
+import kr.or.iei.usedBoard.model.vo.UsedWishList;
 
 @Repository
 public class UsedBoardDao {
@@ -114,4 +115,15 @@ public class UsedBoardDao {
 		int result = sqlSession.update("usedBoard.updateUsedBoardStatus", usedBoardNo);
 		return result;
 	}
+
+	public int insertUsedWishList(UsedWishList uwl) {
+		int result = sqlSession.insert("usedBoard.insertUsedWishList", uwl);
+		return result;
+	}
+
+	public int deleteUsedWishList(UsedWishList uwl) {
+		int result = sqlSession.delete("usedBoard.deleteUsedWishList", uwl);
+		return result;
+	}
+
 }
