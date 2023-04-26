@@ -504,7 +504,7 @@
     	}
     	
    		$(".category>select").on("change", function(){
-   			alert("ㅠㅠ");
+   			alert("아직 준비중인 기능입니다.");
    		});
     
     </script>
