@@ -291,9 +291,11 @@
 							</div>
 						</div>
 						
-				        <button class="btn1 review-modal-open-btn" target="#test-modal">
-				          	리뷰작성
-				        </button>
+						<c:if test="${not empty sessionScope.m}">
+					        <button class="btn1 review-modal-open-btn" target="#test-modal">
+					          	리뷰작성
+					        </button>
+				        </c:if>
 					    
 					    <div id="test-modal" class="review-modal-bg" style="z-index: 1000;">
 						  <div class="review-modal-wrap">
