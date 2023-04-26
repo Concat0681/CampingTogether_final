@@ -165,6 +165,7 @@
 					$(".goblin").css("margin-top","20px");
 				}
 				$(".room-toggle").eq(rnum-1).toggle(); //아작스 성공 코드 안으로(화면 채운 후 토글)
+				$(".room-toggle").not(":eq(" + (rnum-1) + ")").hide();
 			}
 		});
 	}
