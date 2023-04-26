@@ -49,16 +49,26 @@
 			</button>
 		</div>
 		<div class="content-slick" id="content-slick">
+			
 			<div class="camping-wrap shop-wrap">
+				<div class="title2">
+					<img src="/resources/image/cam-pro.png">
+						<%--<p>CAMPING TOGETHER</p> --%>
+				</div>
 				<c:if test="${not empty campingList  }">
 					<div class="camping-list-menu">
-						<div>	
-							<span class="material-symbols-outlined clicked-span">filter_alt</span>
-							<div onclick="shopListOrder(this, 0, 1, 'new')">최근순</div>
+						<div class="total-count">
+							<p>총 <span>${campingTotal }</span>개의 상품이 있습니다</p>
 						</div>
-						<div>
-							<span class="material-symbols-outlined">filter_alt</span>
-							<div onclick="shopListOrder(this, 0, 1, 'rating')">평점순</div>
+						<div class="camping-filter">
+							<div>	
+								<span class="material-symbols-outlined clicked-span">filter_alt</span>
+								<div onclick="shopListOrder(this, 0, 1, 'new')" class="filter1">최근순</div>
+							</div>
+							<div>
+								<span class="material-symbols-outlined">filter_alt</span>
+								<div onclick="shopListOrder(this, 0, 1, 'rating')">평점순</div>
+							</div>
 						</div>
 					</div>
 				</c:if>
@@ -88,19 +98,29 @@
 				</c:if>
 			</div>
 			<div class="car-wrap shop-wrap">
+				<div class="title2">
+					<img src="/resources/image/cam-pro.png">
+					<%--<p>CAMPING TOGETHER</p> --%>
+				</div>
 				<c:if test="${not empty carList  }">
 					<div class="camping-list-menu">
-						<div>	
-							<span class="material-symbols-outlined clicked-span">filter_alt</span>
-							<div onclick="shopListOrder(this, 1, 1, 'new')">최근순</div>
+						<div class="total-count">
+							<p>총 <span>${carTotal }</span>개의 상품이 있습니다</p>
 						</div>
-						<div>
-							<span class="material-symbols-outlined">filter_alt</span>
-							<div onclick="shopListOrder(this, 1, 1, 'rating')">평점순</div>
+						<div class="camping-filter">
+							<div>	
+								<span class="material-symbols-outlined clicked-span">filter_alt</span>
+								<div onclick="shopListOrder(this, 0, 1, 'new')" class="filter1">최근순</div>
+							</div>
+							<div>
+								<span class="material-symbols-outlined">filter_alt</span>
+								<div onclick="shopListOrder(this, 0, 1, 'rating')">평점순</div>
+							</div>
 						</div>
 					</div>
 				</c:if>
 				<div class="car-list shop-list">
+					
 					<c:forEach items="${carList }" var="c" varStatus="i">
 						<div class="shop-box" onclick="viewShop(${c.shopNo});">
 							<div class="shop-photo">
@@ -126,15 +146,24 @@
 				</c:if>
 			</div>
 			<div class="etc-wrap shop-wrap">
+				<div class="title2">
+					<img src="/resources/image/cam-pro.png">
+						<%--<p>CAMPING TOGETHER</p> --%>
+				</div>
 				<c:if test="${not empty etcList  }">
 					<div class="camping-list-menu">
-						<div>
-							<span class="material-symbols-outlined clicked-span">filter_alt</span>
-							<div onclick="shopListOrder(this, 2, 1, 'new')">최근순</div>
+						<div class="total-count">
+							<p>총 <span>${etcTotal }</span>개의 상품이 있습니다</p>
 						</div>
-						<div>
-							<span class="material-symbols-outlined">filter_alt</span>
-							<div onclick="shopListOrder(this, 2, 1, 'rating')">평점순</div>
+						<div class="camping-filter">
+							<div>	
+								<span class="material-symbols-outlined clicked-span">filter_alt</span>
+								<div onclick="shopListOrder(this, 0, 1, 'new')" class="filter1">최근순</div>
+							</div>
+							<div>
+								<span class="material-symbols-outlined">filter_alt</span>
+								<div onclick="shopListOrder(this, 0, 1, 'rating')">평점순</div>
+							</div>
 						</div>
 					</div>
 				</c:if>

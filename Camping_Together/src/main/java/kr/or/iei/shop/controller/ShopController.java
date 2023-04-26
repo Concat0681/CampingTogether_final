@@ -43,12 +43,15 @@ public class ShopController {
 			if(shopCategory == 0) {
 				model.addAttribute("campingList", slmd.getShopList());
 				model.addAttribute("campingPageNavi", slmd.getPageNavi());
+				model.addAttribute("campingTotal", slmd.getTotalCount());
 			} else if(shopCategory == 1) {
 				model.addAttribute("carList", slmd.getShopList());
 				model.addAttribute("carPageNavi", slmd.getPageNavi());
+				model.addAttribute("carTotal", slmd.getTotalCount());
 			} else {
 				model.addAttribute("etcList", slmd.getShopList());
 				model.addAttribute("etcPageNavi", slmd.getPageNavi());
+				model.addAttribute("etcTotal", slmd.getTotalCount());
 			}
 		}
 		return "shop/shopMainList";

@@ -29,10 +29,11 @@
 				<table>
 					<tr>
 						<th>No</th>
-						<th>캠핑장 명</th>
+						<th >캠핑장 명</th>
 						<th>지역</th>
-						<th>방 개수</th>
-						<th class="th4">캠핑장 수정 및 삭제</th>
+						<th >방 개수</th>
+						<th class="th5">방 추가</th>
+						<th class="th6">캠핑장 수정 및 삭제</th>
 					</tr>
 				<c:forEach items="${list }" var="l">  
 					<tr>
@@ -48,6 +49,14 @@
 								${r.campingRoomTitle}
 							</c:forEach>
 						 -->
+						
+						<td>
+							<div class="updael" style="width: 120px;">
+							<div class="c-delete room-up">
+								<a href="">추가</a>
+							</div>
+						</div>
+						</td>
 						<td>
 						<div class="updael">
 							<div class="c-update">
@@ -62,7 +71,7 @@
 					</tr>
 				</c:forEach> 
 				<tr class="room-toggle" style="display: none;" >
-					<td colspan="5">
+					<td colspan="6">
 						<div class="info-wrap"><%-- 
 							<div class="room-name">방 이름</div>
 							<div class="room-type">방 유형</div>

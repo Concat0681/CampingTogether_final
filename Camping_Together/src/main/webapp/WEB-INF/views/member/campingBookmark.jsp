@@ -21,7 +21,7 @@
 		<div class="bookmark-wrap">
 			<div class="infomation">
 				<p>총 [${count }] 개</p>
-		</div>
+			</div>
 		<div class="c-list">
 			<c:forEach items="${list }" var="c">
 			<div class="c-info">
@@ -39,7 +39,7 @@
 		
 		<div class="pagination">
 				${navi }
-		  </div>
+		 </div>
 	</div>
 		
 </body>

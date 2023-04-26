@@ -9,7 +9,7 @@
 }
 .content-slick{
 	min-height: 600px;
-	margin-top: 100px;
+	margin-top: 90px;
 }
 .slick-btn{
 	z-index: 1;
@@ -29,28 +29,33 @@
 }
 #prevPageBtn{
 	position: absolute;
-	bottom: 182px;
+	bottom: 290px;
 	left: 35%;
 }
 #nextPageBtn{
 	position: absolute;
-	bottom: 190px;
+	bottom: 290px;
 	right: 35%;
 }
 .camping-list-menu{
-	width: 80%;
-	padding: 0 100px;
+	width:69%;
+	padding: 0 0px;
     margin: 0 auto;
-	margin-bottom: 50px;
     min-width: 600px;
 	display: flex;
-	justify-content: flex-end;
+	justify-content: space-between;
+	border-top: 1px solid #AD8B73;
+	margin-top: 90px;
+	padding-top: 15px;
 }
 .camping-list-menu>div{
-	font-size: 20px;
+	font-size: 22px;
 	display: flex;
-	margin: 0 10px;
-	height: 50px;
+	/*margin: 0 10px;*/
+	/*height: 50px;*/
+}
+.camping-filter>div{
+	display: flex;
 }
 .clicked-span{
   font-variation-settings:
@@ -61,9 +66,20 @@
 }
 .camping-list-menu>div>span{
 	font-size: 30px;
+	color: #AD8B73;
+
 }
+.camping-list-menu>div>div{
+	color: #AD8B73;
+	cursor: pointer;
+}
+
+.material-symbols-outlined{
+	font-size: 27px !important;
+}
+
 .page-camping-header{
-	background-image: url(../../image/shop/shopCampingBackground.jpg);
+	background-image: url(../../image/shop/camping-shop2.jpg);
 	background-size: 100%;
 }
 .page-car-header{
@@ -82,13 +98,14 @@
 .slick-title{
 	color: white;
 	text-align: center;
-	position: absolute;
+	/*position: absolute;*/
 	width: 100%;
 	height: 400px;
 	line-height: 400px;
 	bottom: 0px;
-	font-size: 50px;
+	font-size: 60px;
 	font-family: aggro-bold;
+	padding-top: 100px;
 }
 .shop-wrap{
 	width: 100%;
@@ -117,6 +134,8 @@
 .shop-photo>img{
 	width: 300px;
 	height: 320px;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
 }
 .shop-info{
 	font-size: 20px;
@@ -188,4 +207,38 @@
 0% {opacity: 0;}
 50% {opacity: .5;}
 100% {opacity: 1;}
+}
+
+.total-count{
+	display: flex;
+	justify-content: flex-start;
+	color: #AD8B73;
+}
+
+.total-count>p{
+	color: #7b7b7b;
+	font-size: 26px;
+}
+.total-count>p>span{
+	color:#AD8B73;
+	font-size: 25px;
+	font-family: ng-bold;
+	font-size: 30px;
+}
+
+.filter1{
+	margin-right: 13px;
+}
+
+.title2{
+	width: 500px;
+	margin: 0 auto;
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+.title2>p{
+	font-size: 40px;
+	color: #AD8B73;
+	font-family: ng-extra;
 }

@@ -368,6 +368,7 @@
     padding : 10px 0;
     border-bottom: 1px solid #AD8B73;
     font-weight: 500;
+    border-bottom: 1px solid #dcdcdc;
 }
 .price{
     margin-top: 10px;

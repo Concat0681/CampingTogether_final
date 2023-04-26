@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ShopListMainData {
 
+	private int totalCount;
 	private ArrayList<Shop> shopList;
 	private String pageNavi;
 }
