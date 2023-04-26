@@ -26,15 +26,7 @@
 <link href="/resources/css/message.css" rel="stylesheet"/> 
 <link href="/resources/css/header.css" rel="stylesheet"/> 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-<style>
-.material-symbols-outlined {
-	  font-variation-settings:
-	  'FILL' 0,
-	  'wght' 300,
-	  'GRAD' 0,
-	  'opsz' 48
-	}
-</style>
+
 
 </head>
 <body>	
@@ -44,7 +36,7 @@
 	  <div class="wrapper-header">
 	    <div class="material-symbols-outlined fill" id="modal-cancle">cancel</div>
 	  </div>
-	  <hr>
+	  <hr style="margin: 0px;">
 		<div class="wrapper-body">
 			      <ul class="tab-group">
 				       <li class="tab active"><a href="#receiveBox">받은 쪽지</a></li>
@@ -54,14 +46,9 @@
 			<!-- 쪽지 보내기 -->
 			<div class="tab-content">
 			  <div id="sendMessage-modal" class="modal-wrapper" style="border: 2px solid #fff;">
-					<div class="message-modal">
-						<div class="modal-header">
-							<h2>쪽지보내기</h2>
-						</div>
-						<hr style="padding: 0px;">
 						<div class="modal-content">
 							<div class="sendMessageFrm">
-								<label>수신자 : </label> <select name="receiver" id="receiver"></select>
+								<label>수신자 : </label> <input type="text" name="receiver" id="receiver">
 								<input type="text" id="messageTitle" name="messageTitle">
 								<textarea name="messageContent"></textarea>
 								<input type="hidden" id="sender" name="sender" value="${sessionScope.m.memberId }">
@@ -69,7 +56,6 @@
 								<button onclick="closeModal();">닫기</button>
 							</div>
 						</div>
-					</div>
 				</div>
 				<!-- 받은 쪽지 -->
 				<div id="receiveBox">
@@ -103,7 +89,7 @@
 						<div class="modal-header">
 							<h2>쪽지내용</h2>
 						</div>
-						<hr>
+						<hr style="margin: 0px;">
 						<div class="modal-content">
 							<div class="messageFrm">
 								<div>
@@ -355,13 +341,6 @@ $.ajax({
         url : "/selectAllMemberId.do", //멤버 컨드롤러에서 만들겁니다
         success : function(list){
             $("[name=receiver]").empty(); //empty() 안넣어주면 중복으로 아이디가 들어감
-for(let i=0;i<list.length;i++){
-
-const option = $("<option>");
-                option.val(list[i]);
-                option.text(list[i]);
-                $("[name=receiver]").append(option);
-            }
             $("#sendMessage-modal").css("display","block");
         }
     });
@@ -388,7 +367,6 @@ function messageSend(){
                 alert("쪽지보내기 실패");
             }
             const sendData = {type:"sendMessage", receiver:receiver};
-            
             getSendMessage();
             closeModal();
         }
@@ -408,13 +386,18 @@ function getSendMessage(){
                 const tr = $("<tr>");
                 //보낸사람, ,제목,내용 , 시간, 읽음여부
                 const td1 = $("<td>");
-                td1.text(message.sender);
+                td1.text(message.sender);          
                 const td2 = $("<td>");
                 td2.text(message.messageTitle);
                 const td3 = $("<td>");
                 td3.text(message.messageContent);
                 const td4 = $("<td>");
                 td4.text(message.messageDate);
+                td1.addClass("messageTd");
+                td2.addClass("messageTd");
+                td3.addClass("messageTd");
+                td4.addClass("messageTd");
+                
                 tr.append(td1).append(td2).append(td3).append(td4);
                 tbody.append(tr);
             }
