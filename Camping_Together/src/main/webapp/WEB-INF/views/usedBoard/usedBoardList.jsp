@@ -28,12 +28,15 @@
    .page-content{
        width: 1200px;
        margin: 0 auto;
-       padding-top: 130px;
+       padding-top: 180px;
    }
-   .content-top>h2{
+   .content-top h2{
        margin: 20px;
-       padding-top: 20px;
        font-family: ng-bold;
+       margin-right: 5px;
+   }
+   .content-top-title{
+   		display: flex;
    }
    .category-wrap{
        margin: 20px;
@@ -41,6 +44,8 @@
        border-top: 1px solid #000;
        border-bottom: 1px solid #000;
        overflow: hidden;
+       margin-bottom: 8px;
+       margin-top: 8px;
    }
    .category{
        float: left;
@@ -65,7 +70,7 @@
        font-size: 25px;
    }
    .write>a{
-   		font-weight: bold;
+   		font-family: ng-extra-bold;
    }
    .write>a:hover{
 		color: #E3CAA5;
@@ -76,9 +81,18 @@
        line-height: 30px;
    }
    .content-mid-wrap{
-       margin: 20px;
        padding: 20px;
        overflow: hidden;
+   }
+   .wish-list{
+   		font-family: ng-extra-bold;
+   		color: #AD8B73;
+   		cursor: pointer;
+   		font-size: 15px;
+   		padding-top: 32px;
+   }
+   .wish-list:hover{
+   		color: #E3CAA5;
    }
    .product-wrap{
        width: calc(100%/3);
@@ -194,7 +208,10 @@
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
     <div class="page-content">
         <div class="content-top">
-            <h2>중고장터</h2>
+        	<div class="content-top-title">
+	            <h2>중고장터</h2>
+	            <span class="wish-list">찜목록 확인</span>
+        	</div>
             <div class="category-wrap">
                 <div class="category">
                     <select class="used-category" name="usedBoardCategory">

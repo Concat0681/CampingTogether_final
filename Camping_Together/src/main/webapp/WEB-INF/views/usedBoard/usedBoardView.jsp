@@ -486,7 +486,18 @@
 		        					<button type="button" class="btn1" onclick="soldout(${ub.usedBoardNo})"><span>판매완료</span></button>
         						</c:when>
         					</c:choose>
-        					<button type="button" class="btn3 wish-btn"><div class="wish-icon-wrap"><div class="material-symbols-outlined wish-icon">favorite</div><span>찜하기</span></div></button>
+        					<button type="button" class="btn3 wish-btn">
+        					<div class="wish-icon-wrap">
+        						<c:choose>
+        							<c:when test="${ub.wishChk eq 0 }">
+		        						<div class="material-symbols-outlined wish-icon">favorite</div>
+        							</c:when>
+        							<c:otherwise>
+        								<div class="material-symbols-outlined wish-icon fill-icon">favorite</div>
+        							</c:otherwise>
+        						</c:choose>
+        						<span>찜하기</span></div>
+        					</button>
         				</div>
         			<c:choose>
         				<c:when test="${sessionScope.m.memberId eq ub.usedBoardWriter }">
@@ -683,20 +694,19 @@
 		<%-- 찜하기 --%>
 		$(".wish-btn").on("click", function(){
     		const memberId = $("#loginMemberId").val();
-    		const usedBoardNo = $(this).next().next().val();
-    		const obj = $(this);
+    		const usedBoardNo = $("[name=usedBoardNo]").val();
     		if(memberId == ""){
     			alert("로그인 후 이용가능합니다.");
     			return false;
     		}else{
-    			if(obj.hasClass("fill-icon")){
+    			if($(".wish-icon").hasClass("fill-icon")){
     				//찜취소
     				$.ajax({
     					url: "/wishDelete.do",
     					type: "get",
     					data: {memberId : memberId, usedBoardNo : usedBoardNo},
     					success: function(data){
-    						obj.removeClass("fill-icon");		
+    						$(".wish-icon").removeClass("fill-icon");		
     					}
     				});				
     			}else{
@@ -705,7 +715,7 @@
     					type: "get",
     					data: {memberId : memberId, usedBoardNo : usedBoardNo},
     					success: function(data){
-	    					obj.addClass("fill-icon");		
+    						$(".wish-icon").addClass("fill-icon");		
     					}
     				});
     			}
