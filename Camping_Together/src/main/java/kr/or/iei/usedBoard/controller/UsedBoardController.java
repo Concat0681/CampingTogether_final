@@ -183,6 +183,15 @@ public class UsedBoardController {
 			return "no";
 		}
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="/myWishlist.do", produces = "application/json;charset=utf-8")
+	public String myWishlist(String memberId) {
+		ArrayList<UsedBoard> wishlist = service.selectAllWishBoard(memberId);
+		Gson gson = new Gson();
+		String result = gson.toJson(wishlist);
+		return result;
+	}
 }
 
 

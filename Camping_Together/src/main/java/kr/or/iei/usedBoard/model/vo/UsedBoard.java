@@ -26,6 +26,7 @@ public class UsedBoard {
 	private ArrayList<UsedBoardPhoto> usedBoardPhotoList;
 	private String thumbnail;
 	private int wishChk;
+	private int wishCnt;
 	
 	//판매자정보관련변수 - 사진/전화번호/신고횟수
 	private String profilePath;

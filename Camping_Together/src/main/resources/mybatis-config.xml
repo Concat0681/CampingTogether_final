@@ -11,6 +11,7 @@
 		<typeAlias type="kr.or.iei.member.model.vo.ProductPayment" alias="pp"/>
 		<typeAlias type="kr.or.iei.member.model.vo.MyReview" alias="mr"/>
 		<typeAlias type="kr.or.iei.member.model.vo.AdminShopList" alias="asl"/>
+		<typeAlias type="kr.or.iei.member.model.vo.CampingReservationList" alias="crl"/>
 		<typeAlias type="kr.or.iei.usedBoard.model.vo.UsedBoard" alias="ub"/>
 		<typeAlias type="kr.or.iei.camping.model.vo.Camping" alias="c"/>
 		<typeAlias type="kr.or.iei.camping.model.vo.CampingRoom" alias="cr"/>
@@ -46,5 +47,6 @@
 		 <typeAlias type="kr.or.iei.camping.model.vo.CampingPayment" alias="cpay"/>
 		 <typeAlias type="kr.or.iei.usedBoard.model.vo.UsedWishList" alias="uwl"/>
 		 <typeAlias type="kr.or.iei.camping.model.vo.CampingBookmark" alias="cb"/>
+		 <typeAlias type="kr.or.iei.camping.model.vo.reservationInfo" alias="ri"/>
 	</typeAliases>
 </configuration>

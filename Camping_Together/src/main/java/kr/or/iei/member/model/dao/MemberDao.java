@@ -14,6 +14,7 @@ import kr.or.iei.camping.model.vo.CampingRoom;
 import kr.or.iei.member.model.vo.AdminShopList;
 import kr.or.iei.member.model.vo.AdminShopPageData;
 import kr.or.iei.member.model.vo.CampingPayment;
+import kr.or.iei.member.model.vo.CampingReservationList;
 import kr.or.iei.member.model.vo.Member;
 import kr.or.iei.member.model.vo.MyReview;
 import kr.or.iei.member.model.vo.ProductPayment;
@@ -185,6 +186,17 @@ public class MemberDao {
 	public int updateAdminPw(Member member) {
 		int result = sqlsession.insert("member.updateAdminPw", member);
 		return result;
+	}
+
+	//캠핑장 예약 현황리스트
+	public ArrayList<CampingReservationList> selectReservationList(HashMap<String, Object> map) {
+		List list = sqlsession.selectList("member.selectCampingReservationList",map);
+		return (ArrayList<CampingReservationList>)list;
+	}
+
+	public int selectReservationListCount(String memberId) {
+		int totalCount = sqlsession.selectOne("member.selectReservationListCount");
+		return totalCount;
 	}
 
 

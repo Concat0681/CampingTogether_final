@@ -209,7 +209,7 @@
     	border-bottom: 1px solid #E3CAA5;
     }
     .history-modal-content>table>tr:not(tr:first-child):hover{
-    	background-color: #FFFBE9;
+    	background-color: #ad8b7318;
     }
     .history-modal-content>table>tr>td{
     	padding: 12px;

@@ -30,6 +30,7 @@ import kr.or.iei.camping.model.vo.CampingRoom;
 import kr.or.iei.camping.model.vo.CampingRoomFileVO;
 import kr.or.iei.camping.model.vo.CampingRoomService;
 import kr.or.iei.camping.model.vo.ViewCampingData;
+import kr.or.iei.camping.model.vo.reservationInfo;
 
 @Controller
 public class CampingController {
@@ -55,7 +56,9 @@ public class CampingController {
 		}
 		CampingListPageData cpd = service.selectCampingListData(reqPage, order, camping, campingRoom);
 		for(Camping c : cpd.getList()) {
+//			System.out.println(c.getCampingBookmarkNo());
 		}
+		System.out.println();
 		order = "new";
 		CampingListPageData newCpd = service.selectCampingListData(reqPage, order, camping, campingRoom);
 		model.addAttribute("newCampingList",newCpd.getList());
@@ -67,6 +70,8 @@ public class CampingController {
 	public String campingList(Camping c, String campingSido, String cityNameKR, String cityNameEN,int reqPage, String order, String pplCount, String checkIn, String checkOut, Model model) {
 		CampingRoom campingRoom = new CampingRoom();
 		Camping camping = new Camping();
+		camping.setCampingSido(campingSido);
+		camping.setCampingAddr(cityNameKR);
 		if(cityNameKR == "") {
 			camping.setCampingSido(campingSido);
 		} else {
@@ -207,7 +212,7 @@ public class CampingController {
 		model.addAttribute("checkOut", checkOut);
 //		model.addAttribute("campingReservation", campingReservation);
 		model.addAttribute("reservationList",reservationList);
-		System.out.println(reservationList);
+//		System.out.println(reservationList);
 		return "camping/viewCamping";
 	}
  Camping campingProvideSetter(String campingServiceStr, String campingRoomServiceStr, String campingEtcStr) {
@@ -554,6 +559,26 @@ public class CampingController {
 		}
 	}
 	
+	@RequestMapping(value = "/reservationMyInfo.do")
+	public String selectReservationMyInfo(Model model, int campingReservationNo) {
+		reservationInfo ri = service.selectReservationMyInfo(campingReservationNo);
+		model.addAttribute("campingAddr",ri.getCampingAddr());
+		model.addAttribute("campingPaymentDate",ri.getCampingPaymentDate());
+		model.addAttribute("campingTitle",ri.getCampingTitle());
+		model.addAttribute("checkIn",ri.getCheckIn());
+		model.addAttribute("checkOut",ri.getCheckOut());
+		model.addAttribute("memberName",ri.getMemberName());
+		model.addAttribute("memberPhone",ri.getMemberPhone());
+		model.addAttribute("campingReservationNo",campingReservationNo);
+		return "reservation/reservationMyInfo";
+	}
+	@RequestMapping(value = "/deleteCampingReservation.do")
+	public String deleteCampingReservation(int campingReservationNo,int memberNo) {
+		System.out.println("여기까지 오긴왔니?"+campingReservationNo+memberNo);
+		int result = service.deleteCampingReservation(campingReservationNo);
+//		return null;
+		return "redirect:/cmapingPayList.do?reqPage=1&memberNo="+memberNo;
+	}
 }
 
 

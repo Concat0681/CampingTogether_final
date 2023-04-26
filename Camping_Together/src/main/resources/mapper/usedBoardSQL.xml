@@ -178,6 +178,17 @@
 	<delete id="deleteUsedWishList" parameterType="uwl">
 		delete from used_wish_list where member_id = #{memberId} and used_board_no = #{usedBoardNo}
 	</delete>
+	<select id="selectAllWishBoard" parameterType="string" resultType="ub">
+		select 
+			ub.used_board_no as usedBoardNo,
+			used_board_title as usedBoardTitle,
+			used_board_status as usedBoardStatus,
+			reg_date as regDate,
+			used_board_writer as usedBoardWriter
+		from used_board ub join used_wish_list uwl on ub.used_board_no = uwl.used_board_no
+		where uwl.member_id = #{_parameter}
+		order by 1 desc
+	</select>
 </mapper>
 
 
