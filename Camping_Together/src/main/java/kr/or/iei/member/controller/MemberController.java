@@ -49,6 +49,8 @@ import kr.or.iei.member.model.vo.ReviewPageData;
 import kr.or.iei.shop.model.service.ShopService;
 //import kr.or.iei.member.model.vo.SellCampingPageData;
 import kr.or.iei.shop.model.vo.ShopListMainData;
+import kr.or.iei.usedBoard.model.service.UsedBoardService;
+import kr.or.iei.usedBoard.model.vo.UsedBoardPageData;
 
 @Controller
 public class MemberController {
@@ -60,6 +62,8 @@ public class MemberController {
 	private MailService mailService;
 	@Autowired
 	private CampingService campingService;
+	@Autowired
+	private UsedBoardService usedService;
 
 	@Autowired
 	private FileManager manager;
@@ -271,6 +275,10 @@ public class MemberController {
 	//찜한목록
 	@RequestMapping(value = "/myUsedSellList.do")
 	public String usedWishList(int reqPage,String memberId, Model model) {
+		String usedBoardWriter = memberId;
+		UsedBoardPageData upd = usedService.selectUsedBoardList(reqPage, memberId, usedBoardWriter);
+		model.addAttribute("list", upd.getList());
+		model.addAttribute("pageNavi", upd.getPageNavi());
 		model.addAttribute("index",4);
 		return "member/myUsedSellList";
 	

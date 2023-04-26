@@ -38,6 +38,7 @@
 					<tr>
 						<td style="cursor: pointer;"><a href="/viewCamping.do?campingNo=${p.campingNo }">${p.campingRoomTitle }</a></td>
 						<input type="hidden" name="campingRoomNo" value="${p.campingNo }">
+						<td><a href="/reservationMyInfo.do?campingReservationNo=${p.campingReservationNo }">${p.campingRoomTitle }</a></td>
 						<td>${p.campingPaymentDate }</td>
 						<td class="checkIn">${p.checkIn }</td>
 						<td class="checkOut">${p.checkOut }</td>

@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CampingPayment {
 //	private int campingPaymentNo;
-//	private int campingReservationNo;
+	private int campingReservationNo;
 	private String campingPaymentDate;
 //	private int status;
 //	private int totalPrice;

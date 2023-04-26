@@ -5,7 +5,7 @@ if ($('#search_checkin, #search_checkout').length) {
   $('#search_checkin, #search_checkout').daterangepicker(
     {
       locale: {
-        format: 'MM-DD',
+        format: 'YYYY-MM-DD',
         applyLabel: '확인', // 확인 버튼 텍스트
         cancelLabel: '취소', // 취소 버튼 텍스트
         daysOfWeek: ['일', '월', '화', '수', '목', '금', '토'],
@@ -40,8 +40,8 @@ if ($('#search_checkin, #search_checkout').length) {
     function (start, end, label) {
       // console.log("New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')");
       // Lets update the fields manually this event fires on selection of range
-      var selectedStartDate = start.format('MM-DD') // selected start
-      var selectedEndDate = end.format('MM-DD') // selected end
+      var selectedStartDate = start.format('YYYY-MM-DD') // selected start
+      var selectedEndDate = end.format('YYYY-MM-DD') // selected end
 
       $checkinInput = $('#search_checkin')
       $checkoutInput = $('#search_checkout')
