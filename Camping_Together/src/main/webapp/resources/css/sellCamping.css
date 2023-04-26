@@ -48,6 +48,32 @@
     font-size: 38px !important;
 }
 
+.list-content>table>tbody>tr>.th6{
+    width: 260px;
+}
+
+
+.list-content>table>tbody>tr>.th5{
+    width: 80px;
+}
+
+.room-up{
+    margin-left: 21px;
+}
+
+.cam-name{
+    background-color: #AD8B73;
+}
+
+.c-title{
+    cursor: pointer;
+}
+.c-title:hover{
+   color: #AD8B73;
+
+}
+
+/*토글*/
 .room-toggle{
     background-color: #ad8b730f;
 }

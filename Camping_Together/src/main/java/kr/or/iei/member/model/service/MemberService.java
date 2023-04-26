@@ -343,7 +343,7 @@ public class MemberService {
 		if(pageNo <= totalPage) {
 			pageNavi += "<li><a class='page-item' href='/shopWishList.do?reqPage="+(pageNo+1)+"&memberId="+memberId+"'><span class='material-symbols-outlined'>chevron_right </span></a></li>";
 		}
-		ShopListMainData slmd = new ShopListMainData(list, pageNavi);
+		ShopListMainData slmd = new ShopListMainData(totalCount,list, pageNavi);
 		return slmd;
 		
 	}

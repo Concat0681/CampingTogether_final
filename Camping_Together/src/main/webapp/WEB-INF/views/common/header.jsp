@@ -34,7 +34,7 @@
 <div class="message-comset" style="display: none;">
 	<div class="message-modal-wrapper">
 	  <div class="wrapper-header">
-	    <div class="material-symbols-outlined fill" id="modal-cancle">cancel</div>
+	    <div class="material-symbols-outlined filler" id="modal-cancle">cancel</div>
 	  </div>
 	  <hr style="margin: 0px;">
 		<div class="wrapper-body">

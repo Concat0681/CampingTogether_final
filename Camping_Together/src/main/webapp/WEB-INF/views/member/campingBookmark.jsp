@@ -16,6 +16,7 @@
 		<div class="input-title">
 			<h2>찜한 캠핑장</h2>
 		</div>
+
 	</div>
 	<div class="bookmark-wrap">
 		<div class="infomation">
@@ -37,6 +38,7 @@
 	</div>
 	<div class="pagination">
 		${navi }
+
 	</div>
 		
 	<script>
