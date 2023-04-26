@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -107,15 +108,15 @@
   }
   
   .backgroundPhoto {
-			width: 100%;
-			 background-image: url(/resources/image/main/campingImg.jpg);
-		    background-repeat: no-repeat;
-		    background-size: cover;
-			position: absolute;
-			top: 0;
-			left: 0;
-			z-index: -1;
-		}
+	width: 100%;
+	 background-image: url(/resources/image/main/campingImg.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: -1;
+}
 
 		.wrap {
 			position: relative;
@@ -137,21 +138,22 @@
 	<div class="wrap" style="margin-top: 300px;">
         <div class="contentWrap" style="background-color: #fff; padding-left: 30px; padding-top: 50px; border-radius: 10px; margin-bottom: 100px;">
         	<div class="contentDetail activeContent">
-        		<h2 style="font-weight: 900;">캠핑장을 찾고 있는 여행객들을 사로잡아보세요!</h2>
+        		<h2 style="font-weight: 900;">${camping.campingTitle } 캠핑장 수정</h2>
         		<h5 style="color: #808080; margin-bottom: 50px;">모든 입력란은 "필수" 항목입니다.</h5>
-        		<form action="/campingWrite.do" method="post" enctype="multipart/form-data">
+        		<form action="/updateCamping.do" method="post" enctype="multipart/form-data" id="updateCampingFrm">
         			<input type="hidden" name="memberId" value="${sessionScope.m.memberId }">
+        			<input type="hidden" name="campingNo" value="${camping.campingNo }">
 	        		<table>
 	        			<tr>
 	        				<td style="width: 120px; font-size: 1.17em; font-weight: bold; padding-bottom: 30px; color: #AD8B73;">캠핑장 이름</td>
 	        				<td style="padding-bottom: 30px;">
-	        					<input type="text" class="input-long" name="campingTitle">
+	        					<input type="text" class="input-long" name="campingTitle" value="${camping.campingTitle }">
 	        				</td>
 	        			</tr>
 	        			<tr>
 	        				<td style="width: 120px; font-size: 1.17em; font-weight: bold; color: #AD8B73;">전화번호</td>
 	        				<td>
-	        					<input type="text" class="input-long" name="campingPhone" placeholder="010-0000-0000">
+	        					<input type="text" class="input-long" name="campingPhone" placeholder="010-0000-0000" value="${camping.campingPhone }">
 	        				</td>
 	        			</tr>
 	        			<tr>
@@ -162,19 +164,19 @@
 	        			</tr>
 	        		</table>
 	        		
-	        		<div class="contentTitle"><h3 style="font-weight: bold; ">캠핑장 설명</h3></div>
-	        		<textarea class="campingContent" name="campingContent"></textarea>
+	        		<div class="contentTitle"><h3 style="font-weight: bold;">캠핑장 설명</h3></div>
+	        		<textarea class="campingContent" name="campingContent">${camping.campingContent }</textarea>
 	        		
 					<div class="contentTitle"><h3 style="font-weight: bold;">캠핑장 사진 등록</h3></div>
 	        			<h5 style="padding-bottom: 20px; color: #808080;">캠핑장의 메인 사진을 등록해주세요.</h5>
 	        				<div class="image-container">
 							  <input type="file" name="campingFilepath" onchange="loadImg(this);" id="campingFilepath" style="display: none;">
 							  <label for="campingFilepath">
-							    <span class="material-symbols-outlined photoCamera2" style="font-size: 250px;">photo_camera</span>
+							    <span class="material-symbols-outlined photoCamera2" style="font-size: 250px; display: none;">photo_camera</span>
 							  </label>
 							  <div class="img-wrapper">
-							    <img id="img-view" width="620px" height="620px">
-							    <button type="button" class="delete-btn">
+							    <img src="resources/upload/camping/${camping.filepath }" id="img-view" width="620px" height="620px">
+							    <button type="button" class="delete-btn" style="display: block;" onclick="deleteCampingFile(this,'${camping.filepath }');">
 							    	<span class="material-symbols-outlined" style="padding-top: 5px; color: #000">close</span>
 							    </button>
 							  </div>
@@ -192,7 +194,7 @@
 								<tr>
 									<td>도/시</td>
 									<td>
-										<input type="text" name="campingSido" id="campingSido" style="width: 350px; height: 40px;" readonly>
+										<input type="text" name="campingSido" id="campingSido" style="width: 350px; height: 40px;" value="${camping.campingSido }" readonly>
 									</td>
 									<td rowspan="2" style="padding-left: 20px;">
 										<button type="button" class="btn2" id="searchBtn" onclick="searchAddr();">주소찾기</button>
@@ -201,13 +203,13 @@
 								<tr>
 									<td>주소</td>
 									<td>
-										<input type="text" name="campingAddr" id="address" readonly>
+										<input type="text" name="campingAddr" id="address" value="${camping.campingAddr }" readonly>
 									</td>
 								</tr>
 								<tr>
 									<td style="padding-right: 10px;">상세주소 입력</td>
 									<td colspan="2">
-										<input type="text" name="campingAddrDetail" id="detailAddress">
+										<input type="text" name="campingAddrDetail" id="detailAddress" value="${camping.campingAddrDetail }">
 									</td> 
 								</tr>
 								<tr>
@@ -229,7 +231,7 @@
 					
 					<div class="contentDetail" style="display: none;">
 	        		<h2 style="font-weight: 900;">숙소 제공 편의 시설/서비스 관리하기</h2>
-	        		<h5 style="color: #808080;">숙소에서 제공하는 편의 시설/서비스를 설정하세요.</h5>
+	        		<h5 style="color: #808080">숙소에서 제공하는 편의 시설/서비스를 설정하세요.</h5>
 	        		<div class="contentTitle"><h3 style="font-weight: bold;">공용시설</h3></div>
 	        		<table class="campingServiceTbl">
 	        			<tr>
@@ -440,71 +442,10 @@
 	        		</table>
 	        		<div>
 	        			<button type="button" class="btn1 prevBtn">이전</button>
-		        		<button type="button" class="btn1 nextBtn" style="margin-right: 50px; margin-bottom: 30px;">다음</button>
+		        		<button type="submit" class="btn1 nextBtn" style="margin-right: 50px; margin-bottom: 30px;">수정</button>
 	        		</div>
-        	</div>
-			<div class="contentDetail" style="display: none;">
-        		<h2 style="margin-bottom: 60px;">캠핑장 캠핑 등록</h2>
-	        		<table>
-	        			<tr>
-	        				<td style="width: 120px; font-size: 1.17em; font-weight: bold; padding-bottom: 20px; color: #AD8B73;">이름</td>
-	        				<td style="padding-bottom: 20px;">
-	        					<input type="text" class="input-long" name="campingRoomTitle" >
-	        				</td>
-	        			</tr>
-	        			<tr>
-	        				<td style="width: 120px; font-size: 1.17em; font-weight: bold; padding-bottom: 20px; color: #AD8B73;">객실 수</td>
-	        				<td style="padding-bottom: 20px;">
-	        					<input type="text" class="input-long" name="campingRoomCount" placeholder="최대 100개의 객실까지 등록 가능합니다.">
-	        				</td>
-	        			</tr>
-	        			<tr>
-	        				<td></td>
-	        				<td>
-	        					<span class="priceComment"></span>
-	       					</td>
-        				</tr>
-	        			<tr>
-	        				<td style="width: 120px; font-size: 1.17em; font-weight: bold; padding-bottom: 20px; color: #AD8B73;">1박당 가격</td>
-	        				<td style="padding-bottom: 20px;">
-	        					<input type="text" class="input-long" name="campingRoomPrice" placeholder="최소 100원부터 최대 1억까지 등록 가능합니다.">
-	        				</td>
-	        			</tr>
-						<tr>
-							<td style="width: 120px; font-size: 1.17em; font-weight: bold; padding-bottom: 20px; color: #AD8B73;">최대인원</td>
-							<td style="padding-bottom: 20px;">
-								<input type="number" class="input-long" name="campingRoomMaxPplCount" min="1" max="20" placeholder="최소 1명에서 최대 20명의 인원이 등록 가능합니다.">
-							</td>
-						</tr>
-						<tr>
-							<td style="width: 120px; font-size: 1.17em; font-weight: bold; padding-bottom: 20px; color: #AD8B73;">캠핑 유형</td>
-							<td style="padding-bottom: 20px;">
-								<input type="radio" id="campingCheck1" name="campingRoomType" value="오토캠핑">
-			        			<label for="campingCheck1" style="padding-right: 50px;">오토캠핑</label>
-			        			<input type="radio" id="campingCheck2" name="campingRoomType" value="글램핑">
-			        			<label for="campingCheck2" style="padding-right: 50px;">글램핑</label>
-			        			<input type="radio" id="campingCheck3" name="campingRoomType" value="카라반">
-			        			<label for="campingCheck3">카라반</label>
-							</td>
-						</tr>
-	        		</table>
-	        		<div class="contentTitle"><h3 style="font-weight: bold;">설명</h3>
-	        			<textarea class="campingRoomContent" name="campingRoomContent"></textarea>
-	       			</div>
-	        		<div class="contentTitle"><h3 style="font-weight: bold;">사진</h3>
-	        		<h5 style="color: #808080;">최소 3개 이상의 파일을 등록해주세요.</h5>
-	        			<input type="file" name="campingRoomFilepath" onchange="loadImgs(this);" id="campingRoomFilepath" style="display: none;" multiple>
-	        			<label for="campingRoomFilepath">
-	        				<span class="material-symbols-outlined photoCamera2" id="showPhoto" style="font-size: 250px;">photo_camera</span>
-	        			</label>
-	        			<div id="img-viewer2">
-	        			
-	                    </div>
-	       			</div>
-	       			<button type="button" class="btn1 prevBtn">이전</button>
-	       			<button type="submit" name="campingRoomBtn" class="btn1 nextBtn" style="margin-right: 50px; margin-bottom: 30px;">등록</button>
-       			</form>
-        	</div>	
+        		</div>
+   			</form>
        	</div>
        	</div>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
@@ -516,18 +457,33 @@
 		const prevBtn = $(".prevBtn");
 		const phoneResult = [false];
 		
-		$("[name=campingPhone]").on("change",function(){
-			const phoneReg = /01\d{1}-\d{4}-\d{4}$/;
-			const campingPhone = $("[name=campingPhone]").val();
-			const phoneCheck = phoneReg.test(campingPhone);
-			if(phoneCheck){
-				$(".phoneComment").text("");
-				phoneResult[0] = true;
-			}else{
-				$(".phoneComment").text("전화번호 형식을 지켜주세요.");
-				$(".phoneComment").css("color","red");
-				phoneResult[0] = false;
-			}
+		$(document).ready(function() {
+		    const phoneReg = /01\d{1}-\d{4}-\d{4}$/;
+		    const campingPhone = $("[name=campingPhone]").val();
+		    const phoneCheck = phoneReg.test(campingPhone);
+
+		    if (phoneCheck) {
+		        $(".phoneComment").text("");
+		        phoneResult[0] = true;
+		    } else {
+		        $(".phoneComment").text("전화번호 형식을 지켜주세요.");
+		        $(".phoneComment").css("color","red");
+		        phoneResult[0] = false;
+		    }
+
+		    $("[name=campingPhone]").on("change",function(){
+		        const campingPhone = $("[name=campingPhone]").val();
+		        const phoneCheck = phoneReg.test(campingPhone);
+
+		        if (phoneCheck) {
+		            $(".phoneComment").text("");
+		            phoneResult[0] = true;
+		        } else {
+		            $(".phoneComment").text("전화번호 형식을 지켜주세요.");
+		            $(".phoneComment").css("color","red");
+		            phoneResult[0] = false;
+		        }
+		    });
 		});
 		
 		nextBtn.eq(0).on("click",function(){
@@ -535,7 +491,7 @@
 			const campingPhone = $("[name=campingPhone]").val();
 			const campingContent = $("[name=campingContent]").val();
 			const campingFilepath = $("[name=campingFilepath]");
-			if(!(campingTitle != "" && campingContent != "" && campingPhone != "" && phoneResult[0] == true && campingFilepath.get(0).files.length != 0  )){
+			if(!(campingTitle != "" && campingContent != "" && campingPhone != "" && phoneResult[0] == true && $('#img-view').attr('src'))){
 				alert("입력란을 모두 확인해주세요.")
 				return false;
 			}else{
@@ -569,10 +525,7 @@
 			contentDetail.eq(1).show();
 		});
 		
-		prevBtn.eq(2).on("click",function(){
-			contentDetail.eq(3).hide();
-			contentDetail.eq(2).show();
-		});
+		
 		
 		nextBtn.eq(2).on("click",function(){
 			const campingService = $("[name=campingService]:checked").val();
@@ -585,8 +538,7 @@
 				alert("입력란을 확인하세요.");
 				return false;
 			}else{
-				contentDetail.eq(2).hide();
-				contentDetail.eq(3).show();
+				
 			}
 		});
 		
@@ -804,6 +756,110 @@
 			priceResult[0] = false;
 		}
 	});
+	</script>
+	
+	<script>
+		$(document).ready(function() {
+		  // 체크박스의 name 속성값
+		  var checkboxName = "campingEtc";
+		  
+		  // 체크될 값을 배열로 저장
+		  var checkedValues = [
+		    <%-- 체크될 값을 JSP 코드로 작성 --%>
+		    <c:forEach items="${campingEtc}" var="ce">
+		      "${ce.campingEtc}",
+		    </c:forEach>
+		  ];
+
+		  // 체크박스 루프
+		  $('input[name="' + checkboxName + '"]').each(function() {
+		    // 체크될 값을 포함하면 체크
+		    if ($.inArray($(this).val(), checkedValues) >= 0) {
+		      $(this).prop('checked', true);
+		    }
+		  });
+		});
+	</script>
+	
+	<script>
+		$(document).ready(function() {
+		  // 체크박스의 name 속성값
+		  var checkboxName = "campingEtc";
+		  
+		  // 체크될 값을 배열로 저장
+		  var checkedValues = [
+		    <%-- 체크될 값을 JSP 코드로 작성 --%>
+		    <c:forEach items="${campingEtc}" var="ce">
+		      "${ce.campingEtc}",
+		    </c:forEach>
+		  ];
+
+		  // 체크박스 루프
+		  $('input[name="' + checkboxName + '"]').each(function() {
+		    // 체크될 값을 포함하면 체크
+		    if ($.inArray($(this).val(), checkedValues) >= 0) {
+		      $(this).prop('checked', true);
+		    }
+		  });
+		});
+	</script>
+	
+	<script>
+		$(document).ready(function() {
+		  // 체크박스의 name 속성값
+		  var checkboxName = "campingRoomService";
+		  
+		  // 체크될 값을 배열로 저장
+		  var checkedValues = [
+		    <%-- 체크될 값을 JSP 코드로 작성 --%>
+		    <c:forEach items="${campingRoomService}" var="crs">
+		      "${crs.campingRoomService}",
+		    </c:forEach>
+		  ];
+
+		  // 체크박스 루프
+		  $('input[name="' + checkboxName + '"]').each(function() {
+		    // 체크될 값을 포함하면 체크
+		    if ($.inArray($(this).val(), checkedValues) >= 0) {
+		      $(this).prop('checked', true);
+		    }
+		  });
+		});
+	</script>
+	
+	
+	<script>
+		$(document).ready(function() {
+		  // 체크박스의 name 속성값
+		  var checkboxName = "campingService";
+		  
+		  // 체크될 값을 배열로 저장
+		  var checkedValues = [
+		    <%-- 체크될 값을 JSP 코드로 작성 --%>
+		    <c:forEach items="${campingService}" var="cs">
+		      "${cs.campingService}",
+		    </c:forEach>
+		  ];
+
+		  // 체크박스 루프
+		  $('input[name="' + checkboxName + '"]').each(function() {
+		    // 체크될 값을 포함하면 체크
+		    if ($.inArray($(this).val(), checkedValues) >= 0) {
+		      $(this).prop('checked', true);
+		    }
+		  });
+		});
+	</script>
+	
+	<script>
+		function deleteCampingFile(obj,filepath){
+			const filepathInput = $("<input>");
+			filepathInput.attr("name","filepath");
+			filepathInput.val(filepath);
+			filepathInput.hide();
+			
+			$("#updateCampingFrm").append(filepathInput);
+		}
 	</script>
 	
 </body>

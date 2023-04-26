@@ -141,7 +141,8 @@
 			location.href="/campingList.do?cityNameEN="+cityNameEN+"&cityNameKR="+cityNameKR+"&reqPage=1&order=avgReviewRating&pplCount=0";
 		})
 		function viewCamping(campingNo){
-			location.href = "/viewCamping.do?campingNo="+campingNo;
+			const memberId = $("#memberId").val();
+			location.href = "/viewCamping.do?campingNo="+campingNo+"&memberId="+memberId;
 		}
 		$(".camping-box").on("mouseenter", function(){
 			$(this).find(".hidden-div").slideDown();
@@ -161,7 +162,7 @@
 					 url : "/deleteCampingBookmark.do",
 					 data : {campingBookmarkNo : campingBookmarkNo},
 					 success : function(data){
-						 
+						 $("input[name=campingBookmarkNo]").val(data)
 					 }
 				 })
 			 } else {

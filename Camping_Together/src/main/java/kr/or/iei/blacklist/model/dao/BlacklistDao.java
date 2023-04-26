@@ -56,4 +56,29 @@ public class BlacklistDao {
 		List list = sqlSession.selectList("blacklist.selectOneBlacklistPhoto", blacklistNo);
 		return (ArrayList<BlacklistPhoto>)list;
 	}
+
+	public int updateBlacklistStatus(Blacklist bl) {
+		int result = sqlSession.update("blacklist.updateBlacklistStatus", bl);
+		return result;
+	}
+
+	public int selectMemberBlackCount(String blacklistMemberId) {
+		int count = sqlSession.selectOne("blacklist.selectMemberBlackCount", blacklistMemberId);
+		return count;
+	}
+
+	public int updateBlackMember(String blacklistMemberId) {
+		int result = sqlSession.update("blacklist.updateBlackMember", blacklistMemberId);
+		return result;
+	}
+
+	public BlacklistPhoto getPhoto(int blacklistPhotoNo) {
+		BlacklistPhoto blp = sqlSession.selectOne("blacklist.getPhoto", blacklistPhotoNo);
+		return blp;
+	}
+
+	public ArrayList<Blacklist> selectSearchBlackMember(String blacklistMemberId) {
+		List list = sqlSession.selectList("blacklist.selectSearchBlackMember", blacklistMemberId);
+		return (ArrayList<Blacklist>)list;
+	}
 }

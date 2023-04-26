@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kr.or.iei.camping.model.service.CampingService;
 import kr.or.iei.camping.model.vo.Camping;
 import kr.or.iei.camping.model.vo.CampingEtc;
 import kr.or.iei.camping.model.vo.CampingPayment;
@@ -41,8 +42,8 @@ public class CampingDao {
 		return result;
 	}
 
-	public Camping selectOneCamping(int campingNo) {
-		Camping camping = sqlSession.selectOne("camping.selectOneCamping", campingNo);
+	public Camping selectOneCamping(HashMap<String, Object> map) {
+		Camping camping = sqlSession.selectOne("camping.selectOneCamping", map);
 		return camping;
 	}
 	
@@ -263,6 +264,65 @@ public class CampingDao {
 	public int deleteCampingBookmark(int campingBookmarkNo) {
 		int result = sqlSession.delete("camping.deleteCampingBookmark", campingBookmarkNo);
 		return result;
+	}
+
+	public Camping selectUpdateCamping(int campingNo) {
+		return sqlSession.selectOne("camping.selectUpdateCamping", campingNo);
+	}
+
+	public ArrayList<CampingEtc> selectCampingEtc(int campingNo) {
+		List list = sqlSession.selectList("camping.selectCampingEtc", campingNo);
+		return (ArrayList<CampingEtc>)list;
+	}
+
+	public ArrayList<CampingProvideService> selectCampingService(int campingNo) {
+		List list = sqlSession.selectList("camping.selectCampingService", campingNo);
+		return (ArrayList<CampingProvideService>)list;
+	}
+
+	public ArrayList<CampingRoomService> selectCampingRoomService(int campingNo) {
+		List list = sqlSession.selectList("camping.selectCampingRoomService", campingNo);
+		return (ArrayList<CampingRoomService>)list;
+	}
+
+	public int updateCamping(Camping c) {
+		int result = sqlSession.update("camping.updateCamping",c);
+		return result;
+	}
+
+	public int deleteCampingProvideService(int campingNo) {
+		int result = sqlSession.delete("camping.deleteCampingProvideService",campingNo);
+		return result;
+	}
+
+	public int deleteCampingRoomService(int campingNo) {
+		int result = sqlSession.delete("camping.deleteCampingRoomService",campingNo);
+		return result;
+	}
+
+	public int deleteCampingEtc(int campingNo) {
+		int result = sqlSession.delete("camping.deleteCampingEtc",campingNo);
+		return result;
+	
+	}
+	public int selectLatestBookmarkNo() {
+		int bookmarkNo = sqlSession.selectOne("camping.selectLatestBookmarkNo");
+		return bookmarkNo;
+	}
+
+	public int selectCampingRoomNo(int campingNo) {
+		
+		return 0;
+	}
+
+	public ArrayList<CampingRoomFileVO> selectDeleteCampingRoomFileList(int campingNo) {
+		List list = sqlSession.selectList("camping.selectDeleteCampingRoomFileList", campingNo);
+		return (ArrayList<CampingRoomFileVO>)list;
+	}
+
+	public Camping selectDeleteCamping(int campingNo) {
+		Camping c = sqlSession.selectOne("camping.selectDeleteCamping",campingNo);
+		return c;
 	}
 
 

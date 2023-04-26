@@ -136,4 +136,9 @@ public class ShopDao {
 		int result = sqlSession.delete("shop.deleteShop", shopNo);
 		return result;
 	}
+
+	public ArrayList<ShopReviewPhoto> selectOneShopReviewPhoto(int shopReviewNo) {
+		List list = sqlSession.selectList("shop.selectShopReviewPhotoList", shopReviewNo);
+		return (ArrayList<ShopReviewPhoto>)list;
+	}
 }
