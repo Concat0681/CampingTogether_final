@@ -166,9 +166,9 @@ public class CampingController {
 		}
 		int result = service.insertCamping(c, cr, fileList);
 		if(result > 0) {
-			return "redirect:/";
+			return "redirect:/sellList.do?reqPage=1&memberId="+c.getMemberId();
 		}else {
-			return "redirect:/";
+			return "redirect:/sellList.do?reqPage=1&memberId="+c.getMemberId();
 		}
 	}
 	
@@ -247,7 +247,7 @@ public class CampingController {
 	
 	
 	@RequestMapping(value="/campingRoomWrite.do")
-	public String campingRoomWrite(CampingRoom cr, MultipartFile[] campingRoomFilepath, HttpServletRequest request) {
+	public String campingRoomWrite(CampingRoom cr,String memberId, MultipartFile[] campingRoomFilepath, HttpServletRequest request) {
 		ArrayList<CampingRoomFileVO> fileList = new ArrayList<CampingRoomFileVO>();
 		if(!campingRoomFilepath[0].isEmpty()) {
 			String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/campingRoom/");
@@ -260,9 +260,9 @@ public class CampingController {
 		}
 		int result = service.insertCampingRoom(cr, fileList);
 		if(result == (fileList.size()+1)) {
-			return "redirect:/";
+			return "redirect:/sellList.do?reqPage=1&memberId="+memberId;
 		}else {
-			return "redirect:/";
+			return "redirect:/sellList.do?reqPage=1&memberId="+memberId;
 		}
 	}
 	
@@ -373,21 +373,21 @@ public class CampingController {
 	
 	
 	@RequestMapping(value="/deleteCampingRoom.do")
-	public String deleteCampingRoom(int campingRoomNo, int campingNo, HttpServletRequest request) {
+	public String deleteCampingRoom(int campingRoomNo,String memberId, int campingNo, HttpServletRequest request) {
 		ArrayList<CampingRoomFileVO> list = service.deleteCampingRoom(campingRoomNo);
 		if(list == null) {
-			return "redirect:/";
+			return "redirect:/sellList.do?reqPage=1&memberId="+memberId;
 		}else {
 			String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/campingRoom/");
 			for(CampingRoomFileVO file : list) {
 				manager.deleteFile(savePath, file.getFilepath());
 			}
-			return "redirect:/";
+			return "redirect:/sellList.do?reqPage=1&memberId="+memberId;
 		}
 	}
 	
 	@RequestMapping(value="/updateCampingRoomFrm.do")
-	public String updateCampingRoomFrm(int campingRoomNo, Model model) {
+	public String updateCampingRoomFrm(int campingRoomNo,String memberId, Model model) {
 		CampingRoom cr = service.updateCampingRoomFrm(campingRoomNo);
 		model.addAttribute("campingRoom",cr);
 		model.addAttribute("filePaths", cr.getFileList());
@@ -395,7 +395,7 @@ public class CampingController {
 	}
 
 	@RequestMapping(value="/updateCampingRoom.do")
-	public String updateCampingRoom(CampingRoom cr,int[] campingRoomPhotoNo, String[] filepath, MultipartFile[] campingRoomFile, HttpServletRequest request) {
+	public String updateCampingRoom(CampingRoom cr,String memberId,int[] campingRoomPhotoNo, String[] filepath, MultipartFile[] campingRoomFile, HttpServletRequest request) {
 		ArrayList<CampingRoomFileVO> fileList = new ArrayList<CampingRoomFileVO>();
 		String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/campingRoom/");
 		if(!campingRoomFile[0].isEmpty()) {
@@ -412,11 +412,11 @@ public class CampingController {
 			for(String delFile : filepath) {
 				manager.deleteFile(savePath, delFile);
 			}
-			return "redirect:/";
+			return "redirect:/sellList.do?reqPage=1&memberId="+memberId;
 		}else if(campingRoomPhotoNo == null && (result == fileList.size()+1)){
-			return "redirect:/";
+			return "redirect:/sellList.do?reqPage=1&memberId="+memberId;
 		}else {
-			return "redirect:/";
+			return "redirect:/sellList.do?reqPage=1&memberId="+memberId;
 		}
 	}
 	
@@ -546,11 +546,11 @@ public class CampingController {
 			for(String delFile : filepath) {
 				manager.deleteFile(savePath, delFile);
 			}
-			return "redirect:/";
+			return "redirect:/sellList.do?reqPage=1&memberId="+c.getMemberId();
 		}else if(filepath == null && result > 0){
-			return "redirect:/";
+			return "redirect:/sellList.do?reqPage=1&memberId="+c.getMemberId();
 		}else {
-			return "redirect:/";
+			return "redirect:/sellList.do?reqPage=1&memberId="+c.getMemberId();
 		}
 	}
 	

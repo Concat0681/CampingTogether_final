@@ -40,7 +40,7 @@
 					<tr>
 						<td>${l.rnum }</td>
 						<%--<td class="c-title">${l.campingTitle }</td>  --%>
-						<td onClick="roomNameToggle(${l.campingNo})" class="c-title">
+						<td onClick="roomNameToggle(${l.campingNo},'${sessionScope.m.memberId }')" class="c-title">
 						${l.campingTitle }
 						<td>${l.campingSido }</td> 
 						
@@ -54,7 +54,7 @@
 						<td>
 							<div class="updael" style="width: 120px;">
 							<div class="c-delete room-up">
-								<a href="">추가</a>
+								<a href="/campingRoomWriteFrm.do?campingNo=${l.campingNo }&campingTitle=${l.campingTitle }">추가</a>
 							</div>
 						</div>
 						</td>
@@ -116,9 +116,9 @@
 	
 	
 	<script>
-		function deleteCampingRoom(obj,campingRoomNo,campingNo){
+		function deleteCampingRoom(obj,campingRoomNo,campingNo, memberId){
 			if(confirm("캠핑을 삭제하시겠습니까?")){
-				location.href="/deleteCampingRoom.do?campingRoomNo="+campingRoomNo+"&campingNo="+campingNo;
+				location.href="/deleteCampingRoom.do?campingRoomNo="+campingRoomNo+"&campingNo="+campingNo+"memberId="+memberId;
 			}
 		}
 		
@@ -140,12 +140,12 @@
 	}); --%>
 	
 	
-	function roomNameToggle(campingNo){
+	function roomNameToggle(campingNo, memberId){
 		$(".goblin").empty();
 		$.ajax({
 			url : "/selectRoomInfo.do",
 			type : "post",
-			data : {campingNo : campingNo},
+			data : {campingNo : campingNo, memberId : memberId},
 			success : function(data){
 				console.log(data);
 				
@@ -159,7 +159,7 @@
 					const td4 = $("<td>").css("width","266px").css("padding-top","10px");
 					const div = $("<div>").addClass("updael");
 					const campingUpdateDiv = $("<div>").addClass("c-update").append($("<a>").attr("href", "/updateCampingRoomFrm.do?campingRoomNo=" + data[i].campingRoomNo).text("수정"));
-					const campingDeleteDiv = $("<div>").addClass("c-delete").append($("<a>").attr("href", "javascript:void(0)").addClass("deleteCampingRoom").attr("onclick", "deleteCampingRoom(this," + data[i].campingRoomNo + "," + campingNo + ")").text("삭제"));
+					const campingDeleteDiv = $("<div>").addClass("c-delete").append($("<a>").attr("href", "javascript:void(0)").addClass("deleteCampingRoom").attr("onclick", "deleteCampingRoom(this," + data[i].campingRoomNo + "," + campingNo + ","+ memberId + ")" ).text("삭제"));
 					div.append(campingUpdateDiv).append(campingDeleteDiv);
 					td4.append(div);
 					

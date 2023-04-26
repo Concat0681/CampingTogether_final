@@ -73,6 +73,10 @@
 		h2, h3{
 		color: #AD8B73;
 	}
+	
+	.photoCamera2:hover{
+		cursor: pointer;
+	}
 </style>
 </head>
 <body>
@@ -84,6 +88,7 @@
 	        		<h2 style="margin-bottom: 60px;">${campingTitle } 캠핑 추가 등록</h2>
 	        		<form action="/campingRoomWrite.do" method="post" enctype="multipart/form-data">
 	        			<input type="hidden" name="campingNo" value="${campingNo }">
+	        			<input type="hidden" name="memberId" value="${sessionScope.m.memberId }">
 		        		<table>
 		        			<tr>
 		        				<td style="width: 120px; font-size: 1.17em; font-weight: bold; padding-bottom: 20px; color: #AD8B73;">이름</td>
