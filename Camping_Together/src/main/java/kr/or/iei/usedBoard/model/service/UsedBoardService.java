@@ -176,6 +176,10 @@ public class UsedBoardService {
 		return dao.deleteUsedWishList(uwl);
 	}
 
+	public ArrayList<UsedBoard> selectAllWishBoard(String memberId) {
+		return dao.selectAllWishBoard(memberId);
+	}
+
 }
 
 

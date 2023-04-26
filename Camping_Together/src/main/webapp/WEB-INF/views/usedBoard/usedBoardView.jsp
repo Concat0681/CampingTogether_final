@@ -461,8 +461,10 @@
         				<div class="regDate-etc-wrap">
         					<p style="font-family: ng-extra-bold;">${ub.usedBoardWriter }</p>
 		        			<p style="color:#ccc;">:: &nbsp; ${ub.regDate } &nbsp; ::</p>
-		        			<span class="material-symbols-outlined fill" style="color:#ccc;">visibility</span>
-		        			<p style="color:#ccc;">${ub.readCount }</p>
+		        			<span class="material-symbols-outlined" style="color:#ccc;">visibility</span>
+		        			<p style="color:#ccc;">${ub.readCount } &nbsp; ::</p>
+		        			<span class="material-symbols-outlined" style="color:#ccc;">favorite</span>
+		        			<p style="color:#ccc;">${ub.wishChk }</p>
         				</div>
         				<div class="usedboard-info-wrap">
         					<ul class="usedboard-info">

@@ -94,6 +94,10 @@
    .wish-list:hover{
    		color: #E3CAA5;
    }
+   #wish-board-title{
+   		text-overflow: ellipsis;
+   		white-space: nowrap;
+   }
    .product-wrap{
        width: calc(100%/3);
        float: left;
@@ -202,6 +206,97 @@
    #favorite{
    		cursor: pointer;
    }
+   <%-- 모달css --%>
+     .my-wishlist-modal-wrap{
+    	width: 1200px;
+    	height: 800px;
+    	border: 4px double #ccc;
+    	border-radius: 5px;
+    	display: none;
+    	position: absolute;
+    	top: 230px;
+    	background-color: #fff;
+    	box-shadow: 0px 0px 60px -10px #ccc;
+    	z-index: 100;
+    }
+    .wishlist-modal-top{
+    	text-align: center;
+    	padding-bottom: 20px;
+    	height: 10%
+    }
+    .title{
+    	line-height: 80px;
+    }
+    .title>span{
+    	font-family: ng-extra-bold;
+    	color: #AD8B73;
+    }
+    .wishlist-modal-content{
+    	height: 80%;
+    	border: 1px solid #ccc;
+    	overflow-x: hidden;
+    	overflow-y: scroll;
+    	padding: 30px;
+    	box-sizing: border-box;
+    }
+    .wishlist-modal-content>table{
+    	width: 90%;
+    	margin: 0 auto;
+    	border-top-left-radius: 5px;
+    	border-top-right-radius: 5px;
+    }
+    .wishlist-modal-content>table>tr:first-child{
+    	background-color: #E3CAA5;
+    	border-top-left-radius: 10px;
+    }
+    .wishlist-modal-content>table>tr{
+    	border-bottom: 1px solid #E3CAA5;
+    }
+    .wishlist-modal-content>table>tr:not(tr:first-child):hover{
+    	background-color: #ad8b7318;
+    }
+    .wishlist-modal-content>table>tr>td{
+    	padding: 12px;
+    	text-align: center;
+    	font-size: 14px;
+    	font-family: ng-bold;
+    	color: #AD8B73;
+    }
+    .wishlist-modal-content>table>tr:first-child>td{
+    	font-family: ng-extra-bold;
+    	color: #FFFBE9;
+    	font-size: 15px;
+    }
+    .wishlist-modal-content>table>tr>td>a:hover{
+    	color: #CEAB93;
+    	text-decoration: underline !important;
+    }
+    /* 스크롤바 */
+    .wishlist-modal-content::-webkit-scrollbar {
+    	width: 12px;  /* 스크롤바의 너비 */
+	}	
+	.wishlist-modal-content::-webkit-scrollbar-thumb {
+	    height: 30%; /* 스크롤바의 길이 */
+	    background: #CEAB93; /* 스크롤바의 색상 */ 
+	    border-radius: 5px;   
+	}
+	
+	.wishlist-modal-content::-webkit-scrollbar-track {
+	    background: rgba(173, 139, 115, .1);  /*스크롤바 뒷 배경 색상*/
+	}
+	.wishlist-modal-bottom{
+		text-align: right;
+		padding: 15px;
+	}
+	.wishlist-modal-bottom>button{
+		width: 100px;
+    	height: 50px;
+	}
+	.wishlist-modal-bottom>button>span{
+		font-family: ng-extra-bold;
+		font-size: 16px;
+		color: #FFFBE9;
+	}
 </style>
 </head>
 <body>
@@ -210,8 +305,19 @@
         <div class="content-top">
         	<div class="content-top-title">
 	            <h2>중고장터</h2>
-	            <span class="wish-list">찜목록 확인</span>
+	            <c:if test="${not empty sessionScope.m }">
+	            	<span class="wish-list" onclick="myWishList('${sessionScope.m.memberId}');">찜목록 확인</span>
+	            </c:if>
         	</div>
+        	<div class="my-wishlist-modal-wrap">
+				<div class="wishlist-modal-top">
+					<div class="title"><span>[ ${sessionScope.m.memberName } ]님 찜목록 조회</span></div>
+				</div>
+				<div class="wishlist-modal-content"></div>
+				<div class="wishlist-modal-bottom">
+					<button type="button" class="btn1" onclick="wishlistClose();"><span>close</span></button>
+				</div>
+			</div>  	
             <div class="category-wrap">
                 <div class="category">
                     <select class="used-category" name="usedBoardCategory">
@@ -229,21 +335,21 @@
                         
                     </select>
                     <select class="used-location" name="usedTradeLocation">
-                        <option>전국</option>
-                        <option>서울</option>
-                        <option>인천</option>
-                        <option>경기</option>
-                        <option>대전</option>
-                        <option>대구</option>
-                        <option>부산</option>
-                        <option>강원</option>
-                        <option>광주</option>
-                        <option>울산</option>
-                        <option>경남</option>
-                        <option>경북</option>
-                        <option>전남</option>
-                        <option>전북</option>
-                        <option>제주</option>
+                        <option value="지역설정안함">전국</option>
+                        <option value="서울">서울</option>
+                        <option value="인천">인천</option>
+                        <option value="경기">경기</option>
+                        <option value="대전">대전</option>
+                        <option value="대구">대구</option>
+                        <option value="부산">부산</option>
+                        <option value="강원">강원</option>
+                        <option value="광주">광주</option>
+                        <option value="울산">울산</option>
+                        <option value="경남">경남</option>
+                        <option value="경북">경북</option>
+                        <option value="전남">전남</option>
+                        <option value="전북">전북</option>
+                        <option value="제주">제주</option>
                     </select>
                 </div>
                 <div class="usedBoardWrite">
@@ -321,6 +427,7 @@
         <div class="pagenation">
 	        ${pageNavi }
         </div>
+        <%-- 찜목록 모달창 --%>
     </div>  
     <script>
     	$(".product-wish").on("click", function(){
@@ -353,6 +460,53 @@
     			}
     		}
     	});
+    	
+    	function myWishList(memberId){
+    		$(".my-wishlist-modal-wrap").show();
+    		$.ajax({
+				url : "/myWishlist.do",
+				type : "get",
+				data : {memberId : memberId},
+				success : function(data){
+					$(".wishlist-modal-content").empty();
+					console.log(data);
+					const table = $("<table>");
+					const titleTr = $("<tr>");
+					titleTr.html("<td style='width:10%'>No</td><td style='width:30%' id='wish-board-title'>게시글</td><td style='width:20%'>작성자</td><td style='width:20%'>작성일</td><td style='width:20%'>판매상태</td>");
+					table.append(titleTr);
+					for(let i=0; i<data.length; i++){
+						/*
+							ub.used_board_no as usedBoardNo,
+							used_board_title as usedBoardTitle,
+							used_board_writer as usedBoardWriter
+							reg_date as regDate,
+							used_board_status as usedBoardStatus,
+						*/
+						const tr = $("<tr>");
+						tr.append("<td>"+data[i].usedBoardNo+"</td>");
+						tr.append("<td id='wish-board-title'><a href='/usedBoardView.do?usedBoardNo="+data[i].usedBoardNo+"'>"+data[i].usedBoardTitle+"</a></td>");
+						tr.append("<td>"+data[i].usedBoardWriter+"</td>");
+						tr.append("<td>"+data[i].regDate+"</td>");
+						if(data[i].usedBoardStatus == 0){
+							tr.append("<td>판매중</td>");
+						}else{
+							tr.append("<td>판매완료</td>");
+						}
+						table.append(tr);
+					}
+					$(".wishlist-modal-content").append(table);
+				}
+			});
+    	}
+    	
+    	function wishlistClose(){
+    		$(".my-wishlist-modal-wrap").hide();
+    	}
+    	
+   		$(".category>select").on("change", function(){
+   			alert("ㅠㅠ");
+   		});
+    
     </script>
 </body>
 </html>
