@@ -40,6 +40,7 @@ import kr.or.iei.member.model.service.MemberService;
 import kr.or.iei.member.model.vo.AdminShopPageData;
 import kr.or.iei.member.model.vo.AllMemberPageData;
 import kr.or.iei.member.model.vo.CampingPayment;
+import kr.or.iei.member.model.vo.CampingReservationPageData;
 import kr.or.iei.member.model.vo.FileVO;
 import kr.or.iei.member.model.vo.Member;
 import kr.or.iei.member.model.vo.MemberPageData;
@@ -414,6 +415,19 @@ public class MemberController {
 		model.addAttribute("index",3);
 		return "member/campingBookmark";
 	}
+	
+	//캠핑장 예약 현황
+	@RequestMapping(value = "/campingReservation.do")
+	public String campingReservation(int reqPage, String memberId, Model model) {
+		CampingReservationPageData crpd = service.selectCampingReservation(memberId, reqPage);
+		model.addAttribute("list",crpd.getList());
+		model.addAttribute("navi",crpd.getPageNavi());
+		model.addAttribute("count",crpd.getTotalCount());
+		model.addAttribute("index",1);
+			return "member/reservationList";
+	}
+	
+	
 }
 
 

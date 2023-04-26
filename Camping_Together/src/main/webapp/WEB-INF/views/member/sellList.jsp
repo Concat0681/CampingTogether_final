@@ -34,7 +34,6 @@
 						<th >방 개수</th>
 						<th class="th5">방 추가</th>
 						<th class="th6">캠핑장 수정 및 삭제</th>
-
 					</tr>
 				<c:forEach items="${list }" var="l">  
 					<tr>
@@ -58,14 +57,13 @@
 							</div>
 						</div>
 						</td>
-
 						<td>
 						<div class="updael">
 							<div class="c-update">
-								<a href="/updateCampingFrm.do?campingNo=${l.campingNo }">수정</a>
+								<a href="">수정</a>
 							</div>
 							<div class="c-delete">
-								<a href="javascript:void(0)" class="deleteCamping" onclick="deleteCamping(this,${l.campingNo },'${sessionScope.m.memberId }');">삭제</a>
+								<a href="">삭제</a>
 							</div>
 						</div>
 						</td>
@@ -83,7 +81,6 @@
 									<th>방 이름</th>
 									<th>방 유형</th>
 									<th>가격(1박)</th>
-									<th>캠핑 수정 및 삭제</th>
 								</tr>
 								<tr class="goblin" style="width:800px;">
 								</tr>
@@ -125,9 +122,9 @@
 	</script>
 	
 	<script>
-		function deleteCamping(obj,campingNo,memberId){
+		function deleteCamping(obj,campingNo){
 			if(confirm("캠핑장을 삭제하시겠습니까?")){
-				location.href="/deleteCamping.do?campingNo="+campingNo+"&memberId="+memberId;
+				location.href="/deleteCamping.do?campingNo="+campingNo;
 			}
 		}
 		
@@ -156,14 +153,7 @@
 					const td2 = $("<td>").text(data[i].campingRoomType). css("width","266px").css("padding-top","10px");
 					const td3 = $("<td>").text(data[i].campingRoomPrice).css("width","266px").css("padding-top","10px");
 					
-					const td4 = $("<td>").css("width","266px").css("padding-top","10px");
-					const div = $("<div>").addClass("updael");
-					const campingUpdateDiv = $("<div>").addClass("c-update").append($("<a>").attr("href", "/updateCampingRoomFrm.do?campingRoomNo=" + data[i].campingRoomNo).text("수정"));
-					const campingDeleteDiv = $("<div>").addClass("c-delete").append($("<a>").attr("href", "javascript:void(0)").addClass("deleteCampingRoom").attr("onclick", "deleteCampingRoom(this," + data[i].campingRoomNo + "," + campingNo + ")").text("삭제"));
-					div.append(campingUpdateDiv).append(campingDeleteDiv);
-					td4.append(div);
-					
-					$(".goblin").append(td1).append(td2).append(td3).append(td4);
+					$(".goblin").append(td1).append(td2).append(td3);
 					
 					$(".room-toggle").toggle(); //아작스 성공 코드 안으로(화면 채운 후 토글)
 					$(".goblin").css("margin-top","20px");

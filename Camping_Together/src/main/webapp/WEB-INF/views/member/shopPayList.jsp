@@ -8,9 +8,7 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="resources/css/updateMypageC.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-
 <script src="resources/js/moment.js"></script>
-
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/mypageMenu.jsp" />
@@ -35,14 +33,15 @@
 						<th>결제 금액</th>
 					</tr>
 				<c:forEach items="${list }" var="p">
-					<tr>
-						<td style="cursor: pointer;"><a href="/viewCamping.do?campingNo=${p.campingNo }">${p.campingRoomTitle }</a></td>
-						<input type="hidden" name="campingRoomNo" value="${p.campingNo }">
-						<td>${p.campingPaymentDate }</td>
-						<td class="checkIn">${p.checkIn }</td>
-						<td class="checkOut">${p.checkOut }</td>
-						<td class="total-price"></td>
-					<td class="oneDayPay" style="display:none;">${p.campingRoomPrice } 원</td>
+					<tr onclick="location.href='/reservationMyInfo.do?campingReservationNo=${p.campingReservationNo }'">
+<%-- 						<td style="cursor: pointer;"><a href="/viewCamping.do?campingNo=${p.campingNo }">${p.campingRoomTitle }</a></td> --%>
+							<input type="hidden" name="campingRoomNo" value="${p.campingNo }">
+							<td>${p.campingRoomTitle }</td>
+							<td>${p.campingPaymentDate }</td>
+							<td class="checkIn">${p.checkIn }</td>
+							<td class="checkOut">${p.checkOut }</td>
+							<td class="total-price"></td>
+							<td class="oneDayPay" style="display:none;">${p.campingRoomPrice } 원</td>
 					</tr>
 					
 				</c:forEach>
@@ -53,7 +52,7 @@
 				${navi }
 		  </div>
 		</div>
-			  
+			 
 		
 			
 			
@@ -79,9 +78,6 @@
 				totalPrice.eq(i).text(oneDayPay[i].innerText * totalCheck);
 				
 			}
-
 		</script>
 </body>
 </html>
-
-
