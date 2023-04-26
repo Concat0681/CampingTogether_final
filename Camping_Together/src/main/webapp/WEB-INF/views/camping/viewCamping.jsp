@@ -198,7 +198,7 @@
 											<input type="hidden" name="addr" value="${camping.campingAddr }">
 											<c:forEach items="${reservationList}" var="rl" varStatus="j">
 											<c:choose>
-												<c:when test="${empty sessionScope.m }">
+												<c:when test="${empty sessionScope.m and  i.index eq j.index }">
 													<button type="button" class="btn2 loginBtn" style="width: 100%;">예약하기</button>
 												</c:when>
 												<c:otherwise>
