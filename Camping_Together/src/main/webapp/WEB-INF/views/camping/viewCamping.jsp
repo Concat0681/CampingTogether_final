@@ -197,12 +197,19 @@
 											<input type="hidden" name="price" value="${r.campingRoomPrice }">
 											<input type="hidden" name="addr" value="${camping.campingAddr }">
 											<c:forEach items="${reservationList}" var="rl" varStatus="j">
-											<c:if test="${rl.campingReservationNo eq null and  i.index eq j.index}">
-    											<button type="submit" class="btn2 reservationBtn" style="width: 100%;">예약하기</button>
-											</c:if>
-    										<c:if test="${r.campingRoomNo eq rl.campingRoomNo}">
-        										<div class="reservation" style="background-color: #e3e4e5; width: 100%; border-radius: 5px; color: white; text-align: center;">예약완료</div>
-    										</c:if>
+											<c:choose>
+												<c:when test="${empty sessionScope.m }">
+													<button type="button" class="btn2 loginBtn" style="width: 100%;">예약하기</button>
+												</c:when>
+												<c:otherwise>
+													<c:if test="${rl.campingReservationNo eq null and  i.index eq j.index}">
+		    											<button type="submit" class="btn2 reservationBtn" style="width: 100%;">예약하기</button>
+													</c:if>
+		    										<c:if test="${r.campingRoomNo eq rl.campingRoomNo}">
+		        										<div class="reservation" style="background-color: #e3e4e5; width: 100%; border-radius: 5px; color: white; text-align: center;">예약완료</div>
+		    										</c:if>
+												</c:otherwise>
+											</c:choose>
 											</c:forEach>
 										</form>
 									</div>
