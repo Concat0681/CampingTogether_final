@@ -34,6 +34,7 @@
 						<th >방 개수</th>
 						<th class="th5">방 추가</th>
 						<th class="th6">캠핑장 수정 및 삭제</th>
+
 					</tr>
 				<c:forEach items="${list }" var="l">  
 					<tr>
@@ -57,13 +58,14 @@
 							</div>
 						</div>
 						</td>
+
 						<td>
 						<div class="updael">
 							<div class="c-update">
-								<a href="">수정</a>
+								<a href="/updateCampingFrm.do?campingNo=${l.campingNo }">수정</a>
 							</div>
 							<div class="c-delete">
-								<a href="">삭제</a>
+								<a href="javascript:void(0)" class="deleteCamping" onclick="deleteCamping(this,${l.campingNo },'${sessionScope.m.memberId }');">삭제</a>
 							</div>
 						</div>
 						</td>
@@ -118,9 +120,9 @@
 	</script>
 	
 	<script>
-		function deleteCamping(obj,campingNo){
+		function deleteCamping(obj,campingNo,memberId){
 			if(confirm("캠핑장을 삭제하시겠습니까?")){
-				location.href="/deleteCamping.do?campingNo="+campingNo;
+				location.href="/deleteCamping.do?campingNo="+campingNo+"&memberId="+memberId;
 			}
 		}
 		
@@ -150,7 +152,6 @@
 					const td2 = $("<td>").text(data[i].campingRoomType). css("width","266px").css("padding-top","10px");
 					const td3 = $("<td>").text(data[i].campingRoomPrice).css("width","266px").css("padding-top","10px");
 					
-					$(".goblin").append(td1).append(td2).append(td3);
 					const td4 = $("<td>").css("width","266px").css("padding-top","10px");
 					const div = $("<div>").addClass("updael");
 					const campingUpdateDiv = $("<div>").addClass("c-update").append($("<a>").attr("href", "/updateCampingRoomFrm.do?campingRoomNo=" + data[i].campingRoomNo).text("수정"));
