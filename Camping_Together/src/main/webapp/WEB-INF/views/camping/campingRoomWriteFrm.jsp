@@ -69,6 +69,10 @@
 			position: relative;
 			z-index: 1;
 		}
+		
+		h2, h3{
+		color: #AD8B73;
+	}
 </style>
 </head>
 <body>
@@ -82,13 +86,13 @@
 	        			<input type="hidden" name="campingNo" value="${campingNo }">
 		        		<table>
 		        			<tr>
-		        				<td style="width: 120px; font-size: 1.17em; font-weight: bold; padding-bottom: 20px;">이름</td>
+		        				<td style="width: 120px; font-size: 1.17em; font-weight: bold; padding-bottom: 20px; color: #AD8B73;">이름</td>
 		        				<td style="padding-bottom: 20px;">
 		        					<input type="text" class="input-long" name="campingRoomTitle" >
 		        				</td>
 		        			</tr>
 		        			<tr>
-		        				<td style="width: 120px; font-size: 1.17em; font-weight: bold; padding-bottom: 20px;">객실 수</td>
+		        				<td style="width: 120px; font-size: 1.17em; font-weight: bold; padding-bottom: 20px; color: #AD8B73;">객실 수</td>
 		        				<td style="padding-bottom: 20px;">
 		        					<input type="text" class="input-long" name="campingRoomCount" placeholder="최대 100개의 객실까지 등록 가능합니다.">
 		        				</td>
@@ -100,19 +104,19 @@
 		       					</td>
 	        				</tr>
 		        			<tr>
-		        				<td style="width: 120px; font-size: 1.17em; font-weight: bold; padding-bottom: 20px;">1박당 가격</td>
+		        				<td style="width: 120px; font-size: 1.17em; font-weight: bold; padding-bottom: 20px; color: #AD8B73;">1박당 가격</td>
 		        				<td style="padding-bottom: 20px;">
 		        					<input type="text" class="input-long" name="campingRoomPrice" placeholder="최소 100원부터 최대 1억까지 등록 가능합니다.">
 		        				</td>
 		        			</tr>
 							<tr>
-								<td style="width: 120px; font-size: 1.17em; font-weight: bold; padding-bottom: 20px;">최대인원</td>
+								<td style="width: 120px; font-size: 1.17em; font-weight: bold; padding-bottom: 20px; color: #AD8B73;">최대인원</td>
 								<td style="padding-bottom: 20px;">
 									<input type="number" class="input-long" name="campingRoomMaxPplCount" min="1" max="20" placeholder="최소 1명에서 최대 20명의 인원이 등록 가능합니다.">
 								</td>
 							</tr>
 							<tr>
-								<td style="width: 120px; font-size: 1.17em; font-weight: bold; padding-bottom: 20px;">캠핑 유형</td>
+								<td style="width: 120px; font-size: 1.17em; font-weight: bold; padding-bottom: 20px; color: #AD8B73;">캠핑 유형</td>
 								<td style="padding-bottom: 20px;">
 									<input type="radio" id="campingCheck1" name="campingRoomType" value="오토캠핑">
 				        			<label for="campingCheck1" style="padding-right: 50px;">오토캠핑</label>
@@ -127,7 +131,7 @@
 		        			<textarea class="campingRoomContent" name="campingRoomContent"></textarea>
 		       			</div>
 		        		<div class="contentTitle"><h3>사진</h3>
-		        		<h5>최소 3개 이상의 파일을 등록해주세요.</h5>
+		        		<h5 style="color: #808080;">최소 3개 이상의 파일을 등록해주세요.</h5>
 		        			<input type="file" name="campingRoomFilepath" onchange="loadImgs(this);" id="campingRoomFilepath" style="display: none;" multiple>
 		        			<label for="campingRoomFilepath">
 		        				<span class="material-symbols-outlined photoCamera2" style="font-size: 250px;">photo_camera</span>

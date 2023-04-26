@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -16,6 +17,7 @@ import com.google.gson.Gson;
 import common.FileManager;
 import kr.or.iei.camping.model.service.CampingService;
 import kr.or.iei.camping.model.vo.Camping;
+import kr.or.iei.camping.model.vo.CampingDeleteData;
 import kr.or.iei.camping.model.vo.CampingEtc;
 import kr.or.iei.camping.model.vo.CampingListPageData;
 import kr.or.iei.camping.model.vo.CampingPayment;
@@ -419,16 +421,18 @@ public class CampingController {
 	}
 	
 	@RequestMapping(value="/deleteCamping.do")
-	public String deleteCamping(int campingNo, HttpServletRequest request) {
-		int result = service.deleteCamping(campingNo);
-		String memberId = "";
-		ViewCampingData vcd = service.selectOneCamping(campingNo, memberId);
-		if(result > 0) {
-			String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/camping/");
-			manager.deleteFile(savePath, vcd.getCamping().getFilepath());
-			return "redirect:/";
+	public String deleteCamping(int campingNo, String memberId, HttpServletRequest request) {
+		CampingDeleteData cdd = service.deleteCamping(campingNo);
+		if(cdd == null) {
+			return "redirect:/sellList.do?reqPage=1&memberId="+memberId;
 		}else {
-			return "redirect:/";
+			String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/campingRoom/");
+			for(CampingRoomFileVO file : cdd.getCampingRoomFileList()) {
+				manager.deleteFile(savePath,file.getFilepath());
+			}
+			String savePath2 = request.getSession().getServletContext().getRealPath("/resources/upload/camping/");
+			manager.deleteFile(savePath2,cdd.getCamping().getFilepath());
+			return "redirect:/sellList.do?reqPage=1&memberId="+memberId;
 		}
 	}
 	

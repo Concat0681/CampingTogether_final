@@ -14,13 +14,12 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.Gson;
 
 import common.FileManager;
-import kr.or.iei.blacklist.model.vo.Blacklist;
-import kr.or.iei.blacklist.model.vo.BlacklistPhoto;
 import kr.or.iei.usedBoard.model.service.UsedBoardService;
 import kr.or.iei.usedBoard.model.vo.UsedBoard;
 import kr.or.iei.usedBoard.model.vo.UsedBoardComment;
 import kr.or.iei.usedBoard.model.vo.UsedBoardPageData;
 import kr.or.iei.usedBoard.model.vo.UsedBoardPhoto;
+import kr.or.iei.usedBoard.model.vo.UsedWishList;
 
 @Controller
 public class UsedBoardController {
@@ -38,12 +37,13 @@ public class UsedBoardController {
     }
 	
 	@RequestMapping(value="/usedBoardList.do")
-	public String usedBoardList(int reqPage, Model model) {
-		UsedBoardPageData ubpd = service.selectUsedBoardList(reqPage);
+	public String usedBoardList(int reqPage, String memberId, Model model) {
+		UsedBoardPageData ubpd = service.selectUsedBoardList(reqPage, memberId);
 		model.addAttribute("list", ubpd.getList());
 		model.addAttribute("pageNavi", ubpd.getPageNavi());
 		return "usedBoard/usedBoardList";
 	}
+	
 	@RequestMapping(value="/usedBoardWriteFrm.do")
 	public String usedBoardWriteFrm() {
 		return "usedBoard/usedBoardWriteFrm";
@@ -159,6 +159,28 @@ public class UsedBoardController {
 	public String usedBoardStatusUpdate(int usedBoardNo) {
 		int result = service.updateUsedBoardStatus(usedBoardNo);
 		return "redirect:/usedBoardView.do?usedBoardNo="+usedBoardNo;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/wishInsert.do")
+	public String wishInsert(UsedWishList uwl) {
+		int result = service.insertUsedWishList(uwl);
+		if(result > 0) {
+			return "ok";
+		}else {
+			return "no";
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/wishDelete.do")
+	public String wishDelete(UsedWishList uwl) {
+		int result = service.deleteUsedWishList(uwl);
+		if(result > 0) {
+			return "ok";			
+		}else {
+			return "no";
+		}
 	}
 }
 

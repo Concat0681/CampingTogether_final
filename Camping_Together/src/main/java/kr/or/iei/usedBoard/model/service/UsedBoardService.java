@@ -17,6 +17,7 @@ import kr.or.iei.usedBoard.model.vo.UsedBoard;
 import kr.or.iei.usedBoard.model.vo.UsedBoardComment;
 import kr.or.iei.usedBoard.model.vo.UsedBoardPageData;
 import kr.or.iei.usedBoard.model.vo.UsedBoardPhoto;
+import kr.or.iei.usedBoard.model.vo.UsedWishList;
 
 @Service
 public class UsedBoardService {
@@ -24,13 +25,14 @@ public class UsedBoardService {
 	@Autowired
 	private UsedBoardDao dao;
 	
-	public UsedBoardPageData selectUsedBoardList(int reqPage) {
+	public UsedBoardPageData selectUsedBoardList(int reqPage, String memberId) {
 		int numPerPage = 9;
 		int end = reqPage * numPerPage;
 		int start = end - numPerPage + 1;
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("start", start);
 		map.put("end", end);
+		map.put("memberId", memberId);
 		ArrayList<UsedBoard> list = dao.selectUsedBoardList(map);
 		int totalCount = dao.selectBoardCount();
 		int totalPage = (int)Math.ceil(totalCount/(double)numPerPage);
@@ -165,6 +167,15 @@ public class UsedBoardService {
 		return dao.getTop3UsedBoards(ub);
 
 	}
+
+	public int insertUsedWishList(UsedWishList uwl) {
+		return dao.insertUsedWishList(uwl);
+	}
+
+	public int deleteUsedWishList(UsedWishList uwl) {
+		return dao.deleteUsedWishList(uwl);
+	}
+
 }
 
 

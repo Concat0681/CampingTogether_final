@@ -8,7 +8,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <style>
 	a{
    	   color: var(--text-color);
@@ -23,6 +22,7 @@
        'opsz' 48
    }
    .fill-icon{
+   		color: red;
     	font-variation-settings: 'FILL' 1
 	}
    .page-content{
@@ -185,6 +185,9 @@
    .icon:last-child{
    		font-size: 18px;
    }
+   #favorite{
+   		cursor: pointer;
+   }
 </style>
 </head>
 <body>
@@ -236,7 +239,7 @@
         </div>
         <div class="content-mid-wrap">
             <div class="content-mid">
-            	<c:forEach items="${list }" var="ub">
+            	<c:forEach items="${list }" var="ub" varStatus="i">
             	<input type="hidden" id="usedBoardNo" value="${ub.usedBoardNo }">
             	<div class="product-wrap">
                     <div class="product">
@@ -282,29 +285,17 @@
                             <div class="product-price">
                                 <span><fmt:formatNumber value="${ub.usedProductPrice }" pattern="#,###" /></span><span>원</span>
                             </div>
-                            <span id="favorite" class="material-symbols-outlined product-wish" style="z-index:1000;">favorite</span>
+  							<c:choose>
+  								<c:when test="${ub.wishChk eq 0 }">
+  									<span id="favorite" class="material-symbols-outlined product-wish" >favorite</span>
+  								</c:when>
+  								<c:otherwise>
+  									<span id="favorite" class="material-symbols-outlined product-wish fill-icon" >favorite</span>
+  								</c:otherwise>
+  							</c:choose>
+                            <input type="hidden" value="${sessionScope.m.memberId }" id="loginMemberId">
+                            <input type="hidden" value="${ub.usedBoardNo }">
                         </div>
-                        <!-- 
-                        <div class="product-bottom array">
-                            <div class="product-regDate">
-                                <span>${ub.regDate }</span>
-                            </div>
-                            <div class="product-etc">
-                            	<div class="product-wishView">
-                                    <div class="material-symbols-outlined icon">favorite</div>
-                                    <div><p>20</p></div>
-                                </div>
-                                <div class="product-comment">
-                                    <div class="material-symbols-outlined icon">chat_bubble</div>
-                                    <div><p>10</p></div>
-                                </div>
-                                <div class="product-readCount">
-                                    <div class="material-symbols-outlined icon">visibility</div>
-                                    <div><p>${ub.readCount }</p></div>
-                                </div>
-                            </div>
-                        </div>  
-                         --> 
                     </div>
                 </div>
             	</c:forEach>   
@@ -314,5 +305,37 @@
 	        ${pageNavi }
         </div>
     </div>  
+    <script>
+    	$(".product-wish").on("click", function(){
+    		const memberId = $("#loginMemberId").val();
+    		const usedBoardNo = $(this).next().next().val();
+    		const obj = $(this);
+    		if(memberId == ""){
+    			alert("로그인 후 이용가능합니다.");
+    			return false;
+    		}else{
+    			if(obj.hasClass("fill-icon")){
+    				//찜취소
+    				$.ajax({
+    					url: "/wishDelete.do",
+    					type: "get",
+    					data: {memberId : memberId, usedBoardNo : usedBoardNo},
+    					success: function(data){
+    						obj.removeClass("fill-icon");		
+    					}
+    				});				
+    			}else{
+    				$.ajax({
+    					url: "/wishInsert.do",
+    					type: "get",
+    					data: {memberId : memberId, usedBoardNo : usedBoardNo},
+    					success: function(data){
+	    					obj.addClass("fill-icon");		
+    					}
+    				});
+    			}
+    		}
+    	});
+    </script>
 </body>
 </html>

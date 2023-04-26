@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.iei.camping.model.dao.CampingDao;
 import kr.or.iei.camping.model.vo.Camping;
+import kr.or.iei.camping.model.vo.CampingDeleteData;
 import kr.or.iei.camping.model.vo.CampingEtc;
 import kr.or.iei.camping.model.vo.CampingListPageData;
 import kr.or.iei.camping.model.vo.CampingPayment;
@@ -351,9 +352,19 @@ public class CampingService {
 		return result;
 	}
 
-	public int deleteCamping(int campingNo) {
+	public CampingDeleteData deleteCamping(int campingNo) {
+		CampingDeleteData cdd = new CampingDeleteData();
+		Camping c = dao.selectDeleteCamping(campingNo);
+		ArrayList<CampingRoomFileVO> fileList = dao.selectDeleteCampingRoomFileList(campingNo);
+		cdd.setCampingRoomFileList(fileList);
+		cdd.setCamping(c);
 		int result = dao.deleteCamping(campingNo);
-		return result;
+		if(result > 0) {
+			return cdd;
+		}else {
+			return null;
+		}
+		
 	}
 
 
