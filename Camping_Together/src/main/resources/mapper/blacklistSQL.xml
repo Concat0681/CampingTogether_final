@@ -56,7 +56,7 @@
 	<select id="selectAllBlacklist" parameterType="map" resultType="bl">
 		select *
 		from
-		    (select rownum as rnum, ub.* from 
+		    (select rownum as rnum, bl.* from 
 		        (select 
 		            blacklist_no as BlacklistNo,
                     used_board_no as usedBoardNo,
@@ -65,7 +65,7 @@
                     blacklist_status as blacklistStatus,
                     reg_date as regDate
 		        from blacklist 
-		        order by 1 desc)ub)
+		        order by 1 desc)bl)
 		where rnum between #{start} and #{end}
 	</select>
 	<select id="selectBlacklistCount" resultType="_int">
@@ -80,9 +80,11 @@
 			blacklist_member_id as blacklistMemberId,
 			blacklist_type as blacklistType,
 			blacklist_status as blaclistStatus,
-			reg_date as RegDate,
-			blacklist_content as blacklistContent
+			blacklist.reg_date as RegDate,
+			blacklist_content as blacklistContent,
+			used_board_title as blackUsedBoardTitle
 		from blacklist
+		join used_board using(used_board_no)
 		where blacklist_no = #{_parameter}
 	</select>
 	<select id="selectOneBlacklistPhoto" parameterType="_int" resultType="blp">
@@ -93,5 +95,36 @@
 			filename
 		from blacklist_photo
 		where blacklist_no = #{_parameter}
+	</select>
+	<update id="updateBlacklistStatus" parameterType="bl">
+		update blacklist set blacklist_status = #{blacklistStatus} where blacklist_no = #{blacklistNo}
+	</update>
+	
+	<select id="selectMemberBlackCount" parameterType="string" resultType="_int">
+		select count(*) from blacklist where blacklist_status = 1 and blacklist_member_id = #{_parameter}
+	</select>
+	<update id="updateBlackMember" parameterType="string">
+		update member set member_grade = 'B' where member_id = #{_parameter}
+	</update>
+	
+	<select id="getPhoto" parameterType="_int" resultType="blp">
+		select
+			filepath,
+			filename
+		from blacklist_photo
+		where blacklist_photo_no = #{_parameter}
+	</select>
+	<select id="selectSearchBlackMember" parameterType="string" resultType="bl">
+		select rownum as rnum, bl.* from 
+	        (select 
+	            blacklist_no as BlacklistNo,
+	                  used_board_no as usedBoardNo,
+	                  blacklist_member_id as blacklistMemberId,
+	                  blacklist_type as BlacklistType,
+	                  blacklist_status as blacklistStatus,
+	                  reg_date as regDate
+	        from blacklist 
+	        where blacklist_member_id like '%'||#{_parameter}||'%' 
+	        order by 1 desc)bl			
 	</select>
 </mapper>

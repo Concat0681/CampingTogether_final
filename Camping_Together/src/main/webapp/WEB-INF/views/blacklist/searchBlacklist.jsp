@@ -128,6 +128,7 @@
 			</div>
 		</div>	
 		<div class="list">
+		<h5 style="color:#AD8B73;">[ ${keyword } ] 검색 내역</h5>
 			<table>
 				<tr>
 					<td class="td1" style="border-top-left-radius: 10px;">No</td>

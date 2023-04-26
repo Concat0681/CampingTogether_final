@@ -269,10 +269,10 @@ public class MemberController {
 	}
 	
 	//찜한목록
-	@RequestMapping(value = "/usedWishList.do")
+	@RequestMapping(value = "/myUsedSellList.do")
 	public String usedWishList(int reqPage,String memberId, Model model) {
 		model.addAttribute("index",4);
-		return "member/usedWishList";
+		return "member/myUsedSellList";
 	
 	}
 	

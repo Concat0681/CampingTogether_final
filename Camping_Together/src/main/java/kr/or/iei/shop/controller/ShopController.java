@@ -297,9 +297,14 @@ public class ShopController {
 	
 	@ResponseBody
 	@RequestMapping(value="/deleteShopReview.do")
-	public String deleteShopReview(int shopReviewNo) {
+	public String deleteShopReview(int shopReviewNo,  HttpServletRequest request ) {
 		int result = service.deleteShopReview(shopReviewNo);
+		String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/shopReview/");
 		if(result > 0) {
+			ArrayList<ShopReviewPhoto> photoList = service.selectOneShopReviewPhoto(shopReviewNo);
+			for(ShopReviewPhoto srp : photoList) {
+				manager.deleteFile(savePath, srp.getFilepath());
+			}
 			return "success";
 		} else {
 			return "error";
