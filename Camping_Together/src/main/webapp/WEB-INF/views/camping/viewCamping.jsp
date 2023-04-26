@@ -165,8 +165,8 @@
 										<form action="reservationFrm.do?checkIn=${checkIn }&checkOut=${checkOut}" method="post">
 											<input type="hidden" name="memberNo" value="${sessionScope.m.memberNo }">
 											<input type="hidden" name="campingRoomNo" value="${r.campingRoomNo }">
-											<input type="text" name="checkIn1"  value="${checkIn }">
-											<input type="text" name="checkOut1" value="${checkOut }">
+											<input type="hidden" name="checkIn1"  value="${checkIn }">
+											<input type="hidden" name="checkOut1" value="${checkOut }">
 											<input type="hidden" name="campingTitle" value="${camping.campingTitle } ">
 											<input type="hidden" name="campingType" value="${r.campingRoomTitle }">
 											<input type="hidden" name="price" value="${r.campingRoomPrice }">

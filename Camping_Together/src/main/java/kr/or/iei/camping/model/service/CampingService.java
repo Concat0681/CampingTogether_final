@@ -23,6 +23,7 @@ import kr.or.iei.camping.model.vo.CampingRoomService;
 import kr.or.iei.camping.model.vo.SellCampingList;
 import kr.or.iei.camping.model.vo.SellCampingListData;
 import kr.or.iei.camping.model.vo.ViewCampingData;
+import kr.or.iei.camping.model.vo.reservationInfo;
 
 @Service
 public class CampingService {
@@ -397,6 +398,15 @@ public class CampingService {
 		int result = dao.deleteCampingBookmark(campingBookmarkNo);
 		return result;
 	}
+
+	public reservationInfo selectReservationMyInfo(int campingReservationNo) {
+		return dao.selectReservationMyInfo(campingReservationNo);
+	}
+
+	public int deleteCampingReservation(int campingReservationNo) {
+		return dao.deleteCampingReservation(campingReservationNo);
+	}
+
 
 	
 

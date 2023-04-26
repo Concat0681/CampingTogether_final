@@ -470,6 +470,7 @@
 	</select>
 	<select id="selectRoomMemberNo" parameterType="_int" resultType="cre">
 		select 
+		camping_reservation_no as campingReservationNo,
 		camping_room_no as campingRoomNo,
 		check_in as checkIn,
 		check_out as checkOut
@@ -483,7 +484,6 @@
 			check_in as checkIn,
 			check_out as checkOut 
 		from camping_reservation
-		
 		where (check_in between #{checkIn} and #{checkOut}) and (camping_room_no = #{campingRoomNo})
 	</select>
 	<select id="selectReservation" parameterType="cre" resultType="cre">
@@ -511,5 +511,22 @@
 	<delete id="deleteCampingBookmark" parameterType="_int">
 		delete from camping_bookmark where camping_bookmark_no = #{_parameter}
 	</delete>
-	
+	<select id="selectReservationMyInfo" parameterType="_int" resultType="ri">
+		select 
+			member_name as memberName,
+			member_phone as memberPhone,
+			camping_title as campingTitle,
+			camping_addr as campingAddr,
+			check_in as checkIn,
+			check_out as checkOut,
+			camping_payment_date as campingPaymentDate 
+			from camping_payment 
+			left join camping_reservation using(camping_reservation_no) 
+			left join member using(member_no) 
+			left join camping using(member_id) 
+		where camping_reservation_no = #{_parameter}
+	</select>
+	<delete id="deleteCampingReservation" parameterType="_int">
+		delete from camping_reservation where camping_reservation_no = #{_parameter}
+	</delete>	
 </mapper>

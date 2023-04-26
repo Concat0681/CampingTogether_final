@@ -19,6 +19,7 @@ import kr.or.iei.camping.model.vo.CampingRoom;
 import kr.or.iei.camping.model.vo.CampingRoomFileVO;
 import kr.or.iei.camping.model.vo.CampingRoomService;
 import kr.or.iei.camping.model.vo.SellCampingList;
+import kr.or.iei.camping.model.vo.reservationInfo;
 
 @Repository
 public class CampingDao {
@@ -264,6 +265,17 @@ public class CampingDao {
 		int result = sqlSession.delete("camping.deleteCampingBookmark", campingBookmarkNo);
 		return result;
 	}
+
+	public reservationInfo selectReservationMyInfo(int campingReservationNo) {
+		reservationInfo ri = sqlSession.selectOne("camping.selectReservationMyInfo",campingReservationNo);
+		return ri;
+	}
+
+	public int deleteCampingReservation(int campingReservationNo) {
+		int result = sqlSession.delete("camping.deleteCampingReservation",campingReservationNo);
+		return result;
+	}
+
 
 
 	

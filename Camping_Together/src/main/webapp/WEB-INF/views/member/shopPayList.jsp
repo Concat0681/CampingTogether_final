@@ -34,7 +34,7 @@
 					</tr>
 				<c:forEach items="${list }" var="p">
 					<tr>
-						<td>${p.campingRoomTitle }</td>
+						<td><a href="/reservationMyInfo.do?campingReservationNo=${p.campingReservationNo }">${p.campingRoomTitle }</a></td>
 						<td>${p.campingPaymentDate }</td>
 						<td class="checkIn">${p.checkIn }</td>
 						<td class="checkOut">${p.checkOut }</td>
