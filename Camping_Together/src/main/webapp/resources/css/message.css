@@ -55,10 +55,15 @@
     justify-content: center;
     align-items: center;
 }
-.fill{
+.filler{
 	cursor: pointer;
 	padding: 10px;
 }
+.messageTd{
+	padding: 5px;
+	border-left: 1px solid gray;
+}
+
 .message-modal{
     width: 350px;
     margin: 0 auto;
