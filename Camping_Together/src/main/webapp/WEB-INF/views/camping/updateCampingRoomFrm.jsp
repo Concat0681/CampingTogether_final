@@ -55,6 +55,10 @@
 			position: relative;
 			z-index: 1;
 		}
+		
+		h2, h3{
+			color: #AD8B73;
+		}
 </style>
 </head>
 <body>
@@ -171,7 +175,7 @@
 	<script>
 		const priceResult = [false];
 		
-		$("[name=campingRoomPrice]").on("change",function(){
+		$(document).ready(function() {
 			const campingRoomPrice = $("[name=campingRoomPrice]").val();
 			if(campingRoomPrice >= 100 && campingRoomPrice <= 100000000){
 				$(".priceComment").text("");
@@ -181,6 +185,19 @@
 				$(".priceComment").css("color","red");
 				priceResult[0] = false;
 			}
+			
+			
+			$("[name=campingRoomPrice]").on("change",function(){
+				const campingRoomPrice = $("[name=campingRoomPrice]").val();
+				if(campingRoomPrice >= 100 && campingRoomPrice <= 100000000){
+					$(".priceComment").text("");
+					priceResult[0] = true;
+				}else{
+					$(".priceComment").text("금액을 확인해주세요.");
+					$(".priceComment").css("color","red");
+					priceResult[0] = false;
+				}
+			});
 		});
 	</script>
 	

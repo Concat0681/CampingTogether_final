@@ -604,4 +604,26 @@
 	<delete id="deleteCampingEtc" parameterType="_int">
 		delete from camping_etc where camping_no=#{_parameter}
 	</delete>
+	
+	<select id="selectDeleteCampingRoomFileList" parameterType="_int" resultType="crf">
+		select
+			 camping_room_photo_no as campingRoomPhotoNo,
+			 camping_room_no as campingRoomNo,
+			 filepath 
+		 from camping_room_photo where camping_room_no in (select camping_room_no from camping_room where camping_no=#{_parameter})
+	</select>
+	
+	<select id="selectDeleteCamping" parameterType="_int" resultType="c">
+		select
+			camping_no as campingNo,
+			member_id as memberId,
+			camping_title as campingTitle,
+			camping_content as campingContent,
+			camping_sido as campingSido,
+			camping_addr as campingAddr,
+			camping_addr_detail as campingAddrDetail,
+			camping_phone as campingPhone,
+			filepath
+		from camping where camping_no=#{_parameter}
+	</select>
 </mapper>

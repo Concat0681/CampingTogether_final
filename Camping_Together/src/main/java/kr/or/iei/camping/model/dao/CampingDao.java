@@ -310,6 +310,21 @@ public class CampingDao {
 		return bookmarkNo;
 	}
 
+	public int selectCampingRoomNo(int campingNo) {
+		
+		return 0;
+	}
+
+	public ArrayList<CampingRoomFileVO> selectDeleteCampingRoomFileList(int campingNo) {
+		List list = sqlSession.selectList("camping.selectDeleteCampingRoomFileList", campingNo);
+		return (ArrayList<CampingRoomFileVO>)list;
+	}
+
+	public Camping selectDeleteCamping(int campingNo) {
+		Camping c = sqlSession.selectOne("camping.selectDeleteCamping",campingNo);
+		return c;
+	}
+
 
 	
 

@@ -29,7 +29,7 @@ public class MessageController {
 
 	@RequestMapping(value = "/messageMain.do")
 	public String messageMain() {
-		return "message/messageMainTest";
+		return "common/header";
 	}
 
 	@ResponseBody

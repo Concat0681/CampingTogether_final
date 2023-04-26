@@ -2,7 +2,6 @@
   display: flex;
   justify-content: space-between;
 }
-
 .message-comset{
   display: none; /* 모달창 기본적으로는 안 보이도록 지정 */
   position: fixed; 
@@ -26,13 +25,6 @@
   right: 30%;
   background-color: #fff;
 }
-
-
-
-table{
-  margin: 0 auto;
-  text-align: center;
-}
 .tab-content{
   text-align: center;
 }
@@ -42,6 +34,7 @@ table{
 	padding: 15px;
 	display: flex;
 	text-align: center;	
+	margin: 0px;
 }
 .tab-group>li{
 	margin: 20px;
@@ -51,7 +44,6 @@ table{
 	border-radius: 8px;
 	padding: 12px;
 }
-
 .modal-wrapper{
     margin: 0 auto;
     width: 90%;
@@ -62,9 +54,7 @@ table{
     display: none;
     justify-content: center;
     align-items: center;
-
 }
-
 .fill{
 	cursor: pointer;
 	padding: 10px;
