@@ -17,6 +17,8 @@ import kr.or.iei.member.model.vo.AdminShopList;
 import kr.or.iei.member.model.vo.AdminShopPageData;
 import kr.or.iei.member.model.vo.AllMemberPageData;
 import kr.or.iei.member.model.vo.CampingPayment;
+import kr.or.iei.member.model.vo.CampingReservationList;
+import kr.or.iei.member.model.vo.CampingReservationPageData;
 import kr.or.iei.member.model.vo.Member;
 import kr.or.iei.member.model.vo.MemberPageData;
 import kr.or.iei.member.model.vo.MyReview;
@@ -458,13 +460,10 @@ public class MemberService {
 				map.put("start", start);
 				map.put("end", end);
 				map.put("memberId", memberId);
-				System.out.println(map);
-				
 				
 				ArrayList<AdminShopList> list = dao.selectAdminShopList(map);
 		
 				int totalCount = dao.selectAdminShopCount();
-
 				int totalPage = (int) Math.ceil(totalCount / (double) numPerpage);
 		
 				// pageNavi사이즈
@@ -541,6 +540,82 @@ public class MemberService {
 	public ArrayList<String> selectId() {
 		ArrayList<String> list = dao.selectId();
 		return list;
+	}
+
+	
+	//
+	public CampingReservationPageData selectCampingReservation(String memberId, int reqPage) {
+		int numPerpage = 10;
+		
+		// reqPage = 1 -> 1~2, reqPage = 2 -> 2~3
+		int end = reqPage * numPerpage;
+		int start = end - numPerpage + 1;
+
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("start", start);
+		map.put("end", end);
+		map.put("memberId", memberId);
+
+		ArrayList<CampingReservationList> list = dao.selectReservationList(map);
+
+		int totalCount = dao.selectReservationListCount(memberId);
+
+		int totalPage = (int) Math.ceil(totalCount / (double) numPerpage);
+		
+		
+		// pageNavi사이즈
+		int pageNaviSize = 5;
+
+		int pageNo = 1;
+		if (reqPage > 3) {
+			pageNo = reqPage - 2;
+		}
+
+		// 페이지네비 생성 시작
+		String pageNavi = "<ul class='pagination circle-style'>";
+
+		// 이전 버
+		if (pageNo != 1) {
+
+			pageNavi += "<li>";
+			pageNavi += "<a class='page-item' href='/campingReservation.do?reqPage=" + (pageNo - 1) + "&memberId="+memberId+"'>";
+			pageNavi += "<span class='material-icons'>chevron_left</span>";
+			pageNavi += "</a></li>";
+
+		}
+
+		// 페이지 숫자 생성
+		for (int i = 0; i < pageNaviSize; i++) {
+			if (pageNo == reqPage) {
+				pageNavi += "<li>";
+				pageNavi += "<a class='page-item active-page' href='/campingReservation.do?reqPage=" + pageNo + "&memberId="+memberId+"'>";
+				pageNavi += pageNo;
+				pageNavi += "</a></li>";
+			} else {
+				pageNavi += "<li>";
+				pageNavi += "<a class='page-item' href='/campingReservation.do?reqPage=" + pageNo +"&memberId="+memberId+"'>";
+				pageNavi += pageNo;
+				pageNavi += "</a></li>";
+			}
+			pageNo++;
+			
+			if (pageNo > totalPage) {
+				break;
+			}
+		}
+
+		// 다음버튼
+		if (pageNo <= totalPage) {
+			pageNavi += "<li>";
+			pageNavi += "<a class='page-item' href='/campingReservation.do?reqPage=" + pageNo +"&memberId="+memberId+"'>";
+			pageNavi += "<span class='material-icons'>chevron_right</span>";
+			pageNavi += "</a></li>";
+		}
+		pageNavi += "</ul>";
+
+		CampingReservationPageData crpd = new CampingReservationPageData(list, pageNavi, totalCount);
+		return crpd;
+
 	}
 	
 

@@ -33,8 +33,10 @@ public class UsedBoardService {
 		map.put("start", start);
 		map.put("end", end);
 		map.put("memberId", memberId);
+		System.out.println(usedBoardWriter);
 		map.put("usedBoardWriter", usedBoardWriter);
 		ArrayList<UsedBoard> list = dao.selectUsedBoardList(map);
+		System.out.println(list);
 		int totalCount = dao.selectBoardCount();
 		int totalPage = (int)Math.ceil(totalCount/(double)numPerPage);
 		int pageNaviSize = 5;
@@ -45,7 +47,7 @@ public class UsedBoardService {
 		}
 		String url = "/usedBoardList.do?reqPage=";
 		String endUrl = "";
-		if(usedBoardWriter != null || usedBoardWriter != "") {
+		if(usedBoardWriter != null) {
 			url = "myUsedSellList.do?reqPage=";
 			endUrl = "&memberId="+usedBoardWriter;
 		}

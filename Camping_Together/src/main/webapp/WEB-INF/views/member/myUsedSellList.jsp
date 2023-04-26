@@ -6,7 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="resources/css/updateMypageC.css">
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/mypageMenu.jsp" />
@@ -22,7 +21,7 @@
 				</div>
 				<table>
 					<tr>
-						<th class="used-name">중고물품 명</th>
+						<th>중고물품 명</th>
 						<th>중고물품 상태</th>
 						<th>중고물품 가격</th>
 						<th>중고 게시물 상태</th>

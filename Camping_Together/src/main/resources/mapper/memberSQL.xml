@@ -244,6 +244,30 @@
 		
 		</select>
 
+
+		<!-- 캠핑장 예약 현황 리스트 -->
+		<select id="selectCampingReservationList" parameterType="map" resultType="crl">
+			select 
+			     camping_title as campingTitle,
+			     camping_room_title as campingRoomTitle,
+			     check_in as checkIn,
+			     check_out as checkOut,
+			     member_id as memberId,
+			     (to_date(check_out,'yyyy-mm-dd') - to_date(check_in,'yyyy-mm-dd'))*camping_room_price as price
+			     from camping_reservation cr
+			     left join camping_room using(camping_room_no)
+			     left join camping c using(camping_no)
+			 where c.member_id= #{_parameter}
+		
+		</select>
+		
+		<select id="selectReservationListCount" parameterType="String" resultType="_int">
+			select count(*) from camping_reservation cr
+			     left join camping_room using(camping_room_no)
+			     left join camping c using(camping_no)
+			 where c.member_id= #{_parameter}
+			</select>
+
 </mapper>
 
 

@@ -365,11 +365,11 @@
 
 .camping-name{
     color: #AD8B73;
-    font-size: 23px;
+    /*font-size: 23px;*/
     padding : 10px 0;
     border-bottom: 1px solid #AD8B73;
     font-weight: 500;
-    border-bottom: 1px solid #dcdcdc;
+    /*border-bottom: 1px solid #dcdcdc;*/
 }
 .price{
     margin-top: 10px;
@@ -391,11 +391,9 @@
 .product-img:hover>img {
     transform: scale(1.1);
   }
-
 .infomation{
     width: 400px;
 }
-
 
 
 
