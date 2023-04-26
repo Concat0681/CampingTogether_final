@@ -89,7 +89,6 @@ public class BoardFoodController {
 		model.addAttribute("bf",bfvd.getBf());
 		model.addAttribute("fcList", bfvd.getCommentList());
 		model.addAttribute("fcreList",bfvd.getReCommentList());
-		System.out.println(model);
 		if(bfvd!=null) {
 			return "boardFood/boarFoodView";
 		}else {
