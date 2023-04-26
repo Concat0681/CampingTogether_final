@@ -40,7 +40,7 @@
 					<tr>
 						<td>${l.rnum }</td>
 						<%--<td class="c-title">${l.campingTitle }</td>  --%>
-						<td onClick="roomNameToggle(${l.campingNo},'${sessionScope.m.memberId }')" class="c-title">
+						<td onClick="roomNameToggle(${l.campingNo},'${sessionScope.m.memberId }',${l.rnum })" class="c-title">
 						${l.campingTitle }
 						<td>${l.campingSido }</td> 
 						
@@ -69,29 +69,25 @@
 							</div>
 						</div>
 						</td>
-							
+					</tr>
+					<tr class="room-toggle" style="display: none;" >
+						<td colspan="6">
+							<div class="info-wrap"><%-- 
+								<div class="room-name">방 이름</div>
+								<div class="room-type">방 유형</div>
+								<div class="room-prics">가격(1박)</div>--%>
+								<table class="info-wrap info-table">
+									<tr class="info-menu1">
+										<th>방 이름</th>
+										<th>방 유형</th>
+										<th>가격(1박)</th>
+										<th>방 수정 및 삭제</th>
+									</tr>
+								</table>
+							</div>
+						</td>
 					</tr>
 				</c:forEach> 
-				<tr class="room-toggle" style="display: none;" >
-					<td colspan="6">
-						<div class="info-wrap"><%-- 
-							<div class="room-name">방 이름</div>
-							<div class="room-type">방 유형</div>
-							<div class="room-prics">가격(1박)</div>--%>
-							<table class="info-wrap info-table">
-								<tr class="info-menu1">
-									<th>방 이름</th>
-									<th>방 유형</th>
-									<th>가격(1박)</th>
-									<th>캠핑 수정 및 삭제</th>
-								</tr>
-								
-								
-								
-							</table>
-						</div>
-					</td>
-				</tr>
 			</table>
 			</div>
 			
@@ -139,12 +135,12 @@
 	}); --%>
 	
 	
-	function roomNameToggle(campingNo, memberId){
+	function roomNameToggle(campingNo, memberId, rnum){
 		$(".goblin").empty();
 		$.ajax({
 			url : "/selectRoomInfo.do",
 			type : "post",
-			data : {campingNo : campingNo, memberId : memberId},
+			data : {campingNo : campingNo, memberId : memberId, rnum : rnum},
 			success : function(data){
 				console.log(data);
 				
@@ -162,16 +158,13 @@
 					const campingDeleteDiv = $("<div>").addClass("c-delete").append($("<a>").attr("href", "javascript:void(0)").addClass("deleteCampingRoom").attr("onclick", "deleteCampingRoom(this,"+data[i].campingRoomNo+","+campingNo+",'"+memberId+"')").text("삭제"));
 					div.append(campingUpdateDiv).append(campingDeleteDiv);
 					td4.append(div);
-						
-					console.log(data[i].campingRoomNo,campingNo,memberId);
 					
 					tr.append(td1).append(td2).append(td3).append(td4);
 				    $(".info-table").append(tr);
 					
 					$(".goblin").css("margin-top","20px");
-					
 				}
-				$(".room-toggle").toggle(); //아작스 성공 코드 안으로(화면 채운 후 토글)
+				$(".room-toggle").eq(rnum-1).toggle(); //아작스 성공 코드 안으로(화면 채운 후 토글)
 			}
 		});
 	}
