@@ -126,6 +126,10 @@
 	input, textarea{
 		border: 1px solid #ccc;
 	}
+	
+	h2, h3{
+		color: #AD8B73;
+	}
 </style>
 </head>
 <body>
@@ -141,13 +145,13 @@
         			<input type="hidden" name="campingNo" value="${camping.campingNo }">
 	        		<table>
 	        			<tr>
-	        				<td style="width: 120px; font-size: 1.17em; font-weight: bold; padding-bottom: 30px;">캠핑장 이름</td>
+	        				<td style="width: 120px; font-size: 1.17em; font-weight: bold; padding-bottom: 30px; color: #AD8B73;">캠핑장 이름</td>
 	        				<td style="padding-bottom: 30px;">
 	        					<input type="text" class="input-long" name="campingTitle" value="${camping.campingTitle }">
 	        				</td>
 	        			</tr>
 	        			<tr>
-	        				<td style="width: 120px; font-size: 1.17em; font-weight: bold;">전화번호</td>
+	        				<td style="width: 120px; font-size: 1.17em; font-weight: bold; color: #AD8B73;">전화번호</td>
 	        				<td>
 	        					<input type="text" class="input-long" name="campingPhone" placeholder="010-0000-0000" value="${camping.campingPhone }">
 	        				</td>
@@ -164,7 +168,7 @@
 	        		<textarea class="campingContent" name="campingContent">${camping.campingContent }</textarea>
 	        		
 					<div class="contentTitle"><h3 style="font-weight: bold;">캠핑장 사진 등록</h3></div>
-	        			<h5 style="padding-bottom: 20px">캠핑장의 메인 사진을 등록해주세요.</h5>
+	        			<h5 style="padding-bottom: 20px; color: #808080;">캠핑장의 메인 사진을 등록해주세요.</h5>
 	        				<div class="image-container">
 							  <input type="file" name="campingFilepath" onchange="loadImg(this);" id="campingFilepath" style="display: none;">
 							  <label for="campingFilepath">
@@ -227,7 +231,7 @@
 					
 					<div class="contentDetail" style="display: none;">
 	        		<h2 style="font-weight: 900;">숙소 제공 편의 시설/서비스 관리하기</h2>
-	        		<h5>숙소에서 제공하는 편의 시설/서비스를 설정하세요.</h5>
+	        		<h5 style="color: #808080">숙소에서 제공하는 편의 시설/서비스를 설정하세요.</h5>
 	        		<div class="contentTitle"><h3 style="font-weight: bold;">공용시설</h3></div>
 	        		<table class="campingServiceTbl">
 	        			<tr>
