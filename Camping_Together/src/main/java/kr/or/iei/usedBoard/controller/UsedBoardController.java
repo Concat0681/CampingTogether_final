@@ -38,7 +38,8 @@ public class UsedBoardController {
 	
 	@RequestMapping(value="/usedBoardList.do")
 	public String usedBoardList(int reqPage, String memberId, Model model) {
-		UsedBoardPageData ubpd = service.selectUsedBoardList(reqPage, memberId);
+		String usedBoardWriter = "";
+		UsedBoardPageData ubpd = service.selectUsedBoardList(reqPage, memberId, usedBoardWriter);
 		model.addAttribute("list", ubpd.getList());
 		model.addAttribute("pageNavi", ubpd.getPageNavi());
 		return "usedBoard/usedBoardList";
