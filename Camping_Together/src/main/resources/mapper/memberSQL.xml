@@ -78,6 +78,7 @@
  	select * from
 			(select rownum as rnum, m.*from
 				(select
+					camping_reservation_no as campingReservationNo,
 					camping_room_title as campingRoomTitle, 
 					camping_room_price as campingRoomPrice, 
 					camping_payment_date as campingPaymentDate, 
@@ -85,8 +86,10 @@
 					check_out as checkOut,
 					member_no
 				from camping_payment 
-			join camping_reservation using(CAMPING_RESERVATION_NO) 
-			join camping_room using(camping_room_no) order by camping_payment_date desc)m)
+				left join camping_reservation using(CAMPING_RESERVATION_NO) 
+				left join camping_room using(camping_room_no) order by camping_payment_date desc
+				)m
+			)
 			where rnum between #{start} and #{end} and member_no = #{memberNo}
 	</select>
 	

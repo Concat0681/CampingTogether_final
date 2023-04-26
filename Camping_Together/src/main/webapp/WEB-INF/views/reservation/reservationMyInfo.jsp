@@ -10,12 +10,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<script src="https://code.jquery.com/jquery-3.6.1.js"></script>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+<script src="https://code.jquery.com/jquery-3.6.1.js"></script>
 <style>
     .reserve-wrap{
 /*     	margin-top:150px; */
@@ -94,11 +91,11 @@
                 <p style="font-size:18px; font-weight: bold">예약자 정보<p>
                 <div class="reserve-name">
                     <p>예약자 이름</p>
-                    <input type="text" value="${sessionScope.m.memberName } " readonly>
+                    <input type="text" value="${memberName } " readonly>
                 </div>
                 <div class="reserve-phone">
                     <p style="margin-top: 15px;">휴대폰 번호</p>
-                    <input type="text" value="${sessionScope.m.memberPhone } " readonly>
+                    <input type="text" value="${memberPhone } " readonly>
                 </div>
                 <div class="reserve-phone">
                     <p style="margin-top: 15px;">결제일</p>
@@ -126,15 +123,26 @@
             </div>
             <div style="display:flex;">
 	            <div>
-	            	<a href="/">
-	            		<button type="button" class="btn1" style="width: 500px; margin-right: 10px;">홈으로</button>
+	            	<a href="/cmapingPayList.do?reqPage=1&memberNo=${sessionScope.m.memberNo }">
+	            		<button type="button" class="btn1" style="width: 245px; margin-right: 10px;">마이페이지</button>
 	            	</a>
+	            </div>
+	            <div>
+	            	<input type="hidden" name="memberNo" value="${sessionScope.m.memberNo }">
+		            <button type="button" class="btn1" style="width: 245px;" onclick="deleteCampingReservation(this,${campingReservationNo });">결제취소</button>	            
 	            </div>
             </div>
         </div>
     </div>    
 </body>
-
+<script>
+	function deleteCampingReservation(obj, campingReservationNo){
+		var memberNo = $("[name=memberNo]").val();
+		if(confirm("결제를 취소 하시겠습니까?")){
+			location.href="/deleteCampingReservation.do?campingReservationNo="+campingReservationNo+"&memberNo="+memberNo;
+	}
+}
+</script>
 </html>
 </body>
 </html>
