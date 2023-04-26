@@ -34,6 +34,7 @@
 	padding: 15px;
 	display: flex;
 	text-align: center;	
+	margin: 0px;
 }
 .tab-group>li{
 	margin: 20px;
