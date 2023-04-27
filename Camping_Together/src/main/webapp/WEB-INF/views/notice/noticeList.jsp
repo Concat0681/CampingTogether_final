@@ -16,11 +16,13 @@
 }
 
 .page-content {
+  top: 200px;
   width: 1200px;
   margin: 30px auto;
   margin-bottom: 10px;
   flex-grow: 1;
   position: relative;
+  margin-bottom: 300px;
 }
 .page-title {
   font-family: ns-bold;
@@ -97,5 +99,6 @@
 	</table>
 	<div id="pageNavi">${pageNavi }</div>
 	</div>
+	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 </body>
 </html>

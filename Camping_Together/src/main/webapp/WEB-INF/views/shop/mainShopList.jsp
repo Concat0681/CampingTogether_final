@@ -9,8 +9,9 @@
 <link rel="stylesheet" href="resources/css/shop/mainShopList.css">
 </head>
 <body>
+<div class="shop-wrapOnTop">
 	<div class="shop-wrap">
-		<div class="shop-title">캠핑물품 인기순위</div>
+		<div class="shop-title"><a href="/shopMainList.do">캠핑물품 인기순위</a></div>
 		<div class="shop-list">
 		<c:forEach items="${campingList }" var="c" varStatus="i">
 	 		<div class="shop-box" onclick="viewShop(${c.shopNo},'${sessionScope.m.memberId}');">
@@ -31,7 +32,7 @@
 		</c:forEach>
 		</div>
 	</div>
-	<div class="shop-wrap">
+	<div class="shop-wrap" style="display: none;">
 		<div class="shop-title">차박물품 인기순위</div>
 		<div class="shop-list">
 		<c:forEach items="${carList }" var="c" varStatus="i">
@@ -53,7 +54,7 @@
 		</c:forEach>
 		</div>
 	</div>
-	<div class="shop-wrap">
+	<div class="shop-wrap" style="display: none;">
 		<div class="shop-title">기타물품 인기순위</div>
 		<div class="shop-list">
 		<c:forEach items="${etcList }" var="c">
@@ -75,6 +76,7 @@
 		</c:forEach>
 		</div>
 	</div>
+</div>
 	<script src="resources/js/shop/mainShopList.js"></script>
 </body>
 </html>
