@@ -14,6 +14,7 @@ import kr.or.iei.camping.model.vo.CampingEtc;
 import kr.or.iei.camping.model.vo.CampingPayment;
 import kr.or.iei.camping.model.vo.CampingProvideService;
 import kr.or.iei.camping.model.vo.CampingReservation;
+import kr.or.iei.camping.model.vo.CampingReservationCheck;
 import kr.or.iei.camping.model.vo.CampingReview;
 import kr.or.iei.camping.model.vo.CampingReviewFileVO;
 import kr.or.iei.camping.model.vo.CampingRoom;
@@ -21,6 +22,7 @@ import kr.or.iei.camping.model.vo.CampingRoomFileVO;
 import kr.or.iei.camping.model.vo.CampingRoomService;
 import kr.or.iei.camping.model.vo.SellCampingList;
 import kr.or.iei.camping.model.vo.reservationInfo;
+import kr.or.iei.member.model.vo.Member;
 
 @Repository
 public class CampingDao {
@@ -334,6 +336,19 @@ public class CampingDao {
 		int result = sqlSession.delete("camping.deleteCampingReservation",campingReservationNo);
 		return result;
 	}
+
+	public Member selectMember(HashMap<String,Object> map) {
+		Member member = sqlSession.selectOne("camping.selectMember",map);
+		return member;
+	}
+
+	public ArrayList<CampingReservationCheck> selectReservationCheck(HashMap<String,Object> map) {
+		List list = sqlSession.selectList("camping.selectReservationCheck",map);
+		System.out.println(list);
+		return (ArrayList<CampingReservationCheck>)list;
+	}
+
+	
 
 
 
