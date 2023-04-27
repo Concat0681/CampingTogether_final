@@ -135,12 +135,31 @@ p{
 	color: black;
 	
 }
+.writeBtn{
+	background-color: #CEAB93;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    width: 100px;
+    height:30px;
+    line-height:30px;
+    display: block;
+    text-align: center;
+    margin-left: 1070px;
+    margin-bottom: 5px;
+}
+a:hover{
+		color:#fff !important;
+	}
 </style>
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
-	<div class="div-posting-wrap" style="margin-top: 150px;">
-
-        <div class="posting-wrap" style="margin-top: 50px;">    
+	<div class="div-posting-wrap" style="margin-top: 250px;">
+		<h3 class="page-title">자유게시판</h3>
+        <c:if test="${not empty sessionScope.m }">
+			<a class="writeBtn" href="/boardFoodWriteFrm.do" style="font-family: none;">글쓰기</a>			
+		</c:if>
+        <div class="posting-wrap">   
            
         <c:forEach items="${list }" var="b">
                 <div class="posting-item">
@@ -176,9 +195,6 @@ p{
 		<div id="pageNavi">${pageNavi }</div>
 	 
         </div>
-        	 	<c:if test="${not empty sessionScope.m }">
-			<a class="btn bc4 writeBtn" href="/boardFoodWriteFrm.do">글쓰기</a>			
-		</c:if>
        
 </body>
 </html>

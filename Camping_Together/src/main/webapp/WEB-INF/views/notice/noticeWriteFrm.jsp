@@ -20,7 +20,7 @@
 }
 .page-content {
   width: 1200px;
-  margin: 30px auto;
+  margin: 200px auto;
   margin-bottom: 10px;
   flex-grow: 1;
   position: relative;
@@ -65,13 +65,35 @@ textarea.input-form {
   background-color: #E3CAA5;
   color: #fff
 }
-
+.submitBtn{
+	background-color: #CEAB93;
+    color: white;
+    border-radius: 5px;
+    border:none;
+    text-decoration: none;
+    width: 100px;
+    height:30px;
+    line-height:30px;
+    text-align: center;
+}
+.cancelBtn{
+	background-color: #CEAB93;
+    color: white;
+    border-radius: 5px;
+    border:none;
+    text-decoration: none;
+    width: 100px;
+    height:30px;
+    line-height:30px;
+    text-align: center;
+    display: inline-block;
+}
 </style>
 <body>
-
 	<script src="/summernote/summernote-lite.js"></script>
 	<script src="/summernote/lang/summernote-ko-KR.js"></script>
 	<link rel="stylesheet" href="/summernote/summernote-lite.css">
+<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 	
 	<div class="page-content">
 		<h3 class="page-title">공지사항 작성</h3>
@@ -99,8 +121,8 @@ textarea.input-form {
 				</tr>
 				<tr class="tr-1">
 					<td colspan="4">
-						<button type="submit" class="btn bc1 bs4">공지사항 작성</button>
-						<a class="btn bc44" href="/noticeList.do">취소</a>
+						<button type="submit" class="submitBtn">작성</button>
+						<a class="cancelBtn" href="/noticeList.do?reqPage=1" style="font-family: none;">취소</a>
 					</td>
 				</tr>
 			</table>
