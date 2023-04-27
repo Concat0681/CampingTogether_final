@@ -195,7 +195,7 @@ public class MemberDao {
 	}
 
 	public int selectReservationListCount(String memberId) {
-		int totalCount = sqlsession.selectOne("member.selectReservationListCount");
+		int totalCount = sqlsession.selectOne("member.selectReservationListCount",memberId);
 		return totalCount;
 	}
 
