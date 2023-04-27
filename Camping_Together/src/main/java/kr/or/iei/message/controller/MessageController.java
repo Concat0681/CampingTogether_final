@@ -26,7 +26,7 @@ public class MessageController {
 
 	@Autowired
 	private MessageService service;
-
+	
 	@RequestMapping(value = "/messageMain.do")
 	public String messageMain() {
 		return "common/header";

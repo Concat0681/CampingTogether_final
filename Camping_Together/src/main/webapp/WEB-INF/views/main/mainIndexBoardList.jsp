@@ -64,7 +64,7 @@
 					<li class="n-title Food-title"><h3>캠핑Food</h3><span><a href="/boardFoodList.do?reqPage=1">더보기</a></span></li>
 					
 					<c:forEach items="${foodlist}" var="bf">
-						<li><a href="/boardFoodView.do?boardFoodNo=${bf.boardFoodNo }"><span>${bf.boardFoodTitle }</span></a><span>${bf.foodCommentRef }</span> </li>
+						<li><a href="/boardFoodView.do?boardFoodNo=${bf.boardFoodNo }"><span>${bf.boardFoodTitle }</span></a><span style="font-size: 12px;"> +${bf.foodCommentRef }</span> </li>
 					</c:forEach>
 				</ol>
 			</li>

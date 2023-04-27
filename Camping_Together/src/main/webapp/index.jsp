@@ -152,8 +152,12 @@
 		<a class="top"ref="#"><img alt="top" src="/resources/image/top.png"></a>
 	</div>
 	
+    <c:if test="${not empty alertMsg}">
+        ${alertMsg}
+    </c:if>
+	
 	<a class="mainlist" href="/boardMainFoodList.do" style="display: none;"></a>
-
+	
 </body>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 <script src="resources/js/camping/dateRangePicker.js"></script>

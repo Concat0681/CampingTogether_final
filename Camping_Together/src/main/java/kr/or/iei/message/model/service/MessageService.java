@@ -27,6 +27,9 @@ public class MessageService {
 	@Transactional
 	public Message selectOneMessage(int messageNo) {
 		Message mg = dao.selectOneMessage(messageNo);
+		if(mg.getReadCheck() == 0 ) {
+			dao.updateReadCheck(messageNo);
+		}
 		return mg;
 	}
 	public int selectMessageCount(String memberId) {

@@ -57,12 +57,14 @@
 					</tr>
 					<tr>
 						<td>새 비밀번호</td>
-						<td><input type="password" class="input" name="memberPw" placeholder="새 비밀번호를 입력하세요" required></td>
+						<td><input type="password" class="input" name="memberPw" placeholder="새 비밀번호를 입력하세요">
+						<div class="comment" id="pw-Check" style="font-size : 15px; padding-left: 20px;"></div></td>
 						
 					</tr>
 					<tr>
 						<td>새 비밀번호 확인</td>
-						<td><input type="password" class="input" name="memberPwRe" placeholder="비밀번호를 재입력하세요" required></td>
+						<td><input type="password" class="input" name="memberPwRe" placeholder="비밀번호를 재입력하세요">
+						<div class="comment" id="pw-ReCheck" style="padding-left: 20px;"></div></td>
 					</tr>
 					<tr>
 						<td>이름</td>
@@ -218,6 +220,38 @@
 			$("#update").after(input);
 		}
 		
+		
+		const result = [false,false];
+		$("[name=memberPw]").on("keyup",function() {
+			const pwReg = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,12}$/;
+			const inputPw = $(this).val();
+			const check = pwReg.test(inputPw);
+			if (check) {
+				$("#pw-Check").text("사용 가능한 비밀번호 입니다");
+				$("#pw-Check").css("color", "#AD8B73");
+				result[0] = true;
+				
+			} else {
+				$("#pw-Check").text("영어 소문자 또는 대문자,숫자,특수문자($@!%*#?&)포함 8~12자리");
+				$("#pw-Check").css("color", "red");
+				result[0] = false;
+			}
+		});
+
+		
+		
+		$("[name=memberPwRe]").on("keyup", function() {
+			const pwInput = $("[name=memberPw]").val();
+			if ($(this).val() == pwInput) {
+				$("#pw-ReCheck").text("비밀번호가 일치합니다");
+				$("#pw-ReCheck").css("color","#AD8B73");
+				result[1] = true;
+			} else {
+				$("#pw-ReCheck").text("비밀번호가 일치하지 않습니다");
+				$("#pw-ReCheck").css("color", "red");
+				result[1] = false;
+			}
+		});
 		
 		
 		
