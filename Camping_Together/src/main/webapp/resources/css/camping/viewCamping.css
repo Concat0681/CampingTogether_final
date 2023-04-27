@@ -230,6 +230,9 @@
 	overflow: scroll;
 	padding-right: 20px;
 }
+.room-info-content{
+	border-bottom: 1px solid rgb(222, 222, 222);
+}
 .room-detail-info{
 	width: 40%;
 	height: 80%;

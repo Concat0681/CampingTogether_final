@@ -298,12 +298,14 @@
 						</c:if>
 						<c:forEach items="${list }" var="c">
 							<div class="camping-box" onclick="viewCamping('${c.campingNo }','${checkIn }','${checkOut }')">
-								<img src="resources/upload/camping/${c.filepath}">	
+								<div>
+									<img src="resources/upload/camping/${c.filepath}">	
+								</div>
 								<div>
 									<div class="camping-room-info">
 										<div class="campingTitle">${c.campingTitle }</div>
 										<div class="campingAddr">${c.campingAddr }</div>
-										<div>${c.avgReviewRating }</div>
+										<div>${c.avgReviewRating } 점</div>
 									</div>
 									<div>
 										<div>${c.maxRoomPrice } 원</div>
@@ -370,6 +372,8 @@
 			$("input[name=campingRoomService]").prop("checked", false);
 			$("input[name=campingEtc]").prop("checked", false);
 			$("input[name=ppl_count]").val(1);	
+			$("#detail_search_checkin").val("");
+			$("#detail_search_checkout").val("");
 		}
 		
 		/* 네이버 지도 api */
@@ -538,7 +542,7 @@
 		  $('#detail_search_checkin, #detail_search_checkout').daterangepicker(
 		    {
 		      locale: {
-		        format: 'MM-DD',
+		        format: 'YYYY-MM-DD',
 		        applyLabel: '확인', // 확인 버튼 텍스트
 		        cancelLabel: '취소', // 취소 버튼 텍스트
 		        daysOfWeek: ['일', '월', '화', '수', '목', '금', '토'],
@@ -573,8 +577,8 @@
 		    function (start, end, label) {
 		      // console.log("New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')");
 		      // Lets update the fields manually this event fires on selection of range
-		      var selectedStartDate = start.format('MM-DD') // selected start
-		      var selectedEndDate = end.format('MM-DD') // selected end
+		      var selectedStartDate = start.format('YYYY-MM-DD') // selected start
+		      var selectedEndDate = end.format('YYYY-MM-DD') // selected end
 
 		      $checkinInput = $('#detail_search_checkin')
 		      $checkoutInput = $('#detail_search_checkout')

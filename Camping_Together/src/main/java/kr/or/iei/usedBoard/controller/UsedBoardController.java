@@ -38,7 +38,8 @@ public class UsedBoardController {
 	
 	@RequestMapping(value="/usedBoardList.do")
 	public String usedBoardList(int reqPage, String memberId, Model model) {
-		UsedBoardPageData ubpd = service.selectUsedBoardList(reqPage, memberId);
+		String usedBoardWriter = null;
+		UsedBoardPageData ubpd = service.selectUsedBoardList(reqPage, memberId, usedBoardWriter);
 		model.addAttribute("list", ubpd.getList());
 		model.addAttribute("pageNavi", ubpd.getPageNavi());
 		return "usedBoard/usedBoardList";
@@ -181,6 +182,15 @@ public class UsedBoardController {
 		}else {
 			return "no";
 		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/myWishlist.do", produces = "application/json;charset=utf-8")
+	public String myWishlist(String memberId) {
+		ArrayList<UsedBoard> wishlist = service.selectAllWishBoard(memberId);
+		Gson gson = new Gson();
+		String result = gson.toJson(wishlist);
+		return result;
 	}
 }
 

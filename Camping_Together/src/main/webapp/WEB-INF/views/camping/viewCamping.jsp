@@ -190,19 +190,26 @@
 										<form action="reservationFrm.do?checkIn=${checkIn }&checkOut=${checkOut}" method="post">
 											<input type="hidden" name="memberNo" value="${sessionScope.m.memberNo }">
 											<input type="hidden" name="campingRoomNo" value="${r.campingRoomNo }">
-											<input type="text" name="checkIn1"  value="${checkIn }">
-											<input type="text" name="checkOut1" value="${checkOut }">
+											<input type="hidden" name="checkIn1"  value="${checkIn }">
+											<input type="hidden" name="checkOut1" value="${checkOut }">
 											<input type="hidden" name="campingTitle" value="${camping.campingTitle } ">
 											<input type="hidden" name="campingType" value="${r.campingRoomTitle }">
 											<input type="hidden" name="price" value="${r.campingRoomPrice }">
 											<input type="hidden" name="addr" value="${camping.campingAddr }">
 											<c:forEach items="${reservationList}" var="rl" varStatus="j">
-											<c:if test="${rl.campingReservationNo eq null and  i.index eq j.index}">
-    											<button type="submit" class="btn2 reservationBtn" style="width: 100%;">예약하기</button>
-											</c:if>
-    										<c:if test="${r.campingRoomNo eq rl.campingRoomNo}">
-        										<div class="reservation" style="background-color: #e3e4e5; width: 100%; border-radius: 5px; color: white; text-align: center;">예약완료</div>
-    										</c:if>
+											<c:choose>
+												<c:when test="${empty sessionScope.m and  i.index eq j.index }">
+													<button type="button" class="btn2 loginBtn" style="width: 100%;">예약하기</button>
+												</c:when>
+												<c:otherwise>
+													<c:if test="${rl.campingReservationNo eq null and  i.index eq j.index}">
+		    											<button type="submit" class="btn2 reservationBtn" style="width: 100%;">예약하기</button>
+													</c:if>
+		    										<c:if test="${r.campingRoomNo eq rl.campingRoomNo}">
+		        										<div class="reservation" style="background-color: #e3e4e5; width: 100%; border-radius: 5px; color: white; text-align: center;">예약완료</div>
+		    										</c:if>
+												</c:otherwise>
+											</c:choose>
 											</c:forEach>
 										</form>
 									</div>
@@ -284,9 +291,11 @@
 							</div>
 						</div>
 						
-				        <button class="btn1 review-modal-open-btn" target="#test-modal">
-				          	리뷰작성
-				        </button>
+						<c:if test="${not empty sessionScope.m}">
+					        <button class="btn1 review-modal-open-btn" target="#test-modal">
+					          	리뷰작성
+					        </button>
+				        </c:if>
 					    
 					    <div id="test-modal" class="review-modal-bg" style="z-index: 1000;">
 						  <div class="review-modal-wrap">
@@ -831,7 +840,7 @@
 	
 	<script>
 		function loadImg(input) {
-			  
+			$("#img-viewer").empty();
 			  if (input.files && input.files.length > 0) {
 			    for (let i = 0; i < input.files.length; i++) {
 			      const reader = new FileReader();

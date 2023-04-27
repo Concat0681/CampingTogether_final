@@ -36,8 +36,8 @@ public class UsedBoardDao {
 		return (ArrayList<UsedBoard>)list;
 	}
 
-	public int selectBoardCount() {
-		int totalCount = sqlSession.selectOne("usedBoard.totalCount"); 
+	public int selectBoardCount(String usedBoardWriter) {
+		int totalCount = sqlSession.selectOne("usedBoard.totalCount", usedBoardWriter); 
 		return totalCount;
 	}
 
@@ -124,6 +124,11 @@ public class UsedBoardDao {
 	public int deleteUsedWishList(UsedWishList uwl) {
 		int result = sqlSession.delete("usedBoard.deleteUsedWishList", uwl);
 		return result;
+	}
+
+	public ArrayList<UsedBoard> selectAllWishBoard(String memberId) {
+		List list = sqlSession.selectList("usedBoard.selectAllWishBoard", memberId);
+		return (ArrayList<UsedBoard>)list;
 	}
 
 }

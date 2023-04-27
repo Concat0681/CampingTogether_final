@@ -70,6 +70,7 @@
         		<h2 style="margin-bottom: 60px;">${campingRoom.campingRoomTitle } 캠핑 수정</h2>
         		<form action="/updateCampingRoom.do" method="post" enctype="multipart/form-data" id="updateCampingRoomFrm">
         		<input type="hidden" name="campingRoomNo" value="${campingRoom.campingRoomNo }">
+        		<input type="hidden" name="memberId" value="${sessionScope.m.memberId }">
 	        		<table>
 	        			<tr>
 	        				<td style="width: 120px; font-size: 1.17em; font-weight: bold; padding-bottom: 20px;">이름</td>

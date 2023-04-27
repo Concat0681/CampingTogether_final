@@ -10,6 +10,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<script src="https://code.jquery.com/jquery-3.6.1.js"></script>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -125,10 +126,9 @@
             </div>
             <div style="display:flex;">
 	            <div>
-	            	<button type="button" class="btn1" style="width: 245px; margin-right: 10px;">홈으로</button>
-	            </div>
-	            <div>
-		            <button type="button" class="btn1" style="width: 245px;">결제취소</button>	            
+	            	<a href="/">
+	            		<button type="button" class="btn1" style="width: 500px; margin-right: 10px;">홈으로</button>
+	            	</a>
 	            </div>
             </div>
         </div>
