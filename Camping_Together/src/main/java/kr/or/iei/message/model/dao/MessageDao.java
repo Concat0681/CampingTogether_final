@@ -46,4 +46,9 @@ public class MessageDao {
 	    map.put("sender", sender);
 	    return sqlSession.selectList("messageMapper.selectSendMessageList", map);
 	}
+
+	public void updateReadCheck(int messageNo) {
+		sqlSession.update("message.updateReadCheck", messageNo);
+		
+	}
 }

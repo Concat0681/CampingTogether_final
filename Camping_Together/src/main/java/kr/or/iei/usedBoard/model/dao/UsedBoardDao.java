@@ -36,8 +36,8 @@ public class UsedBoardDao {
 		return (ArrayList<UsedBoard>)list;
 	}
 
-	public int selectBoardCount() {
-		int totalCount = sqlSession.selectOne("usedBoard.totalCount"); 
+	public int selectBoardCount(String usedBoardWriter) {
+		int totalCount = sqlSession.selectOne("usedBoard.totalCount", usedBoardWriter); 
 		return totalCount;
 	}
 

@@ -20,7 +20,18 @@
 
 	<form action="/updateMypageC.do">
 			<div class="mypage-content">
-
+				<div class="image-div">
+					<div class="img">
+						<img id="profile-img" alt="profile" src="/resources/image/member/img.jpeg" width="180px" height="180px">                             
+						<p>(jpg, jpeg, png 형식만 가능)</p>
+					</div>
+					<div class="image-btn">
+						<label for="update" class="update">수정</label>
+						<input id="update" type="file" name="profileName" accept=".jpg, .jpeg, .png" onchange="openFile(event);" style="display : none;">
+						<label for="delete" class="delete">삭제</label>
+					</div>
+				</div>
+				
 				<table>
 					<tr>
 						<td>아이디</td>
@@ -38,12 +49,14 @@
 					</tr>
 					<tr>
 						<td>새 비밀번호</td>
-						<td><input type="password" class="input" name="memberPw" placeholder="새 비밀번호를 입력하세요"></td>
+						<td><input type="password" class="input" name="memberPw" placeholder="새 비밀번호를 입력하세요">
+						<div class="comment" id="pwCheck" style="font-size : 15px;"></div></td>
 						
 					</tr>
 					<tr>
 						<td>새 비밀번호 확인</td>
-						<td><input type="password" class="input" name="memberPwRe" placeholder="비밀번호를 재입력하세요"></td>
+						<td><input type="password" class="input" name="memberPwRe" placeholder="비밀번호를 재입력하세요">
+						<div class="comment" id="pwReCheck"></div></td>
 					</tr>
 					<tr>
 						<td>이름</td>
@@ -79,5 +92,66 @@
 			</div>
 		</form>
 
+
+
+
+		<script>
+		var openFile = function(event) {
+		    var input = event.target;
+
+		    var reader = new FileReader();
+		    reader.onload = function(){
+		      var dataURL = reader.result;
+		      var img = document.getElementById('profile-img');
+		      img.src = dataURL;
+		    };
+		    reader.readAsDataURL(input.files[0]);
+		  };
+
+	
+		  $(".delete").on("click",function(){
+			  $("#update").val("");
+			  $("#profile-img").attr("src","/resources/image/member/img.jpeg");
+		  });
+		</script>
+		
+		
+		
+	<script>
+	const result = [false,false];
+	$("[name=memberPw]").on("keyup",function() {
+		const pwReg = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,12}$/;
+		const inputPw = $(this).val();
+		const check = pwReg.test(inputPw);
+		if (check) {
+			$("#pwCheck").text("사용 가능한 비밀번호 입니다");
+			$("#pwCheck").css("color", "#AD8B73");
+			result[0] = true;
+			
+		} else {
+			$("#pwCheck").text("영어 소문자 또는 대문자,숫자,특수문자($@!%*#?&)포함 8~12자리");
+			$("#pwCheck").css("color", "red");
+			result[0] = false;
+			}
+		});
+	
+	
+	$("[name=memberPwRe]").on("keyup", function() {
+		const pwInput = $("[name=memberPw]").val();
+		if ($(this).val() == pwInput) {
+			$("#pwReCheck").text("비밀번호가 일치합니다");
+			$("#pwReCheck").css("color","#AD8B73");
+			result[1] = true;
+		} else {
+			$("#pwReCheck").text("비밀번호가 일치하지 않습니다");
+			$("#pwReCheck").css("color", "red");
+			result[1] = false;
+		}
+	});
+
+	</script>
+
 </body>
+
+
 </html>

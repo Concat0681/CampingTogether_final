@@ -127,7 +127,7 @@ textarea[name=messageContent]{
 				<div class="modal-content">
 					<div class="sendMessageFrm">
 						<label>수신자 : </label> <select name="receiver" id="receiver"></select>
-						<input type="text" id="messageTitle" name="messageTitle">
+						<label>제목 : </label><input type="text" id="messageTitle" name="messageTitle">
 						<textarea name="messageContent"></textarea>
 						<input type="hidden" id="sender" name="sender" value="${sessionScope.m.memberId }">
 						<button onclick="messageSend();">보내기</button>
@@ -141,7 +141,8 @@ textarea[name=messageContent]{
 		<table class="receiveTbl">
 			<thead></thead>
 			<tr>
-				<th>보낸사람</th>
+				<th>발신자</th>
+				<th>제목</th>
 				<td>내용</td>
 				<th>시간</th>
 				<th>읽음여부</th>
@@ -154,7 +155,7 @@ textarea[name=messageContent]{
 			<table border="1" class="sendTbl">
 				<thead></thead>
 				<tr>
-					<th>보낸사람</th>
+					<th>수신자</th>
 					<td>내용</td>
 					<th>시간</th>
 					<th>읽음여부</th>

@@ -27,7 +27,6 @@
 <link href="/resources/css/header.css" rel="stylesheet"/> 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
-
 </head>
 <body>	
 <!--  쪽지함 modal -->
@@ -45,52 +44,55 @@
 			      </ul>
 			<!-- 쪽지 보내기 -->
 			<div class="tab-content">
-			  <div id="sendMessage-modal" class="modal-wrapper" style="border: 2px solid #fff;">
-						<div class="modal-content">
+			  <div id="sendMessage-modal" class="endtreed">
+						<div class="modal-content1">
 							<div class="sendMessageFrm">
-								<label>수신자 : </label> <input type="text" name="receiver" id="receiver">
-								<input type="text" id="messageTitle" name="messageTitle">
-								<textarea name="messageContent"></textarea>
+								<div class="message-inputBox"><input type="text" name="receiver" id="receiver" placeholder="받는사람" style="width: 100%;"></div>
+								<div class="message-inputBox"><input type="text" id="messageTitle" name="messageTitle" placeholder="제목" style="width: 100%;"></div>
+								<textarea name="messageContent" placeholder="내용"></textarea>
 								<input type="hidden" id="sender" name="sender" value="${sessionScope.m.memberId }">
-								<button onclick="messageSend();">보내기</button>
-								<button onclick="closeModal();">닫기</button>
+								<button onclick="messageSend();" class="sender"><span style="font-family: ng-extra-bold; color: #fff;">보내기</span></button>
 							</div>
 						</div>
 				</div>
 				<!-- 받은 쪽지 -->
-				<div id="receiveBox">
+				<div class="endtreed" id="receiveBox">
 				<table class="receiveTbl">
-					<thead></thead>
-					<tr>
-						<th>보낸사람</th>
-						<td>내용</td>
-						<th>시간</th>
-						<th>읽음여부</th>
-					</tr>
+					<thead>
+						<tr>
+							<th>발신자</th>
+							<th>제목</th>
+							<th>내용</th>
+							<th>시간</th>
+							<th>읽음여부</th>
+						</tr>
+					</thead>
+					
 					<tbody></tbody>
 				</table>
 			  </div>
 				<!-- 보낸 쪽지 -->
-				<div id="sendBox">
-					<table border="1" class="sendTbl">
-						<thead></thead>
+				<div class="endtreed" id="sendBox">
+					<table class="sendTbl">
+						<thead>
 						<tr>
-							<th>보낸사람</th>
-							<td>내용</td>
+							<th>수신자</th>
+							<th>제목</th>
+							<th>내용</th>
 							<th>시간</th>
-							<th>읽음여부</th>
 						</tr>
+						</thead>
 						<tbody></tbody>
 					</table>
 				</div>
 				<!-- 상세 보기  -->
-				<div id="messageDetail" class="modal-wrapper">
+				<div class="endtreed" id="messageDetail" class="modal-wrapper">
 					<div class="modal">
 						<div class="modal-header">
 							<h2>쪽지내용</h2>
 						</div>
 						<hr style="margin: 0px;">
-						<div class="modal-content">
+						<div class="modal-content3">
 							<div class="messageFrm">
 								<div>
 									<span>발신자: </span>
@@ -323,6 +325,7 @@ $("#messageBtn").on("click", function() {
 	
 $("#modal-cancle").click(function() {
     $(".message-comset").css("display", "none");
+    $(".endtreed").css("display", "none");
   });
 
 //탭 변경창
@@ -397,6 +400,7 @@ function getSendMessage(){
                 td2.addClass("messageTd");
                 td3.addClass("messageTd");
                 td4.addClass("messageTd");
+                td3.addClass("messageTdContent");
                 
                 tr.append(td1).append(td2).append(td3).append(td4);
                 tbody.append(tr);
@@ -433,6 +437,12 @@ function getReceiveMessage(){
                 }else{
                     td5.text("읽음");
                 }
+                td1.addClass("messageTd");
+                td2.addClass("messageTd");
+                td3.addClass("messageTd");
+                td3.addClass("messageTdContent");
+                td4.addClass("messageTd");
+                td5.addClass("messageTd");
                 tr.append(td1).append(td2).append(td3).append(td4).append(td5);
                 tbody.append(tr);
                 
@@ -442,7 +452,6 @@ function getReceiveMessage(){
     
 }
 function messageDetail(messageNo){
-    console.log(messageNo);
     $.ajax({
         url : "/messageDetail.do",
         data: {messageNo : messageNo},
