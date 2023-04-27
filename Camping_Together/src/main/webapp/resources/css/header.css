@@ -181,13 +181,28 @@ body{
   text-align: center;
 }
 
-.modal-content {
-  background-color: #fefefe;
-  margin: 15% auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 400px;
-  height: 250px;
+.modal-content3 {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    width: 90%;
+    height: 300px;
+    border: none;
+}
+.modal-content1{
+	background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    width: 90%;
+    height: 300px;
+    border: none;
+	padding: 10px;
+}
+.message-inputBox{
+	margin-bottom: 10px;
+}
+..message-inputBox input{
+	text-align: center;
 }
 
 .close {

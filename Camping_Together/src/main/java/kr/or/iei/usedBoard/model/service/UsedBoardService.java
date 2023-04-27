@@ -28,11 +28,9 @@ public class UsedBoardService {
 		map.put("start", start);
 		map.put("end", end);
 		map.put("memberId", memberId);
-		System.out.println(usedBoardWriter);
 		map.put("usedBoardWriter", usedBoardWriter);
 		ArrayList<UsedBoard> list = dao.selectUsedBoardList(map);
-		System.out.println(list);
-		int totalCount = dao.selectBoardCount();
+		int totalCount = dao.selectBoardCount(usedBoardWriter);
 		int totalPage = (int)Math.ceil(totalCount/(double)numPerPage);
 		int pageNaviSize = 5;
 		
@@ -64,7 +62,10 @@ public class UsedBoardService {
 		if(pageNo <= totalPage) {
 			pageNavi += "<li><a class='page-item' href='"+url+(pageNo+1)+endUrl+"'><span class='material-symbols-outlined'>chevron_right </span></a></li>";
 		}
-		UsedBoardPageData ubpd = new UsedBoardPageData(list, pageNavi);
+		UsedBoardPageData ubpd = new UsedBoardPageData();
+		ubpd.setList(list);
+		ubpd.setPageNavi(pageNavi);
+		ubpd.setTotalCount(totalCount);
 		return ubpd;
 	}
 	

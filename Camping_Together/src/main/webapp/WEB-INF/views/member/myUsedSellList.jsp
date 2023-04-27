@@ -17,14 +17,14 @@
 			<div class="used-list">
 			<div class="list-content">
 				<div class="total">
-					<p>총 [${list.size() }]건</p>
+					<p>총 [${totalCount }]건</p>
 				</div>
 				<table>
 					<tr>
-						<th>중고물품 명</th>
-						<th>중고물품 상태</th>
-						<th>중고물품 가격</th>
-						<th>중고 게시물 상태</th>
+						<th class="used-name" style="width: 320px;">중고물품 명</th>
+						<th style="width: 140px;">물품 상태</th>
+						<th style="width: 140px;">가격</th>
+						<th style="width: 140px;">판매 상태</th>
 						<th>작성일</th>
 					</tr>
 				<c:forEach items="${list }" var="u">

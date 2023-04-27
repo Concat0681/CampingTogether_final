@@ -12,4 +12,5 @@ import lombok.NoArgsConstructor;
 public class UsedBoardPageData {
 	private ArrayList<UsedBoard> list;
 	private String pageNavi;
+	private int totalCount;
 }

@@ -51,8 +51,11 @@
 		        order by 1 desc)ub)
 		where rnum between #{start} and #{end}
 	</select>
-	<select id="totalCount" resultType="_int">
+	<select id="totalCount" parameterType="string" resultType="_int">
 		select count(*) from used_board
+		<if test="_parameter != null">
+			where used_board_writer = #{_parameter}
+		</if>
 	</select>
 	<update id="updateReadCount" parameterType="_int">
 		update used_board set read_count = read_count + 1 where used_board_no = #{_parameter}
