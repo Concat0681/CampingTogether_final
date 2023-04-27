@@ -31,7 +31,6 @@ public class ShopService {
 		map.put("start", start);
 		map.put("end", end);
 		map.put("order", order);
-		System.out.println(map);
 		ArrayList<Shop> shopList = dao.selectShopList(map);
 		int totalCount = dao.selectShopCount(map);
 		int totalPage = (int)Math.ceil(totalCount/(double)numPerPage);

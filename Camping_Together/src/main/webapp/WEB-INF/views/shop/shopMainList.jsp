@@ -144,8 +144,15 @@
 							</div>
 							<div class="shop-info">
 								<div>${c.shopTitle }</div>
-								<div>${c.shopPrice} 원</div>
-								<div>${c.avgRating }</div>
+								<div class="shop-price-info">
+									<div>
+										${c.shopPrice} 원
+									</div>
+									<div class="shop-rating">
+										<div>평점</div>
+										<div>${c.avgRating }</div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</c:forEach>
@@ -193,10 +200,14 @@
 							</div>
 							<div class="shop-info">
 								<div>${c.shopTitle }</div>
-								<div>${c.shopPrice} 원</div>
-								<div>
-									<div>평점</div>
-									${c.avgRating }
+								<div class="shop-price-info">
+									<div>
+										${c.shopPrice} 원
+									</div>
+									<div class="shop-rating">
+										<div>평점</div>
+										<div>${c.avgRating }</div>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -277,8 +288,14 @@
 						const hiddenDiv = $("<div>").addClass("hidden").addClass("hidden-div").text("Quick View");
 						const shopInfoDiv = $("<div>").addClass("shop-info");
 						const shopTitleDiv = $("<div>").text(c.shopTitle);
+						const shopPriceDiv = $("<div>").addClass("shop-price-info").append($("<div>")).text(c.shopPrice + " 원");
+						const shopRatingDiv = $("<div>").addClass("shop-rating");
+						const shopRatingTitleDiv = $("<div>").text("평점");
+						const shopRatingValueDiv = $("<div>").text(c.avgRating);
+						shopRatingDiv.append(shopRatingTitleDiv).append(shopRatingValueDiv);
+						shopPriceDiv.append(shopRatingDiv);
 						shopPhotoDiv.append(img).append(secondHiddenDiv).append(firstHiddenDiv).append(hiddenDiv);
-						shopInfoDiv.append(shopTitleDiv);
+						shopInfoDiv.append(shopTitleDiv).append(shopPriceDiv);
 						shopBoxDiv.append(shopPhotoDiv).append(shopInfoDiv);
 						shopList.append(shopBoxDiv)
 					})
