@@ -430,6 +430,7 @@ public class MemberController {
 	public String campingReservation(int reqPage, String memberId, Model model) {
 		CampingReservationPageData crpd = service.selectCampingReservation(memberId, reqPage);
 		model.addAttribute("list",crpd.getList());
+	System.out.println(crpd.getList().size());
 		model.addAttribute("navi",crpd.getPageNavi());
 		model.addAttribute("count",crpd.getTotalCount());
 		model.addAttribute("index",1);

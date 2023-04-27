@@ -15,4 +15,5 @@ public class CampingReservationList {
 	private String checkOut;
 	//private String memberId;
 	private int price;
+	private String memberId;
 }

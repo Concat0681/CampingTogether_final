@@ -215,7 +215,7 @@
 	
 	<script>
 	function loadImgs(input) {
-		  
+		  $("#img-viewer2").empty();
 		  if (input.files && input.files.length > 0) {
 		    for (let i = 0; i < input.files.length; i++) {
 		      const reader = new FileReader();

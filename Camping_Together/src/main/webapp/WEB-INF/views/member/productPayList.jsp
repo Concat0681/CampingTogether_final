@@ -26,7 +26,7 @@
 				<table>
 					<tr>
 						<th>No</th>
-						<th class="name"></th>
+						<th class="name">상품 명</th>
 						<th>구매수량</th>
 						<th>결제날짜</th>
 						<th>결제금액</th>

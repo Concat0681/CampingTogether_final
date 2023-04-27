@@ -8,6 +8,7 @@
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
 <link rel="stylesheet" href="resources/css/sellCamping.css">
+<link rel="stylesheet" href="resources/css/updateMypageC.css">
 </head>
 <body>
 
@@ -20,7 +21,7 @@
 			</div>
 		</div>
 
-		<div class="list">
+		<div class="list-content">
 			<div class="total">
 				<p>총 [${count }]건</p>
 			</div>
@@ -38,8 +39,8 @@
 					<%--<td onClick="memberModal(${m.memberNo})" class="nameTd">
 						${m.memberName } 
 					</td> --%>
-					<td>${c.campingTtile }</td>
-					<td>${c.campingRoomTtile }</td>
+					<td>${c.campingTitle }</td>
+					<td>${c.campingRoomTitle }</td>
 					<td>${c.memberId }</td>
 					<td>${c.checkIn }</td>
 					<td>${c.checkOut }</td>

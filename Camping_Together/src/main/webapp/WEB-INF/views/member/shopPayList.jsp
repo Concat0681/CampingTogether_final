@@ -36,7 +36,7 @@
 					<tr onclick="location.href='/reservationMyInfo.do?campingReservationNo=${p.campingReservationNo }'">
 <%-- 						<td style="cursor: pointer;"><a href="/viewCamping.do?campingNo=${p.campingNo }">${p.campingRoomTitle }</a></td> --%>
 							<input type="hidden" name="campingRoomNo" value="${p.campingNo }">
-							<td>${p.campingRoomTitle }</td>
+							<td style="color :#AD8B73; font-family : ng-bold;">${p.campingRoomTitle }</td>
 							<td>${p.campingPaymentDate }</td>
 							<td class="checkIn">${p.checkIn }</td>
 							<td class="checkOut">${p.checkOut }</td>
