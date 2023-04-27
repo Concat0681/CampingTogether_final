@@ -106,7 +106,6 @@ input[name="ppl_count"]{
 	border-radius : 5px;
 }
 .campingList-content{
-    padding: 10px;
     min-width: 40%;
     width: 60%;
     margin-left: 50px;
@@ -130,7 +129,7 @@ input[name="ppl_count"]{
 }
 .camping-box{
     display: flex;
-    margin: 10px 0;
+    margin: 30px 0;
     padding: 20px 20px;
     box-shadow: rgb(0 0 0 / 12%) 0px 6px 16px;
 }
