@@ -17,7 +17,7 @@
 			<div class="used-list">
 			<div class="list-content">
 				<div class="total">
-					<p>총 [${list.size() }]건</p>
+					<p>총 [${totalCount }]건</p>
 				</div>
 				<table>
 					<tr>
