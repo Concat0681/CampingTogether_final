@@ -44,7 +44,7 @@
 		color : white;
 		border-radius : 5px;
 		margin: 0 auto;
-		width: 200px;
+		width: 150px;
 		height: 50px;
 		line-height: 50px;
 	}
@@ -67,10 +67,10 @@
 				<h1>ERROR 500</h1>
 			</div>
 			<div class="error-content">
-				<h1>에러메세지</h1>
+				<h1>Internal server error</h1>
 			</div>
 			<div class="error-btn">
-				<a href="/" class="home-btn">CAMPING TOGETHER</a>
+				<a href="/" class="home-btn">GO HOME</a>
 			</div>
 		</div>
 	</div>
