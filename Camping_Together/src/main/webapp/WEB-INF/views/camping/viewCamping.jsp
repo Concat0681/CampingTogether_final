@@ -201,6 +201,9 @@
 												<c:when test="${empty sessionScope.m and  i.index eq j.index }">
 													<button type="button" class="btn2 loginBtn" style="width: 100%;">예약하기</button>
 												</c:when>
+												<c:when test="${empty checkIn and  i.index eq j.index }">
+													<button type="button" class="btn2 emptyCheck" style="width: 100%;">예약하기</button>
+												</c:when>
 												<c:otherwise>
 													<c:if test="${rl.campingReservationNo eq null and  i.index eq j.index}">
 		    											<button type="submit" class="btn2 reservationBtn" style="width: 100%;">예약하기</button>
@@ -1170,6 +1173,9 @@
 		
 		$(".reservation").on("click",function(){
 			alert("예약완료");
+		});
+		$(".emptyCheck").on("click", function(){
+			alert("입/퇴실 날짜를 선택해 주세요.");
 		});
 	</script>
 </body>

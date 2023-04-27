@@ -164,7 +164,7 @@
 	          <a class="nav-link" href="/campingListMain.do?memberId=${sessionScope.m.memberId }">캠핑</a>
 	        </li>
 	        <li class="nav-item">
-	          <a class="nav-link" href="#">캠핑예약</a>
+	          <a class="nav-link" href="/campingReservationCheckFrm.do">예약조회</a>
 	        </li>
 	        <li class="nav-item">
 	          <a class="nav-link" href="/usedBoardList.do?reqPage=1&memberId=${sessionScope.m.memberId }">중고장터</a>

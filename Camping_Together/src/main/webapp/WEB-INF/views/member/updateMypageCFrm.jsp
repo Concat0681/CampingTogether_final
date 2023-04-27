@@ -8,8 +8,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/common/header.jsp" />
 	<jsp:include page="/WEB-INF/views/common/mypageMenu.jsp" />
+	<jsp:include page="/WEB-INF/views/common/header.jsp" />
 
 
 	<div class="input-div">
@@ -21,18 +21,25 @@
 			<div class="mypage-content">
 				<div class="image-div">
 					<div class="img">
-						<img id="profile-img" alt="profile" src="/resources/image/member/img.jpeg" width="180px" height="180px">                             
+						<c:choose>
+							<c:when test="${empty sessionScope.m.memberPhoto }">
+								<img id="profile-img" alt="profile" src="/resources/image/member/img.jpeg" width="180px" height="180px">                 
+							</c:when>
+							<c:otherwise>
+								<img id="profile-img" alt="profile" src="/resources/image/member/${sessionScope.m.memberPhoto }" width="180px" height="180px">                             
+							</c:otherwise>
+						</c:choose>
 						<p>(jpg, jpeg, png 형식만 가능)</p>
 					</div>
 					<div class="image-btn">
 						<label for="update" class="update">수정</label>
+						<input disabled type='hidden' id="imgSrc" value="${ sessionScope.m.memberPhoto }">
 						<input id="update" type="file" name="profileName" accept=".jpg, .jpeg, .png" onchange="openFile(event);" style="display : none;">
 						<label for="delete" class="delete">삭제</label>
 					</div>
 				</div>
-
-				<table>
 				<input type="hidden"  name="memberNo" value="${sessionScope.m.memberNo }" >
+				<table>
 					<tr>
 						<td>아이디</td>
 						<td><input type="text" class="input" name="memberId" value="${sessionScope.m.memberId }" readonly></td>
@@ -72,7 +79,7 @@
 					<tr>
 						<td>주소 변경</td>
 						<td><!-- <input type="text" class="postNo-input" id="sample4_postcode" placeholder="우편번호" readonly>  -->
-							<input type="button" onclick="sample4_execDaumPostcode()" id="post-btn" value="주소 찾기"><br> 
+							<input type="button" onclick="sample4_execDaumPostcode()" id="post-btn" value="주소 찾기" required><br> 
 							<input type="text" class="input" name="memberAddr" id="sample4_roadAddress">
 							<input type="text" class="input" placeholder="상세주소" id="detail-input"> <!-- <input type="text" id="sample4_roadAddress" placeholder="도로명주소" readonly><br> -->
 
@@ -87,7 +94,7 @@
 					<tr>
 						<td>전화번호</td>
 						<td><input type="text" class="input" name="memberPhone"
-							value="${sessionScope.m.memberPhone}"></td>
+							value="${sessionScope.m.memberPhone}" required></td>
 					</tr>
 				</table>
 			</div>
@@ -175,57 +182,76 @@
 			$(".del-modalWrap").css("display", "none");
 		});
 	
+		$(".update").on("click", function(){
+			const filename = $("#imgSrc").val()
+			if(filename == '${sessionScope.m.memberPhoto}'){
+				console.log("삭제")
+				createDelInput(filename);
+			}
+		})
 		
 		
-			var openFile = function(event) {
-			    var input = event.target;
+		var openFile = function(event) {
+		    var input = event.target;
+		    
+		    var reader = new FileReader();
+		    reader.onload = function(){
+		      var dataURL = reader.result;
+		      var img = document.getElementById('profile-img');
+		      img.src = dataURL;
+		    };
+		    reader.readAsDataURL(input.files[0]);
+		      $("#imgSrc").val(input.files[0].name);
+		  };
 
-			    var reader = new FileReader();
-			    reader.onload = function(){
-			      var dataURL = reader.result;
-			      var img = document.getElementById('profile-img');
-			      img.src = dataURL;
-			    };
-			    reader.readAsDataURL(input.files[0]);
-			  };
 	
+		  $(".delete").on("click",function(){
+			  const filename = $("#imgSrc").val()
+			  if('${sessionScope.m.memberPhoto}' != "" && '${sessionScope.m.memberPhoto}' == filename){
+				  createDelInput($("#update").val());
+			  }
+			  $("#update").val("");
+			  $("#imgSrc").val("");
+			  $("#profile-img").attr("src","/resources/image/member/img.jpeg");
+		  });
+
+		function createDelInput(val){
+			const input = $("<input>").attr("name", "delProfile").attr("type", "hidden").val(val);
+			$("#update").after(input);
+		}
 		
-			  $(".delete").on("click",function(){
-				  $("#update").val("");
-				  $("#profile-img").attr("src","/resources/image/member/img.jpeg");
-			  });
+		
+		const result = [false,false];
+		$("[name=memberPw]").on("keyup",function() {
+			const pwReg = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,12}$/;
+			const inputPw = $(this).val();
+			const check = pwReg.test(inputPw);
+			if (check) {
+				$("#pw-Check").text("사용 가능한 비밀번호 입니다");
+				$("#pw-Check").css("color", "#AD8B73");
+				result[0] = true;
+				
+			} else {
+				$("#pw-Check").text("영어 소문자 또는 대문자,숫자,특수문자($@!%*#?&)포함 8~12자리");
+				$("#pw-Check").css("color", "red");
+				result[0] = false;
+			}
+		});
 
 		
-			  const result = [false,false];
-				$("[name=memberPw]").on("keyup",function() {
-					const pwReg = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,12}$/;
-					const inputPw = $(this).val();
-					const check = pwReg.test(inputPw);
-					if (check) {
-						$("#pw-Check").text("사용 가능한 비밀번호 입니다");
-						$("#pw-Check").css("color", "#AD8B73");
-						result[0] = true;
-						
-					} else {
-						$("#pw-Check").text("영어 소문자 또는 대문자,숫자,특수문자($@!%*#?&)포함 8~12자리");
-						$("#pw-Check").css("color", "red");
-						result[0] = false;
-						}
-					});
-				
-				
-				$("[name=memberPwRe]").on("keyup", function() {
-					const pwInput = $("[name=memberPw]").val();
-					if ($(this).val() == pwInput) {
-						$("#pw-ReCheck").text("비밀번호가 일치합니다");
-						$("#pw-ReCheck").css("color","#AD8B73");
-						result[1] = true;
-					} else {
-						$("#pw-ReCheck").text("비밀번호가 일치하지 않습니다");
-						$("#pw-ReCheck").css("color", "red");
-						result[1] = false;
-					}
-				});
+		
+		$("[name=memberPwRe]").on("keyup", function() {
+			const pwInput = $("[name=memberPw]").val();
+			if ($(this).val() == pwInput) {
+				$("#pw-ReCheck").text("비밀번호가 일치합니다");
+				$("#pw-ReCheck").css("color","#AD8B73");
+				result[1] = true;
+			} else {
+				$("#pw-ReCheck").text("비밀번호가 일치하지 않습니다");
+				$("#pw-ReCheck").css("color", "red");
+				result[1] = false;
+			}
+		});
 		
 		
 		
