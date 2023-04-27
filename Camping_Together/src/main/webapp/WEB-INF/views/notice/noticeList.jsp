@@ -18,7 +18,7 @@
 .page-content {
   top: 200px;
   width: 1200px;
-  margin: 30px auto;
+  margin: 200px auto;
   margin-bottom: 10px;
   flex-grow: 1;
   position: relative;
@@ -26,7 +26,6 @@
 }
 .page-title {
   font-family: ns-bold;
-  padding: 20px 0px;
   font-size: 1.5rem;
 }
 .tbl {
@@ -72,14 +71,34 @@
 .tr-1>td>a{
 	color: black;
 }
+.pageNavi{
+	margin-top: 30px;
+}
+.writeBtn-wrap{
+	margin-left: 1100px;
+}
+.writeBtn-wrap .writeBtn{
+	background-color: #CEAB93;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    width: 100px;
+    height:30px;
+    line-height:30px;
+    display: block;
+    text-align: center;
+}
 </style>
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 	<div class="page-content">
+		
+		<div class="page-title">공지사항</div>
 		<c:if test="${not empty sessionScope.m && sessionScope.m.memberGrade eq 'a' }">
-			<a class="btn bc4 writeBtn" href="/noticeWriteFrm.do">글쓰기</a>			
+			<div class="writeBtn-wrap">
+				<a class="writeBtn" href="/noticeWriteFrm.do" style="font-family: none;">글쓰기</a>			
+			</div>
 		</c:if>
-		<h3 class="page-title">공지사항</h3>
 		<table class="tbl">
 			<tr class="tr-2">
 				<th style="width:10%">번호</th>
@@ -90,14 +109,14 @@
 			<c:forEach items="${list }" var="n">
 				<tr class="tr-1">
 					<td>${n.noticeNo }</td>
-					<td><a href="/noticeView.do?noticeNo=${n.noticeNo }">${n.noticeTitle }</a></td>
+					<td><a href="/noticeView.do?noticeNo=${n.noticeNo }" style="font-family: none;">${n.noticeTitle }</a></td>
 					<td>${n.noticeWriter }</td>
 					<td>${n.enrollDate }</td>
 				</tr>
 			</c:forEach>
 
 	</table>
-	<div id="pageNavi">${pageNavi }</div>
+	<div id="pageNavi" class="pageNavi">${pageNavi }</div>
 	</div>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 </body>

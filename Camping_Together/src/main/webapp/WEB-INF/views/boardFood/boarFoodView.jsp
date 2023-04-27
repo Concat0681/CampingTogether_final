@@ -62,7 +62,7 @@
 
 .page-content {
   width: 1200px;
-  margin: 30px auto;
+  margin: 200px auto;
   margin-bottom: 10px;
   flex-grow: 1;
 }
@@ -218,10 +218,12 @@ button{
 </style>
 </head>
 <body>
+<jsp:include page="/WEB-INF/views/common/header.jsp" />
 	<div class="page-content">
 		<div class="page-title">자유게시판</div>
 		<table class="tbl" id="boarFooddView">
 			<tr class="tr-3">
+				<th class="td-3">제목</th>
 				<th colspan="6">${bf.boardFoodTitle }</th>
 			</tr>
 			<tr class="tr-1">

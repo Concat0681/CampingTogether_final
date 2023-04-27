@@ -17,7 +17,7 @@
 
 .page-content {
   width: 1200px;
-  margin: 30px auto;
+  margin: 200px auto;
   margin-bottom: 10px;
   flex-grow: 1;
 }
@@ -64,7 +64,24 @@
   background-color: #E3CAA5;
   color: #fff
 }
+
+.cancelBtn{
+	background-color: #CEAB93;
+    color: white;
+    border-radius: 5px;
+    border:none;
+    text-decoration: none;
+    width: 100px;
+    height:30px;
+    line-height:30px;
+    text-align: center;
+    display: inline-block;
+}
+a{
+	font-family: none;
+}
 </style>
+<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 	<div class="page-content">
 		<h3 class="page-title">공지사항</h3>
 		<table class="tbl" id="noticeView">
@@ -91,8 +108,8 @@
 				test="${not empty sessionScope.m && sessionScope.m.memberId eq n.noticeWriter }">
 				<tr class="tr-1">
 					<th colspan="6">
-					<a class="btn bc4" href="/noticeUpdateFrm.do?noticeNo=${n.noticeNo }">수정</a>
-					<a class="btn bc4" href="/noticeDelete.do?noticeNo=${n.noticeNo }">삭제</a>
+					<a class="cancelBtn" href="/noticeUpdateFrm.do?noticeNo=${n.noticeNo }">수정</a>
+					<a class="cancelBtn" href="/noticeDelete.do?noticeNo=${n.noticeNo }">삭제</a>
 					</th>
 				</tr>
 			</c:if>
