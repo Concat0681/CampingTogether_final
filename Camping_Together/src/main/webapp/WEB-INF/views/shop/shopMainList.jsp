@@ -119,11 +119,11 @@
 						<div class="camping-filter">
 							<div>	
 								<span class="material-symbols-outlined clicked-span">filter_alt</span>
-								<div onclick="shopListOrder(this, 0, 1, 'new')" class="filter1">최근순</div>
+								<div onclick="shopListOrder(this, 1, 1, 'new')" class="filter1">최근순</div>
 							</div>
 							<div>
 								<span class="material-symbols-outlined">filter_alt</span>
-								<div onclick="shopListOrder(this, 0, 1, 'rating')">평점순</div>
+								<div onclick="shopListOrder(this, 1, 1, 'rating')">평점순</div>
 							</div>
 						</div>
 					</div>
@@ -169,11 +169,11 @@
 						<div class="camping-filter">
 							<div>	
 								<span class="material-symbols-outlined clicked-span">filter_alt</span>
-								<div onclick="shopListOrder(this, 0, 1, 'new')" class="filter1">최근순</div>
+								<div onclick="shopListOrder(this, 2, 1, 'new')" class="filter1">최근순</div>
 							</div>
 							<div>
 								<span class="material-symbols-outlined">filter_alt</span>
-								<div onclick="shopListOrder(this, 0, 1, 'rating')">평점순</div>
+								<div onclick="shopListOrder(this, 2, 1, 'rating')">평점순</div>
 							</div>
 						</div>
 					</div>
@@ -215,7 +215,7 @@
 			location.href="/insertShopFrm.do";
 		})
 		
-		$(".camping-list-menu>div").on("click", function(){
+		$(".camping-filter>div").on("click", function(){
 			$(this).parent().find("span").removeClass("clicked-span");
 			$(this).find("span").addClass("clicked-span");
 		})
