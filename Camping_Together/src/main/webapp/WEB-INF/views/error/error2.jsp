@@ -10,7 +10,7 @@
 	.error-wrap{
 		width: 100%;
 		height: 100vh;
-		background-image: url(/resources/image/main/errorBack.gif);
+		background-image: url(/resources/image/main/errorBack2.gif);
 	    background-repeat: no-repeat;
 	    background-size: cover;
 		position: absolute;
