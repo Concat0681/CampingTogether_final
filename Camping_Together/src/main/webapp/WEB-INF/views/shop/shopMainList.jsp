@@ -291,7 +291,7 @@
 						const shopPriceDiv = $("<div>").addClass("shop-price-info").append($("<div>")).text(c.shopPrice + " 원");
 						const shopRatingDiv = $("<div>").addClass("shop-rating");
 						const shopRatingTitleDiv = $("<div>").text("평점");
-						const shopRatingValueDiv = $("<div>").text(c.avgRating);
+						const shopRatingValueDiv = $("<div>").text(c.avgRating.toFixed(1));
 						shopRatingDiv.append(shopRatingTitleDiv).append(shopRatingValueDiv);
 						shopPriceDiv.append(shopRatingDiv);
 						shopPhotoDiv.append(img).append(secondHiddenDiv).append(firstHiddenDiv).append(hiddenDiv);
