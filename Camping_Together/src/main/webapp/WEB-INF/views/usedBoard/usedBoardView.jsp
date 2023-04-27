@@ -464,7 +464,7 @@
 		        			<span class="material-symbols-outlined" style="color:#ccc;">visibility</span>
 		        			<p style="color:#ccc;">${ub.readCount } &nbsp; ::</p>
 		        			<span class="material-symbols-outlined" style="color:#ccc;">favorite</span>
-		        			<p style="color:#ccc;">${ub.wishChk }</p>
+		        			<p style="color:#ccc;">${ub.wishCnt }</p>
         				</div>
         				<div class="usedboard-info-wrap">
         					<ul class="usedboard-info">
@@ -485,7 +485,7 @@
         				<div class="btn-wrap">
         					<c:choose>
         						<c:when test="${sessionScope.m.memberId eq ub.usedBoardWriter }">
-		        					<button type="button" class="btn1" onclick="soldout(${ub.usedBoardNo})"><span>판매완료</span></button>
+		        					<button type="button" class="btn1 soldoutBtn" onclick="soldout(${ub.usedBoardNo})"><span>판매완료</span></button>
         						</c:when>
         					</c:choose>
         					<button type="button" class="btn3 wish-btn">
@@ -582,10 +582,9 @@
 		$(function(){
 			<%-- 판매완료/찜버튼 비활성화 --%>
 			if($("#usedBoardStatus").val() == 1){
-				$(".btn-wrap").children().css("background-color", "#ccc");
-				$(".btn-wrap").children().children().css("color", "#fff");
-				$(".wish-icon-wrap>span").css("color", "#fff");
-				$(".btn-wrap").children().prop("disabled", true);
+				$(".soldoutBtn").css("background-color", "#ccc");
+				$(".soldoutBtn>span").css("color", "#fff");
+				$(".soldoutBtn").prop("disabled", true);
 			}
 			<%-- 슬라이드 이미지(제품) 클래스추가 --%>
 			$(".carousel-item").eq(0).addClass("active");

@@ -320,7 +320,7 @@
 			</div>  	
             <div class="category-wrap">
                 <div class="category">
-                    <select class="used-category" name="usedBoardCategory">
+                    <select class="used-category" id="usedBoardCategory">
                         <option value="0">전체종류</option>
                         <option value="1">전기/전자제품</option>
                         <option value="2">캠핑카/카라반용품</option>
@@ -334,7 +334,7 @@
                         <option value="9">기타생활용품</option>
                         
                     </select>
-                    <select class="used-location" name="usedTradeLocation">
+                    <select class="used-location" id="usedTradeLocation">
                         <option value="지역설정안함">전국</option>
                         <option value="서울">서울</option>
                         <option value="인천">인천</option>
@@ -389,7 +389,7 @@
                         </c:choose>
                          
                         </div>
-                        <div class="product_title" onclick="location.href='/usedBoardView.do?usedBoardNo=${ub.usedBoardNo}'">
+                        <div class="product_title" onclick="location.href='/usedBoardView.do?usedBoardNo=${ub.usedBoardNo}&memberId=${sessionScope.m.memberId }'">
                             <span>${ub.usedBoardTitle }</span>
                         </div>
                         <div class="product_location">
@@ -475,13 +475,6 @@
 					titleTr.html("<td style='width:10%'>No</td><td style='width:30%' id='wish-board-title'>게시글</td><td style='width:20%'>작성자</td><td style='width:20%'>작성일</td><td style='width:20%'>판매상태</td>");
 					table.append(titleTr);
 					for(let i=0; i<data.length; i++){
-						/*
-							ub.used_board_no as usedBoardNo,
-							used_board_title as usedBoardTitle,
-							used_board_writer as usedBoardWriter
-							reg_date as regDate,
-							used_board_status as usedBoardStatus,
-						*/
 						const tr = $("<tr>");
 						tr.append("<td>"+data[i].usedBoardNo+"</td>");
 						tr.append("<td id='wish-board-title'><a href='/usedBoardView.do?usedBoardNo="+data[i].usedBoardNo+"'>"+data[i].usedBoardTitle+"</a></td>");
@@ -504,7 +497,7 @@
     	}
     	
    		$(".category>select").on("change", function(){
-   			alert("아직 준비중인 기능입니다.");
+   			
    		});
     
     </script>

@@ -71,8 +71,8 @@ public class UsedBoardController {
 	}
 	
 	@RequestMapping(value="/usedBoardView.do")
-	public String usedBoardView(int usedBoardNo, Model model) {
-		UsedBoard ub = service.selectOneUsedBoard(usedBoardNo);
+	public String usedBoardView(int usedBoardNo, String memberId, Model model) {
+		UsedBoard ub = service.selectOneUsedBoard(usedBoardNo, memberId);
 		ArrayList<UsedBoardComment> list = service.selectCommentList(usedBoardNo);
 		int commentCount = service.commentCount(usedBoardNo);
 		model.addAttribute("ub", ub);
@@ -88,7 +88,6 @@ public class UsedBoardController {
 	@RequestMapping(value="/usedBoardCommentUpdate.do")
 	public String usedBoardCommentUpdate(UsedBoardComment ubc) {
 		int result = service.updateUsedBoardComment(ubc);
-		System.out.println(result);
 		return "redirect:/usedBoardView.do?usedBoardNo="+ubc.getUsedBoardNo();
 	}
 	@RequestMapping(value="/usedBoardCommentDelete.do")
