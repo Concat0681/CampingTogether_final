@@ -2,7 +2,11 @@ package kr.or.iei.member.controller;
 
 import java.io.UnsupportedEncodingException;
 
+
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import javax.mail.Address;
@@ -24,7 +28,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.Gson;
 
@@ -67,7 +70,6 @@ public class MemberController {
 	
 
 	//이메일 인증
-
 	@RequestMapping(value="/mailCheck.do", method=RequestMethod.POST)
 	@ResponseBody
 	public String mailCheck(String memberEmail) {
@@ -75,25 +77,29 @@ public class MemberController {
 		System.out.println("이메일 인증 이메일 : " + memberEmail);
 		return mailService.mailCheck(memberEmail);
 	}
-	
 
 	//로그인 폼 ---- 로그인은 회원가입 페이지에서 통합
-
 	@RequestMapping(value="/loginFrm.do")
 	public String loginFrm() {
 		return "member/loginFrm";
 	}
 	
+	
 	//로그인
 	@RequestMapping(value = "/login.do")
-	public String login(Member member, HttpSession session, RedirectAttributes redirectAttributes) {
+	public String login(Member member, HttpSession session, Model model) {
 	    Member loginMember = service.selectOneMember(member);
-	    if(loginMember != null) {
-	        session.setAttribute("m", loginMember);
-	        return "redirect:/"; // 로그인 성공 시 이동할 페이지
+	    if(loginMember == null) {
+	        String alertMsg = "로그인 실패했습니다. 다시 시도해주세요.";
+	        model.addAttribute("alertMsg", alertMsg);
+	        return "redirect:/loginFrm.do";
+	    } else if(loginMember.getMemberGrade().equals("B")) {
+	        String alertMsg = "관리자에게 문의해주세요";
+	        model.addAttribute("alertMsg", alertMsg);
+	        return "redirect:/loginFrm.do";
 	    } else {
-	        redirectAttributes.addFlashAttribute("errorMsg", "로그인 실패했습니다. 다시 시도해주세요."); // 오류 메시지 전달
-	        return "redirect:/joinFrm.do"; // 로그인 실패 시 이동할 페이지
+	        session.setAttribute("m", loginMember);
+	        return "redirect:/";
 	    }
 	}
 	
@@ -124,7 +130,6 @@ public class MemberController {
 			String errorMsg = "회원가입 실패했습니다. 다시 시도해주세요.";
 	        model.addAttribute("errorMsg", errorMsg);
 	        return "redirect:/joinFrm.do";
-		
 		}
 		
 

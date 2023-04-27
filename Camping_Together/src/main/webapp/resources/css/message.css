@@ -15,7 +15,7 @@
   text-align: center;
 }
 .message-modal-wrapper{
-  width: 500px;
+  width: 700px;
   height: auto;
   border: 1px solid black;
   position: fixed;
@@ -24,9 +24,15 @@
   left: 30%;
   right: 30%;
   background-color: #fff;
+  border-radius: 20px;
 }
 .tab-content{
   text-align: center;
+  overflow: hidden;
+}
+.message-inputBox{
+	justify-content: space-between;
+	width: 100%;
 }
 .tab-group{
 	list-style-type: none;
@@ -35,6 +41,7 @@
 	display: flex;
 	text-align: center;	
 	margin: 0px;
+	border-bottom: 1px solid gray;
 }
 .tab-group>li{
 	margin: 20px;
@@ -60,8 +67,18 @@
 	padding: 10px;
 }
 .messageTd{
+	width: auto;
 	padding: 5px;
 	border-left: 1px solid gray;
+	font-family: ng-extra-bold;
+	display: block;
+}
+.messageTdContent{
+	display: block;
+	width: 240px;
+	text-overflow: ellipsis;
+   	white-space: nowrap;
+   	overflow:hidden;
 }
 
 .message-modal{
@@ -71,13 +88,32 @@
 .modal-header{
     padding: 10px;
 }
-.modal-content{
+.modal-content3{
     padding: 20px;
+}
+.sender{
+	width: 200px;
+	height: 50px;
+	background: #CEAB93;
+	border-radius: 8px;
+	padding: 12px;
+	border: none;
+	margin: 20px;
+}
+.messageTdContent{
+	cursor: pointer;
 }
 textarea[name=messageContent]{
     width: 100%;
     height: 100px;
     resize: none;
+    font-size: 18px;
+}
+input{
+	font-size: 18px;
+}
+.endtreed thead{
+	border-bottom: 1px solid gray;
 }
 .tab>a{
   text-decoration: none;
