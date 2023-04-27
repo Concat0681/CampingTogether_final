@@ -2,16 +2,11 @@ package kr.or.iei.usedBoard.model.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import kr.or.iei.blacklist.model.vo.Blacklist;
-import kr.or.iei.blacklist.model.vo.BlacklistPageData;
-import kr.or.iei.blacklist.model.vo.BlacklistPhoto;
-import kr.or.iei.member.model.vo.Member;
 import kr.or.iei.usedBoard.model.dao.UsedBoardDao;
 import kr.or.iei.usedBoard.model.vo.UsedBoard;
 import kr.or.iei.usedBoard.model.vo.UsedBoardComment;
@@ -87,11 +82,14 @@ public class UsedBoardService {
 		return result;
 	}
 
-	public UsedBoard selectOneUsedBoard(int usedBoardNo) {
+	public UsedBoard selectOneUsedBoard(int usedBoardNo, String memberId) {
 		//1.조회수
 		int result = dao.updateReadCount(usedBoardNo);
 		//2.게시글정보
-		UsedBoard ub = dao.selectOneUsedBoard(usedBoardNo);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("memberId", memberId);
+		map.put("usedBoardNo", usedBoardNo);
+ 		UsedBoard ub = dao.selectOneUsedBoard(map);
 		//3.게시글 첨부사진
 		ArrayList<UsedBoardPhoto> list = dao.selectUsedPhoto(usedBoardNo);
 		ub.setUsedBoardPhotoList(list);
@@ -100,7 +98,7 @@ public class UsedBoardService {
 	
 	public UsedBoard selectUpdateUsedBoard(int usedBoardNo) {
 		//1.게시글정보
-		UsedBoard ub = dao.selectOneUsedBoard(usedBoardNo);
+		UsedBoard ub = dao.selectUpdateUsedBoard(usedBoardNo);
 		//2.게시글 첨부사진
 		ArrayList<UsedBoardPhoto> list = dao.selectUsedPhoto(usedBoardNo);
 		ub.setUsedBoardPhotoList(list);

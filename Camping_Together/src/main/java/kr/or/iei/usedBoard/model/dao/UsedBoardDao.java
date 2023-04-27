@@ -46,8 +46,8 @@ public class UsedBoardDao {
 		return result;
 	}
 
-	public UsedBoard selectOneUsedBoard(int usedBoardNo) {
-		UsedBoard ub = sqlSession.selectOne("usedBoard.selectOneUsedBoard", usedBoardNo);
+	public UsedBoard selectOneUsedBoard(HashMap<String, Object> map) {
+		UsedBoard ub = sqlSession.selectOne("usedBoard.selectOneUsedBoard", map);
 		return ub;
 	}
 
@@ -129,6 +129,11 @@ public class UsedBoardDao {
 	public ArrayList<UsedBoard> selectAllWishBoard(String memberId) {
 		List list = sqlSession.selectList("usedBoard.selectAllWishBoard", memberId);
 		return (ArrayList<UsedBoard>)list;
+	}
+
+	public UsedBoard selectUpdateUsedBoard(int usedBoardNo) {
+		UsedBoard ub = sqlSession.selectOne("usedBoard.selectUpdateUsedBoard", usedBoardNo);
+		return ub;
 	}
 
 }
