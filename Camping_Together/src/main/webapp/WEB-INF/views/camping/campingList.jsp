@@ -298,12 +298,14 @@
 						</c:if>
 						<c:forEach items="${list }" var="c">
 							<div class="camping-box" onclick="viewCamping('${c.campingNo }','${checkIn }','${checkOut }')">
-								<img src="resources/upload/camping/${c.filepath}">	
+								<div>
+									<img src="resources/upload/camping/${c.filepath}">	
+								</div>
 								<div>
 									<div class="camping-room-info">
 										<div class="campingTitle">${c.campingTitle }</div>
 										<div class="campingAddr">${c.campingAddr }</div>
-										<div>${c.avgReviewRating }</div>
+										<div>${c.avgReviewRating } 점</div>
 									</div>
 									<div>
 										<div>${c.maxRoomPrice } 원</div>

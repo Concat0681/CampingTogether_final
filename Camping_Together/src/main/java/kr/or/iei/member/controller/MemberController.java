@@ -278,6 +278,7 @@ public class MemberController {
 	public String usedWishList(int reqPage,String memberId, Model model) {
 		String usedBoardWriter = memberId;
 		UsedBoardPageData upd = usedService.selectUsedBoardList(reqPage, memberId, usedBoardWriter);
+		model.addAttribute("totalCount", upd.getTotalCount());
 		model.addAttribute("list", upd.getList());
 		model.addAttribute("pageNavi", upd.getPageNavi());
 		model.addAttribute("index",4);

@@ -87,6 +87,15 @@
 							</div>
 							<div class="shop-info">
 								<div>${c.shopTitle }</div>
+								<div class="shop-price-info">
+									<div>
+										${c.shopPrice} 원
+									</div>
+									<div class="shop-rating">
+										<div>평점</div>
+										<div>${c.avgRating }</div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</c:forEach>
@@ -135,6 +144,8 @@
 							</div>
 							<div class="shop-info">
 								<div>${c.shopTitle }</div>
+								<div>${c.shopPrice} 원</div>
+								<div>${c.avgRating }</div>
 							</div>
 						</div>
 					</c:forEach>
@@ -182,6 +193,11 @@
 							</div>
 							<div class="shop-info">
 								<div>${c.shopTitle }</div>
+								<div>${c.shopPrice} 원</div>
+								<div>
+									<div>평점</div>
+									${c.avgRating }
+								</div>
 							</div>
 						</div>
 					</c:forEach>
