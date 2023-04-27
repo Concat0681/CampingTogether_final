@@ -42,7 +42,7 @@
 	
 	 .backgroundPhoto {
 			width: 100%;
-			 background-image: url(/resources/image/main/campingImg.jpg);
+			background-image: url(/resources/image/main/errorBack.gif);
 		    background-repeat: no-repeat;
 		    background-size: cover;
 			position: absolute;
@@ -67,7 +67,7 @@
 	<div class="wrap" style="margin-top: 300px;">
         <div class="contentWrap" style="background-color: #fff; padding-left: 30px; padding-top: 50px; border-radius: 10px;">
         	<div class="contentDetail">
-        		<h2 style="margin-bottom: 60px;">${campingRoom.campingRoomTitle } 캠핑 수정</h2>
+        		<h2 style="margin-bottom: 60px;">${campingRoom.campingRoomTitle } 방 수정</h2>
         		<form action="/updateCampingRoom.do" method="post" enctype="multipart/form-data" id="updateCampingRoomFrm">
         		<input type="hidden" name="campingRoomNo" value="${campingRoom.campingRoomNo }">
         		<input type="hidden" name="memberId" value="${sessionScope.m.memberId }">
