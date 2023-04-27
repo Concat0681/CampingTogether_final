@@ -10,7 +10,7 @@
 }
 
 .mypage-content>table{
-    width: 500px;
+    width: 650px;
     height: 70px;
     margin-top: 70px;
     margin-bottom: 40px;
@@ -70,6 +70,8 @@
 
 .image-btn>label:first-child{
     background-color: #AD8B73;
+    margin-left: 20Px;
+    text-align: center;
 }
 
 
@@ -77,6 +79,7 @@
     border: 1px solid #AD8B73;
     background-color: white;
     color: #AD8B73;
+    text-align: center;
 }
 
 
@@ -209,9 +212,7 @@
 
 
 /*캠핑장 결제 내역*/
-.c-title{
-    color: #AD8B73;
-}
+
 .list-content{
     width: 900px;
     margin: 0 auto;
@@ -400,10 +401,14 @@
 .product-img:hover>img {
     transform: scale(1.1);
   }
+
 .infomation{
     width: 400px;
 }
 
+.comment{
+    position: absolute;
+}
 
 
 
