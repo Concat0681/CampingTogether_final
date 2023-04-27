@@ -68,6 +68,12 @@
 		insert into member values(member_seq.nextval,#{memberId},#{memberPw}, to_char(sysdate, 'yyyy-mm-dd'),#{memberPhone}, #{memberAddr}, default ,#{memberEmail},#{memberGrade},#{memberName})
 	</insert>
 	
+	<!-- 회원수정 -->
+	<update id="updateMypageC" parameterType="m">
+		update member set
+			member_pw = #{memberPw}, member_addr = #{memberAddr}, member_phone = #{memberPhone}, member_photo = #{memberPhoto}
+		where member_no = #{memberNo}
+	</update>
     <!-- 회원탈퇴 -->
 	<delete id="deleteMember" parameterType="_int">
 		delete from member where member_no = #{_parameter}
@@ -266,7 +272,7 @@
 			     left join camping_room using(camping_room_no)
 			     left join camping c using(camping_no)
 			 where c.member_id= #{_parameter}
-			</select>
+		</select>
 
 </mapper>
 

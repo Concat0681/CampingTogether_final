@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -121,6 +122,8 @@
                     <input type="text" value="${campingAddr }" readonly>
                 </div>
             </div>
+            <c:choose>
+            <c:when test="${not empty sessionScope.m}">
             <div style="display:flex;">
 	            <div>
 	            	<a href="/cmapingPayList.do?reqPage=1&memberNo=${sessionScope.m.memberNo }">
@@ -131,6 +134,15 @@
 	            	<input type="hidden" name="memberNo" value="${sessionScope.m.memberNo }">
 		            <button type="button" class="btn1" style="width: 245px;" onclick="deleteCampingReservation(this,${campingReservationNo });">결제취소</button>	            
 	            </div>
+            </c:when>
+            <c:otherwise>
+            	     <div>
+	            	<a href="/">
+	            		<button type="button" class="btn1" style="width: 500px; margin-right: 10px;">홈으로</button>
+	            	</a>
+	            </div>
+            </c:otherwise>
+            </c:choose>
             </div>
         </div>
     </div>    
