@@ -257,11 +257,11 @@
 			     from camping_reservation cr
 			     left join camping_room using(camping_room_no)
 			     left join camping c using(camping_no)
-			 where c.member_id= #{_parameter}
+			 where c.member_id= #{memberId}
 		
 		</select>
 		
-		<select id="selectReservationListCount" parameterType="String" resultType="_int">
+		<select id="selectReservationListCount" parameterType="string" resultType="_int">
 			select count(*) from camping_reservation cr
 			     left join camping_room using(camping_room_no)
 			     left join camping c using(camping_no)
