@@ -306,25 +306,31 @@ public class MemberController {
 	
 	//일반회원 정보 수정
 	@RequestMapping(value = "/updateMypageC.do")
-	public String updateMypageC(Member member,MultipartFile profileName, HttpServletRequest requset ) {
-		String savaPath = requset.getSession().getServletContext().getRealPath("/resources/image/member/");
-		System.out.println(member);
-		if(!profileName.isEmpty()) {
-			
-				String filename = profileName.getOriginalFilename();
-				String upFilepath = manager.upload(savaPath, profileName);
-				FileVO fileVO = new FileVO();
-				fileVO.setProfileFilename(filename);
-				fileVO.setProfileFilepath(upFilepath);	
+	public String updateMypageC(Member member, String delProfile, MultipartFile profileName, HttpServletRequest requset, HttpSession session ) {
+		String savePath = requset.getSession().getServletContext().getRealPath("/resources/image/member/");
+		if(delProfile != "") {
+			manager.deleteFile(savePath, delProfile);
+			member.setMemberPhoto(null);
 		}
-		return null;
+		if(!profileName.isEmpty()) {
+				String upFilepath = manager.upload(savePath, profileName);
+				member.setMemberPhoto(upFilepath);
+		}
+		System.out.println(member);
+		int result = service.updateMypageC(member);
+		
+		if(result > 0) {
+			session.setAttribute("m", member);
+			return "redirect:/mypageC.do";
+		} else {
+			return "redirect:/updateMypageCFrm";
+		}
 	}
 	
 	//shop 판매상품(관리자)
 	@RequestMapping(value = "/shopProductList.do")
 	public String shopList(String memberId, int reqPage, Model model) {
 		AdminShopPageData aspd = service.selectAdminShopList(memberId, reqPage);
-		System.out.println(aspd.getList());
 		model.addAttribute("list",aspd.getList());
 		model.addAttribute("navi",aspd.getPageNavi());
 		model.addAttribute("count",aspd.getTotalCount());

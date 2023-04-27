@@ -12,12 +12,14 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 //@controller annotation 포함 되있는 객체에서 에러발생했을때 처리하는 annotation
 @ControllerAdvice
 public class ErrorUtil {
+	//500
 	@ExceptionHandler(Exception.class)
 	public String handlException(Exception e) {
 		System.err.println("에러발생");
 		System.err.println(e.getMessage());
 		return "error/error1";
 	}
+	//404
 	@ExceptionHandler(NoHandlerFoundException.class)
 	@ResponseStatus(value = HttpStatus.NOT_FOUND)
 	public String notFound(NoHandlerFoundException e) {
