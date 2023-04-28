@@ -145,7 +145,7 @@
 				}
 				setTimeout(function () {
 					applySlick()
-		        }, 5);
+		        }, 10);
 			}
 		}
 		
