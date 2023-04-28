@@ -17,13 +17,13 @@
 		<input type="hidden" id="memberId" value=${sessionScope.m.memberId }>
 		<c:choose>
 			<c:when test="${not empty cityNameEN }">
-				<div class="page-header" style="background-image: url(/resources/image/camping/${cityNameEN }.jpg)">
+				<div class="page-header" style="background-image: url(/resources/image/camping/${cityNameEN }.jpg); height: 600px;">
 					<div class="page-header-title">${cityNameKR } 캠핑가자</div>
 					<jsp:include page="/WEB-INF/views/camping/campingListHeader.jsp" />
 				</div>
 			</c:when>
 			<c:otherwise>
-				<div class="page-header" style="background-image: url(/resources/image/camping/sido/${campingSido }.jpg)">
+				<div class="page-header" style="background-image: url(/resources/image/camping/sido/${campingSido }.jpg); height: 600px;">
 					<div class="page-header-title">${campingSido }도 캠핑가자</div>
 					<jsp:include page="/WEB-INF/views/camping/campingListHeader.jsp" />
 				</div>
