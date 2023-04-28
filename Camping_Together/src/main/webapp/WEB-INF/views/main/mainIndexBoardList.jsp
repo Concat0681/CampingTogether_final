@@ -21,7 +21,7 @@
 	display: flex;
 }
 .title{
-	width: calc(100%/3);
+	width: calc(100%/2);
 	float: left;
 }
 .boardBox{
@@ -54,16 +54,15 @@
 			<li class="title">
 				<ol class="boardBox">
 					<li class="n-title Tip-title"><h3>많이 묻는 질문</h3><span><a href="/mainQnA.jsp">더보기</a></span></li>
-						<li><span>로그인이 안되요</span></li>
-						<li><span>중고장터 사기 신고</span></li>
-						<li><span>캠핑장 등록</span></li>
-						<li><span>캠핑 예약 및 결제</span></li>
-						<li><span>문의사항</span></li>
-					
+						<li><a href="/mainQnA.jsp"><span>로그인이 안되요</span></a></li>
+						<li><a href="/mainQnA.jsp"><span>중고장터 사기 신고</span></a></li>
+						<li><a href="/mainQnA.jsp"><span>캠핑장 등록</span></a></li>
+						<li><a href="/mainQnA.jsp"><span>캠핑 예약 및 결제</span></a></li>
+						<li><a href="/mainQnA.jsp"><span>문의사항</span></a></li>
 				</ol>
 			</li>
 			<li class="title">
-				<ol class="boardBox">
+				<ol class="boardBox" style="border-left: 1px solid #b3b3b3;">
 					<li class="n-title Food-title"><h3>캠핑Food</h3><span><a href="/boardFoodList.do?reqPage=1">더보기</a></span></li>
 					
 					<c:forEach items="${foodlist}" var="bf">
