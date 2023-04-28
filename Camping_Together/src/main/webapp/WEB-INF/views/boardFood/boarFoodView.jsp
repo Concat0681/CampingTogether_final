@@ -252,18 +252,12 @@ a{
 				<th class="td-3">조회수</th>
 				<td>${bf.readCount }</td>
 			</tr>
-			<tr class="tr-1">
-				<th class="td-3">첨부파일</th>
-				<td colspan="5">
-					<c:if test="${not empty bf.filepath}">
-					<img src="/resources/image/file.png" width="16px">
-					<a href="/boardFoodFileDown.do?fileNo=${bf.fileNo }" style="font-family: none;" >
-						${bf.filepath }
-					</a>
-					<input type="hidden" name="imageFile" accept=".jpg,.png,.jpeg" onchange="loadImg(this);" >
-					</c:if>
-				</td>
-			</tr>
+<!-- 			<tr class="tr-1"> -->
+<!-- 				<th class="td-3">썸네일</th> -->
+<!-- 				<td colspan="5"> -->
+				
+<!-- 				</td> -->
+<!-- 			</tr> -->
 <!-- 			<tr class="tr-1"> -->
 <!-- 					<th class="td-3">이미지 미리보기</th> -->
 <!-- 					<td colspan="5"> -->
@@ -275,6 +269,11 @@ a{
 			<tr class="tr-1">
 				<td colspan="7">
 					<div id="boardFoodContent">
+						<c:if test="${not empty bf.filepath}">
+<%-- 					<a href="/boardFoodFileDown.do?fileNo=${bf.fileNo }" style="font-family: none;" > --%>
+						<img src="/resources/upload/boardFood/${bf.filepath }" style="width: 250px; margin-bottom: 10px;" >
+<!-- 					</a> -->
+					</c:if>
 						${bf.boardFoodContent }
 					</div>
 				</td>

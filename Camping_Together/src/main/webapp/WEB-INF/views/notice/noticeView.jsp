@@ -77,16 +77,17 @@
     text-align: center;
     display: inline-block;
 }
-a{
-	font-family: none;
-}
+.cancelBtn:hover{
+		color:#fff !important;
+	}
+
 </style>
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 	<div class="page-content">
 		<h3 class="page-title">공지사항</h3>
 		<table class="tbl" id="noticeView">
-			<th class="td-3" colspan="6">제목</th>
 			<tr class="tr-1">
+				<th class="td-3">제목</th>
 				<td colspan="6">${n.noticeTitle }</td>
 			<tr class="tr-1">
 				<th class="td-3">글번호</th>
@@ -108,8 +109,8 @@ a{
 				test="${not empty sessionScope.m && sessionScope.m.memberId eq n.noticeWriter }">
 				<tr class="tr-1">
 					<th colspan="6">
-					<a class="cancelBtn" href="/noticeUpdateFrm.do?noticeNo=${n.noticeNo }">수정</a>
-					<a class="cancelBtn" href="/noticeDelete.do?noticeNo=${n.noticeNo }">삭제</a>
+						<a class="cancelBtn" href="/noticeUpdateFrm.do?noticeNo=${n.noticeNo }">수정</a>
+						<a class="cancelBtn" href="/noticeDelete.do?noticeNo=${n.noticeNo }">삭제</a>
 					</th>
 				</tr>
 			</c:if>
