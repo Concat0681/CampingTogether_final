@@ -40,12 +40,7 @@
    .page-content{
    		width: 1200px;
         margin: 0 auto;
-   		padding-top: 130px;
-   }
-   .content-top>h2{
-        margin: 20px;
-       padding-top: 20px;
-       font-family: ng-bold;
+   		margin-top: 230px;
    }
    .category-info{
    		color: #CEAB93;
@@ -365,10 +360,6 @@
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
 	<div class="page-content">
-		<div class="content-top">
-            <h2>상품정보</h2>
-            <hr>
-        </div>
         <div class="detail-wrap">
         <input type="hidden" id="loginUser" value="${sessionScope.m.memberId }">
         	<div class="detail-top-wrap">
@@ -403,7 +394,7 @@
 	        						<span style="font-family: ng-extra-bold;color:#FFFBE9;" id="seller-phone"></span>
 	        					</div>
 	        					<div class="user-blacklist-info">
-	        						<span style="color:#FFFBE9;" id="seller-blackCount"></span>
+	        						<span style="color:#FFFBE9;font-family:ng-extra-bold;" id="seller-blackCount"></span>
 	        					</div>
 	        				</div>
         				</div>
@@ -527,7 +518,7 @@
     			<form action="/usedBoardCommentWrite.do" method="post">
     				<div class="comment-box">
      				<div class="comment-content">
- 	    				<textarea placeholder="내용을 입력해 주세요." name="usedBoardCommentContent" id="comment-box"></textarea>
+ 	    				<textarea placeholder="내용을 입력해 주세요." name="usedBoardCommentContent" id="comment-box" required></textarea>
      				</div>
 	    				<input type="hidden" name="usedBoardCommentWriter" id="loginMemberId" value="${sessionScope.m.memberId }">
 	    				<input type="hidden" name="usedBoardNo" value="${ub.usedBoardNo }">
@@ -615,7 +606,11 @@
 				success: function(data){
 					$("#seller-profile").empty();
 					$("#seller-phone").text(data.sellerPhone);
-					$("#seller-blackCount").text("신고건수 "+data.sellerblackCount+"건");
+					if(data.sellerblackCount >= 3){
+						$("#seller-blackCount").text("사기회원 입니다.");
+					}else{
+						$("#seller-blackCount").text("신고건수 "+data.sellerblackCount+"건");
+					}
 					let img = "";
 					if(data.profilePath == null){
 						img = "<img src='/resources/image/member/img.jpeg'>";
