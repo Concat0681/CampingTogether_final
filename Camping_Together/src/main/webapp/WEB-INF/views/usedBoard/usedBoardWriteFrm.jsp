@@ -18,7 +18,7 @@
         .page-content{
         	width: 1200px;
             margin: 0 auto;
-        	padding-top: 130px;
+        	margin-top: 230px;
         }
         .btn2, .btn1{
         	padding: 10px;
@@ -43,16 +43,21 @@
         .long{
             width: 1000px;
         }
+        .content-top{
+        	text-align: left;
+        }
         .content-top>h2{
-            margin: 20px;
-            padding-top: 20px;
             font-family: ng-bold;
+            color: #AD8B73;
         }
         .category{
         	overflow: hidden;
         }
         .category-bottom{
         	margin-left: 40px;
+        }
+        input:focus, textarea:focus{
+        	border: 1px solid #CEAB93;
         }
         input[name=usedBoardCategory]{
             display: none;
@@ -139,7 +144,7 @@
         }
         .delete-img{
         	position: absolute;
-			left: 59px;
+			right: 0px;
 			bottom: 0px;
         	cursor: pointer;
         	background-color: #000;
@@ -196,8 +201,8 @@
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
 	<div class="page-content">
         <div class="content-top">
-            <h2>기본정보</h2>
-            <hr>
+        	<h2>기본정보</h2>
+        	<hr>
         </div>
         <form action="/usedBoardWrite.do" method="post" enctype="multipart/form-data">
         	<input type="hidden" value="${sessionScope.m.memberId }" name="usedBoardWriter">
@@ -348,6 +353,10 @@
 				reader.readAsDataURL(f);
 				});
 			});
+		});
+		
+		$(".img-sub").on("change", function(){
+			alert("bb");
 		});
 		
 		$("#price-input").on("change", function(){

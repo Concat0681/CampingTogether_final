@@ -28,6 +28,7 @@
    .page-content{
        width: 1200px;
        margin: 0 auto;
+       position: relative;
    }
 	.used-board-title{
 		display: flex;
@@ -47,37 +48,35 @@
    		height: 400px;
    		line-height: 550px;
    }
-   .write>a{
-   		font-family: ng-extra-bold;
-   }
-   .write>a:hover{
-		color: #E3CAA5;
-   }
-   .post{
-       float: left;
-       margin-right: 5px;
-       line-height: 30px;
-   }
    .content-mid-wrap{
    		width: 100%;
        overflow: hidden;
    }
  	.content-top{
- 		display: flex;
- 		justify-content: space-between;
+ 		display:flex;
+ 		justify-content: flex-end;
+ 		text-align: center;
+ 		margin-top: 50px;
+ 		border-bottom: 1px solid #ccc;
+ 		padding-bottom: 20px;
+ 		margin-bottom: 40px;
  	}
-   .wish-list{
-
+ 	.content-top>div{
+ 		color: #AD8B73;
+ 	}
+ 	.content-top>div:hover{
+ 		cursor: pointer;
+ 		color: #CEAB93;
+ 	}
+   .wish-list, .write{
+		font-family: ng-extra-bold;
+		font-size: 15px; 
    }
-   .wish-list:hover{
-
-   }
-  .usedBoardWrite{
-		width: 100px;
-   }
-   .usedBoardWrite>span{
-
-   }
+	.wish-chk, .used-board-write{
+		display: flex;
+		margin-right: 20px;
+	}
+	
    #wish-board-title{
    		text-overflow: ellipsis;
    		white-space: nowrap;
@@ -110,20 +109,20 @@
    }
    .sel-status{
    		position:absolute;
-   		margin-top: 18px;
-   		margin-left: 185px;
    		padding: 6px;
    		background-color: #E3CAA5;
    		font-size: 14px;
    		font-weight: bold;
    		border-radius: 5px;
    		color: #FFFBE9;
+   		top: 30px;
+   		right: 30px;
    }
    .product-img>img{
        width: 100%;
        height: 100%;
        border: 1px solid #ccc;
-       border-radius: 5px;
+       border-radius: 5px; 
    }
    .product_title, .product_location{
    		width: 240px;
@@ -199,7 +198,7 @@
     	border-radius: 5px;
     	display: none;
     	position: absolute;
-    	top: 230px;
+    	top: 100px;
     	background-color: #fff;
     	box-shadow: 0px 0px 60px -10px #ccc;
     	z-index: 100;
@@ -303,12 +302,13 @@
 				</div>
 			</div>
 			<c:if test="${not empty sessionScope.m }">
-			<div class="wish-chk"> 
-	            <span class="wish-list" onclick="myWishList('${sessionScope.m.memberId}');">찜목록</span>
+			<div class="wish-chk" onclick="myWishList('${sessionScope.m.memberId}');"> 
+				<div class="material-symbols-outlined">loyalty</div>
+	            <div class="wish-list">찜목록</div>
 			</div> 	
-			<div class="usedBoardWrite">
-				<div class="material-symbols-outlined post">post_add</div>
-	            <div class="write"><a href="/usedBoardWriteFrm.do">작성하기</a></div>
+			<div class="used-board-write" onclick="location.href='/usedBoardWriteFrm.do'">
+				<div class="material-symbols-outlined">post_add</div>
+	            <div class="write">작성하기</div>
 			</div>
 	        </c:if>
         </div>
@@ -414,7 +414,7 @@
     	});
     	
     	function myWishList(memberId){
-    		$(".my-wishlist-modal-wrap").show();
+    		$(".my-wishlist-modal-wrap").toggle();
     		$.ajax({
 				url : "/myWishlist.do",
 				type : "get",
@@ -446,11 +446,7 @@
     	
     	function wishlistClose(){
     		$(".my-wishlist-modal-wrap").hide();
-    	}
-    	
-   		$(".category>select").on("change", function(){
-   			
-   		});
+    	}  	
     
     </script>
 </body>
