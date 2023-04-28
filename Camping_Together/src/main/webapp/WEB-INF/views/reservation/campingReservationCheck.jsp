@@ -14,6 +14,7 @@
     .div-reservationCheck-wrap{
         width: 1200px;
         margin: 0 auto;
+        margin-bottom: 370px;
     }
     .reservationCheck-wrap{
         width: 800px;
@@ -83,5 +84,6 @@
 		  </c:forEach>
         </div>
     </div>
+      <jsp:include page="/WEB-INF/views/common/footer.jsp" />
 </body>
 </html>

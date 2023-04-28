@@ -18,7 +18,7 @@
     .reserve-wrap{
 /*     	margin-top:150px; */
         width: 1200px;
-        margin: 200px auto;
+        margin: 250px auto;
     }
     
     .reserve-wrap .reserve-left{
@@ -146,6 +146,7 @@
             </div>
         </div>
     </div>    
+    <jsp:include page="/WEB-INF/views/common/footer.jsp" />
 </body>
 <script>
 	function deleteCampingReservation(obj, campingReservationNo){

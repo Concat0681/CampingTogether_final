@@ -27,8 +27,8 @@
 }
 .page-content {
   width: 1200px;
-  margin: 30px auto;
-  margin-bottom: 10px;
+  margin: 200px auto;
+  margin-bottom: 50px;
   flex-grow: 1;
   position: relative;
 }
@@ -72,6 +72,29 @@ textarea.input-form {
   background-color: #E3CAA5;
   color: #fff
 }
+.submitBtn{
+	background-color: #CEAB93;
+    color: white;
+    border-radius: 5px;
+    border:none;
+    text-decoration: none;
+    width: 100px;
+    height:30px;
+    line-height:30px;
+    text-align: center;
+}
+.cancelBtn{
+	background-color: #CEAB93;
+    color: white;
+    border-radius: 5px;
+    border:none;
+    text-decoration: none;
+    width: 100px;
+    height:30px;
+    line-height:30px;
+    text-align: center;
+    display: inline-block;
+}
 </style>
 <body>
 <jsp:include page="/WEB-INF/views/common/header.jsp" />
@@ -113,7 +136,8 @@ textarea.input-form {
 				</tr>
 				<tr class="tr-1">
 					<th colspan="4">
-						<button type="submit" class="btn bc2 bs4">등록</button>
+						<button type="submit" class="submitBtn"  style="font-family: ng-extra-bold;">작성</button>
+						<a class="cancelBtn" href="/noticeList.do?reqPage=1">취소</a>
 					</th>
 				</tr>
 			</table>
