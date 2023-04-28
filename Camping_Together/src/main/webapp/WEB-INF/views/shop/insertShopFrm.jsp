@@ -114,6 +114,7 @@
 		
 		function applySlick(){
 			$('#img-viewer').slick({
+				slide: "div",
 				slidesToShow : 4,		// 한 화면에 보여질 컨텐츠 개수
 				slidesToScroll : 4,		//스크롤 한번에 움직일 컨텐츠 개수
 				speed : 100,	 // 다음 버튼 누르고 다음 화면 뜨는데까지 걸리는 시간(ms)
