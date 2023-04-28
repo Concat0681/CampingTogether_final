@@ -195,6 +195,6 @@ a:hover{
 		<div id="pageNavi">${pageNavi }</div>
 	 
         </div>
-       
+       <jsp:include page="/WEB-INF/views/common/footer.jsp" />
 </body>
 </html>

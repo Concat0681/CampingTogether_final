@@ -349,7 +349,6 @@ button{
             	</c:if>
         </c:forEach> <% //댓글 출력 for문 끝나는 위치 %>
       </div>
-		
 		<%--댓글창 
 		로그인 되어있는 경우에만 댓글 작성 화면을 띄움
 		--%>
@@ -376,6 +375,7 @@ button{
 			</form>
 		</div>
 			</c:if>
+			<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 		<script>
 	
 		$(".recShow").on("click",function(){
