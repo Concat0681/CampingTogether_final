@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,6 +28,15 @@
 				</div>
 				<div class="shop-info">
 					<div>${c.shopTitle }</div>
+					<div class="shop-price-info">
+						<div>
+							<fmt:formatNumber value="${c.shopPrice }" pattern="#,###"/> 원
+						</div>
+						<div class="shop-rating">
+							<div>평점</div>
+							<div>${c.avgRating }</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</c:forEach>

@@ -522,10 +522,12 @@ public class MemberService {
 	}
 
 	//sellList - 캠핑방 리스트
+	/*
 	public ArrayList<CampingRoom> selectCampingRoom(int campingNo) {
 		ArrayList<CampingRoom> list = dao.selectCampingRoom(campingNo);
 		return list;
 	}
+	*/
 
 	//관리자정보
 	public Member selectAdminMember(String memberId) {
@@ -616,6 +618,12 @@ public class MemberService {
 		CampingReservationPageData crpd = new CampingReservationPageData(list, pageNavi, totalCount);
 		return crpd;
 
+	}
+
+	
+	
+	public ArrayList<CampingRoom> selectCampingRoom(int campingNo) {
+		return dao.selectCampingRoom(campingNo);
 	}
 	
 

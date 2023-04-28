@@ -28,12 +28,24 @@
 	height: 234px;
 }
 .shop-info{
+	padding: 10px 0;
 	font-size: 20px;
-	height: 50px;
 	color: #AD8B73;
 	display: flex;
+	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+}
+.shop-price-info{
+	width: 90%;
+	margin: 0 auto;
+	display: flex;
+	font-size: 16px;
+	color: grey;
+	justify-content: space-between;
+}
+.shop-rating{
+	display: flex;
 }
 .hidden-div{
 	position: absolute;
@@ -44,15 +56,6 @@
 	line-height: 60px;
 	color: grey;
 	background-color: white;
-}
-.shop-footer{
-	width: 100%;
-	text-align: center;
-	margin-top: 30px;
-}
-.shop-footer>button{
-	width: 30%;
-	height: 30px;
 }
 .hidden{
 	display: none;

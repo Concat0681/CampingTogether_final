@@ -33,7 +33,7 @@
 <div class="message-comset" style="display: none;">
 	<div class="message-modal-wrapper">
 	  <div class="wrapper-header">
-	    <div class="material-symbols-outlined filler" id="modal-cancle">cancel</div>
+	    <div class="material-symbols-outlined filler" id="modal-cancle1">cancel</div>
 	  </div>
 	  <hr style="margin: 0px;">
 		<div class="wrapper-body">
@@ -323,7 +323,7 @@ $(".messageBtn").on("click", function() {
 	  $(".message-comset").css("display", "block");
 	});
 	
-$("#modal-cancle").click(function() {
+$("#modal-cancle1").click(function() {
     $(".message-comset").css("display", "none");
     $(".endtreed").css("display", "none");
   });
@@ -386,10 +386,10 @@ function getSendMessage(){
             tbody.empty();
             for(let i=0;i<list.length;i++){
                 const message = list[i];
-                const tr = $("<tr>");
+                const tr = $("<tr style='border-bottom: 1px solid;' >");
                 //보낸사람, ,제목,내용 , 시간, 읽음여부
-                const td1 = $("<td>");
-                td1.text(message.sender);          
+                const td1 = $("<td style='border: none;'>");
+                td1.text(message.sender);
                 const td2 = $("<td>");
                 td2.text(message.messageTitle);
                 const td3 = $("<td>");
@@ -421,9 +421,9 @@ function getReceiveMessage(){
             tbody.empty();
             for(let i=0;i<list.length;i++){
                 const message = list[i];
-                const tr = $("<tr>");
+                const tr = $("<tr style='border-bottom: 1px solid;' >");
                 //보낸사람, 내용 , 시간, 읽음여부
-                const td1 = $("<td>");
+                const td1 = $("<td style='border: none;'>");
                 td1.text(message.sender);
                 const td2 = $("<td>");
                 td2.text(message.messageTitle);

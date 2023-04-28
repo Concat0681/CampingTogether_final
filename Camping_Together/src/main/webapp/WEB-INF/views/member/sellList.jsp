@@ -27,18 +27,17 @@
 		<div class="pay-list">
 			<div class="list-content">
 				<table>
-					<tr>
+					<tr style="border-top-left-radius : 50px;">
 						<th>No</th>
 						<th >캠핑장 명</th>
 						<th>지역</th>
 						<th >방 개수</th>
 						<th class="th5">방 추가</th>
 						<th class="th6">캠핑장 수정 및 삭제</th>
-
 					</tr>
 				<c:forEach items="${list }" var="l">  
 					<tr>
-						<td>${l.rnum }</td>
+						<td><input type="hidden" id="memberId" value="${sessionScope.m.memberId }">${l.rnum }</td>
 						<%--<td class="c-title">${l.campingTitle }</td>  --%>
 						<td onClick="roomNameToggle(${l.campingNo},'${sessionScope.m.memberId }',${l.rnum })" class="c-title">
 						${l.campingTitle }
@@ -129,11 +128,16 @@
 	</script>
 	
 	
+	
+	
+	
 	<script>
 	<%-- $(".c-title").on("click",function(){
 		$(".room-toggle").slideToggle("normal");
 	}); --%>
-	
+	function sendNavi(reqPage){
+		location.href = "/sellList.do?reqPage="+reqPage+"&memberId="+$("#memberId").val();
+	}
 	
 	function roomNameToggle(campingNo, memberId, rnum){
 		$(".goblin").empty();
@@ -164,8 +168,9 @@
 					
 					$(".goblin").css("margin-top","20px");
 				}
-				$(".room-toggle").eq(rnum-1).toggle(); //아작스 성공 코드 안으로(화면 채운 후 토글)
-				$(".room-toggle").not(":eq(" + (rnum-1) + ")").hide();
+				const num = Math.floor((rnum-1)/5)*5+1
+				$(".room-toggle").eq(rnum-num).toggle(); //아작스 성공 코드 안으로(화면 채운 후 토글)
+				$(".room-toggle").not(":eq(" + (rnum-num) + ")").hide();
 			}
 		});
 	}

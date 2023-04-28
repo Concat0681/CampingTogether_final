@@ -32,12 +32,14 @@
 			<c:forEach items="${list }" var="a">
 			<div class="p-info">
                 <a href="#">
-                    <div class="product-img"><img src="/resources/image/shop/${a.filepath }" width="280px;" height="280px;"></div>
+                    <div class="product-img">
+                    	<img src="/resources/upload/shop/${a.shopPhotoList[0].filepath }" width="280px;" height="280px;">
+                    </div>
                     <div class="info">
                         <div class="product-name">${a.shopTitle }</div>
                         <div class="price">${a.shopPrice }원</div>
                         <div class="count">재고 : ${a.count }</div>
-                        <div class="score">평점 : ${a.score }</div>
+                        <div class="score">평점 : ${a.avgRating }</div>
                     </div>
                 </a>
             </div>

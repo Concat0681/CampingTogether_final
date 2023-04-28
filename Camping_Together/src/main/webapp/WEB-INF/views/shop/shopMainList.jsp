@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,11 +17,6 @@
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
 	<script src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script> 
 	<div class="page-wrap">
-		<div>
-			<c:if test="${sessionScope.m.memberGrade eq 'a' }">
-				<button id="insertShopBtn">물품등록</button>			
-			</c:if>
-		</div>
 		<div class="page-slick" id="page-slick">
 			<div class="page-camping-header" style="height : 600px;">
 				<div class="slick-content">
@@ -89,7 +85,7 @@
 								<div>${c.shopTitle }</div>
 								<div class="shop-price-info">
 									<div>
-										${c.shopPrice} 원
+										<fmt:formatNumber value="${c.shopPrice }" pattern="#,###"/> 원
 									</div>
 									<div class="shop-rating">
 										<div>평점</div>

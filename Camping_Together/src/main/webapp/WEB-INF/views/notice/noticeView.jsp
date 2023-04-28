@@ -98,7 +98,7 @@ a{
 			</tr>
 			<tr class="tr-1">
 				<td colspan="4">
-					<div id="noticeContent" style="height:400px; text-align:left;">
+					<div id="noticeContent" style="text-align:left;">
 						${n.noticeContent }
 					</div>
 				</td>
