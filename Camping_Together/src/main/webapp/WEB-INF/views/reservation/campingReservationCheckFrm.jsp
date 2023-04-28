@@ -45,6 +45,7 @@
         margin: 0 auto;
         text-align: center;
         margin-top: 250px;
+        margin-bottom: 205px;
     }
     .h3{
         font-size: 30px;
