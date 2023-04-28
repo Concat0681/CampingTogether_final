@@ -147,7 +147,6 @@
 			}
 		}
 		
-		
 		function delNewPhoto(obj){
 			destroySlick();
 			const fileNum = $(".img-box").index($(obj).parent());

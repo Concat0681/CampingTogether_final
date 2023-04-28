@@ -23,14 +23,20 @@
 <script>
 //Alert Modal Type
 $().ready(function () {
+
+  $("#alertStart").on("click", function(){
+    swalAlert('/', '테스트',"테스트1")
+  })
   
-  $("#alertStart").click(function () {
+  function swalAlert (url, titleStr, textStr) {
     Swal.fire({
       icon: 'success',
-      title: 'Alert가 실행되었습니다.',
-      text: '이곳은 내용이 나타나는 곳입니다.',
+      title: titleStr,
+      text: textStr,
+    }).then(function() {
+    window.location = url;
     });
-  });
+  };
   
   
   $("#confirmStart").click(function () {
