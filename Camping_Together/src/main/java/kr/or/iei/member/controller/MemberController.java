@@ -97,11 +97,12 @@ public class MemberController {
 	    if(loginMember == null) {
 	        String alertMsg = "로그인 실패했습니다. 다시 시도해주세요.";
 	        model.addAttribute("alertMsg", alertMsg);
-	        return "redirect:/loginFrm.do";
+	        return "member/joinFrm";
 	    } else if(loginMember.getMemberGrade().equals("B")) {
-	        String alertMsg = "관리자에게 문의해주세요";
-	        model.addAttribute("alertMsg", alertMsg);
-	        return "redirect:/loginFrm.do";
+	    	System.out.println(loginMember.getMemberGrade());
+	    	String memberGrade = loginMember.getMemberGrade();
+	        model.addAttribute("memberGrade", memberGrade);
+	        return "member/joinFrm";
 	    } else {
 	        session.setAttribute("m", loginMember);
 	        return "redirect:/";

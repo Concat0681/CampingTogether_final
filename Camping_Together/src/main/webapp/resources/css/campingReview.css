@@ -56,8 +56,6 @@
   overflow-y: auto;
 }
 
-
-
 .review-modal-wrap div:not(:last-child) {
 	
 }
@@ -76,6 +74,11 @@
 .review-modal-wrap div.review-modal-head {
   position: relative;
   padding: 1rem;
+}
+
+.review-modal-head{
+    width: 400px;
+
 }
 
 .close-icon {

@@ -409,16 +409,12 @@ input:focus {
 					        <input type="text" placeholder=" &#xf007;   UserId" name="memberId"/>
 					        <input type="password" placeholder=" &#xf023;  Password" name="memberPw" />
 					        <div>
-						        <button type="submit">로그인 </button>
+						        <button type="submit" class="loginBtn">로그인 </button>
 						        <hr>
 						        <div class="searchBox"> <a href="#" class="searchId">아이디 찾기</a> <a href="#" class="searchPw">비밀번호 찾기</a> </div>
 						    </div>
 					    </form>
-					<c:if test="${alertMsg != null}">
-			            <div class="alert-danger" role="alert">
-			                <span>${alertMsg }</span>
-			            </div>
-			        </c:if>
+
 	        </div>
 	        <!-- 회원가입 페이지 -->
 	        <div id="signup">   
@@ -477,9 +473,6 @@ input:focus {
 				</div>
 	          </form>
 	           <jsp:include page="/WEB-INF/views/member/joinCheckMenu.jsp"></jsp:include>
-	        	<c:if test="${not empty alertMsg}">
-			        ${alertMsg}
-			    </c:if>
 				
 				<c:if test="${errorMsg}" var="errorMsg">
 						<div class="alert-danger" role="alert">
@@ -500,8 +493,17 @@ input:focus {
 <div style="width: 800px;">
 	
 </div>
-
+<input type="hidden" value="${memberGrade }" id="memberGradeB">
 <script>
+$(".loginBtn").on("click",function(){
+	const memberGradeB = $("#memberGradeB").val();
+	if( memberGradeB === "B"){
+		alert("해당계정은 정지 상태입니다.");
+	}else{
+		alert("로그인이 실패하였습니다.");
+	}
+});
+
 $(".confirm").on("click", function(){
 	const detailAddress = $(".detailAddress").val();
 	const extraAddress= $("#sample4_extraAddress").val();

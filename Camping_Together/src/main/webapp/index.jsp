@@ -124,7 +124,7 @@
 					<jsp:include page="/noticeMainList.do"/>
 				</div>
 				<div class="notice-img">
-					<a href="/noticeView.do?noticeNo=101"><img src="resources/image/main/notice-beta.png"></a>
+					<a href="/noticeView.do?noticeNo=101"><img src="resources/image/main/notice_banner.jpg" style="height:-webkit-fill-available;"></a>
 				</div>
 			</div>	
 		</div>

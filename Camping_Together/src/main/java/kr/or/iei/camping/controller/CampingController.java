@@ -71,9 +71,7 @@ public class CampingController {
 	public String campingList(Camping c, String campingSido, String cityNameKR, String cityNameEN,int reqPage, String order, String pplCount, String checkIn, String checkOut, Model model) {
 		CampingRoom campingRoom = new CampingRoom();
 		Camping camping = new Camping();
-		camping.setCampingSido(campingSido);
-		camping.setCampingAddr(cityNameKR);
-		if(cityNameKR == "") {
+		if(cityNameKR.equals("")) {
 			camping.setCampingSido(campingSido);
 		} else {
 			camping.setCampingAddr(cityNameKR);
@@ -585,10 +583,12 @@ public class CampingController {
 	@RequestMapping(value ="/campingReservationCheck.do")
 	public String campingReservationCheck(Model model, String memberName, String memberPhone) {
 		Member member = service.selectMember(memberName, memberPhone);
-		System.out.println(member);
+		if(member == null) {
+			return "reservation/campingReservationCheck";			
+		}
 		ArrayList<CampingReservationCheck> list = service.selectReservationCheck(member.getMemberNo(),member.getMemberId());
-		System.out.println(list);
 		model.addAttribute("list",list);
+		model.addAttribute("member",member);
 		return "reservation/campingReservationCheck";
 	}
 }
