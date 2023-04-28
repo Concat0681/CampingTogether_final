@@ -33,7 +33,7 @@
 <div class="message-comset" style="display: none;">
 	<div class="message-modal-wrapper">
 	  <div class="wrapper-header">
-	    <div class="material-symbols-outlined filler" id="modal-cancle">cancel</div>
+	    <div class="material-symbols-outlined filler" id="modal-cancle1">cancel</div>
 	  </div>
 	  <hr style="margin: 0px;">
 		<div class="wrapper-body">
@@ -323,7 +323,7 @@ $(".messageBtn").on("click", function() {
 	  $(".message-comset").css("display", "block");
 	});
 	
-$("#modal-cancle").click(function() {
+$("#modal-cancle1").click(function() {
     $(".message-comset").css("display", "none");
     $(".endtreed").css("display", "none");
   });

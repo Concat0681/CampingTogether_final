@@ -130,7 +130,6 @@
 		
 				
 		<div class="wrapper wrapperMiddle-tradeBox">
-				<jsp:include page="/usedBoardIndex.do"/>
 		</div>
 		<div class="wrapper wrapperMiddle-shop">
 			<jsp:include page="/mainShopList.do"/>
