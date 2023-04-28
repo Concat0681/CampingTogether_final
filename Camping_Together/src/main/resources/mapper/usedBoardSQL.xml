@@ -135,7 +135,7 @@
 	<select id="sellUserCheck" parameterType="string" resultType="ub">
 	   select 
 	           member_phone as sellerPhone,
-	           profile_filepath as profilePath
+	           member_photo as profilePath
 	   from member 
 	   left join profile using(member_no)
 	   where member_id like #{_parameter}
