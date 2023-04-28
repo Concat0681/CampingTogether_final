@@ -130,25 +130,22 @@
 		
 		function uploadPhoto(input){
 			if (input.files && input.files.length > 0) {
-				destroySlick();
 				$("#img-viewer").empty();
 				for (let i = 0; i < input.files.length; i++) {
 					const reader = new FileReader();
 					reader.readAsDataURL(input.files[i]);
 					reader.onload = function(e) {
+						destroySlick();
 						const div = $("<div>").addClass("img-box");
 						const img = $("<img>").attr("src", e.target.result); // 이미지를 보여줄 DOM 엘리먼트에 추가
 						const button = $("<button>").addClass("btn1").attr("type", "button").attr("onclick", "delNewPhoto(this)").text("삭제");
 						div.append(img).append(button);
 						$("#img-viewer").append(div);
+						applySlick();
 					}
 				}
-				setTimeout(function () {
-					applySlick()
-		        }, 10);
 			}
 		}
-		
 		
 		function delNewPhoto(obj){
 			destroySlick();
