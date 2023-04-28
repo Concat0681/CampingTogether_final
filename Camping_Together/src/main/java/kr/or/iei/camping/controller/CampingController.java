@@ -197,6 +197,7 @@ public class CampingController {
 			
 		CampingReviewData crd = service.selectCampingReview(campingNo);
 		CampingReviewData reviewCommentList = service.selectReviewCommentList(campingNo);
+		ArrayList<Member> member = service.selectReviewMember(campingNo);
 //		CampingReservation campingReservation = service.selectReservation(cr);
 //		System.out.println(campingReservation);
 		int campingReviewCount = service.selectReviewCount(campingNo);
@@ -213,6 +214,7 @@ public class CampingController {
 		model.addAttribute("checkOut", checkOut);
 //		model.addAttribute("campingReservation", campingReservation);
 		model.addAttribute("reservationList",reservationList);
+		model.addAttribute("reviewMember", member);
 //		System.out.println(reservationList);
 		return "camping/viewCamping";
 	}
@@ -585,10 +587,12 @@ public class CampingController {
 	@RequestMapping(value ="/campingReservationCheck.do")
 	public String campingReservationCheck(Model model, String memberName, String memberPhone) {
 		Member member = service.selectMember(memberName, memberPhone);
-		System.out.println(member);
+		if(member == null) {
+			return "reservation/campingReservationCheck";			
+		}
 		ArrayList<CampingReservationCheck> list = service.selectReservationCheck(member.getMemberNo(),member.getMemberId());
-		System.out.println(list);
 		model.addAttribute("list",list);
+		model.addAttribute("member",member);
 		return "reservation/campingReservationCheck";
 	}
 }

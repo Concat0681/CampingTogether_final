@@ -1,3 +1,5 @@
+
+
 $('.camping-list-menu>div').on('click', function () {
   $(this).parent().find('span').removeClass('clicked-span')
   $(this).find('span').addClass('clicked-span')

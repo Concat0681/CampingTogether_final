@@ -46,6 +46,10 @@
 	.reservationCheck-item{
 		margin-top: 30px;
 	}
+	.checkNull{
+		padding-top:150px;
+		text-align:center;
+	}
 </style>
 </head>
 <body>
@@ -54,6 +58,13 @@
     <div class="div-reservationCheck-wrap">
         <div class="reservationCheck-wrap">
     	<h3>예약내역 조회</h3>
+    	  <c:if test="${member eq null }">
+    	  <div class="checkNull-wrap">
+    	  	<div class="checkNull">
+    	  		조회된 내역이 없습니다.    	  	
+    	  	</div>
+    	  </div>
+    	  </c:if>
 		  <c:forEach items="${list }" var="crh">
 			<a href="/reservationMyInfo.do?campingReservationNo=${crh.campingReservationNo }">
 	            <div class="reservationCheck-item">

@@ -26,10 +26,10 @@
         <div class="reservation-content">
             <form action="/campingReservationCheck.do" method="post">
                 <div class="reservation-name">
-                    <input type="text" name="memberName" placeholder="예약자명">
+                    <input type="text" name="memberName" placeholder="예약자명" required>
                 </div>
                 <div class="reservation-phone">
-                    <input type="text" name="memberPhone" placeholder="전화번호('-'포함 / 예:010-0000-0000)">
+                    <input type="text" name="memberPhone" placeholder="전화번호('-'포함 / 예:010-0000-0000)" required>
                 </div>
                 <div class="reservation-btn">
                     <button type="submit" class="btn3">예약조회</button>
@@ -78,6 +78,7 @@
     }
     input{
     	padding-left: 10px;
+    	font-size: 14px;
     }
 </style>
 </html>

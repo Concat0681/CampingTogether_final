@@ -109,7 +109,7 @@
   
   .backgroundPhoto {
 	width: 100%;
-	 background-image: url(/resources/image/main/campingImg.jpg);
+	background-image: url(/resources/image/main/errorBack.gif);
     background-repeat: no-repeat;
     background-size: cover;
 	position: absolute;

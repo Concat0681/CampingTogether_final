@@ -348,6 +348,11 @@ public class CampingDao {
 		return (ArrayList<CampingReservationCheck>)list;
 	}
 
+	public ArrayList<Member> selectReviewMember(int campingNo) {
+		List list = sqlSession.selectList("camping.selectReviewMember",campingNo);
+		return (ArrayList<Member>)list;
+	}
+
 	
 
 

@@ -128,7 +128,6 @@ body{
 .freeboard>li{
     padding: 5px;
 }
-
 .scroll-top{
     margin: 0 auto;
     width: 100%;
@@ -140,7 +139,6 @@ body{
     z-index: 999;
     display: flex; 
 }
-
 .freeboard{
     display: block;
     width: max-content;
@@ -148,7 +146,6 @@ body{
     background-color: yellow;
     text-decoration: none;
     color: green;
-
 }
 .navbar {
   transition: all 1s ease-in-out;
@@ -158,15 +155,9 @@ body{
   background-color: #fff;
   color: #fff;
 }
-
 .dropdown-menu{
-	margin-left: 25px;
-	
+	margin-left: 25px;	
 }
-
-
-
-
 /* 모달창 스타일 */
 .modalVer1 {
   display: none; /* 모달창 기본적으로는 안 보이도록 지정 */
@@ -179,6 +170,13 @@ body{
   background-color: rgba(0,0,0,0.4); /* 배경 반투명 */
   z-index: 999;
   text-align: center;
+}
+.modal-content4 {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    width: 400px;
+    height: 250px;
 }
 
 .modal-content3 {

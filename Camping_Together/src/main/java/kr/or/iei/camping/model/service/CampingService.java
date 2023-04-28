@@ -481,6 +481,11 @@ public class CampingService {
 		return list;
 	}
 
+	public ArrayList<Member> selectReviewMember(int campingNo) {
+		ArrayList<Member> list = dao.selectReviewMember(campingNo);
+		return list;
+	}
+
 	
 
 

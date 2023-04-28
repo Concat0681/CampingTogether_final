@@ -56,7 +56,7 @@
   
   .backgroundPhoto {
 			width: 100%;
-			 background-image: url(/resources/image/main/campingImg.jpg);
+			background-image: url(/resources/image/main/errorBack.gif);
 		    background-repeat: no-repeat;
 		    background-size: cover;
 			position: absolute;
@@ -85,7 +85,7 @@
 	<div class="wrap" style="margin-top: 300px;">
         <div class="contentWrap" style="background-color: #fff; padding-left: 30px; padding-top: 50px; border-radius: 10px; margin-bottom: 50px;">
         	<div class="contentDetail">
-	        		<h2 style="margin-bottom: 60px;">${campingTitle } 캠핑 추가 등록</h2>
+	        		<h2 style="margin-bottom: 60px;">${campingTitle } 방 추가 등록</h2>
 	        		<form action="/campingRoomWrite.do" method="post" enctype="multipart/form-data">
 	        			<input type="hidden" name="campingNo" value="${campingNo }">
 	        			<input type="hidden" name="memberId" value="${sessionScope.m.memberId }">

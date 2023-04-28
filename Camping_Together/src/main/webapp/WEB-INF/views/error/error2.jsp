@@ -64,7 +64,7 @@
 	<div class="error-wrap">
 		<div class="wrap">
 			<div class="error-header">
-				<h1>PAGE NOT FOUND</h1>
+				<h1>ERROR 404</h1>
 			</div>
 			<div class="error-content">
 				페이지의 주소가 잘못 입력되었거나,

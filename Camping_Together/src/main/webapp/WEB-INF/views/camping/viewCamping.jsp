@@ -366,7 +366,7 @@
 					<c:forEach items="${campingReview }" var="cr" varStatus="i">
 							<div style="margin-top: 50px;">
 						        <ul class="posting-comment">
-						          <li style="padding-left: 90px;">
+						          <li style="padding-left: 70px;">
 						            <span class="material-icons">account_box</span>
 						          </li>
 						          <li>
