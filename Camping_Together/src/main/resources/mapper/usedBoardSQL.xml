@@ -111,13 +111,15 @@
 	</insert>
 	
 	<select id="selectCommentList" parameterType="_int" resultType="ubc">
-		select 
+		    select 
 			used_board_comment_no as usedBoardCommentNo,
 			used_board_no as usedBoardNo,
 			used_board_comment_writer as usedBoardCommentWriter,
 			used_board_comment_content as usedBoardCommentContent,
-			reg_date as regDate
+			reg_date as regDate,
+            member_photo as profilePath
 		from used_board_comment
+        join member on(member_id = used_board_comment_writer)
 		where used_board_no = #{_parameter}
 		order by 1
 	</select>
