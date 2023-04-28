@@ -95,6 +95,9 @@ textarea.input-form {
     text-align: center;
     display: inline-block;
 }
+.cancelBtn:hover{
+		color:#fff !important;
+	}
 </style>
 <body>
 <jsp:include page="/WEB-INF/views/common/header.jsp" />
@@ -114,7 +117,7 @@ textarea.input-form {
 						${sessionScope.m.memberId }
 						<input type="hidden" name="boardFoodWriter" value="${sessionScope.m.memberId }">
 					</td>
-					<th class="td-2">이미지</th>
+					<th class="td-2">썸네일</th>
 					<td>
 						<%--accept 허용 할 확장자 onchange : 미리보기(이미지)--%>
 						<input type="file" name="imageFile" accept=".jpg,.png,.jpeg" onchange="loadImg(this);" >
