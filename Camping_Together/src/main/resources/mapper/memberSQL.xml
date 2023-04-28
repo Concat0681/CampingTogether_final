@@ -206,8 +206,9 @@
 			rownum as rnum, 
 			m.*from
 		        (select
-		        *
-				from shop order by score desc)m
+		        s.*,
+		        (select round(avg(shop_review_rating),1) from shop_review where shop_no = s.shop_no ) as avgRating
+				from shop s order by score desc)m
 			)
 		where rnum between #{start} and #{end} and member_id=#{memberId}
 	</select>

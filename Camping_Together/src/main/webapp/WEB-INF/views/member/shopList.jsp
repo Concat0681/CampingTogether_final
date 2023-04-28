@@ -39,7 +39,7 @@
                         <div class="product-name">${a.shopTitle }</div>
                         <div class="price">${a.shopPrice }원</div>
                         <div class="count">재고 : ${a.count }</div>
-                        <div class="score">평점 : ${a.score }</div>
+                        <div class="score">평점 : ${a.avgRating }</div>
                     </div>
                 </a>
             </div>

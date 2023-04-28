@@ -16,6 +16,7 @@ public class AdminShopList {
 	private int shopPrice;
 	private int count;
 	private int score;
+	private int avgRating;
 	private ArrayList<ShopPhoto> shopPhotoList;
 	
 }
