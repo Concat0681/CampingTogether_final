@@ -138,13 +138,14 @@
 					reader.onload = function(e) {
 						const div = $("<div>").addClass("img-box");
 						const img = $("<img>").attr("src", e.target.result); // 이미지를 보여줄 DOM 엘리먼트에 추가
+						const button = $("<button>").addClass("btn1").attr("type", "button").attr("onclick", "delNewPhoto(this)").text("삭제");
 						div.append(img).append(button);
 						$("#img-viewer").append(div);
 					}
 				}
 				setTimeout(function () {
 					applySlick()
-		        }, 10);
+		        }, 5);
 			}
 		}
 		
