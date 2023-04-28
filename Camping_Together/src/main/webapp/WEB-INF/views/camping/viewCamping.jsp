@@ -41,7 +41,7 @@
 									<input type="hidden" name="campingBookmarkNo" value="${camping.campingBookmarkNo }">
 								</c:when>
 								<c:otherwise>
-									<span class="material-symbols-outlined addBookmark filled-heart">favorite</span>
+									<span class="material-symbols-outlined addBookmark filled-heart heart">favorite</span>
 									<input type="hidden" name="campingNo" value="${camping.campingNo }">
 									<input type="hidden" name="campingBookmarkNo" value="${camping.campingBookmarkNo }">
 								</c:otherwise>
@@ -78,9 +78,9 @@
 					<div class="provide-title">공용시설</div>
 					<div class="provice-service-box">
 						<c:forEach items="${camping.campingProvideServiceList }" var="ps">
-							<div class="provide-service-list">
-								<span class="material-symbols-outlined"></span>
-								<div>${ps.campingService }</div>
+							<div class="provide-service-list" style="width: 130px;">
+								<span class="material-symbols-outlined middel-icon" ></span>
+								<div style="font-size: 16px;">${ps.campingService }</div>
 							</div>
 						</c:forEach>
 					</div>
@@ -89,9 +89,9 @@
 					<div class="provide-title">객실내 시설</div>
 					<div class="room-service-box">
 						<c:forEach items="${camping.campingRoomServiceList }" var="rs">
-							<div class="room-service-list">
-								<span class="material-symbols-outlined"></span>
-								<div>${rs.campingRoomService }</div>
+							<div class="room-service-list" style="width: 130px;">
+								<span class="material-symbols-outlined middel-icon" ></span>
+								<div  style="font-size: 16px;">${rs.campingRoomService }</div>
 							</div>
 						</c:forEach>
 					</div>
@@ -100,9 +100,9 @@
 					<div class="provide-title">기타</div>
 					<div class="etc-list-box">
 						<c:forEach items="${camping.campingEtcList }" var="e">
-							<div class="etc-list">
-								<span class="material-symbols-outlined"></span>
-								<div>${e.campingEtc }</div>
+							<div class="etc-list" style="width: 130px;">
+								<span class="material-symbols-outlined middel-icon"></span>
+								<div  style="font-size: 16px;">${e.campingEtc }</div>
 							</div>
 						</c:forEach>
 					</div>
@@ -111,9 +111,9 @@
 		</div>
 		<div class="page-content">
 			<div class="content-menu">
-				<div class="menu"><button class="btn1">캠핑장예약</button></div>
-				<div class="menu"><button class="btn1">캠핑장정보</button></div>
-				<div class="menu"><button class="btn1">캠핑리뷰</button></div>
+				<div class="menu"><button class="view-btn1">캠핑장예약</button></div>
+				<div class="menu"><button class="view-btn1">캠핑장정보</button></div>
+				<div class="menu"><button class="view-btn1">캠핑리뷰</button></div>
 			</div>
 			<div class="content-wrap">
 				<div class="content-box">
@@ -125,12 +125,12 @@
 									<c:when test="${not empty checkIn }">
 										<input class="form-control" type="text" id="search_checkin" name="checkIn" value="${checkIn }" readonly>
 										<input class="form-control" type="text" id="search_checkout" name="checkOut" value="${checkOut }" readonly>	
-										<button onclick="changeDate();">찾기</button>
+										<button onclick="changeDate();"  class="searchBtn">찾기</button>
 									</c:when>
 									<c:otherwise>
 										<input class="form-control" type="text" id="search_checkin" name="checkIn" readonly>
 										<input class="form-control" type="text" id="search_checkout" name="checkOut" readonly>	
-										<button onclick="changeDate();">찾기</button>
+										<button onclick="changeDate();" class="searchBtn" >찾기</button>
 									</c:otherwise>
 								</c:choose>
 							</div>
@@ -174,14 +174,14 @@
 									</div>
 								</div>
 								<div class="room-box">
-									<div>${r.campingRoomTitle }</div>
+									<div style="font-size:22px; color:#CEAB93;">${r.campingRoomTitle }</div>
 									<div class="room-price-box">
-										<div>가격</div>
-										<div>${r.campingRoomPrice }</div>
+										<div style="font-size : 22px; color:#CEAB93;">가격</div> 
+										<div style="font-size : 22px; color:#CEAB93;" >${r.campingRoomPrice } 원</div>
 									</div>
 									<div class="room-basic-info">
 										<a>
-											<span>객실기본정보</span>
+											<span style="font-size : 18px;">객실기본정보</span>
 											<span class="material-symbols-outlined">chevron_right</span>
 										</a>
 									</div>
@@ -199,17 +199,17 @@
 											<c:forEach items="${reservationList}" var="rl" varStatus="j">
 											<c:choose>
 												<c:when test="${empty sessionScope.m and  i.index eq j.index }">
-													<button type="button" class="btn2 loginBtn" style="width: 100%;">예약하기</button>
+													<button type="button" class="btn2 loginBtn" style="width: 100%;  font-size : 22px;">예약하기</button>
 												</c:when>
 												<c:when test="${empty checkIn and  i.index eq j.index }">
 													<button type="button" class="btn2 emptyCheck" style="width: 100%;">예약하기</button>
 												</c:when>
 												<c:otherwise>
 													<c:if test="${rl.campingReservationNo eq null and  i.index eq j.index}">
-		    											<button type="submit" class="btn2 reservationBtn" style="width: 100%;">예약하기</button>
+		    											<button type="submit" class="btn2 reservationBtn" style="width: 100%;  font-size : 22px;">예약하기</button>
 													</c:if>
 		    										<c:if test="${r.campingRoomNo eq rl.campingRoomNo}">
-		        										<div class="reservation" style="background-color: #e3e4e5; width: 100%; border-radius: 5px; color: white; text-align: center;">예약완료</div>
+		        										<div class="reservation" style="background-color: #e3e4e5; width: 100%; border-radius: 5px; color: white; text-align: center;  font-size : 22px;">예약완료</div>
 		    										</c:if>
 												</c:otherwise>
 											</c:choose>
@@ -227,20 +227,20 @@
 									</div>
 									<div class="card-content">
 										<div>
-											<div>캠핑방 내용</div>
+											<div style="font-size : 20px; color :#CEAB93; ">내용</div>
 											<div>${r.campingRoomContent }</div>
 										</div>
 										<div class="room-detail-info">
 											<div>
-												<div>캠핑방 가격</div>
+												<div style="font-size : 20px; color :#CEAB93; ">캠핑방 가격</div>
 												<div>${r.campingRoomPrice } 원</div>
 											</div>
 											<div>
-												<div>캠핑방 최대인원</div>
+												<div style="font-size : 20px; color :#CEAB93; ">캠핑방 최대인원</div>
 												<div>${r.campingRoomMaxPplCount } 명</div>
 											</div>
 											<div>
-												<div>캠핑방 유형</div>
+												<div style="font-size : 20px; color :#CEAB93; ">캠핑방 유형</div>
 												<div>${r.campingRoomType }</div>
 											</div>
 										</div>
@@ -366,9 +366,16 @@
 					<c:forEach items="${campingReview }" var="cr" varStatus="i">
 							<div style="margin-top: 50px;">
 						        <ul class="posting-comment">
+						        <c:if test="${cr.memberPhoto == null }">
 						          <li style="padding-left: 70px;">
-						            <span class="material-icons">account_box</span>
+						            <span class="material-icons">account_circle</span>
 						          </li>
+						        </c:if>
+						        <c:if test="${cr.memberPhoto != null }">
+					        	  <li style="padding-left: 70px;">
+						            <img src="resources/image/member/${cr.memberPhoto }" style="width: 100px; height: 100px; border-radius: 50%;">
+						          </li>
+						        </c:if>
 						          <li>
 						            <p class="comment-info" style="margin-bottom: 0;">
 						              <span style="font-size: 20px;font-weight: 900;">${cr.campingReviewTitle }</span>
@@ -495,7 +502,7 @@
 								        <ul class="posting-comment reply">
 								          <li style="padding-left: 90px;">
 								            <span class="material-icons">subdirectory_arrow_right</span>
-								            <span class="material-icons">account_box</span>
+								            <span class="material-icons">account_circle</span>
 								          </li>
 								          <li>
 								            <p class="comment-info">
