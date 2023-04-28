@@ -396,11 +396,14 @@ function getSendMessage(){
                 td3.text(message.messageContent);
                 const td4 = $("<td>");
                 td4.text(message.messageDate);
+                
                 td1.addClass("messageTd");
                 td2.addClass("messageTd");
                 td3.addClass("messageTd");
                 td4.addClass("messageTd");
+                td2.addClass("messageTdTitle");
                 td3.addClass("messageTdContent");
+                
                 
                 tr.append(td1).append(td2).append(td3).append(td4);
                 tbody.append(tr);
@@ -443,6 +446,7 @@ function getReceiveMessage(){
                 td3.addClass("messageTdContent");
                 td4.addClass("messageTd");
                 td5.addClass("messageTd");
+                td2.addClass("messageTdTitle");
                 tr.append(td1).append(td2).append(td3).append(td4).append(td5);
                 tbody.append(tr);
                 

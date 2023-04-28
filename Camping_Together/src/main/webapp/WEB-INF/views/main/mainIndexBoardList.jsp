@@ -8,9 +8,10 @@
 <meta charset="UTF-8">
 <style>
 .bottom-content{
-	width: 80%;
+	width: 90%;
 	margin: 0 auto;
-	padding: 50px;
+	padding-top: 50px;
+	
 }
 .bottom-content ul li ol{
 	list-style-type: none;
@@ -52,10 +53,8 @@
 		<ul style="list-style-type: none;">
 			<li class="title">
 				<ol class="boardBox">
-					<li class="n-title Tip-title"><h3>많이 묻는 질문</h3><span><a href="#">더보기</a></span></li>
-					<c:forEach items="${foodlist}" var="bf">
-						<li><span>${bf.boardFoodTitle }</span> </li>
-					</c:forEach>
+					<li class="n-title Tip-title"><h3>많이 묻는 질문</h3><span><a href="/mainQnA.jsp">더보기</a></span></li>
+						<li><span>${bf.boardFoodTitle }</span>
 					
 				</ol>
 			</li>

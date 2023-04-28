@@ -96,6 +96,8 @@ public class MemberController {
 	    Member loginMember = service.selectOneMember(member);
 	    if(loginMember == null) {
 	        String alertMsg = "로그인 실패했습니다. 다시 시도해주세요.";
+	        int memberNo = member.getMemberNo();
+	        model.addAttribute("memberNo", memberNo);
 	        model.addAttribute("alertMsg", alertMsg);
 	        return "member/joinFrm";
 	    } else if(loginMember.getMemberGrade().equals("B")) {

@@ -479,6 +479,21 @@ input:focus {
 							<c:out value="${errorMsg }" />
 						</div>
 				</c:if>
+				<c:if test="${errorMsg}" var="errorMsg">
+						<div class="alert-danger" role="alert">
+							<c:out value="${errorMsg }" />
+						</div>
+				</c:if>
+				<c:if test="${memberGrade eq 'B'}" var="errorMsg">
+						<div class="alert-danger" role="alert">
+							<span>계정이 정지상태입니다</span>
+						</div>
+				</c:if>
+				<c:if test="${memberNo == 0}" var="errorMsg">
+						<div class="alert-danger" role="alert">
+							계정이 정지상태입니다.
+						</div>
+				</c:if>
 	        </div>
 	       
 	      </div><!-- tab-content -->
@@ -494,15 +509,8 @@ input:focus {
 	
 </div>
 <input type="hidden" value="${memberGrade }" id="memberGradeB">
+<input type="hidden" value="${memberNo }" id="memberGradeB">
 <script>
-$(".loginBtn").on("click",function(){
-	const memberGradeB = $("#memberGradeB").val();
-	if( memberGradeB === "B"){
-		alert("해당계정은 정지 상태입니다.");
-	}else{
-		alert("로그인이 실패하였습니다.");
-	}
-});
 
 $(".confirm").on("click", function(){
 	const detailAddress = $(".detailAddress").val();
