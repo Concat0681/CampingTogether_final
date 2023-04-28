@@ -19,7 +19,7 @@
         .page-content{
         	width: 1200px;
             margin: 0 auto;
-        	padding-top: 130px;
+        	margin-top: 230px;
         }
         .btn2, .btn1{
         	padding: 10px;
@@ -44,10 +44,9 @@
         .long{
             width: 1000px;
         }
-        .content-top>h2{
-            margin: 20px;
-            padding-top: 20px;
+         .content-top>h2{
             font-family: ng-bold;
+            color: #AD8B73;
         }
         .category-bottom{
         	margin-left: 40px;
@@ -137,7 +136,7 @@
         }
         .delete-img{
         	position: absolute;
-			left: 59px;
+			right: 0px;
 			bottom: 0px;
         	cursor: pointer;
         	background-color: #000;
@@ -194,8 +193,8 @@
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
 	<div class="page-content">
         <div class="content-top">
-            <h2>기본정보</h2>
-            <hr>
+        	<h2>기본정보</h2>
+        	<hr>
         </div>
         <form action="/boardUpdate.do" method="post" enctype="multipart/form-data" id="updateFrm">
         	<input type="hidden" value="${sessionScope.m.memberId }" name="usedBoardWriter">

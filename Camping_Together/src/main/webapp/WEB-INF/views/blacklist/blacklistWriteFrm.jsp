@@ -25,13 +25,12 @@
 	.page-content{
 		width: 1200px;
 		margin: 0 auto;
-		padding-top: 130px;
+		margin-top: 230px;
 		position: relative;
 	}
 	.content-top>h2{
-		margin: 20px;
-		padding-top: 20px;
 		font-family: ng-bold;
+        color: #AD8B73;
 		display: inline-block;
 		margin-bottom: 5px;
 		margin-right: 5px;
