@@ -52,7 +52,7 @@
 		<ul style="list-style-type: none;">
 			<li class="title">
 				<ol class="boardBox">
-					<li class="n-title Tip-title"><h3>캠핑Tip</h3><span>더보기</span></li>
+					<li class="n-title Tip-title"><h3>많이 묻는 질문</h3><span><a href="#">더보기</a></span></li>
 					<c:forEach items="${foodlist}" var="bf">
 						<li><span>${bf.boardFoodTitle }</span> </li>
 					</c:forEach>

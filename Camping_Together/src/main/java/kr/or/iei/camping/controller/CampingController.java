@@ -587,10 +587,12 @@ public class CampingController {
 	@RequestMapping(value ="/campingReservationCheck.do")
 	public String campingReservationCheck(Model model, String memberName, String memberPhone) {
 		Member member = service.selectMember(memberName, memberPhone);
-		System.out.println(member);
+		if(member == null) {
+			return "reservation/campingReservationCheck";			
+		}
 		ArrayList<CampingReservationCheck> list = service.selectReservationCheck(member.getMemberNo(),member.getMemberId());
-		System.out.println(list);
 		model.addAttribute("list",list);
+		model.addAttribute("member",member);
 		return "reservation/campingReservationCheck";
 	}
 }

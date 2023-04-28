@@ -344,6 +344,19 @@ input:focus {
   margin-bottom: 1rem;
   border: 1px solid transparent;
   border-radius: .25rem;
+  
+}
+.modalVer1 {
+  display: none; /* 모달창 기본적으로는 안 보이도록 지정 */
+  position: fixed; 
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto; 
+  background-color: rgba(0,0,0,0.4); /* 배경 반투명 */
+  z-index: 999;
+  text-align: center;
 }
 
 </style>
@@ -361,32 +374,29 @@ input:focus {
 	        <input type="text" placeholder=" &#xf007;   UserId" name="memberId"/>
 	        <input type="password" placeholder=" &#xf023;  Password" name="memberPw" />
 	        <div>
-		        <button type="submit">로그인 </button>
+		        <button type="submit" class="loginBtn">로그인 </button>
 		        <button type="button" onClick="location.href='/joinFrm.do'">회원가입</button>
-		        <div class="searchBox"> <a href="#" class="searchId">아이디 찾기</a> <a href="#" class="searchPw">비밀번호 찾기</a> </div>
-		    </div>
+		       
+		          </div>
 		   
 	    </form>
-	            <c:if test="${alertMsg != null}">
-		            <div class="alert-danger" role="alert">
-		                <span>${alertMsg }</span>
-		            </div>
-		        </c:if>
-		        <c:if test="${not empty alertMsg}">
-				  <div class="alert alert-danger">${alertMsg}</div>
-				</c:if>
-						        
+	   		<input type="hidden" value="${memberGrade}" id="memberGradeB">
+	          
 	</div>
 	
 </div>
 <script>
-    $(document).ready(function() {
-        let message = "[[${alertMsg}]]";
-        if (message != "") {
-            alert("로그인이 실패하였습니다.");
-        }else {
-        }
-    })
+$(document).ready(function() {
+	alert("로그인이 실패하였습니다.");
+});
+$(".loginBtn").on("click",function(){
+	const memberGradeB = $("#memberGradeB").val();
+	if( memberGradeB === "B"){
+		alert("해당계정은 정지 상태입니다.");
+	}else{
+		alert("로그인이 실패하였습니다.");
+	}
+});
 </script>
 </body>
 
