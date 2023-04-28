@@ -130,11 +130,81 @@ textarea.input-form {
 	</div>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 	<script>
-		$("#noticeContent").summernote({
-			height : 400,
-			lang : "ko-KR"
-		});
-		
+	//이미지 미리보기
+	function loadImg(f){
+		//첨부파일이 여러개일 수 있어서 항상 배열처리
+		console.log(f.files);
+		//파일 갯수가 0개가 아니고 && 첫 번째 파일이 정상파일이면
+		if(f.files.length != 0 && f.files[0] !=0){
+			const reader = new FileReader();//파일정보를 얻어올 수 있는 객체
+			//선택한 파일 정보를 읽어옴
+			reader.readAsDataURL(f.files[0]);
+			//파일리더가 정보를 다 읽어오면 동작할 함수
+			reader.onload = function(e){
+				//읽어오면 결과가 e에 매개변수에 들어와있음 attr을 통해 src적용
+				$("#img-view").attr("src",e.target.result);
+			}
+		}else{
+			//src 값 삭제
+			$("#img-view").attr("src","");
+		}
+	}
+	
+	//써머노트
+	$(document).ready(function() {
+
+var toolbar = [
+  // 글꼴 설정
+  ['fontname', ['fontname']],
+  // 글자 크기 설정
+  ['fontsize', ['fontsize']],
+  // 글자색
+  ['color', ['forecolor','color']],
+  // 글머리 기호, 번호매기기, 문단정렬
+  ['para', ['ul', 'ol', 'paragraph']],
+  // 줄간격
+  ['height', ['height']],
+  // 그림첨부, 링크만들기, 동영상첨부
+  ['insert',['picture','link','video']],
+  // 코드보기, 확대해서보기, 도움말
+  ['view', ['codeview','fullscreen', 'help']]
+ ];
+
+var setting = {
+  height : 300,
+  minHeight : null,
+  maxHeight : null,
+  focus : true,
+  lang : 'ko-KR',
+  toolbar : toolbar,
+  callbacks : { //여기 부분이 이미지를 첨부하는 부분
+     onImageUpload : function(files, editor, welEditable) {
+        for (var i = files.length - 1; i >= 0; i--) {
+           uploadSummernoteImageFile(files[i],this);
+        }
+     }
+  }
+};
+
+$('#noticeContent').summernote(setting);
+});
+
+function uploadSummernoteImageFile(file, el) {
+     data = new FormData();
+     data.append("file", file);
+     $.ajax({
+        data : data,
+        type : "POST",
+        url : "/uploadSummernoteImageFile.do",
+        contentType : false,
+        enctype : 'multipart/form-data',
+        processData : false,
+        success : function(data) {
+           $(el).summernote('editor.insertImage', data.url);
+        }
+     });
+  }
+
 	</script>
 </body>
 </html>
