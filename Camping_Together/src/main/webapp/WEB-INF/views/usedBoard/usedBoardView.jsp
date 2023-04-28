@@ -575,6 +575,7 @@
         	</div>
         </div>
 	</div>
+	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 	<script>
 		<%-- 페이지로드 시 실행 --%>
 		$(function(){

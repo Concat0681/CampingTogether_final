@@ -378,7 +378,8 @@
 	        ${pageNavi }
         </div>
         <%-- 찜목록 모달창 --%>
-    </div>  
+    </div>
+    <jsp:include page="/WEB-INF/views/common/footer.jsp" />
     <script>
     	$(".product-wish").on("click", function(){
     		const memberId = $("#loginMemberId").val();
