@@ -110,9 +110,6 @@ input[name="ppl_count"]{
     width: 60%;
     margin-left: 50px;
 }
-.campingList-box{
-    height: 1100px;
-}
 .no-result-wrap{
     display: flex;
     flex-direction: column;
