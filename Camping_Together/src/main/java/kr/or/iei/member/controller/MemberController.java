@@ -2,7 +2,11 @@ package kr.or.iei.member.controller;
 
 import java.io.UnsupportedEncodingException;
 
+
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import javax.mail.Address;
@@ -24,7 +28,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.Gson;
 
@@ -72,7 +75,6 @@ public class MemberController {
 	
 
 	//이메일 인증
-
 	@RequestMapping(value="/mailCheck.do", method=RequestMethod.POST)
 	@ResponseBody
 	public String mailCheck(String memberEmail) {
@@ -80,25 +82,30 @@ public class MemberController {
 		System.out.println("이메일 인증 이메일 : " + memberEmail);
 		return mailService.mailCheck(memberEmail);
 	}
-	
 
 	//로그인 폼 ---- 로그인은 회원가입 페이지에서 통합
-
 	@RequestMapping(value="/loginFrm.do")
 	public String loginFrm() {
 		return "member/loginFrm";
 	}
 	
+	
 	//로그인
 	@RequestMapping(value = "/login.do")
-	public String login(Member member, HttpSession session, RedirectAttributes redirectAttributes) {
+	public String login(Member member, HttpSession session, Model model) {
 	    Member loginMember = service.selectOneMember(member);
-	    if(loginMember != null) {
-	        session.setAttribute("m", loginMember);
-	        return "redirect:/"; // 로그인 성공 시 이동할 페이지
+	    if(loginMember == null) {
+	        String alertMsg = "로그인 실패했습니다. 다시 시도해주세요.";
+	        model.addAttribute("alertMsg", alertMsg);
+	        return "member/joinFrm";
+	    } else if(loginMember.getMemberGrade().equals("B")) {
+	    	System.out.println(loginMember.getMemberGrade());
+	    	String memberGrade = loginMember.getMemberGrade();
+	        model.addAttribute("memberGrade", memberGrade);
+	        return "member/joinFrm";
 	    } else {
-	        redirectAttributes.addFlashAttribute("errorMsg", "로그인 실패했습니다. 다시 시도해주세요."); // 오류 메시지 전달
-	        return "redirect:/joinFrm.do"; // 로그인 실패 시 이동할 페이지
+	        session.setAttribute("m", loginMember);
+	        return "redirect:/";
 	    }
 	}
 	
@@ -129,7 +136,6 @@ public class MemberController {
 			String errorMsg = "회원가입 실패했습니다. 다시 시도해주세요.";
 	        model.addAttribute("errorMsg", errorMsg);
 	        return "redirect:/joinFrm.do";
-		
 		}
 		
 
@@ -300,25 +306,31 @@ public class MemberController {
 	
 	//일반회원 정보 수정
 	@RequestMapping(value = "/updateMypageC.do")
-	public String updateMypageC(Member member,MultipartFile profileName, HttpServletRequest requset ) {
-		String savaPath = requset.getSession().getServletContext().getRealPath("/resources/image/member/");
-		System.out.println(member);
-		if(!profileName.isEmpty()) {
-			
-				String filename = profileName.getOriginalFilename();
-				String upFilepath = manager.upload(savaPath, profileName);
-				FileVO fileVO = new FileVO();
-				fileVO.setProfileFilename(filename);
-				fileVO.setProfileFilepath(upFilepath);	
+	public String updateMypageC(Member member, String delProfile, MultipartFile profileName, HttpServletRequest requset, HttpSession session ) {
+		String savePath = requset.getSession().getServletContext().getRealPath("/resources/image/member/");
+		if(delProfile != "") {
+			manager.deleteFile(savePath, delProfile);
+			member.setMemberPhoto(null);
 		}
-		return null;
+		if(!profileName.isEmpty()) {
+				String upFilepath = manager.upload(savePath, profileName);
+				member.setMemberPhoto(upFilepath);
+		}
+		System.out.println(member);
+		int result = service.updateMypageC(member);
+		
+		if(result > 0) {
+			session.setAttribute("m", member);
+			return "redirect:/mypageC.do";
+		} else {
+			return "redirect:/updateMypageCFrm";
+		}
 	}
 	
 	//shop 판매상품(관리자)
 	@RequestMapping(value = "/shopProductList.do")
 	public String shopList(String memberId, int reqPage, Model model) {
 		AdminShopPageData aspd = service.selectAdminShopList(memberId, reqPage);
-		System.out.println(aspd.getList());
 		model.addAttribute("list",aspd.getList());
 		model.addAttribute("navi",aspd.getPageNavi());
 		model.addAttribute("count",aspd.getTotalCount());

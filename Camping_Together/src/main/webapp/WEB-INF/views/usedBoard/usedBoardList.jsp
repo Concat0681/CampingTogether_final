@@ -28,46 +28,24 @@
    .page-content{
        width: 1200px;
        margin: 0 auto;
-       padding-top: 180px;
    }
-   .content-top h2{
-       margin: 20px;
-       font-family: ng-bold;
-       margin-right: 5px;
-   }
-   .content-top-title{
-   		display: flex;
-   }
-   .category-wrap{
-       margin: 20px;
-       padding: 20px;
-       border-top: 1px solid #000;
-       border-bottom: 1px solid #000;
-       overflow: hidden;
-       margin-bottom: 8px;
-       margin-top: 8px;
-   }
-   .category{
-       float: left;
-   }
-   .category>select{
-       height: 30px;
-       border-radius: 5px;
-   }
-   .used-category{
-       width: 200px;    
-   }
-   .used-location{
-       width: 100px;
-   }
-   .usedBoardWrite{
-       float: right; 
-       width: 100px;
-       height: 30px;
-       line-height: 30px;
-   }
-   .usedBoardWrite>span{
-       font-size: 25px;
+	.used-board-title{
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		height: 750px;
+		background: url(/resources/image/usedBoard/usedBoardMain.jpg);
+		background-size: 100%;
+		background-position: bottom; 
+	}
+	.top-title{
+   		font-family: aggro-bold;
+   		font-size: 60px;
+   		color: #fff;
+   		height: 400px;
+   		line-height: 550px;
    }
    .write>a{
    		font-family: ng-extra-bold;
@@ -81,18 +59,24 @@
        line-height: 30px;
    }
    .content-mid-wrap{
-       padding: 20px;
+   		width: 100%;
        overflow: hidden;
    }
+ 	.content-top{
+ 		display: flex;
+ 		justify-content: space-between;
+ 	}
    .wish-list{
-   		font-family: ng-extra-bold;
-   		color: #AD8B73;
-   		cursor: pointer;
-   		font-size: 15px;
-   		padding-top: 32px;
+
    }
    .wish-list:hover{
-   		color: #E3CAA5;
+
+   }
+  .usedBoardWrite{
+		width: 100px;
+   }
+   .usedBoardWrite>span{
+
    }
    #wish-board-title{
    		text-overflow: ellipsis;
@@ -111,9 +95,10 @@
        border: 1px solid #ccc;
        border-radius: 5px;
        box-sizing: border-box;
+       box-shadow: 10px 10px 15px 0 rgba(0, 0, 0, 0.1);
    }
    .product:hover{
-       box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.2);
+   		box-shadow: 10px 10px 15px 0 rgba(227, 202, 165, 0.5);
    }
    .product-img{
        width: 100%;
@@ -301,14 +286,13 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
+
+	<div class="used-board-title">
+		<div class="top-title">중고장터</div>
+	</div>
+
     <div class="page-content">
         <div class="content-top">
-        	<div class="content-top-title">
-	            <h2>중고장터</h2>
-	            <c:if test="${not empty sessionScope.m }">
-	            	<span class="wish-list" onclick="myWishList('${sessionScope.m.memberId}');">찜목록 확인</span>
-	            </c:if>
-        	</div>
         	<div class="my-wishlist-modal-wrap">
 				<div class="wishlist-modal-top">
 					<div class="title"><span>[ ${sessionScope.m.memberName } ]님 찜목록 조회</span></div>
@@ -317,48 +301,16 @@
 				<div class="wishlist-modal-bottom">
 					<button type="button" class="btn1" onclick="wishlistClose();"><span>close</span></button>
 				</div>
-			</div>  	
-            <div class="category-wrap">
-                <div class="category">
-                    <select class="used-category" name="usedBoardCategory">
-                        <option value="0">전체종류</option>
-                        <option value="1">전기/전자제품</option>
-                        <option value="2">캠핑카/카라반용품</option>
-                        <option value="3">화로/버너/BBQ</option>
-                        <option value="4">안전/위생용품</option>
-                        <option value="8">텐트/타프</option>
-                        <option value="5">침낭/매트</option>
-                        <option value="6">차박용품</option>
-                        <option value="7">조명기구</option>
-                        <option value="8">기타캠핑용품</option>
-                        <option value="9">기타생활용품</option>
-                        
-                    </select>
-                    <select class="used-location" name="usedTradeLocation">
-                        <option value="지역설정안함">전국</option>
-                        <option value="서울">서울</option>
-                        <option value="인천">인천</option>
-                        <option value="경기">경기</option>
-                        <option value="대전">대전</option>
-                        <option value="대구">대구</option>
-                        <option value="부산">부산</option>
-                        <option value="강원">강원</option>
-                        <option value="광주">광주</option>
-                        <option value="울산">울산</option>
-                        <option value="경남">경남</option>
-                        <option value="경북">경북</option>
-                        <option value="전남">전남</option>
-                        <option value="전북">전북</option>
-                        <option value="제주">제주</option>
-                    </select>
-                </div>
-                <div class="usedBoardWrite">
-                	<c:if test="${not empty sessionScope.m }">
-	                    <div class="material-symbols-outlined post">post_add</div>
-	                    <div class="write"><a href="/usedBoardWriteFrm.do">작성하기</a></div>
-                    </c:if>
-                </div>
-            </div>
+			</div>
+			<c:if test="${not empty sessionScope.m }">
+			<div class="wish-chk"> 
+	            <span class="wish-list" onclick="myWishList('${sessionScope.m.memberId}');">찜목록</span>
+			</div> 	
+			<div class="usedBoardWrite">
+				<div class="material-symbols-outlined post">post_add</div>
+	            <div class="write"><a href="/usedBoardWriteFrm.do">작성하기</a></div>
+			</div>
+	        </c:if>
         </div>
         <div class="content-mid-wrap">
             <div class="content-mid">
@@ -389,7 +341,7 @@
                         </c:choose>
                          
                         </div>
-                        <div class="product_title" onclick="location.href='/usedBoardView.do?usedBoardNo=${ub.usedBoardNo}'">
+                        <div class="product_title" onclick="location.href='/usedBoardView.do?usedBoardNo=${ub.usedBoardNo}&memberId=${sessionScope.m.memberId }'">
                             <span>${ub.usedBoardTitle }</span>
                         </div>
                         <div class="product_location">
@@ -475,13 +427,6 @@
 					titleTr.html("<td style='width:10%'>No</td><td style='width:30%' id='wish-board-title'>게시글</td><td style='width:20%'>작성자</td><td style='width:20%'>작성일</td><td style='width:20%'>판매상태</td>");
 					table.append(titleTr);
 					for(let i=0; i<data.length; i++){
-						/*
-							ub.used_board_no as usedBoardNo,
-							used_board_title as usedBoardTitle,
-							used_board_writer as usedBoardWriter
-							reg_date as regDate,
-							used_board_status as usedBoardStatus,
-						*/
 						const tr = $("<tr>");
 						tr.append("<td>"+data[i].usedBoardNo+"</td>");
 						tr.append("<td id='wish-board-title'><a href='/usedBoardView.do?usedBoardNo="+data[i].usedBoardNo+"'>"+data[i].usedBoardTitle+"</a></td>");
@@ -504,7 +449,7 @@
     	}
     	
    		$(".category>select").on("change", function(){
-   			alert("ㅠㅠ");
+   			
    		});
     
     </script>

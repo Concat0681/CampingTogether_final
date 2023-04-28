@@ -324,8 +324,9 @@
 			camping_review_title as campingReviewTitle,
 			camping_review_content as campingReviewContent,
 			camping_review_rating as campingReviewRating,
-			camping_review_ref as campingReviewRef
-		from camping_review where camping_no = #{_parameter} and camping_review_ref is null order by camping_review_no 
+			camping_review_ref as campingReviewRef,
+            member_photo as memberPhoto
+		from camping_review left join member using(member_id) where camping_no = #{_parameter} and camping_review_ref is null order by camping_review_no
 	</select>
 	
 	<select id="selectCampingReviewNo" parameterType="_int" resultType="_int">
@@ -628,20 +629,43 @@
 	</select>
 	<select id="selectReservationMyInfo" parameterType="_int" resultType="ri">
 		select 
-			member_name as memberName,
-			member_phone as memberPhone,
-			camping_title as campingTitle,
-			camping_addr as campingAddr,
-			check_in as checkIn,
-			check_out as checkOut,
-			camping_payment_date as campingPaymentDate 
-			from camping_payment 
-			left join camping_reservation using(camping_reservation_no) 
-			left join member using(member_no) 
-			left join camping using(member_id) 
+		 	member_name as memberName,
+		    member_phone as memberPhone,
+		    camping_title as campingTitle,
+		    camping_addr as campingAddr,
+		    check_in as checkIn,
+		    check_out as checkOut,
+		    camping_payment_date as campingPaymentDate 
+		    from camping_payment 
+		    left join camping_reservation using(camping_reservation_no) 
+		    left join member using(member_no)
+		    left join camping_room using(camping_room_no)
+		    left join camping using(camping_no)
 		where camping_reservation_no = #{_parameter}
 	</select>
 	<delete id="deleteCampingReservation" parameterType="_int">
 		delete from camping_reservation where camping_reservation_no = #{_parameter}
-	</delete>	
+	</delete>
+	<select id="selectMember" parameterType="map" resultType="m">
+		select 
+			member_no as memberNo,
+			member_id as memberId
+		from member where member_name=#{memberName} and member_phone = #{memberPhone}
+	</select>	
+	<select id="selectReservationCheck" parameterType="map" resultType="crh">
+		select 
+            (select filepath from camping_room_photo where camping_room_photo_no=(select min(camping_room_photo_no) FROM camping_room_photo WHERE camping_room_no=cr.camping_room_no)) as thumbnail,
+            cre.camping_reservation_no as campingReservationNo,
+            c.camping_title as campingTitle,
+            cr.camping_room_type as campingRoomType,
+            cr.camping_room_price campingRoomPrice,
+            cre.check_in as checkIn,
+            cre.check_out as checkOut
+        	from camping_reservation cre
+	        left join camping_room cr on(cre.camping_room_no = cr.camping_room_no)
+	        left join camping c on(cr.camping_no = c.camping_no)
+	        left join member m on(cre.member_no = m.member_no)
+        where m.member_id = #{memberId} and m.member_no=#{memberNo}
+	</select>
+	
 </mapper>

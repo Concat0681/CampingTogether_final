@@ -159,8 +159,8 @@
 									<div>${r.shopReviewContent }</div>
 									<c:if test="${r.memberId eq sessionScope.m.memberId }">
 										<div class="review-update-btn">
-											<button type="button" onclick="updateReview(this);">수정</button>
-											<button type="button" onclick="deleteReview(this, '${r.shopReviewNo}')">삭제</button>
+											<button type="button" class="btn1" onclick="updateReview(this);">수정</button>
+											<button type="button" class="btn2" onclick="deleteReview(this, '${r.shopReviewNo}')">삭제</button>
 										</div>
 									</c:if>
 								</div>
@@ -203,8 +203,8 @@
 										<div>
 											<textarea name="shopReviewContent">${r.shopReviewContent }</textarea>
 											<div>
+												<button type="button" class="btn2" onclick="closeUpdateFrm(this);">취소</button>
 												<button type="submit" id="updateCommentBtn" class="btn1">댓글수정</button>
-												<button type="button" onclick="closeUpdateFrm(this);">취소</button>
 											</div>
 										</div>
 									</div>
@@ -380,13 +380,34 @@
 					reader.onload = function(e) {
 						const div = $("<div>").addClass("new-list").addClass("photo-name-box")
 						const img = $("<img>").attr("src", e.target.result);
-						div.append(img);
+						const fileNameDiv = $("<div>").append(input.files[i].name);
+						const button = $("<button>").addClass("btn-close").attr("type", "button").attr("onclick", "delNewPhoto(this)")
+						div.append(img).append(fileNameDiv).append(button);
 						$(".new-photo-list").eq(viewerIndex).append(div);
 						const name = e.target.fileName;
 					}
 				}
 			}
 		}
+		
+		function delNewPhoto(obj){
+			const fileNum = $(".new-list").index($(obj).parent());
+			const viewerIndex = $(".img-viewer").index($(obj).parent().parent().parent())
+			const dataTransfer = new DataTransfer();
+		    
+		    let files = $("input[name=photoList]").eq(viewerIndex)[0].files;	//사용자가 입력한 파일을 변수에 할당
+		    
+		    let fileArray = Array.from(files);	//변수에 할당된 파일을 배열로 변환(FileList -> Array)
+		    
+		    fileArray.splice(fileNum, 1);	//해당하는 index의 파일을 배열에서 제거
+		    
+		    fileArray.forEach(file => { dataTransfer.items.add(file); });
+		    //남은 배열을 dataTransfer로 처리(Array -> FileList)
+		    
+		    $("input[name=photoList]").eq(viewerIndex)[0].files = dataTransfer.files;	//제거 처리된 FileList를 돌려줌
+		    $(obj).parent().remove();
+		}
+		
 		$("#insertCommentBtn").on("click", function(event){
 			event.preventDefault();
 			var form = $('#commentForm')[0];  	    

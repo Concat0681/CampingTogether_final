@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -23,6 +22,7 @@ import kr.or.iei.camping.model.vo.CampingListPageData;
 import kr.or.iei.camping.model.vo.CampingPayment;
 import kr.or.iei.camping.model.vo.CampingProvideService;
 import kr.or.iei.camping.model.vo.CampingReservation;
+import kr.or.iei.camping.model.vo.CampingReservationCheck;
 import kr.or.iei.camping.model.vo.CampingReview;
 import kr.or.iei.camping.model.vo.CampingReviewData;
 import kr.or.iei.camping.model.vo.CampingReviewFileVO;
@@ -31,6 +31,7 @@ import kr.or.iei.camping.model.vo.CampingRoomFileVO;
 import kr.or.iei.camping.model.vo.CampingRoomService;
 import kr.or.iei.camping.model.vo.ViewCampingData;
 import kr.or.iei.camping.model.vo.reservationInfo;
+import kr.or.iei.member.model.vo.Member;
 
 @Controller
 public class CampingController {
@@ -574,10 +575,23 @@ public class CampingController {
 	}
 	@RequestMapping(value = "/deleteCampingReservation.do")
 	public String deleteCampingReservation(int campingReservationNo,int memberNo) {
-		System.out.println("여기까지 오긴왔니?"+campingReservationNo+memberNo);
 		int result = service.deleteCampingReservation(campingReservationNo);
-//		return null;
 		return "redirect:/cmapingPayList.do?reqPage=1&memberNo="+memberNo;
+	}
+	@RequestMapping(value ="/campingReservationCheckFrm.do")
+	public String campingReservationCheckFrm() {
+		return "reservation/campingReservationCheckFrm";
+	}
+	@RequestMapping(value ="/campingReservationCheck.do")
+	public String campingReservationCheck(Model model, String memberName, String memberPhone) {
+		Member member = service.selectMember(memberName, memberPhone);
+		if(member == null) {
+			return "reservation/campingReservationCheck";			
+		}
+		ArrayList<CampingReservationCheck> list = service.selectReservationCheck(member.getMemberNo(),member.getMemberId());
+		model.addAttribute("list",list);
+		model.addAttribute("member",member);
+		return "reservation/campingReservationCheck";
 	}
 }
 

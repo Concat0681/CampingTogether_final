@@ -15,6 +15,7 @@ import kr.or.iei.camping.model.vo.CampingListPageData;
 import kr.or.iei.camping.model.vo.CampingPayment;
 import kr.or.iei.camping.model.vo.CampingProvideService;
 import kr.or.iei.camping.model.vo.CampingReservation;
+import kr.or.iei.camping.model.vo.CampingReservationCheck;
 import kr.or.iei.camping.model.vo.CampingReview;
 import kr.or.iei.camping.model.vo.CampingReviewData;
 import kr.or.iei.camping.model.vo.CampingReviewFileVO;
@@ -25,6 +26,7 @@ import kr.or.iei.camping.model.vo.SellCampingList;
 import kr.or.iei.camping.model.vo.SellCampingListData;
 import kr.or.iei.camping.model.vo.ViewCampingData;
 import kr.or.iei.camping.model.vo.reservationInfo;
+import kr.or.iei.member.model.vo.Member;
 
 @Service
 public class CampingService {
@@ -460,6 +462,30 @@ public class CampingService {
 	public int deleteCampingReservation(int campingReservationNo) {
 		return dao.deleteCampingReservation(campingReservationNo);
 	}
+
+
+	public Member selectMember(String memberName, String memberPhone) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("memberName", memberName);
+		map.put("memberPhone", memberPhone);
+		return dao.selectMember(map);
+	}
+
+	public ArrayList<CampingReservationCheck> selectReservationCheck(int memberNo, String memberId) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		System.out.println("memberNo: "+memberNo);
+		System.out.println("memberID: "+memberId);
+		map.put("memberNo", memberNo);
+		map.put("memberId", memberId);
+		ArrayList<CampingReservationCheck> list = dao.selectReservationCheck(map);
+		return list;
+	}
+
+	
+
+	
+
+
 
 
 	

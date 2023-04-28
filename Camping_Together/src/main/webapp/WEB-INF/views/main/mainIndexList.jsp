@@ -9,7 +9,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h3>Top 3 Used Board</h3>
+<h3 style="text-align: center;"><span style="font-size: 30px; font-family: ng-bold;" ><a href="usedBoardList.do?reqPage=1&memberId=">중고 장터</a> </span></h3>
             <div class="content-mid" style="height: 500px;">
             	<c:forEach items="${top3UsedBoards }" var="ub">
             	<input type="hidden" id="usedBoardNo" value="${ub.usedBoardNo }">

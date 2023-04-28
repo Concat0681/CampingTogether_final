@@ -186,7 +186,7 @@
 		    $(window).scroll(function(){  // 윈도우 스크롤 기능 작동
 		        var rollIt = $(this).scrollTop() >= pageHeaderHeight-150; 
 			    if(rollIt){ 
-		        	$(".page-header").css("background-image", "url(/resources/image/camping/background/automobile-2583303_1920.jpg)");
+		        	$(".page-header").css("background-image", "url(/resources/image/camping/background/barn-g273cf2d72_1920.jpg)");
 			    } else{
 					$(".page-header").css("background-image", "url(/resources/image/camping/background/people-2591928_1920.jpg)");
 			    }

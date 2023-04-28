@@ -201,6 +201,9 @@
 												<c:when test="${empty sessionScope.m and  i.index eq j.index }">
 													<button type="button" class="btn2 loginBtn" style="width: 100%;  font-size : 22px;">예약하기</button>
 												</c:when>
+												<c:when test="${empty checkIn and  i.index eq j.index }">
+													<button type="button" class="btn2 emptyCheck" style="width: 100%;">예약하기</button>
+												</c:when>
 												<c:otherwise>
 													<c:if test="${rl.campingReservationNo eq null and  i.index eq j.index}">
 		    											<button type="submit" class="btn2 reservationBtn" style="width: 100%;  font-size : 22px;">예약하기</button>
@@ -363,9 +366,16 @@
 					<c:forEach items="${campingReview }" var="cr" varStatus="i">
 							<div style="margin-top: 50px;">
 						        <ul class="posting-comment">
-						          <li style="padding-left: 90px;">
-						            <span class="material-icons">account_box</span>
+						        <c:if test="${cr.memberPhoto == null }">
+						          <li style="padding-left: 70px;">
+						            <span class="material-icons">account_circle</span>
 						          </li>
+						        </c:if>
+						        <c:if test="${cr.memberPhoto != null }">
+					        	  <li style="padding-left: 70px;">
+						            <img src="resources/image/member/${cr.memberPhoto }" style="width: 100px; height: 100px; border-radius: 50%;">
+						          </li>
+						        </c:if>
 						          <li>
 						            <p class="comment-info" style="margin-bottom: 0;">
 						              <span style="font-size: 20px;font-weight: 900;">${cr.campingReviewTitle }</span>
@@ -492,7 +502,7 @@
 								        <ul class="posting-comment reply">
 								          <li style="padding-left: 90px;">
 								            <span class="material-icons">subdirectory_arrow_right</span>
-								            <span class="material-icons">account_box</span>
+								            <span class="material-icons">account_circle</span>
 								          </li>
 								          <li>
 								            <p class="comment-info">
@@ -1170,6 +1180,9 @@
 		
 		$(".reservation").on("click",function(){
 			alert("예약완료");
+		});
+		$(".emptyCheck").on("click", function(){
+			alert("입/퇴실 날짜를 선택해 주세요.");
 		});
 	</script>
 </body>

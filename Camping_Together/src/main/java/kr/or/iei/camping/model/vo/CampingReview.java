@@ -17,5 +17,6 @@ public class CampingReview {
 	private String campingReviewContent;
 	private int campingReviewRating;
 	private int campingReviewRef;
+	private String memberPhoto;
 	private ArrayList<CampingReviewFileVO> fileList;
 }

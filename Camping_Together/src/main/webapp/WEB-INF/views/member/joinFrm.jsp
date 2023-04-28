@@ -332,9 +332,17 @@ input:focus {
 	
 	transition-duration: 0.5s;
 	box-shadow: 0px 30px 60px -6px green;
-	
-	
 }
+.alert-danger {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+  padding: .75rem 1.25rem;
+  margin-bottom: 1rem;
+  border: 1px solid transparent;
+  border-radius: .25rem;
+}
+
 </style>
 </head>
 <body>
@@ -397,16 +405,16 @@ input:focus {
 				    <div class="logo">Welcome Back! <br>
 				    	<div class="logo-Img"><a href="/"><img src="/resources/image/logo/login_280x100.png"></a></div>
 				    </div>
-					    <form action="/login.do" method="post" autocomplete="off">
+					    <form action="/login.do" method="post" autocomplete="off" id="login-form">
 					        <input type="text" placeholder=" &#xf007;   UserId" name="memberId"/>
 					        <input type="password" placeholder=" &#xf023;  Password" name="memberPw" />
 					        <div>
-						        <button type="submit">로그인 </button>
+						        <button type="submit" class="loginBtn">로그인 </button>
 						        <hr>
 						        <div class="searchBox"> <a href="#" class="searchId">아이디 찾기</a> <a href="#" class="searchPw">비밀번호 찾기</a> </div>
 						    </div>
 					    </form>
-					
+
 	        </div>
 	        <!-- 회원가입 페이지 -->
 	        <div id="signup">   
@@ -421,7 +429,7 @@ input:focus {
 				</div>
 	            
 	            <div class="field-wrap">
-	            <input type="text" name="memberId" id="memberId" class="signup-input" placeholder="아이디  입력" required maxlength="12"><br>
+	            <input type="text" name="memberId" id="memberId" class="signup-input" placeholder="아이디 입력 = 영어소문자+숫자 조합" required maxlength="12" pattern="^[a-z0-9]{4,12}$"><br>
 	            <span class="point successIdChk"></span>
 	            <input type="hidden" id="idDoubleChk" >
 	            </div>
@@ -465,11 +473,11 @@ input:focus {
 				</div>
 	          </form>
 	           <jsp:include page="/WEB-INF/views/member/joinCheckMenu.jsp"></jsp:include>
-	        
-				<c:if test="${not empty errorMsg}" var="er">
-						    <div class="alert alert-danger" role="alert">
-						        <c:out value="${errorMsg}" />
-						    </div>
+				
+				<c:if test="${errorMsg}" var="errorMsg">
+						<div class="alert-danger" role="alert">
+							<c:out value="${errorMsg }" />
+						</div>
 				</c:if>
 	        </div>
 	       
@@ -483,8 +491,19 @@ input:focus {
 <input type="hidden" id="sample4_jibunAddress" placeholder="지번주소" readonly>
 <br>
 <div style="width: 800px;">
+	
 </div>
+<input type="hidden" value="${memberGrade }" id="memberGradeB">
 <script>
+$(".loginBtn").on("click",function(){
+	const memberGradeB = $("#memberGradeB").val();
+	if( memberGradeB === "B"){
+		alert("해당계정은 정지 상태입니다.");
+	}else{
+		alert("로그인이 실패하였습니다.");
+	}
+});
+
 $(".confirm").on("click", function(){
 	const detailAddress = $(".detailAddress").val();
 	const extraAddress= $("#sample4_extraAddress").val();
@@ -709,8 +728,15 @@ $(document).ready(function() {
   });
 });
 
+
 //아이디 찾기 모달에서 submit 이벤트 발생 시 실행되는 함수
 $(document).ready(function() {
+	let message = "[[${alertMsg}]]";
+	if (message != "") {
+	}else {
+		alert("일치하는 정보가 없습니다.");
+	}
+	
   // 아이디 찾기 form submit 이벤트
   $('#idSearchForm').submit(function(event) {
     event.preventDefault(); // form 기본 동작 방지
@@ -787,10 +813,11 @@ $('#result-modalPw .close').click(function() {
 
 
 
-
 </script>	
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
+
+
 //주소찾기 
 
 

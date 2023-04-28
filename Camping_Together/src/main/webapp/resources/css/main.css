@@ -2,8 +2,8 @@
    z-index: 0;
    position: absolute;
    width: 100%;
-   height: 1000px;
-   background: url(/resources/image/main/back1.jpg);
+   height: 700px;
+   background: url(/resources/image/main/CampingAtNight.jpg);
 }
 .wrapper{
 	min-width: 1400px;
@@ -12,11 +12,10 @@
 	width: 100%;
 	height: auto;
   	min-height: 100%;
-  	padding-bottom: 300px; /* footer 높이 만큼 줘야댐*/
 }
 
 .wrapperTop{
-	height: 1000px;
+	height: 700px;
 }
 
 .inputBox{
@@ -65,7 +64,7 @@
 }
 
 .best-campingSite{
-	top: 550px;
+	top: 400px;
     z-index: 45;
     position: absolute;
     background-color: transparent;
@@ -130,7 +129,7 @@
 .wrapperMiddle-notice{
 	height: 250px;
 	width: 100%;
-	background-color: #d9dbe9;
+	background-color: #f1e6d5;
 }
 .notice-area{
 	width: 100%;
@@ -141,7 +140,7 @@
 .notice-Box{
 	font-size: 18px;
 	width: calc(100%/2);
-	margin-left: 50px;
+	margin-left: 150px;
 	min-height: 170px;
 	min-width: 400px;
 }
@@ -175,7 +174,6 @@
 }
 .notice-img{
 	width: calc(100%/2);
-	background-color: black;
 	height: 168px;
 }
 .wrapperMiddle-tradeBox{

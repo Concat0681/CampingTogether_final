@@ -137,7 +137,6 @@
 					reader.readAsDataURL(input.files[i]);
 					reader.onload = function(e) {
 						const div = $("<div>").addClass("img-box");
-						const button = $("<button>").addClass("btn1").attr("type", "button").attr("onclick", "delNewPhoto(this)").text("삭제");
 						const img = $("<img>").attr("src", e.target.result); // 이미지를 보여줄 DOM 엘리먼트에 추가
 						div.append(img).append(button);
 						$("#img-viewer").append(div);
@@ -148,6 +147,7 @@
 		        }, 10);
 			}
 		}
+		
 		
 		function delNewPhoto(obj){
 			destroySlick();
