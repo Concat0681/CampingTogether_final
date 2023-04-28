@@ -63,7 +63,7 @@
 			</li>
 			<li class="title">
 				<ol class="boardBox" style="border-left: 1px solid #b3b3b3;">
-					<li class="n-title Food-title"><h3>캠핑Food</h3><span><a href="/boardFoodList.do?reqPage=1">더보기</a></span></li>
+					<li class="n-title Food-title"><h3>캠핑Tip & Food</h3><span><a href="/boardFoodList.do?reqPage=1">더보기</a></span></li>
 					
 					<c:forEach items="${foodlist}" var="bf">
 						<li><a href="/boardFoodView.do?boardFoodNo=${bf.boardFoodNo }"><span>${bf.boardFoodTitle }</span></a><span style="font-size: 12px;"> +${bf.foodCommentRef }</span> </li>
