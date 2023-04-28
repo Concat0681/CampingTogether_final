@@ -388,8 +388,8 @@ function getSendMessage(){
                 const message = list[i];
                 const tr = $("<tr>");
                 //보낸사람, ,제목,내용 , 시간, 읽음여부
-                const td1 = $("<td>");
-                td1.text(message.sender);          
+                const td1 = $("<td style='border: none;'>");
+                td1.text(message.sender);
                 const td2 = $("<td>");
                 td2.text(message.messageTitle);
                 const td3 = $("<td>");
@@ -423,7 +423,7 @@ function getReceiveMessage(){
                 const message = list[i];
                 const tr = $("<tr>");
                 //보낸사람, 내용 , 시간, 읽음여부
-                const td1 = $("<td>");
+                const td1 = $("<td style='border: none;'>");
                 td1.text(message.sender);
                 const td2 = $("<td>");
                 td2.text(message.messageTitle);

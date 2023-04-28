@@ -82,20 +82,21 @@
 }
 .messageRecTdContent{
 	display: block;
-	width: 247px;
+	width: 289px;
 	text-overflow: ellipsis;
    	white-space: nowrap;
    	overflow:hidden;
    	cursor: pointer;
 }
 .messageTdTitle{
-	max-width: 200px;
+	width: 200px;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
 }
 .messageRecTdTitle{
 	max-width: 123px;
+	width:123px;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
