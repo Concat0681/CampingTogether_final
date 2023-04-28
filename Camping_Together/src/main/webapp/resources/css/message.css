@@ -29,6 +29,8 @@
 .tab-content{
   text-align: center;
   overflow: hidden;
+  padding-top: 20px;
+  border-top: 1px solid black;
 }
 .message-inputBox{
 	justify-content: space-between;
@@ -41,7 +43,6 @@
 	display: flex;
 	text-align: center;	
 	margin: 0px;
-	border-bottom: 1px solid gray;
 }
 .tab-group>li{
 	margin: 20px;
