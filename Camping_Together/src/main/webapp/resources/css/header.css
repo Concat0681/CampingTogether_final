@@ -117,7 +117,6 @@ body{
     text-decoration: none;
     transition-duration: 0.5s;
 }
-
 .freeboard{
     width: 150px;
     height: 150px;
@@ -223,8 +222,7 @@ body{
 	background-color: #AD8B73;
 	border: none;
 	color: #fff;
-	font-family: ng-extra-bold;
-	
+	font-family: ng-extra-bold;	
 }
 .modal-login{
 	margin: auto;
@@ -234,12 +232,9 @@ body{
   font-weight: normal;
   opacity: 0;
   transition: opacity 0.5s ease-in-out;
-  
 }
-
 .circle-container span.active {
   font-weight: bold;
   opacity: 1;
   color: #E3CAA5;
 }
-
