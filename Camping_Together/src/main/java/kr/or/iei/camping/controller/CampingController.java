@@ -71,9 +71,7 @@ public class CampingController {
 	public String campingList(Camping c, String campingSido, String cityNameKR, String cityNameEN,int reqPage, String order, String pplCount, String checkIn, String checkOut, Model model) {
 		CampingRoom campingRoom = new CampingRoom();
 		Camping camping = new Camping();
-		camping.setCampingSido(campingSido);
-		camping.setCampingAddr(cityNameKR);
-		if(cityNameKR == "") {
+		if(cityNameKR.equals("")) {
 			camping.setCampingSido(campingSido);
 		} else {
 			camping.setCampingAddr(cityNameKR);
