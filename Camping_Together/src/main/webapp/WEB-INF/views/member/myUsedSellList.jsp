@@ -53,6 +53,7 @@
 		</div>
 		</div>
 	</div>
+	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 	<script>
 		function viewUsed(usedBoardNo){
 			location.href="/usedBoardView.do?usedBoardNo="+usedBoardNo;
