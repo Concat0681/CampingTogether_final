@@ -18,7 +18,7 @@
 .page-content {
   width: 1200px;
   margin: 200px auto;
-  margin-bottom: 10px;
+  margin-bottom: 100px;
   flex-grow: 1;
 }
 .page-title {
@@ -115,5 +115,6 @@ a{
 			</c:if>
 		</table>
 	</div>
+	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 </body>
 </html>

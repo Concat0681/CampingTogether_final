@@ -57,7 +57,7 @@ public class AllMemberChat extends TextWebSocketHandler{
 				}
 			}
 		}else if(type.equals("chat")) {
-			String sendMsg = "<div class='chat left'><span class='chatId'>"+memberList.get(session)+"</span>"+msg+"</div>";
+			String sendMsg = "<div class='chatId'>"+memberList.get(session)+"</div><div class='chat left'>"+msg+"</div>";
 			TextMessage tm = new TextMessage(sendMsg);
 			for(WebSocketSession s : sessionList) {
 				if(!s.equals(session)) {

@@ -18,7 +18,7 @@
 .page-content {
   top: 200px;
   width: 1200px;
-  margin: 200px auto;
+  margin: 50px auto;
   margin-bottom: 10px;
   flex-grow: 1;
   position: relative;
