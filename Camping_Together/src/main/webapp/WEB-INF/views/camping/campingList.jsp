@@ -496,38 +496,47 @@
 				url : "/detailSearchCamping.do",
 				data : {order : order, campingTypeStr : campingTypeStr , campingServiceStr : campingServiceStr, campingRoomServiceStr : campingRoomServiceStr, campingEtcStr : campingEtcStr, pplCount : pplCount, cityAddr : cityAddr, campingSido : campingSido, reqPage : reqPage, checkIn : checkIn, checkOut : checkOut },
 				success : function(data){
-					console.log(data.checkIn)
 					$(".list-by-review").empty();
-					data.list.forEach(function(c,i){
-						const div = $("<div>").addClass("camping-box").attr("onclick", "viewCamping('"+c.campingNo+"','"+data.checkIn+"','"+data.checkOut+"')");
-						const img = $("<img>").attr("src","/resources/upload/campingRoom/"+c.filepath+"")
-						const div2 = $("<div>").addClass("camping-room-info")
-						const div3 = $("<div>").addClass("campingTitle");
-						div3.append(c.campingTitle)
-						const div4 = $("<div>").addClass("campingAddr");
-						div4.append(c.campingAddr);
-						const div5 = $("<div>").append(c.avgReviewRating)
-						div2.append(div3).append(div4).append(div5)
-						const div6 = $("<div>").append(c.maxRoomPrice+" 원")
-						const div7 = $("<div>").append(div6)
-						const div8 = $("<div>")
-						div8.append(div2).append(div7)
-						div.append(img).append(div8)
+					if(data.list.length == 0){
+						const div = $("<div>").addClass("no-result-wrap");
+						const img = $("<img>").attr("src","/resources/image/logo/logo250x80.png");
+						const h3 = $("<h3>").text("검색결과가 없습니다");
+						div.append(img).append(h3);
 						$(".list-by-review").append(div)
-					})
-					$(".list-by-review").append(data.pageNavi);
-					$("#allList").empty();
-					data.allList.forEach(function(c,i){
-						const div = $("<div>").addClass("allCampingTitle").attr("id", c.campingNo);
-						const a = $("<a>");
-						a.attr("href", "/viewCamping.do?campingNo="+c.campingNo+"&checkIn="+data.checkIn+"&checkOut="+data.checkOut);
-						a.append(c.campingTitle);
-						div.append(a);
-						const div2 = $("<div>").addClass("allCampingAddr");
-						div2.append(c.campingAddr);
-						$("#allList").append(div).append(div2);
-					})
-					startMap();
+					} else {
+						data.list.forEach(function(c,i){
+							const div = $("<div>").addClass("camping-box").attr("onclick", "viewCamping('"+c.campingNo+"','"+data.checkIn+"','"+data.checkOut+"')");
+							const imgDiv = $("<div>");
+							const img = $("<img>").attr("src","/resources/upload/camping/"+c.filepath+"")
+							imgDiv.append(img);
+							const div2 = $("<div>").addClass("camping-room-info")
+							const div3 = $("<div>").addClass("campingTitle");
+							div3.append(c.campingTitle)
+							const div4 = $("<div>").addClass("campingAddr");
+							div4.append(c.campingAddr);
+							const div5 = $("<div>").append(c.avgReviewRating+" 점")
+							div2.append(div3).append(div4).append(div5)
+							const div6 = $("<div>").append(c.maxRoomPrice+" 원")
+							const div7 = $("<div>").append(div6)
+							const div8 = $("<div>")
+							div8.append(div2).append(div7)
+							div.append(imgDiv).append(div8)
+							$(".list-by-review").append(div)
+						})
+						$(".list-by-review").append(data.pageNavi);
+						$("#allList").empty();
+						data.allList.forEach(function(c,i){
+							const div = $("<div>").addClass("allCampingTitle").attr("id", c.campingNo);
+							const a = $("<a>");
+							a.attr("href", "/viewCamping.do?campingNo="+c.campingNo+"&checkIn="+data.checkIn+"&checkOut="+data.checkOut);
+							a.append(c.campingTitle);
+							div.append(a);
+							const div2 = $("<div>").addClass("allCampingAddr");
+							div2.append(c.campingAddr);
+							$("#allList").append(div).append(div2);
+						})
+						startMap();
+					}
 				},
 				error : function(){
 					
