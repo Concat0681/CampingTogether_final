@@ -86,7 +86,7 @@
 					</table>
 				</div>
 				<!-- 상세 보기  -->
-				<div class="endtreed" id="messageDetail" class="modal-wrapper">
+				<div class="endtreed modal-wrapper" id="messageDetail">
 					<div class="modal">
 						<div class="modal-header">
 							<h2>쪽지내용</h2>
@@ -133,7 +133,7 @@
             <ul class="login">
                 <!-- <li><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">쪽지보내기</button></li> -->
                 <li><a class="nav-linkT" href="/noticeList.do?reqPage=1">공지사항</a></li>
-                <li><a class="nav-linkT" id="messageBtn" href ="#">쪽지함</a></li>
+                <li><a class="nav-linkT messageBtn" id="messageBtn" href ="#">쪽지함</a></li>
                 <c:choose>
                 	<c:when test="${sessionScope.m.memberGrade eq 'c' }">
 		                <li><a class="nav-linkT" href = "/cmapingPayList.do?reqPage=1&memberNo=${sessionScope.m.memberNo }">[${sessionScope.m.memberName }]</a></li>
@@ -319,7 +319,7 @@ const navLink =  document.querySelectorAll('.nav-link');
 <!-- 쪽지 모달 스크립트 -->
 <script>
 
-$("#messageBtn").on("click", function() {
+$(".messageBtn").on("click", function() {
 	  $(".message-comset").css("display", "block");
 	});
 	
@@ -443,10 +443,10 @@ function getReceiveMessage(){
                 td1.addClass("messageTd");
                 td2.addClass("messageTd");
                 td3.addClass("messageTd");
-                td3.addClass("messageTdContent");
+                td3.addClass("messageRecTdContent");
                 td4.addClass("messageTd");
                 td5.addClass("messageTd");
-                td2.addClass("messageTdTitle");
+                td2.addClass("messageRecTdTitle");
                 tr.append(td1).append(td2).append(td3).append(td4).append(td5);
                 tbody.append(tr);
                 
@@ -455,6 +455,10 @@ function getReceiveMessage(){
     });
     
 }
+$(".messageRecTdContent").on("click", function(){
+	$(".modal-wrapper").css("display","block");
+	
+});
 function messageDetail(messageNo){
     $.ajax({
         url : "/messageDetail.do",
@@ -463,7 +467,7 @@ function messageDetail(messageNo){
             $("#detailSender").text(data.sender);
             $("#detailDate").text(data.messageDate);
             $("#detailContent").text(data.messageContent);
-            $("#messageDetail").css("display","flex");
+            $("#messageDetail").css("display","block");
             getReceiveMessage();
             const sendData = {type:"readCheck", sender:data.sender, receiver:data.receiver};
             ws.send(JSON.stringify(sendData));

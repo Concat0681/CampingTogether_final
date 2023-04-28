@@ -61,6 +61,7 @@
     display: none;
     justify-content: center;
     align-items: center;
+    z-index: 999px;
 }
 .filler{
 	cursor: pointer;
@@ -74,10 +75,18 @@
 }
 .messageTdContent{
 	display: block;
-	min-width: 288px;
+	width: 284px;
 	text-overflow: ellipsis;
    	white-space: nowrap;
    	overflow:hidden;
+}
+.messageRecTdContent{
+	display: block;
+	width: 247px;
+	text-overflow: ellipsis;
+   	white-space: nowrap;
+   	overflow:hidden;
+   	cursor: pointer;
 }
 .messageTdTitle{
 	max-width: 200px;
@@ -85,7 +94,12 @@
     white-space: nowrap;
     overflow: hidden;
 }
-
+.messageRecTdTitle{
+	max-width: 123px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
 .message-modal{
     width: 350px;
     margin: 0 auto;

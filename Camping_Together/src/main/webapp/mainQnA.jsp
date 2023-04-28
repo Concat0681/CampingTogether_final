@@ -126,9 +126,18 @@ h3{
 	    <h1>자주 묻는 질문</h1>
     <div class="faq-container">
       <div class="faq">
-        <h3 class="faq-title">자주 묻는 질문 1</h3>
+        <h3 class="faq-title">로그인이 안되요</h3>
+        <p class="faq-text">신고 3회 이상 누적 당한경우 제재 대상 회원이 되어 서비스 이용이 제한됩니다.
+        					업보 청산 당하셨네요? 평소행실을 되돌아 보시길..</p>
+        <button class="faq-toggle">
+          <i class="fas fa-chevron-down"></i>
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="faq">
+        <h3 class="faq-title">중고장터에서 억울하게 사기 당했어요</h3>
 
-        <p class="faq-text">대답 1</p>
+        <p class="faq-text">유감입니다.</p>
 
         <button class="faq-toggle">
           <i class="fas fa-chevron-down"></i>
@@ -136,19 +145,9 @@ h3{
         </button>
       </div>
       <div class="faq">
-        <h3 class="faq-title">자주 묻는 질문 2</h3>
+        <h3 class="faq-title">캠핑장 등록은 어디서 하나요?</h3>
 
-        <p class="faq-text">대답 2</p>
-
-        <button class="faq-toggle">
-          <i class="fas fa-chevron-down"></i>
-          <i class="fas fa-times"></i>
-        </button>
-      </div>
-      <div class="faq">
-        <h3 class="faq-title">자주 묻는 질문 3</h3>
-
-        <p class="faq-text">대답 3</p>
+        <p class="faq-text">캠핑장 등록은 회원가입시 "사업자"일 경우 가능하며 그외에는 저도 모릅니다. </p>
 
         <button class="faq-toggle">
           <i class="fas fa-chevron-down"></i>
@@ -156,9 +155,9 @@ h3{
         </button>
       </div>
       <div class="faq">
-        <h3 class="faq-title">자주 묻는 질문 4</h3>
+        <h3 class="faq-title">질문및 문의는 어디서 하나요!?</h3>
 
-        <p class="faq-text">대답 4</p>
+        <p class="faq-text">그만하세요 이제 안받습니다.</p>
 
         <button class="faq-toggle">
           <i class="fas fa-chevron-down"></i>
