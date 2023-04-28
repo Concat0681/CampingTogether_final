@@ -184,6 +184,21 @@
 	border-bottom: 1px solid #dedede;
 	height: 70px;
 }
+.content-box:first-of-type{
+	text-align: center;
+}
+.content-box table tr>td{
+	padding: 20px 20px;
+	border: 1px solid black;
+	border-right: none;
+}
+.content-box table tr>th{
+	text-align: center;
+	border: 1px solid black;
+	border-left: none;
+}
+.content-box table tr>td, .content-box table tr>th{
+}
 .content-box{
 	width: 90%;
 	margin: 0 auto;
