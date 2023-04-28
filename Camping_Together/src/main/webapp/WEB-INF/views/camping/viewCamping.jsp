@@ -202,7 +202,7 @@
 													<button type="button" class="btn2 loginBtn" style="width: 100%;  font-size : 22px;">예약하기</button>
 												</c:when>
 												<c:when test="${empty checkIn and  i.index eq j.index }">
-													<button type="button" class="btn2 emptyCheck" style="width: 100%;">예약하기</button>
+													<button type="button" class="btn2 emptyCheck" style="width: 100%; height: 50px;" >예약하기</button>
 												</c:when>
 												<c:otherwise>
 													<c:if test="${rl.campingReservationNo eq null and  i.index eq j.index}">
