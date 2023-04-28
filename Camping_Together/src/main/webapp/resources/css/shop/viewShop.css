@@ -197,8 +197,6 @@
 	border: 1px solid black;
 	border-left: none;
 }
-.content-box table tr>td, .content-box table tr>th{
-}
 .content-box{
 	width: 90%;
 	margin: 0 auto;

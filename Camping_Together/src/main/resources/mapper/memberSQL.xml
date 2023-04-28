@@ -200,19 +200,39 @@
 	
 	
 	<!-- admin shop 리스트  -->
-	<select id="selectAdminShop" parameterType="map" resultType="asl">
+	<select id="selectAdminShop" parameterType="map" resultType="asl" resultMap="selectShop">
 		select * from
-			(select rownum as rnum, m.*from
+			(select 
+			rownum as rnum, 
+			m.*from
 		        (select
-		        shop_title as shopTitle,
-		        shop_price as shopPrice,
-		        score as score,
-		        file_path as filepath,
-		        max_count as count,
-		        member_id
-		from shop join shop_photo using(shop_no)order by score desc)m)
+		        *
+				from shop order by score desc)m
+			)
 		where rnum between #{start} and #{end} and member_id=#{memberId}
 	</select>
+	
+	<select id="selectShopPhotoList" parameterType="_int" resultType="sp">
+		select
+			file_no as fileNo,
+			shop_no as shopNo,
+			file_path as filepath
+		from shop_photo
+		where shop_no = #{_parameter}
+	</select>
+	
+	<resultMap type="asl" id="selectShop">
+		<result column="shop_title" property="shopTitle"/>
+		<result column="shop_price" property="shopPrice"/>
+		<result column="max_count" property="count"/>
+		<result column="score" property="score"/>
+		<collection property="shopPhotoList"
+					select="selectShopPhotoList"
+					column="shop_no"
+					ofType="sp"
+					javaType="java.util.ArrayList"
+		/>
+	</resultMap>
 	
 	<select id="selectAdminShopCount" resultType="_int">
 		select count(*) from shop
