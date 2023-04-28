@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,8 +40,9 @@
 					<div>
 						<div class="p-title">판매가</div>
 						<div>
-							<div id="shopPrice">${shop.shopPrice }</div>
-							<span id="shopPrice">원</span>
+							<div><fmt:formatNumber value="${shop.shopPrice }" pattern="#,###"/></div>
+							<input type="hidden" id="shopPrice" value="${shop.shopPrice  }">
+							<span>원</span>
 						</div>
 					</div>
 					<div>
@@ -50,8 +52,9 @@
 					<div>
 						<div class="p-title">배송비</div>
 						<div>
-							<div id="delivaryPrice">${shop.delivaryPrice }</div>
-							<span id="delivaryPrice">원</span>
+							<div><fmt:formatNumber value="${shop.delivaryPrice }" pattern="#,###"/></div>
+							<input type="hidden" id="delivaryPrice" value="${shop.delivaryPrice  }">
+							<span>원</span>
 						</div>
 					</div>
 				</div>
@@ -65,7 +68,8 @@
 						</div>
 					</div>
 					<div>
-						<div class="priceResult" style="padding : 30px 0 30px 0; color: #5d5d5d; font-size: 22px;">0</div>
+						<div class="priceResult" style="padding : 30px 0 30px 0; color: #5d5d5d; font-size: 22px;"></div>
+						<input type="hidden" id="priceResult">
 						<span style="padding : 30px 0 30px 0; color: #5d5d5d; font-size: 22px;">원</span>
 					</div>
 				</div>
@@ -74,6 +78,7 @@
 						<div style="font-size: 22px; color: #AD8B73; font-family:ng-bold;">TOTAL</div>
 						<div>
 							<div class="totalPrice tp"></div>
+							<input type="hidden" id="totalPrice">
 							<span class="tp">원</span>
 						</div>
 					</div>
@@ -358,14 +363,16 @@
 		})
 		function calPrice() {
 			const count = $("[name=sellCount]").val();
-			const price = $("#shopPrice").text()
-			$(".priceResult").text((count * price))
+			const price = $("#shopPrice").val()
+			$(".priceResult").text(String(count * price).replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+			$("#priceResult").val((count * price))
 			calTotalPrice()
 		}
 		function calTotalPrice(){
-			const price = $(".priceResult").text();
-			const delivary = $("#delivaryPrice").text();
-			$(".totalPrice").text(parseInt(price) + parseInt(delivary))
+			const price = $("#priceResult").val();
+			const delivary = $("#delivaryPrice").val();
+			$(".totalPrice").text(String(parseInt(price) + parseInt(delivary)).replace(/\B(?=(\d{3})+(?!\d))/g, ","))
+			$("#totalPrice").text(parseInt(price) + parseInt(delivary));
 		}
 		$(".content-menu").on("click", function(){
 			const index = $(".content-menu").index($(this));
@@ -562,7 +569,7 @@
 	
 	<script>
 		$("#payBtn").on("click",function(){
-			const price = $(".totalPrice").text();
+			const price = $("#totalPrice").val();
 			const sellCount = $("[name=sellCount]").val();
 			const d = new Date();
 			const date = d.getFullYear()+""+(d.getMonth()+1)+""+d.getDate()+""+d.getHours()+""+d.getMinutes()+""+d.getSeconds();
