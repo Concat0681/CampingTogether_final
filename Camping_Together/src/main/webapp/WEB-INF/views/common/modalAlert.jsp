@@ -9,11 +9,6 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </head>
 <body>
-<button class="btn btn-primary m-2" id="alertStart">Alert 실행</button>
-<button class="btn btn-secondary m-2" id="confirmStart">Confirm 실행</button>
-<button class="btn btn-success m-2" id="promptStart">Prompt 실행</button>
-<button class="btn btn-danger m-2" id="toastStart">Toast 실행</button>
-<button class="btn btn-warning m-2" id="ajaxStart">Ajax 실행 (깃헙 아이디 검색)</button>
 <script>
 //Alert Modal Type
 

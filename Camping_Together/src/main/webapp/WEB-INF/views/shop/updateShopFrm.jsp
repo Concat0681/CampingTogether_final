@@ -187,10 +187,26 @@
 		  lang: "ko-KR",					// 한글 설정
 		  callbacks : {
 			  onImageUpload : function(files){
-				  uploadImage(files[0], this);
+				  uploadSummernoteImageFile(files[0], this);
 			  }
 		  }
 	});
+	
+	function uploadSummernoteImageFile(file, el) {
+        data = new FormData();
+        data.append("file", file);
+        $.ajax({
+           data : data,
+           type : "POST",
+           url : "/uploadSummernoteImageFile.do",
+           contentType : false,
+           enctype : 'multipart/form-data',
+           processData : false,
+           success : function(data) {
+              $(el).summernote('editor.insertImage', data.url);
+           }
+        });
+   }
 	
 	$("#backToListBtn").on("click", function(){
 		location.href="/shopMainList.do";
