@@ -52,7 +52,7 @@
 									<c:when test="${sessionScope.m.memberGrade eq 'c'}"> 일반회원 readonly</c:when>
 									<c:when test="${sessionScope.m.memberGrade eq 'a'}"> 관리자 readonly</c:when>
 									<c:when test="${sessionScope.m.memberGrade eq 'b'}"> 사업자 readonly</c:when>
-								</c:choose>>
+								</c:choose> readonly>
 						</td>
 					</tr>
 					<tr>
@@ -80,8 +80,8 @@
 						<td>주소 변경</td>
 						<td><!-- <input type="text" class="postNo-input" id="sample4_postcode" placeholder="우편번호" readonly>  -->
 							<input type="button" onclick="sample4_execDaumPostcode()" id="post-btn" value="주소 찾기" required><br> 
-							<input type="text" class="input" name="memberAddr" id="sample4_roadAddress">
-							<input type="text" class="input" placeholder="상세주소" id="detail-input"> <!-- <input type="text" id="sample4_roadAddress" placeholder="도로명주소" readonly><br> -->
+							<input type="text" class="input" name="memberAddr" id="sample4_roadAddress" readonly>
+							<input type="text" class="input" placeholder="상세주소" id="detail-input" readonly> <!-- <input type="text" id="sample4_roadAddress" placeholder="도로명주소" readonly><br> -->
 
 						</td>
 

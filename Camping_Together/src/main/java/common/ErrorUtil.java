@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
-/*
 //@component를 포함하고 있는 annotation
 //@controller annotation 포함 되있는 객체에서 에러발생했을때 처리하는 annotation
 @ControllerAdvice
@@ -29,4 +28,3 @@ public class ErrorUtil {
 		return "error/error2";
 	}
 }
-*/

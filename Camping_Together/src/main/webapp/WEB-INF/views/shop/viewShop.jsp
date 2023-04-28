@@ -11,7 +11,6 @@
 <link rel="stylesheet" href="resources/css/shop/viewShop.css">
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
@@ -215,9 +214,7 @@
 							<div class="pagination">${reviewPageNavi }</div>
 						</c:if>
 					</div>
-					<c:if test="${not empty shopOrder }">
 						<button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#commentFrm" aria-expanded="false" aria-controls="collapseCommentFrm">댓글쓰기</button>
-					</c:if>
 					<div class="collapse" id="commentFrm">
 						<div class="card card-body">
 							<form id="commentForm" action="/insertShopComment.do" method="post" enctype="multipart/form-data">
@@ -237,12 +234,18 @@
 								</div>
 								<div class="review-frm-content">
 									<div>
-										<div id="img-viewer"></div>
+										<div id="img-viewer" style="min-height : 175px;">
+											<div class="new-photo-list">
+													
+											</div>
+										</div>
 										<input type="file" name="photoList" onchange="uploadPhoto(this)" multiple>
 									</div>
 									<div>
 										<textarea name="shopReviewContent" placeholder="내용을 입력해주세요"></textarea>
-										<button type="submit" id="insertCommentBtn" class="btn1">댓글등록</button>
+										<div class="review-update-btn">
+											<button type="submit" id="insertCommentBtn" style="width : 100%" class="btn1">댓글등록</button>
+										</div>
 									</div>
 								</div>
 							</form>
