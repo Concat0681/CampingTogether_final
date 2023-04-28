@@ -7,7 +7,6 @@ a {
   color: var(--text-color);
   font-family: ng-extra-bold;
 }
-
 .nav-link{
 	font-weight: bolder;
 	text-align: center;
