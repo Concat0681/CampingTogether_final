@@ -37,9 +37,7 @@
 		justify-content: center;
 		width: 100%;
 		height: 750px;
-		background: url(/resources/image/usedBoard/usedBoardMain.jpg);
-		background-size: 100%;
-		background-position: bottom; 
+		background: url(/resources/image/usedBoard/used-bg.jpg);
 	}
 	.top-title{
    		font-family: aggro-bold;
