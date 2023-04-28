@@ -10,6 +10,7 @@
 
 <link href="/resources/css/default.css" rel="stylesheet"/> 
 <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="/resources/css">
 <style>
 .tab-content > div:last-child {
   display:none;
