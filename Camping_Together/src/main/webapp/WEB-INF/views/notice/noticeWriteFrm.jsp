@@ -128,6 +128,7 @@ textarea.input-form {
 			</table>
 		</form>
 	</div>
+	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 	<script>
 		$("#noticeContent").summernote({
 			height : 400,

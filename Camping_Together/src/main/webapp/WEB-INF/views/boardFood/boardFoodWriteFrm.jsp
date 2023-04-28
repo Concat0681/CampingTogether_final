@@ -27,8 +27,8 @@
 }
 .page-content {
   width: 1200px;
-  margin: 30px auto;
-  margin-bottom: 10px;
+  margin: 200px auto;
+  margin-bottom: 50px;
   flex-grow: 1;
   position: relative;
 }
@@ -72,6 +72,29 @@ textarea.input-form {
   background-color: #E3CAA5;
   color: #fff
 }
+.submitBtn{
+	background-color: #CEAB93;
+    color: white;
+    border-radius: 5px;
+    border:none;
+    text-decoration: none;
+    width: 100px;
+    height:30px;
+    line-height:30px;
+    text-align: center;
+}
+.cancelBtn{
+	background-color: #CEAB93;
+    color: white;
+    border-radius: 5px;
+    border:none;
+    text-decoration: none;
+    width: 100px;
+    height:30px;
+    line-height:30px;
+    text-align: center;
+    display: inline-block;
+}
 </style>
 <body>
 <jsp:include page="/WEB-INF/views/common/header.jsp" />
@@ -113,7 +136,8 @@ textarea.input-form {
 				</tr>
 				<tr class="tr-1">
 					<th colspan="4">
-						<button type="submit" class="btn bc2 bs4">등록</button>
+						<button type="submit" class="submitBtn"  style="font-family: ng-extra-bold;">작성</button>
+						<a class="cancelBtn" href="/noticeList.do?reqPage=1">취소</a>
 					</th>
 				</tr>
 			</table>
@@ -142,32 +166,59 @@ textarea.input-form {
 		}
 		
 		//써머노트
-		$("#boardFoodContent").summernote({
-			height : 300,
-			lang : "ko-KR",
-// 				callbacks: {
-// 					onImageUpload : function(files){
-// 						sendFile(files[0],this);
-// 					}
-// 				}
-		});
-// 		function sendFile(file, editor){
-// 			var data = new FormData();
-// 			data.append("file", file);
-// 			console.log(file);
-// 			$.ajax({
-// 				data : data,
-// 				type : "POST",
-// 				url : "SummerNoteImageFile",
-// 				contentType : false,
-// 				processData : false,
-// 				success : function(data){
-// 					console.log(data);
-// 					console.log(editor);
-// 					$(editor).summernote("insertImage",data.url);
-// 				}
-// 			});
-// 		}
+		$(document).ready(function() {
+
+var toolbar = [
+      // 글꼴 설정
+      ['fontname', ['fontname']],
+      // 글자 크기 설정
+      ['fontsize', ['fontsize']],
+      // 글자색
+      ['color', ['forecolor','color']],
+      // 글머리 기호, 번호매기기, 문단정렬
+      ['para', ['ul', 'ol', 'paragraph']],
+      // 줄간격
+      ['height', ['height']],
+      // 그림첨부, 링크만들기, 동영상첨부
+      ['insert',['picture','link','video']],
+      // 코드보기, 확대해서보기, 도움말
+      ['view', ['codeview','fullscreen', 'help']]
+     ];
+
+var setting = {
+      height : 300,
+      minHeight : null,
+      maxHeight : null,
+      focus : true,
+      lang : 'ko-KR',
+      toolbar : toolbar,
+      callbacks : { //여기 부분이 이미지를 첨부하는 부분
+         onImageUpload : function(files, editor, welEditable) {
+            for (var i = files.length - 1; i >= 0; i--) {
+               uploadSummernoteImageFile(files[i],this);
+            }
+         }
+      }
+    };
+
+   $('#boardFoodContent').summernote(setting);
+   });
+
+   function uploadSummernoteImageFile(file, el) {
+         data = new FormData();
+         data.append("file", file);
+         $.ajax({
+            data : data,
+            type : "POST",
+            url : "/uploadSummernoteImageFile.do",
+            contentType : false,
+            enctype : 'multipart/form-data',
+            processData : false,
+            success : function(data) {
+               $(el).summernote('editor.insertImage', data.url);
+            }
+         });
+      }
 
 
 	</script>

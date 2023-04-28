@@ -180,7 +180,7 @@
   padding: 0.8rem;
   background-color: #fff;
   outline: none;
-  border: 1px solid #ccc;
+  border: 1px solid #CEAB93;
 
   box-sizing: border-box;
 }
@@ -203,9 +203,9 @@ textarea.input-form {
   font-size: 1.2em;
 }
 .bc1 {
-  background-color: rgba(37, 42, 52, 0.9);
+  background-color: #CEAB93 ;
   color: #fff;
-  border: 2px solid rgba(37, 42, 52, 0.9);
+  border: 2px solid #CEAB93;
 }
 .bc44 {
   color: rgba(0, 173, 181, 1);
@@ -214,6 +214,24 @@ textarea.input-form {
 }
 button{
 	cursor: pointer;
+}
+.cancelBtn{
+	background-color: #CEAB93;
+    color: white;
+    border-radius: 5px;
+    border:none;
+    text-decoration: none;
+    width: 100px;
+    height:30px;
+    line-height:30px;
+    text-align: center;
+    display: inline-block;
+}
+.cancelBtn:hover{
+		color:#fff !important;
+	}
+a{
+	font-family: none;
 }
 </style>
 </head>
@@ -239,7 +257,7 @@ button{
 				<td colspan="5">
 					<c:if test="${not empty bf.filepath}">
 					<img src="/resources/image/file.png" width="16px">
-					<a href="/boardFoodFileDown.do?fileNo=${bf.fileNo }" >
+					<a href="/boardFoodFileDown.do?fileNo=${bf.fileNo }" style="font-family: none;" >
 						${bf.filepath }
 					</a>
 					<input type="hidden" name="imageFile" accept=".jpg,.png,.jpeg" onchange="loadImg(this);" >
@@ -265,8 +283,8 @@ button{
 			<c:if test="${not empty sessionScope.m && sessionScope.m.memberId eq bf.boardFoodWriter }">
 			<tr class="tr-1">
 				<th colspan="7">
-					<a class="btn bc44" href="/boardFoodUpdateFrm.do?boardFoodNo=${bf.boardFoodNo }">수정</a>
-					<a class="btn bc44" href="/boardFoodDelete.do?boardFoodNo=${bf.boardFoodNo }">삭제</a>
+					<a class="cancelBtn" href="/boardFoodUpdateFrm.do?boardFoodNo=${bf.boardFoodNo }">수정</a>
+					<a class="cancelBtn" href="/boardFoodDelete.do?boardFoodNo=${bf.boardFoodNo }">삭제</a>
 				</th>
 			</tr>
 			</c:if>
@@ -289,10 +307,10 @@ button{
 						<c:if test="${not empty sessionScope.m}">
 							<%--로그인한 아이디와 작성자가 같은사람 --%>
 							<c:if test="${sessionScope.m.memberId eq fc.foodCommentWriter }">
-								<a href="javascript:void(0)" onclick="modifyComment(this,${fc.foodCommentNo },${bf.boardFoodNo });">수정</a>
-                          		<a href="javascript:void(0)" onclick="deleteComment(this,${fc.foodCommentNo },${bf.boardFoodNo });">삭제</a>
+								<a href="javascript:void(0)" onclick="modifyComment(this,${fc.foodCommentNo },${bf.boardFoodNo });" style="font-family: none;">수정</a>
+                          		<a href="javascript:void(0)" onclick="deleteComment(this,${fc.foodCommentNo },${bf.boardFoodNo });" style="font-family: none;">삭제</a>
 							</c:if>
-							 <a href="javascript:void(0)" class="recShow">답글달기</a>
+							 <a href="javascript:void(0)" class="recShow" style="font-family: none;">답글달기</a>
 						</c:if>
 					</p>
 				</li>				
@@ -317,8 +335,8 @@ button{
             			
             			<p class="comment-link">
             				<c:if test="${sessionScope.m.memberId eq fc.foodCommentWriter }">
-            				<a href="javascript:void(0)" onclick="modifyComment(this,${fcc.foodCommentNo },${bf.boardFoodNo });">수정</a>
-                            <a href="javascript:void(0)" onclick="deleteComment(this,${fcc.foodCommentNo },${bf.boardFoodNo });">삭제</a>
+            				<a href="javascript:void(0)" onclick="modifyComment(this,${fcc.foodCommentNo },${bf.boardFoodNo });" style="font-family: none;"> 수정</a>
+                            <a href="javascript:void(0)" onclick="deleteComment(this,${fcc.foodCommentNo },${bf.boardFoodNo });" style="font-family: none;">삭제</a>
             				</c:if>
             			</p>
             		</li>
@@ -369,13 +387,13 @@ button{
 						<textarea name="foodCommentContent" class="input-form"></textarea>
 					</li>
 					<li>
-						<button type="submit" class="btn bc1 bs4">등록</button>
+						<button type="submit" class="bc1 bs4">등록</button>
 					</li>
 				</ul>
 			</form>
 		</div>
 			</c:if>
-			<jsp:include page="/WEB-INF/views/common/footer.jsp" />
+			
 		<script>
 	
 		$(".recShow").on("click",function(){
@@ -445,5 +463,6 @@ button{
 }
 		</script>
 		</div>
+		<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 </body>
 </html>

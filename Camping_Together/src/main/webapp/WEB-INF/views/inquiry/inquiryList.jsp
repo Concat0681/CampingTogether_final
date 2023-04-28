@@ -163,6 +163,10 @@
 	width : 100px; 
 	height : 30px;
 }
+.pageNavi{
+	margin-top: 30px;
+	margin-bottom: 85px;
+}
 </style>
 <body>	
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
@@ -326,8 +330,7 @@
 	</table>
 	</div>
 	
-	<div id="pageNavi">${pageNavi }</div>
-	
+	<div id="pageNavi" class="pageNavi">${pageNavi }</div>
 	<!--값을 가져오기 위한 input hidden 값들  -->	
 	<input type="hidden" id="memberId" value="${sessionScope.m.memberId }">
 	
@@ -473,5 +476,6 @@
 		
 		
 	</script>
+	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 </body>
 </html>
