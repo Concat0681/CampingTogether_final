@@ -7,12 +7,6 @@
 <title>Insert title here</title>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-<link
-         href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-         rel="stylesheet"
-         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-         crossorigin="anonymous"
-      />
 </head>
 <body>
 <button class="btn btn-primary m-2" id="alertStart">Alert 실행</button>
@@ -22,15 +16,21 @@
 <button class="btn btn-warning m-2" id="ajaxStart">Ajax 실행 (깃헙 아이디 검색)</button>
 <script>
 //Alert Modal Type
-$().ready(function () {
+
+  $("#alertStart").on("click", function(){
+    swalAlert('/', '테스트',"테스트1")
+  })
   
-  $("#alertStart").click(function () {
+  /** 성공 혹은 실패창 매개변수 : (url주소, 성공('success') 혹은 실패('error'), 제목, 내용) */
+  function swalAlert(url, iconStr, titleStr, textStr) {
     Swal.fire({
-      icon: 'success',
-      title: 'Alert가 실행되었습니다.',
-      text: '이곳은 내용이 나타나는 곳입니다.',
+      icon: iconStr,
+      title: titleStr,
+      text: textStr,
+    }).then(function() {
+    window.location = url;
     });
-  });
+  };
   
   
   $("#confirmStart").click(function () {
@@ -94,43 +94,6 @@ $().ready(function () {
     })
   });
   
-  
-  $("#ajaxStart").click(function () { 
-    Swal.fire({
-      title: 'Submit your Github username',
-      input: 'text',
-      inputAttributes: {
-        autocapitalize: 'off'
-      },
-      showCancelButton: true,
-      confirmButtonText: 'Look up',
-      showLoaderOnConfirm: true,
-      preConfirm: (login) => {
-        return fetch(`//api.github.com/users/${login}`)
-          .then(response => {
-            if (!response.ok) {
-              throw new Error(response.statusText)
-            }
-            return response.json()
-          })
-          .catch(error => {
-            Swal.showValidationMessage(
-              `Request failed: ${error}`
-            )
-          })
-      },
-      allowOutsideClick: () => !Swal.isLoading()
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire({
-          title: `${result.value.login}'s avatar`,
-          imageUrl: result.value.avatar_url
-        })
-      }
-    })
-  });
-  
-});
 </script>
 </body>
 </html>

@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.6.1.js"></script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
 </head>
@@ -28,7 +29,7 @@
 				</tr>
 				<tr>
 					<td>새 비밀번호</td>
-					<td><input type="password" class="input" name="memberPw" placeholder="새 비밀번호를 입력하세요">
+					<td><input type="password" class="input" id="pwinput" name="memberPw" placeholder="새 비밀번호를 입력하세요">
 					<div class="comment" id="pwCheck" style="font-size : 15px;"></div></td>
 						
 				</tr>
@@ -100,8 +101,17 @@
 		}
 	});
 	 --%>
-	</script>
+	 
 	
+	 $(".admin-pwupdate").on("click",function(){			 
+		 const pw = $("#pwinput").val();
+		 if(pw.length === 0){
+			 alert("비밀번호를 입력하세요");
+		 }
+		});
+
+	</script>
+	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 </body>
 </html>
 

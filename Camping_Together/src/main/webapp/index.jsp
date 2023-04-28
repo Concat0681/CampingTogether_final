@@ -55,7 +55,6 @@
 </head>
 <body onload="init()">
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
-	<jsp:include page="/WEB-INF/views/common/modal.jsp"/>
 	<div class="wrapper wrapperBox">
 		<div class="wrapper wrapperTop">
 			<div class="wrapper backGround">

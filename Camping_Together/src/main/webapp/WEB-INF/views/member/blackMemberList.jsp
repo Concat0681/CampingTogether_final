@@ -234,5 +234,8 @@
 			location.href="/blacklistStatusUpdate.do?blacklistNo="+blacklistNo+"&blacklistStatus="+blacklistStatus+"&blacklistMemberId="+blacklistMemberId;
 		}
 	</script>
+	
+	
+	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 </body>
 </html>
