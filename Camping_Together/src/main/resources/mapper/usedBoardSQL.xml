@@ -38,6 +38,7 @@
 		            used_board_status as usedBoardStatus,
 		            used_product_price as usedProductPrice,
 		            used_trade_location as usedTradeLocation,
+		            used_product_status as usedProductStatus,
 		            read_count as readCount,
 		            reg_date as regDate,
 		            filepath as thumbnail,
