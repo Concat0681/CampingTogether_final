@@ -308,6 +308,7 @@ public class MemberController {
 	@RequestMapping(value = "/updateMypageC.do")
 	public String updateMypageC(Member member, String delProfile, MultipartFile profileName, HttpServletRequest requset, HttpSession session ) {
 		String savePath = requset.getSession().getServletContext().getRealPath("/resources/image/member/");
+		System.out.println(member);
 		if(delProfile != "") {
 			manager.deleteFile(savePath, delProfile);
 			member.setMemberPhoto(null);
@@ -316,7 +317,6 @@ public class MemberController {
 				String upFilepath = manager.upload(savePath, profileName);
 				member.setMemberPhoto(upFilepath);
 		}
-		System.out.println(member);
 		int result = service.updateMypageC(member);
 		
 		if(result > 0) {
