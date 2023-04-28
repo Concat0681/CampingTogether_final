@@ -14,6 +14,7 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
+	<jsp:include page="/WEB-INF/views/common/modalAlert.jsp"/>
 	<script src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script> 
 	<div class="page-wrap">
 		<div class="page-header">
@@ -441,6 +442,7 @@
 		function sendNavi(shopNo, reqPage){
 			location.href="/viewShop.do?shopNo="+shopNo+"&reqPage="+reqPage+"&menu=1";
 		}
+		
 		$("#shopCartBtn").on("click", function(){
 			const memberId = $("#memberId").val();
 			const shopNo = $("#shopNo").val();
@@ -450,9 +452,9 @@
 				type : "post",
 				success : function(data){
 					if(data =="exist"){
-						alert("장바구니에 이미 추가 되어 있습니다");						
+						swalAlert("/", "success", "장바구니에 추가 실패", "상품이 장바구니에 이미 존재합니다");
 					} else {
-						alert("장바구니에 추가 되었습니다");
+						swalAlert("/", "error", "장바구니에 추가", "상품이 장바구니에 추가 되었습니다");
 					}
 				},
 				error : function(){

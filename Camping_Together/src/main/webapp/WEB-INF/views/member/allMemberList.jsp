@@ -120,13 +120,10 @@
 	$("#reset").on("click", function() {
 		$(".modalWrap").css("display", "none");
 	});
-	
-	
-	
-	
 
-	
 	</script>
+
+	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 
 </body>
 </html>

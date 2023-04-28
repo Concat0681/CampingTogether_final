@@ -204,12 +204,14 @@
 .review-list-header>div:first-of-type{
 	font-family: ng-bold;
 	font-size: 20px;
+	color: #AD8B73;
 }
 .review-list-header>div:last-of-type{
 	display: flex;
 }
 .review-list-header>div:last-of-type>div{
 	margin: 0 5px;
+	color: #AD8B73;
 }
 .review-box{
 	padding: 20px;
