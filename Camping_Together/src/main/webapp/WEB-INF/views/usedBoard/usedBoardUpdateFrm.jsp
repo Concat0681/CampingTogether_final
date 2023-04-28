@@ -315,6 +315,7 @@
             </div>
         </form>
     </div>
+    <jsp:include page="/WEB-INF/views/common/footer.jsp" />
     <script>
     	/*지역관련 스크립트*/
 	    $("#location-none").on("change", function(){
