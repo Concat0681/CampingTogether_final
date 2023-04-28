@@ -84,7 +84,7 @@ h3{
 }
 
 .faq-toggle {
-  background-color: transparent;
+  background-color: #fff;
   border: 0;
   border-radius: 50%;
   cursor: pointer;
@@ -123,6 +123,7 @@ h3{
 </style>
 </head>
 <body>
+	<div style="padding-top: 50px; width:100%; text-align:center;"><a href="/"><img src="/resources/image/logo/logo250x80.png"></a></div>
 	    <h1>자주 묻는 질문</h1>
     <div class="faq-container">
       <div class="faq">
@@ -170,7 +171,6 @@ h3{
 $(".faq-toggle").click(function() {
 	  $(this).parent().toggleClass("active");
 	});
-
 </script>
 </body>
 </html>
