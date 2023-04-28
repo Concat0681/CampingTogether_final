@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <style>
 .bottom-content{
-	width: 90%;
+	width: 65%;
 	margin: 0 auto;
 	padding-top: 50px;
 	
@@ -54,7 +54,11 @@
 			<li class="title">
 				<ol class="boardBox">
 					<li class="n-title Tip-title"><h3>많이 묻는 질문</h3><span><a href="/mainQnA.jsp">더보기</a></span></li>
-						<li><span>${bf.boardFoodTitle }</span>
+						<li><span>로그인이 안되요</span></li>
+						<li><span>중고장터 사기 신고</span></li>
+						<li><span>캠핑장 등록</span></li>
+						<li><span>캠핑 예약 및 결제</span></li>
+						<li><span>문의사항</span></li>
 					
 				</ol>
 			</li>
@@ -64,14 +68,6 @@
 					
 					<c:forEach items="${foodlist}" var="bf">
 						<li><a href="/boardFoodView.do?boardFoodNo=${bf.boardFoodNo }"><span>${bf.boardFoodTitle }</span></a><span style="font-size: 12px;"> +${bf.foodCommentRef }</span> </li>
-					</c:forEach>
-				</ol>
-			</li>
-			<li class="title">
-				<ol class="boardBox">
-					<li class="n-title Free-title"><h3>자유게시판</h3><span>더보기</span></li>
-					<c:forEach items="${foodlist}" var="bf">
-						<li><a href="/boardFoodView.do?boardFoodNo=${bf.boardFoodNo }"><span>${bf.boardFoodTitle }</span></a> </li>
 					</c:forEach>
 				</ol>
 			</li>
