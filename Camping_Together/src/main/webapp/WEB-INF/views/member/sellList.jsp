@@ -95,7 +95,7 @@
 				${navi }
 		  </div>
 		</div>
-
+		<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 	<%--  
 	<div>
 	<c:forEach items="${list }" var="l">

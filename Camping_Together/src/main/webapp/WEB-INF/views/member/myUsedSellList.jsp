@@ -32,14 +32,21 @@
 						<td class="used-title">${u.usedBoardTitle }</td>
 						<c:choose>
 							<c:when test="${u.usedProductStatus == 0 }">
+								<td>중고상품</td>
+							</c:when>
+							<c:otherwise>
+								<td>새상품</td>
+							</c:otherwise>
+						</c:choose>
+						<td>${u.usedProductPrice}</td>
+						<c:choose>
+							<c:when test="${u.usedBoardStatus == 0 }">
 								<td>판매중</td>
 							</c:when>
 							<c:otherwise>
 								<td>판매완료</td>
 							</c:otherwise>
 						</c:choose>
-						<td>${u.usedProductPrice}</td>
-						<td>${u.usedBoardStatus }</td>
 						<td>${u.regDate }</td>
 					</tr>
 					
@@ -53,6 +60,7 @@
 		</div>
 		</div>
 	</div>
+	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 	<script>
 		function viewUsed(usedBoardNo){
 			location.href="/usedBoardView.do?usedBoardNo="+usedBoardNo;

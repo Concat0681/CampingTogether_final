@@ -114,12 +114,12 @@
 		
 		function applySlick(){
 			$('#img-viewer').slick({
+				slide: "div",
 				slidesToShow : 4,		// 한 화면에 보여질 컨텐츠 개수
-				slidesToScroll : 1,		//스크롤 한번에 움직일 컨텐츠 개수
+				slidesToScroll : 4,		//스크롤 한번에 움직일 컨텐츠 개수
 				speed : 100,	 // 다음 버튼 누르고 다음 화면 뜨는데까지 걸리는 시간(ms)
 				arrows : true, 		// 옆으로 이동하는 화살표 표시 여부
 				dots : true, 	
-				centerMode: true,
 				focusOnSelect: true,
 				prevArrow : "<button type='button' class='slick-prev'>Previous</button>",		// 이전 화살표 모양 설정
 				nextArrow : "<button type='button' class='slick-next'>Next</button>",		// 다음 화살표 모양 설정
@@ -130,24 +130,22 @@
 		
 		function uploadPhoto(input){
 			if (input.files && input.files.length > 0) {
-				destroySlick();
 				$("#img-viewer").empty();
 				for (let i = 0; i < input.files.length; i++) {
 					const reader = new FileReader();
 					reader.readAsDataURL(input.files[i]);
 					reader.onload = function(e) {
+						destroySlick();
 						const div = $("<div>").addClass("img-box");
 						const img = $("<img>").attr("src", e.target.result); // 이미지를 보여줄 DOM 엘리먼트에 추가
+						const button = $("<button>").addClass("btn1").attr("type", "button").attr("onclick", "delNewPhoto(this)").text("삭제");
 						div.append(img).append(button);
 						$("#img-viewer").append(div);
+						applySlick();
 					}
 				}
-				setTimeout(function () {
-					applySlick()
-		        }, 10);
 			}
 		}
-		
 		
 		function delNewPhoto(obj){
 			destroySlick();

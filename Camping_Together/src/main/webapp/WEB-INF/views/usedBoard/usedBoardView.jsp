@@ -536,7 +536,14 @@
 	        		<div class="comment-list">	        			
 	        			<div class="comment-writer-wrap">
 	        				<div class="user-profile">
-	        					<img src="/resources/image/member/img.jpeg">
+	        					<c:choose>
+	        						<c:when test="${empty ubc.profilePath }">
+			        					<img src="/resources/image/member/img.jpeg">
+	        						</c:when>
+	        						<c:otherwise>
+	        							<img src="/resources/image/member/${ubc.profilePath }">
+	        						</c:otherwise>
+	        					</c:choose>
 	        				</div>
 	        			</div>	
 	        			   
@@ -568,6 +575,7 @@
         	</div>
         </div>
 	</div>
+	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 	<script>
 		<%-- 페이지로드 시 실행 --%>
 		$(function(){

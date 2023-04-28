@@ -38,6 +38,7 @@
 		            used_board_status as usedBoardStatus,
 		            used_product_price as usedProductPrice,
 		            used_trade_location as usedTradeLocation,
+		            used_product_status as usedProductStatus,
 		            read_count as readCount,
 		            reg_date as regDate,
 		            filepath as thumbnail,
@@ -111,13 +112,15 @@
 	</insert>
 	
 	<select id="selectCommentList" parameterType="_int" resultType="ubc">
-		select 
+		    select 
 			used_board_comment_no as usedBoardCommentNo,
 			used_board_no as usedBoardNo,
 			used_board_comment_writer as usedBoardCommentWriter,
 			used_board_comment_content as usedBoardCommentContent,
-			reg_date as regDate
+			reg_date as regDate,
+            member_photo as profilePath
 		from used_board_comment
+        join member on(member_id = used_board_comment_writer)
 		where used_board_no = #{_parameter}
 		order by 1
 	</select>
@@ -133,7 +136,7 @@
 	<select id="sellUserCheck" parameterType="string" resultType="ub">
 	   select 
 	           member_phone as sellerPhone,
-	           profile_filepath as profilePath
+	           member_photo as profilePath
 	   from member 
 	   left join profile using(member_no)
 	   where member_id like #{_parameter}

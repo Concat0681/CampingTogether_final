@@ -44,7 +44,7 @@
 									<c:when test="${sessionScope.m.memberGrade eq 'c'}"> 일반회원 </c:when>
 									<c:when test="${sessionScope.m.memberGrade eq 'a'}"> 관리자 </c:when>
 									<c:when test="${sessionScope.m.memberGrade eq 's'}"> 사업자 </c:when>
-								</c:choose>>
+								</c:choose> readonly>
 						</td>
 					</tr>
 					<tr>
@@ -70,8 +70,8 @@
 						<td>주소 변경</td>
 						<td>
 							<input type="button" onclick="sample4_execDaumPostcode()" class="postBtn" id="post-btn" value="주소 찾기" style= "margin-left : 0; padding-left : 0;"><br> 
-							<input type="text" class="input" name="memberAddr" id="sample4_roadAddress">
-							<input type="text" class="input" placeholder="상세주소" id="detail-input"> <!-- <input type="text" id="sample4_roadAddress" placeholder="도로명주소" readonly><br> -->
+							<input type="text" class="input" name="memberAddr" id="sample4_roadAddress" readonly>
+							<input type="text" class="input" placeholder="상세주소" id="detail-input" readonly> <!-- <input type="text" id="sample4_roadAddress" placeholder="도로명주소" readonly><br> -->
 
 						</td>
 
@@ -92,7 +92,7 @@
 			</div>
 		</form>
 
-
+		<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 
 
 		<script>

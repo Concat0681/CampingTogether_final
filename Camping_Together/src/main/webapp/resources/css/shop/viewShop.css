@@ -263,8 +263,8 @@
 	justify-content: flex-end;
 }
 .review-update-btn>button{
-	width: 150px;
-	height: 30px;
+	width: 100px;
+	height: 40px;
 	margin-left: 10px;
 }
 .review-frm-header{
@@ -316,8 +316,9 @@
 	display: flex;
 }
 .review-frm-content>div:last-of-type>div>button{
-	width: 50%;
-	height: 30px;
+	width: 40%;
+	margin: 0 10px;
+	height: 40px;
 }
 .review-frm-content textarea{
 	width: 100%;
@@ -336,7 +337,7 @@
   'FILL' 1,
   'wght' 400,
   'GRAD' 0,
-  'opsz' 48f
+  'opsz' 48
 }
 .no-result-wrap{
 	width: 100%;

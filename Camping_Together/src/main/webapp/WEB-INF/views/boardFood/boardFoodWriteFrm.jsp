@@ -74,6 +74,7 @@ textarea.input-form {
 }
 </style>
 <body>
+<jsp:include page="/WEB-INF/views/common/header.jsp" />
 <div class="page-content">
 		<div class="page-title">사진게시판 작성</div>
 		<form action="/boardFoodWrite.do" method="post" enctype="multipart/form-data">
@@ -118,6 +119,7 @@ textarea.input-form {
 			</table>
 		</form>
 	</div>
+	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 	<script>
 		//이미지 미리보기
 		function loadImg(f){
