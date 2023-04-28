@@ -324,8 +324,9 @@
 			camping_review_title as campingReviewTitle,
 			camping_review_content as campingReviewContent,
 			camping_review_rating as campingReviewRating,
-			camping_review_ref as campingReviewRef
-		from camping_review where camping_no = #{_parameter} and camping_review_ref is null order by camping_review_no 
+			camping_review_ref as campingReviewRef,
+            member_photo as memberPhoto
+		from camping_review left join member using(member_id) where camping_no = #{_parameter} and camping_review_ref is null order by camping_review_no
 	</select>
 	
 	<select id="selectCampingReviewNo" parameterType="_int" resultType="_int">
@@ -667,14 +668,4 @@
         where m.member_id = #{memberId} and m.member_no=#{memberNo}
 	</select>
 	
-	<select id="selectReviewMember" parameterType="_int" resultType="m">
-		select
-			member_id as memberId,
-			member_photo as memberPhoto
-		from Member
-			where member_id in (
-			  select distinct member_id
-			  from camping_review where camping_no = #{_parameter}
-			)
-	</select>
 </mapper>

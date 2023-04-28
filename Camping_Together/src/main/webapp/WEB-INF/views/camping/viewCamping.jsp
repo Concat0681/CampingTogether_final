@@ -366,9 +366,16 @@
 					<c:forEach items="${campingReview }" var="cr" varStatus="i">
 							<div style="margin-top: 50px;">
 						        <ul class="posting-comment">
+						        <c:if test="${cr.memberPhoto == null }">
 						          <li style="padding-left: 70px;">
-						            <span class="material-icons">account_box</span>
+						            <span class="material-icons">account_circle</span>
 						          </li>
+						        </c:if>
+						        <c:if test="${cr.memberPhoto != null }">
+					        	  <li style="padding-left: 70px;">
+						            <img src="resources/image/member/${cr.memberPhoto }" style="width: 100px; height: 100px; border-radius: 50%;">
+						          </li>
+						        </c:if>
 						          <li>
 						            <p class="comment-info" style="margin-bottom: 0;">
 						              <span style="font-size: 20px;font-weight: 900;">${cr.campingReviewTitle }</span>
@@ -495,7 +502,7 @@
 								        <ul class="posting-comment reply">
 								          <li style="padding-left: 90px;">
 								            <span class="material-icons">subdirectory_arrow_right</span>
-								            <span class="material-icons">account_box</span>
+								            <span class="material-icons">account_circle</span>
 								          </li>
 								          <li>
 								            <p class="comment-info">

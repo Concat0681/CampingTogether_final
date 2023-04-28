@@ -197,7 +197,6 @@ public class CampingController {
 			
 		CampingReviewData crd = service.selectCampingReview(campingNo);
 		CampingReviewData reviewCommentList = service.selectReviewCommentList(campingNo);
-		ArrayList<Member> member = service.selectReviewMember(campingNo);
 //		CampingReservation campingReservation = service.selectReservation(cr);
 //		System.out.println(campingReservation);
 		int campingReviewCount = service.selectReviewCount(campingNo);
@@ -214,7 +213,6 @@ public class CampingController {
 		model.addAttribute("checkOut", checkOut);
 //		model.addAttribute("campingReservation", campingReservation);
 		model.addAttribute("reservationList",reservationList);
-		model.addAttribute("reviewMember", member);
 //		System.out.println(reservationList);
 		return "camping/viewCamping";
 	}
