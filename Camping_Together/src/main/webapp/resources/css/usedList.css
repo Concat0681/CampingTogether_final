@@ -76,7 +76,7 @@
        border: 1px solid #ccc;
        border-radius: 5px;
        box-sizing: border-box;
-       cursor: pointer;
+       
    }
    .product:hover{
        box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.2);
@@ -113,6 +113,7 @@
    		text-align: center;
    		text-overflow: ellipsis;
    		white-space: nowrap;
+   		cursor: pointer;
    }
    .product_location{
    		font-size: 15px;
@@ -134,6 +135,8 @@
 		margin: 10px auto;
 		display: flex;
 		position: relative;
+		justify-content: space-between;
+		height: 25px;
 	}
 	.product-price>span{
 		font-size: 15px;
