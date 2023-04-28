@@ -20,7 +20,7 @@
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
 	<script src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script> 
 	<div class="page-wrap">
-		<div class="page-title">SHOP 등록</div>
+		<div class="page-title">SHOP 상품 등록</div>
 		<form action="/insertShop.do" method="post" enctype="multipart/form-data">
 			<input type="hidden" name="memberId" value="${sessionScope.m.memberId }">
 			<div class="input-group mb-3">
@@ -62,7 +62,7 @@
 				<textarea id="shop-content" name="shopContent"></textarea>
 			</div>
 			<div class="insert-shop-btn-wrap">
-				<button id="backToListBtn" class="btn2" type="button">취소</button>
+				<button id="backToListBtn" class="btn-2" type="button">취소</button>
 				<button type="submit" class="btn1" onclick="return checkInputs();">등록</button>
 			</div>
 		</form>

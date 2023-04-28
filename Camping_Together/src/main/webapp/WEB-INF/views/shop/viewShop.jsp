@@ -32,32 +32,32 @@
 			</div>
 			<div class="product-info-wrap">
 				<div class="product-title">
-					<div>캠핑용품</div>
+					<div class="title-1" >캠핑용품</div>
 					<div>${shop.shopTitle }</div>
 				</div>
 				<div class="product-info">
 					<div>
-						<div>판매가</div>
+						<div class="p-title">판매가</div>
 						<div>
 							<div id="shopPrice">${shop.shopPrice }</div>
-							<span>원</span>
+							<span id="shopPrice">원</span>
 						</div>
 					</div>
 					<div>
-						<div>배송방법</div>
-						<div>택배</div>
+						<div class="p-title">배송방법</div>
+						<div id="shopD">택배</div>
 					</div>
 					<div>
-						<div>배송비</div>
+						<div class="p-title">배송비</div>
 						<div>
 							<div id="delivaryPrice">${shop.delivaryPrice }</div>
-							<span>원</span>
+							<span id="delivaryPrice">원</span>
 						</div>
 					</div>
 				</div>
 				<div class="product-price-wrap">
 					<div>
-						<div>수량</div>
+						<div style="font-size: 22px; color: #AD8B73; font-family:ng-bold;">수량</div>
 						<div class="shop-count-btn-box">
 							<span id="minus" class="material-symbols-outlined">remove</span>
 							<input type="text" name="sellCount" value=1 readonly>
@@ -65,16 +65,16 @@
 						</div>
 					</div>
 					<div>
-						<div class="priceResult">0</div>
-						<span>원</span>
+						<div class="priceResult" style="padding : 30px 0 30px 0; color: #5d5d5d; font-size: 22px;">0</div>
+						<span style="padding : 30px 0 30px 0; color: #5d5d5d; font-size: 22px;">원</span>
 					</div>
 				</div>
 				<div class="product-totalPrice-wrap">
 					<div>
-						<div>TOTAL</div>
+						<div style="font-size: 22px; color: #AD8B73; font-family:ng-bold;">TOTAL</div>
 						<div>
-							<div class="totalPrice"></div>
-							<span>원</span>
+							<div class="totalPrice tp"></div>
+							<span class="tp">원</span>
 						</div>
 					</div>
 					<div class="product-btn-wrap">
@@ -88,8 +88,8 @@
 								<button class="btn1" id="deleteShopBtn">삭제</button>
 							</c:when>
 							<c:otherwise>
-								<button class="btn1" id="payBtn">Buy</button>
-								<button type="button" id="shopCartBtn" class="btn1">Cart</button>
+								<button class="btn1" id="payBtn"  style="margin: 0; font-size: 22px;">Buy</button>
+								<button type="button" id="shopCartBtn" class="btn1" style="font-size: 22px;">Cart</button>
 							</c:otherwise>
 						</c:choose>
 					</div>
