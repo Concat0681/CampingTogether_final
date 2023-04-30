@@ -112,9 +112,38 @@
 					camping_content,
 					camping_addr,
 					camping_addr_detail,
-					camping_phone
+					camping_phone,
+					camping_sido
 				from camping
 				<trim prefix="where" prefixOverrides="and|or">
+					<if test="campingSido != null">
+						<choose>
+							<when test="campingSido == '경기'">
+							    and camping_sido like '%'||#{campingSido }||'%'
+								or camping_sido like '%'||'인천'||'%'
+								or camping_sido like '%'||'서울'||'%'
+							</when>
+							<when test="campingSido == '충청'">
+							    and camping_sido like '%'||'충'||'%'
+								or camping_sido like '%'||'세종'||'%'
+								or camping_sido like '%'||'대전'||'%'
+							</when>
+							<when test="campingSido == '경상'">
+							    and camping_sido like '%'||'경북'||'%'
+							    or camping_sido like '%'||'경남'||'%'
+								or camping_sido like '%'||'대구'||'%'
+								or camping_sido like '%'||'울산'||'%'
+								or camping_sido like '%'||'부산'||'%'
+							</when>
+							<when test="campingSido == '전라'">
+							    and camping_sido like '%'||'전'||'%'
+								or camping_sido like '%'||'광주'||'%'
+							</when>
+							<otherwise>
+								 and camping_sido like '%'||#{campingSido }||'%'
+							</otherwise>
+						</choose>
+					</if>
 					<if test="campingAddr != null">
 						 camping_addr like '%'||#{campingAddr}||'%'
 					</if>
