@@ -133,7 +133,6 @@
 					</div>
 				</c:if>
 				<div class="car-list shop-list">
-					
 					<c:forEach items="${carList }" var="c" varStatus="i">
 						<div class="shop-box" onclick="viewShop(${c.shopNo});">
 							<div class="shop-photo">
@@ -221,7 +220,7 @@
 						</div>
 					</c:forEach>
 				</div>
-				<c:if test="${not empty ectList }">
+				<c:if test="${not empty etcList }">
 					<div class="shop-footer">
 						${etcPageNavi }
 					</div>
