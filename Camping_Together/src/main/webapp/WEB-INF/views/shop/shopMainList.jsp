@@ -65,6 +65,10 @@
 								<span class="material-symbols-outlined">filter_alt</span>
 								<div onclick="shopListOrder(this, 0, 1, 'rating')">평점순</div>
 							</div>
+							<div>
+								<span class="material-symbols-outlined">filter_alt</span>
+								<div onclick="shopListOrder(this, 0, 1, 'price')">가격순</div>
+							</div>
 						</div>
 					</div>
 				</c:if>
@@ -120,6 +124,10 @@
 							<div>
 								<span class="material-symbols-outlined">filter_alt</span>
 								<div onclick="shopListOrder(this, 1, 1, 'rating')">평점순</div>
+							</div>
+							<div>
+								<span class="material-symbols-outlined">filter_alt</span>
+								<div onclick="shopListOrder(this, 1, 1, 'price')">가격순</div>
 							</div>
 						</div>
 					</div>
@@ -177,6 +185,10 @@
 							<div>
 								<span class="material-symbols-outlined">filter_alt</span>
 								<div onclick="shopListOrder(this, 2, 1, 'rating')">평점순</div>
+							</div>
+							<div>
+								<span class="material-symbols-outlined">filter_alt</span>
+								<div onclick="shopListOrder(this, 2, 1, 'price')">가격순</div>
 							</div>
 						</div>
 					</div>
@@ -285,7 +297,7 @@
 						const hiddenDiv = $("<div>").addClass("hidden").addClass("hidden-div").text("Quick View");
 						const shopInfoDiv = $("<div>").addClass("shop-info");
 						const shopTitleDiv = $("<div>").text(c.shopTitle);
-						const shopPriceDiv = $("<div>").addClass("shop-price-info").append($("<div>")).text(c.shopPrice + " 원");
+						const shopPriceDiv = $("<div>").addClass("shop-price-info").append($("<div>")).text(String(c.shopPrice).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " 원");
 						const shopRatingDiv = $("<div>").addClass("shop-rating");
 						const shopRatingTitleDiv = $("<div>").text("평점");
 						const shopRatingValueDiv = $("<div>").text(c.avgRating.toFixed(1));

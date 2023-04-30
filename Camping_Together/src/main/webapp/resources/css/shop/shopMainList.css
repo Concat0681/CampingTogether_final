@@ -70,6 +70,8 @@
 
 }
 .camping-list-menu>div>div{
+	margin-left: 10px;
+	width: 105px;
 	color: #AD8B73;
 	cursor: pointer;
 }
