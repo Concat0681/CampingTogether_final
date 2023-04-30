@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 	<script src="https://code.jquery.com/jquery-3.6.1.js"></script>
 	<script src="/summernote/summernote-lite.js"></script>
 	<script src="/summernote/lang/summernote-ko-KR.js"></script>
@@ -24,7 +25,7 @@
 
 .page-content {
 	width: 1200px;
-	margin: 30px auto;
+	margin: 200px auto;
 	margin-bottom: 10px;
 	flex-grow: 1;
 }
@@ -92,13 +93,41 @@
 p{
 	text-align: left;
 }
+.submitBtn{
+	background-color: #CEAB93;
+    color: white;
+    border-radius: 5px;
+    border:none;
+    text-decoration: none;
+    width: 100px;
+    height:30px;
+    line-height:30px;
+    text-align: center;
+}
+.cancelBtn{
+	background-color: #CEAB93;
+    color: white;
+    border-radius: 5px;
+    border:none;
+    text-decoration: none;
+    width: 100px;
+    height:30px;
+    line-height:30px;
+    text-align: center;
+    display: inline-block;
+}
+.cancelBtn:hover{
+		color:#fff !important;
+	}
 </style>
+
 	<form action="/noticeUpdate.do" method="post">
 		<div class="page-content">
 			<h3 class="page-title">공지사항 수정</h3>
 			<table class="tbl">
-				<th class="td-3" colspan="6">제목</th>
+			
 				<tr class="tr-1">
+					<th class="td-3">제목</th>
 					<th colspan="6">
 						<input type="text" name="noticeTitle" id="noticeTitle" value="${n.noticeTitle }" class="input-form">
 					</th>
@@ -121,14 +150,19 @@ p{
 						</div>
 					</td>
 				</tr>
-				<tr>
-					<th colspan="2">
-						<input type="submit" value="수정하기">
+				<tr class="tr-1">
+					<th colspan="6">
+					<a>
+						<button type="submit" class="submitBtn" style="cursor: pointer;">수정하기</button>
+					</a>
+						<a class="cancelBtn" href="/noticeView.do?noticeNo=${n.noticeNo }">취소</a>
+						
 					</th>
 				</tr>
 			</table>
 		</div>
 	</form>
+		<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 		<script>
 	
 		$("#noticeContent").summernote({

@@ -151,6 +151,29 @@ p{
 a:hover{
 		color:#fff !important;
 	}
+	.submitBtn{
+	background-color: #CEAB93;
+    color: white;
+    border-radius: 5px;
+    border:none;
+    text-decoration: none;
+    width: 100px;
+    height:30px;
+    line-height:30px;
+    text-align: center;
+}
+.cancelBtn{
+	background-color: #CEAB93;
+    color: white;
+    border-radius: 5px;
+    border:none;
+    text-decoration: none;
+    width: 100px;
+    height:30px;
+    line-height:30px;
+    text-align: center;
+    display: inline-block;
+}
 </style>
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
@@ -166,6 +189,7 @@ a:hover{
                     <a href="/boardFoodView.do?boardFoodNo=${b.boardFoodNo }">
             		        <c:if test="${fn:length(b.filepath) > 0}">
 			                        <div class="posting-img">
+<%-- 		    	                    	<img src="/resources/upload/boardFood/${b.filepath }"> --%>
 		    	                    	<img src="/resources/upload/boardFood/${b.filepath }">
 			                        </div>
 			                     </c:if>

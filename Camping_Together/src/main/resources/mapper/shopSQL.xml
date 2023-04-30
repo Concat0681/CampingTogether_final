@@ -22,6 +22,9 @@
 						<when test="order == 'rating'">
 							order by avgRating desc nulls last
 						</when>
+						<when test="order == 'price'">
+							order by s.shop_price desc nulls last
+						</when>
 					</choose>
 				</if>				
 				)s

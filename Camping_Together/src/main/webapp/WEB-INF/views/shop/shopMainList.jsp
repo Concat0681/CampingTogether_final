@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -64,6 +65,10 @@
 								<span class="material-symbols-outlined">filter_alt</span>
 								<div onclick="shopListOrder(this, 0, 1, 'rating')">평점순</div>
 							</div>
+							<div>
+								<span class="material-symbols-outlined">filter_alt</span>
+								<div onclick="shopListOrder(this, 0, 1, 'price')">가격순</div>
+							</div>
 						</div>
 					</div>
 				</c:if>
@@ -84,7 +89,7 @@
 								<div>${c.shopTitle }</div>
 								<div class="shop-price-info">
 									<div>
-										${c.shopPrice} 원
+										<fmt:formatNumber value="${c.shopPrice }" pattern="#,###"/> 원
 									</div>
 									<div class="shop-rating">
 										<div>평점</div>
@@ -120,11 +125,14 @@
 								<span class="material-symbols-outlined">filter_alt</span>
 								<div onclick="shopListOrder(this, 1, 1, 'rating')">평점순</div>
 							</div>
+							<div>
+								<span class="material-symbols-outlined">filter_alt</span>
+								<div onclick="shopListOrder(this, 1, 1, 'price')">가격순</div>
+							</div>
 						</div>
 					</div>
 				</c:if>
 				<div class="car-list shop-list">
-					
 					<c:forEach items="${carList }" var="c" varStatus="i">
 						<div class="shop-box" onclick="viewShop(${c.shopNo});">
 							<div class="shop-photo">
@@ -177,6 +185,10 @@
 								<span class="material-symbols-outlined">filter_alt</span>
 								<div onclick="shopListOrder(this, 2, 1, 'rating')">평점순</div>
 							</div>
+							<div>
+								<span class="material-symbols-outlined">filter_alt</span>
+								<div onclick="shopListOrder(this, 2, 1, 'price')">가격순</div>
+							</div>
 						</div>
 					</div>
 				</c:if>
@@ -208,7 +220,7 @@
 						</div>
 					</c:forEach>
 				</div>
-				<c:if test="${not empty ectList }">
+				<c:if test="${not empty etcList }">
 					<div class="shop-footer">
 						${etcPageNavi }
 					</div>
@@ -284,7 +296,7 @@
 						const hiddenDiv = $("<div>").addClass("hidden").addClass("hidden-div").text("Quick View");
 						const shopInfoDiv = $("<div>").addClass("shop-info");
 						const shopTitleDiv = $("<div>").text(c.shopTitle);
-						const shopPriceDiv = $("<div>").addClass("shop-price-info").append($("<div>")).text(c.shopPrice + " 원");
+						const shopPriceDiv = $("<div>").addClass("shop-price-info").append($("<div>")).text(String(c.shopPrice).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " 원");
 						const shopRatingDiv = $("<div>").addClass("shop-rating");
 						const shopRatingTitleDiv = $("<div>").text("평점");
 						const shopRatingValueDiv = $("<div>").text(c.avgRating.toFixed(1));

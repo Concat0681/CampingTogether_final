@@ -20,7 +20,6 @@
 .page-content {
   width: 1200px;
   margin: 30px auto;
-  margin-bottom: 10px;
   margin-top:200px;
   flex-grow: 1;
   position: relative;
@@ -165,7 +164,6 @@
 }
 .pageNavi{
 	margin-top: 30px;
-	margin-bottom: 85px;
 }
 </style>
 <body>	
