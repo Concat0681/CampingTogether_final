@@ -60,11 +60,11 @@ public class MessageController {
 	    return new Gson().toJson(list);
 	}
 	 */
-	
 	@ResponseBody
 	@RequestMapping(value = "/messageDetail.do", produces = "application/json;charset=utf-8")
 	public Message MessageDetail(int messageNo) {
 		Message mg = service.selectOneMessage(messageNo);
+		System.out.println("Retrieved message: " + mg);
 		return mg;
 	}
 	

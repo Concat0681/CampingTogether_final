@@ -27,7 +27,7 @@
         ORDER BY read_check,MESSAGE_NO DESC
     </select>
     
-    <select id="selectOneMessage" parameterType="ms" resultType="_int">
+    <select id="selectOneMessage" parameterType="_int" resultType="ms">
         SELECT 
         	MESSAGE_NO as messageNo, 
         	RECEIVER, 
@@ -37,19 +37,23 @@
         	READ_CHECK as readCheck, 
         	MESSAGE_DATE as messageDate
         FROM MESSAGE
-        WHERE MESSAGE_NO = #{messageNo}
+        WHERE MESSAGE_NO = #{_parameter}
+      	ORDER BY 
+        CASE WHEN READ_CHECK = 0 THEN 0 ELSE 1 END ASC, 
+        MESSAGE_NO ASC
     </select>
     
-    <update id="updateMessageReadStatus" parameterType="ms">
-		update message
-		set read_check = 1
-		where message_no = #{messageNo}
-	</update>
+		<update id="updateReadCheck" parameterType="_int">
+			update message set read_check = 1 where message_no = #{_parameter}
+		</update>
 
 	<select id="messageCount" parameterType="string" resultType="_int">
-		select count(*)
-		from message
-		where receiver = #{memberId}
+		select count(*) from message
+		where receiver= #{_parameter} and read_check=0;
+			
 	</select>
+	
+	
+	
 </mapper>
 

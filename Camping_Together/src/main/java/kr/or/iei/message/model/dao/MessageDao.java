@@ -49,6 +49,6 @@ public class MessageDao {
 
 	public void updateReadCheck(int messageNo) {
 		sqlSession.update("message.updateReadCheck", messageNo);
-		
 	}
+
 }
