@@ -75,6 +75,9 @@ public class UsedBoard {
 		}
 		return null;
 	}
+	public String getUsedBoardContentBr() {
+		return usedBoardContent.replaceAll("\r\n", "<br>");
+	}
 }
 
 

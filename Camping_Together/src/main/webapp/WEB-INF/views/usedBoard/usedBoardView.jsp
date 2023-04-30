@@ -508,7 +508,7 @@
         			</div>
         		</div>  
         		<div class="detail-content-text">
-        			<p>${ub.usedBoardContent }</p>
+        			<p>${ub.getUsedBoardContentBr() }</p>
         		</div>    		       			
         	</div>
         </div>
