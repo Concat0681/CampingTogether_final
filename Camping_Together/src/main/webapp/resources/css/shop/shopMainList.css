@@ -147,6 +147,13 @@
 	justify-content: center;
 	align-items: center;
 }
+.shop-info>div:first-of-type{
+	width: 300px;
+	height: 30px;
+	overflow: hidden;
+	text-align: center;
+}
+
 .shop-price-info{
 	width: 90%;
 	margin: 0 auto;

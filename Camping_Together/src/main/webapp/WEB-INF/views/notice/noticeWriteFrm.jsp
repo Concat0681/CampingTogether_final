@@ -88,6 +88,10 @@ textarea.input-form {
     text-align: center;
     display: inline-block;
 }
+.cancelBtn:hover{
+		color:#fff !important;
+	}
+
 </style>
 <body>
 	<script src="/summernote/summernote-lite.js"></script>
@@ -121,8 +125,10 @@ textarea.input-form {
 				</tr>
 				<tr class="tr-1">
 					<td colspan="4">
+					<a>
 						<button type="submit" class="submitBtn">작성</button>
-						<a class="cancelBtn" href="/noticeList.do?reqPage=1" style="font-family: none;">취소</a>
+					</a>
+						<a class="cancelBtn" href="/noticeList.do?reqPage=1">취소</a>
 					</td>
 				</tr>
 			</table>
