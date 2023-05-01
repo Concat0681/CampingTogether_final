@@ -51,8 +51,9 @@
 			board_food_ref as boardFoodRef,
 			food_comment_ref as foodCommentRef,
 			food_comment_content as foodCommentContent,
-			food_comment_date as foodCommentDate
-		 from food_comment where board_food_ref = #{boardFoodNo} and food_comment_ref is null order by 1
+			food_comment_date as foodCommentDate,
+			member_photo as memberPhoto
+		 from food_comment left join member on(food_comment_writer=member_id) where board_food_ref = #{boardFoodNo} and food_comment_ref is null order by 1
 	</select>
 	<select id="selectReCommentList" parameterType="_int" resultType="fc">
 		select
@@ -61,8 +62,9 @@
 			board_food_ref as boardFoodRef,
 			food_comment_ref as foodCommentRef,
 			food_comment_content as foodCommentContent,
-			food_comment_date as foodCommentDate
-		 from food_comment where board_food_ref = #{boardFoodNo} and food_comment_ref is not null order by 1
+			food_comment_date as foodCommentDate,
+			member_photo as memberPhoto
+		 from food_comment left join member on(food_comment_writer=member_id) where board_food_ref = #{boardFoodNo} and food_comment_ref is not null order by 1
 	</select>
 	<update id="updateBoardFood" parameterType="bf">
 		update board_food set

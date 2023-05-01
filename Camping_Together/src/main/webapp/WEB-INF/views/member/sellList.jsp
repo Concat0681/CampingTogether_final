@@ -28,7 +28,7 @@
 			<div class="list-content">
 				<table>
 					<tr style="border-top-left-radius : 50px;">
-						<th>No</th>
+						<th style="WIDTH: 10%;">No</th>
 						<th >캠핑장 명</th>
 						<th>지역</th>
 						<th >방 개수</th>

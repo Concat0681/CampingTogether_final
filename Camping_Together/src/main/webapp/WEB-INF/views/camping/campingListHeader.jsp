@@ -40,7 +40,7 @@
 							<input name="cityNameEN" type="hidden" value="${cityNameEN }">
 						</c:when>
 						<c:otherwise>
-							<input class="form-control" id="searchInput" name="cityNameKR" placeholder="도시" type="text" readonly>
+							<input class="form-control" id="searchInput" name="cityNameKR" placeholder="도시" type="text" readonly style="border-top-right-radius: 5px; border-bottom-right-radius: 5px;">
 							<input name="cityNameEN" type="hidden">
 						</c:otherwise>
 					</c:choose>

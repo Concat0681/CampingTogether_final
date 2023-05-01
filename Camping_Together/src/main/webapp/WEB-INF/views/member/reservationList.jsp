@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,7 +45,7 @@
 					<td>${c.memberId }</td>
 					<td>${c.checkIn }</td>
 					<td>${c.checkOut }</td>
-					<td>${c.price }</td>
+					<td><fmt:formatNumber value="${c.price }" pattern="#,###" /> 원</td>
 				</tr>
 				</c:forEach>
 			</table>
@@ -52,6 +53,8 @@
 				${navi }
 		  </div>
 	</div>
-
+	<div class="footer-wrap">
+		<jsp:include page="/WEB-INF/views/common/footer.jsp" />
+	</div>
 </body>
 </html>

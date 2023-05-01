@@ -226,7 +226,6 @@ public class ShopController {
 			shopOrder = service.selectMyOrder(memberId, shopNo);
 		}
 		Shop shop = service.selectOneShop(shopNo, memberId);
-		System.out.println(shop);
 		ShopReviewListData srld = service.selectShopReviewList(shopNo, reqPage);
 		model.addAttribute("shop", shop);
 		model.addAttribute("menu", menu);

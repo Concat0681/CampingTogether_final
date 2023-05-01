@@ -157,12 +157,12 @@
 
 .del-modal{
     background-color: #fff;
-    width: 350px;
-    min-width: 350px;
+    /*width: 350px;*/
+    min-width: 400px;
     max-width: 250px;
-    height: 180px;
-    min-height: 180px;
-    max-height: 180px;
+    /*height: 180px;*/
+    min-height: 200px;
+    max-height: 230px;
     border-radius: 10px;
 }
 
@@ -423,7 +423,9 @@
     transform: scale(1.1);
   }
 
-
+.footer-wrap{
+    margin-top: 200px;
+}
 
 
 

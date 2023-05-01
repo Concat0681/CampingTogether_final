@@ -386,9 +386,6 @@ input:focus {
 	
 </div>
 <script>
-$(document).ready(function() {
-	alert("로그인이 실패하였습니다.");
-});
 $(".loginBtn").on("click",function(){
 	const memberGradeB = $("#memberGradeB").val();
 	if( memberGradeB === "B"){
