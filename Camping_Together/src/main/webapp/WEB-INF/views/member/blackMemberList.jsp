@@ -48,6 +48,7 @@
 		left: 15px;
 		background-color: #fff; 
 		box-shadow: 0px 0px 60px 10px #ccc;
+		z-index: auto;
 	}
 	.blacklist-detail-modal-top{
 		display: flex;
@@ -64,7 +65,7 @@
 	.blacklist-file>span{
 		padding-right: 10px;
 	}
-	.blacklist-file>span:hover{
+	.blacklist-file>#blackfile:hover{
 		color: #AD8B73;
 		cursor: pointer;
 	}
@@ -128,6 +129,31 @@
 			</div>
 		</div>	
 		<div class="list">
+			<div class="blacklist-detail-modal-wrap">
+				<div class="blacklist-detail-modal-top">
+					<input type="hidden" id="blacklistNo">
+					<div class="top-title">
+					</div>
+					<div class="top-status-wrap">
+						<select name="blacklistStatus">
+							<option value="0">처리대기</option>
+							<option value="1">처리완료</option>
+							<option value="2">처리취소</option>
+						</select>
+						<button type="button" class="btn1" onclick="blacklistStatusUpdate(this);">확인</button>
+					</div>				
+				</div>
+				<div class="blacklist-file"></div>
+				<div class="blacklist-detail-modal-mid">
+					<div class="blacklist-usedBoard-info"></div>
+					<div class="blacklist-writer-info"></div>
+					<div class="blacklist-content"></div>
+				</div>
+				<div class="blacklist-detail-modal-bottom">
+					<button type="button" class="btn1" onclick="blacklistDelete();">delete</button>
+					<button type="button" class="btn1" onclick="modalClose();">close</button>
+				</div>
+			</div>
 			<table>
 				<tr>
 					<td class="td1" style="border-top-left-radius: 10px;">No</td>
@@ -149,35 +175,12 @@
 				</tr>
 				</c:forEach>
 			</table>
-		 <div class="pagination all-navi">
-				${pageNavi }
-		 </div>
-		 		<div class="blacklist-detail-modal-wrap">
-			<div class="blacklist-detail-modal-top">
-				<input type="hidden" id="blacklistNo">
-				<div class="top-title">
-				</div>
-				<div class="top-status-wrap">
-					<select name="blacklistStatus">
-						<option value="0">처리대기</option>
-						<option value="1">처리완료</option>
-						<option value="2">처리취소</option>
-					</select>
-					<button type="button" class="btn1" onclick="blacklistStatusUpdate(this)">확인</button>
-				</div>				
-			</div>
-			<div class="blacklist-file"></div>
-			<div class="blacklist-detail-modal-mid">
-				<div class="blacklist-usedBoard-info"></div>
-				<div class="blacklist-writer-info"></div>
-				<div class="blacklist-content"></div>
-			</div>
-			<div class="blacklist-detail-modal-bottom">
-				<button type="button" class="btn1" onclick="modalClose();">close</button>
-			</div>
-		</div>
+			 <div class="pagination all-navi">
+					${pageNavi }
+			 </div>
 		</div>
 	</div>
+	
 	<script>
 		function blacklistView(blacklistNo){
 			$(".blacklist-detail-modal-wrap").show();
@@ -211,7 +214,7 @@
 					blacklistFile.append("<span>첨부파일 : </span>")
 					for(let i=0; i<data.photolist.length; i++){
 						let blacklistPhotoNo = data.photolist[i].blacklistPhotoNo;
-						blacklistFile.append("<span onclick=filedownload('"+blacklistPhotoNo+"');>"+data.photolist[i].filename+"</span>");
+						blacklistFile.append("<span id='blackfile' onclick=filedownload('"+blacklistPhotoNo+"');>"+data.photolist[i].filename+"</span>");
 					}
 					blacklistUsedBoardInfo.append("<span>게시글 : ["+data.usedBoardNo+"]"+data.blackUsedBoardTitle+"</span><br>");
 					blacklistUsedBoardInfo.append("<span>신고대상ID : "+data.blacklistMemberId+"</span>");
@@ -232,6 +235,12 @@
 			const blacklistStatus = $(obj).prev().val();
 			const blacklistMemberId = $("#blacklistMemberId").val();
 			location.href="/blacklistStatusUpdate.do?blacklistNo="+blacklistNo+"&blacklistStatus="+blacklistStatus+"&blacklistMemberId="+blacklistMemberId;
+		}
+		function blacklistDelete(){
+			if(confirm("블랙리스트를 삭제하시겠습니까?")){
+				const blacklistNo = $("#blacklistNo").val();
+				location.href="/blacklistDelete.do?blacklistNo="+blacklistNo;
+			}
 		}
 	</script>
 	
