@@ -65,7 +65,7 @@
 								<button id="sendInquiryBtn" class="btn3 loginBtn">문의하기</button>
 							</c:when>
 							<c:otherwise>
-								<button id="sendInquiryBtn" class="btn3" data-bs-toggle="modal" data-bs-target="#exampleModal">문의하기</button>
+								<button id="sendInquiryBtn" class="btn3">문의하기</button>
 							</c:otherwise>
 						</c:choose>
 					<input type="hidden" id="campingMemberId" value="${camping.memberId }" >
@@ -640,6 +640,13 @@
 			 $(this).toggleClass("filled-heart");
 		})
 		
+		$("#sendInquiryBtn").on("click", function(){
+			const receiver = $("#campingMemberId").val();
+			$(".message-comset").css("display", "block");
+			$(".tab").eq(2).click();
+			$("#receiver").val(receiver).attr("readonly", true);
+		})
+		
 		const serviceList = $(".provide-service-list")
 		serviceList.each(function(i, s){
 			const value = $(s).find("div").text();
@@ -684,11 +691,6 @@
 				$(obj).text("더보기")
 			}
 		}
-		
-		$("#sendInquiryBtn").on("click", function(){
-			const receiver = $("#campingMemberId").val()
-			$("#receiver-name").val(receiver)
-		})
 		
 		const carousel = $(".carousel");
 		carousel.each(function(i, c){
