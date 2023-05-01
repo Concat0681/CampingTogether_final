@@ -49,13 +49,16 @@
 					
 				</table>
 			</div>
-			<div class="pagination">
-				${navi }
-		  </div>
-		</div>
-			 
-		<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 			
+			
+				<div class="pagination">
+					${navi }
+			 	</div>
+		  	</div>
+		
+			 <div class="footer-wrap">
+					<jsp:include page="/WEB-INF/views/common/footer.jsp" />
+			</div>
 			
 		<script>
 			const checkInTag = $(".checkIn");

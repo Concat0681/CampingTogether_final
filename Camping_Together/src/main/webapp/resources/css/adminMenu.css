@@ -87,6 +87,7 @@
 
 .admin-title{
     overflow: hidden;
+    border-bottom: 1px solid #AD8B73;
 }
 .admin-title>h3{
     color: #AD8B73;
@@ -108,6 +109,7 @@
     width: 930px;
     float: right;
     margin-top: 60px;
+    margin-bottom: 80px;
 }
 
 .list>table{
@@ -256,7 +258,7 @@
     width: 930px;
     float: right;
     margin-top: 80px;
-
+    margin-bottom: 80px;
 }
 .p-list{
     display: flex;

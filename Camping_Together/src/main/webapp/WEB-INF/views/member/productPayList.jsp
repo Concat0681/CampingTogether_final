@@ -51,8 +51,8 @@
 				${navi }
 		  </div>
 		</div>
-
-		<jsp:include page="/WEB-INF/views/common/footer.jsp" />
-
+		 <div class="footer-wrap">
+				<jsp:include page="/WEB-INF/views/common/footer.jsp" />
+		</div>
 </body>
 </html>
