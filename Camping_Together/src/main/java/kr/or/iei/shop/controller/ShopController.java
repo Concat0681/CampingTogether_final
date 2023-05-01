@@ -202,9 +202,21 @@ public class ShopController {
 	}
 	
 	@RequestMapping(value="/deleteShop.do")
-	public String deleteShop(int shopNo) {
+	public String deleteShop(int shopNo, Model model) {
 		int result = service.deleteShop(shopNo);
-		return "redirect:/shopMainList.do";
+		if(result > 0) {
+			model.addAttribute("title", "Shop 삭제 성공");
+			model.addAttribute("msg", "Shop 삭제에 성공하셨습니다");
+			model.addAttribute("icon", "success");
+			model.addAttribute("loc", "/shopMainList.do");
+			return "common/modalAlert";
+		} else {
+			model.addAttribute("title", "Shop 삭제 실패");
+			model.addAttribute("msg", "Shop 삭제에 실패하였습니다");
+			model.addAttribute("icon", "error");
+			model.addAttribute("loc", "/shopMainList.do");
+			return "common/modalAlert";
+		}
 	}
 	
 	@RequestMapping(value="/viewShop.do")
@@ -227,7 +239,7 @@ public class ShopController {
 	
 	@Transactional
 	@RequestMapping(value="/updateShopComment.do")
-	public String updateShopComment(ShopReview sr, int reqPage, String delPhotoList, MultipartFile[] photoList, HttpServletRequest request) {
+	public String updateShopComment(ShopReview sr, int reqPage, String delPhotoList, MultipartFile[] photoList, HttpServletRequest request, Model model) {
 		ArrayList<ShopReviewPhoto> delList = new ArrayList<ShopReviewPhoto>();
 		ArrayList<ShopReviewPhoto> srpList = new ArrayList<ShopReviewPhoto>();
 		String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/shopReview/");
@@ -262,8 +274,19 @@ public class ShopController {
 		for(ShopReviewPhoto srp : srpList) {
 			int photoResult = service.insertShopReviewPhoto(srp);
 		}
-			
-		return "redirect:/viewShop.do?shopNo="+sr.getShopNo()+"&reqPage="+reqPage+"&menu=1";
+		if(reviewResult > 0) {
+			model.addAttribute("title", "리뷰 업데이트 성공");
+			model.addAttribute("msg", "리뷰 업데이트에 성공하셨습니다");
+			model.addAttribute("icon", "success");
+			model.addAttribute("loc", "/viewShop.do?shopNo="+sr.getShopNo()+"&reqPage="+reqPage+"&menu=1");
+			return "common/modalAlert";
+		} else {
+			model.addAttribute("title", "리뷰 업데이트 실패");
+			model.addAttribute("msg", "리뷰 업데이트에 실패하셨습니다");
+			model.addAttribute("icon", "error");
+			model.addAttribute("loc", "/viewShop.do?shopNo="+sr.getShopNo()+"&reqPage="+reqPage+"&menu=1");
+			return "common/modalAlert";
+		}
 	}
 
 	@Transactional
@@ -296,7 +319,7 @@ public class ShopController {
 		if(finalResult > 0) {
 			return "success";
 		} else {
-			return "fail";
+			return "error";
 		}
 	}
 	

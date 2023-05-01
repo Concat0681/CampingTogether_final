@@ -427,7 +427,6 @@
 							          </button>
 						              <a href="javascript:void(0)" onclick="deleteComment(this,${cr.campingReviewNo },${camping.campingNo })">삭제</a>
 						            </c:if>
-						              
 					                <c:if test="${not empty sessionScope.m && camping.memberId eq sessionScope.m.memberId }">
 						              <a href="javascript:void(0)" class="recShow"><span class="material-symbols-outlined">sms</span></a>
 						            </c:if>
@@ -548,7 +547,6 @@
 		</div>
 	</div>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
-	
 	<script src="resources/js/camping/dateRangePicker.js"></script>
 	<script>
 		let map;

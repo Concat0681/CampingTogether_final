@@ -10,7 +10,9 @@ function swalAlert (url, iconStr, titleStr, textStr) {
     title: titleStr,
     text: textStr
   }).then(function () {
-    window.location = url
+    if (url != null && url != '') {
+      window.location = url
+    }
   })
 }
 

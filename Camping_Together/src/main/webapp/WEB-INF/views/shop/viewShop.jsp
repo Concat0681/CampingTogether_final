@@ -15,6 +15,7 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
+	<jsp:include page="/WEB-INF/views/common/modalAlert.jsp" />
 	<script src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script> 
 	<div class="page-wrap">
 		<div class="page-header">
@@ -327,7 +328,6 @@
 		</div>
 	</div>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
-	<script src="resources/js/alertModal.js"></script>
 	<script>
 		$(function(){
 			$('.slider-for').slick({
@@ -379,7 +379,7 @@
 			const price = $("#priceResult").val();
 			const delivary = $("#delivaryPrice").val();
 			$(".totalPrice").text(String(parseInt(price) + parseInt(delivary)).replace(/\B(?=(\d{3})+(?!\d))/g, ","))
-			$("#totalPrice").text(parseInt(price) + parseInt(delivary));
+			$("#totalPrice").val(parseInt(price) + parseInt(delivary));
 		}
 		$(".content-menu").on("click", function(){
 			const index = $(".content-menu").index($(this));
@@ -489,7 +489,6 @@
 			event.preventDefault();
 			var form = $('#commentForm')[0];  	    
 		    var data = new FormData(form);  	   
-		    console.log(data);
 		    $.ajax({             
 		    	type: "POST",          
 		        url: "/insertShopReview.do",   
@@ -499,10 +498,14 @@
 		        contentType: false, 
 		        cache:false,
 		        success: function (data) { 
-		        	alert("complete");     
-		        	$('#commentForm')[0].reset();
-		        	$(".star").removeClass("star-clicked");
-		        	$('.collapse').collapse('hide')
+		        	if(data == "success"){
+		        		const memberId = $("#memberId").val();
+		    			const shopNo = $("#shopNo").val();
+			        	$('#commentForm')[0].reset();
+			        	$(".star").removeClass("star-clicked");
+			        	$('.collapse').collapse('hide')
+			        	swalAlert("/viewShop.do?shopNo="+shopNo+"&reqPage=1&menu=1&memberId="+memberId , "success", "댓글등록 성공", "댓글 등록에 성공하였습니다.");		        		
+		        	}
 		        },          
 		        error: function (e) {  
 		        	console.log("ERROR : ", e);     
@@ -545,12 +548,15 @@
 			reviewBox.next().removeClass("hidden");
 		}
 		function deleteReview(obj, shopReviewNo){
+			const memberId = $("#memberId").val();
+			const shopNo = $("#shopNo").val();
 			$.ajax({
 				url : "/deleteShopReview.do",
 				data : {shopReviewNo : shopReviewNo},
 				success : function(data){
 					console.log(data);
 					if(data == "success"){
+						swalAlert("/viewShop.do?shopNo="+shopNo+"&reqPage=1&menu=1&memberId="+memberId, "success", "리뷰 삭제 성공", "리뷰 삭제에 성공하였습니다.");
 						$(obj).parents(".review-box").next().remove();
 						$(obj).parents(".review-box").remove();
 					}
@@ -582,6 +588,7 @@
 	<script>
 		$("#payBtn").on("click",function(){
 			const price = $("#totalPrice").val();
+			console.log(price)
 			const sellCount = $("[name=sellCount]").val();
 			const d = new Date();
 			const date = d.getFullYear()+""+(d.getMonth()+1)+""+d.getDate()+""+d.getHours()+""+d.getMinutes()+""+d.getSeconds();

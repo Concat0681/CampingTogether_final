@@ -20,6 +20,7 @@
 		const msg = $('#msg').text()
 		const icon = $('#icon').text()
 		const loc = $('#loc').text()
+		if(title != ""){
 		Swal.fire({
 		  icon: icon,
 		  title: title,
@@ -27,6 +28,8 @@
 		}).then(function () {
 		  window.location = loc
 		})
+		}
 	</script>
+	<script src="/resources/js/alertModal.js"></script>
 </body>
 </html>
