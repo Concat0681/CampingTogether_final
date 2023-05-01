@@ -4,11 +4,17 @@
 .cart-wrap{
 	width: 1200px;
 	margin: 0 auto;
-	margin-top: 200px;
+	margin-top: 250px;
+    margin-bottom: 150px;
 }
 
 .cart-header{
-	border-bottom: 1px solid #ccc;
+	border-bottom: 1px solid  #AD8B73;
+    text-align: center;
+}
+.cart-header>h2{
+    font-size: 40px;
+    color: #AD8B73;
 }
 
 .cart-mid{

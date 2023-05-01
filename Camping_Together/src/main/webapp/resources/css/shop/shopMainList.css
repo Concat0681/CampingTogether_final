@@ -184,6 +184,7 @@
 	width: 100%;
 	text-align: center;
 	margin-top: 30px;
+	margin-bottom: 100px;
 }
 .pagination > li {
     width: 60px;
@@ -266,4 +267,13 @@
 	font-size: 40px;
 	color: #AD8B73;
 	font-family: ng-extra;
+}
+
+.shop-info>.s-title{
+	margin-bottom: 15px;
+}
+
+.shop-box{
+	border-top-right-radius: 10px;
+	border-top-left-radius: 10px;
 }

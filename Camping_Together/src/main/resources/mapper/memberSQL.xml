@@ -226,6 +226,7 @@
 		<result column="shop_title" property="shopTitle"/>
 		<result column="shop_price" property="shopPrice"/>
 		<result column="max_count" property="count"/>
+		<result column="shop_no" property="shopNo"/>
 		<result column="score" property="score"/>
 		<collection property="shopPhotoList"
 					select="selectShopPhotoList"

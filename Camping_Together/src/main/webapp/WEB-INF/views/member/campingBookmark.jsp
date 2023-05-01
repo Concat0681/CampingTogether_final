@@ -38,9 +38,9 @@
 	</div>
 	<div class="pagination">
 		${navi }
-
 	</div>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
+	
 	<script>
 		$(".c-info").on("click", function(){
 			const campingNo = $(this).find("input[name=campingNo]").val();
