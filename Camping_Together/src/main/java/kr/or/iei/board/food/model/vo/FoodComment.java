@@ -14,4 +14,5 @@ public class FoodComment {
 	private int foodCommentRef;
 	private String foodCommentContent;
 	private String foodCommentDate;
+	private String memberPhoto;
 }
