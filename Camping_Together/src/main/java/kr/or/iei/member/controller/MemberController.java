@@ -132,11 +132,11 @@ public class MemberController {
 			return "redirect:/joinFrm.do";
 			
 		}else {
-			System.out.println(result);
-			System.out.println(member);
-			String errorMsg = "회원가입 실패했습니다. 다시 시도해주세요.";
-	        model.addAttribute("errorMsg", errorMsg);
-	        return "redirect:/joinFrm.do";
+			model.addAttribute("title", "회원가입 완료");
+			model.addAttribute("msg", "Welcome Comping Together");
+			model.addAttribute("icon", "success");
+			model.addAttribute("loc", "/joinFrm.do");
+			return "common/modalAlert";
 		}
 		
 
