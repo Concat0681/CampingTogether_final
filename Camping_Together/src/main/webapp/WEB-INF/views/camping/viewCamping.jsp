@@ -529,7 +529,7 @@
 										<span class="material-icons" style="font-size:100px;">subdirectory_arrow_right</span>
 									</li>
 									<li>
-										<input type="hidden" name="memberId" value="user01">
+										<input type="hidden" name="memberId" value="${sessionScope.m.memberId }">
 										<input type="hidden" name="campingNo" value="${camping.campingNo }">
 										<input type="hidden" name="campingReviewRef" value="${cr.campingReviewNo }">
 										<textarea name="campingReviewContent" class="input-form" style="min-height: 100px;" placeholder="댓글을 입력해주세요" required></textarea>
