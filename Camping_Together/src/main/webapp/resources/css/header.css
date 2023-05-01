@@ -170,11 +170,12 @@ body{
   text-align: center;
 }
 .modal-content4 {
+	border-radius: 15px;
     background-color: #fefefe;
     margin: 15% auto;
     padding: 20px;
-    width: 400px;
-    height: 250px;
+    width: 450px;
+    height: 200px;
 }
 
 .modal-content3 {
