@@ -64,7 +64,7 @@
 										</div>
 									</div>
 							</div>
-							<div class="shop-title" onclick="location.href='/viewShop.do?shopNo=${s.shopNo}&reqPage=1&menu=0'">
+							<div class="shop-title" onclick="location.href='/viewShop.do?shopNo=${s.shopNo}&reqPage=1&menu=0&memberId=${sessionScope.m.memberId }'">
 								<span>${s.shopTitle }</span>
 							</div>
 							<div class="zero"></div>
