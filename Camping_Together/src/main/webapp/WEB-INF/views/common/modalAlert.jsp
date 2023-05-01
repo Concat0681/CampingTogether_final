@@ -9,7 +9,24 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </head>
 <body>
-	
-<script src="resources/js/alertModal.js"></script>
+	<div style="display : none;">
+		<div id="title">${title }</div>
+		<div id="msg">${msg }</div>
+		<div id="icon">${icon }</div>
+		<div id="loc">${loc }</div>
+	</div>
+	<script>
+		const title = $('#title').text()
+		const msg = $('#msg').text()
+		const icon = $('#icon').text()
+		const loc = $('#loc').text()
+		Swal.fire({
+		  icon: icon,
+		  title: title,
+		  text: msg
+		}).then(function () {
+		  window.location = loc
+		})
+	</script>
 </body>
 </html>

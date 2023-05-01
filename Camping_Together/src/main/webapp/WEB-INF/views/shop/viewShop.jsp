@@ -15,7 +15,6 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
-	<jsp:include page="/WEB-INF/views/common/modalAlert.jsp"/>
 	<script src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script> 
 	<div class="page-wrap">
 		<div class="page-header">
@@ -328,6 +327,7 @@
 		</div>
 	</div>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
+	<script src="resources/js/alertModal.js"></script>
 	<script>
 		$(function(){
 			$('.slider-for').slick({

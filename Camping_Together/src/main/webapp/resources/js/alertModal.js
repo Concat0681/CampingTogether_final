@@ -1,5 +1,4 @@
 //Alert Modal Type
-
 $('#alertStart').on('click', function () {
   swalAlert('/', '테스트', '테스트1')
 })
