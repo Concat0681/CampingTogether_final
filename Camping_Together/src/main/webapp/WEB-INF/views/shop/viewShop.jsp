@@ -145,7 +145,7 @@
 							<div class="review-box">
 								<div class="member-info-wrap">
 									<div class="profile-box">
-										<img src="resources/upload/member/${r.memberPhoto }" onerror="this.onerror=null; this.src='resources/image/member/img.jpeg';">
+										<img src="resources/image/member/${r.memberPhoto }" onerror="this.onerror=null; this.src='resources/image/member/img.jpeg';">
 									</div>
 									<div class="member-info-box">
 										<div class="reviewRating hidden">${r.shopReviewRating }</div>
@@ -588,7 +588,6 @@
 	<script>
 		$("#payBtn").on("click",function(){
 			const price = $("#totalPrice").val();
-			console.log(price)
 			const sellCount = $("[name=sellCount]").val();
 			const d = new Date();
 			const date = d.getFullYear()+""+(d.getMonth()+1)+""+d.getDate()+""+d.getHours()+""+d.getMinutes()+""+d.getSeconds();
