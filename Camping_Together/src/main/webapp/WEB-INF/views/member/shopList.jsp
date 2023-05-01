@@ -2,13 +2,13 @@
     pageEncoding="UTF-8"%>
     
         <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+            <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
@@ -31,13 +31,14 @@
 		<div class="p-list">
 			<c:forEach items="${list }" var="a">
 			<div class="p-info">
-                <a href="#">
+                <a href="/viewShop.do?reqPage=1&shopNo=${a.shopNo }&menu=0&memberId=${sessionScope.m.memberId}">
                     <div class="product-img">
                     	<img src="/resources/upload/shop/${a.shopPhotoList[0].filepath }" width="280px;" height="280px;">
                     </div>
                     <div class="info">
                         <div class="product-name">${a.shopTitle }</div>
-                        <div class="price">${a.shopPrice }원</div>
+                       	<div class="price"><fmt:formatNumber value="${a.shopPrice }" pattern="#,###"/>원</div> 
+                        <%-- <div class="price">${a.shopPrice }원</div>--%>
                         <div class="count">재고 : ${a.count }</div>
                         <div class="score">평점 : ${a.avgRating }</div>
                     </div>

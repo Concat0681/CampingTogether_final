@@ -81,7 +81,7 @@
 								</div>
 							</div>
 							<div class="shop-info">
-								<div>${c.shopTitle }</div>
+								<div class="s-title">${c.shopTitle }</div>
 								<div class="shop-price-info">
 									<div>
 										${c.shopPrice} 원
@@ -138,7 +138,7 @@
 								</div>
 							</div>
 							<div class="shop-info">
-								<div>${c.shopTitle }</div>
+								<div class="s-title">${c.shopTitle }</div>
 								<div class="shop-price-info">
 									<div>
 										${c.shopPrice} 원
@@ -194,7 +194,7 @@
 								</div>
 							</div>
 							<div class="shop-info">
-								<div>${c.shopTitle }</div>
+								<div class="s-title">${c.shopTitle }</div>
 								<div class="shop-price-info">
 									<div>
 										${c.shopPrice} 원

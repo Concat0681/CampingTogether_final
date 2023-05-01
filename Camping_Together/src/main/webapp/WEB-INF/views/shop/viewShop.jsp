@@ -220,7 +220,7 @@
 							<div class="pagination">${reviewPageNavi }</div>
 						</c:if>
 					</div>
-						<button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#commentFrm" aria-expanded="false" aria-controls="collapseCommentFrm">댓글쓰기</button>
+						<button class="up-btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#commentFrm" aria-expanded="false" aria-controls="collapseCommentFrm">댓글쓰기</button>
 					<div class="collapse" id="commentFrm">
 						<div class="card card-body">
 							<form id="commentForm" action="/insertShopComment.do" method="post" enctype="multipart/form-data">
@@ -262,7 +262,7 @@
 					<table>
                                 <caption>배송/교환/반품/AS</caption>
                                 <colgroup>
-                                    <col width="250">
+                                    <col width="250" style="background-color: #e3caa545;" >
                                     <col width="*">
                                 </colgroup>
                                 <tbody><tr>
@@ -307,7 +307,7 @@
                                 	</td>
                                 </tr>
                                 <tr>
-                                	<th>교환/반품/AS 주소</th>
+                                	<th style="border-bottom: 1px solid #E3CAA5;">교환/반품/AS 주소</th>
                                 	<td> 						
 										        <b>주소 : (13550) 경기도 성남시 분당구 대왕판교로 361번길(궁내동) 오캠몰</b> <br>
 										        <b> 연락처 : 031-712-4371</b><br><br>

@@ -129,7 +129,7 @@ input:focus {
         height: 600px;
         -webkit-box-shadow: 0px 0px 3px 1px rgba(38, 35, 128, 1);
         -moz-box-shadow: 0px 0px 3px 1px rgba(38, 35, 128, 1);
-        box-shadow: 0px 30px 60px -6px #000;
+        box-shadow: 0px 20px 50px -7px #4b4b4b;
         max-width: 500px;
     	min-width: 400px;
     	display: inline-table;
@@ -395,7 +395,7 @@ input:focus {
 	</div>
 	
 	<!-- 로그인 페이지 -->
-	<div class="wrapper" style="display: grid; margin-top: 50px;">
+	<div class="wrapper" style="display: grid; margin-top: 200px;">
 		<div class="myform">
 	       <ul class="tab-group">
 		       <li class="tab"><a href="#signup">Sign Up</a></li>
