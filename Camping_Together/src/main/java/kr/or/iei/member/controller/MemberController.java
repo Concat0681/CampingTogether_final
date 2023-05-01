@@ -95,13 +95,12 @@ public class MemberController {
 	public String login(Member member, HttpSession session, Model model) {
 	    Member loginMember = service.selectOneMember(member);
 	    if(loginMember == null) {
-	        String alertMsg = "로그인 실패했습니다. 다시 시도해주세요.";
-	        int memberNo = member.getMemberNo();
-	        model.addAttribute("memberNo", memberNo);
-	        model.addAttribute("alertMsg", alertMsg);
-	        return "member/joinFrm";
+	        model.addAttribute("title", "로그인 실패");
+			model.addAttribute("msg", "로그인 실패했습니다. 다시 시도해주세요.");
+			model.addAttribute("icon", "error");
+			model.addAttribute("loc", "/joinFrm.do");
+			return "common/modalAlert";
 	    } else if(loginMember.getMemberGrade().equals("B")) {
-	    	System.out.println(loginMember.getMemberGrade());
 	    	String memberGrade = loginMember.getMemberGrade();
 	        model.addAttribute("memberGrade", memberGrade);
 	        return "member/joinFrm";
