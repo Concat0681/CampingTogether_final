@@ -325,7 +325,7 @@ public class MemberController {
 			session.setAttribute("m", member);
 			return "redirect:/mypageC.do";
 		} else {
-			return "redirect:/updateMypageCFrm";
+			return "redirect:/";
 		}
 	}
 	
