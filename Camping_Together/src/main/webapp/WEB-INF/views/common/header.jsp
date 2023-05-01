@@ -33,7 +33,8 @@
 <div class="message-comset" style="display: none;">
 	<div class="message-modal-wrapper">
 	  <div class="wrapper-header">
-	    <div class="material-symbols-outlined filler" id="modal-cancle1">cancel</div>
+	    <div class="material-symbols-outlined filler" id="modal-cancle1">cancel</div><span style="line-height: 40px;">${sessionScope.m.memberName }님! 읽지 않은 쪽지가 <span id="messageCount"></span>개 있어요!</span>
+
 	  </div>
 	  <hr style="margin: 0px;">
 		<div class="wrapper-body">
@@ -64,7 +65,7 @@
 							<th>제목</th>
 							<th>내용</th>
 							<th>시간</th>
-							<th>읽음여부</th>
+							<th class="readCheck">읽음여부</th>
 						</tr>
 					</thead>
 					
@@ -85,34 +86,36 @@
 						<tbody></tbody>
 					</table>
 				</div>
-				<!-- 상세 보기  -->
-				<div class="endtreed modal-wrapper" id="messageDetail">
-					<div class="modal">
-						<div class="modal-header">
-							<h2>쪽지내용</h2>
-						</div>
-						<hr style="margin: 0px;">
-						<div class="modal-content3">
-							<div class="messageFrm">
-								<div>
-									<span>발신자: </span>
-									<span id="detailSender"></span>
-								</div>
-								<div>
-									<span>날짜: </span>
-									<span id="detailDate"></span>
-								</div>
-								<div id="detailContent"></div>
-								<button onclick="closeDetail();">닫기</button>
-								<button onclick="replyMessage();">답장</button>
-							</div>
-						</div>
+			</div>
+			
+		</div>
+	</div>
+</div>
+<!-- 상세 보기  -->
+	<div class="messageDetail-wrapper" id="messageDetail">
+		<div class="messageDetail-modal">
+			<div class="messageDetail-header">
+				<h2>쪽지내용</h2>
+				<button class="close-btn">&times</button>
+			</div>
+			<hr style="margin: 0px;">
+			<div class="messageDetail-content3">
+				<div class="messageFrm">
+					<div>
+						<span>발신자: </span> <span id="detailSender"></span>
 					</div>
+					<div>
+						<span>날짜: </span> <span id="detailDate"></span>
+					</div>
+					<div>
+						<span>내용: </span> <span id="detailContent"></span>
+					</div>
+					<button onclick="closeDetail();">닫기</button>
+					<button onclick="replyMessage();">답장</button>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
 <!--  헤더 nav -->
 <div class="headerBox">
 	<c:choose>
@@ -319,6 +322,18 @@ const navLink =  document.querySelectorAll('.nav-link');
 <!-- 쪽지 모달 스크립트 -->
 <script>
 
+//웹소켓 사용 안읽은 쪽지 불러오기
+
+$('.messageRecTdContent').click(function() {
+
+    // 모달창을 보여줍니다.
+    $('#messageDetail').css('display', 'block');
+});
+
+$('.close-btn').click(function() {
+	$('#messageDetail').css('display', 'none');
+});
+
 $(".messageBtn").on("click", function() {
 	  $(".message-comset").css("display", "block");
 	});
@@ -438,7 +453,7 @@ function getReceiveMessage(){
                 	td5.text("읽지않음");
 
                 }else{
-                    td5.text("읽음");
+                    td5.text("확인완료");
                 }
                 td1.addClass("messageTd");
                 td2.addClass("messageTd");
@@ -455,15 +470,19 @@ function getReceiveMessage(){
     });
     
 }
+
 $(".messageRecTdContent").on("click", function(){
 	$(".modal-wrapper").css("display","block");
 	
 });
+
 function messageDetail(messageNo){
+	console.log(messageNo);
     $.ajax({
         url : "/messageDetail.do",
         data: {messageNo : messageNo},
         success : function(data){
+        	console.log(data);
             $("#detailSender").text(data.sender);
             $("#detailDate").text(data.messageDate);
             $("#detailContent").text(data.messageContent);
@@ -471,9 +490,11 @@ function messageDetail(messageNo){
             getReceiveMessage();
             const sendData = {type:"readCheck", sender:data.sender, receiver:data.receiver};
             ws.send(JSON.stringify(sendData));
+
         }
     });
 }
+
 function closeDetail(){
     $("#messageDetail").hide();
 }
@@ -491,6 +512,16 @@ $(function(){
     // 모달창 열기 버튼 클릭 이벤트
     $(document).ready(function() {
     	  //모달창
+    	  var socket = new WebSocket("ws://localhost:8080/Camping_Together/websocket");
+			socket.onmessage = function(event) {
+			    var data = JSON.parse(event.data);
+			    console.log(data);
+			    if (data.type === "myMessageCount") {
+			        var messageCount = data.messageCount;
+			        $("#messageCount").text(messageCount);
+			    }
+			}
+    	  
     	  $(".loginBtn").click(function(event) { // a태그, 버튼 아이디,클래스 입력
     		if (event.stopPropagation) event.stopPropagation();
     		else event.cancelBubble = true; // IE 대응
