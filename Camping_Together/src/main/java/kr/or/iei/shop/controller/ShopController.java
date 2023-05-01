@@ -99,7 +99,7 @@ public class ShopController {
 	
 	@Transactional
 	@RequestMapping(value="/insertShop.do")
-	public String insertShop(Shop shop,  MultipartFile[] shopFileList, HttpServletRequest requset) {
+	public String insertShop(Shop shop,  MultipartFile[] shopFileList, HttpServletRequest requset, Model model) {
 		int result = service.insertShop(shop);
 		int finalResult = 1;
 		if(result > 0) {
@@ -122,9 +122,17 @@ public class ShopController {
 			}
 		}
 		if(finalResult > 0) {
-			return "redirect:/shopMainList.do";
+			model.addAttribute("title", "Shop 등록 성공");
+			model.addAttribute("msg", "Shop 등록에 성공하셨습니다");
+			model.addAttribute("icon", "success");
+			model.addAttribute("loc", "/shopMainList.do");
+			return "common/modalAlert";
 		} else {
-			return "redirect:/";
+			model.addAttribute("title", "Shop 등록 실패");
+			model.addAttribute("msg", "Shop 등록에 실패하셨습니다");
+			model.addAttribute("icon", "error");
+			model.addAttribute("loc", "/shopMainList.do");
+			return "common/modalAlert";
 		}
 	}
 	
@@ -138,7 +146,7 @@ public class ShopController {
 	
 	@Transactional
 	@RequestMapping(value="/updateShop.do")
-	public String updateShop(Shop shop, String delPhotoList, MultipartFile[] shopFileList, HttpServletRequest requset) {
+	public String updateShop(Shop shop, String delPhotoList, MultipartFile[] shopFileList, HttpServletRequest requset, Model model) {
 		int shopResult = service.updateShop(shop);
 		String savePath = requset.getSession().getServletContext().getRealPath("/resources/upload/shop/");
 		int finalResult = 1;
@@ -179,9 +187,17 @@ public class ShopController {
 			}
 		}
 		if(finalResult > 0) {
-			return "redirect:/viewShop.do?shopNo="+shop.getShopNo()+"&reqPage=1&menu=0&memberId="+shop.getMemberId();
+			model.addAttribute("title", "Shop 업데이트 성공");
+			model.addAttribute("msg", "Shop 업데이트에 성공하셨습니다");
+			model.addAttribute("icon", "success");
+			model.addAttribute("loc", "/viewShop.do?shopNo="+shop.getShopNo()+"&reqPage=1&menu=0&memberId="+shop.getMemberId());
+			return "common/modalAlert";
 		} else {
-			return "redirect:/";
+			model.addAttribute("title", "Shop 업데이트 실패");
+			model.addAttribute("msg", "Shop 업데이트에 실패하셨습니다");
+			model.addAttribute("icon", "error");
+			model.addAttribute("loc", "/viewShop.do?shopNo="+shop.getShopNo()+"&reqPage=1&menu=0&memberId="+shop.getMemberId());
+			return "common/modalAlert";
 		}
 	}
 	
