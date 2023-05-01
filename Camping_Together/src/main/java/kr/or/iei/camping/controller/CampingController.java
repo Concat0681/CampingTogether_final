@@ -123,7 +123,7 @@ public class CampingController {
 	}
 	
 	@RequestMapping(value="/campingWrite.do")
-	public String campingWrite(Camping c, MultipartFile[] campingFilepath, HttpServletRequest requset, String[] campingService, String[] campingRoomService, String[] campingEtc, CampingRoom cr, MultipartFile[] campingRoomFilepath) {
+	public String campingWrite(Camping c, MultipartFile[] campingFilepath, HttpServletRequest requset, String[] campingService, String[] campingRoomService, String[] campingEtc, CampingRoom cr, MultipartFile[] campingRoomFilepath, Model model) {
 		if(campingService != null) {
 			ArrayList<CampingProvideService> campingServicelist = new ArrayList<CampingProvideService>();
 			for(String str : campingService) {
@@ -170,9 +170,17 @@ public class CampingController {
 		}
 		int result = service.insertCamping(c, cr, fileList);
 		if(result > 0) {
-			return "redirect:/sellList.do?reqPage=1&memberId="+c.getMemberId();
+			model.addAttribute("title", "캠핑장 등록 성공");
+			model.addAttribute("msg", "캠핑장 등록에 성공하셨습니다");
+			model.addAttribute("icon", "success");
+			model.addAttribute("loc", "/sellList.do?reqPage=1&memberId="+c.getMemberId());
+			return "common/modalAlert";
 		}else {
-			return "redirect:/sellList.do?reqPage=1&memberId="+c.getMemberId();
+			model.addAttribute("title", "캠핑장 등록 실패");
+			model.addAttribute("msg", "캠핑장 등록에 실패하셨습니다. 다시 시도해주세요.");
+			model.addAttribute("icon", "error");
+			model.addAttribute("loc", "/sellList.do?reqPage=1&memberId="+c.getMemberId());
+			return "common/modalAlert";
 		}
 	}
 	
