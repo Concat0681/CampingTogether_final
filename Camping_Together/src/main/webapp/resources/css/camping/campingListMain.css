@@ -103,6 +103,8 @@
 	flex-direction: column;
 	justify-content: center;
 	margin: 60px 20px;
+	border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 	box-shadow: rgb(0 0 0 / 12%) 10px 6px 16px;
 }
 .camping-photo{
@@ -111,6 +113,8 @@
 .camping-photo>img{
 	width: 300px;
 	height: 320px;
+	border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }
 .hidden-div{
 	position: absolute;

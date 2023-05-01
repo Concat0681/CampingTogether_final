@@ -44,6 +44,9 @@ public class UsedBoardService {
 			url = "myUsedSellList.do?reqPage=";
 			endUrl = "&memberId="+usedBoardWriter;
 		}
+		if(memberId != null) {
+			endUrl = "&memberId="+memberId;
+		}
 		String pageNavi = "<ul class='pagination circle-style'>";
 		if(pageNo != 1) {
 			pageNavi += "<li><a class='page-item' href='"+url+(pageNo-1)+endUrl+"'><span class='material-symbols-outlined'>chevron_left</span></a></li>";

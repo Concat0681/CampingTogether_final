@@ -15,7 +15,7 @@
 }
 .page-content {
   width: 1200px;
-  margin: 30px auto;
+  margin: 200px auto;
   margin-bottom: 10px;
   flex-grow: 1;
   position: relative;
@@ -60,12 +60,40 @@ textarea.input-form {
   background-color: #E3CAA5;
   color: #fff
 }
+.submitBtn{
+	background-color: #CEAB93;
+    color: white;
+    border-radius: 5px;
+    border:none;
+    text-decoration: none;
+    width: 100px;
+    height:30px;
+    line-height:30px;
+    text-align: center;
+}
+.cancelBtn{
+	background-color: #CEAB93;
+    color: white;
+    border-radius: 5px;
+    border:none;
+    text-decoration: none;
+    width: 100px;
+    height:30px;
+    line-height:30px;
+    text-align: center;
+    display: inline-block;
+}
+.cancelBtn:hover{
+		color:#fff !important;
+	}
+
 </style>
 	<script src="https://code.jquery.com/jquery-3.6.1.js"></script>
 	<script src="/summernote/summernote-lite.js"></script>
 	<script src="/summernote/lang/summernote-ko-KR.js"></script>
 	<link rel="stylesheet" href="/summernote/summernote-lite.css">
 <body>
+<jsp:include page="/WEB-INF/views/common/header.jsp" />
 <div class="page-content">
 		<div class="page-title">사진게시판 수정</div>
 		<form action="/boardFoodUpdate.do" method="post" enctype="multipart/form-data" id="updateFrm">
@@ -93,7 +121,7 @@ textarea.input-form {
 					</td>
 				</tr>
 				<tr class="tr-1">
-					<th class="td-2">첨부파일 추가</th>
+					<th class="td-2">썸네일</th>
 					<td colspan="3"><input type="file" name="imageFile" accept=".jpg,.png,.jpeg" onchange="loadImg(this);" multiple></td>
 				</tr>
 				<tr class="tr-1">
@@ -112,7 +140,10 @@ textarea.input-form {
 				</tr>
 				<tr class="tr-1">
 					<th colspan="4">
-						<button type="submit" class="btn bc2 bs4">수정</button>
+						<a>
+							<button type="submit" class="submitBtn" style="cursor: pointer;">수정하기</button>
+						</a>
+							<a class="cancelBtn" href="/boardFoodView.do?boardFoodNo=${bf.boardFoodNo }">취소</a>
 					</th>
 				</tr>
 			</table>
@@ -166,5 +197,6 @@ textarea.input-form {
 			$(obj).parent().remove();
 		}
 	</script>
+	 <jsp:include page="/WEB-INF/views/common/footer.jsp" />
 </body>
 </html>

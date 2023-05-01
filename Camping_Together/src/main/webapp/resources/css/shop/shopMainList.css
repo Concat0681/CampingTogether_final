@@ -70,6 +70,8 @@
 
 }
 .camping-list-menu>div>div{
+	margin-left: 10px;
+	width: 105px;
 	color: #AD8B73;
 	cursor: pointer;
 }
@@ -127,6 +129,9 @@
 	flex-direction: column;
 	justify-content: center;
 	margin: 60px 20px;
+	border: 1px solid white;
+	border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 	box-shadow: rgb(0 0 0 / 12%) 10px 6px 16px;
 }
 .shop-photo{
@@ -147,6 +152,13 @@
 	justify-content: center;
 	align-items: center;
 }
+.shop-info>div:first-of-type{
+	width: 300px;
+	height: 30px;
+	overflow: hidden;
+	text-align: center;
+}
+
 .shop-price-info{
 	width: 90%;
 	margin: 0 auto;

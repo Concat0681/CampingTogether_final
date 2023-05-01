@@ -313,7 +313,7 @@
 								</div>
 							</div>
 						</c:forEach>	
-						<div>${pageNavi }</div>
+						<div class="">${pageNavi }</div>
 					</div>
 					<div class="hidden list-by-map">
 						<div id="map" style="width:100%; height:700px;"></div>
@@ -524,7 +524,8 @@
 							div.append(imgDiv).append(div8)
 							$(".list-by-review").append(div)
 						})
-						$(".list-by-review").append(data.pageNavi);
+						$(".pagination").empty();
+						$(".pagination").append(data.pageNavi);
 						$("#allList").empty();
 						data.allList.forEach(function(c,i){
 							const div = $("<div>").addClass("allCampingTitle").attr("id", c.campingNo);
