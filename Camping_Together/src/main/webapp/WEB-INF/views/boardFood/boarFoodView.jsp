@@ -293,7 +293,14 @@ a{
 			<c:forEach items="${fcList }" var="fc" varStatus="i">
 			<ul class="posting-comment">
 				<li>
-					<span class="material-icons">account_box</span>
+				<c:choose>
+					<c:when test="${empty fc.memberPhoto  }">					
+						<img src="/resources/image/member/img.jpeg" style="width: 100px; height:100px; border-radius: 50%;" >
+					</c:when>
+					<c:otherwise>
+						<img src="/resources/image/member/${fc.memberPhoto }" style="width: 100px; height:100px; border-radius: 50%;" >
+					</c:otherwise>
+				</c:choose>
 				</li>
 				<li>
 					<p class="comment-info">
@@ -321,7 +328,14 @@ a{
             	<ul class="posting-comment reply">
             		<li>
             			<span class="material-icons">subdirectory_arrow_right</span>
-            			<span class="material-icons">account_box</span>
+            			<c:choose>
+							<c:when test="${empty fcc.memberPhoto  }">					
+								<img src="/resources/image/member/img.jpeg" style="width: 100px; height:100px; border-radius: 50%;" >
+							</c:when>
+							<c:otherwise>
+								<img src="/resources/image/member/${fcc.memberPhoto }" style="width: 100px; height:100px; border-radius: 50%;" >
+							</c:otherwise>
+						</c:choose>
             		</li>
             		<li>
             			<p class="comment-info">
@@ -349,7 +363,7 @@ a{
             		<form action="/insertFoodComment.do" method="post">
             			<ul>
             				<li>
-            					<span class="material-icons">subdirectory_arrow_right</span>
+            					<img src="/resources/image/member/img.jpeg" style="width: 100px; height:100px; border-radius: 50%;" >
             				</li>
             				<li>
             					<input type="hidden" name="foodCommentWriter" value="${sessionScope.m.memberId }">
@@ -375,7 +389,14 @@ a{
 				<%--content만 입력 받음 --%>
 				<ul>
 					<li>
-						<span class="material-icons">account_box</span>
+						<c:choose>
+							<c:when test="${empty sessionScope.m.memberPhoto  }">					
+								<img src="/resources/image/member/img.jpeg" style="width: 100px; height:100px; border-radius: 50%;" >
+							</c:when>
+							<c:otherwise>
+								<img src="/resources/image/member/${sessionScope.m.memberPhoto }" style="width: 100px; height:100px; border-radius: 50%;" >
+							</c:otherwise>
+						</c:choose>
 					</li>
 					<li>
 						<%--작성자는 로그인한 회원정보에서 가져오기 --%>
