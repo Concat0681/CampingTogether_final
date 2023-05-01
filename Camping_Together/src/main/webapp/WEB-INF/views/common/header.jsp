@@ -33,7 +33,7 @@
 <div class="message-comset" style="display: none;">
 	<div class="message-modal-wrapper">
 	  <div class="wrapper-header">
-	    <div class="material-symbols-outlined filler" id="modal-cancle1">cancel</div><span style="line-height: 40px;">${sessionScope.m.memberName }님! 읽지 않은 쪽지가 <span id="messageCount"></span>개 있어요!</span>
+	    <div class="material-symbols-outlined filler" id="modal-cancle1">cancel</div><span style="line-height: 40px;margin-right: 20px;">${sessionScope.m.memberName }님! 읽지 않은 쪽지가 <span id="messageCount"></span>개 있어요!</span>
 
 	  </div>
 	  <hr style="margin: 0px;">
@@ -512,7 +512,7 @@ $(function(){
     // 모달창 열기 버튼 클릭 이벤트
     $(document).ready(function() {
     	  //모달창
-    	  var socket = new WebSocket("ws://localhost:8080/Camping_Together/websocket");
+    	  var socket = new WebSocket("ws://localhost:8080/Camping_Together/messageMain.do");
 			socket.onmessage = function(event) {
 			    var data = JSON.parse(event.data);
 			    console.log(data);
