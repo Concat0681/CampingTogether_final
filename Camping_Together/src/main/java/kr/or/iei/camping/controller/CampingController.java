@@ -259,7 +259,7 @@ public class CampingController {
 	
 	
 	@RequestMapping(value="/campingRoomWrite.do")
-	public String campingRoomWrite(CampingRoom cr,String memberId, MultipartFile[] campingRoomFilepath, HttpServletRequest request) {
+	public String campingRoomWrite(CampingRoom cr,String memberId, MultipartFile[] campingRoomFilepath, HttpServletRequest request, Model model) {
 		ArrayList<CampingRoomFileVO> fileList = new ArrayList<CampingRoomFileVO>();
 		if(!campingRoomFilepath[0].isEmpty()) {
 			String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/campingRoom/");
@@ -272,9 +272,17 @@ public class CampingController {
 		}
 		int result = service.insertCampingRoom(cr, fileList);
 		if(result == (fileList.size()+1)) {
-			return "redirect:/sellList.do?reqPage=1&memberId="+memberId;
+			model.addAttribute("title", "캠핑 등록 성공");
+			model.addAttribute("msg", "캠핑 등록에 성공하셨습니다");
+			model.addAttribute("icon", "success");
+			model.addAttribute("loc", "/sellList.do?reqPage=1&memberId="+memberId);
+			return "common/modalAlert";
 		}else {
-			return "redirect:/sellList.do?reqPage=1&memberId="+memberId;
+			model.addAttribute("title", "캠핑 등록 실패");
+			model.addAttribute("msg", "캠핑 등록에 실패하셨습니다. 다시 시도해주세요.");
+			model.addAttribute("icon", "error");
+			model.addAttribute("loc", "/sellList.do?reqPage=1&memberId="+memberId);
+			return "common/modalAlert";
 		}
 	}
 	
@@ -285,7 +293,7 @@ public class CampingController {
 	}
 	
 	@RequestMapping(value="/campingReviewWrite.do")
-	public String campingReviewWrite(CampingReview crv, MultipartFile[] campingReviewFilepath, HttpServletRequest request, int campingNo) {
+	public String campingReviewWrite(CampingReview crv, MultipartFile[] campingReviewFilepath, HttpServletRequest request, int campingNo, Model model) {
 		ArrayList<CampingReviewFileVO> fileList = new ArrayList<CampingReviewFileVO>();
 		if(!campingReviewFilepath[0].isEmpty()) {
 			String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/campingReview/");
@@ -299,53 +307,93 @@ public class CampingController {
 		crv.setCampingNo(campingNo);
 		int result = service.insertCampingReview(crv, fileList);
 		if(result == (fileList.size()+1)) {
-			return "redirect:/viewCamping.do?campingNo="+campingNo;
+			model.addAttribute("title", "리뷰 작성 성공");
+			model.addAttribute("msg", "리뷰를 작성하셨습니다.");
+			model.addAttribute("icon", "success");
+			model.addAttribute("loc", "/viewCamping.do?campingNo="+campingNo);
+			return "common/modalAlert";
 		}else {
-			return "redirect:/";
+			model.addAttribute("title", "리뷰 작성 실패");
+			model.addAttribute("msg", "리뷰 작성 실패하셨습니다.");
+			model.addAttribute("icon", "error");
+			model.addAttribute("loc", "/viewCamping.do?campingNo="+campingNo);
+			return "common/modalAlert";
 		}
 	}
 	
 	@RequestMapping(value="/insertReviewComment.do")
-	public String insertReviewComment(CampingReview crv) {
+	public String insertReviewComment(CampingReview crv, Model model) {
 		int result = service.insertReviewComment(crv);
 		if(result > 0) {
-			return "redirect:/viewCamping.do?campingNo="+crv.getCampingNo();
+			model.addAttribute("title", "댓글 작성 성공");
+			model.addAttribute("msg", "댓글 작성에 성공하셨습니다.");
+			model.addAttribute("icon", "success");
+			model.addAttribute("loc", "/viewCamping.do?campingNo="+crv.getCampingNo());
+			return "common/modalAlert";
 		}else {
-			return "redirect:/";
+			model.addAttribute("title", "댓글 작성 실패");
+			model.addAttribute("msg", "댓글 작성 실패하셨습니다.");
+			model.addAttribute("icon", "error");
+			model.addAttribute("loc", "/viewCamping.do?campingNo="+crv.getCampingNo());
+			return "common/modalAlert";
 		}
 	}
 	
 	@RequestMapping(value="/deleteCampingReview.do")
-	public String deleteCampingReview(int campingNo, int campingReviewNo, HttpServletRequest request) {
+	public String deleteCampingReview(int campingNo, int campingReviewNo, HttpServletRequest request, Model model) {
 		ArrayList<CampingReviewFileVO> list = service.deleteCampingReview(campingReviewNo);
 		if(list == null) {
-			return "redirect:/viewCamping.do?campingNo="+campingNo;
+			model.addAttribute("title", "리뷰 삭제 실패");
+			model.addAttribute("msg", "리뷰 삭제에 실패하셨습니다.");
+			model.addAttribute("icon", "error");
+			model.addAttribute("loc", "/viewCamping.do?campingNo="+campingNo);
+			return "common/modalAlert";
 		}else {
 			String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/campingReview/");
 			for(CampingReviewFileVO file : list) {
 				manager.deleteFile(savePath, file.getFilepath());
 			}
-			return "redirect:/viewCamping.do?campingNo="+campingNo;
+			model.addAttribute("title", "리뷰 삭제 성공");
+			model.addAttribute("msg", "리뷰 삭제에 성공하셨습니다.");
+			model.addAttribute("icon", "success");
+			model.addAttribute("loc", "/viewCamping.do?campingNo="+campingNo);
+			return "common/modalAlert";
 		}
 	}
 	
 	@RequestMapping(value="/deleteCampingReviewComment.do")
-	public String deleteCampingReviewComment(int campingNo,int campingReviewNo) {
+	public String deleteCampingReviewComment(int campingNo,int campingReviewNo, Model model) {
 		int result = service.deleteCampingReviewComment(campingReviewNo);
 		if(result > 0) {
-			return "redirect:/viewCamping.do?campingNo="+campingNo;
+			model.addAttribute("title", "댓글 삭제 성공");
+			model.addAttribute("msg", "댓글 삭제에 성공하셨습니다.");
+			model.addAttribute("icon", "success");
+			model.addAttribute("loc", "/viewCamping.do?campingNo="+campingNo);
+			return "common/modalAlert";
 		}else {
-			return "redirect:/viewCamping.do?campingNo="+campingNo;
+			model.addAttribute("title", "댓글 삭제 실패");
+			model.addAttribute("msg", "댓글 삭제에 실패하셨습니다.");
+			model.addAttribute("icon", "error");
+			model.addAttribute("loc", "/viewCamping.do?campingNo="+campingNo);
+			return "common/modalAlert";
 		}
 	}
 	
 	@RequestMapping(value="/updateReviewComment.do")
-	public String updateReviewComment(CampingReview crv) {
+	public String updateReviewComment(CampingReview crv, Model model) {
 		int result = service.updateReviewComment(crv);
 		if(result > 0) {
-			return "redirect:/viewCamping.do?campingNo="+crv.getCampingNo();
+			model.addAttribute("title", "댓글 수정 성공");
+			model.addAttribute("msg", "댓글 수정에 성공하셨습니다.");
+			model.addAttribute("icon", "success");
+			model.addAttribute("loc", "/viewCamping.do?campingNo="+crv.getCampingNo());
+			return "common/modalAlert";
 		}else {
-			return "redirect:/";
+			model.addAttribute("title", "댓글 수정 실패");
+			model.addAttribute("msg", "댓글 수정에 실패하셨습니다.");
+			model.addAttribute("icon", "error");
+			model.addAttribute("loc", "/viewCamping.do?campingNo="+crv.getCampingNo());
+			return "common/modalAlert";
 		}
 	}
 	
@@ -358,7 +406,7 @@ public class CampingController {
 	}
 	
 	@RequestMapping(value="/updateCampingReview.do")
-	public String updateCampingReview(CampingReview crv,int[] campingReviewPhotoNo, String[] filepath, MultipartFile[] campingReviewFilepath, HttpServletRequest request) {
+	public String updateCampingReview(CampingReview crv,int[] campingReviewPhotoNo, String[] filepath, MultipartFile[] campingReviewFilepath, HttpServletRequest request, Model model) {
 		ArrayList<CampingReviewFileVO> fileList = new ArrayList<CampingReviewFileVO>();
 		String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/campingReview/");
 		if(!campingReviewFilepath[0].isEmpty()) {
@@ -375,26 +423,46 @@ public class CampingController {
 			for(String delFile : filepath) {
 				manager.deleteFile(savePath, delFile);
 			}
-			return "redirect:/viewCamping.do?campingNo="+crv.getCampingNo();
+			model.addAttribute("title", "리뷰 수정 성공");
+			model.addAttribute("msg", "리뷰 수정에 성공하셨습니다.");
+			model.addAttribute("icon", "success");
+			model.addAttribute("loc", "/viewCamping.do?campingNo="+crv.getCampingNo());
+			return "common/modalAlert";
 		}else if(campingReviewPhotoNo == null && (result == fileList.size()+1)){
-			return "redirect:/viewCamping.do?campingNo="+crv.getCampingNo();
+			model.addAttribute("title", "리뷰 수정 성공");
+			model.addAttribute("msg", "리뷰 수정에 성공하셨습니다.");
+			model.addAttribute("icon", "success");
+			model.addAttribute("loc", "/viewCamping.do?campingNo="+crv.getCampingNo());
+			return "common/modalAlert";
 		}else {
-			return "redirect:/viewCamping.do?campingNo="+crv.getCampingNo();
+			model.addAttribute("title", "리뷰 수정 실패");
+			model.addAttribute("msg", "리뷰 수정에 실패하셨습니다.");
+			model.addAttribute("icon", "error");
+			model.addAttribute("loc", "/viewCamping.do?campingNo="+crv.getCampingNo());
+			return "common/modalAlert";
 		}
 	}
 	
 	
 	@RequestMapping(value="/deleteCampingRoom.do")
-	public String deleteCampingRoom(int campingRoomNo,String memberId, int campingNo, HttpServletRequest request) {
+	public String deleteCampingRoom(int campingRoomNo,String memberId, int campingNo, HttpServletRequest request, Model model) {
 		ArrayList<CampingRoomFileVO> list = service.deleteCampingRoom(campingRoomNo);
 		if(list == null) {
-			return "redirect:/sellList.do?reqPage=1&memberId="+memberId;
+			model.addAttribute("title", "캠핑 삭제 실패");
+			model.addAttribute("msg", "캠핑 삭제에 실패하셨습니다. 다시 시도해주세요.");
+			model.addAttribute("icon", "error");
+			model.addAttribute("loc", "/sellList.do?reqPage=1&memberId="+memberId);
+			return "common/modalAlert";
 		}else {
 			String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/campingRoom/");
 			for(CampingRoomFileVO file : list) {
 				manager.deleteFile(savePath, file.getFilepath());
 			}
-			return "redirect:/sellList.do?reqPage=1&memberId="+memberId;
+			model.addAttribute("title", "캠핑 삭제 성공");
+			model.addAttribute("msg", "캠핑 삭제에 성공하셨습니다.");
+			model.addAttribute("icon", "success");
+			model.addAttribute("loc", "/sellList.do?reqPage=1&memberId="+memberId);
+			return "common/modalAlert";
 		}
 	}
 	
@@ -407,7 +475,7 @@ public class CampingController {
 	}
 
 	@RequestMapping(value="/updateCampingRoom.do")
-	public String updateCampingRoom(CampingRoom cr,String memberId,int[] campingRoomPhotoNo, String[] filepath, MultipartFile[] campingRoomFile, HttpServletRequest request) {
+	public String updateCampingRoom(CampingRoom cr,String memberId,int[] campingRoomPhotoNo, String[] filepath, MultipartFile[] campingRoomFile, HttpServletRequest request, Model model) {
 		ArrayList<CampingRoomFileVO> fileList = new ArrayList<CampingRoomFileVO>();
 		String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/campingRoom/");
 		if(!campingRoomFile[0].isEmpty()) {
@@ -421,22 +489,35 @@ public class CampingController {
 		}
 		int result = service.updateCampingRoom(cr, fileList, campingRoomPhotoNo);
 		if(campingRoomPhotoNo != null && (result == (fileList.size()+campingRoomPhotoNo.length + 1))) {
-			for(String delFile : filepath) {
-				manager.deleteFile(savePath, delFile);
-			}
-			return "redirect:/sellList.do?reqPage=1&memberId="+memberId;
+			model.addAttribute("title", "캠핑 수정 성공");
+			model.addAttribute("msg", "캠핑 수정에 성공하셨습니다");
+			model.addAttribute("icon", "success");
+			model.addAttribute("loc", "/sellList.do?reqPage=1&memberId="+memberId);
+			return "common/modalAlert";
 		}else if(campingRoomPhotoNo == null && (result == fileList.size()+1)){
-			return "redirect:/sellList.do?reqPage=1&memberId="+memberId;
+			model.addAttribute("title", "캠핑 수정 성공");
+			model.addAttribute("msg", "캠핑 수정에 성공하셨습니다");
+			model.addAttribute("icon", "success");
+			model.addAttribute("loc", "/sellList.do?reqPage=1&memberId="+memberId);
+			return "common/modalAlert";
 		}else {
-			return "redirect:/sellList.do?reqPage=1&memberId="+memberId;
+			model.addAttribute("title", "캠핑 수정 실패");
+			model.addAttribute("msg", "캠핑 수정에 실패하셨습니다. 다시 시도해주세요.");
+			model.addAttribute("icon", "error");
+			model.addAttribute("loc", "/sellList.do?reqPage=1&memberId="+memberId);
+			return "common/modalAlert";
 		}
 	}
 	
 	@RequestMapping(value="/deleteCamping.do")
-	public String deleteCamping(int campingNo, String memberId, HttpServletRequest request) {
+	public String deleteCamping(int campingNo, String memberId, HttpServletRequest request,Model model) {
 		CampingDeleteData cdd = service.deleteCamping(campingNo);
 		if(cdd == null) {
-			return "redirect:/sellList.do?reqPage=1&memberId="+memberId;
+			model.addAttribute("title", "캠핑장 삭제 실패");
+			model.addAttribute("msg", "캠핑장 삭제에 실패하셨습니다. 다시 시도해주세요.");
+			model.addAttribute("icon", "error");
+			model.addAttribute("loc", "/sellList.do?reqPage=1&memberId="+memberId);
+			return "common/modalAlert";
 		}else {
 			String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/campingRoom/");
 			for(CampingRoomFileVO file : cdd.getCampingRoomFileList()) {
@@ -444,7 +525,11 @@ public class CampingController {
 			}
 			String savePath2 = request.getSession().getServletContext().getRealPath("/resources/upload/camping/");
 			manager.deleteFile(savePath2,cdd.getCamping().getFilepath());
-			return "redirect:/sellList.do?reqPage=1&memberId="+memberId;
+			model.addAttribute("title", "캠핑장 삭제 성공");
+			model.addAttribute("msg", "캠핑장 삭제에 성공하셨습니다.");
+			model.addAttribute("icon", "success");
+			model.addAttribute("loc", "/sellList.do?reqPage=1&memberId="+memberId);
+			return "common/modalAlert";
 		}
 	}
 	
@@ -517,7 +602,7 @@ public class CampingController {
 	}
 	
 	@RequestMapping(value="/updateCamping")
-	public String updateCamping(Camping c, String[] filepath, MultipartFile[] campingFilepath, HttpServletRequest requset, String[] campingService, String[] campingRoomService, String[] campingEtc,int campingNo) {
+	public String updateCamping(Camping c, String[] filepath, MultipartFile[] campingFilepath, HttpServletRequest requset, String[] campingService, String[] campingRoomService, String[] campingEtc,int campingNo, Model model) {
 		if(campingService != null) {
 			ArrayList<CampingProvideService> campingServicelist = new ArrayList<CampingProvideService>();
 			for(String str : campingService) {
@@ -558,11 +643,23 @@ public class CampingController {
 			for(String delFile : filepath) {
 				manager.deleteFile(savePath, delFile);
 			}
-			return "redirect:/sellList.do?reqPage=1&memberId="+c.getMemberId();
+			model.addAttribute("title", "캠핑장 수정 성공");
+			model.addAttribute("msg", "캠핑장 수정에 성공하셨습니다.");
+			model.addAttribute("icon", "success");
+			model.addAttribute("loc", "/sellList.do?reqPage=1&memberId="+c.getMemberId());
+			return "common/modalAlert";
 		}else if(filepath == null && result > 0){
-			return "redirect:/sellList.do?reqPage=1&memberId="+c.getMemberId();
+			model.addAttribute("title", "캠핑장 수정 성공");
+			model.addAttribute("msg", "캠핑장 수정에 성공하셨습니다.");
+			model.addAttribute("icon", "success");
+			model.addAttribute("loc", "/sellList.do?reqPage=1&memberId="+c.getMemberId());
+			return "common/modalAlert";
 		}else {
-			return "redirect:/sellList.do?reqPage=1&memberId="+c.getMemberId();
+			model.addAttribute("title", "캠핑장 수정 실패");
+			model.addAttribute("msg", "캠핑장 수정에 실패하셨습니다. 다시 시도해주세요.");
+			model.addAttribute("icon", "error");
+			model.addAttribute("loc", "/sellList.do?reqPage=1&memberId="+c.getMemberId());
+			return "common/modalAlert";
 		}
 	}
 	
