@@ -127,4 +127,7 @@
 	        where blacklist_member_id like '%'||#{_parameter}||'%' 
 	        order by 1 desc)bl			
 	</select>
+	<delete id="deleteBlacklist" parameterType="_int">
+		delete from blacklist where blacklist_no = #{_parameter}
+	</delete>
 </mapper>

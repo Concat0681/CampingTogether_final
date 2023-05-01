@@ -94,7 +94,14 @@
 							</c:when>
 							<c:otherwise>
 								<button class="btn1" id="payBtn"  style="margin: 0; font-size: 22px;">Buy</button>
-								<button type="button" id="shopCartBtn" class="btn1" style="font-size: 22px;">Cart</button>
+								<c:choose>
+									<c:when test="${shop.shopBasketNo eq 0 }">
+										<button type="button" id="shopCartBtn" class="btn1" style="font-size: 22px;">Cart</button>
+									</c:when>
+									<c:otherwise>
+									<button type="button" id="shopCartedBtn" class="btn2" style="font-size: 22px;">장바구니로</button>
+									</c:otherwise>
+								</c:choose>
 							</c:otherwise>
 						</c:choose>
 					</div>
@@ -220,7 +227,7 @@
 							<div class="pagination">${reviewPageNavi }</div>
 						</c:if>
 					</div>
-						<button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#commentFrm" aria-expanded="false" aria-controls="collapseCommentFrm">댓글쓰기</button>
+						<button class="up-btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#commentFrm" aria-expanded="false" aria-controls="collapseCommentFrm">댓글쓰기</button>
 					<div class="collapse" id="commentFrm">
 						<div class="card card-body">
 							<form id="commentForm" action="/insertShopComment.do" method="post" enctype="multipart/form-data">
@@ -262,7 +269,7 @@
 					<table>
                                 <caption>배송/교환/반품/AS</caption>
                                 <colgroup>
-                                    <col width="250">
+                                    <col width="250" style="background-color: #e3caa545;" >
                                     <col width="*">
                                 </colgroup>
                                 <tbody><tr>
@@ -307,7 +314,7 @@
                                 	</td>
                                 </tr>
                                 <tr>
-                                	<th>교환/반품/AS 주소</th>
+                                	<th style="border-bottom: 1px solid #E3CAA5;">교환/반품/AS 주소</th>
                                 	<td> 						
 										        <b>주소 : (13550) 경기도 성남시 분당구 대왕판교로 361번길(궁내동) 오캠몰</b> <br>
 										        <b> 연락처 : 031-712-4371</b><br><br>
@@ -517,15 +524,20 @@
 				type : "post",
 				success : function(data){
 					if(data =="exist"){
-						swalAlert("/", "success", "장바구니에 추가 실패", "상품이 장바구니에 이미 존재합니다");
+						swalAlert("/viewShop.do?shopNo="+shopNo+"&reqPage=1&menu=0&memberId="+memberId, "error", "장바구니에 추가 실패", "상품이 장바구니에 이미 존재합니다");
 					} else {
-						swalAlert("/", "error", "장바구니에 추가", "상품이 장바구니에 추가 되었습니다");
+						swalAlert("/viewShop.do?shopNo="+shopNo+"&reqPage=1&menu=0&memberId="+memberId, "success", "장바구니에 추가", "상품이 장바구니에 추가 되었습니다");
 					}
 				},
 				error : function(){
 					
 				}
 			})
+		})
+		
+		$("#shopCartedBtn").on("click", function(){
+			const memberId = $("#memberId").val();
+			location.href="/shopWishList.do?reqPage=1&memberId="+memberId;
 		})
 		function updateReview(obj, shopReviewNo){
 			const reviewBox = $(obj).parents(".review-box");

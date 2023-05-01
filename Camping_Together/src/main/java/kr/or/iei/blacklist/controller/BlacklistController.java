@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -139,6 +140,20 @@ public class BlacklistController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}	
+	}
+	
+	@RequestMapping(value="/blacklistDelete.do")
+	public String blacklistDelete(int blacklistNo, HttpServletRequest request) {
+		ArrayList<BlacklistPhoto> list = service.deleteBlacklist(blacklistNo);
+		if(list == null) {
+			return "redirect:/blackMemberList.do?reqPage=1";
+		}else {
+			String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/blacklist/");
+			for(BlacklistPhoto photo : list) {
+				manager.deleteFile(savePath, photo.getFilepath());
+			}
+			return "redirect:/blackMemberList.do?reqPage=1";
+		}
 	}
 }
 

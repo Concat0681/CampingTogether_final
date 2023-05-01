@@ -86,7 +86,7 @@
 								</div>
 							</div>
 							<div class="shop-info">
-								<div>${c.shopTitle }</div>
+								<div class="s-title">${c.shopTitle }</div>
 								<div class="shop-price-info">
 									<div>
 										<fmt:formatNumber value="${c.shopPrice }" pattern="#,###"/> 원
@@ -146,10 +146,10 @@
 								</div>
 							</div>
 							<div class="shop-info">
-								<div>${c.shopTitle }</div>
+								<div class="s-title">${c.shopTitle }</div>
 								<div class="shop-price-info">
 									<div>
-										${c.shopPrice} 원
+										<fmt:formatNumber value="${c.shopPrice }" pattern="#,###"/> 원
 									</div>
 									<div class="shop-rating">
 										<div>평점</div>
@@ -206,10 +206,10 @@
 								</div>
 							</div>
 							<div class="shop-info">
-								<div>${c.shopTitle }</div>
+								<div class="s-title">${c.shopTitle }</div>
 								<div class="shop-price-info">
 									<div>
-										${c.shopPrice} 원
+										<fmt:formatNumber value="${c.shopPrice }" pattern="#,###"/> 원
 									</div>
 									<div class="shop-rating">
 										<div>평점</div>
