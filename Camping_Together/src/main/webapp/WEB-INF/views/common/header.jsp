@@ -19,7 +19,6 @@
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <link href="/resources/css/bootStrap.css" rel="stylesheet"/>
 <link href="/resources/css/default.css" rel="stylesheet"/>	
@@ -33,7 +32,7 @@
 <div class="message-comset" style="display: none;">
 	<div class="message-modal-wrapper">
 	  <div class="wrapper-header">
-	    <div class="material-symbols-outlined filler" id="modal-cancle1">cancel</div><span style="line-height: 40px;">${sessionScope.m.memberName }님! 읽지 않은 쪽지가 <span id="messageCount"></span>개 있어요!</span>
+	    <div class="material-symbols-outlined filler" id="modal-cancle1">cancel</div><span style="line-height: 40px;margin-right: 20px;">${sessionScope.m.memberName }님! 읽지 않은 쪽지가 [<span id="messageCount"></span>]개 있어요!</span>
 
 	  </div>
 	  <hr style="margin: 0px;">
@@ -180,8 +179,7 @@
 	            	자유게시판
 	          </a>
 	          <ul class="dropdown-menu">
-	            <li><a class="dropdown-item" href="/boardFoodList.do?reqPage=1">캠핑 레시피</a></li>
-	            <li><a class="dropdown-item" href="#">캠핑 Tip</a></li>
+	            <li><a class="dropdown-item" href="/boardFoodList.do?reqPage=1">캠핑 자유게시판</a></li>
 	            <li><hr class="dropdown-divider"></li>
 	            <li><a class="dropdown-item" href="allMemberChatFrm.do">채팅</a></li>
 	            <li><a class="dropdown-item" href="/inquiryList.do?reqPage=1">문의사항</a></li>
@@ -195,7 +193,7 @@
 
 <!-- 로그인이 필요한 모달 창 -->
 	<div id="modalVer1" class="modalVer1">
-	  <div class="modal-content">
+	  <div class="modal-content4">
 	    <div class="closeBox">
 	    <span class="close">&times;</span>
 	    </div>
@@ -212,7 +210,6 @@
 	  </div>
 	</div>
 	
-
 <!--  헤더 스크립트 -->
 <script>
 	
@@ -318,7 +315,7 @@ const navLink =  document.querySelectorAll('.nav-link');
     
     
     
-    </script>
+</script>
 <!-- 쪽지 모달 스크립트 -->
 <script>
 
@@ -403,7 +400,7 @@ function getSendMessage(){
                 const message = list[i];
                 const tr = $("<tr style='border-bottom: 1px solid;' >");
                 //보낸사람, ,제목,내용 , 시간, 읽음여부
-                const td1 = $("<td style='border: none;'>");
+                const td1 = $("<td style='border: none; width: 180px;'>");
                 td1.text(message.sender);
                 const td2 = $("<td>");
                 td2.text(message.messageTitle);
@@ -426,6 +423,9 @@ function getSendMessage(){
         }
     });
 }
+
+
+
 function getReceiveMessage(){
     const receiver = $("#sender").val();
     $.ajax({
@@ -438,7 +438,7 @@ function getReceiveMessage(){
                 const message = list[i];
                 const tr = $("<tr style='border-bottom: 1px solid;' >");
                 //보낸사람, 내용 , 시간, 읽음여부
-                const td1 = $("<td style='border: none;'>");
+                const td1 = $("<td style='border: none; width: 180px;'>");
                 td1.text(message.sender);
                 const td2 = $("<td>");
                 td2.text(message.messageTitle);
@@ -452,6 +452,7 @@ function getReceiveMessage(){
                     tr.addClass("bold");
                 	td5.text("읽지않음");
 
+
                 }else{
                     td5.text("확인완료");
                 }
@@ -464,12 +465,63 @@ function getReceiveMessage(){
                 td2.addClass("messageRecTdTitle");
                 tr.append(td1).append(td2).append(td3).append(td4).append(td5);
                 tbody.append(tr);
+
+
+			    
+
                 
             }
         }
     });
     
+    
 }
+
+function getReceiveMessage(){
+    const receiver = $("#sender").val();
+    $.ajax({
+        url: "/myMessageList.do",
+        data: {receiver:receiver},
+        success : function(list){
+            const tbody = $(".receiveTbl>tbody");
+            tbody.empty();
+            let unreadCount = 0; // 읽지 않음 카운트
+            for(let i=0;i<list.length;i++){
+                const message = list[i];
+                const tr = $("<tr style='border-bottom: 1px solid;' >");
+                //보낸사람, 내용 , 시간, 읽음여부
+                const td1 = $("<td style='border: none; width: 180px;'>");
+                td1.text(message.sender);
+                const td2 = $("<td>");
+                td2.text(message.messageTitle);
+                const td3 = $("<td>");
+                td3.text(message.messageContent);
+                td3.attr("onclick","messageDetail("+message.messageNo+");");
+                const td4 = $("<td>");
+                td4.text(message.messageDate);
+                const td5 = $("<td>");
+                if(message.readCheck == 0 ){
+                    tr.addClass("bold");
+                    td5.text("읽지않음");
+                    unreadCount++; // 안 읽은 쪽지 갯수
+                }else{
+                    td5.text("확인완료");
+                }
+                td1.addClass("messageTd");
+                td2.addClass("messageTd");
+                td3.addClass("messageTd");
+                td3.addClass("messageRecTdContent");
+                td4.addClass("messageTd");
+                td5.addClass("messageTd");
+                td2.addClass("messageRecTdTitle");
+                tr.append(td1).append(td2).append(td3).append(td4).append(td5);
+                tbody.append(tr);
+            }
+            $("#messageCount").text(unreadCount); // 숫자 띄우기
+        }
+    });
+}
+
 
 $(".messageRecTdContent").on("click", function(){
 	$(".modal-wrapper").css("display","block");
@@ -511,16 +563,7 @@ $(function(){
 
     // 모달창 열기 버튼 클릭 이벤트
     $(document).ready(function() {
-    	  //모달창
-    	  var socket = new WebSocket("ws://localhost:8080/Camping_Together/websocket");
-			socket.onmessage = function(event) {
-			    var data = JSON.parse(event.data);
-			    console.log(data);
-			    if (data.type === "myMessageCount") {
-			        var messageCount = data.messageCount;
-			        $("#messageCount").text(messageCount);
-			    }
-			}
+
     	  
     	  $(".loginBtn").click(function(event) { // a태그, 버튼 아이디,클래스 입력
     		if (event.stopPropagation) event.stopPropagation();

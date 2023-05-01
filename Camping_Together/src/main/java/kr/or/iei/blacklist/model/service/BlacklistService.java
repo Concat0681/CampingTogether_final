@@ -112,6 +112,17 @@ public class BlacklistService {
 	public ArrayList<Blacklist> selectSearchBlackMember(String blacklistMemberId) {
 		return dao.selectSearchBlackMember(blacklistMemberId);
 	}
+
+	@Transactional
+	public ArrayList<BlacklistPhoto> deleteBlacklist(int blacklistNo) {
+		ArrayList<BlacklistPhoto> list = dao.selectOneBlacklistPhoto(blacklistNo);
+		int result = dao.deleteBlacklist(blacklistNo);
+		if(result > 0) {
+			return list; 
+		}else {
+			return null;
+		}
+	}
 }
 
 

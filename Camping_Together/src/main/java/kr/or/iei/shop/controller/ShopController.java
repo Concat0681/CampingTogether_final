@@ -99,7 +99,7 @@ public class ShopController {
 	
 	@Transactional
 	@RequestMapping(value="/insertShop.do")
-	public String insertShop(Shop shop,  MultipartFile[] shopFileList, HttpServletRequest requset) {
+	public String insertShop(Shop shop,  MultipartFile[] shopFileList, HttpServletRequest requset, Model model) {
 		int result = service.insertShop(shop);
 		int finalResult = 1;
 		if(result > 0) {
@@ -122,22 +122,31 @@ public class ShopController {
 			}
 		}
 		if(finalResult > 0) {
-			return "redirect:/shopMainList.do";
+			model.addAttribute("title", "Shop 등록 성공");
+			model.addAttribute("msg", "Shop 등록에 성공하셨습니다");
+			model.addAttribute("icon", "success");
+			model.addAttribute("loc", "/shopMainList.do");
+			return "common/modalAlert";
 		} else {
-			return "redirect:/";
+			model.addAttribute("title", "Shop 등록 실패");
+			model.addAttribute("msg", "Shop 등록에 실패하셨습니다");
+			model.addAttribute("icon", "error");
+			model.addAttribute("loc", "/shopMainList.do");
+			return "common/modalAlert";
 		}
 	}
 	
 	@RequestMapping(value="/updateShopFrm.do")
 	public String updateShopFrm(int shopNo, Model model) {
-		Shop shop = service.selectOneShop(shopNo);
+		String memberId = null;
+		Shop shop = service.selectOneShop(shopNo, memberId);
 		model.addAttribute("shop", shop);
 		return "shop/updateShopFrm";
 	}
 	
 	@Transactional
 	@RequestMapping(value="/updateShop.do")
-	public String updateShop(Shop shop, String delPhotoList, MultipartFile[] shopFileList, HttpServletRequest requset) {
+	public String updateShop(Shop shop, String delPhotoList, MultipartFile[] shopFileList, HttpServletRequest requset, Model model) {
 		int shopResult = service.updateShop(shop);
 		String savePath = requset.getSession().getServletContext().getRealPath("/resources/upload/shop/");
 		int finalResult = 1;
@@ -178,16 +187,36 @@ public class ShopController {
 			}
 		}
 		if(finalResult > 0) {
-			return "redirect:/viewShop.do?shopNo="+shop.getShopNo()+"&reqPage=1&menu=0&memberId="+shop.getMemberId();
+			model.addAttribute("title", "Shop 업데이트 성공");
+			model.addAttribute("msg", "Shop 업데이트에 성공하셨습니다");
+			model.addAttribute("icon", "success");
+			model.addAttribute("loc", "/viewShop.do?shopNo="+shop.getShopNo()+"&reqPage=1&menu=0&memberId="+shop.getMemberId());
+			return "common/modalAlert";
 		} else {
-			return "redirect:/";
+			model.addAttribute("title", "Shop 업데이트 실패");
+			model.addAttribute("msg", "Shop 업데이트에 실패하셨습니다");
+			model.addAttribute("icon", "error");
+			model.addAttribute("loc", "/viewShop.do?shopNo="+shop.getShopNo()+"&reqPage=1&menu=0&memberId="+shop.getMemberId());
+			return "common/modalAlert";
 		}
 	}
 	
 	@RequestMapping(value="/deleteShop.do")
-	public String deleteShop(int shopNo) {
+	public String deleteShop(int shopNo, Model model) {
 		int result = service.deleteShop(shopNo);
-		return "redirect:/shopMainList.do";
+		if(result > 0) {
+			model.addAttribute("title", "Shop 삭제 성공");
+			model.addAttribute("msg", "Shop 삭제에 성공하셨습니다");
+			model.addAttribute("icon", "success");
+			model.addAttribute("loc", "/shopMainList.do");
+			return "common/modalAlert";
+		} else {
+			model.addAttribute("title", "Shop 삭제 실패");
+			model.addAttribute("msg", "Shop 삭제에 실패하였습니다");
+			model.addAttribute("icon", "error");
+			model.addAttribute("loc", "/shopMainList.do");
+			return "common/modalAlert";
+		}
 	}
 	
 	@RequestMapping(value="/viewShop.do")
@@ -196,7 +225,8 @@ public class ShopController {
 		if(memberId != null) {
 			shopOrder = service.selectMyOrder(memberId, shopNo);
 		}
-		Shop shop = service.selectOneShop(shopNo);
+		Shop shop = service.selectOneShop(shopNo, memberId);
+		System.out.println(shop);
 		ShopReviewListData srld = service.selectShopReviewList(shopNo, reqPage);
 		model.addAttribute("shop", shop);
 		model.addAttribute("menu", menu);
@@ -209,7 +239,7 @@ public class ShopController {
 	
 	@Transactional
 	@RequestMapping(value="/updateShopComment.do")
-	public String updateShopComment(ShopReview sr, int reqPage, String delPhotoList, MultipartFile[] photoList, HttpServletRequest request) {
+	public String updateShopComment(ShopReview sr, int reqPage, String delPhotoList, MultipartFile[] photoList, HttpServletRequest request, Model model) {
 		ArrayList<ShopReviewPhoto> delList = new ArrayList<ShopReviewPhoto>();
 		ArrayList<ShopReviewPhoto> srpList = new ArrayList<ShopReviewPhoto>();
 		String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/shopReview/");
@@ -244,8 +274,19 @@ public class ShopController {
 		for(ShopReviewPhoto srp : srpList) {
 			int photoResult = service.insertShopReviewPhoto(srp);
 		}
-			
-		return "redirect:/viewShop.do?shopNo="+sr.getShopNo()+"&reqPage="+reqPage+"&menu=1";
+		if(reviewResult > 0) {
+			model.addAttribute("title", "리뷰 업데이트 성공");
+			model.addAttribute("msg", "리뷰 업데이트에 성공하셨습니다");
+			model.addAttribute("icon", "success");
+			model.addAttribute("loc", "/viewShop.do?shopNo="+sr.getShopNo()+"&reqPage="+reqPage+"&menu=1");
+			return "common/modalAlert";
+		} else {
+			model.addAttribute("title", "리뷰 업데이트 실패");
+			model.addAttribute("msg", "리뷰 업데이트에 실패하셨습니다");
+			model.addAttribute("icon", "error");
+			model.addAttribute("loc", "/viewShop.do?shopNo="+sr.getShopNo()+"&reqPage="+reqPage+"&menu=1");
+			return "common/modalAlert";
+		}
 	}
 
 	@Transactional
@@ -278,7 +319,7 @@ public class ShopController {
 		if(finalResult > 0) {
 			return "success";
 		} else {
-			return "fail";
+			return "error";
 		}
 	}
 	

@@ -302,7 +302,7 @@
 					    
 					    <div id="test-modal" class="review-modal-bg" style="z-index: 1000;">
 						  <div class="review-modal-wrap">
-						    <div class="review-modal-head">
+						    <div class="review-modal-head" style="width: 600px;">
 						      <h2>리뷰 작성</h2>
 						      <span class="material-icons close-icon review-modal-close">close</span>
 						    </div>
@@ -427,7 +427,6 @@
 							          </button>
 						              <a href="javascript:void(0)" onclick="deleteComment(this,${cr.campingReviewNo },${camping.campingNo })">삭제</a>
 						            </c:if>
-						              
 					                <c:if test="${not empty sessionScope.m && camping.memberId eq sessionScope.m.memberId }">
 						              <a href="javascript:void(0)" class="recShow"><span class="material-symbols-outlined">sms</span></a>
 						            </c:if>
@@ -529,7 +528,7 @@
 										<span class="material-icons" style="font-size:100px;">subdirectory_arrow_right</span>
 									</li>
 									<li>
-										<input type="hidden" name="memberId" value="user01">
+										<input type="hidden" name="memberId" value="${sessionScope.m.memberId }">
 										<input type="hidden" name="campingNo" value="${camping.campingNo }">
 										<input type="hidden" name="campingReviewRef" value="${cr.campingReviewNo }">
 										<textarea name="campingReviewContent" class="input-form" style="min-height: 100px;" placeholder="댓글을 입력해주세요" required></textarea>
@@ -548,7 +547,6 @@
 		</div>
 	</div>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
-	
 	<script src="resources/js/camping/dateRangePicker.js"></script>
 	<script>
 		let map;

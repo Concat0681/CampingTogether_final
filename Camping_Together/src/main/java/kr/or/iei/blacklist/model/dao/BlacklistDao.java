@@ -81,4 +81,8 @@ public class BlacklistDao {
 		List list = sqlSession.selectList("blacklist.selectSearchBlackMember", blacklistMemberId);
 		return (ArrayList<Blacklist>)list;
 	}
+
+	public int deleteBlacklist(int blacklistNo) {
+		return sqlSession.delete("blacklist.deleteBlacklist", blacklistNo);
+	}
 }

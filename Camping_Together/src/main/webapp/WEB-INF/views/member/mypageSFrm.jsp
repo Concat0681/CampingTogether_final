@@ -19,7 +19,7 @@
 		</div>
 	</div>
 
-	<form action="/updateMypageC.do">
+	<form action="/updateMypageC.do" method="post" enctype="multipart/form-data">
 			<div class="mypage-content">
 				<div class="image-div">
 					<div class="img">
@@ -32,7 +32,7 @@
 						<label for="delete" class="delete">삭제</label>
 					</div>
 				</div>
-				
+				<input type="hidden"  name="memberNo" value="${sessionScope.m.memberNo }" >
 				<table>
 					<tr>
 						<td>아이디</td>
@@ -65,7 +65,7 @@
 					</tr>
 					<tr>
 						<td>주소</td>
-						<td><input type="text" class="input" name="memberName" value="${sessionScope.m.memberAddr }" readonly></td>
+						<td><input type="text" class="input" name="memberAddr" value="${sessionScope.m.memberAddr }" readonly></td>
 					</tr>
 					<tr>
 						<td>주소 변경</td>

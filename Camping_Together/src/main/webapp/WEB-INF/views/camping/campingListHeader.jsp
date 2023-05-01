@@ -47,12 +47,14 @@
 					<div class="hidden-search">
 						<ul>
 							<li id="placeholder">도를 선택해주세요</li>
-							<li id="incheon" class="cityName gyeonggi-do all">인천</li>
-							<li id="seoul" class="cityName gyeonggi-do all">서울</li>
-							<li id="busan" class="cityName gyeongsang-do all">부산</li>
-							<li id="daegu" class="cityName gyeongsang-do all">대구</li>
-							<li id="sokcho" class="cityName all">속초</li>
-							<li id="ganglueng" class="cityName all">강릉</li>
+							<li id="incheon" class="cityName gyeonggi-do">인천</li>
+							<li id="seoul" class="cityName gyeonggi-do">서울</li>
+							<li id="busan" class="cityName gyeongsang-do">부산</li>
+							<li id="daegu" class="cityName gyeongsang-do">대구</li>
+							<li id="ulsan" class="cityName gyeongsang-do">울산</li>
+							<li id="daejeon" class="cityName chungcheong-do">대전</li>
+							<li id="sejong" class="cityName chungcheong-do">세종</li>
+							<li id="gwangju" class="cityName jeonla-do">광주</li>
 						</ul>
 					</div>
 				</div>
