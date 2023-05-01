@@ -302,7 +302,7 @@
 					    
 					    <div id="test-modal" class="review-modal-bg" style="z-index: 1000;">
 						  <div class="review-modal-wrap">
-						    <div class="review-modal-head">
+						    <div class="review-modal-head" style="width: 600px;">
 						      <h2>리뷰 작성</h2>
 						      <span class="material-icons close-icon review-modal-close">close</span>
 						    </div>
