@@ -94,7 +94,14 @@
 							</c:when>
 							<c:otherwise>
 								<button class="btn1" id="payBtn"  style="margin: 0; font-size: 22px;">Buy</button>
-								<button type="button" id="shopCartBtn" class="btn1" style="font-size: 22px;">Cart</button>
+								<c:choose>
+									<c:when test="${shop.shopBasketNo eq 0 }">
+										<button type="button" id="shopCartBtn" class="btn1" style="font-size: 22px;">Cart</button>
+									</c:when>
+									<c:otherwise>
+									<button type="button" id="shopCartedBtn" class="btn2" style="font-size: 22px;">장바구니로</button>
+									</c:otherwise>
+								</c:choose>
 							</c:otherwise>
 						</c:choose>
 					</div>
@@ -517,15 +524,20 @@
 				type : "post",
 				success : function(data){
 					if(data =="exist"){
-						swalAlert("/", "success", "장바구니에 추가 실패", "상품이 장바구니에 이미 존재합니다");
+						swalAlert("/viewShop.do?shopNo="+shopNo+"&reqPage=1&menu=0&memberId="+memberId, "error", "장바구니에 추가 실패", "상품이 장바구니에 이미 존재합니다");
 					} else {
-						swalAlert("/", "error", "장바구니에 추가", "상품이 장바구니에 추가 되었습니다");
+						swalAlert("/viewShop.do?shopNo="+shopNo+"&reqPage=1&menu=0&memberId="+memberId, "success", "장바구니에 추가", "상품이 장바구니에 추가 되었습니다");
 					}
 				},
 				error : function(){
 					
 				}
 			})
+		})
+		
+		$("#shopCartedBtn").on("click", function(){
+			const memberId = $("#memberId").val();
+			location.href="/shopWishList.do?reqPage=1&memberId="+memberId;
 		})
 		function updateReview(obj, shopReviewNo){
 			const reviewBox = $(obj).parents(".review-box");

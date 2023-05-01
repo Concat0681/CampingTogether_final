@@ -21,6 +21,7 @@ public class Shop {
 	private int maxCount;
 	private int score;
 	private int sellCount;
+	private int shopBasketNo;
 	private double avgRating;
 	private ArrayList<ShopPhoto> shopPhotoList;
 }

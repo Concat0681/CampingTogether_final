@@ -42,8 +42,8 @@ public class ShopDao {
 		return shopNo;
 	}
 
-	public Shop selectOneShop(int shopNo) {
-		Shop shop = sqlSession.selectOne("shop.selectOneShop", shopNo);
+	public Shop selectOneShop(HashMap<String, Object> map) {
+		Shop shop = sqlSession.selectOne("shop.selectOneShop", map);
 		return shop;
 	}
 

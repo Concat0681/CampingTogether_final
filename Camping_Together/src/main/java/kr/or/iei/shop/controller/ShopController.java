@@ -130,7 +130,8 @@ public class ShopController {
 	
 	@RequestMapping(value="/updateShopFrm.do")
 	public String updateShopFrm(int shopNo, Model model) {
-		Shop shop = service.selectOneShop(shopNo);
+		String memberId = null;
+		Shop shop = service.selectOneShop(shopNo, memberId);
 		model.addAttribute("shop", shop);
 		return "shop/updateShopFrm";
 	}
@@ -196,7 +197,8 @@ public class ShopController {
 		if(memberId != null) {
 			shopOrder = service.selectMyOrder(memberId, shopNo);
 		}
-		Shop shop = service.selectOneShop(shopNo);
+		Shop shop = service.selectOneShop(shopNo, memberId);
+		System.out.println(shop);
 		ShopReviewListData srld = service.selectShopReviewList(shopNo, reqPage);
 		model.addAttribute("shop", shop);
 		model.addAttribute("menu", menu);
