@@ -103,11 +103,12 @@
 	 --%>
 	 
 	
-	 $(".admin-pwupdate").on("click",function(){			 
+	 $(".admin-pwupdate").on("click",function(event){			 
 		 const pw = $("#pwinput").val();
-		 if(pw.length === 0){
-			 alert("비밀번호를 입력하세요");
-		 }
+			 if(pw.length === 0){
+				 event.preventDefault();
+				 alert("비밀번호를 입력하세요");
+			 }
 		});
 
 	</script>

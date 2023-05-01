@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -41,7 +42,7 @@
 							<td class="checkIn">${p.checkIn }</td>
 							<td class="checkOut">${p.checkOut }</td>
 							<td class="total-price"></td>
-							<td class="oneDayPay" style="display:none;">${p.campingRoomPrice } 원</td>
+							<td class="oneDayPay" style="display:none;"><fmt:formatNumber value="${p.campingRoomPrice }" pattern="#,###"/>원</td>
 					</tr>
 					
 				</c:forEach>

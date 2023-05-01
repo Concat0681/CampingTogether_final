@@ -57,7 +57,10 @@
                             <div class="product-price">
                                 <span><fmt:formatNumber value="${ub.usedProductPrice }" pattern="#,###" /></span><span>원</span>
                             </div>
-                            <span id="favorite" class="material-symbols-outlined product-wish">favorite</span>
+                            <div>
+                            <span class="material-symbols-outlined" style="float:left; color:#ccc;"> visibility</span>
+		        			<p style="float:left; color:#ccc;">:: ${ub.readCount } &nbsp; </p>
+		        			</div>
                         </div>
                     </div>
                 </div>

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
         <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+        <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,7 +40,7 @@
 						<input type="hidden" name="shopNo" value="${p.shopNo }">
 						<td>${p.buyCount }</td>
 						<td>${p.productPaymentDate }</td>
-						<td>${p.totalPrice} 원</td>
+						<td><fmt:formatNumber value="${p.totalPrice}" pattern="#,###"/>원</td>
 					</tr>
 					
 				</c:forEach> 

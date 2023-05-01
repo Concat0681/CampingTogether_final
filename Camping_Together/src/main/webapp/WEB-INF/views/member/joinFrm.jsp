@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <link href="/resources/css/default.css" rel="stylesheet"/> 
 <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 <link href="/resources/css">
@@ -95,6 +95,9 @@ input:focus {
 	
 	
 }
+#mail-Confirm-Btn{
+	cursor: none;
+}
 .tab-group>li{
 	margin: 20px;
 	width: calc(100%/2);
@@ -129,7 +132,7 @@ input:focus {
         height: 600px;
         -webkit-box-shadow: 0px 0px 3px 1px rgba(38, 35, 128, 1);
         -moz-box-shadow: 0px 0px 3px 1px rgba(38, 35, 128, 1);
-        box-shadow: 0px 30px 60px -6px #000;
+        box-shadow: 0px 20px 50px -7px #4b4b4b;
         max-width: 500px;
     	min-width: 400px;
     	display: inline-table;
@@ -217,7 +220,6 @@ input:focus {
     }
     .mail-check-input{
     	border: none;
-    	margin-right: 30px;
     }
     .mail-confirmBox{
     	width: 150px;
@@ -256,7 +258,7 @@ input:focus {
     	transition-duration: 0.5s;
     	background-color: rgba(173, 139, 115, 0.5);
     }
-    .confirm:hover{
+    .confirm-login:hover{
     	transition-duration: 0.5s;
     	background-color: #CEAB93;
     }
@@ -335,8 +337,8 @@ input:focus {
 	box-shadow: 0px 30px 60px -6px green;
 }
 .alert-danger {
-  color: #721c24;
-  background-color: #f8d7da;
+  color: #fff;
+  background-color: #CEAB93;
   border-color: #f5c6cb;
   padding: .75rem 1.25rem;
   margin-bottom: 1rem;
@@ -395,7 +397,7 @@ input:focus {
 	</div>
 	
 	<!-- 로그인 페이지 -->
-	<div class="wrapper" style="display: grid; margin-top: 50px;">
+	<div class="wrapper" style="display: grid; margin-top: 200px;">
 		<div class="myform">
 	       <ul class="tab-group">
 		       <li class="tab"><a href="#signup">Sign Up</a></li>
@@ -413,7 +415,18 @@ input:focus {
 						        <button type="submit" class="loginBtn">로그인 </button>
 						        <hr>
 						        <div class="searchBox"> <a href="#" class="searchId">아이디 찾기</a> <a href="#" class="searchPw">비밀번호 찾기</a> </div>
+						    	
 						    </div>
+						    <c:if test="${memberGrade eq 'B'}" var="errorMsg">
+									<div class="alert-danger" role="alert">
+										<span style="font-family: 'ng-extra-bold';">로그인실패 - 계정이 정지상태입니다.</span>
+									</div>
+							</c:if>
+							<c:if test="${memberNo == 0}" var="errorMsg">
+									<div class="alert-danger" role="alert">
+										<span style="font-family: 'ng-extra-bold';" >로그인 실패 - 아이디와 비밀번호를 확인하세요</span>
+									</div>
+							</c:if>
 					    </form>
 
 	        </div>
@@ -446,17 +459,17 @@ input:focus {
 	          	<input type="text" name="memberName" id="memberName" class="signup-input" placeholder="이름 입력" pattern=".{2,10}" required  maxlength="10">
 	          </div>
 	          <div class="field-wrap">
-	          	<input type="text" name="memberPhone" id="memberPhone" oninput="oninputPhone(this)" class="signup-input" placeholder="전화번호 입력(- 입력 제외)" required  maxlength="13"><br>
+	          	<input type="text" name="memberPhone" id="memberPhone" oninput="oninputPhone(this)" class="signup-input" placeholder="전화번호 입력(- 입력 제외)" required  maxlength="13" title="해당부분을 작성해주세요!"><br>
 	          </div>
 	          <div class="field-wrap">
 	          	<div class="form-group email-form">
 					<div class="input-group">
-						<input type="email" class="form-control signup-input" name="memberEmail" id="memberEmail" placeholder="이메일 입력" required="required">
+						<input type="email" class="form-control signup-input" name="memberEmail" id="memberEmail" placeholder="이메일 입력" required title="해당부분을 작성해주세요!">
 						<div class="mail-check-inputBox" style="display:none;">
-							<input class="form-control signup-input mail-check-input" placeholder="인증번호 6자리를 입력해주세요!" maxlength="6" style="width:250px;" required pattern="[0-9]{6,6}" ><a class="mail-confirmation btn-primary">인증확인</a>
+							<input class="form-control signup-input mail-check-input" placeholder="인증번호 6자리를 입력해주세요!" maxlength="6" style="width:250px;" required pattern="[0-9]{6,6}" ><a class="mail-confirmation btn-primary" style="width: 80px; font-size: 16px;">인증확인</a>
 							<!-- <span id="mail-check-warn"></span>  -->
 						</div>
-						<button type="button" class="btn btn-primary" id="mail-Confirm-Btn">본인인증</button>
+						<button type="button" class="btn btn-primary" id="mail-Confirm-Btn" disabled="disabled">본인인증</button>
 					</div> 
 					
 				</div>
@@ -468,34 +481,14 @@ input:focus {
 				<input type="hidden" name="memberAddr">
 				
 				<div class="field-wrap" >
-					<input type="submit" class="confirm" value="회원가입" style="width:40%; cursor: pointer;"  disabled="true">
+					<input type="submit" class="confirm" value="회원가입" style="width:40%;"  disabled="true">
 					<input type="reset" class="cancel" value="취소" style="width:40%; float: right; cursor: pointer;" >
 					
 				</div>
 	          </form>
 	           <jsp:include page="/WEB-INF/views/member/joinCheckMenu.jsp"></jsp:include>
 				
-				<c:if test="${errorMsg}" var="errorMsg">
-						<div class="alert-danger" role="alert">
-							<c:out value="${errorMsg }" />
-						</div>
-				</c:if>
-				<c:if test="${errorMsg}" var="errorMsg">
-						<div class="alert-danger" role="alert">
-							<c:out value="${errorMsg }" />
-						</div>
-				</c:if>
-				<c:if test="${memberGrade eq 'B'}" var="errorMsg">
-						<div class="alert-danger" role="alert">
-							<span>계정이 정지상태입니다</span>
-						</div>
-				</c:if>
-				<c:if test="${memberNo == 0}" var="errorMsg">
-						<div class="alert-danger" role="alert">
-							계정이 정지상태입니다.
-						</div>
-				</c:if>
-	        </div>
+			
 	       
 	      </div><!-- tab-content -->
 	      
@@ -510,8 +503,18 @@ input:focus {
 	
 </div>
 <input type="hidden" value="${memberGrade }" id="memberGradeB">
-<input type="hidden" value="${memberNo }" id="memberGradeB">
+<input type="hidden" value="${memberNo }" id="memberNoL">
+
+
 <script>
+$('#memberEmail').on('input', function() {
+    var inputVal = $(this).val();
+    if (inputVal.length > 0) {
+      $('#mail-Confirm-Btn').prop('disabled', false).css('cursor','pointer');
+    } else {
+      $('#mail-Confirm-Btn').prop('disabled', true).css('cursor','none');
+    }
+  });
 
 $(".confirm").on("click", function(){
 	const detailAddress = $(".detailAddress").val();
@@ -560,6 +563,7 @@ $('.form').find('input, textarea').on('keyup blur focus', function (e) {
 	//코드 입력창 보이는 버튼
 	$("#mail-Confirm-Btn").on('click', function() {
 		$('.mail-check-inputBox').css("display","block");
+		$("#mail-Confirm-Btn").text("인증번호 재발송");
 		$('.confirm').attr("disabled", false);
 	});
 		
@@ -686,8 +690,9 @@ $('.mail-check-input').blur(function () {
 	if(inputCode === code){
 		resultMsg.html('인증번호가 일치합니다.');
 		resultMsg.css('color','green');
-		$('.confirm').attr('disabled',false);
+		$('.checkBox').attr('disabled',false);
 		$('#memberEmail').attr('readonly',true);
+		$('.checkBox').prop("disabled", false);
 	}else{
 		resultMsg.html('인증번호가 불일치 합니다.');
 		resultMsg.css('color','red');
@@ -703,15 +708,25 @@ $('.mail-confirmation').on("click",function(){
 		alert('인증번호가 일치 합니다.');
 		resultMsg.html('인증번호가 일치합니다.');
 		resultMsg.css('color','green');
-		$('.confirm').attr('disabled',false);
 		$('#memberEmail').attr('readonly',true);
 	}else{
 		alert('인증번호가 불일치 합니다.');
 		resultMsg.html('인증번호가 불일치 합니다.');
 		resultMsg.css('color','red');
-		$(".confirm").attr('disabled',true);
 	}
 });
+
+//필수 체츠박스 
+$('.fir-chek, .sec-chek').on('change', function() {
+    if ($('.fir-chek').is(':checked') && $('.sec-chek').is(':checked')) {
+      // 1번째와 2번째 체크박스가 모두 체크되었을 때 버튼 활성화
+      $('.confirm').attr('disabled', false);
+      $('.confirm').css('cursor','pointer').addClass('confirm-login');
+    }else{
+    	$('.confirm').attr('disabled', true).removeClass('confirm-login');
+    }
+  });
+
 //모달창 작동
 $(document).ready(function() {
   //아이디 찾기 모달창

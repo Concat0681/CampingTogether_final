@@ -24,6 +24,7 @@ public class MessageService {
 	public ArrayList<Message> selectMessagelist(Message message) {
 		return dao.selectMessagelist(message);
 	}
+	
 	@Transactional
 	public Message selectOneMessage(int messageNo) {
 		Message mg = dao.selectOneMessage(messageNo);

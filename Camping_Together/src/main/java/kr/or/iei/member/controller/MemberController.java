@@ -334,6 +334,7 @@ public class MemberController {
 	public String shopList(String memberId, int reqPage, Model model) {
 		AdminShopPageData aspd = service.selectAdminShopList(memberId, reqPage);
 		model.addAttribute("list",aspd.getList());
+		System.out.println(aspd.getList());
 		model.addAttribute("navi",aspd.getPageNavi());
 		model.addAttribute("count",aspd.getTotalCount());
 		model.addAttribute("index",0);
