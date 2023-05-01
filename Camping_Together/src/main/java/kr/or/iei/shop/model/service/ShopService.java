@@ -79,8 +79,11 @@ public class ShopService {
 		return shopNo;
 	}
 
-	public Shop selectOneShop(int shopNo) {
-		Shop shop = dao.selectOneShop(shopNo);
+	public Shop selectOneShop(int shopNo, String memberId) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("memberId", memberId);
+		map.put("shopNo", shopNo);
+		Shop shop = dao.selectOneShop(map);
 		return shop;
 	}
 

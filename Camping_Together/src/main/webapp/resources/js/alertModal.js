@@ -4,7 +4,7 @@
     swalAlert('/', '테스트',"테스트1")
   })
   
-  /** 성공 혹은 실패창 매개변수 : (url주소, 성공('success') 혹은 실패('error'), 제목, 내용) */
+  성공 혹은 실패창 매개변수 : (url주소, 성공('success') 혹은 실패('error'), 제목, 내용) */
   function swalAlert(url, iconStr, titleStr, textStr) {
     Swal.fire({
       icon: iconStr,
