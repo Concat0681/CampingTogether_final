@@ -195,7 +195,7 @@
 
 <!-- 로그인이 필요한 모달 창 -->
 	<div id="modalVer1" class="modalVer1">
-	  <div class="modal-content">
+	  <div class="modal-content4">
 	    <div class="closeBox">
 	    <span class="close">&times;</span>
 	    </div>
@@ -512,15 +512,7 @@ $(function(){
     // 모달창 열기 버튼 클릭 이벤트
     $(document).ready(function() {
     	  //모달창
-    	  var socket = new WebSocket("ws://localhost:8080/Camping_Together/messageMain.do");
-			socket.onmessage = function(event) {
-			    var data = JSON.parse(event.data);
-			    console.log(data);
-			    if (data.type === "myMessageCount") {
-			        var messageCount = data.messageCount;
-			        $("#messageCount").text(messageCount);
-			    }
-			}
+
     	  
     	  $(".loginBtn").click(function(event) { // a태그, 버튼 아이디,클래스 입력
     		if (event.stopPropagation) event.stopPropagation();
