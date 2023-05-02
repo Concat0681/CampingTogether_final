@@ -177,7 +177,9 @@
 									<div style="font-size:22px; color:#CEAB93;">${r.campingRoomTitle }</div>
 									<div class="room-price-box">
 										<div style="font-size : 22px; color:#CEAB93;">가격</div> 
-										<div style="font-size : 22px; color:#CEAB93;" >${r.campingRoomPrice } 원</div>
+										<div class="room-price" style="font-size : 22px; color:#CEAB93;"></div>
+										<input type="hidden" name="room-price" value=${r.campingRoomPrice }>
+										<input type="hidden" name="pay-room-price">
 									</div>
 									<div class="room-basic-info">
 										<a>
@@ -194,7 +196,7 @@
 											<input type="hidden" name="checkOut1" value="${checkOut }">
 											<input type="hidden" name="campingTitle" value="${camping.campingTitle } ">
 											<input type="hidden" name="campingType" value="${r.campingRoomTitle }">
-											<input type="hidden" name="price" value="${r.campingRoomPrice }">
+											<input type="hidden" name="price">
 											<input type="hidden" name="addr" value="${camping.campingAddr }">
 											<c:forEach items="${reservationList}" var="rl" varStatus="j">
 											<c:choose>
@@ -807,6 +809,22 @@
 		    });	
 		}
 		
+		$(".room-price").each(function(i, c){
+			const checkIn = $("#search_checkin").val()
+			const checkOut = $("#search_checkout").val();
+			const roomPrice = $("[name=room-price]").eq(i).val();
+			if(checkIn == ''){
+				$("[name=pay-room-price]").eq(i).val(roomPrice);
+				$(c).text(roomPrice + " 원")
+			} else {		
+				const checkInDate = moment(checkIn);
+				const checkOutDate = moment(checkOut);
+				const dateDif = moment.duration(checkOutDate.diff(checkInDate)).asDays();
+				$(c).text((dateDif * roomPrice) + " 원")
+				$("[name=pay-room-price]").eq(i).val(dateDif * roomPrice);
+			}
+		})
+		
 		$(function(){
 			startMap();
 		})
@@ -1161,13 +1179,17 @@
 		var memberEmail = $(".memberEmail").val();
 		var campingTitle = $(".camping-title").text();
 		var campingType = $(".camping-Type").text();
-		var price = $(".price").text();
+		
 		$(".reservationBtn").on("click",function(){
-		var checkIn = $("[name=checkIn]").val();
-		$("[name=checkIn1]").val(checkIn);
-		var checkOut = $("[name=checkOut]").val();
-		$("[name=checkOut1]").val(checkOut);
-					
+			const index = $(".reservationBtn").index($(this));
+			const pay = $("[name=pay-room-price]").eq(index).val();
+			$("[name=price]").val(pay)
+			console.log(pay)
+			var checkIn = $("[name=checkIn]").val();
+			$("[name=checkIn1]").val(checkIn);
+			var checkOut = $("[name=checkOut]").val();
+			$("[name=checkOut1]").val(checkOut);
+						
 		});
 	
 		$("[name=checkOut]").on("change",function(){

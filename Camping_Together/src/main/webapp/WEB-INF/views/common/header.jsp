@@ -57,7 +57,7 @@
 				</div>
 				<!-- 받은 쪽지 -->
 				<div class="endtreed" id="receiveBox">
-				<table class="receiveTbl">
+				<table class="receiveTbl" style="width: 745px;">
 					<thead>
 						<tr>
 							<th>발신자</th>
@@ -73,7 +73,7 @@
 			  </div>
 				<!-- 보낸 쪽지 -->
 				<div class="endtreed" id="sendBox">
-					<table class="sendTbl">
+					<table class="sendTbl" style="width: 745px;">
 						<thead>
 						<tr>
 							<th>수신자</th>
@@ -123,7 +123,7 @@
         <div class="nav-top" style="color: #fff;">
             <ul class="login">
             	<li><a class="nav-linkT" href="/noticeList.do?reqPage=1">공지사항</a></li>
-                <li><a class="nav-linkT" href="/joinFrm.do">로그인</a></li>
+                <li><a class="nav-linkT" href="/loginFrm.do">로그인</a></li>
                 <li><a class="nav-linkT" href="/joinFrm.do">회원가입</a></li>
             </ul>
         </div>
@@ -139,7 +139,7 @@
                 <c:choose>
                 	<c:when test="${sessionScope.m.memberGrade eq 'c' }">
 		                <li><a class="nav-linkT" href = "/cmapingPayList.do?reqPage=1&memberNo=${sessionScope.m.memberNo }">[${sessionScope.m.memberName }]</a></li>
-               			 <li><a class="nav-linkT" href="/shopWishList.do?reqPage=1&memberId=${sessionScope.m.memberId }">장바구니</a></li>
+               			<li><a class="nav-linkT" href="/shopWishList.do?reqPage=1&memberId=${sessionScope.m.memberId }">장바구니</a></li>
                 	</c:when>
                 	<c:when test="${sessionScope.m.memberGrade eq 's' }">
 		                <li><a class="nav-linkT" href = "/sellList.do?reqPage=1&memberId=${sessionScope.m.memberId }">[${sessionScope.m.memberName }]</a></li>
@@ -367,7 +367,7 @@ function closeModal(){
     $("textarea[name=messageContent]").val("");
 }
 
-function messageSend(){
+function messageSend()
     const receiver = $("[name=receiver]").val();
     const sender = $("#sender").val();
     const messageContent = $("[name=messageContent]").val();
@@ -590,7 +590,7 @@ $(function(){
 
     		    if (count < 0) {
     		      clearInterval(interval);
-    		      location.href = '/joinFrm.do';
+    		      location.href = '/loginFrm.do';
     		      circles.removeClass('active');
     		    }
     		  }, 1000); //end interval , 1초로 설정
@@ -607,7 +607,7 @@ $(function(){
 
     		      if (count < 0) {
     		        clearInterval(interval);
-    		        location.href = '/joinFrm.do';
+    		        location.href = '/loginFrm.do';
     		      }
     		    }, 1000);
     		  });
@@ -636,7 +636,7 @@ $(function(){
 
     	
     $(".modal-login").click(function () {
-    	location.href = '/joinFrm.do';		
+    	location.href = '/loginFrm.do';		
     });
 
 </script>
