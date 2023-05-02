@@ -356,8 +356,8 @@ public class ShopController {
 	
 	@ResponseBody
 	@RequestMapping(value="/insertShopOrder.do")
-	public String insertShopOrder(ShopOrder so, ShopPayment spm, int shopNo) {
-		int result = service.insertShopOrder(so, spm, shopNo);
+	public String insertShopOrder(ShopOrder so, ShopPayment spm, int shopNo, int maxCount) {
+		int result = service.insertShopOrder(so, spm, shopNo, maxCount);
 		if(result > 0) {
 			return "success";
 		} else {

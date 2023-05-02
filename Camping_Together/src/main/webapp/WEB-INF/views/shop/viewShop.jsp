@@ -619,7 +619,7 @@
 							totalPrice:price,
 							shopNo:${shop.shopNo},
 							memberId:"${sessionScope.m.memberId}",
-							sellCount:sellCount,
+							maxCount:sellCount,
 							},
 						success : function(data){
 							console.log("결재 정보 DB UPDATE 성공");
