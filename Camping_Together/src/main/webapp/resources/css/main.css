@@ -2,8 +2,8 @@
    z-index: 0;
    position: absolute;
    width: 100%;
-   height: 700px;
-   background: url(/resources/image/main/CampingAtNight.jpg);
+   height: 1180px;
+   background: url(/resources/image/main/mainTitle.jpg);
 }
 .wrapper{
 	min-width: 1400px;
@@ -15,14 +15,14 @@
 }
 
 .wrapperTop{
-	height: 700px;
+	height: 1280px;
 }
 
 .inputBox{
     width: 70%;
     z-index: 99;
     position: absolute;
-    top: 300px;
+    top: 700px;
     left: 15%;
     text-align: center; 
 }
@@ -64,7 +64,7 @@
 }
 
 .best-campingSite{
-	top: 400px;
+	top: 800px;
     z-index: 45;
     position: absolute;
     background-color: transparent;
