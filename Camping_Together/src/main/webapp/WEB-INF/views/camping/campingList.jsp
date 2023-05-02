@@ -319,9 +319,13 @@
 						<div id="map" style="width:100%; height:700px;"></div>
 					</div>
 					<div id="allList" class="hidden">
-						<c:forEach items="${allList }" var="c">			
+						<c:forEach items="${allList }" var="c">
+								<div class="allCampingNo">${c.campingNo }</div>
+								<div class="allCampingPhoto">${c.filepath }</div>			
 								<div class="allCampingTitle"><a href="/viewCamping.do?campingNo=${c.campingNo }&checkIn=${checkIn}&checkOut=${checkOut}">${c.campingTitle }</a></div>				
 								<div class="allCampingAddr">${c.campingAddr }</div>
+								<div class="allCampingAvgRating">${c.avgReviewRating }</div>
+								<div class="allCampingCountRating">${c.countReviewRating }</div>
 						</c:forEach>
 					</div>
 				</div>
@@ -430,12 +434,27 @@
 							position : new naver.maps.LatLng(lat, lng), 
 							map : map
 						})
+				        const campingNo = $(".allCampingNo").eq(i).text();
+				        const campingPhoto = $(".allCampingPhoto").eq(i).text();
 				       	const campingTitle = $(".allCampingTitle").eq(i).find("a").text();
-				        const href = $(".allCampingTitle").eq(i).find("a").attr("href");
+				       	const checkIn = $("#detail_search_checkin").val();
+						const checkOut = $("#detail_search_checkout").val();
+						const campingAvgRating = $(".allCampingAvgRating").eq(i).text()
+						const campingCountRating = $(".allCampingCountRating").eq(i).text();
 				        let contentString = [
-							"<div class='iw_inner'>",
-							"	<div><a  href="+href+">"+campingTitle+"</a></div>",
-							"	<p>"+$(addr).text()+"</p>",
+							"<div class='camping-map-box' onclick='viewCamping(\""+campingNo+"\",\""+checkIn+"\",\""+checkOut+"\");'>",
+							"	<div class='camping-map-photo'>",
+							"  		<img src='resources/upload/camping/"+campingPhoto+"'>",
+							"	</div>",
+							"	<div class='camping-map-info'>",
+							"		<div>"+campingTitle+"</div>",
+							"		<div>"+$(addr).text()+"</div>",
+							"		<div>",
+							"			<div>평점</div>",
+							"			<div>"+campingAvgRating+" 점</div>",
+							"			<div>"+campingCountRating+" 개</div>",
+							"		</div>",
+							"	</div>",
 							"</div>"
 						].join("");
 						let infoWindow = new naver.maps.InfoWindow();
@@ -446,6 +465,12 @@
 							});
 							//생성된 infoWindow를 map의 marker위치에 생성
 							infoWindow.open(map, marker);
+						})
+						
+						naver.maps.Event.addListener(map,"click",function(e){
+							if(infoWindow.getMap()){
+								infoWindow.close();
+							}
 						})
 				    });		
 				})
