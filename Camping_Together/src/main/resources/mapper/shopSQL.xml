@@ -270,4 +270,8 @@
 	<delete id="deleteOrderWishList" parameterType="_int">
 		delete from basket where shop_no = #{_parameter}
 	</delete>
+	
+	<update id="updateShopMaxCount" parameterType="map">
+		update shop set max_count = max_count - #{maxCount} where shop_no = #{shopNo}
+	</update>
 </mapper>

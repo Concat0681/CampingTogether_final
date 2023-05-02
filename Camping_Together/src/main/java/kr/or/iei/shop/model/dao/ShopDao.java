@@ -141,4 +141,11 @@ public class ShopDao {
 		List list = sqlSession.selectList("shop.selectShopReviewPhotoList", shopReviewNo);
 		return (ArrayList<ShopReviewPhoto>)list;
 	}
+
+	public int updateShopMaxCount(HashMap<String, Object> map) {
+		int result = sqlSession.update("shop.updateShopMaxCount", map);
+		return result;
+	}
+
+	
 }

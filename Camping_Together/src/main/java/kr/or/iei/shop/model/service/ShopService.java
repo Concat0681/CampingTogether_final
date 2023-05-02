@@ -159,13 +159,19 @@ public class ShopService {
 		return result;
 	}
 
-	public int insertShopOrder(ShopOrder so, ShopPayment spm, int shopNo) {
+	public int insertShopOrder(ShopOrder so, ShopPayment spm, int shopNo, int maxCount) {
 		int result = dao.insertShopOrder(so);
 		if(result > 0) {
 			spm.setOrderNo(so.getOrderNo());
 			result = dao.insertShopPayment(spm);
 			if(result > 0) {
 				result = dao.deleteOrderWishList(shopNo);
+				if(result > 0) {
+					HashMap<String, Object> map = new HashMap<String, Object>();
+					map.put("shopNo", shopNo);
+					map.put("maxCount", maxCount);
+					result = dao.updateShopMaxCount(map);
+				}
 			}
 		}
 		return result;
