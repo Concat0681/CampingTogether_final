@@ -163,7 +163,7 @@
 	    <div class="collapse navbar-collapse" id="navbarSupportedContent">
 	      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 	        <li class="nav-item">
-	          <a class="nav-link" href="/campingListMain.do?memberId=${sessionScope.m.memberId }">캠핑</a>
+	          <a class="nav-link" href="/campingListMain.do?memberId=${sessionScope.m.memberId }&checkIn=&checkOut=">캠핑</a>
 	        </li>
 	        <li class="nav-item">
 	          <a class="nav-link" href="/campingReservationCheckFrm.do">예약조회</a>
