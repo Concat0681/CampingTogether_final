@@ -45,7 +45,6 @@
 			</button>
 		</div>
 		<div class="content-slick" id="content-slick">
-			
 			<div class="camping-wrap shop-wrap">
 				<div class="title2">
 					<img src="/resources/image/cam-pro.png">
@@ -75,13 +74,17 @@
 				<div class="camping-list shop-list">
 					<c:forEach items="${campingList }" var="c" varStatus="i">
 						<div class="shop-box" onclick="viewShop(${c.shopNo},'${sessionScope.m.memberId}');">
+							<input type="hidden" name="shopNo" value="${c.shopNo }">
+							<c:forEach items="${c.shopPhotoList }" var="p">
+								<input type="hidden" name="photoList" value="${p.filepath }">
+							</c:forEach>
 							<div class="shop-photo">
 								<img src="resources/upload/shop/${c.shopPhotoList[0].filepath}">
 								<c:if test="${not empty c.shopPhotoList[1].filepath}">
 									<div class="hidden secondPhoto">${c.shopPhotoList[1].filepath}</div>
 								</c:if>
 								<div class="hidden firstPhoto">${c.shopPhotoList[0].filepath}</div>
-								<div class="hidden-div hidden">
+								<div class="hidden-div hidden"  data-bs-toggle="modal" data-bs-target="#quickViewModal">
 									Quick View
 								</div>
 							</div>
@@ -91,6 +94,8 @@
 									<div>
 										<fmt:formatNumber value="${c.shopPrice }" pattern="#,###"/> 원
 									</div>
+									<input type="hidden" name="shopDelivary" value="${c.delivaryPrice }">
+									<input type="hidden" name="shopCount" value="${c.maxCount }">
 									<div class="shop-rating">
 										<div>평점</div>
 										<div>${c.avgRating }</div>
@@ -134,14 +139,18 @@
 				</c:if>
 				<div class="car-list shop-list">
 					<c:forEach items="${carList }" var="c" varStatus="i">
-						<div class="shop-box" onclick="viewShop(${c.shopNo});">
+						<div class="shop-box" onclick="viewShop(${c.shopNo}),'${sessionScope.m.memberId}';">
+							<input type="hidden" name="shopNo" value="${c.shopNo }">
+							<c:forEach items="${c.shopPhotoList }" var="p">
+								<input type="hidden" name="photoList" value="${p.filepath }">
+							</c:forEach>
 							<div class="shop-photo">
 								<img src="resources/upload/shop/${c.shopPhotoList[0].filepath}">
 								<c:if test="${not empty c.shopPhotoList[1].filepath}">
 									<div class="hidden secondPhoto">${c.shopPhotoList[1].filepath}</div>
 								</c:if>
 								<div class="hidden firstPhoto">${c.shopPhotoList[0].filepath}</div>
-								<div class="hidden-div hidden">
+								<div class="hidden-div hidden"  data-bs-toggle="modal" data-bs-target="#quickViewModal">
 									Quick View
 								</div>
 							</div>
@@ -151,6 +160,8 @@
 									<div>
 										<fmt:formatNumber value="${c.shopPrice }" pattern="#,###"/> 원
 									</div>
+									<input type="hidden" name="shopDelivary" value="${c.delivaryPrice }">
+									<input type="hidden" name="shopCount" value="${c.maxCount }">
 									<div class="shop-rating">
 										<div>평점</div>
 										<div>${c.avgRating }</div>
@@ -194,14 +205,18 @@
 				</c:if>
 				<div class="etc-list shop-list">
 					<c:forEach items="${etcList }" var="c">
-						<div class="shop-box" onclick="viewShop(${c.shopNo});">
+						<div class="shop-box" onclick="viewShop(${c.shopNo},'${sessionScope.m.memberId}');">
+							<input type="hidden" name="shopNo" value="${c.shopNo }">
+							<c:forEach items="${c.shopPhotoList }" var="p">
+								<input type="hidden" name="photoList" value="${p.filepath }">
+							</c:forEach>
 							<div class="shop-photo">
 								<img src="resources/upload/shop/${c.shopPhotoList[0].filepath}">
 								<c:if test="${not empty c.shopPhotoList[1].filepath}">
 									<div class="hidden secondPhoto">${c.shopPhotoList[1].filepath}</div>
 								</c:if>
 								<div class="hidden firstPhoto">${c.shopPhotoList[0].filepath}</div>
-								<div class="hidden-div hidden">
+								<div class="hidden-div hidden" data-bs-toggle="modal" data-bs-target="#quickViewModal">
 									Quick View
 								</div>
 							</div>
@@ -211,6 +226,8 @@
 									<div>
 										<fmt:formatNumber value="${c.shopPrice }" pattern="#,###"/> 원
 									</div>
+									<input type="hidden" name="shopDelivary" value="${c.delivaryPrice }">
+									<input type="hidden" name="shopCount" value="${c.maxCount }">
 									<div class="shop-rating">
 										<div>평점</div>
 										<div>${c.avgRating }</div>
@@ -228,6 +245,50 @@
 			</div>
 		</div>
 	</div>
+	
+	<!-- quick view modal -->
+	<div class="modal fade" id="quickViewModal" tabindex="-1" aria-labelledby="quickViewModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5" id="quickViewModalLabel"></h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div id="modal-photo-slick"></div>
+					<div class="modal-shop-info">
+						<div class="product-info">
+							<div>
+								<div class="p-title">판매가</div>
+								<div>
+									<div class="modal-shop-price"></div>
+								</div>
+							</div>
+							<div>
+								<div class="p-title">배송방법</div>
+								<div id="shopD">택배</div>
+							</div>
+							<div>
+								<div class="p-title">배송비</div>
+								<div>
+									<div class="modal-shop-delivary"></div>
+								</div>
+							</div>
+							<div>
+								<div class="p-title">남은수량</div>
+								<div>
+									<div class="modal-shop-count"></div>
+								</div>
+							</div>
+						</div>
+						<div>
+							<button class="btn1 modal-view-btn">View More Info</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 	<script>
 		$("#insertShopBtn").on("click", function(){
@@ -238,6 +299,58 @@
 			$(this).parent().find("span").removeClass("clicked-span");
 			$(this).find("span").addClass("clicked-span");
 		})
+		
+		$(".hidden-div").on("click", function(event){
+			if (event.stopPropagation) event.stopPropagation();
+	   		const url = $(this).parents(".shop-box").attr("onclick");
+	   		const title = $(this).parents(".shop-box").find(".s-title").text();
+	   		const shopNo = $(this).parents(".shop-box").find("input[name=shopNo]").val();
+	   		const photoList = $(this).parents(".shop-box").find("input[name=photoList]")
+	   		const price = $(this).parents(".shop-box").find(".shop-price-info").children().eq(0).text()
+	   		const delivary = $(this).parents(".shop-box").find(".shop-price-info").find("[name=shopDelivary]").val()
+	   		const count = $(this).parents(".shop-box").find(".shop-price-info").find("[name=shopCount]").val();
+	   		const memberId = $("#memberId").val()
+	   		$("#quickViewModalLabel").text(title).css("color","#AD8B73");
+	   		photoList.each(function(i,p){
+	   			destroySlick()
+	   			const img = $("<img>").attr("src", "resources/upload/shop/"+$(p).val());
+	   			console.log(img)
+	   			$("#modal-photo-slick").append(img);
+	   			applySlick();
+	   		});
+	   		$(".modal-shop-price").empty();
+	   		$(".modal-shop-delivary").empty();
+	   		$(".modal-shop-count").empty();
+	   		$(".modal-shop-price").append(price)
+	   		$(".modal-shop-delivary").append(delivary + " 원")
+	   		$(".modal-shop-count").append(count + " 개")
+	   		$(".modal-view-btn").attr("onclick", url);
+		})
+		
+		$('#quickViewModal').on('shown.bs.modal', function (e) {
+			$('#modal-photo-slick').resize() // 팝업 열때 슬라이드 깨짐 방지
+            $('#modal-photo-slick').slick('refresh');
+		})
+		
+		function destroySlick(){
+			if ($('#modal-photo-slick').hasClass('slick-initialized')) {
+			    $('#modal-photo-slick').slick('destroy');
+			  } 
+		}
+		
+		function applySlick(){
+			$("#modal-photo-slick").slick({
+				slidesToShow: 1,
+				slidesToScroll: 1,
+				autoplay: false,
+				setPosition: 0,
+				arrows: true,
+				dots : true, 
+				prevArrow : "<span class='material-symbols-outlined'>arrow_back_ios</span>",		// 이전 화살표 모양 설정
+				nextArrow : "<span class='material-symbols-outlined'>arrow_forward_ios</span>",
+				fade: true
+			});
+		}
 		
 		$(function(){
 			$("#page-slick").slick({
@@ -260,6 +373,8 @@
 				fade: true,
 				asNavFor: '#page-slick'
 			});
+			
+			applySlick();
 		})
 		
 		function shopListOrder(obj, shopCategory, reqPage, order){
