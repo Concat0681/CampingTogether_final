@@ -41,8 +41,9 @@
 							<td>${p.campingPaymentDate }</td>
 							<td class="checkIn">${p.checkIn }</td>
 							<td class="checkOut">${p.checkOut }</td>
-							<td class="total-price"></td>
-							<td class="oneDayPay" style="display:none;"><fmt:formatNumber value="${p.campingRoomPrice }" pattern="#,###"/>원</td>
+							<td class="total-price">원</td>
+							<td class="oneDayPay" style="display:none;"></td>
+							<input type="hidden" name="roomPrice" value="${p.campingRoomPrice }">
 					</tr>
 					
 				</c:forEach>
@@ -68,8 +69,7 @@
 				const checkIn = $(".checkIn");
 				const checkOut = $(".checkOut");
 				const totalPrice = $(".total-price");
-				const oneDayPay = $(".oneDayPay");
-				console.log(checkIn[i].innerText);
+				const oneDayPay = $("[name=roomPrice]");
 					
 				const date1 = moment(checkIn[i].innerText);
 				const date2 = moment(checkOut[i].innerText);
@@ -78,8 +78,7 @@
 				//console.log(oneDayPay[i]);
 				//console.log(oneDayPay[i].innerText);
 				//console.log(totalCheck);
-				console.log(oneDayPay[i].innerText * totalCheck);
-				totalPrice.eq(i).text(oneDayPay[i].innerText * totalCheck);
+				totalPrice.eq(i).text(oneDayPay.eq(i).val() * totalCheck + "원");
 				
 			}
 		</script>

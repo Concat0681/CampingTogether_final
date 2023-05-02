@@ -57,6 +57,14 @@
 							<span>원</span>
 						</div>
 					</div>
+					<div>
+						<div class="p-title">남은수량</div>
+						<div>
+							<div><fmt:formatNumber value="${shop.maxCount }" pattern="#,###"/></div>
+							<input type="hidden" id="maxCount" value=${shop.maxCount }>
+							<span>개</span>
+						</div>
+					</div>
 				</div>
 				<div class="product-price-wrap">
 					<div>
@@ -85,15 +93,29 @@
 					<div class="product-btn-wrap">
 						<c:choose>
 							<c:when test="${empty sessionScope.m }">
-								<button class="btn1 loginBtn">Buy</button>
-								<button type="button" class="btn1 loginBtn">Cart</button>
+								<c:choose>
+									<c:when test="${shop.maxCount eq '0' }">
+										<button type="button" class="btn2"  style="font-size: 22px;" disabled>품절되었습니다</button>
+									</c:when>
+									<c:otherwise>
+										<button type="button" class="btn1 loginBtn" style="font-size: 22px;">Buy</button>
+									</c:otherwise>
+								</c:choose>
+								<button type="button" class="btn1 loginBtn" style="font-size: 22px;">Cart</button>
 							</c:when>
 							<c:when test="${sessionScope.m.memberGrade == 'a' }">
-								<button class="btn1" id="updateShopBtn">수정</button>
-								<button class="btn1" id="deleteShopBtn">삭제</button>
+								<button class="btn1" id="updateShopBtn" style="font-size: 22px;">수정</button>
+								<button class="btn1" id="deleteShopBtn" style="font-size: 22px;">삭제</button>
 							</c:when>
 							<c:otherwise>
-								<button class="btn1" id="payBtn"  style="margin: 0; font-size: 22px;">Buy</button>
+								<c:choose>
+									<c:when test="${shop.maxCount eq '0' }">
+										<button class="btn2" style="font-size: 22px;" disabled>품절되었습니다</button>
+									</c:when>
+									<c:otherwise>
+										<button class="btn1" id="payBtn"  style="font-size: 22px;">Buy</button>
+									</c:otherwise>
+								</c:choose>
 								<c:choose>
 									<c:when test="${shop.shopBasketNo eq 0 }">
 										<button type="button" id="shopCartBtn" class="btn1" style="font-size: 22px;">Cart</button>
@@ -362,8 +384,9 @@
 			}
 		})
 		$('#plus').on("click", function(){
+			const maxCount = $("#maxCount").val();
 			const val = $("[name=sellCount]").val();	
-			if(val < 100){
+			if(parseInt(val) < maxCount){
 				$("[name=sellCount]").val(val -1 + 2);
 				calPrice();
 			}

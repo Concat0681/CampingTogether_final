@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -65,9 +66,18 @@
 								<div>${c.campingTitle }</div>
 								<div class="camping-detail">
 									<div>${c.campingAddr }</div>
+									<div>
 									<c:choose>
 										<c:when test="${empty sessionScope.m }">
 											<span class="material-symbols-outlined loginBtn">favorite</span>
+											<div>
+												<div>${c.avgReviewRating }</div>
+												<div style="margin-right: 15px;">점</div>
+											</div>
+											<div>
+												<div>${c.countReviewRating }</div>
+												<span>개</span>
+											</div>
 										</c:when>
 										<c:otherwise>
 											<c:choose>
@@ -75,15 +85,32 @@
 													<span class="material-symbols-outlined addBookmark">favorite</span>
 													<input type="hidden" name="campingNo" value="${c.campingNo }">
 													<input type="hidden" name="campingBookmarkNo" value="${c.campingBookmarkNo }">
+													<div>
+														<div>${c.avgReviewRating }</div>
+														<div style="margin-right: 15px;">점</div>
+													</div>
+													<div>
+														<div>${c.countReviewRating }</div>
+														<span>개</span>
+													</div>
 												</c:when>
 												<c:otherwise>
 													<span class="material-symbols-outlined addBookmark filled-heart">favorite</span>
 													<input type="hidden" name="campingNo" value="${c.campingNo }">
 													<input type="hidden" name="campingBookmarkNo" value="${c.campingBookmarkNo }">
+													<div>
+														<div>${c.avgReviewRating }</div>
+														<div style="margin-right: 15px;">점</div>
+													</div>
+													<div>
+														<div>${c.countReviewRating }</div>
+														<span>개</span>
+													</div>
 												</c:otherwise>
 											</c:choose>
 										</c:otherwise>
 									</c:choose>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -105,9 +132,18 @@
 								<div>${c.campingTitle }</div>
 								<div class="camping-detail">
 									<div>${c.campingAddr }</div>
+									<div class="camping_datail2">
 									<c:choose>
 										<c:when test="${empty sessionScope.m }">
 											<span class="material-symbols-outlined loginBtn">favorite</span>
+											<div>
+												<div>${c.avgReviewRating }</div>
+												<div style="margin-right: 15px;">점</div>
+											</div>
+											<div>
+												<div>${c.countReviewRating }</div>
+												<span>개</span>
+											</div>
 										</c:when>
 										<c:otherwise>
 											<c:choose>
@@ -115,15 +151,32 @@
 													<span class="material-symbols-outlined addBookmark">favorite</span>
 													<input type="hidden" name="campingNo" value="${c.campingNo }">
 													<input type="hidden" name="campingBookmarkNo" value="${c.campingBookmarkNo }">
+													<div>
+														<div>${c.avgReviewRating }</div>
+														<div style="margin-right: 15px;">점</div>
+													</div>
+													<div>
+														<div>${c.countReviewRating }</div>
+														<span>개</span>
+													</div>
 												</c:when>
 												<c:otherwise>
 													<span class="material-symbols-outlined addBookmark filled-heart">favorite</span>
 													<input type="hidden" name="campingNo" value="${c.campingNo }">
 													<input type="hidden" name="campingBookmarkNo" value="${c.campingBookmarkNo }">
+													<div>
+														<div>${c.avgReviewRating }</div>
+														<div style="margin-right: 15px;">점</div>
+													</div>
+													<div>
+														<div>${c.countReviewRating }</div>
+														<span>개</span>
+													</div>
 												</c:otherwise>
 											</c:choose>
 										</c:otherwise>
 									</c:choose>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -162,7 +215,7 @@
 					 url : "/deleteCampingBookmark.do",
 					 data : {campingBookmarkNo : campingBookmarkNo},
 					 success : function(data){
-						 $("input[name=campingBookmarkNo]").val(data)
+						 $("input[name=campingBookmarkNo]").val("")
 					 }
 				 })
 			 } else {
@@ -172,9 +225,10 @@
 					 url : "/insertCampingBookmark.do",
 					 data : {memberId : memberId, campingNo : campingNo},
 					 success : function(data){
+						 $("input[name=campingBookmarkNo]").val(data)
 					 },
 					 error : function(e){
-						 console.log(e);
+						 
 					 }
 				 });
 			 }

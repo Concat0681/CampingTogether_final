@@ -165,4 +165,36 @@ input[name="ppl_count"]{
 .pagination{
     margin-top: 20px;
 }
+.camping-map-photo>img{
+    width: 250px;
+    height: 150px;
+}
+.camping-map-info{
+    text-align: center;
+}
+.camping-map-info>div:first-of-type{
+    width: 90%;
+    margin: 0 auto;
+    overflow: hidden;
+    color: #AD8B73;
+    height: 35px;
+    line-height: 35px;
+}
+.camping-map-info>div:nth-of-type(2){
+    width: 220px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+.camping-map-info>div:last-of-type{
+    margin-top: 5px;
+    width: 90%;
+    display: flex;
+    justify-content: flex-end;
+    padding-bottom: 10px;
+    color: grey;
+    font-size: small;
+}
+.camping-map-info>div:last-of-type>div{
+    margin-left: 5px;
+}
 

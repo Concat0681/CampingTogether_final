@@ -19,7 +19,8 @@ public class Camping {
 	private String campingAddr;
 	private String campingAddrDetail;
 	private String campingPhone;
-	private int avgReviewRating;
+	private double avgReviewRating;
+	private int countReviewRating;
 	private int maxRoomPrice;
 	private String filepath;
 	private int campingBookmarkNo;
