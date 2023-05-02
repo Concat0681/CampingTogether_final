@@ -383,7 +383,7 @@
 			camping_review_content as campingReviewContent,
 			camping_review_rating as campingReviewRating,
 			camping_review_ref as campingReviewRef
-		from camping_review where camping_no = #{_parameter} and camping_review_ref is not null
+		from camping_review left join member using(member_id) where camping_no = #{_parameter} and camping_review_ref is not null
 	</select>
 	
 	<select id="selectCampingReviewFile" parameterType="_int" resultType="crvf">
