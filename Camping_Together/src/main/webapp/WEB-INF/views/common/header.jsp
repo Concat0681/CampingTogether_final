@@ -123,7 +123,7 @@
         <div class="nav-top" style="color: #fff;">
             <ul class="login">
             	<li><a class="nav-linkT" href="/noticeList.do?reqPage=1">공지사항</a></li>
-                <li><a class="nav-linkT" href="/joinFrm.do">로그인</a></li>
+                <li><a class="nav-linkT" href="/loginFrm.do">로그인</a></li>
                 <li><a class="nav-linkT" href="/joinFrm.do">회원가입</a></li>
             </ul>
         </div>
@@ -139,7 +139,7 @@
                 <c:choose>
                 	<c:when test="${sessionScope.m.memberGrade eq 'c' }">
 		                <li><a class="nav-linkT" href = "/cmapingPayList.do?reqPage=1&memberNo=${sessionScope.m.memberNo }">[${sessionScope.m.memberName }]</a></li>
-               			 <li><a class="nav-linkT" href="/shopWishList.do?reqPage=1&memberId=${sessionScope.m.memberId }">장바구니</a></li>
+               			<li><a class="nav-linkT" href="/shopWishList.do?reqPage=1&memberId=${sessionScope.m.memberId }">장바구니</a></li>
                 	</c:when>
                 	<c:when test="${sessionScope.m.memberGrade eq 's' }">
 		                <li><a class="nav-linkT" href = "/sellList.do?reqPage=1&memberId=${sessionScope.m.memberId }">[${sessionScope.m.memberName }]</a></li>
