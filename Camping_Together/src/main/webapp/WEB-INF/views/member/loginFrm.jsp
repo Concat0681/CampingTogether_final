@@ -386,14 +386,6 @@ input:focus {
 	
 </div>
 <script>
-$(".loginBtn").on("click",function(){
-	const memberGradeB = $("#memberGradeB").val();
-	if( memberGradeB === "B"){
-		alert("해당계정은 정지 상태입니다.");
-	}else{
-		alert("로그인이 실패하였습니다.");
-	}
-});
 </script>
 </body>
 
