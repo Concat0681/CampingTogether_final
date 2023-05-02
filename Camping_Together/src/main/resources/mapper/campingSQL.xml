@@ -6,7 +6,8 @@
 			(select 
 				rownum as rnum,
 				c.*,
-				(select avg(camping_review_rating) from camping_review join camping using(camping_no) where camping_no = c.campingNo ) as avgReviewRating,
+				(select round(avg(camping_review_rating),1) from camping_review join camping using(camping_no) where camping_no = c.campingNo ) as avgReviewRating,
+				(select count(camping_review_rating) from camping_review join camping using(camping_no) where camping_no = c.campingNo ) as countReviewRating,
 				(select max(camping_room_price) from camping_room join camping using(camping_no) where camping_no = c.campingNo) as maxRoomPrice
 				<if test="memberId != null">
 					, (select b.camping_bookmark_no as campingBookmarkNo from camping_bookmark b join camping a on(b.camping_no = a.camping_no) where b.camping_no = c.campingNo and b.member_id = #{memberId}) as campingBookmarkNo

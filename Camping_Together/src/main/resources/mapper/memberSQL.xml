@@ -282,14 +282,13 @@
 			     camping_title as campingTitle,
 			     camping_room_title as campingRoomTitle,
 			     check_in as checkIn,
-			     check_out as checkOut,
-			     member_id as memberId,
+			     check_out as checkOut, 
+			   	 (select member_id from member left join camping_reservation using(member_no) where member_no = cr.member_no) as memberId,
 			     (to_date(check_out,'yyyy-mm-dd') - to_date(check_in,'yyyy-mm-dd'))*camping_room_price as price
 			     from camping_reservation cr
 			     left join camping_room using(camping_room_no)
 			     left join camping c using(camping_no)
 			 where c.member_id= #{memberId}
-		
 		</select>
 		
 		<select id="selectReservationListCount" parameterType="string" resultType="_int">
