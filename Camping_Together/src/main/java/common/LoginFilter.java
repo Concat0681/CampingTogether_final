@@ -19,7 +19,7 @@ import org.springframework.util.PatternMatchUtils;
 public class LoginFilter implements Filter {
 
 	private static final String[] blacklist = {"*Update*", "/update*", "/insert*", "*Insert*", "/delete*", "*Delete*", "*Write*"};
-	
+		
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
 		// TODO Auto-generated method stub
@@ -34,7 +34,7 @@ public class LoginFilter implements Filter {
 		HttpServletResponse httpResponse = (HttpServletResponse) response;
 		if(isLoginCheckPath(requestURI)) {
 			HttpSession session = httpRequest.getSession(false);
-			if (session == null || session.getAttribute("login") == null) {
+			if (session == null || session.getAttribute("m") == null) {
 				//로그인으로 redirect
 				httpRequest.setAttribute("title", "잘못된 경로");
 				httpRequest.setAttribute("msg", "로그인이 필요합니다");
