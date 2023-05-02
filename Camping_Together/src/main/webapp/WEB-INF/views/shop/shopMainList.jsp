@@ -251,7 +251,7 @@
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h1 class="modal-title fs-5" id="quickViewModalLabel"></h1>
+					<div class="modal-title" id="quickViewModalLabel"></div>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
@@ -302,6 +302,7 @@
 		
 		$(".hidden-div").on("click", function(event){
 			if (event.stopPropagation) event.stopPropagation();
+			$("#modal-photo-slick").empty();
 	   		const url = $(this).parents(".shop-box").attr("onclick");
 	   		const title = $(this).parents(".shop-box").find(".s-title").text();
 	   		const shopNo = $(this).parents(".shop-box").find("input[name=shopNo]").val();
@@ -330,6 +331,11 @@
 		$('#quickViewModal').on('shown.bs.modal', function (e) {
 			$('#modal-photo-slick').resize() // 팝업 열때 슬라이드 깨짐 방지
             $('#modal-photo-slick').slick('refresh');
+		})
+		$('#quickViewModal').on('hide.bs.modal', function (e) {
+			destroySlick()
+			$("#modal-photo-slick").empty()
+			applySlick();
 		})
 		
 		function destroySlick(){
