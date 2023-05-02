@@ -98,7 +98,7 @@ public class MemberController {
 	        model.addAttribute("title", "로그인 실패");
 			model.addAttribute("msg", "로그인 실패했습니다. 다시 시도해주세요.");
 			model.addAttribute("icon", "error");
-			model.addAttribute("loc", "/joinFrm.do");
+			model.addAttribute("loc", "/loginFrm.do");
 			return "common/modalAlert";
 	    } else if(loginMember.getMemberGrade().equals("B")) {
 	    	String memberGrade = loginMember.getMemberGrade();
@@ -106,7 +106,7 @@ public class MemberController {
 	        model.addAttribute("title", "로그인 실패");
 			model.addAttribute("msg", "로그인 실패했습니다. 해당 계정은 신고 누적으로 정지상태입니다.");
 			model.addAttribute("icon", "error");
-			model.addAttribute("loc", "/joinFrm.do");
+			model.addAttribute("loc", "/loginFrm.do");
 	        return "common/modalAlert";
 	    } else {
 	        session.setAttribute("m", loginMember);

@@ -396,15 +396,16 @@ input:focus {
 	  </div>
 	</div>
 	
-	<!-- 로그인 페이지 -->
+	
 	<div class="wrapper" style="display: grid; margin-top: 200px;">
 		<div class="myform">
 	       <ul class="tab-group">
-		       <li class="tab"><a href="#signup">Sign Up</a></li>
-		       <li class="tab active"><a href="#login">Log In</a></li>
+		       <li class="tab active"><a href="#signup">Sign Up</a></li>
+		       <li class="tab"><a href="#login">Log In</a></li>
 	      </ul>
 	      <div class="tab-content">
-	        <div id="login">   
+	      	<!-- 로그인 페이지 -->
+	        <div id="login" style="display: none">   
 				    <div class="logo">Welcome Back! <br>
 				    	<div class="logo-Img"><a href="/"><img src="/resources/image/logo/login_280x100.png"></a></div>
 				    </div>
@@ -431,14 +432,14 @@ input:focus {
 
 	        </div>
 	        <!-- 회원가입 페이지 -->
-	        <div id="signup">   
+	        <div id="signup" style="display: block;">   
 	          <div class="logo">Let`s Join Camping Together
 			  </div>
 	          <form action="/join.do" method="post" class="signup" autocomplete="off">
 	            <div class="field-wrap">
 		            <select name="memberGrade" id="memberGrade" class="memberGrade">
-						<option value="s" >사업자</option>
 						<option value="c" >일반회원</option>
+						<option value="s" >사업자</option>
 					</select>
 				</div>
 	            
@@ -465,6 +466,7 @@ input:focus {
 	          	<div class="form-group email-form">
 					<div class="input-group">
 						<input type="email" class="form-control signup-input" name="memberEmail" id="memberEmail" placeholder="이메일 입력" required title="해당부분을 작성해주세요!">
+						<span class="memberEmailChk"></span>
 						<div class="mail-check-inputBox" style="display:none;">
 							<input class="form-control signup-input mail-check-input" placeholder="인증번호 6자리를 입력해주세요!" maxlength="6" style="width:250px;" required pattern="[0-9]{6,6}" ><a class="mail-confirmation btn-primary" style="width: 80px; font-size: 16px;">인증확인</a>
 							<!-- <span id="mail-check-warn"></span>  -->
@@ -494,6 +496,7 @@ input:focus {
 	      
 	</div> <!-- /form -->
 </div><!-- /회원가입 페이지 -->
+</div>
 
 <input type="hidden" id="sample4_postcode" placeholder="우편번호" readonly>
 <input type="hidden" id="sample4_roadAddress" placeholder="도로명주소" readonly><br>
@@ -578,15 +581,15 @@ $("[name=memberId]").blur(function(){
 	if(memberId.length<6 || memberId.length>13){
 		console.log(memberId);
 		$(".successIdChk").text("아이디는 6자 이상 12자 이하로 입력해주세요 ");
-		$(".successIdChk").css("color", "white");
+		$(".successIdChk").css("color", "red");
 		$("#idDoubleChk").val(false);
 	}else if (memberId.search(/\s/) != -1) {
         $(".successIdChk").text("아이디는 공백 없이 입력해주세요.");
-  		$(".successIdChk").css("color", "white");
+  		$(".successIdChk").css("color", "red");
   		$("#idDoubleChk").val(false);
      }else if(memberId.korean > 1 || english < 0 || number < 0){
     	$(".successIdChk").text("아이디는 영문과 숫자를 포함하여 입력해주세요");
-   		$(".successIdChk").css("color", "white");
+   		$(".successIdChk").css("color", "red");
    		$("#idDoubleChk").val(false);
      }else{
 		$.ajax({
@@ -623,23 +626,23 @@ $("[name=memberPw]").blur(function(){
 	const spece = memberPw.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
 	if (memberPw.length<8 || memberPw.length>16) {
     	$(".successPwChk").text("비밀번호는 8자 이상 16자 이하로 입력해주세요");
- 		$(".successPwChk").css("color", "white");
+ 		$(".successPwChk").css("color", "red");
          
      } else if (memberPw.search(/\s/) != -1) {
         $(".successPwChk").text("비밀번호는 공백 없이 입력해주세요.");
-  		$(".successPwChk").css("color", "white");
+  		$(".successPwChk").css("color", "red");
          
      } else if (number < 0 || english < 0 || spece < 0) {
         $(".successPwChk").text("영문,숫자,특수문자를 혼합하여 입력해주세요.");
-   		$(".successPwChk").css("color", "white");
+   		$(".successPwChk").css("color", "red");
          
      } else if ((number < 0 && english < 0) || (english < 0 && spece < 0) || (spece < 0 && number < 0)) {
     	 $(".successPwChk").text("영문,숫자,특수문자를 포한하여 입력해주세요");
-    	 $(".successPwChk").css("color", "white");
+    	 $(".successPwChk").css("color", "red");
           
      } else if (/(\w)\1\1\1/.test(memberPw)) {
     	$(".successPwChk").text("같은 문자를 4번 이상 사용할 수 없습니다.");
-    	$(".successPwChk").css("color", "white");
+    	$(".successPwChk").css("color", "red");
           
      } else {
     	$(".successPwChk").text("사용가능한 비밀번호 입니다!");
@@ -652,33 +655,40 @@ $("[name=memberPw]").blur(function(){
 $("#pwDoubleChk").blur(function(){
 	if($("#pwDoubleChk").val() == $("#memberPw").val()){
 		$(".pwDoubleChk").text("비밀번호가 일치합니다.");
-		$(".pwDoubleChk").css("color", "green");
+		$(".pwDoubleChk").css("color", "white");
 	}else{
 		$(".pwDoubleChk").text("비밀번호가 일치하지 않습니다.");
 		$(".pwDoubleChk").css("color", "red");
 	}
 });
 
+
+
 //이메일 보내기
 $('#mail-Confirm-Btn').click(function() {
 	const memberEmail = $('#memberEmail').val() // 이메일 주소
+	const EmailCheck = memberEmail.search(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/);
+	const mail = memberEmail.search(/@/);
 	console.log('완성된 이메일 : ' + memberEmail); // 이메일 오는지 확인
 	const checkInput = $('.mail-check-input'); // 인증번호 입력하는곳  
 	
-	$.ajax({
-		type : 'post',
-		url : "/mailCheck.do",
-		data: {memberEmail:memberEmail},
-		success : function (data) {
-			console.log("data : " +  data);
-			checkInput.attr('disabled',false);
-			code =data;
-			alert('인증번호가 전송되었습니다.');
-		}, error : function() {
-			alert('인증번호 전송이 실패 하였습니다.');
-			console.log("실패");
-		}
-	}); // end ajax
+	
+		$.ajax({
+			type : 'post',
+			url : "/mailCheck.do",
+			data: {memberEmail:memberEmail},
+			success : function (data) {
+				console.log("data : " +  data);
+				checkInput.attr('disabled',false);
+				code =data;
+				alert('인증번호가 전송되었습니다.');
+			}, error : function() {
+				alert('인증번호 전송이 실패 하였습니다.');
+				console.log("실패");
+			}
+		}); // end ajax
+	
+
 }); // end send eamil
 
 
@@ -769,7 +779,6 @@ $(document).ready(function() {
     // AJAX로 아이디 찾기 처리
     
     console.log(memberName);
-       console.log(memberEmail);
     $.ajax({
       type : 'POST',
       url : "/searchId.do",
