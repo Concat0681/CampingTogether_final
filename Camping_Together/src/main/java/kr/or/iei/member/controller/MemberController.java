@@ -102,8 +102,12 @@ public class MemberController {
 			return "common/modalAlert";
 	    } else if(loginMember.getMemberGrade().equals("B")) {
 	    	String memberGrade = loginMember.getMemberGrade();
-	        model.addAttribute("memberGrade", memberGrade);
-	        return "member/joinFrm";
+	        //model.addAttribute("memberGrade", memberGrade);
+	        model.addAttribute("title", "로그인 실패");
+			model.addAttribute("msg", "로그인 실패했습니다. 해당 계정은 신고 누적으로 정지상태입니다.");
+			model.addAttribute("icon", "error");
+			model.addAttribute("loc", "/joinFrm.do");
+	        return "common/modalAlert";
 	    } else {
 	        session.setAttribute("m", loginMember);
 	        return "redirect:/";
