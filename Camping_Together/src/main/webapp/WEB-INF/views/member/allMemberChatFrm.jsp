@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -61,7 +62,14 @@ a:hover{
             <img src="/resources/image/chatting/tent.png">
         </div>
         <div class="btn3">
-            <a class="chat-btn">채팅방 입장하기</a>
+        	<c:choose>
+        		<c:when test="${empty sessionScope.m }">
+	            	<a class="loginBtn">채팅방 입장하기</a>        		
+        		</c:when>
+        		<c:otherwise>        		
+		            <a class="chat-btn">채팅방 입장하기</a>
+        		</c:otherwise>
+        	</c:choose>
         </div>
     </div>
     <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
@@ -69,6 +77,7 @@ a:hover{
   	$(".chat-btn").on("click",function(){
   		window.open("http://192.168.10.52/allMemberChat.do","","left=700px,top=300px,width=500px,height=510px,menubar=no,status=no,scrollbars=yes");
   	});
+  	
   </script>
 </body>
 </html>

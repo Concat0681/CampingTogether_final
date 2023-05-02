@@ -44,8 +44,8 @@ public class AllMemberChat extends TextWebSocketHandler{
 		String type= element.getAsJsonObject().get("type").getAsString();
 		//key가 msg인 값을 추출
 		String msg = element.getAsJsonObject().get("msg").getAsString();
-		System.out.println("type: "+type);
-		System.out.println("msg:"+msg);
+//		System.out.println("type: "+type);
+//		System.out.println("msg:"+msg);
 		if(type.equals("enter")) {
 			//최초접속이므로 memberList에 정보 저장
 			memberList.put(session, msg);
