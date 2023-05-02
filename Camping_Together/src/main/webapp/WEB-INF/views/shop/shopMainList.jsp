@@ -281,7 +281,7 @@
 								</div>
 							</div>
 						</div>
-						<div>
+						<div class="modal-view-btn-wrap">
 							<button class="btn1 modal-view-btn">View More Info</button>
 						</div>
 					</div>
