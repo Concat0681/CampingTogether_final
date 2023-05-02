@@ -367,7 +367,7 @@ function closeModal(){
     $("textarea[name=messageContent]").val("");
 }
 
-function messageSend()
+function messageSend(){
     const receiver = $("[name=receiver]").val();
     const sender = $("#sender").val();
     const messageContent = $("[name=messageContent]").val();
