@@ -86,7 +86,9 @@ textarea.input-form {
 .cancelBtn:hover{
 		color:#fff !important;
 	}
-
+p{
+text-align: left; 
+}
 </style>
 	<script src="https://code.jquery.com/jquery-3.6.1.js"></script>
 	<script src="/summernote/summernote-lite.js"></script>
@@ -113,11 +115,11 @@ textarea.input-form {
 					</td>
 					<th class="td-2">이미지</th>
 					<td style="width:600px">
-							<p>
+							<b>
 								${bf.filepath }
 								<!-- 파일 삭제 시 db는 fileno ,서버는 path 가 필요함 -->
-								<button type="button" onclick="deleteFile(this,${bf.fileNo},'${bf.filepath }')">삭제</button>
-							</p>
+								<button type="button" onclick="deleteFile(this,${bf.fileNo},'${bf.filepath }')" style="border: 1px solid; #eee;">삭제</button>
+							</b>
 					</td>
 				</tr>
 				<tr class="tr-1">
