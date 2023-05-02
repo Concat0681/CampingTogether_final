@@ -57,7 +57,7 @@
 				</div>
 				<!-- 받은 쪽지 -->
 				<div class="endtreed" id="receiveBox">
-				<table class="receiveTbl">
+				<table class="receiveTbl" style="width: 745px;">
 					<thead>
 						<tr>
 							<th>발신자</th>
@@ -73,7 +73,7 @@
 			  </div>
 				<!-- 보낸 쪽지 -->
 				<div class="endtreed" id="sendBox">
-					<table class="sendTbl">
+					<table class="sendTbl" style="width: 745px;">
 						<thead>
 						<tr>
 							<th>수신자</th>
@@ -590,7 +590,7 @@ $(function(){
 
     		    if (count < 0) {
     		      clearInterval(interval);
-    		      location.href = '/joinFrm.do';
+    		      location.href = '/loginFrm.do';
     		      circles.removeClass('active');
     		    }
     		  }, 1000); //end interval , 1초로 설정
@@ -607,7 +607,7 @@ $(function(){
 
     		      if (count < 0) {
     		        clearInterval(interval);
-    		        location.href = '/joinFrm.do';
+    		        location.href = '/loginFrm.do';
     		      }
     		    }, 1000);
     		  });
@@ -636,7 +636,7 @@ $(function(){
 
     	
     $(".modal-login").click(function () {
-    	location.href = '/joinFrm.do';		
+    	location.href = '/loginFrm.do';		
     });
 
 </script>
