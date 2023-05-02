@@ -139,7 +139,7 @@ public class MemberController {
 			model.addAttribute("title", "회원가입 완료");
 			model.addAttribute("msg", "Welcome Comping Together");
 			model.addAttribute("icon", "success");
-			model.addAttribute("loc", "/joinFrm.do");
+			model.addAttribute("loc", "/loginFrm.do");
 			return "common/modalAlert";
 		}
 		

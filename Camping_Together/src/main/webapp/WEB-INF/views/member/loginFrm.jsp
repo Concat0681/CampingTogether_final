@@ -448,7 +448,7 @@ input:focus {
 	            <input type="hidden" id="idDoubleChk" >
 	            </div>
 	          <div class="field-wrap">
-	            <input type="password" name="memberPw" id="memberPw" class="signup-input" placeholder="비밀번호 입력" pattern="(?=.*\d)(?=.*[a-z])(?=.*[!@#$%^&*]).{8,16}" required maxlength="16" title="조건에 맞춰 다시 작성해주세요!"><br>
+	            <input type="password" name="memberPw" id="memberPw" class="signup-input" placeholder="비밀번호 입력" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,16}" required maxlength="16" title="조건에 맞춰 다시 작성해주세요!"><br>
 				<span class="point successPwChk"></span>
 	          </div>
 	          <div class="field-wrap">
