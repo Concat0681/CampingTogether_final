@@ -102,7 +102,7 @@
 .camping-list>div{
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
+	/*justify-content: center;*/
 	margin: 60px 20px;
 	border-top-left-radius: 10px;
     border-top-right-radius: 10px;
@@ -113,7 +113,7 @@
 }
 .camping-photo>img{
 	width: 300px;
-	height: 320px;
+	height: 300px;
 	border-top-left-radius: 10px;
     border-top-right-radius: 10px;
 }
@@ -138,24 +138,29 @@
 }
 .camping-detail{
 	width: 90%;
+	height: 70px;
 	margin: 0 auto;
 	margin-top: 10px;
 	padding-top: 10px;
-	display: flex;
+	/*display: flex;*/
 	justify-content: space-between;
 	border-top: 1px solid #dedede;
 }
 .camping-detail>div{
-	font-size: small;
+	font-size: 15px;
 	color: grey;
 }
 .camping-detail>div:first-of-type{
-	width: 200px;
+	width: 250px;
+	margin: 0 auto;
+    text-align: center;
 }
 .camping-detail>div:last-of-type{
 	color: #AD8B73;
 	display: flex;
 	align-items: center;
+    justify-content: center;
+    margin-top: 10px;
 }
 .camping-detail>div:last-of-type>span{
 	font-size: 20px;
@@ -163,6 +168,7 @@
 .camping-detail>div:last-of-type>div{
 	display: flex;
 }
+
 .hidden{
 	display: none;
 }

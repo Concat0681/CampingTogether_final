@@ -72,7 +72,7 @@
 											<span class="material-symbols-outlined loginBtn">favorite</span>
 											<div>
 												<div>${c.avgReviewRating }</div>
-												<div>점</div>
+												<div style="margin-right: 15px;">점</div>
 											</div>
 											<div>
 												<div>${c.countReviewRating }</div>
@@ -87,7 +87,7 @@
 													<input type="hidden" name="campingBookmarkNo" value="${c.campingBookmarkNo }">
 													<div>
 														<div>${c.avgReviewRating }</div>
-														<div>점</div>
+														<div style="margin-right: 15px;">점</div>
 													</div>
 													<div>
 														<div>${c.countReviewRating }</div>
@@ -100,7 +100,7 @@
 													<input type="hidden" name="campingBookmarkNo" value="${c.campingBookmarkNo }">
 													<div>
 														<div>${c.avgReviewRating }</div>
-														<div>점</div>
+														<div style="margin-right: 15px;">점</div>
 													</div>
 													<div>
 														<div>${c.countReviewRating }</div>
@@ -132,13 +132,13 @@
 								<div>${c.campingTitle }</div>
 								<div class="camping-detail">
 									<div>${c.campingAddr }</div>
-									<div>
+									<div class="camping_datail2">
 									<c:choose>
 										<c:when test="${empty sessionScope.m }">
 											<span class="material-symbols-outlined loginBtn">favorite</span>
 											<div>
 												<div>${c.avgReviewRating }</div>
-												<div>점</div>
+												<div style="margin-right: 15px;">점</div>
 											</div>
 											<div>
 												<div>${c.countReviewRating }</div>
@@ -153,7 +153,7 @@
 													<input type="hidden" name="campingBookmarkNo" value="${c.campingBookmarkNo }">
 													<div>
 														<div>${c.avgReviewRating }</div>
-														<div>점</div>
+														<div style="margin-right: 15px;">점</div>
 													</div>
 													<div>
 														<div>${c.countReviewRating }</div>
@@ -166,7 +166,7 @@
 													<input type="hidden" name="campingBookmarkNo" value="${c.campingBookmarkNo }">
 													<div>
 														<div>${c.avgReviewRating }</div>
-														<div>점</div>
+														<div style="margin-right: 15px;">점</div>
 													</div>
 													<div>
 														<div>${c.countReviewRating }</div>
