@@ -98,6 +98,9 @@ textarea.input-form {
 .cancelBtn:hover{
 		color:#fff !important;
 	}
+p{
+text-align: left; 
+}
 </style>
 <body>
 <jsp:include page="/WEB-INF/views/common/header.jsp" />
