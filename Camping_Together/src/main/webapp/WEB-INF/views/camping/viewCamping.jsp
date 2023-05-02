@@ -200,6 +200,9 @@
 											<input type="hidden" name="addr" value="${camping.campingAddr }">
 											<c:forEach items="${reservationList}" var="rl" varStatus="j">
 											<c:choose>
+												<c:when test="${empty sessionScope.m and r.campingRoomNo eq rl.campingRoomNo}">
+		        										<div class="reservation" style="background-color: #e3e4e5; width: 100%; border-radius: 5px; color: white; text-align: center;  font-size : 22px;">예약완료</div>
+		    									</c:when>
 												<c:when test="${empty sessionScope.m and  i.index eq j.index }">
 													<button type="button" class="btn2 loginBtn" style="width: 100%;  font-size : 22px;">예약하기</button>
 												</c:when>

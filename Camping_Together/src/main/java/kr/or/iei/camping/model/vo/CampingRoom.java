@@ -21,4 +21,6 @@ public class CampingRoom {
 	private ArrayList<String> campingRoomTypeList;
 	private String campingRoomType;
 	private ArrayList<CampingRoomFileVO> fileList;
+	private String checkIn;
+	private String checkOut;
 }

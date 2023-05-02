@@ -25,6 +25,11 @@
 					filepath
 				from camping)c
 			<trim prefix="where" prefixOverrides="and|or">
+				<if test="!checkIn.equals('')">
+					and campingNo in
+   						(select camping_no from camping_room where camping_room_no not in 
+        					(select camping_room_no from camping_reservation where check_in between #{checkIn} and #{checkOut} ) )
+				</if>
 				<if test="campingSido != null">
 					<choose>
 						<when test="campingSido == '경기'">

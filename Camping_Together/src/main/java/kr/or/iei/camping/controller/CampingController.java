@@ -71,6 +71,8 @@ public class CampingController {
 	public String campingList(Camping c, String campingSido, String cityNameKR, String cityNameEN,int reqPage, String order, String pplCount, String checkIn, String checkOut, Model model) {
 		CampingRoom campingRoom = new CampingRoom();
 		Camping camping = new Camping();
+		campingRoom.setCheckIn(checkIn);
+		campingRoom.setCheckOut(checkOut);
 		if(cityNameKR.equals("")) {
 			camping.setCampingSido(campingSido);
 		} else {
@@ -101,6 +103,8 @@ public class CampingController {
 			reqPage = 1;
 		}
 		CampingRoom campingRoom = new CampingRoom();
+		campingRoom.setCheckIn(checkIn);
+		campingRoom.setCheckOut(checkOut);
 		if(campingTypeStr != "") {
 			String[] campingType = campingTypeStr.split(",");
 			ArrayList<String> arr1 = new ArrayList<String>();

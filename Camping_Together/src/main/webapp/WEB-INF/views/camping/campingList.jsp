@@ -468,6 +468,7 @@
 						})
 						
 						naver.maps.Event.addListener(map,"click",function(e){
+							map.setCenter(e.coord)
 							if(infoWindow.getMap()){
 								infoWindow.close();
 							}
@@ -540,7 +541,7 @@
 							div3.append(c.campingTitle)
 							const div4 = $("<div>").addClass("campingAddr");
 							div4.append(c.campingAddr);
-							const div5 = $("<div>").append(c.avgReviewRating+" 점")
+							const div5 = $("<div>").append(c.avgReviewRating.toFixed(1)+" 점")
 							div2.append(div3).append(div4).append(div5)
 							const div6 = $("<div>").append(c.maxRoomPrice+" 원")
 							const div7 = $("<div>").append(div6)

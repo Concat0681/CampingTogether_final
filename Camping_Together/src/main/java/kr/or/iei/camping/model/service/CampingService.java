@@ -79,6 +79,8 @@ public class CampingService {
 		map.put("pplCount", campingRoom.getCampingRoomMaxPplCount());
 		map.put("campingAddr", camping.getCampingAddr());
 		map.put("memberId", camping.getMemberId());
+		map.put("checkIn", campingRoom.getCheckIn());
+		map.put("checkOut", campingRoom.getCheckOut());
 		ArrayList<Camping> list = dao.selectCampingListData(map);
 		int totalCount = dao.selectCampingCount(map);
 		int totalPage = (int)Math.ceil(totalCount/(double)numPerPage);
