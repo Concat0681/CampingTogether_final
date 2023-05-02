@@ -87,7 +87,7 @@
 	display: block;
 	height: 100px;
 	margin-bottom: 0;
-	overflow: scroll;
+	overflow-y: auto;
 }
 .img-wrap>img{
 	width : 500px;
@@ -248,7 +248,7 @@
 .card-content>div:first-of-type{
 	width: 60%;
 	height: 165px;
-	overflow: scroll;
+	overflow-y: auto;
 	padding-right: 20px;
 }
 .room-info-content{

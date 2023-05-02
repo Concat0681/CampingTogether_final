@@ -137,7 +137,7 @@
 	align-items: center;
 }
 .camping-detail{
-	width: 80%;
+	width: 90%;
 	margin: 0 auto;
 	margin-top: 10px;
 	padding-top: 10px;
@@ -148,6 +148,20 @@
 .camping-detail>div{
 	font-size: small;
 	color: grey;
+}
+.camping-detail>div:first-of-type{
+	width: 200px;
+}
+.camping-detail>div:last-of-type{
+	color: #AD8B73;
+	display: flex;
+	align-items: center;
+}
+.camping-detail>div:last-of-type>span{
+	font-size: 20px;
+}
+.camping-detail>div:last-of-type>div{
+	display: flex;
 }
 .hidden{
 	display: none;
