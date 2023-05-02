@@ -325,6 +325,7 @@ public class MemberController {
 		int result = service.updateMypageC(member);
 		
 		if(result > 0) {
+			System.out.println(member);
 			session.setAttribute("m", member);
 			return "redirect:/mypageC.do";
 		} else {

@@ -57,6 +57,14 @@
 							<span>원</span>
 						</div>
 					</div>
+					<div>
+						<div class="p-title">남은수량</div>
+						<div>
+							<div><fmt:formatNumber value="${shop.maxCount }" pattern="#,###"/></div>
+							<input type="hidden" id="maxCount" value=${shop.maxCount }>
+							<span>개</span>
+						</div>
+					</div>
 				</div>
 				<div class="product-price-wrap">
 					<div>
@@ -362,8 +370,9 @@
 			}
 		})
 		$('#plus').on("click", function(){
+			const maxCount = $("#maxCount").val();
 			const val = $("[name=sellCount]").val();	
-			if(val < 100){
+			if(parseInt(val) < maxCount){
 				$("[name=sellCount]").val(val -1 + 2);
 				calPrice();
 			}
