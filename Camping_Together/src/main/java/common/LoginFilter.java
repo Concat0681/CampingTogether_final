@@ -21,7 +21,7 @@ import kr.or.iei.member.model.vo.Member;
 public class LoginFilter implements Filter {
 
 	private static final String[] blacklist = {"*Update*", "/update*", "/insert*", "*Insert*", "/delete*", "*Delete*", "*Write*", "/shopProductList*", "/allMember*", "/blackMemberList*", "/adminMember*", "/noticeWrite*", "/noticeUpdate*"};
-	private static final String[] adminList = {"/insertShop*", "/updateShop*", "/shopProductList*", "/blackMemberList*", "/adminMember*", "/noticeWrite*", "/noticeUpdate*", "/campingWrite*", "/campingUpdate"};
+	private static final String[] adminList = {"/insertShop*", "/updateShop*", "/shopProductList*", "/blackMemberList*", "/adminMember*", "/noticeWrite*", "/noticeUpdate*"};
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
 		// TODO Auto-generated method stub
