@@ -15,11 +15,13 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.util.PatternMatchUtils;
 
+import kr.or.iei.member.model.vo.Member;
+
 
 public class LoginFilter implements Filter {
 
-	private static final String[] blacklist = {"*Update*", "/update*", "/insert*", "*Insert*", "/delete*", "*Delete*", "*Write*"};
-		
+	private static final String[] blacklist = {"*Update*", "/update*", "/insert*", "*Insert*", "/delete*", "*Delete*", "*Write*", "/shopProductList*", "/allMember*", "/blackMemberList*", "/adminMember*", "/noticeWrite*", "/noticeUpdate*"};
+	private static final String[] adminList = {"/insertShop*", "/updateShop*", "/shopProductList*", "/allMember*", "/blackMemberList*", "/adminMember*", "/noticeWrite*", "/noticeUpdate*"};
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
 		// TODO Auto-generated method stub
@@ -33,7 +35,7 @@ public class LoginFilter implements Filter {
 		String requestURI = httpRequest.getRequestURI();
 		HttpServletResponse httpResponse = (HttpServletResponse) response;
 		if(isLoginCheckPath(requestURI)) {
-			HttpSession session = httpRequest.getSession(false);
+			HttpSession session = httpRequest.getSession();
 			if (session == null || session.getAttribute("m") == null) {
 				//로그인으로 redirect
 				httpRequest.setAttribute("title", "잘못된 경로");
@@ -43,9 +45,24 @@ public class LoginFilter implements Filter {
 				RequestDispatcher view = httpRequest.getRequestDispatcher("/WEB-INF/views/common/modalAlert.jsp");
 				view.forward(httpRequest, httpResponse);
 				return; //여기가 중요, 미인증 사용자는 다음으로 진행하지 않고 끝!
+			
+			} else if(session != null) {
+				Member loginMember = (Member) session.getAttribute("m");
+				if(!loginMember.getMemberGrade().equals("a")) {
+					if(isAdminCheckPath(requestURI)) {
+						//다른 회원들이 admin 페이지 들어갈때
+						httpRequest.setAttribute("title", "접근제한 경로");
+						httpRequest.setAttribute("msg", "관리자만 가능합니다");
+						httpRequest.setAttribute("icon", "error");
+						httpRequest.setAttribute("loc", "/");
+						RequestDispatcher view = httpRequest.getRequestDispatcher("/WEB-INF/views/common/modalAlert.jsp");
+						view.forward(httpRequest, httpResponse);
+						return; 
+					}
+				}
 			}
 		}
-		chain.doFilter(request, response); 
+		chain.doFilter(request, response);
 	}
 
 	@Override
@@ -56,6 +73,10 @@ public class LoginFilter implements Filter {
 	
 	private boolean isLoginCheckPath(String requestURI) {
  		return PatternMatchUtils.simpleMatch(blacklist, requestURI);
+	 }
+	
+	private boolean isAdminCheckPath(String requestURI) {
+ 		return PatternMatchUtils.simpleMatch(adminList, requestURI);
 	 }
 	
 }
