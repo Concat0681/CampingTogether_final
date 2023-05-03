@@ -65,7 +65,7 @@
 								<button id="sendInquiryBtn" class="btn3 loginBtn">문의하기</button>
 							</c:when>
 							<c:otherwise>
-								<button id="sendInquiryBtn" class="btn3" data-bs-toggle="modal" data-bs-target="#exampleModal">문의하기</button>
+								<button id="sendInquiryBtn" class="btn3">문의하기</button>
 							</c:otherwise>
 						</c:choose>
 					<input type="hidden" id="campingMemberId" value="${camping.memberId }" >
@@ -691,8 +691,10 @@
 		}
 		
 		$("#sendInquiryBtn").on("click", function(){
-			const receiver = $("#campingMemberId").val()
-			$("#receiver-name").val(receiver)
+			$(".message-comset").css("display", "block");
+			$(".tabs").eq(2).click();
+			const memberId = $("[name=memberId]").val();
+			$("#receiver").val(memberId).attr("readonly", true);
 		})
 		
 		const carousel = $(".carousel");
@@ -1177,31 +1179,31 @@
 </script>
 <script>
 	//결제
-//  		var memberId = $(".memberId").val();
-// 		var memberPhone = $(".memberPhone").val();
-// 		var memberEmail = $(".memberEmail").val();
-// 		var campingTitle = $(".camping-title").text();
-// 		var campingType = $(".camping-Type").text();
+ 		var memberId = $(".memberId").val();
+		var memberPhone = $(".memberPhone").val();
+		var memberEmail = $(".memberEmail").val();
+		var campingTitle = $(".camping-title").text();
+		var campingType = $(".camping-Type").text();
 		
 		$(".reservationBtn").on("click",function(){
 			const index = $(".reservationBtn").index($(this));
 			const pay = $("[name=pay-room-price]").eq(index).val();
 			$("[name=price]").val(pay)
 			console.log(pay)
-// 			var checkIn = $("[name=checkIn]").val();
-// 			$("[name=checkIn1]").val(checkIn);
-// 			var checkOut = $("[name=checkOut]").val();
-// 			$("[name=checkOut1]").val(checkOut);
+			var checkIn = $("[name=checkIn]").val();
+			$("[name=checkIn1]").val(checkIn);
+			var checkOut = $("[name=checkOut]").val();
+			$("[name=checkOut1]").val(checkOut);
 						
 		});
 	
-// 		$("[name=checkOut]").on("change",function(){
-// 		var checkIn = $("[name=checkIn]").val();
-// 		var checkOut = $("[name=checkOut]").val();
-// 		$("[name=checkIn1]").val(checkIn);
-// 		$("[name=checkOut1]").val(checkOut);
+		$("[name=checkOut]").on("change",function(){
+		var checkIn = $("[name=checkIn]").val();
+		var checkOut = $("[name=checkOut]").val();
+		$("[name=checkIn1]").val(checkIn);
+		$("[name=checkOut1]").val(checkOut);
 					
-// 		});
+		});
 		
 		$(".reservation").on("click",function(){
 			alert("예약완료");

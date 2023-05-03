@@ -20,7 +20,7 @@
 		<div class="shop-title"><a href="/shopMainList.do">캠핑물품 인기순위</a></div>
 		<div class="shop-list" style="width : 100%;">
 		<c:forEach items="${campingList }" var="c" varStatus="i">
-	 		<div class="shop-box" onclick="viewShop(${c.shopNo},'${sessionScope.m.memberId}');">
+	 		<div class="shop-box" onclick="viewShop(${c.shopNo},'${sessionScope.m.memberId}');" style="padding : 0 20px; width : 320px; margin : 60px 40px">
 	 			<input type="hidden" name="shopNo" value="${c.shopNo }">
 				<c:forEach items="${c.shopPhotoList }" var="p">
 					<input type="hidden" name="photoList" value="${p.filepath }">
