@@ -30,6 +30,8 @@
 .n-title>h3{
 	width: max-content;
 	margin-bottom: 40px;
+	color: #AD8B73;
+    font-family: 'ng-bold';
 }
 .n-title>span{
 	font-weight: bolder;
@@ -53,7 +55,7 @@
 		<ul style="list-style-type: none;">
 			<li class="title">
 				<ol class="boardBox">
-					<li class="n-title Tip-title"><h3>많이 묻는 질문</h3><span><a href="/mainQnA.jsp">더보기</a></span></li>
+					<li class="n-title Tip-title"><h3>많이 묻는 질문</h3><span><a href="/mainQnA.jsp" style="color: gray;">더보기</a></span></li>
 						<li><a href="/mainQnA.jsp"><span>로그인이 안되요</span></a></li>
 						<li><a href="/mainQnA.jsp"><span>중고장터 사기 신고</span></a></li>
 						<li><a href="/mainQnA.jsp"><span>캠핑장 등록</span></a></li>
@@ -63,7 +65,7 @@
 			</li>
 			<li class="title">
 				<ol class="boardBox" style="border-left: 1px solid #b3b3b3;">
-					<li class="n-title Food-title"><h3>캠핑Tip & Food</h3><span><a href="/boardFoodList.do?reqPage=1">더보기</a></span></li>
+					<li class="n-title Food-title"><h3>캠핑Tip & Food</h3><span><a href="/boardFoodList.do?reqPage=1" style="color: gray;">더보기</a></span></li>
 					
 					<c:forEach items="${foodlist}" var="bf">
 						<li><a href="/boardFoodView.do?boardFoodNo=${bf.boardFoodNo }"><span>${bf.boardFoodTitle }</span></a><span style="font-size: 12px;"> +${bf.foodCommentRef }</span> </li>
