@@ -425,7 +425,8 @@
 						const hiddenDiv = $("<div>").addClass("hidden").addClass("hidden-div").text("Quick View").attr("data-bs-toggle", "modal").attr("data-bs-target", "#quickViewModal");
 						const shopInfoDiv = $("<div>").addClass("shop-info");
 						const shopTitleDiv = $("<div>").text(c.shopTitle).addClass("s-title");
-						const shopPriceDiv = $("<div>").addClass("shop-price-info").append($("<div>")).text(String(c.shopPrice).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " 원");
+						const shopPriceBoxDiv = $("<div>").addClass("shop-price-box").text(String(c.shopPrice).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " 원")
+						const shopPriceDiv = $("<div>").addClass("shop-price-info").append($("<div>")).append(shopPriceBoxDiv);
 						const delivaryInput = $("<input>").attr("type", "hidden").attr("name", "shopDelivary").val(c.delivaryPrice);
 						const maxCountInput = $("<input>").attr("type", "hidden").attr("name", "shopCount").val(c.maxCount);
 						const shopRatingDiv = $("<div>").addClass("shop-rating");
@@ -445,7 +446,7 @@
 					   		const title = $(this).parents(".shop-box").find(".s-title").text();
 					   		const shopNo = $(this).parents(".shop-box").find("input[name=shopNo]").val();
 					   		const photoList = shopBoxDiv.find("input[name=photoList]");
-					   		const price = $(this).parents(".shop-box").find(".shop-price-info").children().eq(0).text()
+					   		const price = $(this).parents(".shop-box").find(".shop-price-box").text()
 					   		const delivary = $(this).parents(".shop-box").find(".shop-price-info").find("[name=shopDelivary]").val()
 					   		const count = $(this).parents(".shop-box").find(".shop-price-info").find("[name=shopCount]").val();
 					   		const memberId = $("#memberId").val()
