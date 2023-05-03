@@ -66,7 +66,7 @@
 			</div>
 			<div class="best-campingSite">
 				<div class="capmingListBox">
-					<h3>Camping Site</h3>	
+					<h3>Best camping site</h3>	
 					<div class="capmingSilder">
 					<!-- 
 						<ul class="bxslider">

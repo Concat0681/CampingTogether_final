@@ -3,7 +3,7 @@
    position: absolute;
    width: 100%;
    height: 1180px;
-   background: url(/resources/image/main/mainTitle.jpg);
+   background: url(/resources/image/main/mainImg.jpg);
 }
 .wrapper{
 	min-width: 1400px;
@@ -64,15 +64,21 @@
 }
 
 .best-campingSite{
-	top: 800px;
+	top: 1280px;
     z-index: 45;
     position: absolute;
     background-color: transparent;
     width: 60%;
     left: 21%;
 }
+
+.capmingListBox{
+	width: 1000px;
+	text-align: center;
+}
 .capmingListBox>h3{
-	color: #fff;
+	color: #AD8B73;
+	margin-bottom: 30px;
 }
 .capmingSilder{
 	margin: auto;
@@ -86,7 +92,7 @@
 .bx-wrapper{
 	border: none;
     background: none;
-	background-color: rgba(0, 0, 0, 0.7);
+	/*background-color: rgba(0, 0, 0, 0.7);*/
 }
 
 .capmingSilder li {
@@ -127,7 +133,7 @@
   transform: scale(1.2);
 }
 .wrapperMiddle-notice{
-	height: 250px;
+	height: 265px;
 	width: 100%;
 	background-color: #f1e6d5;
 }
@@ -135,6 +141,7 @@
 	width: 100%;
 	padding: 50px;
 	display: flex;
+	margin-top: 470px;
 }
 
 .notice-Box{
