@@ -314,6 +314,7 @@
 	   		$("#quickViewModalLabel").text(title).css("color","#AD8B73");
 	   		photoList.each(function(i,p){
 	   			destroySlick()
+	   			const input = $("<input>")
 	   			const img = $("<img>").attr("src", "resources/upload/shop/"+$(p).val());
 	   			console.log(img)
 	   			$("#modal-photo-slick").append(img);
@@ -394,7 +395,14 @@
 					shopList.empty();
 					shopFooter.empty();
 					data.shopList.forEach(function(c, i){
-						const shopBoxDiv = $("<div>").addClass("shop").attr("onclick", "viewShop('"+c.shopNo+"');");
+						const shopBoxDiv = $("<div>").addClass("shop-box").attr("onclick", "viewShop('"+c.shopNo+"');");
+						const shopNoInput = $("<input>").attr("type", "hidden").attr("name", "shopNo").val(c.shopNo);
+						shopBoxDiv.append(shopNoInput)
+						$(c.shopPhotoList).each(function(i, p){
+							const photoInput = $("<input>").attr("type", "hidden").attr("name", "photoList").val(p.filepath);
+							shopBoxDiv.append(photoInput);
+							console.log(p.filepath)
+						})
 						shopBoxDiv.on("mouseenter", function(){
 							$(this).find(".hidden-div").slideDown();
 							const url = $(this).find(".secondPhoto").text();
@@ -414,19 +422,48 @@
 							secondHiddenDiv.addClass("hidden").addClass("secondPhoto").text(c.shopPhotoList[1].filepath);
 						}
 						const firstHiddenDiv = $("<div>").addClass("hidden").addClass("firstPhoto").text(c.shopPhotoList[0].filepath);
-						const hiddenDiv = $("<div>").addClass("hidden").addClass("hidden-div").text("Quick View");
+						const hiddenDiv = $("<div>").addClass("hidden").addClass("hidden-div").text("Quick View").attr("data-bs-toggle", "modal").attr("data-bs-target", "#quickViewModal");
 						const shopInfoDiv = $("<div>").addClass("shop-info");
 						const shopTitleDiv = $("<div>").text(c.shopTitle).addClass("s-title");
 						const shopPriceDiv = $("<div>").addClass("shop-price-info").append($("<div>")).text(String(c.shopPrice).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " 원");
+						const delivaryInput = $("<input>").attr("type", "hidden").attr("name", "shopDelivary").val(c.delivaryPrice);
+						const maxCountInput = $("<input>").attr("type", "hidden").attr("name", "shopCount").val(c.maxCount);
 						const shopRatingDiv = $("<div>").addClass("shop-rating");
 						const shopRatingTitleDiv = $("<div>").text("평점");
 						const shopRatingValueDiv = $("<div>").text(c.avgRating.toFixed(1));
 						shopRatingDiv.append(shopRatingTitleDiv).append(shopRatingValueDiv);
-						shopPriceDiv.append(shopRatingDiv);
+						shopPriceDiv.append(delivaryInput).append(maxCountInput).append(shopRatingDiv);
 						shopPhotoDiv.append(img).append(secondHiddenDiv).append(firstHiddenDiv).append(hiddenDiv);
 						shopInfoDiv.append(shopTitleDiv).append(shopPriceDiv);
 						shopBoxDiv.append(shopPhotoDiv).append(shopInfoDiv);
 						shopList.append(shopBoxDiv)
+						
+						hiddenDiv.on("click", function(event){
+							if (event.stopPropagation) event.stopPropagation();
+							$("#modal-photo-slick").empty();
+					   		const url = $(this).parents(".shop-box").attr("onclick");
+					   		const title = $(this).parents(".shop-box").find(".s-title").text();
+					   		const shopNo = $(this).parents(".shop-box").find("input[name=shopNo]").val();
+					   		const photoList = shopBoxDiv.find("input[name=photoList]");
+					   		const price = $(this).parents(".shop-box").find(".shop-price-info").children().eq(0).text()
+					   		const delivary = $(this).parents(".shop-box").find(".shop-price-info").find("[name=shopDelivary]").val()
+					   		const count = $(this).parents(".shop-box").find(".shop-price-info").find("[name=shopCount]").val();
+					   		const memberId = $("#memberId").val()
+					   		$("#quickViewModalLabel").text(title).css("color","#AD8B73");
+					   		photoList.each(function(i,p){
+					   			destroySlick()
+					   			const img = $("<img>").attr("src", "resources/upload/shop/"+$(p).val());
+					   			$("#modal-photo-slick").append(img);
+					   			applySlick();
+					   		});
+					   		$(".modal-shop-price").empty();
+					   		$(".modal-shop-delivary").empty();
+					   		$(".modal-shop-count").empty();
+					   		$(".modal-shop-price").append(price)
+					   		$(".modal-shop-delivary").append(delivary + " 원")
+					   		$(".modal-shop-count").append(count + " 개")
+					   		$(".modal-view-btn").attr("onclick", url);
+						});
 					})
 					shopFooter.append(data.pageNavi);
 				},

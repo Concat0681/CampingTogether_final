@@ -25,7 +25,7 @@
 				<c:forEach items="${c.shopPhotoList }" var="p">
 					<input type="hidden" name="photoList" value="${p.filepath }">
 				</c:forEach>
-				<div class="shop-photo">
+				<div class="shop-photo" style="width : 300px;">
 					<img src="resources/upload/shop/${c.shopPhotoList[0].filepath}">
 					<c:if test="${not empty c.shopPhotoList[1].filepath}">
 						<div class="hidden secondPhoto">${c.shopPhotoList[1].filepath}</div>
