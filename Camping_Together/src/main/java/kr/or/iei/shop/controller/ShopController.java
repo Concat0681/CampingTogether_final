@@ -37,8 +37,8 @@ public class ShopController {
 	@RequestMapping(value="/mainShopList.do")
 	public String mainShopList(Model model) {
 		 int reqPage = 1;
-		    String order = "avgReviewRating";
-		    int numPerPage = 5;
+		    String order = "rating";
+		    int numPerPage = 3;
 			for(int shopCategory=0;shopCategory<3;shopCategory++) {
 				ShopListMainData slmd = service.selectShopList(shopCategory, reqPage, order, numPerPage);
 				if(shopCategory == 0) {

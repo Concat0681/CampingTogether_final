@@ -416,7 +416,7 @@
 						const firstHiddenDiv = $("<div>").addClass("hidden").addClass("firstPhoto").text(c.shopPhotoList[0].filepath);
 						const hiddenDiv = $("<div>").addClass("hidden").addClass("hidden-div").text("Quick View");
 						const shopInfoDiv = $("<div>").addClass("shop-info");
-						const shopTitleDiv = $("<div>").text(c.shopTitle);
+						const shopTitleDiv = $("<div>").text(c.shopTitle).addClass("s-title");
 						const shopPriceDiv = $("<div>").addClass("shop-price-info").append($("<div>")).text(String(c.shopPrice).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " 원");
 						const shopRatingDiv = $("<div>").addClass("shop-rating");
 						const shopRatingTitleDiv = $("<div>").text("평점");
